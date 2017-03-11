@@ -8,7 +8,7 @@ template(name='posts')
             .four.wide.column
                 +post_cloud
                 if isInRole 'admin'
-                    h2.impact-header 
+                    h2.ui.header 
                         i.red.configure.icon
                         |Admin
                     #add_post.ui.compact.basic.fluid.button
@@ -48,8 +48,6 @@ template(name='post')
                 .edit_post.ui.primary.basic.right.floated.button
                     i.pencil.icon
                     |Edit Post    
-        .content
-            +favorite_button
             
             
 template(name='post_item')
@@ -69,8 +67,6 @@ template(name='post_item')
                 i.tags.icon
                 each tags
                     .ui.compact.label.post_tag(class=tag_class) #{this}
-            .extra
-                +favorite_button
             if isInRole 'admin'
                 .extra
                     i.red.configure.large.icon
