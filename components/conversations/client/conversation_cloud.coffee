@@ -19,7 +19,7 @@ Template.conversation_cloud.helpers
             when @index <= 50 then 'tiny'
         return buttonClass
 
-    selected_conversation_tags: -> selected_conversation_tags.list()
+    selected_conversation_tags: -> selected_conversation_tags.array()
     
 
 Template.conversation_cloud.events

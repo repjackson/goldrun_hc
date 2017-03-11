@@ -50,7 +50,7 @@ if Meteor.isClient
     
         tag_class: -> if @valueOf() in selected_tags.array() then 'primary' else 'basic'
 
-        selected_tags: -> selected_tags.list()
+        selected_tags: -> selected_tags.array()
 
     
     Template.view.helpers

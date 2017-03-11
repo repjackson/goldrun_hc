@@ -1,0 +1,27 @@
+template(name='marketplace')
+    .ui.container
+        .ui.header Marketplace
+        #add_item.ui.basic.button
+            i.plus.icon
+            |Add Item
+        .ui.centered.cards
+            each items
+                +item
+            
+            
+            
+template(name='item')
+    .ui.card
+        .content
+            .header 
+                a(href="/item/view/#{_id}") #{title}
+            .description #{body}
+            .extra.content
+                each tags
+                    .ui.basic.small.label #{this}
+            .extra.content
+                |Price $#{price}
+            .extra.content
+                a.ui.basic.button(href="/item/view/#{_id}") View
+                a.ui.basic.button(href="/item/edit/#{_id}") Edit
+                

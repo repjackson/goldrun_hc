@@ -20,18 +20,17 @@ with post
                             .ui.basic.label #{this}
                 +comments
             .five.wide.column
-                +user_blurb
+                +user_card
                 if isInRole 'admin'
-                    .ui.divider
-                    i.large.red.configure.icon
-                    .edit_post.ui.basic.button
+                    .edit_post.ui.basic.fluid.button
                         i.pencil.icon
                         |Edit
-                    if published
-                        .ui.green.label Published
-                    else
-                        .ui.red.label Unpublished                        
-                    if featured
-                        .ui.green.label Featured
-                    else
-                        .ui.red.label Unfeatured
+                    div
+                        if published
+                            .ui.green.basic.label Published
+                        else
+                            .ui.red.basic.label Unpublished                        
+                        if featured
+                            .ui.green.basic.label Featured
+                        else
+                            .ui.red.basic.label Unfeatured

@@ -1,0 +1,15 @@
+with person
+    .ui.fluid.card
+        .content
+            .ui.header Author Info
+            .ui.fluid.image
+                // img(src="{{c.url profile.image_id width=300 height=300 gravity='face' crop='fill'}}")
+                img(src="{{c.url profile.image_id }}")
+                // a(href="/account/profile/view/#{_id}")
+                .ui.header
+                    a(href="/account/profile/view/#{_id}") #{name}
+                .description
+                    p #{pro_bio}
+                .extra
+                    each tags
+                        .ui.tiny.compact.basic.label #{this}

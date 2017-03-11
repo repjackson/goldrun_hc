@@ -7,7 +7,7 @@ if Meteor.isClient
         
     Template.comments.helpers
         comments: -> 
-            Docs.find {
+            Comments.find {
                 type: 'comment'
                 doc_id: @_id
                 }
@@ -16,14 +16,12 @@ if Meteor.isClient
     Template.add_comment.events
         'click #add_comment': ->
             text = $('#new_comment_text').val()
-            id = Docs.insert
-                type: 'comment'
+            id = Comments.insert
                 doc_id: @_id
                 body: text
 
 
 if Meteor.isServer
     Meteor.publish 'comments', (doc_id)->
-        Docs.find
-            type: 'comment'
+        Comments.find
             doc_id: doc_id

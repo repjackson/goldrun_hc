@@ -1,10 +1,9 @@
 template(name='comments')
-    .ui.segment
-        .ui.header Comments
-        .ui.comments
-            each comments
-                +comment
-        +add_comment
+    .ui.horizontal.divider.header Comments
+    .ui.comments
+        each comments
+            +comment
+    +add_comment
             
 template(name='comment')
     .comment
@@ -14,18 +13,11 @@ template(name='comment')
                 span.date #{when}
             .text
                 | #{body}
-            .actions
-                a.reply Reply
             
             
 template(name='add_comment')
-    .ui.segment
-        .ui.header Add Comment
-        form.ui.reply.form
-            .field
-                textarea#new_comment_text(rows='2')
-            #add_comment.ui.blue.labeled.submit.icon.button
-                i.icon.edit
-                |  Add Reply
+    .ui.labeled.fluid.input
+        input#new_comment_text
+        #add_comment.ui.basic.button Add Comment
 
 
