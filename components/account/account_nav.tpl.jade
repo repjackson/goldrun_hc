@@ -1,0 +1,6 @@
+.ui.borderless.stackable.menu
+    .ui.text.container
+        a.item(href='/account/dashboard' class="{{isActivePath '/account/dashboard'}}")
+            | Dashboard
+        a.item(href="/account/profile/edit/#{currentUser._id}" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
+            | Profile

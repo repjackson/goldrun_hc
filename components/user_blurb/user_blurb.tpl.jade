@@ -1,0 +1,22 @@
+with person
+    .ui.segment
+        .ui.header Author Info
+        .ui.grid
+            .six.wide.column
+                .ui.fluid.image
+                    // img(src="{{c.url profile.image_id width=300 height=300 gravity='face' crop='fill'}}")
+                    img(src="{{c.url profile.image_id }}")
+                    // a(href="/account/profile/view/#{_id}")
+            .ten.wide.column
+                .content
+                    .ui.header
+                        a(href="/account/profile/view/#{_id}") #{name}
+                    .meta
+                        |#{points} points
+                    .meta
+                        | #{profile.position} at #{profile.company}
+                    .description
+                        p #{pro_bio}
+                    .extra
+                        each tags
+                            .ui.tiny.compact.basic.label #{this}

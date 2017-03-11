@@ -1,0 +1,14 @@
+#cloud.ui.basic.segment.center.aligned.container
+    .ui.left.icon.input
+        i.search.icon
+        +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
+    // .ui.hidden.fitted.divider
+    if selected_post_tags
+        #clear_tags.ui.primary.icon.circular.large.button
+            i.remove.icon
+        each selected_post_tags
+            .unselect_post_tag.ui.primary.circular.large.button
+                strong #{this}
+    each post_tags
+        .ui.circular.basic.button.select_tag(class=post_cloud_tag_class) 
+            strong #{this.name}

@@ -1,0 +1,18 @@
+
+
+template(name='messages')
+    #new_message.ui.basic.button 
+        i.plus.icon
+        |New Message
+    .ui.container
+        each messages
+            +message
+
+        
+
+
+template(name='message')
+    .ui.segment.container
+        .content
+            h1.ui.header #{text}
+            .meta from #{author.name} #{when}

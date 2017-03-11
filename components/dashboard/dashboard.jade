@@ -1,0 +1,17 @@
+template(name='dashboard')
+    h1.ui.center.aligned.header Dashboard
+    .ui.stackable.container.grid
+        .four.wide.column
+            +profile_card
+        .ten.wide.column    
+        .four.wide.column
+            +my_posts
+            
+template(name='profile_card')
+    with currentUser
+        .ui.fluid.segment
+            .ui.small.circular.centered.fluid.image
+                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+            .ui.center.aligned.header #{name}
+            .ui.center.aligned.header #{username}
+            .ui.mini.three.statistics

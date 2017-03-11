@@ -1,0 +1,17 @@
+with product
+    .ui.container
+        .image
+            img.ui.centered.image(src="{{c.url image_id height=400 width=800 background='white' crop='lpad'}}")
+        .ui.hidden.divider
+        h1.ui.header #{title}
+        .ui.divided.stackable.grid
+            .ten.wide.column
+                .description
+                    |!{description}
+            .six.wide.column
+                .ui.header Price: $#{price}
+                #buy.ui.green.basic.fluid.button Buy
+                .ui.horizontal.divider.header Admin
+                a.ui.primary.fluid.basic.button(href="/edit_product/#{_id}")
+                    i.pencil.icon
+                    |Edit

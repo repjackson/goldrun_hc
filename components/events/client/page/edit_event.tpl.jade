@@ -1,0 +1,25 @@
+with event
+    .ui.container.basic.segment
+        .ui.center.aligned.header Edit Event
+        .ui.form
+            +edit_title
+            +edit_image
+            .fields
+                .field
+                    label Start Date/Time
+                    .ui.left.icon.input
+                        i.calendar.icon
+                        input#start_datetime(type='datetime-local' value=start_datetime)
+                .field
+                    label End Date/Time
+                    .ui.left.icon.input
+                        i.calendar.icon
+                        input#end_datetime(type='datetime-local' value=end_datetime)
+            +edit_location
+            .field
+                textarea#body(rows='5') #{body}
+            +edit_tags
+            +publish_button
+            if title
+                #save_event.ui.large.green.button Save
+            +delete_button

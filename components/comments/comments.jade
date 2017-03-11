@@ -1,0 +1,31 @@
+template(name='comments')
+    .ui.segment
+        .ui.header Comments
+        .ui.comments
+            each comments
+                +comment
+        +add_comment
+            
+template(name='comment')
+    .comment
+        .content
+            a.author #{author.profile.name}
+            .metadata
+                span.date #{when}
+            .text
+                | #{body}
+            .actions
+                a.reply Reply
+            
+            
+template(name='add_comment')
+    .ui.segment
+        .ui.header Add Comment
+        form.ui.reply.form
+            .field
+                textarea#new_comment_text(rows='2')
+            #add_comment.ui.blue.labeled.submit.icon.button
+                i.icon.edit
+                |  Add Reply
+
+

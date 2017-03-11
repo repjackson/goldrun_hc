@@ -1,0 +1,42 @@
+with event
+    .ui.container
+        .header-wrapper
+            if image_id
+                img.ui.centered.image(src="{{c.url image_id }}")
+        .ui.basic.segment
+            .ui.stackable.divided.grid
+                .eleven.wide.column
+                    h1.ui.header #{title}
+                    .description
+                        |!{description}
+                .five.wide.column
+                    h3.ui.header When
+                    .ui.basic.segment
+                        h3
+                            .ui.sub.header #{day} 
+                            .ui.sub.header #{start_time} to #{end_time}
+                    h3.ui.header Where
+                    h3.ui.header Tags
+                    .ui.basic.segment
+                        each tags
+                            .ui.basic.label #{this}
+                    if isInRole 'admin'
+                        h3.ui.header 
+                            i.red.configure.icon
+                            |Admin
+                        a.ui.basic.fluid.button(href="/event/edit/#{this._id}") 
+                            i.pencil.icon
+                            |Edit
+                        if published
+                            .ui.green.label Published
+                        else
+                            .ui.red.label Unpublished                        
+                        if featured
+                            .ui.green.label Featured
+                        else
+                            .ui.red.label Unfeatured
+                        if reoccurring
+                            .ui.green.label Reoccurring
+                        else
+                            .ui.red.label Not Reoccurring
+                            

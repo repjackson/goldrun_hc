@@ -1,0 +1,25 @@
+template(name='edit_message')
+    with message
+        .ui.text.container
+            h1.ui.center.aligned.header Compose Message
+            .ui.form
+                .inline.field
+                    label Recipient(s)
+                    each recipients
+                        .recipient.ui.basic.button 
+                            i.remove.icon
+                            |#{this.profile.name}
+                    .ui.left.icon.input
+                        i.plus.icon
+                        +inputAutocomplete settings=settings id="add_recipient" class="" autocomplete="off" 
+                .field
+                    label Text
+                    textarea#text(rows='4')
+                .field
+                    #send_message.ui.big.basic.button Send
+                    #delete_message.ui.basic.red.icon.button 
+                        i.remove.icon
+            
+            
+template(name='user_result')
+    .ui.basic.label #{profile.name}

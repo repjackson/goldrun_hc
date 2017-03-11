@@ -1,0 +1,48 @@
+with module
+    .ui.container
+        // .image
+        //     img.ui.centered.image(src="{{c.url image_id height=400 width=800 background='white' crop='lpad'}}")
+        
+        // .ui.embed(data-source="youtube" data-id=youtube_id data-placeholder="/video_placeholder.jpg")
+        // .ui.embed(data-source="youtube" data-url=video_link data-placeholder="/video_placeholder.jpg")
+        // #video
+        // // iframe(width='560', height='315', src=video_link, frameborder='0', allowfullscreen='')
+        // unless $.Session.get 'initiated'
+        //     .view.ui.huge.fluid.basic.primary.button View Video
+        // .ui.hidden.divider
+        h1.ui.center.aligned.header #{title}
+        .ui.divided.stackable.grid
+            .ten.wide.column
+                // .meta
+                //     | Youtube ID: #{youtube_id}
+                .description
+                    |!{description}
+                .ui.segment
+                    .ui.header Transcript
+                .ui.segment
+                    .ui.header Reflection
+                .ui.segment
+                    .ui.header Collaboration
+                    +collaboration
+                .ui.segment
+                    .ui.header Light Work
+
+            .five.wide.column
+                // .ui.horizontal.divider.header Status
+                .ui.header Module Number: #{module_number}
+                .ui.horizontal.divider.header Status
+                if complete
+                    .ui.teal.big.fluid.label 
+                        i.check.icon
+                        |Complete
+                else
+                    .ui.teal.big.basic.fluid.label 
+                        |Incomplete
+                if complete
+                    #mark_as_incomplete.ui.basic.fluid.button Mark Incomplete
+                else
+                    #mark_as_complete.ui.basic.fluid.button Mark Complete
+                .ui.horizontal.divider.header Admin
+                a.ui.fluid.basic.button(href="/edit_module/#{_id}")
+                    i.red.configure.icon
+                    |Edit
