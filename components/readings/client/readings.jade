@@ -1,0 +1,168 @@
+template(name='readings')
+    .ui.container
+        +indoor_hot_tub_readings
+        +outdoor_hot_tub_readings
+        +pool_readings
+
+
+template(name='edit_pool_reading')
+    with reading
+        .ui.container
+            .ui.header Edit Reading
+            .ui.form
+                +ph
+                +chlorine
+                +temperature
+                +alkalinity
+                +notes
+                a.ui.green.fluid.button(href='/readings') Save Pool Reading
+                +delete_reading_button
+            
+template(name='edit_hot_tub_reading')
+    with reading
+        .ui.container
+            .ui.header Edit Hot Tub Reading
+            .ui.form
+                .field
+                    label Location: #{location}
+                +br
+                +ph
+                +temperature
+                +notes
+                a.ui.green.fluid.button(href='/readings') Save Hot Tub Reading
+                +delete_reading_button
+            
+            
+            
+            
+template(name='indoor_hot_tub_readings')    
+    .ui.header Indoor Hot Tub Readings
+        i#add_indoor_hot_tub_reading.green.plus.link.icon
+        // |Add Indoor Hot Tub Reading
+
+    table.ui.table
+        thead
+            tr
+                th pH
+                th Br
+                th Temperature
+                th Notes
+                th Read By
+                th Actions
+        tbody
+            each indoor_hot_tub_readings
+                tr
+                    td #{ph}
+                    td #{br}
+                    td #{temperature}
+                    td #{notes}
+                    td #{author.username} #{when}
+                    td 
+                        a.ui.compact.button(href="/hot_tub_reading/edit/#{_id}")
+                            i.pencil.icon
+                            | Edit
+
+            
+template(name='outdoor_hot_tub_readings')   
+    .ui.header Outdoor Hot Tub Readings
+        i#add_outdoor_hot_tub_reading.green.plus.link.icon
+            // |Add Outdoor Hot Tub Reading
+
+    table.ui.table
+        thead
+            tr
+                th pH
+                th Br
+                th Temperature
+                th Notes
+                th Read By
+                th Actions
+        tbody
+            each outdoor_hot_tub_readings
+                tr
+                    td #{ph}
+                    td #{br}
+                    td #{temperature}
+                    td #{notes}
+                    td #{author.username} #{when}
+                    td 
+                        a.ui.compact.button(href="/hot_tub_reading/edit/#{_id}")
+                            i.pencil.icon
+                            | Edit
+
+            
+            
+template(name='pool_readings') 
+    .ui.header Pool Readings
+        i#add_pool_reading.green.plus.link.icon 
+        // |Add Pool Reading
+    table.ui.table
+        thead
+            tr
+                th pH
+                th Br
+                th Alkalinity
+                th Temperature
+                th Notes
+                th Read By
+                th Actions
+        tbody
+            each pool_readings
+                tr
+                    td #{ph}
+                    td #{br}
+                    td #{alkalinity}
+                    td #{temperature}
+                    td #{notes}
+                    td #{author.username} #{when}
+                    td 
+                        a.ui.compact.button(href="/pool_reading/edit/#{_id}")
+                            i.pencil.icon
+                            | Edit
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+template(name='ph')            
+    .field
+        label pH
+        input#ph(type='number' step='.1' min='0' value=ph)
+        
+template(name='br')            
+    .field
+        label Br
+        input#br(type='number' step='.1' min='0' value=br)
+        
+template(name='temperature')            
+    .field
+        label Temperature
+        input#temperature(type='number' step='.1' min='0' value=temperature)
+
+template(name='alkalinity')            
+    .field
+        label Alkalinity
+        input#alkalinity(type='number' step='.1' min='0' value=alkalinity)
+
+template(name='chlorine')            
+    .field
+        label Chlorine
+        input#chlorine(type='number' step='.1' min='0' value=chlorine)
+
+template(name='notes')            
+    .field
+        label Notes
+        input#notes(type='text' value=notes)
+        
+        
+        
+template(name='delete_reading_button')
+    #delete_reading.ui.red.icon.button
+        i.trash.icon
