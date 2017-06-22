@@ -1,5 +1,6 @@
 Template.delete_button.events
     'click #delete': ->
+        template = Template.currentData()
         swal {
             title: 'Delete?'
             # text: 'Confirm delete?'
@@ -10,7 +11,8 @@ Template.delete_button.events
             cancelButtonText: 'Cancel'
             confirmButtonText: 'Delete'
             confirmButtonColor: '#da5347'
-        }, ->
-            doc = Docs.findOne FlowRouter.getParam('doc_id')
-            Docs.remove doc._id, ->
-                FlowRouter.go "/docs"
+        }, =>
+            # doc = Docs.findOne FlowRouter.getParam('doc_id')
+            # Docs.remove doc._id, ->
+            #     FlowRouter.go "/docs"
+            console.log template

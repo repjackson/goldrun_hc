@@ -3,10 +3,10 @@
 Docs.before.insert (userId, doc)->
     doc.timestamp = Date.now()
     doc.author_id = Meteor.userId()
-    doc.points = 0
-    doc.downvoters = []
+    # doc.points = 0
+    # doc.downvoters = []
     # doc.tags.push Meteor.user().profile.current_herd
-    doc.upvoters = []
+    # doc.upvoters = []
     return
 
 
@@ -14,10 +14,10 @@ Docs.before.insert (userId, doc)->
 #     console.log doc.tags
 #     return
 
-Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
-    doc.tag_count = doc.tags?.length
-    # Meteor.call 'generate_authored_cloud'
-), fetchPrevious: true
+# Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
+#     doc.tag_count = doc.tags?.length
+#     # Meteor.call 'generate_authored_cloud'
+# ), fetchPrevious: true
 
 
 Docs.helpers
@@ -96,11 +96,11 @@ if Meteor.isServer
     Meteor.publish 'docs', (selected_tags, filter)->
     
         user = Meteor.users.findOne @userId
-        current_herd = user.profile.current_herd
+        # current_herd = user.profile.current_herd
     
         self = @
         match = {}
-        selected_tags.push current_herd
+        # selected_tags.push current_herd
         match.tags = $all: selected_tags
         # if selected_tags.length > 0 then match.tags = $all: selected_tags
         if filter then match.type = filter
@@ -119,12 +119,12 @@ if Meteor.isServer
     Meteor.publish 'doc_tags', (selected_tags)->
         
         user = Meteor.users.findOne @userId
-        current_herd = user.profile.current_herd
+        # current_herd = user.profile.current_herd
         
         self = @
         match = {}
         
-        selected_tags.push current_herd
+        # selected_tags.push current_herd
         match.tags = $all: selected_tags
 
         
