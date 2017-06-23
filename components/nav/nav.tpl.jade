@@ -2,11 +2,17 @@
     .ui.text.container
         a.header.item(href='/' class="{{isActivePath '/'}}") Gold Run
         a.item(href='/readings' class="{{isActivePath '/readings'}}")
-            i.edit.icon
+            i.theme.icon
             | Readings
         a.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
             i.random.icon
             |Lost and Found
+        a.item(href='/bikes' class="{{isActivePath '/bikes'}}")
+            i.bicycle.icon
+            |Bikes
+        a.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
+            i.circle.info.icon
+            |Desk Staff
     .right.menu
         if currentUser
             // a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")

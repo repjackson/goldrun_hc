@@ -23,3 +23,7 @@ resident
     classifides
     services
     events
+    
+todo
+    cloudinary id
+    
