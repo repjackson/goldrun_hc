@@ -95,20 +95,20 @@ if Meteor.isServer
     
     Meteor.publish 'docs', (selected_tags, filter)->
     
-        user = Meteor.users.findOne @userId
+        # user = Meteor.users.findOne @userId
         # current_herd = user.profile.current_herd
     
         self = @
         match = {}
         # selected_tags.push current_herd
-        match.tags = $all: selected_tags
-        # if selected_tags.length > 0 then match.tags = $all: selected_tags
+        # match.tags = $all: selected_tags
+        if selected_tags.length > 0 then match.tags = $all: selected_tags
         if filter then match.type = filter
 
         
 
         Docs.find match,
-            limit: 5
+            limit: 20
             
     
     Meteor.publish 'doc', (id)->

@@ -1,0 +1,67 @@
+
+template(name='edit_key')
+    with key
+        .ui.container
+            .ui.header Edit Key
+            .ui.form
+                +key_exists
+                +tag_number
+                +lock_location
+                +building_code
+                +notes
+                a.ui.green.fluid.button(href='/keys') Save Key
+                +delete_key_button
+            
+            
+            
+template(name='keys') 
+    .ui.container
+        .ui.header Gold Run Keys
+            i#add_key.green.plus.link.icon 
+        table.ui.table
+            thead
+                tr
+                    th Key Exists
+                    th Tag Number
+                    th Lock Location
+                    th Building Code
+                    th Notes
+                    th Actions
+            tbody
+                each keys
+                    tr
+                        td #{key_exists}
+                        td #{tag_number}
+                        td #{lock_location}
+                        td #{building_code}
+                        td #{notes}
+                        // td #{author.username} #{when}
+                        td 
+                            a.ui.compact.button(href="/key/edit/#{_id}")
+                                i.pencil.icon
+                                | Edit
+
+template(name='lock_location')            
+    .field
+        label Lock Location
+        input#lock_location(type='text' min='0' value=lock_location)
+        
+template(name='tag_number')            
+    .field
+        label Tag Number
+        input#tag_number(type='number' min='0' value=tag_number)
+        
+template(name='building_code')            
+    .field
+        label Building Code
+        input#building_code(type='text' min='0' value=building_code)
+
+template(name='key_exists')            
+    .field
+        label key_exists
+        input#key_exists(type='number' min='0' value=key_exists)
+
+        
+template(name='delete_key_button')
+    #delete_key.ui.red.icon.button
+        i.trash.icon

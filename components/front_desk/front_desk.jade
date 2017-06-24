@@ -1,31 +1,47 @@
 template(name='frontdesk')
     .ui.container
-        .ui.center.aligned.header Front Desk
+        h1.ui.center.aligned.header 
+            i.large.icons
+                i.user.icon
+                i.info.circle.corner.blue.icon
+            |Front Desk
             // i#add_impounded_bike.green.plus.link.icon 
-        .ui.header Time Off Requests
-        .ui.header Schedule
+        +requests
+        +schedule
         .ui.header Notices
         // .ui.centerd.cards
         //     each bikes
         //         +bike
-            
 
-// template(name='bike')
-//     .ui.card
-//         if image_id
-//             .image
-//                 img(src="{{c.url image_id}}")
-//         .content
-//             .description
-//                 |#{body}
-//             .meta
-//                 each tags
-//                     .ui.tag.label #{this}
-//         .content
-//             | posted by #{author.username} #{when}
-//             if is_author
-//                 a.ui.icon.blue.button(href="/bikes/edit/#{_id}")
-//                     i.pencil.icon
+
+
+
+template(name='schedule')
+    .ui.center.aligned.dividing.header Schedule
+    table.ui.definition.table
+        thead
+            tr
+                th
+                th Sunday
+                th Monday
+                th Tuesday
+                th Wednesday
+                th Thursday
+                th Friday
+                th Saturday
+        tbody
+            tr
+                td Morning 7am-12pm
+                td 
+                td 
+            tr
+                td Afternoon 12pm-4pm
+                td 
+                td 
+            tr
+                td Evening 4pm-9pm
+                td 
+                td 
 
 
 

@@ -11,7 +11,7 @@ if Meteor.isClient
     
     
     Template.lostfound.onCreated ->
-        @autorun -> Meteor.subscribe('lostfound')
+        @autorun -> Meteor.subscribe('docs', selected_tags.array(), 'lostfound')
     Template.edit_lf_item.onCreated ->
         @autorun -> Meteor.subscribe('lostfound_item', FlowRouter.getParam('doc_id'))
 

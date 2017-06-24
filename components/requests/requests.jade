@@ -1,0 +1,64 @@
+template(name='requests')
+    .ui.container
+        .ui.center.aligned.dividing.header Front Desk Time Off Requests
+            i#add_request.green.plus.link.icon 
+        h4.ui.center.aligned.header
+            | Approval will be given no later than 48 hrs of the first date requested.
+        table.ui.table
+            thead
+                tr
+                    th Employee
+                    th Request Date
+                    th Request Shift
+                    th Sub
+                    th Submitted
+                    th Approved
+                    th Actions
+            tbody
+                each requests
+                    +request
+                    
+                    
+template(name='request')                    
+    tr
+        td #{author.username}
+        td #{request_date}
+        td #{request_shift}
+        td #{sub}
+        td #{when}
+        td 
+            if approved
+                .ui.green.label Approved
+            else
+                .ui.basic.label Not Approved
+        td 
+            a.ui.compact.button(href="/request/edit/#{_id}")
+                i.pencil.icon
+                | Edit
+            if approved    
+                .disapprove.ui.button Remove Approval
+            else
+                .approve.ui.button Approve
+                            
+
+
+
+template(name='edit_request')
+    with request
+        .ui.text.container.segment
+            .ui.center.aligned.header Edit Request
+            .ui.form
+                .field
+                    label Request Date
+                    input#request_date(type='date' value=request_date)
+                .field
+                    label Request Shift
+                    .ui.buttons
+                        .ui.button.shift Morning
+                        .ui.button.shift Afternoon
+                        .ui.button.shift Evening
+                    
+                a.ui.green.large.button(href='/requests') Save Time Off Request
+                #delete_request.ui.red.icon.button
+                    i.trash.icon
+            

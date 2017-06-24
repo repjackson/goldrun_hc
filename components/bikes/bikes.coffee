@@ -11,7 +11,7 @@ if Meteor.isClient
     
     
     Template.bikes.onCreated ->
-        @autorun -> Meteor.subscribe('bikes')
+        @autorun -> Meteor.subscribe('docs', selected_tags.array(), 'bike')
     Template.edit_bike.onCreated ->
         @autorun -> Meteor.subscribe('bike', FlowRouter.getParam('doc_id'))
 
@@ -53,24 +53,3 @@ if Meteor.isClient
                 doc = Docs.findOne FlowRouter.getParam('doc_id')
                 Docs.remove doc._id, ->
                     FlowRouter.go "/bikes"
-
-
-
-if Meteor.isServer
-    Meteor.publish 'bikes', ()->
-        
-        self = @
-        match = {}
-        match.type = 'bike'
-        # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
-        #     match.published = true
-        
-        Docs.find match,
-            limit: 10
-            sort: 
-                timestamp: -1
-    
-    Meteor.publish 'bike', (doc_id)->
-        Docs.find doc_id
-
-    
