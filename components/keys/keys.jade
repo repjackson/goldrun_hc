@@ -1,39 +1,53 @@
 
 template(name='edit_key')
     with key
-        .ui.container
-            .ui.header Edit Key
+        .ui.text.container
+            h1.ui.center.aligned.header Edit Key
             .ui.form
                 +key_exists
-                +tag_number
-                +lock_location
-                +building_code
+                .fields
+                    +tag_number
+                    .field
+                        label 
+                            |Lock Building Code: #{lock_building_code}
+                        // select.ui.search.dropdown
+                        select#select_lock_building
+                            option Change Building
+                            each buildings
+                                option(value=building_code) #{building_code}: #{building_address}
+                    .field
+                        label Lock Apartment Number
+                        input#lock_apartment_number(type='text' value=lock_apartment_number)
                 +notes
-                a.ui.green.fluid.button(href='/keys') Save Key
-                +delete_key_button
-            
+                a.ui.green.big.button(href='/keys') Save Key
+                #delete_key.ui.red.icon.button
+                    i.trash.icon            
             
             
 template(name='keys') 
     .ui.container
-        .ui.header Gold Run Keys
+        h1.ui.center.aligned.header Gold Run Keys
             i#add_key.green.plus.link.icon 
         table.ui.table
             thead
                 tr
                     th Key Exists
                     th Tag Number
-                    th Lock Location
-                    th Building Code
+                    th Lock Building Code
+                    th Lock Apartment Number
                     th Notes
                     th Actions
             tbody
                 each keys
                     tr
-                        td #{key_exists}
+                        td 
+                            if key_exists
+                                i.green.check.icon
+                            else
+                                i.remove.icon
                         td #{tag_number}
-                        td #{lock_location}
-                        td #{building_code}
+                        td #{lock_building_code}
+                        td ##{lock_apartment_number}
                         td #{notes}
                         // td #{author.username} #{when}
                         td 
@@ -44,7 +58,7 @@ template(name='keys')
 template(name='lock_location')            
     .field
         label Lock Location
-        input#lock_location(type='text' min='0' value=lock_location)
+        input#lock_location(type='text' value=lock_location)
         
 template(name='tag_number')            
     .field
@@ -54,14 +68,11 @@ template(name='tag_number')
 template(name='building_code')            
     .field
         label Building Code
-        input#building_code(type='text' min='0' value=building_code)
+        input#building_code(type='text' value=building_code)
 
 template(name='key_exists')            
     .field
-        label key_exists
-        input#key_exists(type='number' min='0' value=key_exists)
-
+        label Key Exists
+        #mark_true.ui.button(class=mark_true_class) Yes 
+        #mark_false.ui.button(class=mark_false_class) No 
         
-template(name='delete_key_button')
-    #delete_key.ui.red.icon.button
-        i.trash.icon

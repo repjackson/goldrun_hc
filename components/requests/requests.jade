@@ -31,14 +31,16 @@ template(name='request')
                 .ui.green.label Approved
             else
                 .ui.basic.label Not Approved
+            if approved    
+                .disapprove.ui.icon.button
+                    i.remove.icon
+            else
+                .approve.ui.icon.button
+                    i.green.check.icon
         td 
             a.ui.compact.button(href="/request/edit/#{_id}")
                 i.pencil.icon
                 | Edit
-            if approved    
-                .disapprove.ui.button Remove Approval
-            else
-                .approve.ui.button Approve
                             
 
 

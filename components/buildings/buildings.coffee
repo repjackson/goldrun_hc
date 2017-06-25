@@ -1,0 +1,94 @@
+if Meteor.isClient
+    FlowRouter.route '/buildings', action: ->
+        BlazeLayout.render 'layout', 
+            main: 'buildings'
+            
+            
+    FlowRouter.route '/building/edit/:building_id', action: ->
+        BlazeLayout.render 'layout', 
+            main: 'edit_building'
+    
+    
+    
+    
+    Template.buildings.onCreated ->
+        @autorun -> Meteor.subscribe('buildings')
+   
+    Template.edit_building.onCreated ->
+        @autorun -> Meteor.subscribe('building', FlowRouter.getParam('building_id'))
+
+
+
+    Template.buildings.helpers
+        buildings: -> 
+            Buildings.find {},
+                sort: building_code: 1
+         
+                
+    Template.buildings.events
+        'click #add_building': ->
+            id = Buildings.insert {}
+            FlowRouter.go "/building/edit/#{id}"
+    
+    
+
+    Template.edit_building.helpers
+        building: -> 
+            building_id = FlowRouter.getParam('building_id')
+            # console.log building_id
+            Buildings.findOne building_id 
+
+
+    Template.edit_building.events
+        'click #delete_building': (e,t)->
+            swal {
+                title: 'Delete Building?'
+                # text: 'Confirm delete?'
+                type: 'error'
+                animation: false
+                showCancelButton: true
+                closeOnConfirm: true
+                cancelButtonText: 'Cancel'
+                confirmButtonText: 'Delete'
+                confirmButtonColor: '#da5347'
+            }, ->
+                Buildings.remove FlowRouter.getParam('building_id'), ->
+                    FlowRouter.go "/buildings"
+
+        'blur #building_code': (e,t)->
+            building_code = $(e.currentTarget).closest('#building_code').val()
+            Buildings.update @_id,
+                $set: building_code: building_code
+
+
+        'blur #building_address': (e,t)->
+            building_address = $(e.currentTarget).closest('#building_address').val()
+            Buildings.update @_id,
+                $set: building_address: building_address
+    
+
+
+if Meteor.isServer
+    Buildings.allow
+        insert: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
+        update: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
+        remove: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
+    
+    Apartments.allow
+        insert: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
+        update: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
+        remove: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
+    
+    Meteor.publish 'buildings', ()->
+        
+        self = @
+        match = {}
+        # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
+        #     match.published = true
+        
+        Buildings.find match
+    
+    Meteor.publish 'building', (building_id)->
+        Buildings.find building_id
+
+    

@@ -14,15 +14,23 @@ if Meteor.isClient
     Template.keys.onCreated ->
         @autorun -> Meteor.subscribe('keys')
     
+    # Template.edit_key.onRendered ->
+    #     Meteor.setTimeout (->
+    #         $('select.dropdown').dropdown()
+    #     ), 500
+
     Template.edit_key.onCreated ->
         @autorun -> Meteor.subscribe('key', FlowRouter.getParam('key_id'))
+        @autorun -> Meteor.subscribe('buildings')
     
          
     Template.keys.helpers
         keys: -> 
             Keys.find {}
          
-         
+    Template.edit_key.helpers
+        buildings: ->
+            Buildings.find()
          
          
     Template.keys.events
@@ -37,29 +45,24 @@ if Meteor.isClient
             Keys.findOne key_id 
 
 
-    Template.lock_location.events
-        'blur #lock_location': (e,t)->
-            lock_location = parseFloat $(e.currentTarget).closest('#lock_location').val()
-            Keys.update @_id,
-                $set: lock_location: lock_location
-    
     Template.tag_number.events
         'blur #tag_number': (e,t)->
             tag_number = parseInt $(e.currentTarget).closest('#tag_number').val()
             Keys.update @_id,
                 $set: tag_number: tag_number
     
-    Template.building_code.events
-        'blur #building_code': (e,t)->
-            building_code = $(e.currentTarget).closest('#building_code').val()
-            Keys.update @_id,
-                $set: building_code: building_code
     
+    Template.key_exists.helpers
+        mark_true_class: -> if @key_exists then 'green' else 'basic'
+        mark_false_class: -> if @key_exists then 'basic' else 'red'
+
     Template.key_exists.events
-        'blur #key_exists': (e,t)->
-            key_exists = $(e.currentTarget).closest('#key_exists').val()
+        'click #mark_true': (e,t)->
             Keys.update @_id,
-                $set: key_exists: key_exists
+                $set: key_exists: true
+        'click #mark_false': (e,t)->
+            Keys.update @_id,
+                $set: key_exists: false
     
     Template.notes.events
         'blur #notes': (e,t)->
@@ -67,8 +70,8 @@ if Meteor.isClient
             Keys.update @_id,
                 $set: notes: notes
 
-    Template.delete_key_button.events
-        'click #delete_reading': (e,t)->
+    Template.edit_key.events
+        'click #delete_key': (e,t)->
             swal {
                 title: 'Delete Key?'
                 text: 'Cannot be undone.'
@@ -83,9 +86,15 @@ if Meteor.isClient
                 Keys.remove FlowRouter.getParam('key_id'), ->
                     FlowRouter.go "/keys"
 
+        'change #select_lock_building': (e,t)->
+            lock_building_code = e.currentTarget.value
+            Keys.update @_id,
+                $set: lock_building_code: lock_building_code
 
-
-
+        'blur #lock_apartment_number': (e,t)->
+            lock_apartment_number = $(e.currentTarget).closest('#lock_apartment_number').val()
+            Keys.update @_id,
+                $set: lock_apartment_number: lock_apartment_number
 
 
 
