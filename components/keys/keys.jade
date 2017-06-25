@@ -1,40 +1,54 @@
 
 template(name='edit_key')
     with key
-        .ui.text.container
+        .ui.container
             h1.ui.center.aligned.header Edit Key
             .ui.form
                 +key_exists
                 .fields
                     +tag_number
+                .fields
                     .field
                         label 
                             |Lock Building Code: #{lock_building_code}
                         // select.ui.search.dropdown
-                        select#select_lock_building
-                            option Change Building
+                        select#select_lock_building_code
+                            option Change Building Code
                             each buildings
-                                option(value=building_code) #{building_code}: #{building_address}
-                    .field
-                        label Lock Apartment Number
-                        input#lock_apartment_number(type='text' value=lock_apartment_number)
+                                option(value=building_code) 
+                                    |#{building_code}: 
+                                    |#{building_street}
+                    if lock_building_code
+                        .field
+                            label Lock Building Number: #{lock_building_number}
+                            // input#lock_building_number(type='text' value=lock_building_number)
+                            select#select_lock_building_number
+                                option Change Building Number
+                                each building_numbers
+                                    option(value=this) #{this}
+                    if lock_building_number
+                        .field
+                            label Lock Apartment Number: #{lock_apartment_number}
+                            input#lock_apartment_number(type='text' value=lock_apartment_number)
                 +notes
-                a.ui.green.big.button(href='/keys') Save Key
-                #delete_key.ui.red.icon.button
-                    i.trash.icon            
+                .ui.basic.center.aligned.segment
+                    a.ui.green.big.button(href='/keys') Save Key
+                    #delete_key.ui.red.icon.button
+                        i.trash.icon            
             
             
 template(name='keys') 
     .ui.container
         h1.ui.center.aligned.header Gold Run Keys
             i#add_key.green.plus.link.icon 
-        table.ui.table
+        table.ui.sortable.striped.table
             thead
                 tr
                     th Key Exists
                     th Tag Number
-                    th Lock Building Code
-                    th Lock Apartment Number
+                    th Building Code
+                    th Building Number
+                    th Apartment Number
                     th Notes
                     th Actions
             tbody
@@ -42,11 +56,12 @@ template(name='keys')
                     tr
                         td 
                             if key_exists
-                                i.green.check.icon
+                                i.green.large.check.icon
                             else
                                 i.remove.icon
                         td #{tag_number}
                         td #{lock_building_code}
+                        td #{lock_building_number}
                         td ##{lock_apartment_number}
                         td #{notes}
                         // td #{author.username} #{when}

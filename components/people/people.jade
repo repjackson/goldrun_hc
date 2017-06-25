@@ -1,0 +1,92 @@
+template(name='edit_person')
+    with person
+        .ui.container
+            h1.ui.center.aligned.header
+                |Edit
+                if first_name
+                    |#{first_name}
+                    if last_name
+                        |&nbsp; #{last_name}
+                else
+                    |Person
+            .ui.form
+                .field
+                    label First Name 
+                    .ui.input
+                        input#first_name(type='text' value=first_name)
+                .field
+                    label Last Name 
+                    .ui.input
+                        input#last_name(type='text' value=last_name)
+                .field
+                    label Email
+                    .ui.input
+                        input#email(type='email' value=email)
+                .field
+                    label Phone
+                    .ui.input
+                        input#phone(type='text' value=phone)
+                .field
+                    label Company 
+                    .ui.input
+                        input#company(type='text' value=company)
+                .field
+                    label Position 
+                    .ui.input
+                        input#position(type='text' value=position)
+                .field
+                    label Roles
+                    .ui.header Assigned Roles:
+                    each roles
+                        .unassign_role.ui.blue.animated.fade.button
+                            .visible.content
+                                |#{this}
+                            .hidden.content
+                                i.minus.icon
+                            
+                    .ui.header Available Roles:
+                    each unassigned_roles
+                        .assign_role.ui.basic.animated.fade.button 
+                            .visible.content
+                                |#{this}    
+                            .hidden.content
+                                i.plus.icon
+            .ui.basic.center.aligned.segment    
+                a.ui.green.big.button(href='/people') Save Person
+                #delete_person.ui.red.icon.button
+                    i.trash.icon            
+            
+template(name='people') 
+    .ui.container
+        h1.ui.center.aligned.header People
+            i#add_person.green.plus.link.icon 
+            // |Add Pool Reading
+        table.ui.striped.sortable.table
+            thead
+                tr
+                    th First Name
+                    th Last Name
+                    th Email
+                    th Phone
+                    th Company
+                    th Position
+                    th Roles
+                    th Actions
+            tbody
+                each people
+                    tr
+                        td #{first_name}
+                        td #{last_name}
+                        td #{email}
+                        td #{phone}
+                        td #{company}
+                        td #{position}
+                        td 
+                            each roles
+                                .ui.basic.label #{this}
+                        td 
+                            a.ui.compact.button(href="/person/edit/#{_id}")
+                                i.pencil.icon
+                                | Edit
+
+            

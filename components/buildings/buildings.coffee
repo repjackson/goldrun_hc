@@ -9,7 +9,11 @@ if Meteor.isClient
             main: 'edit_building'
     
     
-    
+    Template.buildings.onRendered ->
+        Meteor.setTimeout (->
+            $('table').tablesort()
+        ), 500    
+
     
     Template.buildings.onCreated ->
         @autorun -> Meteor.subscribe('buildings')
@@ -61,12 +65,32 @@ if Meteor.isClient
                 $set: building_code: building_code
 
 
-        'blur #building_address': (e,t)->
-            building_address = $(e.currentTarget).closest('#building_address').val()
+        'click #add_building_number': (e,t)->
+            building_number = parseInt $('#new_building_number').val()
             Buildings.update @_id,
-                $set: building_address: building_address
+                $addToSet: 
+                    building_numbers: building_number
+            $('#new_building_number').val('')
+        
+        'keyup #new_building_number': (e,t)->
+            if e.which is 13
+                building_number = parseInt $('#new_building_number').val()
+                Buildings.update @_id,
+                    $addToSet: 
+                        building_numbers: building_number
+                $('#new_building_number').val('')
     
+        'change #select_building_street': (e,t)->
+            building_street = e.currentTarget.value
+            Buildings.update @_id,
+                $set: building_street: building_street
 
+        'click .remove_number': (e,t)->
+            building_number = @valueOf()
+            Buildings.update FlowRouter.getParam('building_id'),
+                $pull: 
+                    building_numbers: building_number
+            
 
 if Meteor.isServer
     Buildings.allow

@@ -6,29 +6,49 @@ template(name='edit_building')
                 .field
                     label Building Code
                     input#building_code(type='text' value=building_code)
+                .ui.header old address #{building_address}
                 .field
-                    label Building Address
-                    input#building_address(type='text' value=building_address)
+                    label Building Numbers
+                    .ui.divided.list
+                        each building_numbers
+                            .item
+                                | #{this}
+                                i.remove_number.red.link.remove.icon
+                    .ui.action.input
+                        input#new_building_number(type='number' min='0')
+                        #add_building_number.ui.button Add Building Number
+                .field
+                    label Building Street: #{building_street}
+                    // input#building_street(type='text' value=building_street)
+                    select#select_building_street
+                        option Change Street
+                        option(value='Shadow Creek Dr') Shadow Creek Dr
+                        option(value='Sundown Ln') Sundown Ln
+                        option(value='Springdale Ln') Springdale Ln
                 a.ui.green.big.button(href='/buildings') Save Building
                 #delete_building.ui.red.icon.button
                     i.trash.icon            
             
 template(name='buildings') 
-    .ui.text.container
+    .ui.container
         h1.ui.center.aligned.header Buildings
             i#add_building.green.plus.link.icon 
             // |Add Pool Reading
-        table.ui.table
+        table.ui.sortable.striped.table
             thead
                 tr
-                    th Building Code
-                    th Building Address
+                    th Code
+                    th Numbers
+                    th Street
                     th Actions
             tbody
                 each buildings
                     tr
                         td #{building_code}
-                        td #{building_address}
+                        td 
+                            each building_numbers
+                                .ui.basic.large.label #{this}
+                        td #{building_street}
                         td 
                             a.ui.compact.button(href="/building/edit/#{_id}")
                                 i.pencil.icon

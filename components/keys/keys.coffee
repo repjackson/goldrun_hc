@@ -26,13 +26,18 @@ if Meteor.isClient
          
     Template.keys.helpers
         keys: -> 
-            Keys.find {}
+            Keys.find {},
+                sort: tag_number: 1
          
     Template.edit_key.helpers
         buildings: ->
             Buildings.find()
          
-         
+        building_numbers: ->
+            # console.log @
+            building = Buildings.findOne building_code: @lock_building_code
+            # console.log building
+            if building then building.building_numbers
     Template.keys.events
         'click #add_key': ->
             id = Keys.insert {}
@@ -86,15 +91,24 @@ if Meteor.isClient
                 Keys.remove FlowRouter.getParam('key_id'), ->
                     FlowRouter.go "/keys"
 
-        'change #select_lock_building': (e,t)->
+        'change #select_lock_building_code': (e,t)->
             lock_building_code = e.currentTarget.value
             Keys.update @_id,
                 $set: lock_building_code: lock_building_code
+        'change #select_lock_building_number': (e,t)->
+            lock_building_number = e.currentTarget.value
+            Keys.update @_id,
+                $set: lock_building_number: lock_building_number
 
         'blur #lock_apartment_number': (e,t)->
             lock_apartment_number = $(e.currentTarget).closest('#lock_apartment_number').val()
             Keys.update @_id,
                 $set: lock_apartment_number: lock_apartment_number
+
+        'blur #lock_building_number': (e,t)->
+            lock_building_number = $(e.currentTarget).closest('#lock_building_number').val()
+            Keys.update @_id,
+                $set: lock_building_number: lock_building_number
 
 
 

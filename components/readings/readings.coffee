@@ -14,7 +14,11 @@ if Meteor.isClient
             main: 'edit_hot_tub_reading'
     
     
-    
+    Template.readings.onRendered ->
+        Meteor.setTimeout (->
+            $('table').tablesort()
+        ), 500    
+
     Template.readings.onCreated ->
         @autorun -> Meteor.subscribe('readings')
     Template.edit_pool_reading.onCreated ->
