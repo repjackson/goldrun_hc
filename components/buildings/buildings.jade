@@ -34,7 +34,7 @@ template(name='buildings')
         h1.ui.center.aligned.header Buildings
             i#add_building.green.plus.link.icon 
             // |Add Pool Reading
-        table.ui.sortable.striped.table
+        table.ui.striped.sortable.table
             thead
                 tr
                     th Code
@@ -48,7 +48,7 @@ template(name='buildings')
                         td 
                             each building_numbers
                                 .ui.basic.large.label #{this}
-                        td #{building_street}
+                        td.single.line #{building_street}
                         td 
                             a.ui.compact.button(href="/building/edit/#{_id}")
                                 i.pencil.icon

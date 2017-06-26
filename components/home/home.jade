@@ -1,45 +1,24 @@
 template(name='home')
-    // .ui.container
-    // +slider
-    // .ui.container
-    //     .ui.hidden.divider
-    //     .big-header.wild_header.center 
-    //         |Welcome to the Watering Hole
-    //     .ui.hidden.divider
-    //     .shadows.center.big
-    //         |The Watering Hole is desiged to bring entrepreneurs together.
-    //     .ui.hidden.divider
-    //     .ui.stackable.two.column.grid
-    //         .row
-    //             .column 
-    //                 a(href='/about') 
-    //                     .big-text.wild_header.center Our Story
-    //                 .ui.basic.segment
-    //                     p.large As two young entrepreneurs, Eric Jackson and Tori Webster shared their frustration around fostering human connection at networking events and inside coworking spaces...
-    //                     // a(href='/about') 
-    //                     //     |Read More
-    //                     //     i.right.arrow.icon
-    //             .column 
-    //                 a(href='/features') 
-    //                     .big-text.wild_header.center Features
-    //                 .ui.hidden.divider
-    //                 .ui.two.column.center.aligned.stackable.grid
-    //                     .column
-    //                         i.users.huge.icon
-    //                         .ui.header Member Portal
-    //                         // .description Find members
-    //                     .column
-    //                         i.calendar.huge.icon
-    //                         .ui.header Events
-    //                         // .description Events feature
-            // .row
-            //     .column 
-            //         .big-text.wild_header.center Demo
-            //     .column 
-            //         .big-text.wild_header.center Herds
-            // +key_features
-            // +member_demo
-            // +plans
-
+    .ui.two.column.grid.container
+        .column
+            .ui.segment
+                h2.ui.header
+                    |Pool
+                h3.ui.header Status: 
+                    .ui.basic.green.label Operational
+                h3.ui.header Most Recent Reading: 
+                
+            .ui.segment
+                h2.ui.header 
+                    |Outdoor Hot Tub
+                h3.ui.header Status: 
+                    .ui.basic.green.label Operational
+                h3.ui.header Most Recent Reading: 
+            .ui.segment
+                h2.ui.header
+                    |Indoor Hot Tub
+                h3.ui.header Status: 
+                    .ui.basic.green.label Operational
+                h3.ui.header Most Recent Reading: 
+        .column
         
-    

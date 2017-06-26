@@ -66,21 +66,6 @@ if Meteor.isClient
                     "profile.phone": phone
 
             
-        'blur #pro_bio': ->
-            pro_bio = $('#pro_bio').val().trim()
-            Meteor.users.update FlowRouter.getParam('user_id'),
-                $set: 
-                    "profile.pro_bio": pro_bio
-
-            
-        'blur #needs': ->
-            needs = $('#needs').val().trim()
-            Meteor.users.update FlowRouter.getParam('user_id'),
-                $set: 
-                    "profile.needs": needs
-
-            
-            
         'keydown #input_image_id': (e,t)->
             if e.which is 13
                 user_id = FlowRouter.getParam('user_id')
@@ -123,43 +108,11 @@ if Meteor.isClient
                             $set: "profile.image_id": res.public_id
                     return
     
-        'click #pick_google_image': ->
-            picture = Meteor.user().profile.google_image
-            Meteor.call 'download_image', picture, (err, res)->
-                if err
-                    console.error err
-                else
-                    console.log typeof res
-                    Cloudinary.upload res,
-                        # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
-                        # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
-                        (err,res) -> #optional callback, you can catch with the Cloudinary collection as well
-                            # console.log "Upload Error: #{err}"
-                            # console.dir res
-                            if err
-                                console.error 'Error uploading', err
-                            else
-                                console.log 'i think this worked'
-                                Meteor.users.update FlowRouter.getParam('user_id'), 
-                                    $set: "profile.image_id": res.public_id
-                            return
-    
-    
         'click #remove_photo': ->
             Meteor.users.update FlowRouter.getParam('user_id'),
                 $unset: image_id: 1
                 
                 
-                
-        'change #newsletter': (e,t)->
-            # console.log e.currentTarget.value
-            value = $('#newsletter').is(":checked")
-            Meteor.users.update FlowRouter.getParam('user_id'), 
-                $set:
-                    "profile.subscribe": value
-    
-
-
 if Meteor.isServer
     Meteor.publish 'my_profile', ->
         Meteor.users.find @userId,

@@ -34,7 +34,7 @@ template(name='bike')
                 |#{body}
             .meta
                 each tags
-                    .ui.tag.label #{this}
+                    .ui.basic.label #{this}
         .content
             | posted by #{author.username} #{when}
             if is_author
