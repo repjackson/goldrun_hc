@@ -4,21 +4,11 @@ template(name='edit_task')
         .ui.text.container
             h1.ui.center.aligned.header Edit Task
             .ui.form
-                if image_id
-                    .field
-                        label Image
-                        .ui.large.image
-                            img(src="{{c.url image_id }}")
-                            a#remove_photo.ui.top.left.attached.link.basic.label Remove
-                            .ui.bottom.right.attached.basic.label Image Id: #{image_id}
-                else
-                    .fields
-                        .field
-                            label Upload Image
-                            input(type='file' name='upload_picture' accept='image/*')
+                +edit_image
                 +building_code
-                +task_due_date
-                +task_completed
+                +assigned_to
+                +due_date
+                +complete
                 +notes
                 .ui.basic.center.aligned.segment
                     a.ui.green.big.button(href='/tasks') Save Task
@@ -34,6 +24,7 @@ template(name='tasks')
             thead
                 tr
                     th Photo
+                    th Completed
                     th Building
                     th Assigned To
                     th Due Date
@@ -44,13 +35,15 @@ template(name='tasks')
                 each tasks
                     tr
                         td 
-                            if task_completed
+                            img.ui.small.image(src="{{c.url image_id }}")
+                        td 
+                            if complete
                                 i.green.large.check.icon
                             else
                                 i.remove.icon
-                        td #{task_building_code}
-                        td #{task_assigned_to}
-                        td #{task_due_date}
+                        td #{building_code}
+                        td #{assigned_to}
+                        td #{due_date}
                         td #{notes}
                         td #{author.username} #{when}
                         td 
@@ -59,12 +52,3 @@ template(name='tasks')
                                 | Edit
 
 
-template(name='task_completed')            
-    .field
-        label Task Completed
-        #mark_true.ui.button(class=mark_true_class) Yes 
-        #mark_false.ui.button(class=mark_false_class) No 
-template(name='task_due_date')            
-    .field
-        label Task Due Date
-        input#task_due_date(type='date' value=task_due_date)        

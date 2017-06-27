@@ -69,11 +69,6 @@ if Meteor.isClient
             Keys.update @_id,
                 $set: key_exists: false
     
-    Template.notes.events
-        'blur #notes': (e,t)->
-            notes =  $(e.currentTarget).closest('#notes').val()
-            Keys.update @_id,
-                $set: notes: notes
 
     Template.edit_key.events
         'click #delete_key': (e,t)->
@@ -91,10 +86,6 @@ if Meteor.isClient
                 Keys.remove FlowRouter.getParam('key_id'), ->
                     FlowRouter.go "/keys"
 
-        'change #select_lock_building_code': (e,t)->
-            lock_building_code = e.currentTarget.value
-            Keys.update @_id,
-                $set: lock_building_code: lock_building_code
         'change #select_lock_building_number': (e,t)->
             lock_building_number = e.currentTarget.value
             Keys.update @_id,

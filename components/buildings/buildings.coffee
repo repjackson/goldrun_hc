@@ -59,10 +59,6 @@ if Meteor.isClient
                 Buildings.remove FlowRouter.getParam('building_id'), ->
                     FlowRouter.go "/buildings"
 
-        'blur #building_code': (e,t)->
-            building_code = $(e.currentTarget).closest('#building_code').val()
-            Buildings.update @_id,
-                $set: building_code: building_code
 
 
         'click #add_building_number': (e,t)->

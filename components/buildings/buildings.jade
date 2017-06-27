@@ -3,9 +3,7 @@ template(name='edit_building')
         .ui.container
             .ui.header Edit Building
             .ui.form
-                .field
-                    label Building Code
-                    input#building_code(type='text' value=building_code)
+                +building_code
                 .ui.header old address #{building_address}
                 .field
                     label Building Numbers
