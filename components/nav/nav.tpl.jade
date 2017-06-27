@@ -1,33 +1,37 @@
-.ui.inverted.borderless.stackable.labeled.icon.menu
-    a.header.item(href='/' class="{{isActivePath '/'}}") 
+.ui.inverted.borderless.stackable.menu
+    a.toggle_sidebar.mobile.only.item
+        i.sidebar.icon
+        | Gold Run
+
+    a.header.mobile.hidden.item(href='/' class="{{isActivePath '/'}}") 
         i.home.icon
         |Gold Run
-    // .header.item GR
-    a.item(href='/readings' class="{{isActivePath '/readings'}}")
+    // .header.mobile.hidden.item GR
+    a.mobile.hidden.item(href='/readings' class="{{isActivePath '/readings'}}")
         i.theme.icon
         | Readings
-    a.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
+    a.mobile.hidden.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
         i.random.icon
         |Lost and Found
-    a.item(href='/bikes' class="{{isActivePath '/bikes'}}")
+    a.mobile.hidden.item(href='/bikes' class="{{isActivePath '/bikes'}}")
         i.bicycle.icon
         |Bikes
-    a.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
+    a.mobile.hidden.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
         i.circle.info.icon
         |Desk Staff
-    a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+    a.mobile.hidden.item(href='/buildings' class="{{isActivePath '/buildings'}}")
         i.building.icon
         |Buildings
-    a.item(href='/tasks' class="{{isActivePath '/tasks'}}")
+    a.mobile.hidden.item(href='/tasks' class="{{isActivePath '/tasks'}}")
         i.edit.icon
         |Tasks
-    a.item(href='/keys' class="{{isActivePath '/keys'}}")
+    a.mobile.hidden.item(href='/keys' class="{{isActivePath '/keys'}}")
         i.key.icon
         |Keys
-    a.item(href='/people' class="{{isActivePath '/people'}}")
+    a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
         i.users.icon
         |People
-    .right.menu
+    .mobile.hidden.right.menu
         if currentUser
             // a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
             //     i.line.chart.icon
@@ -39,10 +43,10 @@
             // a.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
             //     i.mail.icon
             if isInRole 'admin'
-                a.icon.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
+                a.icon.mobile.hidden.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
                     i.configure.icon
                     |Admin
-            a.item(href="/account/profile/edit/#{currentUser._id}" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
+            a.mobile.hidden.item(href="/account/profile/edit/#{currentUser._id}" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
                 if currentUser.profile.image_id
                     img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
                 else
@@ -51,10 +55,10 @@
                     | #{currentUser.name}
                 else
                     | Profile
-            a#logout.ui.item(href='#') 
+            a#logout.ui.mobile.hidden.item(href='#') 
                 i.sign.out.icon
                 | Sign Out
         else
-            a.ui.item(href='/sign-in') 
+            a.ui.mobile.hidden.item(href='/sign-in') 
                 i.sign.in.icon
                 | Sign In

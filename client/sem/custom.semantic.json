@@ -39,7 +39,7 @@
     "search": true,
     "segment": true,
     "shape": true,
-    "sidebar": false,
+    "sidebar": true,
     "site": true,
     "state": false,
     "statistic": true,
