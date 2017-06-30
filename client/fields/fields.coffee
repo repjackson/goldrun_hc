@@ -42,11 +42,11 @@ Template.complete.helpers
     complete_class: -> if @complete then 'green' else 'basic'
     incomplete_class: -> if @complete then 'basic' else 'red'
 
-Template.assigned_to.events
-    'blur #assigned_to': (e,t)->
-        assigned_to = $(e.currentTarget).closest('#assigned_to').val()
+Template.staff.events
+    'blur #staff': (e,t)->
+        staff = $(e.currentTarget).closest('#staff').val()
         Docs.update @_id,
-            $set: assigned_to: assigned_to
+            $set: staff: staff
 
 Template.notes.events
     'blur #notes': (e,t)->

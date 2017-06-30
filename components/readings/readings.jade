@@ -4,6 +4,12 @@ template(name='readings')
         +outdoor_hot_tub_readings
         +pool_readings
 
+template(name='reading_menu')
+    .ui.three.item.menu
+        a.item(href='/readings/indoor' class="{{isActivePath '/readings/indoor'}}") Indoor
+        a.item(href='/readings/outdoor' class="{{isActivePath '/readings/outdoor'}}") Outdoor
+        a.item(href='/readings/pool' class="{{isActivePath '/readings/pool'}}") Pool
+
 
 template(name='edit_pool_reading')
     with reading

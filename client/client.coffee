@@ -25,3 +25,17 @@ Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
 
 
 Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
+
+
+Template.sidebar.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.context.example .ui.sidebar')
+                    .sidebar({
+                        context: $('.context.example .bottom.segment')
+                        dimPage: false
+                        transition:  'push'
+                    })
+                    .sidebar('attach events', '.context.example .menu .toggle_sidebar.item')
+            , 500

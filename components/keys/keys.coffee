@@ -4,7 +4,7 @@ if Meteor.isClient
             main: 'keys'
             
             
-    FlowRouter.route '/key/edit/:key_id', action: ->
+    FlowRouter.route '/key/edit/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             main: 'edit_key'
     
@@ -19,14 +19,22 @@ if Meteor.isClient
     #         $('select.dropdown').dropdown()
     #     ), 500
 
+    Template.keys.onRendered ->
+        Meteor.setTimeout (->
+            $('table').tablesort()
+            # $('select.dropdown').dropdown()
+        ), 500
+
+
+
     Template.edit_key.onCreated ->
-        @autorun -> Meteor.subscribe('key', FlowRouter.getParam('key_id'))
+        @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
         @autorun -> Meteor.subscribe('buildings')
     
          
     Template.keys.helpers
         keys: -> 
-            Keys.find {},
+            Docs.find {type: 'key'},
                 sort: tag_number: 1
          
     Template.edit_key.helpers
@@ -38,22 +46,23 @@ if Meteor.isClient
             building = Buildings.findOne building_code: @lock_building_code
             # console.log building
             if building then building.building_numbers
+
     Template.keys.events
         'click #add_key': ->
-            id = Keys.insert {}
+            id = Docs.insert type: 'key'
             FlowRouter.go "/key/edit/#{id}"
     
     Template.edit_key.helpers
         key: -> 
-            key_id = FlowRouter.getParam('key_id')
-            # console.log key_id
-            Keys.findOne key_id 
+            doc_id = FlowRouter.getParam('doc_id')
+            # console.log doc_id
+            Docs.findOne doc_id 
 
 
     Template.tag_number.events
         'blur #tag_number': (e,t)->
             tag_number = parseInt $(e.currentTarget).closest('#tag_number').val()
-            Keys.update @_id,
+            Docs.update @_id,
                 $set: tag_number: tag_number
     
     
@@ -63,10 +72,10 @@ if Meteor.isClient
 
     Template.key_exists.events
         'click #mark_true': (e,t)->
-            Keys.update @_id,
+            Docs.update @_id,
                 $set: key_exists: true
         'click #mark_false': (e,t)->
-            Keys.update @_id,
+            Docs.update @_id,
                 $set: key_exists: false
     
 
@@ -83,32 +92,27 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, ->
-                Keys.remove FlowRouter.getParam('key_id'), ->
+                Docs.remove FlowRouter.getParam('doc_id'), ->
                     FlowRouter.go "/keys"
 
         'change #select_lock_building_number': (e,t)->
             lock_building_number = e.currentTarget.value
-            Keys.update @_id,
+            Docs.update @_id,
                 $set: lock_building_number: lock_building_number
 
         'blur #lock_apartment_number': (e,t)->
             lock_apartment_number = $(e.currentTarget).closest('#lock_apartment_number').val()
-            Keys.update @_id,
+            Docs.update @_id,
                 $set: lock_apartment_number: lock_apartment_number
 
         'blur #lock_building_number': (e,t)->
             lock_building_number = $(e.currentTarget).closest('#lock_building_number').val()
-            Keys.update @_id,
+            Docs.update @_id,
                 $set: lock_building_number: lock_building_number
 
 
 
 if Meteor.isServer
-    Keys.allow
-        insert: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
-        update: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
-        remove: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
-    
     Meteor.publish 'keys', ()->
         
         self = @
@@ -116,12 +120,8 @@ if Meteor.isServer
         # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
         #     match.published = true
         
-        Keys.find match,
+        Docs.find match,
             limit: 10
             sort: 
                 tag_number: -1
-    
-    Meteor.publish 'key', (key_id)->
-        Keys.find key_id
-
     

@@ -1,16 +1,34 @@
 if Meteor.isClient
     FlowRouter.route '/readings', action: ->
         BlazeLayout.render 'layout', 
+            sub_nav: 'reading_menu'
             main: 'readings'
+            
+    FlowRouter.route '/readings/indoor', action: ->
+        BlazeLayout.render 'layout', 
+            sub_nav: 'reading_menu'
+            main: 'indoor_hot_tub_readings'
+            
+    FlowRouter.route '/readings/outdoor', action: ->
+        BlazeLayout.render 'layout', 
+            sub_nav: 'reading_menu'
+            main: 'outdoor_hot_tub_readings'
+            
+    FlowRouter.route '/readings/pool', action: ->
+        BlazeLayout.render 'layout', 
+            sub_nav: 'reading_menu'
+            main: 'pool_readings'
             
             
     FlowRouter.route '/pool_reading/edit/:reading_id', action: ->
         BlazeLayout.render 'layout', 
+            sub_nav: 'reading_menu'
             main: 'edit_pool_reading'
     
     
     FlowRouter.route '/hot_tub_reading/edit/:reading_id', action: ->
         BlazeLayout.render 'layout', 
+            sub_nav: 'reading_menu'
             main: 'edit_hot_tub_reading'
     
     
@@ -20,6 +38,12 @@ if Meteor.isClient
         ), 500    
 
     Template.readings.onCreated ->
+        @autorun -> Meteor.subscribe('readings')
+    Template.indoor_hot_tub_readings.onCreated ->
+        @autorun -> Meteor.subscribe('readings')
+    Template.outdoor_hot_tub_readings.onCreated ->
+        @autorun -> Meteor.subscribe('readings')
+    Template.pool_readings.onCreated ->
         @autorun -> Meteor.subscribe('readings')
     Template.edit_pool_reading.onCreated ->
         @autorun -> Meteor.subscribe('reading', FlowRouter.getParam('reading_id'))

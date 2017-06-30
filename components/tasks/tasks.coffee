@@ -14,10 +14,13 @@ if Meteor.isClient
     Template.tasks.onCreated ->
         @autorun -> Meteor.subscribe('tasks')
     
-    # Template.edit_task.onRendered ->
-    #     Meteor.setTimeout (->
-    #         $('select.dropdown').dropdown()
-    #     ), 500
+    Template.tasks.onRendered ->
+        Meteor.setTimeout (->
+            $('table').tablesort()
+            # $('select.dropdown').dropdown()
+        ), 500
+
+
 
     Template.edit_task.onCreated ->
         @autorun -> Meteor.subscribe('task', FlowRouter.getParam('doc_id'))
@@ -75,6 +78,24 @@ if Meteor.isClient
             }, ->
                 Docs.remove FlowRouter.getParam('doc_id'), ->
                     FlowRouter.go "/tasks"
+
+        'blur #description': (e,t)->
+            description = $(e.currentTarget).closest('#description').val()
+            Docs.update @_id,
+                $set: description: description
+
+        'blur #complete_date': (e,t)->
+            complete_date = $(e.currentTarget).closest('#complete_date').val()
+            Docs.update @_id,
+                $set: complete_date: complete_date
+
+        'blur #location': (e,t)->
+            location = $(e.currentTarget).closest('#location').val()
+            Docs.update @_id,
+                $set: location: location
+
+
+
 
 
 if Meteor.isServer

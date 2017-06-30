@@ -1,7 +1,7 @@
 
 template(name='edit_key')
     with key
-        .ui.container
+        .ui.text.container.segment
             h1.ui.center.aligned.header Edit Key
             .ui.form
                 +key_exists
@@ -39,7 +39,7 @@ template(name='edit_key')
             
 template(name='keys') 
     .ui.container
-        h1.ui.center.aligned.header Gold Run Keys
+        h1.ui.center.aligned.header Gold Run Docs
             i#add_key.green.plus.link.icon 
         table.ui.sortable.striped.unstackable.table
             thead
