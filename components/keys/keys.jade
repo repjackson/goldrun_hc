@@ -4,76 +4,99 @@ template(name='edit_key')
         .ui.text.container.segment
             h1.ui.center.aligned.header Edit Key
             .ui.form
-                +key_exists
                 .fields
                     +tag_number
+                    +key_exists
                 .fields
                     .field
                         label 
-                            |Lock Building Code: #{lock_building_code}
+                            |Lock Building Code: #{building_code}
                         // select.ui.search.dropdown
-                        select#select_lock_building_code
+                        select#select_building_code
                             option Change Building Code
                             each buildings
                                 option(value=building_code) 
                                     |#{building_code}: 
                                     |#{building_street}
-                    if lock_building_code
+                    if building_code
                         .field
-                            label Lock Building Number: #{lock_building_number}
-                            // input#lock_building_number(type='text' value=lock_building_number)
-                            select#select_lock_building_number
+                            label Lock Building Number: #{building_number}
+                            // input#building_number(type='text' value=building_number)
+                            select#select_building_number
                                 option Change Building Number
                                 each building_numbers
                                     option(value=this) #{this}
-                    if lock_building_number
+                    if building_number
                         .field
-                            label Lock Apartment Number: #{lock_apartment_number}
-                            input#lock_apartment_number(type='text' value=lock_apartment_number)
+                            label Lock Apartment Number: #{apartment_number}
+                            input#apartment_number(type='text' value=apartment_number)
+
                 +notes
+                .ui.slider.checkbox
+                    input#fpm(type='checkbox' checked=fpm)
+                    label(for='fpm') Fowler
                 .ui.basic.center.aligned.segment
                     a.ui.green.big.button(href='/keys') Save Key
                     #delete_key.ui.red.icon.button
                         i.trash.icon            
             
             
+            
 template(name='keys') 
     .ui.container
-        h1.ui.center.aligned.header Gold Run Docs
-            i#add_key.green.plus.link.icon 
+        h1.ui.center.aligned.header Gold Run Keys
+            i#add_key.green.plus.link.small.icon 
+        // .ui.dividing.header Filter
+        // .ui.form
+        //     .field
+        //         label Building
+        //         select#select_building_code
+        //             option Filter
+        //             each buildings
+        //                 option(value=building_code) 
+        //                     |#{building_code}
+                
         table.ui.sortable.striped.unstackable.table
             thead
                 tr
-                    th Key Exists
-                    th Tag Number
-                    th Building Code
-                    th Building Number
-                    th Apartment Number
+                    th Tag #
+                    th Exists
+                    th Status
+                    th 
+                        |Lock Location
                     th Notes
                     th Actions
             tbody
                 each keys
                     tr
+                        td #{tag_number}
                         td 
                             if key_exists
                                 i.green.large.check.icon
                             else
                                 i.remove.icon
-                        td #{tag_number}
-                        td #{lock_building_code}
-                        td #{lock_building_number}
-                        td ##{lock_apartment_number}
-                        td #{notes}
+                        td 
+                            if checked_out
+                                .ui.blue.basic.label Checked Out
+                            else
+                                .ui.basic.label Checked In
+                        td 
+                            |#{building_code}: #{building_number} ##{apartment_number}
+                        td 
+                            if fpm
+                                .ui.basic.black.label FPM
+                            |#{notes}
                         // td #{author.username} #{when}
                         td 
                             a.ui.compact.button(href="/key/edit/#{_id}")
                                 i.pencil.icon
                                 | Edit
+                            a.ui.compact.button(href="/key/view/#{_id}")
+                                i.right.arrow.icon
+                                | View
+                            a.add_next_key.ui.compact.button
+                                | Add Next
 
-template(name='lock_location')            
-    .field
-        label Lock Location
-        input#lock_location(type='text' value=lock_location)
         
 template(name='tag_number')            
     .field

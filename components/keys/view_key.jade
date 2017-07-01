@@ -1,0 +1,68 @@
+template(name='view_key')
+    with key
+        .ui.container.segment
+            h1.ui.center.aligned.header Key Page
+            .ui.form
+                .fields
+                    .field 
+                        label Tag Number
+                        |#{tag_number}
+                    .field 
+                        label Key Exists
+                        if key_exists
+                            i.green.large.check.icon
+                        else
+                            i.remove.icon
+                    .field
+                        label Status
+                        if checked_out
+                            .ui.blue.basic.label Checked Out
+                        else
+                            .ui.basic.label Checked In
+                .fields
+                    .field
+                        label Building Code
+                        |#{building_code}
+                    .field
+                        label Building Number
+                        |#{building_number}
+                    .field
+                        label Apartment Number
+                        | ##{apartment_number}
+                .field
+                    label Fowler
+                    if fpm
+                        .ui.basic.black.label FPM
+                .field
+                    label Notes
+                    |#{notes}
+            // td #{author.username} #{when}
+            td 
+                a.ui.compact.button(href="/key/edit/#{_id}")
+                    i.pencil.icon
+                    | Edit
+        .ui.dividing.header Checkout History
+        #log_checkout.ui.button Log Checkout
+        table.ui.sortable.striped.unstackable.table
+            thead
+                tr
+                    th Name
+                    th Phone
+                    th Company
+                    th Checkout Date/Time
+                    th Checkin Date/Time
+                    th Notes
+                    th Actions
+            tbody
+                each checkouts
+                    tr
+                        td #{name}
+                        td #{phone}
+                        td #{checkout_dt}
+                        td #{checkin_dt}
+                        td #{notes}
+                        td 
+                            .ui.button Check In
+        
+
+

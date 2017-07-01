@@ -1,3 +1,8 @@
+
+
+
+
+
 if Meteor.isClient
     FlowRouter.route '/keys', action: ->
         BlazeLayout.render 'layout', 
@@ -8,12 +13,17 @@ if Meteor.isClient
         BlazeLayout.render 'layout', 
             main: 'edit_key'
     
+    FlowRouter.route '/key/view/:doc_id', action: ->
+        BlazeLayout.render 'layout', 
+            main: 'view_key'
+    
     
     
     
     Template.keys.onCreated ->
         @autorun -> Meteor.subscribe('keys')
-    
+        @autorun -> Meteor.subscribe('buildings')
+
     # Template.edit_key.onRendered ->
     #     Meteor.setTimeout (->
     #         $('select.dropdown').dropdown()
@@ -32,10 +42,16 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe('buildings')
     
          
+         
     Template.keys.helpers
         keys: -> 
             Docs.find {type: 'key'},
                 sort: tag_number: 1
+         
+        buildings: ->
+            Buildings.find()
+         selector: ->
+             type: 'key'
          
     Template.edit_key.helpers
         buildings: ->
@@ -43,21 +59,27 @@ if Meteor.isClient
          
         building_numbers: ->
             # console.log @
-            building = Buildings.findOne building_code: @lock_building_code
+            building = Buildings.findOne building_code: @building_code
             # console.log building
             if building then building.building_numbers
+        key: -> 
+            doc_id = FlowRouter.getParam('doc_id')
+            # console.log doc_id
+            Docs.findOne doc_id 
 
     Template.keys.events
         'click #add_key': ->
             id = Docs.insert type: 'key'
             FlowRouter.go "/key/edit/#{id}"
     
-    Template.edit_key.helpers
-        key: -> 
-            doc_id = FlowRouter.getParam('doc_id')
-            # console.log doc_id
-            Docs.findOne doc_id 
-
+        'click .add_next_key': ->
+            id = Docs.insert 
+                tag_number: @tag_number + 1
+                building_code: @building_code
+                building_number: @building_number
+                type: 'key'
+            FlowRouter.go "/key/edit/#{id}"
+    
 
     Template.tag_number.events
         'blur #tag_number': (e,t)->
@@ -95,20 +117,29 @@ if Meteor.isClient
                 Docs.remove FlowRouter.getParam('doc_id'), ->
                     FlowRouter.go "/keys"
 
-        'change #select_lock_building_number': (e,t)->
-            lock_building_number = e.currentTarget.value
+        'change #select_building_code': (e,t)->
+            building_code = e.currentTarget.value
             Docs.update @_id,
-                $set: lock_building_number: lock_building_number
+                $set: building_code: building_code
 
-        'blur #lock_apartment_number': (e,t)->
-            lock_apartment_number = $(e.currentTarget).closest('#lock_apartment_number').val()
+        'blur #apartment_number': (e,t)->
+            apartment_number = $(e.currentTarget).closest('#apartment_number').val()
             Docs.update @_id,
-                $set: lock_apartment_number: lock_apartment_number
+                $set: apartment_number: apartment_number
 
-        'blur #lock_building_number': (e,t)->
-            lock_building_number = $(e.currentTarget).closest('#lock_building_number').val()
+        'change #select_building_number': (e,t)->
+            building_number = e.currentTarget.value
             Docs.update @_id,
-                $set: lock_building_number: lock_building_number
+                $set: building_number: building_number
+
+
+        'change #fpm': (e,t)->
+            # console.log e.currentTarget.value
+            value = $('#fpm').is(":checked")
+            Docs.update @_id, 
+                $set:
+                    fpm: value
+    
 
 
 
@@ -121,7 +152,7 @@ if Meteor.isServer
         #     match.published = true
         
         Docs.find match,
-            limit: 10
+            # limit: 10
             sort: 
                 tag_number: -1
     
