@@ -1,34 +1,33 @@
 template(name='view_key')
     with key
-        .ui.container.segment
-            h1.ui.center.aligned.header Key Page
-            .ui.form
-                .fields
-                    .field 
-                        label Tag Number
-                        |#{tag_number}
-                    .field 
-                        label Key Exists
-                        if key_exists
-                            i.green.large.check.icon
-                        else
-                            i.remove.icon
-                    .field
-                        label Status
-                        if checked_out
-                            .ui.blue.basic.label Checked Out
-                        else
-                            .ui.basic.label Checked In
-                .fields
-                    .field
-                        label Building Code
-                        |#{building_code}
-                    .field
-                        label Building Number
-                        |#{building_number}
-                    .field
-                        label Apartment Number
-                        | ##{apartment_number}
+        h1.ui.center.aligned.header Key Page
+        .ui.dividing.header Details
+        .ui.form
+            .fields
+                .field 
+                    label Tag Number
+                    |#{tag_number}
+                .field 
+                    label Key Exists
+                    if key_exists
+                        i.green.large.check.icon
+                    else
+                        i.remove.icon
+                .field
+                    label Status
+                    if checked_out
+                        .ui.blue.label Checked Out
+                    else
+                        .ui.basic.label Checked In
+                .field
+                    label Building Code
+                    |#{building_code}
+                .field
+                    label Building Number
+                    |#{building_number}
+                .field
+                    label Apartment Number
+                    | ##{apartment_number}
                 .field
                     label Fowler
                     if fpm
@@ -36,33 +35,58 @@ template(name='view_key')
                 .field
                     label Notes
                     |#{notes}
-            // td #{author.username} #{when}
-            td 
-                a.ui.compact.button(href="/key/edit/#{_id}")
-                    i.pencil.icon
-                    | Edit
+        // td #{author.username} #{when}
+        td 
+            a.ui.compact.button(href="/key/edit/#{_id}")
+                i.pencil.icon
+                | Edit
         .ui.dividing.header Checkout History
         #log_checkout.ui.button Log Checkout
         table.ui.sortable.striped.unstackable.table
-            thead
-                tr
-                    th Name
-                    th Phone
-                    th Company
-                    th Checkout Date/Time
-                    th Checkin Date/Time
-                    th Notes
-                    th Actions
-            tbody
-                each checkouts
-                    tr
-                        td #{name}
-                        td #{phone}
-                        td #{checkout_dt}
-                        td #{checkin_dt}
-                        td #{notes}
-                        td 
-                            .ui.button Check In
-        
+                        thead
+                            tr
+                                th Name
+                                th Phone
+                                th Company
+                                th Checkout Date/Time
+                                th Checkin Date/Time
+                                th Notes
+                                th Actions
+                        tbody
+                            each checkouts
+                                tr
+                                    unless is_editing
+                                        td #{name}
+                                        td #{phone}
+                                        td #{company}
+                                        td #{checkout_cal}
+                                        td #{checkin_cal}
+                                        td #{notes}
+                                        td 
+                                            .edit_checkout.ui.button Edit
+                                    else
+                                        td 
+                                            .ui.input
+                                                input#name(type='text' placeholder='Name')
+                                        td
+                                            .ui.input
+                                                input#phone(type='text' placeholder='Phone')
+                                        td
+                                            .ui.input
+                                                input#company(type='text' placeholder='Company')
+                                        td #{checkout_cal}
+                                        td 
+                                            if checkin_dt
+                                                |#{checkin_cal}
+                                            else
+                                                .check_in_key.ui.button Check In
+                                        td
+                                            .ui.input
+                                                input#notes(type='text' placeholder='Notes')
+                                        td
+                                            .stop_editing.ui.green.icon.button
+                                                i.check.icon
+                                            #delete_key.ui.red.icon.button
+                                                i.trash.icon
 
 
