@@ -1,22 +1,26 @@
 if Meteor.isClient
     FlowRouter.route '/readings', action: ->
         BlazeLayout.render 'layout', 
-            sub_nav: 'reading_menu'
+            sub_nav: 'staff_nav'
+            sub_sub_nav: 'reading_menu'
             main: 'readings'
             
     FlowRouter.route '/readings/indoor', action: ->
         BlazeLayout.render 'layout', 
-            sub_nav: 'reading_menu'
+            sub_nav: 'staff_nav'
+            sub_sub_nav: 'reading_menu'
             main: 'indoor_hot_tub_readings'
             
     FlowRouter.route '/readings/outdoor', action: ->
         BlazeLayout.render 'layout', 
-            sub_nav: 'reading_menu'
+            sub_nav: 'staff_nav'
+            sub_sub_nav: 'reading_menu'
             main: 'outdoor_hot_tub_readings'
             
     FlowRouter.route '/readings/pool', action: ->
         BlazeLayout.render 'layout', 
-            sub_nav: 'reading_menu'
+            sub_nav: 'staff_nav'
+            sub_sub_nav: 'reading_menu'
             main: 'pool_readings'
             
             

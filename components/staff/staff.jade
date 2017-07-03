@@ -1,0 +1,28 @@
+template(name='staff')
+    .ui.container
+        .ui.dividing.header Staff
+        
+        
+template(name='staff_nav')
+    .ui.seven.item.menu
+        a.mobile.hidden.item(href='/readings' class="{{isActivePath '/readings'}}")
+            i.theme.icon
+            | Readings
+        a.mobile.hidden.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
+            i.random.icon
+            |Lost and Found
+        a.mobile.hidden.item(href='/bikes' class="{{isActivePath '/bikes'}}")
+            i.bicycle.icon
+            |Bikes
+        a.mobile.hidden.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
+            i.circle.info.icon
+            |Desk Staff
+        a.mobile.hidden.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+            i.building.icon
+            |Buildings
+        a.mobile.hidden.item(href='/tasks' class="{{isActivePath '/tasks'}}")
+            i.edit.icon
+            |Tasks
+        a.mobile.hidden.item(href='/keys' class="{{isActivePath '/keys'}}")
+            i.key.icon
+            |Keys

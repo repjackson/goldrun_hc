@@ -4,8 +4,12 @@
 
 
 if Meteor.isClient
+    @selected_buildings = new ReactiveArray []
+
+    
     FlowRouter.route '/keys', action: ->
-        BlazeLayout.render 'layout', 
+        BlazeLayout.render 'layout',
+            sub_nav: 'staff_nav'
             main: 'keys'
             
             
@@ -21,7 +25,7 @@ if Meteor.isClient
     
     
     Template.keys.onCreated ->
-        @autorun -> Meteor.subscribe('keys')
+        @autorun -> Meteor.subscribe('keys', selected_buildings.array())
         @autorun -> Meteor.subscribe('buildings')
 
     # Template.edit_key.onRendered ->
@@ -47,15 +51,15 @@ if Meteor.isClient
         keys: -> 
             Docs.find {type: 'key'},
                 sort: tag_number: 1
+        buildings: -> Buildings.find()
          
-        buildings: ->
-            Buildings.find()
-         selector: ->
-             type: 'key'
+        selected_building_class: ->
+            if @building_code in selected_buildings.array() then 'blue' else 'basic'
+         
+         selected_buildings: -> selected_buildings.array()
          
     Template.edit_key.helpers
-        buildings: ->
-            Buildings.find()
+        buildings: -> Buildings.find()
          
         building_numbers: ->
             # console.log @
@@ -66,6 +70,17 @@ if Meteor.isClient
             doc_id = FlowRouter.getParam('doc_id')
             # console.log doc_id
             Docs.findOne doc_id 
+
+        mark_true_class: -> 
+            if @fpm then 'disabled green'
+            else if @key_exists then '' else 'basic'
+        
+        mark_false_class: -> 
+            if @fpm then 'disabled basic'
+            else if @key_exists then 'basic' else ''
+
+
+
 
     Template.keys.events
         'click #add_key': ->
@@ -80,26 +95,8 @@ if Meteor.isClient
                 type: 'key'
             FlowRouter.go "/key/edit/#{id}"
     
-
-    Template.tag_number.events
-        'blur #tag_number': (e,t)->
-            tag_number = parseInt $(e.currentTarget).closest('#tag_number').val()
-            Docs.update @_id,
-                $set: tag_number: tag_number
-    
-    
-    Template.key_exists.helpers
-        mark_true_class: -> if @key_exists then 'green' else 'basic'
-        mark_false_class: -> if @key_exists then 'basic' else 'red'
-
-    Template.key_exists.events
-        'click #mark_true': (e,t)->
-            Docs.update @_id,
-                $set: key_exists: true
-        'click #mark_false': (e,t)->
-            Docs.update @_id,
-                $set: key_exists: false
-    
+        'click .toggle_view_building': ->
+            if @building_code in selected_buildings.array() then selected_buildings.remove @building_code else selected_buildings.push @building_code
 
     Template.edit_key.events
         'click #delete_key': (e,t)->
@@ -136,20 +133,38 @@ if Meteor.isClient
         'change #fpm': (e,t)->
             # console.log e.currentTarget.value
             value = $('#fpm').is(":checked")
+            if value is true
+                Docs.update @_id, 
+                    $set:
+                        key_exists: true
+                    
             Docs.update @_id, 
                 $set:
                     fpm: value
     
+        'click #mark_true': (e,t)->
+            Docs.update @_id,
+                $set: key_exists: true
+        'click #mark_false': (e,t)->
+            Docs.update @_id,
+                $set: key_exists: false
+    
+        'blur #tag_number': (e,t)->
+            tag_number = parseInt $(e.currentTarget).closest('#tag_number').val()
+            Docs.update @_id,
+                $set: tag_number: tag_number
 
 
 
 if Meteor.isServer
-    Meteor.publish 'keys', ()->
+    Meteor.publish 'keys', (selected_buildings)->
         
         self = @
         match = {}
         # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
         #     match.published = true
+        match.type = 'key'
+        match.building_code = $in: selected_buildings
         
         Docs.find match,
             # limit: 10

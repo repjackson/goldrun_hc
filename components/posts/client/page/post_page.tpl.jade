@@ -3,7 +3,7 @@ with post
         .row
             a.ui.top.left.attached.basic.button(href="/posts")
                 i.arrow.left.icon
-                |Posts
+                |Docs
         .row
             h1.ui.center.aligned.header #{title}
             if image_id
@@ -18,9 +18,9 @@ with post
                     .ui.basic.segment
                         each tags
                             .ui.basic.label #{this}
-                +comments
+                // +comments
             .five.wide.column
-                +user_card
+                // +user_card
                 if isInRole 'admin'
                     .edit_post.ui.basic.fluid.button
                         i.pencil.icon

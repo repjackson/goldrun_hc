@@ -5,7 +5,7 @@ if Meteor.isClient
     
     Template.my_posts.helpers
         my_posts: -> 
-            Posts.find {},
+            Docs.find {},
                 sort:
                     publish_date: -1
                 
@@ -14,6 +14,6 @@ if Meteor.isClient
     
 if Meteor.isServer
     Meteor.publish 'my_posts', ->
-        Posts.find
+        Docs.find
             author_id: @userId
 

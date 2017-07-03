@@ -6,7 +6,6 @@ template(name='posts')
                     each posts
                         +post_item
             .four.wide.column
-                +post_cloud
                 if isInRole 'admin'
                     h2.ui.header 
                         i.red.configure.icon
@@ -21,7 +20,7 @@ template(name='posts')
 template(name='my_posts')
     .ui.fluid.card
         .content
-            .ui.header My Posts
+            .ui.header My Docs
             .ui.divided.list
                 each my_posts
                     .item 

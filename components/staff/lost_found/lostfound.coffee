@@ -1,6 +1,7 @@
 if Meteor.isClient
     FlowRouter.route '/lostfound', action: ->
         BlazeLayout.render 'layout', 
+            sub_nav: 'staff_nav'
             main: 'lostfound'
             
             

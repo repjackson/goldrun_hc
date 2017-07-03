@@ -1,5 +1,5 @@
 .ui.inverted.borderless.stackable.top.attached.menu
-    a.toggle_sidebar.mobile.only.item
+    a.toggle_sidebar.mobile.only.header.item
         i.sidebar.icon
         | Gold Run
 
@@ -7,30 +7,12 @@
         i.home.icon
         |Gold Run
     // .header.mobile.hidden.item GR
-    a.mobile.hidden.item(href='/readings' class="{{isActivePath '/readings'}}")
-        i.theme.icon
-        | Readings
-    a.mobile.hidden.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
-        i.random.icon
-        |Lost and Found
-    a.mobile.hidden.item(href='/bikes' class="{{isActivePath '/bikes'}}")
-        i.bicycle.icon
-        |Bikes
-    a.mobile.hidden.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
-        i.circle.info.icon
-        |Desk Staff
-    a.mobile.hidden.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-        i.building.icon
-        |Buildings
-    a.mobile.hidden.item(href='/tasks' class="{{isActivePath '/tasks'}}")
-        i.edit.icon
-        |Tasks
-    a.mobile.hidden.item(href='/keys' class="{{isActivePath '/keys'}}")
-        i.key.icon
-        |Keys
     a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
         i.users.icon
         |People
+    a.mobile.hidden.item(href='/posts' class="{{isActivePath '/posts'}}")
+        i.sticky.note.outline.icon
+        |Posts
     .mobile.hidden.right.menu
         if currentUser
             // a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
@@ -43,9 +25,12 @@
             // a.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
             //     i.mail.icon
             if isInRole 'admin'
-                a.icon.mobile.hidden.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
+                a.mobile.hidden.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
                     i.configure.icon
                     |Admin
+            a.mobile.hidden.item(href='/staff' class="{{isActivePath '/staff'}}")
+                i.info.circle.icon
+                |Staff
             a.mobile.hidden.item(href="/account/profile/edit/#{currentUser._id}" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
                 if currentUser.profile.image_id
                     img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")

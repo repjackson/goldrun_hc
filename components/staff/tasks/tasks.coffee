@@ -1,6 +1,7 @@
 if Meteor.isClient
     FlowRouter.route '/tasks', action: ->
         BlazeLayout.render 'layout', 
+            sub_nav: 'staff_nav'
             main: 'tasks'
             
             
@@ -55,13 +56,6 @@ if Meteor.isClient
             Docs.findOne doc_id 
 
 
-    Template.tag_number.events
-        'blur #tag_number': (e,t)->
-            tag_number = parseInt $(e.currentTarget).closest('#tag_number').val()
-            Docs.update @_id,
-                $set: tag_number: tag_number
-    
-    
 
     Template.edit_task.events
         'click #delete_task': (e,t)->

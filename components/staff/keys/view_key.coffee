@@ -17,55 +17,82 @@ if Meteor.isClient
                 Docs.find
                     type: 'key_checkout'
                 
-    
         checkout_cal: -> moment(@checkout_dt).calendar()
         checkin_cal: -> moment(@checkin_dt).calendar()
     
-        is_editing: ->
-            Session.equals 'editing_id', @_id
+        is_editing: -> Session.equals 'editing_id', @_id
     
     Template.view_key.events    
         'click #log_checkout': ->
-            new_id = Docs.insert 
-                building_code: @building_code
-                apartment_number: @apartment_number
-                checkout_dt: Date.now()
-                type: 'key_checkout'
-            Docs.update FlowRouter.getParam('doc_id'),
-                $set: checked_out: true
-            Session.set 'editing_id', new_id
-    
+            swal {
+                title: "Checkout #{@building_code} ##{@apartment_number} Key?"
+                type: 'info'
+                animation: true
+                showCancelButton: true
+                closeOnConfirm: true
+                cancelButtonText: 'No'
+                confirmButtonText: 'Check Out'
+                confirmButtonColor: '#da5347'
+            }, =>
+                new_id = Docs.insert 
+                    building_code: @building_code
+                    apartment_number: @apartment_number
+                    checkout_dt: Date.now()
+                    type: 'key_checkout'
+                Docs.update FlowRouter.getParam('doc_id'),
+                    $set: checked_out: true
+                Session.set 'editing_id', new_id
+        
         'click .edit_checkout': -> Session.set 'editing_id', @_id
         'click .stop_editing': -> Session.set 'editing_id', null
         
-        'click #delete_key': ->
-            if confirm 'Delete Key?'
+        'click #delete_checkout': ->
+            swal {
+                title: "Delete Checkout?"
+                type: 'warning'
+                animation: true
+                showCancelButton: true
+                closeOnConfirm: true
+                cancelButtonText: 'No'
+                confirmButtonText: 'Delete'
+                confirmButtonColor: '#da5347'
+            }, =>
                 Docs.remove @_id
                 Session.set 'editing_id', null
+
         'click .check_in_key': -> 
-            Docs.update @_id,
-                $set: checkin_dt: Date.now()
-            Docs.update FlowRouter.getParam('doc_id'),
-                $set: checked_out: false
+            swal {
+                title: "Check In #{@building_code} ##{@apartment_number} Key for #{@name}?"
+                type: 'info'
+                animation: true
+                showCancelButton: true
+                closeOnConfirm: true
+                cancelButtonText: 'No'
+                confirmButtonText: 'Check In'
+                confirmButtonColor: '#da5347'
+            }, =>
+                Docs.update @_id,
+                    $set: checkin_dt: Date.now()
+                Docs.update FlowRouter.getParam('doc_id'),
+                    $set: checked_out: false
+                swal "Checked In Key at #{Date.now()}", "",'success'
+    
 
         'blur #name': ->
             name = $('#name').val()
             Docs.update @_id,
                 $set: name: name
 
-    
         'blur #phone': ->
             phone = $('#phone').val()
             Docs.update @_id,
                 $set: phone: phone
 
-    
         'blur #company': ->
             company = $('#company').val()
             Docs.update @_id,
                 $set: company: company
 
-    
         'blur #notes': ->
             notes = $('#notes').val()
             Docs.update @_id,
