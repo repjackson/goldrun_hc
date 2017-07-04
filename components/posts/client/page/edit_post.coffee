@@ -55,7 +55,7 @@ Template.edit_post.events
         Docs.update FlowRouter.getParam('doc_id'),
             $set: featured: false
 
-    'click #delete': ->
+    'click #delete_post': ->
         swal {
             title: 'Delete?'
             # text: 'Confirm delete?'
@@ -67,6 +67,5 @@ Template.edit_post.events
             confirmButtonText: 'Delete'
             confirmButtonColor: '#da5347'
         }, ->
-            post = Docs.findOne FlowRouter.getParam('posts_id')
-            Docs.remove post._id, ->
+            Docs.remove FlowRouter.getParam('doc_id'), ->
                 FlowRouter.go "/posts"

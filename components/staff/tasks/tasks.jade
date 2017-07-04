@@ -34,19 +34,25 @@ template(name='tasks')
             i#add_task.green.plus.link.icon 
         .ui.centered.cards
             each tasks
-                +task_card
+                +task
                     
                 
-template(name='task_card')
+template(name='task')
     .ui.card
         if before_image_id
             .image
-                .ui.header Before
-                img.ui.small.image(src="{{c.url before_image_id width='400' crop='scale' }}")
-        if after_image_id
-            .image
-                .ui.header After
-                img.ui.small.image(src="{{c.url after_image_id width='400' crop='scale' }}")
+                .ui.shape
+                    .flip_shape.sides
+                        if before_image_id
+                            a.side.active
+                                .image
+                                    .ui.header Before
+                                    img.ui.image(src="{{c.url before_image_id width='400' height='400' crop='lpad' }}")
+                        if after_image_id
+                            a.side
+                                .image
+                                    .ui.header After
+                                    img.ui.image(src="{{c.url after_image_id width='400' height='400' crop='lpad' }}")
         .content
             if complete
                 span.right.floated

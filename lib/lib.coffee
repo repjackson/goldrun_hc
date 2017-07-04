@@ -1,8 +1,5 @@
 
 
-FlowRouter.route '/', action: ->
-    BlazeLayout.render 'layout', 
-        main: 'home'
 
 
 FlowRouter.route '/contact', action: (params) ->

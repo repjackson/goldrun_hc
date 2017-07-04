@@ -1,6 +1,7 @@
 if Meteor.isClient
     FlowRouter.route '/bikes', action: ->
         BlazeLayout.render 'layout', 
+            sub_nav: 'staff_nav'
             main: 'bikes'
             
             

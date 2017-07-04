@@ -58,7 +58,7 @@ template(name='post_item')
             .meta
                 | Published #{publish_when}
             .description
-                |{{nl2br body}}
+                |!{description}
                 a(href="/post/view/#{_id}") 
                     |View More
                     i.arrow.right.icon

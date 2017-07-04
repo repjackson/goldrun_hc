@@ -62,7 +62,6 @@ template(name='keys')
                 thead
                     tr
                         th Tag #
-                        th Exists
                         th Status
                         th Building
                         th Apt #
@@ -77,11 +76,8 @@ template(name='keys')
                                     i.green.large.check.icon
                                 // else
                                 //     i.remove.icon
-                            td 
                                 if checked_out
                                     .ui.blue.label Checked Out
-                                else
-                                    .ui.basic.label In
                             td 
                                 |#{building_code}: #{building_number} 
                             td 

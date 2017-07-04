@@ -10,16 +10,20 @@ if Meteor.isClient
             main: 'edit_task'
     
     
+    Template.task.onRendered ->
+        Meteor.setTimeout (->
+            $('.shape').shape()
+        ), 500
     
     
     Template.tasks.onCreated ->
         @autorun -> Meteor.subscribe('tasks')
     
     Template.tasks.onRendered ->
-        Meteor.setTimeout (->
-            $('table').tablesort()
-            # $('select.dropdown').dropdown()
-        ), 500
+        # Meteor.setTimeout (->
+        #     $('table').tablesort()
+        #     # $('select.dropdown').dropdown()
+        # ), 500
 
 
 
@@ -29,8 +33,7 @@ if Meteor.isClient
     
          
     Template.tasks.helpers
-        tasks: -> 
-            Docs.find { type: 'task' }
+        tasks: -> Docs.find { type: 'task' }
          
     Template.edit_task.helpers
         buildings: ->
@@ -48,6 +51,13 @@ if Meteor.isClient
             # alert 'hi'
             id = Docs.insert type:'task'
             FlowRouter.go "/task/edit/#{id}"
+    
+    Template.task.events
+        'click .flip_shape': (e,t)->
+            $(e.currentTarget).closest('.shape').shape('flip over');
+            # console.log $(e.currentTarget).closest('.shape').shape('flip up')
+            # $('.shape').shape('flip up')
+
     
     Template.edit_task.helpers
         task: -> 

@@ -1,5 +1,5 @@
 template(name='home')
-    .ui.three.column.grid.container
+    .ui.three.column.grid.stackable.container
         .column
             .ui.segment
                 h3.ui.header
@@ -22,9 +22,13 @@ template(name='home')
                 h4.ui.header Most Recent Reading: 
         .column
             .ui.segment
-                .ui.header Notices
-                    h4 Front Desk Hiring
-                    h4 Bike Policy
+                .ui.dividing.header Notices
+                .ui.divided.items
+                    each featured_posts
+                        .ui.item
+                            .content
+                                .header #{title}
+                                .description !{description}
                     
         .column
             .ui.segment

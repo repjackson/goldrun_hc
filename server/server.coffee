@@ -13,3 +13,7 @@ Cloudinary.config
     api_secret: Meteor.settings.cloudinary_secret
 
 
+Meteor.publish 'featured_posts', ->
+    Docs.find
+        type: 'post'
+        featured: true

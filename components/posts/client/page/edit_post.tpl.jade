@@ -12,17 +12,10 @@ with post
             //     label Description
             //     .froala-container
             //         +froalaReactive getFEContext
-            .field
-                textarea#body(rows='5') #{body}
-            .field
-                label Tags
-                each tags
-                    .ui.basic.button.doc_tag(class=doc_tag_class)
-                        i.minus.icon
-                        |#{this}
-                .ui.left.icon.four.wide.input
-                    i.add.icon
-                    input#add_tag(type='text' placeholder='Add Tag' maxlength='50')
+            +edit_description
+            // .field
+            //     textarea#body(rows='5') #{body}
+            +edit_tags
             .field
                 label Status
                 if published
@@ -31,20 +24,20 @@ with post
                 else
                     #publish.ui.basic.button
                         |Private
-            // .field
-            //     if featured
-            //         #make_unfeatured.ui.basic.icon.button
-            //             i.toggle.on.icon
-            //     else
-            //         #make_featured.ui.basic.icon.button
-            //             i.toggle.off.icon
-            //     if featured
-            //         .ui.green.basic.label Featured
-            //     else
-            //         .ui.basic.label Unfeatured
+            .field
+                if featured
+                    #make_unfeatured.ui.basic.icon.button
+                        i.toggle.on.icon
+                else
+                    #make_featured.ui.basic.icon.button
+                        i.toggle.off.icon
+                if featured
+                    .ui.green.basic.label Featured
+                else
+                    .ui.basic.label Unfeatured
             if title
                 #save_post.ui.green.button 
                     i.check.icon
                     |Save
-            #delete.ui.red.icon.button
+            #delete_post.ui.red.icon.button
                 i.trash.icon

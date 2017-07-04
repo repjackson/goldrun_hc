@@ -13,7 +13,7 @@ with post
                 if publish_date
                     h4.ui.header Published #{publish_when}
                 .ui.basic.segment
-                    |{{nl2br body}}
+                    |!{description}
                 if tags
                     .ui.basic.segment
                         each tags

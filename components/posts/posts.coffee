@@ -15,7 +15,7 @@ if Meteor.isClient
     @selected_post_tags = new ReactiveArray []
     
     Template.posts.onCreated ->
-        @autorun -> Meteor.subscribe('docs', 'post')
+        @autorun -> Meteor.subscribe('docs', selected_post_tags.array(), 'post')
     
     Template.posts.helpers
         posts: -> 
@@ -26,7 +26,7 @@ if Meteor.isClient
                 
     Template.posts.events
         'click #add_post': ->
-            id = Docs.insert {}
+            id = Docs.insert type: 'post'
             FlowRouter.go "/post/edit/#{id}"
     
     
