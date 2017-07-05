@@ -7,6 +7,17 @@ template(name='home')
                 h4.ui.header Status: 
                     .ui.basic.green.label Operational
                 h4.ui.header Most Recent Reading: 
+                with last_pool_reading
+                    .ui.list
+                        .item
+                            | pH:
+                            .ui.basic.label #{ph}
+                        .item
+                            | Chlorine/Br:
+                            .ui.basic.label #{chlorine}
+                        .item
+                            | Temperature:
+                            .ui.basic.label #{temperature}
                 
             .ui.segment
                 h3.ui.header 
@@ -14,12 +25,35 @@ template(name='home')
                 h4.ui.header Status: 
                     .ui.basic.green.label Operational
                 h4.ui.header Most Recent Reading: 
+                with last_outdoor_hot_tub_reading
+                    .ui.list
+                        .item
+                            | pH:
+                            .ui.basic.label #{ph}
+                        .item
+                            | Chlorine/Br:
+                            .ui.basic.label #{chlorine}
+                        .item
+                            | Temperature:
+                            .ui.basic.label #{temperature}
+                
             .ui.segment
                 h3.ui.header
                     |Indoor Hot Tub
                 h4.ui.header Status: 
                     .ui.basic.green.label Operational
                 h4.ui.header Most Recent Reading: 
+                with last_indoor_hot_tub_reading
+                    .ui.list
+                        .item
+                            | pH:
+                            .ui.basic.label #{ph}
+                        .item
+                            | Chlorine/Br:
+                            .ui.basic.label #{chlorine}
+                        .item
+                            | Temperature:
+                            .ui.basic.label #{temperature}
         .column
             .ui.segment
                 .ui.dividing.header Notices

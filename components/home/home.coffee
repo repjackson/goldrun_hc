@@ -5,6 +5,7 @@ if Meteor.isClient
     
     Template.home.onCreated ->
         @autorun -> Meteor.subscribe('featured_posts')
+        @autorun -> Meteor.subscribe('readings')
     
     Template.home.helpers
         featured_posts: -> 
@@ -12,6 +13,21 @@ if Meteor.isClient
                 sort:
                     publish_date: -1
                 limit: 10
+                
+        last_pool_reading: ->
+            Docs.findOne
+                type: 'reading'
+                location: 'pool'
+        last_indoor_hot_tub_reading: ->
+            Docs.findOne
+                type: 'reading'
+                location: 'indoor_hot_tub'
+        last_outdoor_hot_tub_reading: ->
+            Docs.findOne
+                type: 'reading'
+                location: 'outdoor_hot_tub'
+            
+                
                 
     Template.home.events
         # 'click #add_post': ->
