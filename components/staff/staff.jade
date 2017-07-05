@@ -5,24 +5,24 @@ template(name='staff')
         
 template(name='staff_nav')
     .ui.seven.item.menu
-        a.mobile.hidden.item(href='/readings' class="{{isActivePath '/readings'}}")
+        a.item(href='/readings' class="{{isActivePath '/readings'}}")
             i.theme.icon
-            | Readings
-        a.mobile.hidden.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
+            span.mobile.hidden  Readings
+        a.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
             i.random.icon
-            |Lost and Found
-        a.mobile.hidden.item(href='/bikes' class="{{isActivePath '/bikes'}}")
+            span.mobile.hidden Lost and Found
+        a.item(href='/bikes' class="{{isActivePath '/bikes'}}")
             i.bicycle.icon
-            |Bikes
-        a.mobile.hidden.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
+            span.mobile.hidden Bikes
+        a.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
             i.circle.info.icon
-            |Desk Staff
-        a.mobile.hidden.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+            span.mobile.hidden Desk Staff
+        a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
             i.building.icon
-            |Buildings
-        a.mobile.hidden.item(href='/tasks' class="{{isActivePath '/tasks'}}")
+            span.mobile.hidden Buildings
+        a.item(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.edit.icon
-            |Tasks
-        a.mobile.hidden.item(href='/keys' class="{{isActivePath '/keys'}}")
+            span.mobile.hidden Tasks
+        a.item(href='/keys' class="{{isActivePath '/keys'}}")
             i.key.icon
-            |Keys
+            span.mobile.hidden Keys

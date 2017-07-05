@@ -13,7 +13,10 @@ FlowRouter.notFound =
 Template.body.events
     'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
 
-    
+Template.registerHelper 'is_editing', () -> 
+    # console.log 'this', @
+    Session.equals 'editing_id', @_id
+
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
 
 Template.registerHelper 'can_edit', () ->  Meteor.userId() is @author_id or Roles.userIsInRole(Meteor.userId(), 'admin')

@@ -1,10 +1,10 @@
 with post
-    .ui.container.grid
+    .ui.container.divided.grid
         .row
             a.ui.top.left.attached.basic.button(href="/posts")
                 i.arrow.left.icon
-                |Docs
-        .row
+                |Posts
+        .centered.row
             h1.ui.center.aligned.header #{title}
             if image_id
                 img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
@@ -22,10 +22,10 @@ with post
             .five.wide.column
                 // +user_card
                 if isInRole 'admin'
-                    .edit_post.ui.basic.fluid.button
+                    .edit_post.ui.basic.large.button
                         i.pencil.icon
                         |Edit
-                    div
+                    .ui.hidden.divider
                         if published
                             .ui.green.basic.label Published
                         else

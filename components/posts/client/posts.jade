@@ -55,8 +55,9 @@ template(name='post_item')
             img.ui.rounded.image(src="{{c.url image_id  width=175 height=175 crop='fill' gravity='face' }}")
         .content
             a.header(href="/post/view/#{_id}") #{title}
-            .meta
-                | Published #{publish_when}
+            if publish_date
+                .meta
+                    | Published #{publish_when}
             .description
                 |!{description}
                 a(href="/post/view/#{_id}") 
