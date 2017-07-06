@@ -26,7 +26,7 @@ if Meteor.isClient
     
     Template.keys.onCreated ->
         @autorun -> Meteor.subscribe('keys', selected_buildings.array())
-        @autorun -> Meteor.subscribe('buildings')
+        @autorun -> Meteor.subscribe('docs', [], 'building')
 
     # Template.edit_key.onRendered ->
     #     Meteor.setTimeout (->
@@ -51,7 +51,7 @@ if Meteor.isClient
         keys: -> 
             Docs.find {type: 'key'},
                 sort: tag_number: 1
-        buildings: -> Buildings.find()
+        buildings: -> Docs.find type: 'building'
          
         selected_building_class: ->
             if @building_code in selected_buildings.array() then 'blue' else 'basic'
@@ -59,11 +59,13 @@ if Meteor.isClient
          selected_buildings: -> selected_buildings.array()
          
     Template.edit_key.helpers
-        buildings: -> Buildings.find()
+        buildings: -> Docs.find type: 'building'
          
         building_numbers: ->
             # console.log @
-            building = Buildings.findOne building_code: @building_code
+            building = Docs.findOne 
+                type: 'building'
+                building_code: @building_code
             # console.log building
             if building then building.building_numbers
         key: -> 

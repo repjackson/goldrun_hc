@@ -17,7 +17,7 @@ if Meteor.isClient
     
     
     Template.tasks.onCreated ->
-        @autorun -> Meteor.subscribe('tasks')
+        @autorun -> Meteor.subscribe 'docs', [], 'task'
     
     Template.tasks.onRendered ->
         # Meteor.setTimeout (->
@@ -28,8 +28,8 @@ if Meteor.isClient
 
 
     Template.edit_task.onCreated ->
-        @autorun -> Meteor.subscribe('task', FlowRouter.getParam('doc_id'))
-        @autorun -> Meteor.subscribe('buildings')
+        @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
+        @autorun -> Meteor.subscribe 'docs', [], 'building'
     
          
     Template.tasks.helpers
@@ -37,11 +37,13 @@ if Meteor.isClient
          
     Template.edit_task.helpers
         buildings: ->
-            Buildings.find()
+            Docs.find type: 'building'
          
         building_numbers: ->
             # console.log @
-            building = Buildings.findOne building_code: @lock_building_code
+            building = Docs.findOne 
+                building_code: @lock_building_code
+                type: 'building'
             # console.log building
             if building then building.building_numbers
     
@@ -97,23 +99,3 @@ if Meteor.isClient
             location = $(e.currentTarget).closest('#location').val()
             Docs.update @_id,
                 $set: location: location
-
-
-
-
-
-if Meteor.isServer
-    Meteor.publish 'tasks', ()->
-        
-        self = @
-        match = {}
-        match.type = 'task'
-        # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
-        #     match.published = true
-        
-        Docs.find match
-    
-    Meteor.publish 'task', (doc_id)->
-        Docs.find doc_id
-
-    
