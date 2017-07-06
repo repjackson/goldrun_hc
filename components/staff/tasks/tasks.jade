@@ -32,6 +32,7 @@ template(name='tasks')
     .ui.container
         h1.ui.center.aligned.header Tasks
             i#add_task.green.plus.link.icon 
+        +cloud filter='task'
         .ui.centered.cards
             each tasks
                 +task
@@ -67,6 +68,10 @@ template(name='task')
                 span
                     i.calendar.icon
                     |#{due_date}
+        .content
+            i.tags.icon
+            each tags
+                .ui.basic.label #{this}
         if complete
             .content
                 |Completed by #{staff}

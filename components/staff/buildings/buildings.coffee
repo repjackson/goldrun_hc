@@ -17,7 +17,7 @@ if Meteor.isClient
 
     
     Template.buildings.onCreated ->
-        @autorun -> Meteor.subscribe('docs', [], 'building')
+        @autorun -> Meteor.subscribe('docs', selected_tags.array(), 'building')
         
    
     Template.edit_building.onCreated ->

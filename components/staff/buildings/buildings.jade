@@ -4,7 +4,6 @@ template(name='edit_building')
             .ui.header Edit Building
             .ui.form
                 +building_code
-                .ui.header old address #{building_address}
                 .field
                     label Building Numbers
                     .ui.divided.list
@@ -15,6 +14,7 @@ template(name='edit_building')
                     .ui.action.input
                         input#new_building_number(type='number' min='0')
                         #add_building_number.ui.button Add Building Number
+                +edit_tags
                 .field
                     label Building Street: #{building_street}
                     // input#building_street(type='text' value=building_street)
@@ -31,6 +31,7 @@ template(name='buildings')
     .ui.container
         h1.ui.center.aligned.header Buildings
             i#add_building.green.plus.link.icon 
+        +cloud filter='building'
         table.ui.striped.sortable.table
             thead
                 tr
@@ -46,7 +47,7 @@ template(name='buildings')
                             each building_numbers
                                 .ui.basic.large.label #{this}
                         td.single.line #{building_street}
-                        td 
+                        td.single.line 
                             a.ui.compact.button(href="/building/edit/#{_id}")
                                 i.pencil.icon
                                 | Edit

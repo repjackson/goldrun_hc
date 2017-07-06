@@ -1,36 +1,24 @@
-@Requests = new Meteor.Collection 'requests'
-
-Requests.before.insert (userId, request)->
-    request.timestamp = Date.now()
-    request.author_id = Meteor.userId()
-
-
-Requests.helpers
-    author: -> Meteor.users.findOne @author_id
-    when: -> moment(@timestamp).fromNow()
-
-
 if Meteor.isClient
     FlowRouter.route '/requests', action: ->
         BlazeLayout.render 'layout', 
             main: 'requests'
             
             
-    FlowRouter.route '/request/edit/:request_id', action: ->
+    FlowRouter.route '/request/edit/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             main: 'edit_request'
     
     
     
     Template.requests.onCreated ->
-        @autorun -> Meteor.subscribe('requests')
+        @autorun -> Meteor.subscribe('docs', selected_tags.array(), 'request')
 
     Template.edit_request.onCreated ->
-        @autorun -> Meteor.subscribe('request', FlowRouter.getParam('request_id'))
+        @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
 
     
     Template.requests.helpers
-        requests: -> Requests.find() 
+        requests: -> Docs.find type:'request'
 
          
          
@@ -38,18 +26,18 @@ if Meteor.isClient
                 
     Template.requests.events
         'click #add_request': ->
-            id = Requests.insert {}
+            id = Docs.insert type:'request'
             FlowRouter.go "/request/edit/#{id}"
     
 
     Template.request.events
         'click .approve': ->
-            Requests.update @_id,
+            Docs.update @_id,
                 $set:
                     approved: true
         
         'click .disapprove': ->
-            Requests.update @_id,
+            Docs.update @_id,
                 $set:
                     approved: false
             
@@ -59,19 +47,25 @@ if Meteor.isClient
 
     Template.edit_request.helpers
         request: -> 
-            request_id = FlowRouter.getParam 'request_id'
-            Requests.findOne  request_id
+            doc_id = FlowRouter.getParam 'doc_id'
+            Docs.findOne  doc_id
+
+        # shift_button_class: ->
+        #     console.log @valueOf()
 
     Template.edit_request.events
         'blur #request_date': ->
             request_date = $('#request_date').val()
-            console.log request_date
-            Requests.update FlowRouter.getParam('request_id'),
+            # console.log request_date
+            Docs.update FlowRouter.getParam('doc_id'),
                 $set:
                     request_date: request_date
     
-        'click .shift': ->
-            console.log @
+        'click .shift': (e,t)->
+            selected_shift = $(e.currentTarget).closest('.shift').data('value')
+            Docs.update @_id,
+                $set: shift: selected_shift
+                
     
         'click #delete_request': ->
             swal {
@@ -85,36 +79,5 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, =>
-                Requests.remove FlowRouter.getParam('request_id'), ->
+                Docs.remove FlowRouter.getParam('doc_id'), ->
                     FlowRouter.go "/requests"
-
-
-
-if Meteor.isServer
-    Requests.allow
-        insert: (userId, doc) -> 
-            userId
-            # Roles.userIsInRole(userId, 'admin')
-        update: (userId, doc) -> 
-            userId
-            # Roles.userIsInRole(userId, 'admin')
-        remove: (userId, doc) -> 
-            userId
-            # Roles.userIsInRole(userId, 'admin')
-    
-    
-    
-    Meteor.publish 'requests', ()->
-        
-        self = @
-        match = {}
-        
-        Requests.find match,
-            limit: 10
-            sort: 
-                timestamp: -1
-    
-    Meteor.publish 'request', (request_id)->
-        Requests.find request_id
-
-    

@@ -17,7 +17,7 @@ if Meteor.isClient
     
     
     Template.tasks.onCreated ->
-        @autorun -> Meteor.subscribe 'docs', [], 'task'
+        @autorun -> Meteor.subscribe 'docs', selected_tags.array(), 'task'
     
     Template.tasks.onRendered ->
         # Meteor.setTimeout (->
