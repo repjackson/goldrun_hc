@@ -21,7 +21,7 @@ template(name='edit_task')
                 .field
                     label Description
                     input#description(type='text' value=description)
-
+                +edit_tags
                 .ui.basic.center.aligned.segment
                     a.ui.green.big.button(href='/tasks') Save Task
                     #delete_task.ui.red.icon.button

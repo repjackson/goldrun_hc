@@ -4,7 +4,7 @@ if Meteor.isClient
             main: 'people'
             
             
-    FlowRouter.route '/person/edit/:person_id', action: ->
+    FlowRouter.route '/person/edit/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             main: 'edit_person'
     
@@ -16,29 +16,30 @@ if Meteor.isClient
             
     
     Template.people.onCreated ->
-        @autorun -> Meteor.subscribe('people')
+        @autorun -> Meteor.subscribe('docs', [], 'person')
    
     Template.edit_person.onCreated ->
-        @autorun -> Meteor.subscribe('person', FlowRouter.getParam('person_id'))
+        @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
 
 
 
     Template.people.helpers
         people: -> 
-            People.find {}
+            # People.find {}
+            Docs.find
+                type: 'person'
                 
     Template.people.events
         'click #add_person': ->
-            id = People.insert {}
+            id = Docs.insert type:'person'
             FlowRouter.go "/person/edit/#{id}"
-    
     
 
     Template.edit_person.helpers
         person: -> 
-            person_id = FlowRouter.getParam('person_id')
-            # console.log person_id
-            People.findOne person_id 
+            doc_id = FlowRouter.getParam('doc_id')
+            # console.log doc_id
+            Docs.findOne doc_id 
 
         unassigned_roles: ->
             role_list = [
@@ -65,70 +66,45 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, ->
-                people.remove FlowRouter.getParam('person_id'), ->
+                Docs.remove FlowRouter.getParam('doc_id'), ->
                     FlowRouter.go "/people"
 
 
         'click .assign_role': ->
-            People.update FlowRouter.getParam('person_id'),
+            Docs.update FlowRouter.getParam('doc_id'),
                 $addToSet: 
                     roles: @valueOf()
         'click .unassign_role': ->
-            People.update FlowRouter.getParam('person_id'),
+            Docs.update FlowRouter.getParam('doc_id'),
                 $pull: 
                     roles: @valueOf()
 
         'blur #first_name': ->
             first_name = $('#first_name').val().trim()
-            People.update FlowRouter.getParam('person_id'),
+            Docs.update FlowRouter.getParam('doc_id'),
                 $set: first_name: first_name
 
         'blur #last_name': ->
             last_name = $('#last_name').val().trim()
-            People.update FlowRouter.getParam('person_id'),
+            Docs.update FlowRouter.getParam('doc_id'),
                 $set: last_name: last_name
 
         'blur #email': ->
             email = $('#email').val().trim()
-            People.update FlowRouter.getParam('person_id'),
+            Docs.update FlowRouter.getParam('doc_id'),
                 $set: email: email
 
         'blur #phone': ->
             phone = $('#phone').val().trim()
-            People.update FlowRouter.getParam('person_id'),
+            Docs.update FlowRouter.getParam('doc_id'),
                 $set: phone: phone
 
         'blur #company': ->
             company = $('#company').val().trim()
-            People.update FlowRouter.getParam('person_id'),
+            Docs.update FlowRouter.getParam('doc_id'),
                 $set: company: company
 
         'blur #position': ->
             position = $('#position').val().trim()
-            People.update FlowRouter.getParam('person_id'),
+            Docs.update FlowRouter.getParam('doc_id'),
                 $set: position: position
-
-
-
-
-
-if Meteor.isServer
-    People.allow
-        insert: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
-        update: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
-        remove: (userId, doc) -> Roles.userIsInRole(userId, 'admin')
-    
-    
-    Meteor.publish 'people', ()->
-        
-        self = @
-        match = {}
-        # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
-        #     match.published = true
-        
-        People.find match
-    
-    Meteor.publish 'person', (person_id)->
-        People.find person_id
-
-    
