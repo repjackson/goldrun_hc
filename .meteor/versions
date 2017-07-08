@@ -10,6 +10,7 @@ babrahams:constellation@0.4.9
 babrahams:editable-json@0.6.4
 babrahams:temple@0.4.5
 base64@1.0.10
+benjick:webcam@0.0.2
 binary-heap@1.0.10
 blaze@2.3.2
 blaze-html-templates@1.1.2

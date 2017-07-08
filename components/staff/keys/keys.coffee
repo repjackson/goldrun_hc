@@ -9,7 +9,6 @@ if Meteor.isClient
     
     FlowRouter.route '/keys', action: ->
         BlazeLayout.render 'layout',
-            sub_nav: 'staff_nav'
             main: 'keys'
             
             

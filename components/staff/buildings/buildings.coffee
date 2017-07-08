@@ -1,7 +1,6 @@
 if Meteor.isClient
     FlowRouter.route '/buildings', action: ->
         BlazeLayout.render 'layout', 
-            sub_nav: 'staff_nav'
             main: 'buildings'
             
             

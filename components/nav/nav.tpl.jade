@@ -10,21 +10,25 @@
     a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
         i.users.icon
         |People
-    a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
+    a.ui.mobile.hidden.simple.dropdown.item(href='/community' class="{{isActivePath '/community'}}")
         i.users.icon
         |Community
-    a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
-        i.calendar.icon
-        |Events
-    a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
-        i.shopping.bag.icon
-        |Classifieds
-    a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
-        i.comments.outline.icon
-        |Disccussion
+        .ui.menu
+            a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
+                i.calendar.icon
+                |Events
+            a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
+                i.shopping.bag.icon
+                |Classifieds
+            a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
+                i.comments.outline.icon
+                |Discussion
     a.mobile.hidden.item(href='/posts' class="{{isActivePath '/posts'}}")
         i.sticky.note.outline.icon
         |Posts
+    a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}")
+        i.sign.in.icon
+        |Health Club Check In
     .mobile.hidden.right.menu
         if currentUser
             // a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")

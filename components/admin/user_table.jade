@@ -1,0 +1,24 @@
+template(name='user_table')
+    .ui.container
+        a#add_user.ui.basic.green.labeled.icon.button(href='/user/add')
+            i.plus.icon
+            |Add User
+        table.ui.sortable.striped.table
+            thead
+                tr
+                    th Image
+                    th Profile
+            tbody
+                each users
+                    tr
+                        td 
+                            img.ui.tiny.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                        td 
+                            .ui.header 
+                                |#{name}
+                            div 
+                                | Username: #{username}
+                            each emails
+                                |#{address}
+                            a(href="/account/profile/edit/#{_id}")
+                                |Edit

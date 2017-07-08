@@ -2,20 +2,16 @@
 FlowRouter.route '/admin/members', action: (params) ->
     BlazeLayout.render 'layout',
         nav: 'nav'
-        sub_nav: 'admin_nav'
         main: 'user_table'
  
  
 if Meteor.isClient
     Template.user_table.onCreated ->
-        self = @
-        self.autorun ->
-            self.subscribe 'users'
+        @autorun ->  Meteor.subscribe 'users'
     
     
     Template.user_table.helpers
-        users: -> 
-            Meteor.users.find {}
+        users: -> Meteor.users.find {}
             
         user_is_admin: -> 
             # console.log @
@@ -30,6 +26,10 @@ if Meteor.isClient
     
     
     Template.user_table.events
+        'click #add_user': ->
+            
+    
+    
         'click .remove_admin': ->
             self = @
             swal {
@@ -98,9 +98,3 @@ if Meteor.isClient
     
  
  
-        
-if Meteor.isServer
-    Meteor.publish 'users', ->
-        match = {}
-        Meteor.users.find match
-         

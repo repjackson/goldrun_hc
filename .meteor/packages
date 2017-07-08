@@ -43,3 +43,4 @@ themeteorchef:bert
 mizzao:autocomplete
 dynamic-import
 froala:editor-reactive@=2.4.2
+benjick:webcam
