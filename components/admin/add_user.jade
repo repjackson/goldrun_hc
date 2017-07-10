@@ -20,18 +20,23 @@ template(name='add_user')
                             input(type='file' name='upload_picture' accept='image/*')
                 .ten.wide.column    
                     .field
+                        label Username
+                        .ui.input
+                            input#username(type='text' )
+                    .field
                         label First Name 
                         .ui.input
-                            input#first_name(type='text' value=profile.first_name)
+                            input#first_name(type='text')
                     .field
                         label Last Name 
                         .ui.input
-                            input#last_name(type='text' value=profile.last_name)
+                            input#last_name(type='text')
                     .field
                         label Email
-                        each emails
-                            .ui.basic.label #{address}
+                        .ui.input
+                            input#email(type='text')
+                            
         .field
                 .ui.center.aligned.basic.segment
-                    #save_profile.ui.center.aligned.huge.teal.button
-                        |Save
+                    #add_person.ui.center.aligned.huge.teal.button
+                        |Add Person

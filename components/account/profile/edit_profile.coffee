@@ -1,4 +1,8 @@
 if Meteor.isClient
+    FlowRouter.route '/account/profile/edit/:user_id', action: (params) ->
+        BlazeLayout.render 'layout',
+            main: 'edit_profile'
+    
     Template.edit_profile.onCreated ->
         @autorun -> Meteor.subscribe 'user_profile', FlowRouter.getParam('user_id') 
     
@@ -91,7 +95,7 @@ if Meteor.isClient
             $('#add_tag').val(tag)
     
         'click #save_profile': ->
-            FlowRouter.go "/account/profile/view/#{@_id}"
+            FlowRouter.go "/profile/#{@_id}"
     
         "change input[type='file']": (e) ->
             files = e.currentTarget.files

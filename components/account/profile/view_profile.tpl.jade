@@ -5,6 +5,8 @@ with person
         .ten.wide.column
             h2.ui.header
                 |#{profile.first_name} #{profile.last_name}
+            if can_edit_profile
+                a.ui.basic.button(href="/account/profile/edit/#{_id}") Edit Profile
             if tags
                 i.large.tags.icon
                 each tags
@@ -12,6 +14,10 @@ with person
             if profile.position
                 .ui.header Position 
                 | #{profile.position}
+            if profile.phone
+                .ui.header Phone
+                i.phone.icon
+                | #{profile.phone}
             if profile.company
                 .ui.header Company
                 | #{profile.company}

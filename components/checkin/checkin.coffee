@@ -64,7 +64,7 @@ if Meteor.isClient
                         confirmButtonText: 'Ok'
                         closeOnConfirm: true
                         }, ->
-                        #     FlowRouter.go "/account/profile/view/#{user._id}"
+                        #     FlowRouter.go "/profile/#{user._id}"
             
         'click .sign_out_user': ->
             swal {

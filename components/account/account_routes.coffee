@@ -10,12 +10,6 @@ FlowRouter.route '/account/settings', action: (params) ->
         
         
 
-FlowRouter.route '/account/profile/edit/:user_id', action: (params) ->
-    BlazeLayout.render 'layout',
-        main: 'edit_profile'
 
-FlowRouter.route '/account/profile/view/:user_id', action: (params) ->
-    BlazeLayout.render 'layout',
-        main: 'view_profile'
 
 

@@ -1,5 +1,5 @@
 
-FlowRouter.route '/admin/members', action: (params) ->
+FlowRouter.route '/admin', action: (params) ->
     BlazeLayout.render 'layout',
         nav: 'nav'
         main: 'user_table'
@@ -13,13 +13,10 @@ if Meteor.isClient
     Template.user_table.helpers
         users: -> Meteor.users.find {}
             
-        user_is_admin: -> 
-            # console.log @
-            Roles.userIsInRole(@_id, 'admin')
-    
-        user_is_member: -> 
-            # console.log @
-            Roles.userIsInRole(@_id, 'member')
+        is_staff: -> Roles.userIsInRole(@_id, 'staff')
+        is_owner: -> Roles.userIsInRole(@_id, 'owner')
+        is_dev: -> Roles.userIsInRole(@_id, 'dev')
+        is_resident: -> Roles.userIsInRole(@_id, 'resident')
     
     
     
@@ -30,10 +27,10 @@ if Meteor.isClient
             
     
     
-        'click .remove_admin': ->
+        'click .remove_staff': ->
             self = @
             swal {
-                title: "Remove #{@emails[0].address} from Admins?"
+                title: "Remove #{@emails[0].address} from staffs?"
                 # text: 'You will not be able to recover this imaginary file!'
                 type: 'warning'
                 animation: false
@@ -42,58 +39,127 @@ if Meteor.isClient
                 confirmButtonText: 'Remove Privilages'
                 closeOnConfirm: false
             }, ->
-                Roles.removeUsersFromRoles self._id, 'admin'
-                swal "Removed Admin Privilages from #{self.emails[0].address}", "",'success'
+                Roles.removeUsersFromRoles self._id, 'staff'
+                swal "Removed staff Privilages from #{self.emails[0].address}", "",'success'
                 return
     
     
-        'click .make_admin': ->
+        'click .make_staff': ->
             self = @
             swal {
-                title: "Make #{@emails[0].address} an Admin?"
+                title: "Make #{@emails[0].address} an staff?"
                 # text: 'You will not be able to recover this imaginary file!'
                 type: 'warning'
                 animation: false
                 showCancelButton: true
                 # confirmButtonColor: '#DD6B55'
-                confirmButtonText: 'Make Admin'
+                confirmButtonText: 'Make staff'
                 closeOnConfirm: false
             }, ->
-                Roles.addUsersToRoles self._id, 'admin'
-                swal "Made #{self.emails[0].address} an Admin", "",'success'
+                Roles.addUsersToRoles self._id, 'staff'
+                swal "Made #{self.emails[0].address} a staff", "",'success'
                 return
     
-        'click .remove_member': ->
+        'click .remove_owner': ->
             self = @
             swal {
-                title: "Remove #{@emails[0].address} from members?"
+                title: "Remove #{@emails[0].address} from owners?"
                 # text: 'You will not be able to recover this imaginary file!'
                 type: 'warning'
                 animation: false
                 showCancelButton: true
                 # confirmButtonColor: '#DD6B55'
-                confirmButtonText: 'Remove Member Status'
+                confirmButtonText: 'Remove owner Status'
                 closeOnConfirm: false
             }, ->
-                Roles.removeUsersFromRoles self._id, 'member'
-                swal "Removed member privilages from #{self.emails[0].address}", "",'success'
+                Roles.removeUsersFromRoles self._id, 'owner'
+                swal "Removed owner privilages from #{self.emails[0].address}", "",'success'
                 return
     
     
-        'click .make_member': ->
+        'click .make_owner': ->
             self = @
             swal {
-                title: "Make #{@emails[0].address} a member?"
+                title: "Make #{@emails[0].address} a owner?"
                 # text: 'You will not be able to recover this imaginary file!'
                 type: 'warning'
                 animation: false
                 showCancelButton: true
                 # confirmButtonColor: '#DD6B55'
-                confirmButtonText: 'Make Member'
+                confirmButtonText: 'Make owner'
                 closeOnConfirm: false
             }, ->
-                Roles.addUsersToRoles self._id, 'member'
-                swal "Made #{self.emails[0].address} an member", "",'success'
+                Roles.addUsersToRoles self._id, 'owner'
+                swal "Made #{self.emails[0].address} an owner", "",'success'
+                return
+    
+ 
+         'click .remove_resident': ->
+            self = @
+            swal {
+                title: "Remove #{@username} from residents?"
+                # text: 'You will not be able to recover this imaginary file!'
+                type: 'warning'
+                animation: false
+                showCancelButton: true
+                # confirmButtonColor: '#DD6B55'
+                confirmButtonText: 'Remove resident Status'
+                closeOnConfirm: false
+            }, ->
+                Roles.removeUsersFromRoles self._id, 'resident'
+                swal "Removed resident privilages from #{self.username}", "",'success'
+                return
+    
+    
+        'click .make_resident': ->
+            self = @
+            swal {
+                title: "Make #{@username} a resident?"
+                # text: 'You will not be able to recover this imaginary file!'
+                type: 'warning'
+                animation: false
+                showCancelButton: true
+                # confirmButtonColor: '#DD6B55'
+                confirmButtonText: 'Make resident'
+                closeOnConfirm: false
+            }, ->
+                Roles.addUsersToRoles self._id, 'resident'
+                swal "Made #{self.username} an resident", "",'success'
+                return
+    
+ 
+  
+         'click .remove_dev': ->
+            self = @
+            swal {
+                title: "Remove #{@username} from devs?"
+                # text: 'You will not be able to recover this imaginary file!'
+                type: 'warning'
+                animation: false
+                showCancelButton: true
+                # confirmButtonColor: '#DD6B55'
+                confirmButtonText: 'Remove dev Status'
+                closeOnConfirm: false
+            }, ->
+                Roles.removeUsersFromRoles self._id, 'dev'
+                swal "Removed dev privilages from #{self.username}", "",'success'
+                return
+    
+    
+        'click .make_dev': ->
+            self = @
+            swal {
+                title: "Make #{@username} a dev?"
+                # text: 'You will not be able to recover this imaginary file!'
+                type: 'warning'
+                animation: false
+                showCancelButton: true
+                # confirmButtonColor: '#DD6B55'
+                confirmButtonText: 'Make dev'
+                closeOnConfirm: false
+            }, ->
+                Roles.addUsersToRoles self._id, 'dev'
+                swal "Made #{self.username} a dev", "",'success'
                 return
     
  
