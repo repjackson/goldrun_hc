@@ -9,6 +9,11 @@ if Meteor.isClient
             main: 'edit_building'
     
     
+    FlowRouter.route '/building/view/:doc_id', action: ->
+        BlazeLayout.render 'layout', 
+            main: 'view_building'
+    
+    
     Template.buildings.onRendered ->
         Meteor.setTimeout (->
             $('table').tablesort()
@@ -20,6 +25,9 @@ if Meteor.isClient
         
    
     Template.edit_building.onCreated ->
+        @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
+
+    Template.view_building.onCreated ->
         @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
 
 
@@ -35,6 +43,12 @@ if Meteor.isClient
             FlowRouter.go "/building/edit/#{id}"
     
     Template.edit_building.helpers
+        building: -> 
+            doc_id = FlowRouter.getParam('doc_id')
+            # console.log doc_id
+            Docs.findOne doc_id 
+
+    Template.view_building.helpers
         building: -> 
             doc_id = FlowRouter.getParam('doc_id')
             # console.log doc_id

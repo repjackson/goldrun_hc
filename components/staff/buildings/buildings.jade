@@ -23,7 +23,7 @@ template(name='edit_building')
                         option(value='Shadow Creek Dr') Shadow Creek Dr
                         option(value='Sundown Ln') Sundown Ln
                         option(value='Springdale Ln') Springdale Ln
-                a.ui.green.big.button(href='/buildings') Save Building
+                a.ui.green.big.button(href="/building/view/#{_id}") Save Building
                 #delete_building.ui.red.icon.button
                     i.trash.icon            
             
@@ -51,5 +51,41 @@ template(name='buildings')
                             a.ui.compact.button(href="/building/edit/#{_id}")
                                 i.pencil.icon
                                 | Edit
+                            a.ui.compact.button(href="/building/view/#{_id}")
+                                i.right.arrow.icon
+                                | View
 
             
+            
+template(name='view_building')
+    a.ui.basic.button(href='/buildings')
+        i.left.arrow.icon
+        |Buildings
+    with building
+        .ui.container
+            h1.ui.center.aligned.header Building #{building_code} Page
+            .ui.stackable.grid
+                .ten.wide.column
+                    .ui.dividing.header Notices
+                    .ui.dividing.header Posts
+                    .ui.dividing.header Maintenance Requests
+                    .ui.dividing.header Residents
+            
+            
+                .six.wide.column
+                    .ui.form
+                        .inline.field
+                            label Code
+                            .ui.basic.large.label #{building_code}
+                        .inline.field
+                            label Numbers
+                                each building_numbers
+                                    .ui.basic.large.label #{this}
+                        .inline.field
+                            label Street
+                            .ui.basic.large.label #{building_street}
+                    .ui.dividing.header
+                        i.configure.icon
+                        |Admin
+                    a.ui.basic.button(href="/building/edit/#{_id}") Edit Building
+                
