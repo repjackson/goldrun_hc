@@ -1,0 +1,32 @@
+template(name='view_profile')
+    with user
+        .ui.container.grid
+            .five.wide.column
+                img.ui.centered.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+            .ten.wide.column
+                h2.ui.header
+                    |#{first_name} #{last_name} #{username}
+                if can_edit_profile
+                    a.ui.basic.button(href="/user#{username}/edit") Edit Profile
+                if tags
+                    i.large.tags.icon
+                    each tags
+                        .ui.basic.label #{this}
+                if position
+                    .ui.header Position 
+                    | #{position}
+                if phone
+                    .ui.header Phone
+                    i.phone.icon
+                    | #{phone}
+                if company
+                    .ui.header Company
+                    | #{company}
+                if website
+                    .ui.header Website 
+                    a(href=website target='_blank') #{website}
+                if isInRole 'admin'
+                    .ui.horizontal.divider.header
+                        i.red.configure.icon
+                        | Admin
+                    +timecard
