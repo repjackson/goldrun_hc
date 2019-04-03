@@ -4,7 +4,7 @@
   "galaxy.meteor.com": {
     "env": {
       "MONGO_URL": "mongodb://goldrunadmin:turnfearagainstthose@aws-us-east-1-portal.21.dblayer.com:10444/goldrundb?ssl=true",
-      "ROOT_URL": "https://www.goldrun.io"
+      "ROOT_URL": "https://www.goldrun.meteorapp.com"
     }
   }
 }

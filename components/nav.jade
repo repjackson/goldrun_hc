@@ -1,16 +1,14 @@
 template(name='nav')
-    .ui.inverted.borderless.stackable.top.attached.large.menu
+    .ui.inverted.borderless.stackable.top.attached.labeled.icon.menu
         a.toggle_sidebar.mobile.only.header.item
             i.sidebar.icon
-            | Gold Run
+            | gr
 
-        a.header.mobile.hidden.item(href='/' class="{{isActivePath '/'}}") 
+        a.header.mobile.hidden.icon.item(href='/' class="{{isActivePath '/'}}") 
             i.home.icon
-            |Gold Run
         // .header.mobile.hidden.item GR
-        a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
+        a.mobile.hidden.icon.item(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
-            |People
         //- a.ui.mobile.hidden.simple.dropdown.item(href='/community' class="{{isActivePath '/community'}}")
         //-     i.users.icon
         //-     |Community
@@ -27,9 +25,9 @@ template(name='nav')
         //- a.mobile.hidden.item(href='/posts' class="{{isActivePath '/posts'}}")
         //-     i.sticky.note.outline.icon
         //-     |Posts
-        a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}")
-            i.sign.out.alternate.icon
-            |Health Club Check In
+        //- a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}")
+        //-     i.sign.in.alternate.icon
+        //-     |Health Club Check In
         .mobile.hidden.right.menu
             if currentUser
                 a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
@@ -41,13 +39,13 @@ template(name='nav')
                             .item #{text}
                 a.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
                     i.mail.icon
-                if isInRole 'admin'
+                if is_admin
                     a.mobile.hidden.item(href='/admin' class="{{isActivePath '/admin'}}")
                         i.configure.icon
-                        |Admin
+                        //- |Admin
                 a.mobile.hidden.item(href='/staff' class="{{isActivePath '/staff'}}")
                     i.info.circle.icon
-                    |Staff
+                    //- |Staff
                 a.mobile.hidden.item(href="/account/profile/edit/#{currentUser._id}" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
                     if currentUser.profile.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
@@ -55,12 +53,10 @@ template(name='nav')
                         i.user.icon
                     if currentUser.name
                         | #{currentUser.name}
-                    else
-                        | Profile
-                a#logout.ui.mobile.hidden.item(href='#') 
-                    i.sign.out.icon
-                    | Sign Out
+                //- a#logout.ui.mobile.hidden.item(href='#') 
+                //-     i.sign.out.icon
+                    //- | Sign Out
             else
-                a.ui.mobile.hidden.item(href='/sign-in') 
-                    i.sign.in.alternate.icon
-                    | Sign In
+                a.ui.mobile.hidden.item(href='/login') 
+                    i.sign.in.icon
+                    | Log In
