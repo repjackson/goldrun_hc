@@ -1,15 +1,15 @@
 if Meteor.isClient
-    FlowRouter.route '/buildings', action: ->
+    Router.route '/buildings', action: ->
         BlazeLayout.render 'layout', 
             main: 'buildings'
             
             
-    FlowRouter.route '/building/edit/:doc_id', action: ->
+    Router.route '/building/edit/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             main: 'edit_building'
     
     
-    FlowRouter.route '/building/view/:doc_id', action: ->
+    Router.route '/building/view/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             main: 'view_building'
     
@@ -25,10 +25,10 @@ if Meteor.isClient
         
    
     Template.edit_building.onCreated ->
-        @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
+        @autorun -> Meteor.subscribe('doc', Router.getParam('doc_id'))
 
     Template.view_building.onCreated ->
-        @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
+        @autorun -> Meteor.subscribe('doc', Router.getParam('doc_id'))
 
 
 
@@ -40,17 +40,17 @@ if Meteor.isClient
     Template.buildings.events
         'click #add_building': ->
             id = Docs.insert type: 'building'
-            FlowRouter.go "/building/edit/#{id}"
+            Router.go "/building/edit/#{id}"
     
     Template.edit_building.helpers
         building: -> 
-            doc_id = FlowRouter.getParam('doc_id')
+            doc_id = Router.getParam('doc_id')
             # console.log doc_id
             Docs.findOne doc_id 
 
     Template.view_building.helpers
         building: -> 
-            doc_id = FlowRouter.getParam('doc_id')
+            doc_id = Router.getParam('doc_id')
             # console.log doc_id
             Docs.findOne doc_id 
 
@@ -68,8 +68,8 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, ->
-                Docs.remove FlowRouter.getParam('doc_id'), ->
-                    FlowRouter.go "/buildings"
+                Docs.remove Router.getParam('doc_id'), ->
+                    Router.go "/buildings"
 
 
 
@@ -95,7 +95,7 @@ if Meteor.isClient
 
         'click .remove_number': (e,t)->
             building_number = @valueOf()
-            Docs.update FlowRouter.getParam('doc_id'),
+            Docs.update Router.getParam('doc_id'),
                 $pull: 
                     building_numbers: building_number
             

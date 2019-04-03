@@ -4,16 +4,16 @@
 $.cloudinary.config
     cloud_name:"facet"
 
-    
-FlowRouter.notFound =
+
+Router.notFound =
     action: ->
-        BlazeLayout.render 'layout', 
+        BlazeLayout.render 'layout',
             main: 'not_found'
 
 Template.body.events
     'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
 
-Template.registerHelper 'is_editing', () -> 
+Template.registerHelper 'is_editing', () ->
     # console.log 'this', @
     Session.equals 'editing_id', @_id
 
@@ -42,8 +42,8 @@ Template.sidebar.onRendered ->
                     })
                     .sidebar('attach events', '.context.example .menu .toggle_sidebar.item')
             , 500
-            
-            
+
+
 Template.camera.onRendered ->
     Webcam.on 'error', (err) ->
         console.log err
@@ -61,5 +61,5 @@ Template.camera.events 'click .snap': ->
     Webcam.snap (image) ->
         Session.set 'webcamSnap', image
 
-Template.camera.helpers 
+Template.camera.helpers
     image: -> Session.get 'webcamSnap'

@@ -1,26 +1,26 @@
 if Meteor.isClient
-    FlowRouter.route '/readings', action: ->
+    Router.route '/readings', action: ->
         BlazeLayout.render 'layout', 
             sub_sub_nav: 'reading_menu'
             main: 'all_readings'
             
-    FlowRouter.route '/readings/indoor', action: ->
+    Router.route '/readings/indoor', action: ->
         BlazeLayout.render 'layout', 
             sub_sub_nav: 'reading_menu'
             main: 'readings'
             
-    FlowRouter.route '/readings/outdoor', action: ->
+    Router.route '/readings/outdoor', action: ->
         BlazeLayout.render 'layout', 
             sub_sub_nav: 'reading_menu'
             main: 'readings'
             
-    FlowRouter.route '/readings/pool', action: ->
+    Router.route '/readings/pool', action: ->
         BlazeLayout.render 'layout', 
             sub_sub_nav: 'reading_menu'
             main: 'readings'
             
             
-    FlowRouter.route '/reading/edit/:doc_id', action: ->
+    Router.route '/reading/edit/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             sub_nav: 'reading_menu'
             main: 'edit_reading'
@@ -37,7 +37,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe('readings')
 
     Template.edit_reading.onCreated ->
-        @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
+        @autorun -> Meteor.subscribe('doc', Router.getParam('doc_id'))
     
     Template.readings.helpers
         readings: -> 
@@ -57,14 +57,14 @@ if Meteor.isClient
             id = Docs.insert
                 type: 'reading'
                 location: Template.currentData().location
-            FlowRouter.go "/reading/edit/#{id}"
+            Router.go "/reading/edit/#{id}"
     
     
     
     
     Template.edit_reading.helpers
         reading: -> 
-            doc_id = FlowRouter.getParam('doc_id')
+            doc_id = Router.getParam('doc_id')
             # console.log doc_id
             Docs.findOne doc_id 
 
@@ -118,8 +118,8 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, ->
-                Docs.remove FlowRouter.getParam('doc_id'), ->
-                    FlowRouter.go "/readings"
+                Docs.remove Router.getParam('doc_id'), ->
+                    Router.go "/readings"
 
 
 

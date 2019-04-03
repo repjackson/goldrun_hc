@@ -1,11 +1,11 @@
 if Meteor.isClient
     Template.view_key.onCreated ->
-        @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
-        @autorun -> Meteor.subscribe('key_checkouts', FlowRouter.getParam('doc_id'))
+        @autorun -> Meteor.subscribe('doc', Router.getParam('doc_id'))
+        @autorun -> Meteor.subscribe('key_checkouts', Router.getParam('doc_id'))
     
     Template.view_key.helpers
         key: -> 
-            doc_id = FlowRouter.getParam('doc_id')
+            doc_id = Router.getParam('doc_id')
             # console.log doc_id
             Docs.findOne doc_id 
     
@@ -39,7 +39,7 @@ if Meteor.isClient
                     apartment_number: @apartment_number
                     checkout_dt: Date.now()
                     type: 'key_checkout'
-                Docs.update FlowRouter.getParam('doc_id'),
+                Docs.update Router.getParam('doc_id'),
                     $set: checked_out: true
                 Session.set 'editing_id', new_id
         
@@ -73,7 +73,7 @@ if Meteor.isClient
             }, =>
                 Docs.update @_id,
                     $set: checkin_dt: Date.now()
-                Docs.update FlowRouter.getParam('doc_id'),
+                Docs.update Router.getParam('doc_id'),
                     $set: checked_out: false
                 swal "Checked In Key at #{Date.now()}", "",'success'
     

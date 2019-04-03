@@ -1,10 +1,10 @@
 if Meteor.isClient
-    FlowRouter.route '/lostfound', action: ->
+    Router.route '/lostfound', action: ->
         BlazeLayout.render 'layout', 
             main: 'lostfound'
             
             
-    FlowRouter.route '/lostfound/edit/:doc_id', action: ->
+    Router.route '/lostfound/edit/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             main: 'edit_lf_item'
     
@@ -13,7 +13,7 @@ if Meteor.isClient
     Template.lostfound.onCreated ->
         @autorun -> Meteor.subscribe('docs', selected_tags.array(), 'lostfound')
     Template.edit_lf_item.onCreated ->
-        @autorun -> Meteor.subscribe('lostfound_item', FlowRouter.getParam('doc_id'))
+        @autorun -> Meteor.subscribe('lostfound_item', Router.getParam('doc_id'))
 
     
     Template.lostfound.helpers
@@ -29,12 +29,12 @@ if Meteor.isClient
         'click #add_lf_reading': ->
             id = Docs.insert
                 type: 'lostfound'
-            FlowRouter.go "/lostfound/edit/#{id}"
+            Router.go "/lostfound/edit/#{id}"
     
 
     Template.edit_lf_item.helpers
         doc: -> 
-            doc_id = FlowRouter.getParam 'doc_id'
+            doc_id = Router.getParam 'doc_id'
             Docs.findOne  doc_id
 
     Template.edit_lf_item.events
@@ -50,9 +50,9 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, =>
-                doc = Docs.findOne FlowRouter.getParam('doc_id')
+                doc = Docs.findOne Router.getParam('doc_id')
                 Docs.remove doc._id, ->
-                    FlowRouter.go "/lostfound"
+                    Router.go "/lostfound"
 
 
 

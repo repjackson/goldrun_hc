@@ -1,11 +1,11 @@
 if Meteor.isClient
-    FlowRouter.route '/tasks', action: ->
+    Router.route '/tasks', action: ->
         BlazeLayout.render 'layout', 
             sub_nav: 'staff_nav'
             main: 'tasks'
             
             
-    FlowRouter.route '/task/edit/:doc_id', action: ->
+    Router.route '/task/edit/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             main: 'edit_task'
     
@@ -28,7 +28,7 @@ if Meteor.isClient
 
 
     Template.edit_task.onCreated ->
-        @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
+        @autorun -> Meteor.subscribe 'doc', Router.getParam('doc_id')
         @autorun -> Meteor.subscribe 'docs', [], 'building'
     
          
@@ -52,7 +52,7 @@ if Meteor.isClient
         'click #add_task': ->
             # alert 'hi'
             id = Docs.insert type:'task'
-            FlowRouter.go "/task/edit/#{id}"
+            Router.go "/task/edit/#{id}"
     
     Template.task.events
         'click .flip_shape': (e,t)->
@@ -63,7 +63,7 @@ if Meteor.isClient
     
     Template.edit_task.helpers
         task: -> 
-            doc_id = FlowRouter.getParam('doc_id')
+            doc_id = Router.getParam('doc_id')
             # console.log doc_id
             Docs.findOne doc_id 
 
@@ -82,8 +82,8 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, ->
-                Docs.remove FlowRouter.getParam('doc_id'), ->
-                    FlowRouter.go "/tasks"
+                Docs.remove Router.getParam('doc_id'), ->
+                    Router.go "/tasks"
 
         'blur #description': (e,t)->
             description = $(e.currentTarget).closest('#description').val()

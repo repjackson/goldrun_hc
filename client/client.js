@@ -6,7 +6,7 @@
     cloud_name: "facet"
   });
 
-  FlowRouter.notFound = {
+  Router.notFound = {
     action: function() {
       return BlazeLayout.render('layout', {
         main: 'not_found'

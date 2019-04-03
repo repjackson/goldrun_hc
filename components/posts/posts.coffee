@@ -1,13 +1,13 @@
 if Meteor.isClient
-    FlowRouter.route '/posts', action: ->
+    Router.route '/posts', action: ->
         BlazeLayout.render 'layout', 
             main: 'posts'
     
-    FlowRouter.route '/post/edit/:doc_id', action: (params) ->
+    Router.route '/post/edit/:doc_id', action: (params) ->
         BlazeLayout.render 'layout',
             main: 'edit_post'
     
-    FlowRouter.route '/post/view/:doc_id', action: (params) ->
+    Router.route '/post/view/:doc_id', action: (params) ->
         BlazeLayout.render 'layout',
             main: 'post_page'
     
@@ -27,7 +27,7 @@ if Meteor.isClient
     Template.posts.events
         'click #add_post': ->
             id = Docs.insert type: 'post'
-            FlowRouter.go "/post/edit/#{id}"
+            Router.go "/post/edit/#{id}"
     
     
     
@@ -51,6 +51,6 @@ if Meteor.isClient
             if @valueOf() in selected_post_tags.array() then selected_post_tags.remove @valueOf() else selected_post_tags.push @valueOf()
     
         'click .edit_post': ->
-            FlowRouter.go "/post/edit/#{@_id}"
+            Router.go "/post/edit/#{@_id}"
 
 

@@ -7,16 +7,16 @@ if Meteor.isClient
     @selected_buildings = new ReactiveArray []
 
     
-    FlowRouter.route '/keys', action: ->
+    Router.route '/keys', action: ->
         BlazeLayout.render 'layout',
             main: 'keys'
             
             
-    FlowRouter.route '/key/edit/:doc_id', action: ->
+    Router.route '/key/edit/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             main: 'edit_key'
     
-    FlowRouter.route '/key/view/:doc_id', action: ->
+    Router.route '/key/view/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             main: 'view_key'
     
@@ -41,7 +41,7 @@ if Meteor.isClient
 
 
     Template.edit_key.onCreated ->
-        @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
+        @autorun -> Meteor.subscribe('doc', Router.getParam('doc_id'))
         @autorun -> Meteor.subscribe('buildings')
     
          
@@ -68,7 +68,7 @@ if Meteor.isClient
             # console.log building
             if building then building.building_numbers
         key: -> 
-            doc_id = FlowRouter.getParam('doc_id')
+            doc_id = Router.getParam('doc_id')
             # console.log doc_id
             Docs.findOne doc_id 
 
@@ -86,7 +86,7 @@ if Meteor.isClient
     Template.keys.events
         'click #add_key': ->
             id = Docs.insert type: 'key'
-            FlowRouter.go "/key/edit/#{id}"
+            Router.go "/key/edit/#{id}"
     
         'click .add_next_key': ->
             id = Docs.insert 
@@ -94,7 +94,7 @@ if Meteor.isClient
                 building_code: @building_code
                 building_number: @building_number
                 type: 'key'
-            FlowRouter.go "/key/edit/#{id}"
+            Router.go "/key/edit/#{id}"
     
         'click .toggle_view_building': ->
             if @building_code in selected_buildings.array() then selected_buildings.remove @building_code else selected_buildings.push @building_code
@@ -112,8 +112,8 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, ->
-                Docs.remove FlowRouter.getParam('doc_id'), ->
-                    FlowRouter.go "/keys"
+                Docs.remove Router.getParam('doc_id'), ->
+                    Router.go "/keys"
 
         'change #select_building_code': (e,t)->
             building_code = e.currentTarget.value

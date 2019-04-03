@@ -1,10 +1,10 @@
 if Meteor.isClient
-    FlowRouter.route '/requests', action: ->
+    Router.route '/requests', action: ->
         BlazeLayout.render 'layout', 
             main: 'requests'
             
             
-    FlowRouter.route '/request/edit/:doc_id', action: ->
+    Router.route '/request/edit/:doc_id', action: ->
         BlazeLayout.render 'layout', 
             main: 'edit_request'
     
@@ -14,7 +14,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe('docs', selected_tags.array(), 'request')
 
     Template.edit_request.onCreated ->
-        @autorun -> Meteor.subscribe('doc', FlowRouter.getParam('doc_id'))
+        @autorun -> Meteor.subscribe('doc', Router.getParam('doc_id'))
 
     
     Template.requests.helpers
@@ -27,7 +27,7 @@ if Meteor.isClient
     Template.requests.events
         'click #add_request': ->
             id = Docs.insert type:'request'
-            FlowRouter.go "/request/edit/#{id}"
+            Router.go "/request/edit/#{id}"
     
 
     Template.request.events
@@ -47,7 +47,7 @@ if Meteor.isClient
 
     Template.edit_request.helpers
         request: -> 
-            doc_id = FlowRouter.getParam 'doc_id'
+            doc_id = Router.getParam 'doc_id'
             Docs.findOne  doc_id
 
         # shift_button_class: ->
@@ -57,7 +57,7 @@ if Meteor.isClient
         'blur #request_date': ->
             request_date = $('#request_date').val()
             # console.log request_date
-            Docs.update FlowRouter.getParam('doc_id'),
+            Docs.update Router.getParam('doc_id'),
                 $set:
                     request_date: request_date
     
@@ -79,5 +79,5 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, =>
-                Docs.remove FlowRouter.getParam('doc_id'), ->
-                    FlowRouter.go "/requests"
+                Docs.remove Router.getParam('doc_id'), ->
+                    Router.go "/requests"

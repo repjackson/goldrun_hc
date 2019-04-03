@@ -1,10 +1,10 @@
 if Meteor.isClient
-    FlowRouter.route '/frontdesk', action: ->
+    Router.route '/frontdesk', action: ->
         BlazeLayout.render 'layout', 
             main: 'frontdesk'
             
             
-#     FlowRouter.route '/frontdesk/edit/:doc_id', action: ->
+#     Router.route '/frontdesk/edit/:doc_id', action: ->
 #         BlazeLayout.render 'layout', 
 #             main: 'edit_frontdesk'
     
@@ -13,7 +13,7 @@ if Meteor.isClient
 #     Template.frontdesk.onCreated ->
 #         @autorun -> Meteor.subscribe('frontdesk')
 #     Template.edit_frontdesk.onCreated ->
-#         @autorun -> Meteor.subscribe('frontdesk', FlowRouter.getParam('doc_id'))
+#         @autorun -> Meteor.subscribe('frontdesk', Router.getParam('doc_id'))
 
     
 #     Template.frontdesk.helpers
@@ -29,12 +29,12 @@ if Meteor.isClient
 #         'click #add_impounded_frontdesk': ->
 #             id = Docs.insert
 #                 type: 'frontdesk'
-#             FlowRouter.go "/frontdesk/edit/#{id}"
+#             Router.go "/frontdesk/edit/#{id}"
     
 
 #     Template.edit_frontdesk.helpers
 #         doc: -> 
-#             doc_id = FlowRouter.getParam 'doc_id'
+#             doc_id = Router.getParam 'doc_id'
 #             Docs.findOne  doc_id
 
 #     Template.edit_frontdesk.events
@@ -50,9 +50,9 @@ if Meteor.isClient
 #                 confirmButtonText: 'Delete'
 #                 confirmButtonColor: '#da5347'
 #             }, =>
-#                 doc = Docs.findOne FlowRouter.getParam('doc_id')
+#                 doc = Docs.findOne Router.getParam('doc_id')
 #                 Docs.remove doc._id, ->
-#                     FlowRouter.go "/frontdesk"
+#                     Router.go "/frontdesk"
 
 
 

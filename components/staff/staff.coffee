@@ -1,3 +1,3 @@
-FlowRouter.route '/staff', action: ->
+Router.route '/staff', action: ->
     BlazeLayout.render 'layout', 
         main: 'staff'
