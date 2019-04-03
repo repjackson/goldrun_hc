@@ -1,4 +1,4 @@
-.ui.inverted.borderless.stackable.top.attached.menu
+.ui.inverted.borderless.stackable.top.attached.large.menu
     a.toggle_sidebar.mobile.only.header.item
         i.sidebar.icon
         | Gold Run
@@ -10,36 +10,36 @@
     a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
         i.users.icon
         |People
-    a.ui.mobile.hidden.simple.dropdown.item(href='/community' class="{{isActivePath '/community'}}")
-        i.users.icon
-        |Community
-        .ui.menu
-            a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
-                i.calendar.icon
-                |Events
-            a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
-                i.shopping.bag.icon
-                |Classifieds
-            a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
-                i.comments.outline.icon
-                |Discussion
-    a.mobile.hidden.item(href='/posts' class="{{isActivePath '/posts'}}")
-        i.sticky.note.outline.icon
-        |Posts
+    //- a.ui.mobile.hidden.simple.dropdown.item(href='/community' class="{{isActivePath '/community'}}")
+    //-     i.users.icon
+    //-     |Community
+    //-     .ui.menu
+    //-         a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
+    //-             i.calendar.icon
+    //-             |Events
+    //-         a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
+    //-             i.shopping.bag.icon
+    //-             |Classifieds
+    //-         a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
+    //-             i.comments.outline.icon
+    //-             |Discussion
+    //- a.mobile.hidden.item(href='/posts' class="{{isActivePath '/posts'}}")
+    //-     i.sticky.note.outline.icon
+    //-     |Posts
     a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}")
         i.sign.in.icon
         |Health Club Check In
     .mobile.hidden.right.menu
         if currentUser
-            // a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-            //     i.line.chart.icon
-            // .ui.simple.dropdown.icon.item
-            //     i.alarm.icon
-            //     .menu
-            //         each notifications
-            //             .item #{text}
-            // a.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
-            //     i.mail.icon
+            a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                i.line.chart.icon
+            .ui.simple.dropdown.icon.item
+                i.alarm.icon
+                .menu
+                    each notifications
+                        .item #{text}
+            a.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
+                i.mail.icon
             if isInRole 'admin'
                 a.mobile.hidden.item(href='/admin' class="{{isActivePath '/admin'}}")
                     i.configure.icon
