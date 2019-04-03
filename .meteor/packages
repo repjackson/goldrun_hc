@@ -39,3 +39,4 @@ froala:editor-reactive@=2.4.2
 benjick:webcam
 mquandalle:jade
 underscore
+coffeescript

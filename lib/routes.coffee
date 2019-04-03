@@ -143,10 +143,10 @@ Router.route '/settings', -> @render 'settings'
 
 Router.route '/login', -> @render 'login'
 
-Router.route '/', (->
-    @layout 'layout'
-    @render 'home'
-    ), name:'home'
+# Router.route '/', (->
+#     @layout 'layout'
+#     @render 'home'
+#     ), name:'home'
 
 
 

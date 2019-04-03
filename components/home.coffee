@@ -1,19 +1,17 @@
 if Meteor.isClient
-    Router.route '/', action: ->
-        BlazeLayout.render 'layout', 
-            main: 'home'
-    
+    Router.route '/', -> @render 'home'
+
     Template.home.onCreated ->
         @autorun -> Meteor.subscribe('featured_posts')
         @autorun -> Meteor.subscribe('readings')
-    
+
     Template.home.helpers
-        featured_posts: -> 
+        featured_posts: ->
             Docs.find {featured:true},
                 sort:
                     publish_date: -1
                 limit: 10
-                
+
         last_pool_reading: ->
             Docs.findOne
                 type: 'reading'
@@ -26,11 +24,10 @@ if Meteor.isClient
             Docs.findOne
                 type: 'reading'
                 location: 'outdoor_hot_tub'
-            
-                
-                
+
+
+
     Template.home.events
         # 'click #add_post': ->
         #     id = Docs.insert type: 'post'
         #     Router.go "/post/edit/#{id}"
-    
