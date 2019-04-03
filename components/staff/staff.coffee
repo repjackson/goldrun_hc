@@ -1,3 +1,1 @@
-Router.route '/staff', action: ->
-    BlazeLayout.render 'layout', 
-        main: 'staff'
+Router.route '/staff', -> @render 'staff'

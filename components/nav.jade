@@ -1,13 +1,13 @@
 template(name='nav')
-    .ui.inverted.borderless.stackable.top.attached.labeled.icon.menu
+    .ui.center.aligned.segment
         a.toggle_sidebar.mobile.only.header.item
             i.sidebar.icon
             | gr
 
-        a.header.mobile.hidden.icon.item(href='/' class="{{isActivePath '/'}}") 
+        a.header.mobile.hidden.icon.ui.button(href='/' class="{{isActivePath '/'}}") 
             i.home.icon
         // .header.mobile.hidden.item GR
-        a.mobile.hidden.icon.item(href='/users' class="{{isActivePath '/users'}}")
+        a.mobile.hidden.icon.ui.button(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
         //- a.ui.mobile.hidden.simple.dropdown.item(href='/community' class="{{isActivePath '/community'}}")
         //-     i.users.icon
@@ -30,14 +30,14 @@ template(name='nav')
         //-     |Health Club Check In
         .mobile.hidden.right.menu
             if currentUser
-                a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                a.icon.ui.button(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                     i.line.chart.icon
-                .ui.simple.dropdown.icon.item
+                .ui.simple.dropdown.icon.ui.button
                     i.alarm.icon
                     .menu
                         each notifications
                             .item #{text}
-                a.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
+                a.icon.ui.button(href='/messages' class="{{isActivePath '/messages'}}")
                     i.mail.icon
                 if is_admin
                     a.mobile.hidden.item(href='/admin' class="{{isActivePath '/admin'}}")

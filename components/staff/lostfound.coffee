@@ -1,39 +1,30 @@
 if Meteor.isClient
-    Router.route '/lostfound', action: ->
-        BlazeLayout.render 'layout', 
-            main: 'lostfound'
-            
-            
-    Router.route '/lostfound/edit/:doc_id', action: ->
-        BlazeLayout.render 'layout', 
-            main: 'edit_lf_item'
-    
-    
-    
+    Router.route '/lostfound', -> @render 'lostfound'
+
     Template.lostfound.onCreated ->
         @autorun -> Meteor.subscribe('docs', selected_tags.array(), 'lostfound')
     Template.edit_lf_item.onCreated ->
         @autorun -> Meteor.subscribe('lostfound_item', Router.getParam('doc_id'))
 
-    
+
     Template.lostfound.helpers
-        lostfound_items: -> 
-            Docs.find 
+        lostfound_items: ->
+            Docs.find
                 type: 'lostfound'
-         
-         
-         
-         
-                
+
+
+
+
+
     Template.lostfound.events
         'click #add_lf_reading': ->
             id = Docs.insert
                 type: 'lostfound'
             Router.go "/lostfound/edit/#{id}"
-    
+
 
     Template.edit_lf_item.helpers
-        doc: -> 
+        doc: ->
             doc_id = Router.getParam 'doc_id'
             Docs.findOne  doc_id
 
@@ -58,19 +49,17 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'lostfound', ()->
-        
+
         self = @
         match = {}
         match.type = 'lostfound'
         # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
         #     match.published = true
-        
+
         Docs.find match,
             limit: 10
-            sort: 
+            sort:
                 timestamp: -1
-    
+
     Meteor.publish 'lostfound_item', (doc_id)->
         Docs.find doc_id
-
-    
