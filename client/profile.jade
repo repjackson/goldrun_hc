@@ -1,0 +1,293 @@
+template(name='profile_layout')
+    .layout.context
+        +nav
+        with user_from_username_param
+            .ui.padded.stackable.grid
+                .row
+                    .four.wide.column.scrolling
+                        .ui.large.center.aligned.header
+                            | #{user.first_name}
+                            | #{user.last_name}
+                        .ui.center.aligned.header
+                            | @#{user.username}                        
+                        if image_id
+                            a.item(href="/user/#{user_from_username_param.username}/about")
+                                img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
+                        //- if profile.image_id
+                        //-     a.item(href="/user/#{user_from_username_param.username}/about")
+                        //-         img.ui.medium.image(src="{{c.url profile.image_id height=400 crop='limit'}}")
+                        // if current_user
+                        if is_admin
+                            .ui.vertical.fluid.menu
+                                a.item(href="/user/#{user_from_username_param.username}/edit")
+                                    i.settings.icon
+                                    | Settings
+                        .ui.vertical.large.fluid.menu
+                            a.item(href="/user/#{user_from_username_param.username}/about" class="{{isActiveRoute regex='user_about'}}")
+                                i.info.icon
+                                .content    
+                                    .header
+                                        |About
+                            a.item(href="/user/#{user_from_username_param.username}/connections" class="{{isActiveRoute regex='user_connections'}}")
+                                i.fork.icon
+                                .content    
+                                    .header
+                                        |Connections
+                            a.item(href="/user/#{user_from_username_param.username}/messages" class="{{isActiveRoute regex='user_messages'}}")
+                                i.mail.icon
+                                .content    
+                                    .header
+                                        |Messages
+                            a.item(href="/user/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_notifications'}}")
+                                i.bullhorn.icon
+                                .content    
+                                    .header
+                                        |Notifications
+                            a.item(href="/user/#{user_from_username_param.username}/chat" class="{{isActiveRoute regex='user_chat'}}")
+                                i.chat.icon
+                                .content    
+                                    .header
+                                        |Chat
+                            a.item(href="/user/#{user_from_username_param.username}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
+                                i.stripe.icon
+                                .content    
+                                    .header
+                                        |Stripe
+                            a.item(href="/user/#{user_from_username_param.username}/tags" class="{{isActiveRoute regex='user_tags'}}")
+                                i.tags.icon
+                                .content    
+                                    .header
+                                        |Tags
+                            a.item(href="/user/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
+                                i.phone.icon
+                                .content    
+                                    .header
+                                        |Contact
+                        //- if user_schemas
+                        //-     .ui.vertical.large.fluid.menu
+                        //-         each user_schemas
+                        //-             a.item.set_delta_schema(href="/user/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                        //-                 i.icon(class=icon)
+                        //-                 .content    
+                        //-                     .header
+                        //-                         |#{plural}
+                        if is_user
+                            .ui.vertical.fluid.menu
+                                a.item.logout(href='#')
+                                    i.sign.out.icon
+                                    |Log Out
+                        .ui.segment
+                            .ui.header
+                                |#{user.points} Following
+                            .ui.header
+                                |#{user.points} Followers
+                            .ui.header
+                                i.heartbeat.icon
+                                |#{user.points} Karma
+                            .ui.header 
+                                i.user.shield.icon
+                                |Roles
+                            each roles
+                                .ui.label #{this}
+                    .twelve.wide.column.scrolling
+                        +yield
+            +footer
+            
+            
+template(name='user_section')
+    +user_delta
+    // +Template.dynamic template=user_section_template
+
+template(name='user_about')
+    //- .profile-banner-container
+    //-     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=300 crop='crop'}}")
+
+    .ui.padded.stackable.grid
+        .eight.wide.column
+            .ui.list
+                .ui.item First Name 
+                    strong #{first_name}
+                .ui.item Last Name 
+                    strong #{last_name}
+                .ui.item Address 
+                    strong #{address}
+                .ui.item Unit # 
+                    strong #{apt_number}
+                .ui.item Building # 
+                    strong #{building_number}
+                .ui.item Start Date 
+                    strong #{start_date}
+                .ui.item Lease Expiration 
+                    strong #{lease_expiration}
+                .ui.item Telephone 
+                    strong #{telephone}
+                //- .ui.item Email 
+                //-     strong #{email}
+                .ui.item Owner 
+                    strong #{owner}
+                .ui.small.header 
+                    i.linkify.icon
+                    |Link
+                a(href=profile.website target='_blank') #{website}
+            each emails
+                .ui.label #{address}
+    
+            +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
+            +user_bookmarks    
+        .eight.wide.column
+            +user_feed
+    if current_user
+        +role_switcher
+    +user_tags
+    
+
+
+
+
+
+
+template(name='user_people')
+    +user_following
+    +follow_user
+
+template(name='user_feed')
+    .ui.secondary.segment
+        .ui.header 
+            i.rss.icon
+            |Activity Feed
+        if current_user
+            .ui.fluid.input
+                input(type='text' placeholder='Share something...')
+    .ui.secondary.segment
+        +user_wall
+                
+                
+template(name='user_bookmarks')
+    .ui.header 
+        i.bookmark.icon
+        |Bookmarks
+            
+            
+                
+template(name='user_unread')
+    .ui.secondary.segment
+        .ui.header 
+            i.new.icon
+            |Unread Messages
+                
+                
+
+template(name='user_tasks')
+    .ui.header 
+        i.tasks.icon
+        |Tasks
+    .ui.fluid.input
+        input.assign_task(type='text' placeholder='Assign task')
+    .ui.button.view_complete(class=view_complete_class)
+        |View Completed
+    // .ui.button.view_incomplete(class=view_complete_class)
+    //     |View Incomplete
+    each assigned_tasks
+        .ui.segment
+            .ui.header #{body}
+            +boolean_edit key='complete' label='Complete'
+            if complete
+                i.big.green.checkmark.icon
+            +voting
+            +author_info
+            +creation_info
+                        
+            
+            
+template(name='user_array_list')
+    .ui.list
+        each users
+            .item
+                +user_info
+            
+            
+            
+template(name='role_switcher')
+    i.user.shield.icon(title='Role Switcher')
+    if is_eric
+        +user_array_element_toggle key='roles' value='dev' user=currentUser
+    +user_array_element_toggle key='roles' value='admin' user=currentUser
+    +user_array_element_toggle key='roles' value='user' user=currentUser
+    +user_array_element_toggle key='roles' value='staff' user=currentUser
+    +user_array_element_toggle key='roles' value='resident' user=currentUser
+    +user_array_element_toggle key='roles' value='owner' user=currentUser
+
+
+            
+template(name='user_array_element_toggle')
+    .ui.button.toggle_element(class=user_array_element_toggle_class)
+        |#{value}
+
+template(name='user_string_toggle')
+    .ui.button.toggle_element(class=user_string_element_toggle_class)
+        |#{value}
+        
+template(name='user_tags')
+    .ui.inline.header 
+        i.tags.icon
+        |User Tags
+    each tags
+        .ui.basic.label 
+            if is_user
+                i.remove.link.icon.remove_tag
+            |#{this}
+    // .ui.fluid.input
+    //     input.tag_user(type='text' placeholder='Tag yourself...')
+    // .ui.fluid.input
+    //     input(type='text' placeholder="Tag #{user_from_username_param.name}")
+            
+            
+template(name='user_notifications')
+    .ui.inline.header 
+        i.bullhorn.icon
+        |User Notifications
+    +user_following
+    +follow_user
+    
+template(name='user_following')    
+    .ui.secondary.segment
+        .ui.header 
+            i.human.icon
+            |Following
+        +user_array_list user=user_from_username_param array='following_ids'
+          
+                    
+
+template(name='follow_user')    
+    .ui.secondary.segment
+        unless current_user
+            a.toggle_follow_user(href='#' title='Follow User')
+                i.renew.icon
+        else
+            i.renew.icon
+        |Followed By
+        +user_array_list user=user_from_username_param array='followed_by_ids'
+                
+
+template(name='user_wall')
+    .ui.header
+        i.edit.icon
+        |Wall
+    if currentUser
+        .ui.fluid.icon.input
+            i.plus.icon
+            input.add_wall_post(type='text' placeholder='Add Note...')
+    .ui.comments
+        each user_posts
+            .comment
+                //- .avatar
+                .content
+                    a.author(href='#') #{author.first_name} #{author.last_name}
+                    .metadata
+                        span.date #{when}
+                    .text.large120 #{body}
+                    .actions
+                        i.remove.link.icon.remove_comment(title='Vote Down')
+                        i.thumbs.up.link.icon.vote_up_comment(title='Vote Up')
+                        |#{points}
+                        i.message.link.icon.mark_comment_read(title='Mark Read')        

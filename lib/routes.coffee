@@ -62,6 +62,11 @@ Router.route '/user/:username/about', (->
     @render 'user_about'
     ), name:'user_about'
 
+Router.route '/user/:username/view', (->
+    @layout 'profile_layout'
+    @render 'user_about'
+    ), name:'profile_view'
+
 Router.route '/user/:username', (->
     @layout 'profile_layout'
     @render 'user_about'
@@ -110,8 +115,6 @@ Router.route '/user/:username/notifications', (->
     ), name:'user_notifications'
 
 
-
-
 Router.route '/user/:username/chat', (->
     @layout 'profile_layout'
     @render 'user_chat'
@@ -148,21 +151,3 @@ Router.route '/', (->
     @layout 'layout'
     @render 'goldrun'
     ), name:'goldrun'
-
-
-
-Router.route '/t/:tribe_slug/', (->
-    @layout 'layout'
-    @render 'tribe_home'
-    ), name:'tribe_home'
-
-
-Router.route '/t/:tribe_slug/s/:type', (->
-    @layout 'layout'
-    @render 'delta'
-    ), name:'tribe_delta'
-
-
-# Router.route '/s/:type', -> @render 'delta'
-Router.route '/t/:tribe_slug/s/:type/:_id/edit', -> @render 'type_edit'
-Router.route '/t/:tribe_slug/s/:type/:_id/view', -> @render 'type_view'

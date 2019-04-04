@@ -10,6 +10,40 @@ Router.notFound =
         BlazeLayout.render 'layout',
             main: 'not_found'
 
+
+Session.setDefault 'invert', false
+Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
+Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'invert' else ''
+Template.registerHelper 'is_loading', () -> Session.get 'loading'
+Template.registerHelper 'dev', () -> Meteor.isDevelopment
+Template.registerHelper 'is_author', () -> @_author_id is Meteor.userId()
+Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
+Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM Do h:mm:ss a")
+Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
+Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
+
+
+Template.registerHelper 'current_schema', (input) ->
+    Docs.findOne
+        type:'schema'
+        slug: Router.current().params.type
+
+Template.registerHelper 'in_list', (key) ->
+    if Meteor.userId()
+        if Meteor.userId() in @["#{key}"] then true else false
+
+
+Template.registerHelper 'is_admin', () ->
+    if Meteor.user() and Meteor.user().roles
+        # if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
+        if 'admin' in Meteor.user().roles then true else false
+
+Template.registerHelper 'is_dev', () ->
+    if Meteor.user() and Meteor.user().roles
+        if 'dev' in Meteor.user().roles then true else false
+
+
+
 Template.body.events
     'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
 
@@ -25,6 +59,11 @@ Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 
 Template.registerHelper 'current_doc', ->
     Docs.findOne Router.current().params.doc_id
+
+Template.registerHelper 'user_from_username_param', () ->
+    found = Meteor.users.findOne username:Router.current().params.username
+    # console.log found
+    found
 
 
 

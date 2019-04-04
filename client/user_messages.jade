@@ -1,0 +1,32 @@
+
+template(name='user_messages')
+    .ui.header 
+        i.mail.icon
+        |User Messages
+    if currentUser
+        .ui.fluid.input
+            input#new_message(type='text' placeholder='New Message')
+    else
+        |Login to message
+    each user_messages
+        .ui.segment
+            .ui.header #{title}
+            .ui.header #{body}
+            each tags
+                .ui.label #{this}
+            div
+            +notify_message
+            div
+            +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
+            if can_edit
+                +remove_button
+            +author_info
+            +creation_info
+            //- +watson_view
+            
+
+template(name='notify_message')
+    unless notified
+        .ui.button.notify
+            i.rss.icon
+            |Notify #{to_username}

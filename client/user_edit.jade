@@ -1,0 +1,270 @@
+template(name='user_edit')
+    .ui.stackable.padded.grid.pad_left
+        .middle.aligned.row
+            .four.wide.center.aligned.column
+                a.ui.large.button(href="/u/#{user_from_username_param.username}/about" title='Profile') 
+                    i.checkmark.icon
+                    |Save
+            .eight.wide.center.aligned.column
+                .ui.center.aligned.large.header
+                    i.cog.icon
+                    | #{user_from_username_param.first_name} #{user_from_username_param.last_name} Profile
+                .ui.center.aligned.small.header @#{user_from_username_param.username}
+        .row
+            .five.wide.column.scrolling
+                .ui.form
+                    .field
+                        label First Name
+                        input#first_name(type='text', placeholder='First Name', value='{{user_from_username_param.first_name}}')
+                    .field
+                        label Last Name
+                        input#last_name(type='text', placeholder='Last Name', value='{{user_from_username_param.last_name}}')
+                    .field
+                        if user_from_username_param.image_id
+                            label Image
+                            .ui.centered.rounded.image
+                                img.ui.medium.image(src="{{c.url user_from_username_param.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                a#remove_photo.ui.right.corner.link.label
+                                    i.remove.link.icon
+                        else
+                            label Profile Image
+                            input(type='file' name='profile_image' accept='image/*')
+                    //- .field
+                    //-     if user_from_username_param.banner_image_id
+                    //-         label Banner Image
+                    //-         .ui.centered.rounded.image
+                    //-             img.ui.medium.image(src="{{c.url user_from_username_param.banner_image_id width=400 height=400 gravity='face' crop='fill'}}")
+                    //-             a#remove_banner.ui.right.corner.link.label
+                    //-                 i.remove.link.icon
+                    //-     else
+                    //-         label Banner Image
+                    //-         input(type='file' name='banner_image' accept='image/*')
+                //- .ui.fluid.button.update_profile Update
+                if is_dev
+                    +password_edit
+                    +phone_editor
+                    +username_edit
+                    +emails_edit
+                    .ui.orange.button.remove_user 
+                        i.remove.icon
+                        |Delete User
+            .eleven.wide.column
+                +user_tribe_editor
+                //- +user_schema_editor
+                //- if is_admin
+                //-     +user_single_doc_ref_editor key='building' schema='building' label='Building'
+                //-     +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
+                .ui.labeled.icon.input
+                     .ui.label Address
+                     i.globe.icon
+                     input#address(type='text' value=user_from_username_param.address)
+                .ui.labeled.icon.input
+                     .ui.label Unit #
+                     i.home.icon
+                     input#apt_number(type='number' value=user_from_username_param.apt_number)
+                .ui.labeled.icon.input
+                     .ui.label Building #
+                     i.building.icon
+                     input#building_number(type='number' value=user_from_username_param.building_number)
+                .ui.labeled.icon.input
+                     .ui.label Date Started
+                     i.calendar.icon
+                     input#start_date(type='date' value=user_from_username_param.start_date)
+                .ui.labeled.icon.input
+                     .ui.label 
+                         |Phone
+                     i.phone.icon
+                     input#telephone(type='number' value=user_from_username_param.telephone)
+                .ui.labeled.icon.input
+                     .ui.label Email
+                     input#email(type='email' value=user_from_username_param.email)
+                    
+                    // if user_from_username_param.owner
+                    //     .ui.blue.owner.button
+                    //         i.checkmark.icon
+                    //         | Owner
+                    // else 
+                    //     .ui.owner.button
+                    //         i.circle.outline.icon
+                    //         | Owner
+                    // unless user_from_username_param.owner       
+                    //     .ui.labeled.icon.input
+                    //         .ui.label Lease Expiration
+                    //         i.clock.icon
+                    //         input#lease_expiration(type='date' value=user_from_username_param.lease_expiration)
+                                        
+                //- +stripe_connect
+                //- +payment_methods
+
+
+template(name='user_schema_editor')
+    .ui.header Profile Sections
+    each schemas
+        .ui.button.toggle_schema(class=user_schema_class title=title)
+            i.icon(class=icon)
+            |#{title}
+            
+template(name='user_tribe_editor')
+    .ui.header My Tribes
+    each tribes
+        .ui.button.toggle_tribe(class=user_tribe_class title=title)
+            i.icon(class=icon)
+            |#{title}
+            
+            
+template(name='user_single_doc_ref_editor')
+    .ui.header #{label}
+    each choices
+        .ui.button.select_choice(class=choice_class title=title)
+            i.icon(class=icon)
+            |#{title}
+
+template(name='username_edit')
+    .ui.basic.segment
+        .ui.small.header 
+            i.i.cursor.icon
+            |Change Username [#{user_from_username_param.username}]
+        .ui.icon.fluid.input
+            input.new_username(type='text' placeholder='New Username...')
+            i.play.link.icon.change_username
+
+
+     
+template(name='phone_editor')
+    .ui.basic.segment
+        .ui.small.header    
+            i.phone.icon
+            |Phone
+        .ui.icon.fluid.input(title='Add Phone')
+            i.plus.icon
+            input#phone.form-control(type='phone', name='phone', value='{{newNumber}}')
+        if user_from_username_param.profile.phone
+            if user_from_username_param.profile.phone_verified
+                p
+                span.label.label-success Verified
+            else
+                p
+                    span.label.label-danger Not Verified
+                    a.resend_verification(href='#')
+                        i Resend Code
+                    .btn.btn-danger.remove_phone.btn-block Remove Phone
+        else
+            .ui.fluid.button.update_phone Add / Update Phone
+
+
+template(name='add_card_modal')
+
+
+
+template(name='password_edit')
+    .ui.basic.segment
+        .ui.small.header
+            i.lock.icon
+            |Change Password
+        .ui.fluid.input
+            input#password(type='password', placeholder='Old Password')
+        .ui.fluid.icon.input
+            input#new_password(type='password', placeholder='New Password')
+        .ui.fluid.button.change_password
+            i.refresh.icon
+            |Set Password
+        
+        .ui.fluid.button.send_enrollment_email
+            |Send Enrollment Email
+        if is_dev
+            .ui.fluid.button.set_password
+                i.user.shield.icon
+                | Set Password
+            
+            
+            
+         
+         
+template(name='user_field')         
+    .ui.form
+        .field  
+            label #{label}
+            input.user_field(type='text' value=key_value)
+                        
+                        
+template(name='church_profile')
+    .ui.basic.segment
+        #churchForm.form-horizontal
+            legend Church Information
+            .form-group
+                label.col-lg-2.control-label(for='name') Organization Name
+                .col-lg-10
+                    input#name.form-control(type='text', name='name', placeholder='Your Organization Name', value='{{user_from_username_param.profile.churchName}}')
+            .form-group
+                label.col-lg-2.control-label(for='address') Address
+                .col-lg-10
+                    input#address.form-control(type='text', name='address', value='{{user_from_username_param.profile.address.street}}')
+            .form-group
+                label.col-lg-2.control-label(for='city') City
+                .col-lg-10
+                    input#city.form-control(type='text', name='city', value='{{user_from_username_param.profile.address.city}}')
+            .form-group
+                label.col-lg-2.control-label(for='state') State
+                .col-lg-4
+                    input#state.form-control(type='text', name='state', value='{{user_from_username_param.profile.address.state}}')
+                label.col-lg-2.control-label(for='zip') Zip
+                .col-lg-4
+                    input#zip.form-control(type='text', name='zip', value='{{user_from_username_param.profile.address.zip}}')
+            .form-group
+                label.col-lg-2.control-label(for='website') Website
+                .col-lg-10
+                    input#website.form-control(type='text', name='website', value='{{user_from_username_param.profile.website}}')
+            .form-group
+                label.col-lg-2.control-label(for='phone') Phone Number
+                .col-lg-10
+                    input#phone.form-control(type='text', name='phone', value='{{user_from_username_param.profile.phone}}')
+            .form-group
+                label.col-lg-2.control-label(for='phone') Profile Pic
+                .col-lg-4
+                    input#Profile_photo.generate.form-control(type='file')
+                .col-lg-6
+                    .image.img-responsive
+                        if user_from_username_param.profile.profilePic
+                            img.img-responsive.clsProfilePic(src='{{user_from_username_param.profile.profilePic}}', alt='Profile Pic', width='100', height='100')
+                        else
+                            img.img-responsive.clsProfilePic(src='/icons/Logo_sm_100.png', alt='Profile Pic', width='100', height='100')
+            .btn.btn-primary.update_account.pull-right Update Organization Settings
+
+
+
+template(name='churchRepAccountEditor')
+    #userInfo.col-lg-6.form-horizontal
+        legend Representative Information
+        .form-group
+            label.col-lg-2.control-label(for='email') Email
+            .col-lg-10
+                // <input type="text" class="form-control" id="email" name='email'  value="{{#each user_from_username_param.emails}}{{address}}{{/each}}" disabled>
+                input#email.form-control(type='text', name='email', value='{{loggedinUserIDDet user_from_username_param.emails}}')
+        .btn.btn-primary.update_user.pull-right Update User
+
+
+            
+template(name='emails_edit')
+    .ui.basic.segment
+        .ui.small.header 
+            i.envelope.icon
+            | Email(s)
+        //- #test_email.ui.big.button test email
+        .ui.divided.list
+            each current_user.emails
+                .item 
+                    // unless verified
+                    //     .right.floated.content
+                    //         .ui.button Verify
+                    .content
+                        |#{address}
+                        if verified
+                            .ui.green.label Verified
+                        else
+                            .ui.basic.label Unverified
+                            .send_verification_email.ui.button Verify
+                        .ui.small.icon.button.remove_email
+                            i.remove.icon
+        .ui.action.fluid.input
+            input#new_email(type='email')
+            #add_email.ui.submit.button Add Email
