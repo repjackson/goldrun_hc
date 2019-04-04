@@ -1,0 +1,10 @@
+template(name='home')
+    .ui.centered.cards
+        .ui.icon.button.add_model
+            i.plus.icon
+        each models
+            a.ui.card(href="/s/#{slug}")
+                .content
+                    .ui.icon.header
+                        i.icon(class=icon)
+                        |#{title}

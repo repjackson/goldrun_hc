@@ -14,6 +14,7 @@ Router.route '/me', -> @render 'me'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'
 Router.route '/register_therapist', -> @render 'register_therapist'
+Router.route '/staff', -> @render 'staff'
 
 
 Router.route('enroll', {
@@ -143,10 +144,10 @@ Router.route '/settings', -> @render 'settings'
 
 Router.route '/login', -> @render 'login'
 
-# Router.route '/', (->
-#     @layout 'layout'
-#     @render 'home'
-#     ), name:'home'
+Router.route '/', (->
+    @layout 'layout'
+    @render 'home'
+    ), name:'home'
 
 
 

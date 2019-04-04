@@ -1,13 +1,12 @@
 template(name='nav')
-    .ui.center.aligned.segment
+    .ui.inverted.borderless.stackable.top.attached.labeled.icon.menu
         a.toggle_sidebar.mobile.only.header.item
             i.sidebar.icon
             | gr
 
-        a.header.mobile.hidden.icon.ui.button(href='/' class="{{isActivePath '/'}}") 
+        a.header.mobile.hidden.icon.item(href='/' class="{{isActivePath '/'}}") 
             i.home.icon
-        // .header.mobile.hidden.item GR
-        a.mobile.hidden.icon.ui.button(href='/users' class="{{isActivePath '/users'}}")
+        a.mobile.hidden.icon.item(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
         //- a.ui.mobile.hidden.simple.dropdown.item(href='/community' class="{{isActivePath '/community'}}")
         //-     i.users.icon
@@ -30,21 +29,19 @@ template(name='nav')
         //-     |Health Club Check In
         .mobile.hidden.right.menu
             if currentUser
-                a.icon.ui.button(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                     i.line.chart.icon
-                .ui.simple.dropdown.icon.ui.button
+                .ui.simple.dropdown.icon.item
                     i.alarm.icon
                     .menu
                         each notifications
                             .item #{text}
-                a.icon.ui.button(href='/messages' class="{{isActivePath '/messages'}}")
+                a.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
                     i.mail.icon
-                if is_admin
-                    a.mobile.hidden.item(href='/admin' class="{{isActivePath '/admin'}}")
-                        i.configure.icon
-                        //- |Admin
-                a.mobile.hidden.item(href='/staff' class="{{isActivePath '/staff'}}")
-                    i.info.circle.icon
+                a.mobile.hidden.item(href='/admin' class="{{isActivePath '/admin'}}")
+                    i.lock.icon
+                //- a.mobile.hidden.item(href='/staff' class="{{isActivePath '/staff'}}")
+                //-     i.info.circle.icon
                     //- |Staff
                 a.mobile.hidden.item(href="/account/profile/edit/#{currentUser._id}" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
                     if currentUser.profile.image_id
