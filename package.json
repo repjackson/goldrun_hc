@@ -2,6 +2,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.1.2",
 		"bcrypt": "^2.0.0",
+		"fomantic-ui": "^2.7.4",
 		"jquery": "^3.3.1",
 		"moment": "^2.24.0",
 		"watson-developer-cloud": "^3.3.0"
