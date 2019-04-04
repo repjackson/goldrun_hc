@@ -1,6 +1,6 @@
 template(name='home')
     .ui.centered.cards
-        .ui.icon.button.add_model
+        #add_model.ui.icon.button
             i.plus.icon
         each models
             a.ui.card(href="/s/#{slug}")
@@ -8,3 +8,10 @@ template(name='home')
                     .ui.icon.header
                         i.icon(class=icon)
                         |#{title}
+
+
+
+template(name='edit')
+    with current_doc
+        +text_edit key='title'
+        +text_edit key='slug'

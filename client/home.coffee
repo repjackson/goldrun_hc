@@ -12,7 +12,7 @@ if Meteor.isClient
         'click #add_model': ->
             id = Docs.insert
                 type: 'model'
-            Router.go "/model/edit/#{id}"
+            Router.go "/edit/#{id}"
 
 
     Template.edit_lf_item.helpers

@@ -146,8 +146,8 @@ Router.route '/login', -> @render 'login'
 
 Router.route '/', (->
     @layout 'layout'
-    @render 'home'
-    ), name:'home'
+    @render 'goldrun'
+    ), name:'goldrun'
 
 
 

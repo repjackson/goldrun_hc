@@ -23,6 +23,10 @@ Template.registerHelper 'can_edit', () ->  Meteor.userId() is @author_id or Role
 
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 
+Template.registerHelper 'current_doc', ->
+    Docs.findOne Router.current().params.doc_id
+
+
 
 Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
 
