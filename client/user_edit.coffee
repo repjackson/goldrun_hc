@@ -427,7 +427,7 @@ Template.username_edit.events
                         console.log err
                     else
                         alert "Username changed."
-                        Router.go("/u/#{new_username}")
+                        Router.go("/user/#{new_username}")
 
 
 

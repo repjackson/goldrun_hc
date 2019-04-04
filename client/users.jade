@@ -21,13 +21,13 @@
                         
 template(name='user_item')                            
     .ui.stackable.grid.segment
-        a.four.wide.column(href="/u/#{_id}/about") 
+        a.four.wide.column(href="/user/#{_id}/about") 
             if image_id
                 img.ui.image(src="{{c.url image_id width=200 height=150 crop='fit'}}")
             else if profile.image_id
                 img.ui.image(src="{{c.url profile.image_id width=200 height=150 crop='fit'}}")
         .twelve.wide.column
-            a.ui.header(href="/u/#{username}") 
+            a.ui.header(href="/user/#{username}") 
                 |#{profile.name}
                 |#{username}
             .meta
@@ -46,7 +46,7 @@ template(name='user_item')
             // if currentUser
             //     +toggle_friend
             //- +user_connect_button        
-            a.ui.circular.button(href="/u/#{username}")
+            a.ui.circular.button(href="/user/#{username}")
                 |View #{username}
                 i.right.chevron.icon
             

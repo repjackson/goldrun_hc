@@ -28,7 +28,7 @@ template(name='goldrun')
                                             .header #{first_name} #{last_name}
                                             .meta @#{username}
                                             if is_dev
-                                                a.ui.icon.button(href="/u/#{username}/")
+                                                a.ui.icon.button(href="/user/#{username}/")
                                                     //- |View
                                                     i.chevron.right.icon
                                         +checkin_button
@@ -69,7 +69,7 @@ template(name='goldrun')
 
                                         +checkin_button
                                         if is_admin
-                                            a.ui.icon.button(href="/u/#{username}/")
+                                            a.ui.icon.button(href="/user/#{username}/")
                                                 i.user.shield.icon
                                                 |View
                                                 //- div

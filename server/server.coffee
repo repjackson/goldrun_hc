@@ -18,9 +18,12 @@ Meteor.publish 'featured_posts', ->
         type: 'post'
         featured: true
 
+Meteor.publish 'user_from_username', (username)->
+    Meteor.users.find
+        username: username
+
 
 Meteor.publish 'facet_doc', (tags)->
     split_array = tags.split ','
     Docs.find
         tags: split_array
-        
