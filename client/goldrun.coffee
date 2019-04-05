@@ -48,8 +48,12 @@ Template.goldrun.helpers
 
 Template.checkin_button.events
     'click .checkin': (e,t)->
-        $(e.currentTarget).closest('.card').transition('zoom')
+        $(e.currentTarget).closest('.card').transition('swing up')
         Meteor.setTimeout =>
+            $('body').toast({
+                message: "#{@username} checked in."
+                class: 'success'
+            })
             Meteor.users.update @_id,
                 $set:healthclub_checkedin:true
             Docs.insert
@@ -62,73 +66,23 @@ Template.checkin_button.events
             $('.username_search').val('')
         , 750
 
-        # Session.set('selected_user_id', @_id)
-        # $('.ui.check_in.modal')
-        #   .modal({
-        #     inverted: true
-        #     setting: transition: 'zoom'
-        #     # closable: false
-        #     onDeny: ->
-        #     onApprove: =>
-        #         Meteor.setTimeout =>
-        #             $(e.currentTarget).closest('.card').transition('zoom')
-        #         , 750
-        #         Meteor.setTimeout =>
-        #             Meteor.users.update @_id,
-        #                 $set:healthclub_checkedin:true
-        #             Docs.insert
-        #                 type:'log_event'
-        #                 object_id:@_id
-        #                 body: "#{@username} checked in."
-        #             # swal( "#{@username} checked in.", "", "success" )
-        #             Session.set 'username_query',null
-        #             $('.username_search').val('')
-        #         , 2000
-        #     }).modal('show')
-
-
     'click .checkout': (e,t)->
-        $(e.currentTarget).closest('.card').transition('zoom')
+        $(e.currentTarget).closest('.card').transition('swing up')
         Meteor.setTimeout =>
             Meteor.users.update @_id,
                 $set:healthclub_checkedin:false
-            # Docs.insert
-            #     type:'log_event'
-            #     parent_id:@_id
-            #     object_id:@_id
-            #     body: "#{@username} checked out."
-            # swal( "#{@username} checked out.", "", "success" )
+            Docs.insert
+                type:'log_event'
+                parent_id:@_id
+                object_id:@_id
+                body: "#{@username} checked out."
+            $('body').toast({
+                message: "#{@username} checked in."
+                class: 'success'
+            })
             Session.set 'username_query',null
             $('.username_search').val('')
         , 1000
-
-        # Session.set('selected_user_id', @_id)
-        # $('.ui.check_out.modal')
-        #   .modal({
-        #     inverted: true
-        #     setting: transition: 'zoom'
-        #     # closable: false
-        #     onDeny: ->
-        #     onApprove: =>
-        #         Meteor.setTimeout =>
-        #             $(e.currentTarget).closest('.card').transition('zoom')
-        #         , 750
-        #         Meteor.setTimeout =>
-        #             Meteor.users.update @_id,
-        #                 $set:healthclub_checkedin:false
-        #             Docs.insert
-        #                 type:'log_event'
-        #                 parent_id:@_id
-        #                 object_id:@_id
-        #                 body: "#{@username} checked out."
-        #             # swal( "#{@username} checked out.", "", "success" )
-        #             Session.set 'username_query',null
-        #             $('.username_search').val('')
-        #         , 2000
-        #   }).modal('show')
-
-
-
 
 
 Template.goldrun.events
@@ -189,7 +143,7 @@ Template.add_resident.events
                 Session.set 'username_query',null
                 $('.username_search').val('')
 
-                Router.go "/goldrun"
+                Router.go "/user/#{username}/edit"
 
 
 Template.add_resident.helpers

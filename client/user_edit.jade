@@ -13,12 +13,15 @@ template(name='user_edit')
         .row
             .five.wide.column.scrolling
                 .ui.form
-                    .field
-                        label First Name
-                        input#first_name(type='text', placeholder='First Name', value='{{user_from_username_param.first_name}}')
-                    .field
-                        label Last Name
-                        input#last_name(type='text', placeholder='Last Name', value='{{user_from_username_param.last_name}}')
+                    with user_from_username_param
+                        +text_edit key='first_name' label='First Name'
+                        +text_edit key='last_name' label='Last Name'
+                        +number_edit key='unit_number' label='Unit #'
+                        +number_edit key='building_number' label='Building #'
+                        +text_edit key='email' label='Email'
+                        +phone_edit key='phone' label='Phone'
+                        +date_edit key='start_date' label='Start Date'
+                        +date_edit key='expiration_date' label='Expiration Date'
                     .field
                         if user_from_username_param.image_id
                             label Image
@@ -49,50 +52,11 @@ template(name='user_edit')
                         i.remove.icon
                         |Delete User
             .eleven.wide.column
-                +user_tribe_editor
+                //- +user_tribe_editor
                 //- +user_schema_editor
                 //- if is_admin
                 //-     +user_single_doc_ref_editor key='building' schema='building' label='Building'
                 //-     +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
-                .ui.labeled.icon.input
-                     .ui.label Address
-                     i.globe.icon
-                     input#address(type='text' value=user_from_username_param.address)
-                .ui.labeled.icon.input
-                     .ui.label Unit #
-                     i.home.icon
-                     input#apt_number(type='number' value=user_from_username_param.apt_number)
-                .ui.labeled.icon.input
-                     .ui.label Building #
-                     i.building.icon
-                     input#building_number(type='number' value=user_from_username_param.building_number)
-                .ui.labeled.icon.input
-                     .ui.label Date Started
-                     i.calendar.icon
-                     input#start_date(type='date' value=user_from_username_param.start_date)
-                .ui.labeled.icon.input
-                     .ui.label 
-                         |Phone
-                     i.phone.icon
-                     input#telephone(type='number' value=user_from_username_param.telephone)
-                .ui.labeled.icon.input
-                     .ui.label Email
-                     input#email(type='email' value=user_from_username_param.email)
-                    
-                    // if user_from_username_param.owner
-                    //     .ui.blue.owner.button
-                    //         i.checkmark.icon
-                    //         | Owner
-                    // else 
-                    //     .ui.owner.button
-                    //         i.circle.outline.icon
-                    //         | Owner
-                    // unless user_from_username_param.owner       
-                    //     .ui.labeled.icon.input
-                    //         .ui.label Lease Expiration
-                    //         i.clock.icon
-                    //         input#lease_expiration(type='date' value=user_from_username_param.lease_expiration)
-                                        
                 //- +stripe_connect
                 //- +payment_methods
 

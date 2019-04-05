@@ -46,7 +46,7 @@ Router.route '*', -> @render 'not_found'
 
 
 Router.route '/add_resident', (->
-    @layout 'nonav'
+    @layout 'layout'
     @render 'add_resident'
     ), name:'add_resident'
 

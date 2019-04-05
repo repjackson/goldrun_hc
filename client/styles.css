@@ -1,3 +1,15 @@
+body {
+    font-family: 'Ubuntu', sans-serif !important;
+    /* filter: invert(90%) !important; */
+    font-size: 110% !important;
+    /*line-height: 200% !important;*/
+    /*background: #3d3d3d !important;*/
+    background: rgba(200, 200, 200, .1) !important
+}
+
+
+
+
 .-autocomplete-container {
   margin-top: 12px;
 }
@@ -9,6 +21,14 @@
     top: 290px;
   }
 }
+
+
+ .ui.button, .ui.input {
+	 margin: 0.2em !important;
+}
+
+
+
 @media screen and (max-width: 1100px) {
   .header-logo {
     margin: auto !important;
