@@ -38,38 +38,38 @@ Meteor.methods
 
 
 if Meteor.isClient
-    Template.docs.onCreated -> 
+    Template.docs.onCreated ->
         @autorun -> Meteor.subscribe('docs', selected_tags.array())
 
     Template.docs.helpers
-        docs: -> 
-            Docs.find { }, 
+        docs: ->
+            Docs.find { },
                 sort:
                     tag_count: 1
                 limit: 1
-    
+
         tag_class: -> if @valueOf() in selected_tags.array() then 'primary' else 'basic'
 
         selected_tags: -> selected_tags.array()
 
-    
+
     Template.view.helpers
         is_author: -> Meteor.userId() and @author_id is Meteor.userId()
-    
+
         tag_class: -> if @valueOf() in selected_tags.array() then 'primary' else 'basic'
-    
+
         when: -> moment(@timestamp).fromNow()
 
     Template.view.events
         'click .tag': -> if @valueOf() in selected_tags.array() then selected_tags.remove(@valueOf()) else selected_tags.push(@valueOf())
-    
+
         'click .edit': -> Router.go("/edit/#{@_id}")
 
     Template.docs.events
         'click #add': ->
             Meteor.call 'add', (err,id)->
                 Router.go "/edit/#{id}"
-    
+
         'keyup #quick_add': (e,t)->
             e.preventDefault
             tag = $('#quick_add').val().toLowerCase()
@@ -81,23 +81,23 @@ if Meteor.isClient
                     selected_tags.clear()
                     for tag in split_tags
                         selected_tags.push tag
-    
+
 
 
 if Meteor.isServer
     Docs.allow
         insert: (userId, doc) -> doc.author_id is userId
-        update: (userId, doc) -> doc.author_id is userId or Roles.userIsInRole(userId, 'admin')
-        remove: (userId, doc) -> doc.author_id is userId or Roles.userIsInRole(userId, 'admin')
-    
-    
-    
-    
+        update: (userId, doc) -> doc.author_id is userId or 'admin' in Meteor.user().roles
+        remove: (userId, doc) -> doc.author_id is userId or 'admin' in Meteor.user().roles
+
+
+
+
     Meteor.publish 'docs', (selected_tags, filter)->
-    
+
         # user = Meteor.users.findOne @userId
         # current_herd = user.profile.current_herd
-    
+
         self = @
         match = {}
         # selected_tags.push current_herd
@@ -105,29 +105,29 @@ if Meteor.isServer
         if selected_tags.length > 0 then match.tags = $all: selected_tags
         if filter then match.type = filter
 
-        
+
 
         Docs.find match,
             limit: 20
-            
-    
+
+
     Meteor.publish 'doc', (id)->
         Docs.find id
-    
-    
-    
+
+
+
     Meteor.publish 'doc_tags', (selected_tags)->
-        
+
         user = Meteor.users.findOne @userId
         # current_herd = user.profile.current_herd
-        
+
         self = @
         match = {}
-        
+
         # selected_tags.push current_herd
         match.tags = $all: selected_tags
 
-        
+
         cloud = Docs.aggregate [
             { $match: match }
             { $project: tags: 1 }
@@ -144,6 +144,5 @@ if Meteor.isServer
                 name: tag.name
                 count: tag.count
                 index: i
-    
+
         self.ready()
-        

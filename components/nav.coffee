@@ -1,26 +1,27 @@
 if Meteor.isClient
     Template.nav.events
-        'click #logout': -> 
-            AccountsTemplates.logout()
-            
-        
+        'click #logout': ->
+            Meteor.logout()
+
+
     Template.nav.onCreated ->
-        @autorun -> 
+        @autorun ->
             Meteor.subscribe 'me'
             Meteor.subscribe 'my_notifications'
-        
+
     Template.nav.helpers
-        notifications: -> 
-            Notifications.find()
+        notifications: ->
+            Docs.find
+                type:'notification'
 
 
 
 if Meteor.isServer
     Meteor.publish 'my_notifications', ->
-        Notifications.find()
-        
-        
+        Docs.find
+            type:'notification'
+            user_id: Meteor.userId()
+
+
     Meteor.publish 'me', ->
-        Meteor.users.find @userId,
-            fields: 
-                courses: 1
+        Meteor.users.find @userId

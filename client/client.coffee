@@ -5,10 +5,8 @@ $.cloudinary.config
     cloud_name:"facet"
 
 
-Router.notFound =
-    action: ->
-        BlazeLayout.render 'layout',
-            main: 'not_found'
+# Router.notFound =
+    # action: 'not_found'
 
 
 Session.setDefault 'invert', false
@@ -53,7 +51,8 @@ Template.registerHelper 'is_editing', () ->
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
 
-Template.registerHelper 'can_edit', () ->  Meteor.userId() is @author_id or Roles.userIsInRole(Meteor.userId(), 'admin')
+Template.registerHelper 'can_edit', () ->
+    Meteor.userId() is @author_id or 'admin' in Meteor.user().roles
 
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 
@@ -70,7 +69,6 @@ Template.registerHelper 'field_value', () ->
 
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
-Template.registerHelper 'can_edit', () ->  Meteor.userId() is @author_id or Roles.userIsInRole(Meteor.userId(), 'admin')
 
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 Template.registerHelper 'when', () -> moment(@timestamp).fromNow()

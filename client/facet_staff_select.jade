@@ -8,10 +8,10 @@ template(name='facet_staff_select')
             else
                 div(class=doc_classes)
                     |#{staff}
-            if isInRole 'admin'
+            if is_admin
                 +session_edit_icon
     else
-        if isInRole 'admin'
+        if is_admin
             .ui.header No Doc Found
             .create_doc.ui.basic.button
                 i.plus.icon

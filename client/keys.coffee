@@ -1,28 +1,10 @@
-
-
-
-
-
 if Meteor.isClient
     @selected_buildings = new ReactiveArray []
+    Router.route '/keys', -> @render 'keys'
+    Router.route '/key/edit/:doc_id', -> @render 'edit_key'
+    Router.route '/key/view/:doc_id', -> @render 'view_key'
 
-    
-    Router.route '/keys', action: ->
-        BlazeLayout.render 'layout',
-            main: 'keys'
-            
-            
-    Router.route '/key/edit/:doc_id', action: ->
-        BlazeLayout.render 'layout', 
-            main: 'edit_key'
-    
-    Router.route '/key/view/:doc_id', action: ->
-        BlazeLayout.render 'layout', 
-            main: 'view_key'
-    
-    
-    
-    
+
     Template.keys.onCreated ->
         @autorun -> Meteor.subscribe('keys', selected_buildings.array())
         @autorun -> Meteor.subscribe('docs', [], 'building')
@@ -32,51 +14,45 @@ if Meteor.isClient
     #         $('select.dropdown').dropdown()
     #     ), 500
 
-    Template.keys.onRendered ->
-        Meteor.setTimeout (->
-            $('table').tablesort()
-            # $('select.dropdown').dropdown()
-        ), 500
-
 
 
     Template.edit_key.onCreated ->
-        @autorun -> Meteor.subscribe('doc', Router.getParam('doc_id'))
+        @autorun -> Meteor.subscribe('doc', Router.current().params.doc_id)
         @autorun -> Meteor.subscribe('buildings')
-    
-         
-         
+
+
+
     Template.keys.helpers
-        keys: -> 
+        keys: ->
             Docs.find {type: 'key'},
                 sort: tag_number: 1
         buildings: -> Docs.find type: 'building'
-         
+
         selected_building_class: ->
             if @building_code in selected_buildings.array() then 'blue' else 'basic'
-         
+
          selected_buildings: -> selected_buildings.array()
-         
+
     Template.edit_key.helpers
         buildings: -> Docs.find type: 'building'
-         
+
         building_numbers: ->
             # console.log @
-            building = Docs.findOne 
+            building = Docs.findOne
                 type: 'building'
                 building_code: @building_code
             # console.log building
             if building then building.building_numbers
-        key: -> 
-            doc_id = Router.getParam('doc_id')
+        key: ->
+            doc_id = Router.current().params.doc_id
             # console.log doc_id
-            Docs.findOne doc_id 
+            Docs.findOne doc_id
 
-        mark_true_class: -> 
+        mark_true_class: ->
             if @fpm then 'disabled green'
             else if @key_exists then '' else 'basic'
-        
-        mark_false_class: -> 
+
+        mark_false_class: ->
             if @fpm then 'disabled basic'
             else if @key_exists then 'basic' else ''
 
@@ -87,15 +63,15 @@ if Meteor.isClient
         'click #add_key': ->
             id = Docs.insert type: 'key'
             Router.go "/key/edit/#{id}"
-    
+
         'click .add_next_key': ->
-            id = Docs.insert 
+            id = Docs.insert
                 tag_number: @tag_number + 1
                 building_code: @building_code
                 building_number: @building_number
                 type: 'key'
             Router.go "/key/edit/#{id}"
-    
+
         'click .toggle_view_building': ->
             if @building_code in selected_buildings.array() then selected_buildings.remove @building_code else selected_buildings.push @building_code
 
@@ -112,7 +88,7 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, ->
-                Docs.remove Router.getParam('doc_id'), ->
+                Docs.remove Router.current().params.doc_id, ->
                     Router.go "/keys"
 
         'change #select_building_code': (e,t)->
@@ -135,21 +111,21 @@ if Meteor.isClient
             # console.log e.currentTarget.value
             value = $('#fpm').is(":checked")
             if value is true
-                Docs.update @_id, 
+                Docs.update @_id,
                     $set:
                         key_exists: true
-                    
-            Docs.update @_id, 
+
+            Docs.update @_id,
                 $set:
                     fpm: value
-    
+
         'click #mark_true': (e,t)->
             Docs.update @_id,
                 $set: key_exists: true
         'click #mark_false': (e,t)->
             Docs.update @_id,
                 $set: key_exists: false
-    
+
         'blur #tag_number': (e,t)->
             tag_number = parseInt $(e.currentTarget).closest('#tag_number').val()
             Docs.update @_id,
@@ -159,16 +135,15 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'keys', (selected_buildings)->
-        
+
         self = @
         match = {}
         # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
         #     match.published = true
         match.type = 'key'
         match.building_code = $in: selected_buildings
-        
+
         Docs.find match,
             # limit: 10
-            sort: 
+            sort:
                 tag_number: -1
-    

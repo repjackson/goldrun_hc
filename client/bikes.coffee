@@ -1,15 +1,9 @@
 if Meteor.isClient
-    Router.route '/bikes', action: ->
-        BlazeLayout.render 'layout', 
-            main: 'bikes'
-            
-            
-    Router.route '/bikes/edit/:doc_id', action: ->
-        BlazeLayout.render 'layout', 
-            main: 'edit_bike'
-    
-    
-    
+    Router.route '/bikes', -> @render 'bikes'
+
+    Router.route '/bikes/edit/:doc_id', -> @render 'edit_bike'
+
+
     Template.bike.onRendered ->
         Meteor.setTimeout (->
             $('.shape').shape()
@@ -22,30 +16,30 @@ if Meteor.isClient
     Template.edit_bike.onCreated ->
         @autorun -> Meteor.subscribe('doc', Router.getParam('doc_id'))
 
-    
+
     Template.bikes.helpers
-        bikes: -> 
-            Docs.find 
+        bikes: ->
+            Docs.find
                 type: 'bike'
-         
-         
+
+
     Template.bike.events
         'click .flip_shape': (e,t)->
             $(e.currentTarget).closest('.shape').shape('flip right');
             # console.log $(e.currentTarget).closest('.shape').shape('flip up')
             # $('.shape').shape('flip up')
-         
-         
-                
+
+
+
     Template.bikes.events
         'click #add_impounded_bike': ->
             id = Docs.insert
                 type: 'bike'
             Router.go "/bikes/edit/#{id}"
-    
+
 
     Template.edit_bike.helpers
-        doc: -> 
+        doc: ->
             doc_id = Router.getParam 'doc_id'
             Docs.findOne  doc_id
 
@@ -65,12 +59,12 @@ if Meteor.isClient
                 doc = Docs.findOne Router.getParam('doc_id')
                 Docs.remove doc._id, ->
                     Router.go "/bikes"
-                    
+
         "change #upload_handlebar_image": (e) ->
             doc_id = Router.getParam('doc_id')
             files = e.currentTarget.files
-    
-    
+
+
             Cloudinary.upload files[0],
                 # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
                 # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
@@ -82,12 +76,12 @@ if Meteor.isClient
                     else
                         Docs.update doc_id, $set: handlebar_image_id: res.public_id
                     return
-        
+
         "change #upload_frame_image": (e) ->
             doc_id = Router.getParam('doc_id')
             files = e.currentTarget.files
-    
-    
+
+
             Cloudinary.upload files[0],
                 # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
                 # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
@@ -99,12 +93,12 @@ if Meteor.isClient
                     else
                         Docs.update doc_id, $set: frame_image_id: res.public_id
                     return
-        
+
         "change #upload_seat_image": (e) ->
             doc_id = Router.getParam('doc_id')
             files = e.currentTarget.files
-    
-    
+
+
             Cloudinary.upload files[0],
                 # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
                 # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
@@ -116,7 +110,7 @@ if Meteor.isClient
                     else
                         Docs.update doc_id, $set: seat_image_id: res.public_id
                     return
-    
+
         # 'keydown #input_image_id': (e,t)->
         #     if e.which is 13
         #         doc_id = Router.getParam('doc_id')
@@ -125,9 +119,9 @@ if Meteor.isClient
         #             Docs.update doc_id,
         #                 $set: image_id: image_id
         #             $('#input_image_id').val('')
-    
-    
-    
+
+
+
         'click #remove_handlebar_photo': ->
             swal {
                 title: 'Remove Photo?'
@@ -143,9 +137,9 @@ if Meteor.isClient
                     if not err
                         # Do Stuff with res
                         # console.log res
-                        Docs.update Router.getParam('doc_id'), 
+                        Docs.update Router.getParam('doc_id'),
                             $unset: handlebar_image_id: 1
-    
+
                     else
                         throw new Meteor.Error "it failed miserably"
         'click #remove_frame_photo': ->
@@ -163,9 +157,9 @@ if Meteor.isClient
                     if not err
                         # Do Stuff with res
                         # console.log res
-                        Docs.update Router.getParam('doc_id'), 
+                        Docs.update Router.getParam('doc_id'),
                             $unset: frame_image_id: 1
-    
+
                     else
                         throw new Meteor.Error "it failed miserably"
         'click #remove_seat_photo': ->
@@ -183,9 +177,8 @@ if Meteor.isClient
                     if not err
                         # Do Stuff with res
                         # console.log res
-                        Docs.update Router.getParam('doc_id'), 
+                        Docs.update Router.getParam('doc_id'),
                             $unset: seat_image_id: 1
-    
+
                     else
                         throw new Meteor.Error "it failed miserably"
-                        

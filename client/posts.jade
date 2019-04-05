@@ -6,7 +6,7 @@ template(name='posts')
                     each posts
                         +post_item
             .four.wide.column
-                if isInRole 'admin'
+                if is_admin
                     h2.ui.header 
                         i.red.configure.icon
                         |Admin
@@ -43,7 +43,7 @@ template(name='post')
         .content
             each tags
                 .ui.compact.button.post_tag(class=tag_class) #{this}
-            if isInRole 'admin'
+            if is_admin
                 .edit_post.ui.primary.basic.right.floated.button
                     i.pencil.icon
                     |Edit Post    
@@ -67,7 +67,7 @@ template(name='post_item')
                 i.tags.icon
                 each tags
                     .ui.compact.label.post_tag(class=tag_class) #{this}
-            if isInRole 'admin'
+            if is_admin
                 .extra
                     i.red.configure.large.icon
                     if published
