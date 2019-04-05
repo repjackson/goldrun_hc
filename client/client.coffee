@@ -93,45 +93,18 @@ Template.registerHelper 'calculated_size', (metric) ->
     else if whole is 10 then 'f10'
 
 
-
-
-
 Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
-
 
 Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
 
 
-Template.sidebar.onRendered ->
-    @autorun =>
-        if @subscriptionsReady()
-            Meteor.setTimeout ->
-                $('.context.example .ui.sidebar')
-                    .sidebar({
-                        context: $('.context.example .bottom.segment')
-                        dimPage: false
-                        transition:  'push'
-                    })
-                    .sidebar('attach events', '.context.example .menu .toggle_sidebar.item')
-            , 500
-
-
-Template.camera.onRendered ->
-    Webcam.on 'error', (err) ->
-        console.log err
-        # outputs error to console instead of window.alert
-    Webcam.set
-        width: 320
-        height: 240
-        dest_width: 640
-        dest_height: 480
-        image_format: 'jpeg'
-        jpeg_quality: 90
-    Webcam.attach '#webcam'
-
-Template.camera.events 'click .snap': ->
-    Webcam.snap (image) ->
-        Session.set 'webcamSnap', image
-
-Template.camera.helpers
-    image: -> Session.get 'webcamSnap'
+Template.nav.onRendered ->
+    Meteor.setTimeout ->
+        $('.context.example .ui.sidebar')
+            .sidebar({
+                context: $('.context.example .segment')
+                dimPage: false
+                transition:  'push'
+            })
+            .sidebar('attach events', '.context.example .menu .toggle_sidebar.item')
+    , 1000

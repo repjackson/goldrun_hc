@@ -92,15 +92,15 @@ template(name='sidebar')
             i.users.icon
             | people
         if currentUser
-            a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                i.line.chart.icon
+            a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                i.dashboard.icon
+                | dashboard
             .ui.simple.dropdown.icon.item
                 i.alarm.icon
-                .menu
-                    each notifications
-                        .item #{text}
-            a.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
+                | alerts
+            a.item(href='/messages' class="{{isActivePath '/messages'}}")
                 i.mail.icon
+                | mail
             if is_admin
                 a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
                     i.configure.icon
@@ -128,7 +128,7 @@ template(name='camera')
 
 
 template(name='footer')
-    .ui.fluid.inverted.brown.segment.footer
+    .ui.fluid.inverted.brown.attached.segment.footer
         .ui.container.grid
             .twelve.wide.inverted.column
                 +health_club_info    
