@@ -48,7 +48,7 @@ Template.goldrun.helpers
 
 Template.checkin_button.events
     'click .checkin': (e,t)->
-        $(e.currentTarget).closest('.card').transition('swing up')
+        $(e.currentTarget).closest('.card').transition('fade up')
         Meteor.setTimeout =>
             $('body').toast({
                 message: "#{@username} checked in."
@@ -67,7 +67,7 @@ Template.checkin_button.events
         , 750
 
     'click .checkout': (e,t)->
-        $(e.currentTarget).closest('.card').transition('swing up')
+        $(e.currentTarget).closest('.card').transition('fade up')
         Meteor.setTimeout =>
             Meteor.users.update @_id,
                 $set:healthclub_checkedin:false
@@ -77,8 +77,8 @@ Template.checkin_button.events
                 object_id:@_id
                 body: "#{@username} checked out."
             $('body').toast({
-                message: "#{@username} checked in."
-                class: 'success'
+                message: "#{@username} checked out."
+                class: 'info'
             })
             Session.set 'username_query',null
             $('.username_search').val('')

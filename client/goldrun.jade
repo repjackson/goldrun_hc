@@ -78,9 +78,9 @@ template(name='goldrun')
                                             a.ui.icon.button(href="/user/#{username}/")
                                                 i.user.shield.icon
                                                 |View
-
-                                        each tags
-                                            .ui.label #{this}
+                                        .content
+                                            each tags
+                                                .ui.label #{this}
                                         if signed_waiver
                                             .ui.green.basic.button
                                                 i.checkmark.icon
@@ -89,48 +89,49 @@ template(name='goldrun')
                                             .ui.red.button.sign_waiver
                                                 i.cancel.icon
                                                 |Waiver Not Signed
-                            .column
-                                .ui.header
-                                    //- +icolor name='megaphone' classes='ui inline image'
-                                    //- i.rss.icon
-                                    |Notices
+                    .row
+                        .column
+                            .ui.header
+                                //- +icolor name='megaphone' classes='ui inline image'
+                                //- i.rss.icon
+                                |Notices
+                            .content
+                                .ui.small.header FM receiver headsets now available to borrow for tvs
+                                
+                            .ui.accordion
+                                h4.title
+                                    // +icolor name='edit-property' classes='ui inline image'
+                                        // .ui.inline.header 
+                                    i.rss.icon
+                                    | Log
+                                    i.dropdown.icon
                                 .content
-                                    .ui.small.header FM receiver headsets now available to borrow for tvs
-                                    
-                                .ui.accordion
-                                    h4.title
-                                        // +icolor name='edit-property' classes='ui inline image'
-                                            // .ui.inline.header 
-                                        i.rss.icon
-                                        | Log
-                                        i.dropdown.icon
-                                    .content
-                                        .ui.feed
-                                            each events
-                                                .event
-                                                    .label
-                                                        img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                                    .content
-                                                        .summary
-                                                            |#{body}
-                                                            .date
-                                                                |#{when}
-                                                            if is_dev
-                                                                +remove_button
-                                .ui.segment
-                                    .ui.header
-                                        +icolor name='poll-topic' classes='ui inline image'
-                                        |Poll
-                                    .content
-                                .ui.segment
-                                    .ui.small.header
-                                        +icolor name='front-desk' classes='ui inline image'
-                                        | Staff On Duty
-                                    with currentUser
-                                        .ui.card
-                                            img.ui.image(src="{{c.url profile.image_id }}")
-                                            .content
-                                                .header #{username}
+                                    .ui.feed
+                                        each events
+                                            .event
+                                                .label
+                                                    img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                                .content
+                                                    .summary
+                                                        |#{body}
+                                                        .date
+                                                            |#{when}
+                                                        //- if is_dev
+                                                        //-     +remove_button
+                            .ui.segment
+                                .ui.header
+                                    +icolor name='poll-topic' classes='ui inline image'
+                                    |Poll
+                                .content
+                            .ui.segment
+                                .ui.small.header
+                                    +icolor name='front-desk' classes='ui inline image'
+                                    | Staff On Duty
+                                with currentUser
+                                    .ui.card
+                                        img.ui.image(src="{{c.url profile.image_id }}")
+                                        .content
+                                            .header #{username}
                     .centered.row
                         .ui.basic.center.aligned.segment
                             if is_admin

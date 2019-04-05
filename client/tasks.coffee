@@ -1,24 +1,19 @@
 if Meteor.isClient
-    Router.route '/tasks', action: ->
-        BlazeLayout.render 'layout', 
-            sub_nav: 'staff_nav'
-            main: 'tasks'
-            
-            
-    Router.route '/task/edit/:doc_id', action: ->
-        BlazeLayout.render 'layout', 
-            main: 'edit_task'
-    
-    
-    Template.task.onRendered ->
-        Meteor.setTimeout (->
-            $('.shape').shape()
-        ), 500
-    
-    
+    Router.route '/tasks', -> @render 'tasks'
+
+
+    Router.route '/task/edit/:doc_id', -> @render 'edit_task'
+
+
+    # Template.task.onRendered ->
+    #     Meteor.setTimeout (->
+    #         $('.shape').shape()
+    #     ), 500
+
+
     Template.tasks.onCreated ->
         @autorun -> Meteor.subscribe 'docs', selected_tags.array(), 'task'
-    
+
     Template.tasks.onRendered ->
         # Meteor.setTimeout (->
         #     $('table').tablesort()
@@ -28,44 +23,44 @@ if Meteor.isClient
 
 
     Template.edit_task.onCreated ->
-        @autorun -> Meteor.subscribe 'doc', Router.getParam('doc_id')
+        @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'docs', [], 'building'
-    
-         
+
+
     Template.tasks.helpers
         tasks: -> Docs.find { type: 'task' }
-         
+
     Template.edit_task.helpers
         buildings: ->
             Docs.find type: 'building'
-         
+
         building_numbers: ->
             # console.log @
-            building = Docs.findOne 
+            building = Docs.findOne
                 building_code: @lock_building_code
                 type: 'building'
             # console.log building
             if building then building.building_numbers
-    
-    
+
+
     Template.tasks.events
         'click #add_task': ->
             # alert 'hi'
             id = Docs.insert type:'task'
             Router.go "/task/edit/#{id}"
-    
+
     Template.task.events
         'click .flip_shape': (e,t)->
             $(e.currentTarget).closest('.shape').shape('flip over');
             # console.log $(e.currentTarget).closest('.shape').shape('flip up')
             # $('.shape').shape('flip up')
 
-    
+
     Template.edit_task.helpers
-        task: -> 
-            doc_id = Router.getParam('doc_id')
+        task: ->
+            doc_id = Router.current().params.doc_id
             # console.log doc_id
-            Docs.findOne doc_id 
+            Docs.findOne doc_id
 
 
 
@@ -82,7 +77,7 @@ if Meteor.isClient
                 confirmButtonText: 'Delete'
                 confirmButtonColor: '#da5347'
             }, ->
-                Docs.remove Router.getParam('doc_id'), ->
+                Docs.remove Router.current().params.doc_id, ->
                     Router.go "/tasks"
 
         'blur #description': (e,t)->
