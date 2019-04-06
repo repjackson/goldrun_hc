@@ -1,5 +1,5 @@
 head
-    title Gold Run
+    title gold run
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='apple-mobile-web-app-status-bar-style', content='black')
@@ -11,15 +11,18 @@ head
 
 
 template(name='layout')
-    .context.example
-        +nav
-        .ui.attached.basic.segment.pushable
-            +sidebar
-            .pusher
-                #main_area
-                    .ui.basic.fluid.segment
-                        +yield
-        +footer
+    //- .context.example
+    //-     +nav
+    //-     .ui.attached.basic.segment.pushable
+    //-         +sidebar
+    //-         .pusher
+    //-             #main_area
+    //-                 .ui.basic.fluid.segment
+    //-                     +yield
+    //-     //- +footer
+    +nav
+    +yield
+        //- +footer
 
 
 

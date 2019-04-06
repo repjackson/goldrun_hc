@@ -121,12 +121,12 @@ template(name='goldrun')
                             .ui.segment
                                 .ui.header
                                     +icolor name='poll-topic' classes='ui inline image'
-                                    |Poll
+                                    |poll
                                 .content
                             .ui.segment
                                 .ui.small.header
                                     +icolor name='front-desk' classes='ui inline image'
-                                    | Staff On Duty
+                                    | staff on duty
                                 with currentUser
                                     .ui.card
                                         img.ui.image(src="{{c.url profile.image_id }}")
@@ -137,32 +137,33 @@ template(name='goldrun')
                             if is_admin
                                 a.ui.button(href='/add_resident')
                                     i.user.shield.icon
-                                    | Add Resident
-                            a.ui.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
-                                |Rules and Regulations
+                                    | add resident
+                            a.ui.large.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
+                                |rules and regulations
                             a.ui.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
                                 |Guest Waiver
+            +health_club_info
                 
-            .ui.check_out.modal
-                .header Checkout #{selected_person.username}?
-                .content
-                    .ui.header #{selected_person.first_name} #{selected_person.last_name}
-                    .ui.header #{selected_person.username}
-                .actions
-                    .ui.large.ok.teal.button
-                        |Check Out
-                    .ui.large.cancel.basic.button
-                        |Cancel
-            .ui.check_in.modal
-                .header Check In #{selected_person.username}?
-                .content
-                    .ui.header #{selected_person.first_name} #{selected_person.last_name}
-                    .ui.header #{selected_person.username}
-                .actions
-                    .ui.large.ok.green.button
-                        |Check In
-                    .ui.large.cancel.basic.button
-                        |Cancel
+            //- .ui.check_out.modal
+            //-     .header Checkout #{selected_person.username}?
+            //-     .content
+            //-         .ui.header #{selected_person.first_name} #{selected_person.last_name}
+            //-         .ui.header #{selected_person.username}
+            //-     .actions
+            //-         .ui.large.ok.teal.button
+            //-             |Check Out
+            //-         .ui.large.cancel.basic.button
+            //-             |Cancel
+            //- .ui.check_in.modal
+            //-     .header Check In #{selected_person.username}?
+            //-     .content
+            //-         .ui.header #{selected_person.first_name} #{selected_person.last_name}
+            //-         .ui.header #{selected_person.username}
+            //-     .actions
+            //-         .ui.large.ok.green.button
+            //-             |Check In
+            //-         .ui.large.cancel.basic.button
+            //-             |Cancel
                         
                         
 template(name='add_resident')

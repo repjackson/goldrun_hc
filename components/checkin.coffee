@@ -1,5 +1,3 @@
-Router.route '/checkin', -> @render 'checkin'
-
 if Meteor.isClient
     Session.setDefault 'selected_member_id', null
 

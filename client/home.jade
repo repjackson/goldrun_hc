@@ -1,3 +1,30 @@
+template(name='dashboard')
+    .ui.stackable.padded.grid
+        .row
+            .twelve.wide.column
+                .ui.center.aligned.header dashboard
+        .row
+            .four.wide.column
+                +dashboard_segment title='posts' icon='newspaper' 
+            .four.wide.column
+                +dashboard_segment title='for sale' icon='cart' 
+            .four.wide.column
+                +dashboard_segment title='for sale' icon='cart' 
+            .four.wide.column
+                +dashboard_segment title='for sale' icon='cart' 
+
+
+
+template(name='dashboard_segment')
+    .ui.fluid.segment
+        .ui.header 
+            i.icon(class=icon)
+            |#{title}
+                
+
+
+
+
 template(name='home')
     .ui.centered.cards
         #add_model.ui.icon.button

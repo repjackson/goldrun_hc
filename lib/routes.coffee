@@ -134,6 +134,7 @@ Router.route '/user/:username/contact', (->
 #     @layout 'profile_layout'
 #     @render 'user_campaigns'
 #     ), name:'user_campaigns'
+Router.route '/checkin', -> @render 'goldrun'
 
 
 Router.route '/user/:username/edit', -> @render 'user_edit'
@@ -146,8 +147,9 @@ Router.route '/settings', -> @render 'settings'
 # Router.route '/users', -> @render 'people'
 
 Router.route '/login', -> @render 'login'
+Router.route '/dashboard', -> @render 'dashboard'
 
 Router.route '/', (->
     @layout 'layout'
-    @render 'goldrun'
-    ), name:'goldrun'
+    @render 'dashboard'
+    ), name:'home'
