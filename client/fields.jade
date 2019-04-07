@@ -137,11 +137,6 @@ template(name='image_link_view')
     img.ui.image(src=field_value)
 
 
-
-
-
-
-
 template(name='textarea_view')
     .ui.unstyled.accordion
         .active.title
@@ -157,8 +152,6 @@ template(name='textarea_view')
             if field_value
                 |#{nl2br field_value}
                 +call_watson mode='text' key=key
-    
-
 
 template(name='textarea_edit')
     .ui.form
@@ -192,8 +185,6 @@ template(name='html_edit')
         +froalaReactive getFEContext
     +call_watson mode='html'
     +tone mode='html'
-
-
 template(name='html_view')
     .ui.accordion
         .active.title
@@ -221,7 +212,6 @@ template(name='doc_edit')
                     i.dropdown.icon
             .content 
                 |!{html}
-
 template(name='doc_view')
     .ui.styled.fluid.accordion
         .title 
@@ -230,10 +220,6 @@ template(name='doc_view')
         .content 
             |!{referenced_document.html}
         
-
-
-
-
 template(name='text_edit')
     .ui.labeled.fluid.input
         .ui.label
@@ -244,7 +230,6 @@ template(name='text_edit')
             else if key
                 |#{key}
         input.edit_text(type='text' value=field_value placeholder=placeholder)
-
 template(name='text_view')
     if field_value
         unless header
@@ -259,7 +244,6 @@ template(name='text_view')
             else
                 |#{this}
         .ui.inline.small.header #{field_value}
-
 
 template(name='phone_edit')
     .ui.labeled.fluid.input
@@ -289,14 +273,9 @@ template(name='phone_view')
         strong &nbsp; #{field_value}
 
 
-
-
-
 template(name='code_edit')
     .ui.header ace
     #ace
-
-
 
 template(name='number_edit')
     .ui.labeled.fluid.input
@@ -305,7 +284,6 @@ template(name='number_edit')
             //     i.grey.icon(class=icon)
             |#{label}
         input.edit_number(type='number' value=field_value placeholder=placeholder)
-
 template(name='number_view')
     div
     if icon
@@ -315,9 +293,6 @@ template(name='number_view')
     else
         |#{this}
     strong &nbsp; #{field_value}
-
-
-
 
 
 template(name='date_edit')
@@ -345,10 +320,6 @@ template(name='date_view')
     strong &nbsp; #{field_value}
 
 
-
-
-
-
 template(name='time_edit')
     .ui.form
         .field
@@ -358,8 +329,6 @@ template(name='time_edit')
                 else
                     |#{key}
             input.edit_time(type='time' value=field_value placeholder=placeholder)
-
-
 template(name='time_view')
     if icon
         i.grey.icon(class=icon)
@@ -372,10 +341,6 @@ template(name='time_view')
         |#{this}
     strong &nbsp; #{field_value}
 
-
-
-
-
 template(name='datetime_edit')
     .ui.form
         .field
@@ -385,8 +350,6 @@ template(name='datetime_edit')
                 else
                     |#{key}
             input.edit_datetime(type='datetime' value=field_value placeholder=placeholder)
-
-
 template(name='datetime_view')
     if icon
         i.grey.icon(class=icon)
@@ -397,11 +360,6 @@ template(name='datetime_view')
     else
         |#{this}
     strong &nbsp; #{field_value}
-
-
-
-
-
 
 
 template(name='array_edit')
@@ -420,8 +378,6 @@ template(name='array_edit')
             .ui.large.label
                 i.delete.icon.remove_element
                 |#{this}
-
-
 template(name='array_view')
     if field_value
         div 
@@ -435,11 +391,6 @@ template(name='array_view')
                 |#{this}
             each field_value
                 .ui.large.label #{this}
-
-
-
-
-
 
 
 template(name='children_edit')
@@ -544,7 +495,7 @@ template(name='youtube_view')
 
 
 template(name='boolean_edit')
-    .ui.header #{label}
+    .ui.header #{label} #{key}
     .ui.button.toggle_boolean(class=boolean_toggle_class)
         if field_value
             |Yes

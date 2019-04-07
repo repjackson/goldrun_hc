@@ -13,10 +13,9 @@ Cloudinary.config
     api_secret: Meteor.settings.cloudinary_secret
 
 
-Meteor.publish 'featured_posts', ->
+Meteor.publish 'type', (type)->
     Docs.find
-        type: 'post'
-        featured: true
+        type: type
 
 Meteor.publish 'user_from_username', (username)->
     Meteor.users.find

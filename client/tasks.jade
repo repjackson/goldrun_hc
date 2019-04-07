@@ -1,37 +1,32 @@
 
 template(name='edit_task')
     with task
-        .ui.text.container
-            h1.ui.center.aligned.header Edit Task
-            .ui.form
-                +before_image
-                .field
-                    label Location
-                    input#location(type='text' value=location)
-                +staff_field
-                +due_date
-                .ui.segment
-                    +complete
-                    if complete
-                        .field
-                            label Complete Date
-                            input#complete_date(type='date' value=complete_date)        
-                        +after_image
-                        +notes
-                .field
-                    label Description
-                    input#description(type='text' value=description)
-                +edit_tags
-                .ui.basic.center.aligned.segment
-                    a.ui.green.big.button(href='/tasks') Save Task
-                    #delete_task.ui.red.icon.button
-                        i.trash.icon            
+        .ui.stackable.padded.grid
+            .four.wide.column
+                h1.ui.center.aligned.header edit task
+                a.ui.green.big.button(href='/tasks') save
+                #delete_task.ui.red.icon.button
+                    i.trash.icon
+            .twelve.wide.column
+                .ui.form
+                    +image_edit key='before_image_id'
+                    +text_edit key='location'
+                    //- +single_user_ref key='user'
+                    +date_edit key='due_date'
+                    .ui.secondary.segment
+                        +boolean_edit key='complete'
+                        if complete
+                            +date_edit key='complete_date'
+                            +image_edit key='after_image'
+                            +textarea_edit key='notes'
+                    +textarea_edit key='description'
+                    +array_edit key='tags'
             
             
 template(name='tasks') 
     .ui.container
-        h1.ui.center.aligned.header Tasks
-            i#add_task.green.plus.link.icon 
+        h1.ui.center.aligned.header tasks
+        i#add_task.green.plus.link.icon 
         +cloud filter='task'
         .ui.centered.cards
             each tasks
@@ -86,6 +81,6 @@ template(name='task')
         .content
             a.ui.basic.button(href="/task/edit/#{_id}") 
                 i.pencil.icon
-                |Edit
+                |edit
             // a.ui.compact.button(href="/task/view/#{_id}") 
             //     |View

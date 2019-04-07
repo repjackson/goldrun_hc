@@ -1,19 +1,42 @@
 template(name='dashboard')
     .ui.stackable.padded.grid
-        .row
+        .centered.row
             .twelve.wide.column
-                .ui.center.aligned.header dashboard
+                .ui.center.aligned.header 
+                    i.dashboard.icon
+                    |dashboard
         .row
             .four.wide.column
                 +dashboard_segment title='posts' icon='newspaper' 
             .four.wide.column
                 +dashboard_segment title='for sale' icon='cart' 
             .four.wide.column
-                +dashboard_segment title='for sale' icon='cart' 
+                +dashboard_segment title='for rent' icon='cart' 
             .four.wide.column
-                +dashboard_segment title='for sale' icon='cart' 
-
-
+                +dashboard_segment title='healthclub' icon='clinic medical' 
+            .four.wide.column
+                +dashboard_segment title='events' icon='calendar' 
+            .four.wide.column
+                +dashboard_segment title='community' icon='glass cheers' 
+            .four.wide.column
+                +dashboard_segment title='ideas' icon='lightbulb' 
+            .four.wide.column
+                +my_tasks
+                
+                
+                
+template(name='my_tasks')                
+    .ui.segment
+        a.ui.header(href='/tasks')
+            i.tasks.icon 
+            |my tasks
+        .ui.icon.button.add_task
+            i.plus.icon
+        each tasks
+            .ui.item
+                .content
+                    .header #{title}
+                    .description #{description}
 
 template(name='dashboard_segment')
     .ui.fluid.segment

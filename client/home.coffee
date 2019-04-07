@@ -1,6 +1,6 @@
 if Meteor.isClient
     Template.home.onCreated ->
-        @autorun -> Meteor.subscribe('type', 'model')
+        @autorun -> Meteor.subscribe 'type', 'model'
 
     Template.home.helpers
         models: ->
@@ -19,3 +19,12 @@ if Meteor.isClient
         doc: ->
             doc_id = Router.getParam 'doc_id'
             Docs.findOne  doc_id
+
+
+    Template.my_tasks.onCreated ->
+        @autorun -> Meteor.subscribe 'type', 'task'
+
+    Template.my_tasks.helpers
+        tasks: ->
+            Docs.find
+                type:'task'

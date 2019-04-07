@@ -36,3 +36,4 @@ froala:editor-reactive@=2.4.2
 mquandalle:jade
 underscore@1.0.10
 coffeescript
+ecmascript
