@@ -1,0 +1,39 @@
+
+template(name='edit_model')
+    with model
+        .ui.stackable.padded.grid
+            .four.wide.column
+                h1.ui.center.aligned.header edit model
+                a.ui.green.big.button(href='/models') save
+                #delete_model.ui.red.icon.button
+                    i.trash.icon
+            .twelve.wide.column
+                .ui.form
+                    +text_edit key='title'
+                    +text_edit key='slug'
+                    +text_edit key='icon'
+                    +textarea_edit key='description'
+                    +array_edit key='tags'
+            
+            
+template(name='models') 
+    .ui.container
+        h1.ui.center.aligned.header models
+        i#add_model.green.plus.link.icon 
+        +cloud filter='model'
+        .ui.centered.cards
+            each models
+                +model
+                    
+                
+template(name='model')
+    .ui.card
+        .content
+            .header #{title}
+            .description
+                +text_view key='slug'
+            a.ui.basic.button(href="/model/edit/#{_id}") 
+                i.pencil.icon
+                |edit
+            // a.ui.compact.button(href="/model/view/#{_id}") 
+            //     |View

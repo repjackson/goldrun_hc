@@ -8,11 +8,16 @@ if Meteor.isClient
         @autorun ->
             Meteor.subscribe 'me'
             Meteor.subscribe 'my_notifications'
+            Meteor.subscribe 'type', 'model'
 
     Template.nav.helpers
         notifications: ->
             Docs.find
                 type:'notification'
+
+        models: ->
+            Docs.find
+                type:'model'
 
 
 

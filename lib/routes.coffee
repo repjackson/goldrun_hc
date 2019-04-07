@@ -14,8 +14,6 @@ Router.route '/me', -> @render 'me'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'
 Router.route '/register_therapist', -> @render 'register_therapist'
-Router.route '/staff', -> @render 'staff'
-
 
 Router.route('enroll', {
     path: '/enroll-account/:token'

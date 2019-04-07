@@ -5,23 +5,65 @@ template(name='dashboard')
                 .ui.center.aligned.header 
                     i.dashboard.icon
                     |dashboard
-        .row
-            .four.wide.column
+        .ui.centered.cards
+            .ui.card
                 +dashboard_segment title='posts' icon='newspaper' 
-            .four.wide.column
-                +dashboard_segment title='for sale' icon='cart' 
-            .four.wide.column
-                +dashboard_segment title='for rent' icon='cart' 
-            .four.wide.column
+            .ui.card
                 +dashboard_segment title='healthclub' icon='clinic medical' 
-            .four.wide.column
+            .ui.card
                 +dashboard_segment title='events' icon='calendar' 
-            .four.wide.column
+            .ui.card
                 +dashboard_segment title='community' icon='glass cheers' 
-            .four.wide.column
+            .ui.card
                 +dashboard_segment title='ideas' icon='lightbulb' 
-            .four.wide.column
+            .ui.card
                 +my_tasks
+            each models
+                a.ui.card(href="/m/#{slug}" class="{{isActivePath '/models'}}")
+                    .content
+                        .ui.header
+                            i.icon(class=icon)
+                            | #{title}
+            a.ui.card(href='/models' class="{{isActivePath '/models'}}")
+                .content
+                    .ui.header
+                        i.cubes.icon
+                        | models
+            a.ui.card(href='/readings' class="{{isActivePath '/readings'}}")
+                .content
+                    .ui.header
+                        i.theme.icon
+                        | readings
+            a.ui.card(href='/lostfound' class="{{isActivePath '/lostfound'}}")
+                .content
+                    .ui.header
+                        i.random.icon
+                        | lost and found
+            a.ui.card(href='/bikes' class="{{isActivePath '/bikes'}}")
+                .content
+                    .ui.header
+                        i.bicycle.icon
+                        | bikes
+            a.ui.card(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
+                .content
+                    .ui.header
+                        i.circle.info.icon
+                        | desk staff
+            a.ui.card(href='/buildings' class="{{isActivePath '/buildings'}}")
+                .content
+                    .ui.header
+                        i.building.icon
+                        | buildings
+            a.ui.card(href='/tasks' class="{{isActivePath '/tasks'}}")
+                .content
+                    .ui.header
+                        i.edit.icon
+                        | tasks
+            a.ui.card(href='/keys' class="{{isActivePath '/keys'}}")
+                .content
+                    .ui.header
+                        i.key.icon
+                        | keys
                 
                 
                 
@@ -55,7 +97,7 @@ template(name='home')
         each models
             a.ui.card(href="/s/#{slug}")
                 .content
-                    .ui.icon.header
+                    .ui.header
                         i.icon(class=icon)
                         |#{title}
 

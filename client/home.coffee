@@ -1,8 +1,8 @@
 if Meteor.isClient
-    Template.home.onCreated ->
+    Template.dashboard.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'model'
 
-    Template.home.helpers
+    Template.dashboard.helpers
         models: ->
             Docs.find
                 type: 'model'

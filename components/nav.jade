@@ -3,30 +3,17 @@ template(name='nav')
         //- a.toggle_sidebar.icon.item
         //-     i.sidebar.icon
         a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-            i.dashboard.icon
-            | dashboard
+            i.bars.icon
+            //- | dashboard
         a.icon.item(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
-            | users
-        //- a.ui.mobile.hidden.simple.dropdown.item(href='/community' class="{{isActivePath '/community'}}")
-        //-     i.users.icon
-        //-     | community
-        //-     .ui.menu
-        //-         a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
-        //-             i.calendar.icon
-        //-             | events
-        //-         a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
-        //-             i.shopping.bag.icon
-        //-             | classifieds
-        //-         a.mobile.hidden.item(href='/people' class="{{isActivePath '/people'}}")
-        //-             i.comments.outline.icon
-        //-             | discussion
-        //- a.mobile.hidden.item(href='/posts' class="{{isActivePath '/posts'}}")
-        //-     i.sticky.note.outline.icon
-        //-     | posts
+            //- | users
+        each models    
+            a.icon.item(href="/m/#{slug}" class="{{isActivePath '/users'}}" title=title)
+                i.icon(class=icon)
         a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}")
             i.clinic.medical.icon
-            | health club
+            //- | health club
         .ui.mobile.hidden.labeled.icon.right.inverted.grbrown.menu
             if currentUser
                 //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
@@ -37,19 +24,16 @@ template(name='nav')
                 //-             .item #{text}
                 a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
                     i.mail.icon
-                    | mail
+                    //- | mail
                 a.mobile.hidden.item(href='/admin' class="{{isActivePath '/admin'}}")
                     i.user.shield.icon
-                    | admin
-                a.mobile.hidden.item(href='/staff' class="{{isActivePath '/staff'}}")
-                    i.info.circle.icon
-                    | staff
+                    //- | admin
                 a.mobile.hidden.item(href="/user/#{currentUser.username}/view" class="{{isActiveRoute regex='user_chat'}}")
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
                     else
                         i.user.icon
-                    | #{currentUser.username}
+                    //- | #{currentUser.username}
                 //- a#logout.ui.mobile.hidden.item(href='#') 
                 //-     i.sign.out.icon
                     //- | Sign Out
