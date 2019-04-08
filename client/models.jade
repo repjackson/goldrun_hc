@@ -4,7 +4,7 @@ template(name='edit_model')
         .ui.stackable.padded.grid
             .four.wide.column
                 h1.ui.center.aligned.header edit model
-                a.ui.green.big.button(href='/models') save
+                a.ui.green.big.button(href="/m/#{slug}") save
                 #delete_model.ui.red.icon.button
                     i.trash.icon
             .twelve.wide.column
@@ -14,12 +14,55 @@ template(name='edit_model')
                     +text_edit key='icon'
                     +textarea_edit key='description'
                     +array_edit key='tags'
+                .ui.small.header fields
+                .ui.icon.button.add_field
+                    i.plus.icon
+                each fields
+                    +field_edit
+                    
+template(name='field_edit')
+    .ui.secondary.segment
+        +text_edit key='title'                    
+        +text_edit key='key'                    
+        +text_edit key='field_type'                    
+        +number_edit key='rank' label='rank'                  
+
             
+template(name='view_model')
+    with model
+        .ui.stackable.padded.grid
+            .four.wide.column
+                h1.ui.center.aligned.header #{title}
+                a.ui.icon.button(href="/model/edit/#{_id}")
+                    i.pencil.icon
+                .ui.button.add_child
+                    |add #{slug}
+            .twelve.wide.column
+                .ui.form
+                    +text_view key='title'
+                    +text_view key='slug'
+                    +text_view key='icon'
+                    +textarea_view key='description'
+                    +array_view key='tags'
+                each fields
+                    +field_view
+
+        
+template(name='field_view')
+    .ui.secondary.segment
+        +text_view key='title'                    
+        +text_view key='key'                    
+        +text_view key='field_type'                    
+        +number_view key='rank' label='rank'                  
+
+        
+        
             
 template(name='models') 
     .ui.container
         h1.ui.center.aligned.header models
-        i#add_model.green.plus.link.icon 
+        #add_model.ui.icon.button
+            i.green.plus.icon 
         +cloud filter='model'
         .ui.centered.cards
             each models
@@ -29,11 +72,12 @@ template(name='models')
 template(name='model')
     .ui.card
         .content
-            .header #{title}
+            .header 
+                i.icon(class=icon)
+                |#{title}
             .description
                 +text_view key='slug'
-            a.ui.basic.button(href="/model/edit/#{_id}") 
+            a.ui.icon.button(href="/model/edit/#{_id}") 
                 i.pencil.icon
-                |edit
-            // a.ui.compact.button(href="/model/view/#{_id}") 
-            //     |View
+            a.ui.icon.button(href="/m/#{slug}") 
+                i.right.arrow.icon

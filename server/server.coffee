@@ -17,6 +17,10 @@ Meteor.publish 'type', (type)->
     Docs.find
         type: type
 
+Meteor.publish 'child_docs', (id)->
+    Docs.find
+        parent_id:id
+
 Meteor.publish 'user_from_username', (username)->
     Meteor.users.find
         username: username

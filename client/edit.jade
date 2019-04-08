@@ -1,0 +1,7 @@
+template(name='edit')
+    with current_doc
+        +text_edit key='title'
+        +text_edit key='slug'
+    each fields
+        .ui.header #{title} #{field_type}
+        +"#{field_type}_edit"

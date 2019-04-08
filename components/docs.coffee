@@ -105,8 +105,6 @@ if Meteor.isServer
         if selected_tags.length > 0 then match.tags = $all: selected_tags
         if filter then match.type = filter
 
-
-
         Docs.find match,
             limit: 20
 
@@ -126,7 +124,6 @@ if Meteor.isServer
 
         # selected_tags.push current_herd
         match.tags = $all: selected_tags
-
 
         cloud = Docs.aggregate [
             { $match: match }

@@ -7,15 +7,7 @@ template(name='dashboard')
                     |dashboard
         .ui.centered.cards
             .ui.card
-                +dashboard_segment title='posts' icon='newspaper' 
-            .ui.card
                 +dashboard_segment title='healthclub' icon='clinic medical' 
-            .ui.card
-                +dashboard_segment title='events' icon='calendar' 
-            .ui.card
-                +dashboard_segment title='community' icon='glass cheers' 
-            .ui.card
-                +dashboard_segment title='ideas' icon='lightbulb' 
             .ui.card
                 +my_tasks
             each models
@@ -29,21 +21,6 @@ template(name='dashboard')
                     .ui.header
                         i.cubes.icon
                         | models
-            a.ui.card(href='/readings' class="{{isActivePath '/readings'}}")
-                .content
-                    .ui.header
-                        i.theme.icon
-                        | readings
-            a.ui.card(href='/lostfound' class="{{isActivePath '/lostfound'}}")
-                .content
-                    .ui.header
-                        i.random.icon
-                        | lost and found
-            a.ui.card(href='/bikes' class="{{isActivePath '/bikes'}}")
-                .content
-                    .ui.header
-                        i.bicycle.icon
-                        | bikes
             a.ui.card(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
                 .content
                     .ui.header
@@ -100,10 +77,3 @@ template(name='home')
                     .ui.header
                         i.icon(class=icon)
                         |#{title}
-
-
-
-template(name='edit')
-    with current_doc
-        +text_edit key='title'
-        +text_edit key='slug'

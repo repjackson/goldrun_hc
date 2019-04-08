@@ -3,14 +3,17 @@ template(name='nav')
         //- a.toggle_sidebar.icon.item
         //-     i.sidebar.icon
         a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-            i.bars.icon
+            i.th.icon
             //- | dashboard
         a.icon.item(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
             //- | users
-        each models    
-            a.icon.item(href="/m/#{slug}" class="{{isActivePath '/users'}}" title=title)
-                i.icon(class=icon)
+        a.icon.item(href='/models' class="{{isActivePath '/models'}}")
+            i.sitemap.icon
+            //- | users
+        //- each models    
+        //-     a.icon.item(href="/m/#{slug}" class="{{isActivePath '/users'}}" title=title)
+        //-         i.icon(class=icon)
         a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}")
             i.clinic.medical.icon
             //- | health club
