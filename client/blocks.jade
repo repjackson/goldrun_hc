@@ -1,0 +1,143 @@
+template(name='comments')
+    .ui.grey.header
+        i.chat.icon
+        |comments
+    if currentUser
+        .ui.fluid.icon.transparent.input
+            i.plus.icon
+            input.add_comment(type='text' placeholder='add...')
+    .ui.comments
+        each doc_comments
+            .comment
+                .content
+                    .header #{body}
+                    .meta #{when}
+                    .actions
+                        i.thumbs.up.link.icon
+                        i.remove.link.remove_comment.icon
+
+template(name='follow')
+    .ui.segment
+        .ui.header
+            i.user.plus.icon
+            |Follow
+        +user_list_toggle key='follower_ids' icon='rss' add_label='Follow' remove_label='Unfollow' color='blue'
+
+
+template(name='toggle_edit')
+    .ui.button.toggle_edit
+        i.pencil.icon
+
+template(name='user_list_info')
+    a.ui.button.item(href="/user/#{user._id}/about")
+        img.ui.avatar.image(src=user.profile.profilePic title=name)
+        |#{user.profile.name}
+        +user_status user
+
+
+template(name='view_full_button')
+    a.ui.button.ui.icon.button(href="/view/#{_id}" class=classes data-tooltip='View Full')
+        i.double.icon
+        |View
+
+template(name='user_status')
+    if online 
+        // .ui.label(class='{{labelClass}}') 
+        .ui.empty.green.circular.label(title='Online')
+        // img.ui.avatar.image(src="https://img.icons8.com/connection-user_status-on/color/48" title='Online' width="48" height="48")
+        // |Online
+    else if idle
+        .ui.empty.yellow.circular.label(title='Idle')
+        // .ui.label(class='{{labelClass}}') Idle
+        // else 
+        //     |Offline
+
+
+
+template(name='user_info')
+    a.ui.button.item(href="/user/#{user.username}/about")
+        if image_id
+            img.ui.avatar.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+        |#{user.first_name} #{user.last_name}
+        |@#{user.username}
+        +user_status user
+
+
+template(name='role_editor')
+    each roles
+        .ui.button #{this}
+
+template(name='author_info')
+    a.ui.button(href="/user/#{_id}/about") by #{author.profile.name}
+
+template(name='creation_info')
+    .ui.header #{when}
+
+
+template(name='user_list_toggle')
+    if currentUser
+        a.ui.button.toggle(class=user_list_toggle_class title=add_label href='#')
+            i.icon(class=icon)
+            |#{label}
+        each list_users
+            +user_info
+
+
+template(name='voting')
+    if points
+        strong #{points}
+    .ui.icon.compact.button.upvote
+        i.thumbs.up.icon(class=upvote_class)
+    each upvoter_ids
+        +user_info
+    .ui.icon.compact.button.downvote
+        i.thumbs.down.icon(class=downvote_class)
+    each downvoter_ids
+        +user_info
+
+
+
+template(name='view_button')
+    a.ui.icon.button.view(title='View' href="/s/#{type}/#{_id}/view")
+        i.right.chevron.icon
+
+
+template(name='remove_button')
+    a.ui.icon.button.remove(title='Delete')
+        i.remove.red.icon
+        |Delete
+
+template(name='add_button')
+    a.ui.button.add(title='Add')
+        i.plus' tooltip="Add #{type}.icon
+        |#{type}
+
+
+
+template(name='edit_button')
+    a.ui.button.icon.edit(title='Edit' href="/s/#{type}/#{_id}/edit")
+        i.blue.pencil.icon
+        |Edit
+
+
+template(name='save_button')
+    a.ui.button.large.icon.save(title='Save' href="/s/#{type}/#{_id}/view")
+        i.checkmark.green.icon
+        |Save
+
+template(name='toggle_button')
+    .ui.icon.toggle.button(title=label)
+        i.icon(class=icon)
+    each selected
+        |#{username}
+
+
+template(name='view_user_button')
+    .view_user.view(title="view #{username}")
+        i.play.icon
+        |View
+
+template(name='add_type_button')
+    .ui.icon.button.add(title="add #{type}")
+        i.plus.icon
+        |#{type}

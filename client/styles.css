@@ -28,6 +28,9 @@ body {
 a {
   font-family: 'Ubuntu', sans-serif !important;
 }
+/* .card a.header {
+  color: #482d1b !important;
+} */
 .ui.button {
   font-family: 'Ubuntu', sans-serif !important;
 }
@@ -113,10 +116,6 @@ a {
     bottom: 0;
   }
 }
-.footer {
-  height: auto;
-  bottom: 0;
-}
 .map-container {
   max-width: 100%;
   height: 300px;
@@ -145,10 +144,13 @@ a {
   left: 0px;
   font-size: 225%;
 }
-#footer {
-  position: absolute;
-  bottom: 0;
+.footer {
+    /* position: absolute; */
+    height: auto;
+    /* bottom: 0; */
 }
+
+
 .slider-header {
   color: #fff;
   padding: 10px;
@@ -263,8 +265,9 @@ a {
 }
 #main {
     margin-top:20px;
-    min-height: 500px;
-    bottom: 0;
+    height: 100%;
+    /* min-height: 500px; */
+    /* bottom: 0; */
 }
 
 

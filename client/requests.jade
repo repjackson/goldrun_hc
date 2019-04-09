@@ -1,10 +1,8 @@
 template(name='requests')
-    .ui.container.segment
+    .ui.container
         .ui.center.aligned.header Front Desk Time Off Requests
             i#add_request.green.plus.link.icon 
-        h4.ui.center.aligned.header
-            | Approval will be given no later than 48 hrs of the first date requested.
-        table.ui.sortable.striped.table
+        table.ui.striped.basic.table
             thead
                 tr
                     th Employee

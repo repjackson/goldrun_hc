@@ -1,17 +1,8 @@
-Template.post_page.onCreated ->
-    @autorun -> Meteor.subscribe 'doc', Router.current().param.doc_id
+Template.post_view.onCreated ->
+    @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
 
-
-
-Template.post_page.helpers
-    post: -> Docs.findOne Router.current().param.doc_id
-
-
-Template.post_page.events
-    'click .edit_post': ->
-        Router.go "/post/edit/#{@_id}"
-
-
+Template.post_view.helpers
+    post: -> Docs.findOne Router.current().params.doc_id
 
 
 if Meteor.isClient
@@ -26,35 +17,20 @@ if Meteor.isClient
                     publish_date: -1
 
 
-
-
 if Meteor.isServer
     Meteor.publish 'my_posts', ->
         Docs.find
             author_id: @userId
 
 
-
-
-Template.edit_post.onCreated ->
+Template.post_edit.onCreated ->
     @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
 
-Template.edit_post.helpers
+Template.post_edit.helpers
     post: -> Docs.findOne Router.current().params.doc_id
 
 
-Template.edit_post.events
-    'click #save_post': ->
-        title = $('#title').val()
-        publish_date = $('#publish_date').val()
-        body = $('#body').val()
-        Docs.update Router.current().params.doc_id,
-            $set:
-                title: title
-                publish_date: publish_date
-                body: body
-        Router.go "/post/view/#{@_id}"
-
+Template.post_edit.events
     'click #delete_post': ->
         swal {
             title: 'Delete?'

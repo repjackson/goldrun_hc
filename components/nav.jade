@@ -5,17 +5,19 @@ template(name='nav')
         a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
             i.th.icon
             //- | dashboard
-        a.icon.item(href='/users' class="{{isActivePath '/users'}}")
+        a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
             i.users.icon
-        a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+        a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}" title='Buildings')
             i.building.icon
-        a.icon.item(href='/keys' class="{{isActivePath '/keys'}}")
+        a.icon.item(href='/keys' class="{{isActivePath '/keys'}}" title='Keys')
             i.key.icon
-        a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}")
+        a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='Tasks')
             i.tasks.icon
-        a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
+        a.icon.item(href='/posts' class="{{isActivePath '/posts'}}" title='Posts')
+            i.newspaper.icon
+        a.icon.item(href='/staff' class="{{isActivePath '/staff'}}" title='Staff')
             i.user.shield.icon
-        a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}")
+        a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
             i.clinic.medical.icon
         if currentUser
             //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")

@@ -1,20 +1,18 @@
 template(name='posts')
     .ui.container
-        .ui.stackable.divided.grid
+        .ui.stackable.padded.grid
             .twelve.wide.column
-                .ui.relaxed.divided.items
-                    each posts
-                        +post_item
+                .ui.large.center.aligned.header 
+                    i.newspaper.icon
+                    |Posts
+                each posts
+                    +post_item
             .four.wide.column
-                if is_admin
-                    h2.ui.header 
-                        i.red.configure.icon
-                        |Admin
-                    #add_post.ui.compact.basic.fluid.button
-                        i.large.icons
-                            i.sticky.note.outline.icon
-                            i.green.plus.corner.icon
-                        |Add Post
+                #add_post.ui.fluid.button
+                    i.large.icons
+                        i.sticky.note.outline.icon
+                        i.green.plus.corner.icon
+                    |Add Post
 
 
 template(name='my_posts')
@@ -24,22 +22,22 @@ template(name='my_posts')
             .ui.divided.list
                 each my_posts
                     .item 
-                        a(href="/post/view/#{_id}") #{title}
+                        a(href="/post/#{_id}/view") #{title}
 
 
 template(name='post')
     .ui.fluid.card
         .ui.centered.image
-            a(href="/post/view/#{_id}")
+            a(href="/post/#{_id}/view")
                 img(src="{{c.url image_id  height=300 crop='fill' gravity='face' }}")
         .content
             h1.ui.header
-                a(href="/post/view/#{_id}") #{title}
+                a(href="/post/#{_id}/view") #{title}
             if publish_date
                 .meta
                     | Published #{publish_when}
             .description
-                |{{nl2br body}}
+                |!{nl2br body}
         .content
             each tags
                 .ui.compact.button.post_tag(class=tag_class) #{this}
@@ -50,31 +48,30 @@ template(name='post')
             
             
 template(name='post_item')
-    .ui.item
-        a.image(href="/post/view/#{_id}")
+    .ui.segment
+        a.image(href="/post/#{_id}/view")
             img.ui.rounded.image(src="{{c.url image_id  width=175 height=175 crop='fill' gravity='face' }}")
         .content
-            a.header(href="/post/view/#{_id}") #{title}
+            a.ui.header(href="/post/#{_id}/view") #{title}
             if publish_date
                 .meta
                     | Published #{publish_when}
             .description
-                |!{description}
-                a(href="/post/view/#{_id}") 
-                    |View More
-                    i.arrow.right.icon
+                |!{content}
             .extra
+                a.ui.button(href="/post/#{_id}/view") 
+                    |View
+                    i.right.chevron.icon
                 i.tags.icon
                 each tags
                     .ui.compact.label.post_tag(class=tag_class) #{this}
-            if is_admin
-                .extra
-                    i.red.configure.large.icon
+                if is_admin
+                    i.configure.large.icon
                     if published
                         .ui.green.basic.label Published
                     else
-                        .ui.red.basic.label Unpublished                        
+                        .ui.basic.label Unpublished                        
                     if featured
                         .ui.green.basic.label Featured
                     else
-                        .ui.red.basic.label Unfeatured
+                        .ui.basic.label Unfeatured

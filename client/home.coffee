@@ -37,3 +37,11 @@ if Meteor.isClient
         buildings: ->
             Docs.find
                 type:'building'
+
+
+    Template.post_widget.onCreated ->
+        @autorun -> Meteor.subscribe 'type', 'post'
+    Template.post_widget.helpers
+        posts: ->
+            Docs.find
+                type:'post'

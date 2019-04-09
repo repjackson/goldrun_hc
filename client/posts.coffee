@@ -1,7 +1,7 @@
 if Meteor.isClient
     Router.route '/posts', -> @render 'posts'
-    Router.route '/post/edit/:doc_id', -> @render 'edit_post'
-    Router.route '/post/view/:doc_id', -> @render 'post_page'
+    Router.route '/post/:doc_id/edit', -> @render 'post_edit'
+    Router.route '/post/:doc_id/view', -> @render 'post_view'
 
     @selected_post_tags = new ReactiveArray []
 
@@ -18,7 +18,7 @@ if Meteor.isClient
     Template.posts.events
         'click #add_post': ->
             id = Docs.insert type: 'post'
-            Router.go "/post/edit/#{id}"
+            Router.go "/post/#{id}/edit"
 
 
     Template.post.helpers
@@ -37,4 +37,4 @@ if Meteor.isClient
             if @valueOf() in selected_post_tags.array() then selected_post_tags.remove @valueOf() else selected_post_tags.push @valueOf()
 
         'click .edit_post': ->
-            Router.go "/post/edit/#{@_id}"
+            Router.go "/post/#{@_id}/edit"

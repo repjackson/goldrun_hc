@@ -18,12 +18,7 @@ template(name='dashboard')
                 .ui.header
                     i.circle.info.icon
                     | Desk Staff
-        a.ui.card(href='/posts' class="{{isActivePath '/posts'}}")
-            .content
-                .ui.header
-                    i.newspaper.icon
-                    | Posts
-                | notices, personal blogs
+        +post_widget
         a.ui.card(href='/posts' class="{{isActivePath '/posts'}}")
             .content
                 .ui.header
@@ -58,7 +53,17 @@ template(name='dashboard')
                     | Keys
                 .content
                 
-                
+template(name='post_widget')
+    .ui.card
+        .content
+            a.ui.header(href='/posts' class="{{isActivePath '/posts'}}")
+                i.newspaper.icon
+                | Posts
+            .ui.link.list
+                each posts
+                    a.item(href="/post/#{_id}/view")
+                        |#{title}
+            
 
 template(name='buildings_widget')
     a.ui.card(href='/buildings' class="{{isActivePath '/buildings'}}")

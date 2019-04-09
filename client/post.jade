@@ -1,0 +1,61 @@
+template(name='post_view')
+    with post
+        .ui.padded.grid
+            .row
+                .four.wide.column
+                    a.ui.button(href="/posts")
+                        i.arrow.left.icon
+                        |Posts
+                .eight.wide.column
+                    h1.ui.center.aligned.header #{title}
+                .four.wide.column
+                    if image_id
+                        img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
+            .row
+                .twelve.wide.column
+                    if publish_date
+                        h4.ui.header Published #{publish_when}
+                    .ui.basic.segment
+                        |!{content}
+                    if tags
+                        .ui.basic.segment
+                            each tags
+                                .ui.basic.label #{this}
+                .four.wide.column
+                    +user_info
+                    +comments
+                    if is_admin
+                        a.ui.button(href="/post/#{_id}/edit")
+                            i.pencil.icon
+                            |Edit
+                        .ui.hidden.divider
+                            if published
+                                .ui.green.basic.label Published
+                            else
+                                .ui.red.basic.label Unpublished                        
+                            if featured
+                                .ui.green.basic.label Featured
+                            else
+                                .ui.red.basic.label Unfeatured
+
+
+
+template(name='post_edit')
+    with post
+        .ui.padded.stackable.grid
+            .four.wide.column
+                if title
+                    a.ui.green.fluid.button(href="/post/#{_id}/view")
+                        i.check.icon
+                        |Save
+                #delete_post.ui.red.icon.button
+                    i.trash.icon
+            .twelve.wide.column    
+                .ui.center.aligned.header Edit Post
+                .ui.form
+                    +text_edit key='title' label='Title'
+                    +date_edit key='publish_date' label='Publish Date'
+                    +html_edit key='content'
+                    +array_edit key='tags'
+                    +boolean_edit key='published' label='Published'
+                    +boolean_edit key='featured' label='Featured'
