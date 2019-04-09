@@ -4,27 +4,59 @@ template(name='dashboard')
             .twelve.wide.column
                 .ui.center.aligned.large.header 
                     |Gold Run
-        .ui.centered.cards
-            .ui.card
+    .ui.centered.cards
+        .ui.card
+            .content
+                a.header(href='/checkin') 
+                    i.clinic.medical.icon
+                    |Health Club
+                .ui.button Check In
+                .ui.header 4 Current Members
+        +my_tasks
+        a.ui.card(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
+            .content
+                .ui.header
+                    i.circle.info.icon
+                    | Desk Staff
+        a.ui.card(href='/posts' class="{{isActivePath '/posts'}}")
+            .content
+                .ui.header
+                    i.newspaper.icon
+                    | Posts
+                | notices, personal blogs
+        a.ui.card(href='/posts' class="{{isActivePath '/posts'}}")
+            .content
+                .ui.header
+                    i.computer.icon
+                    | Services
+                | resident directory
+        a.ui.card(href='/market' class="{{isActivePath '/market'}}")
+            .content
+                .ui.header
+                    i.cart.icon
+                    | Market
                 .content
-                    a.header(href='/checkin') 
-                        i.clinic.medical.icon
-                        |Health Club
-                    .ui.button Check In
-                    .ui.header 4 Current Members
-            +my_tasks
-            a.ui.card(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
+                    |for sale/rent, room, couch, crockpot
+        a.ui.card(href='/vendors' class="{{isActivePath '/vendors'}}")
+            .content
+                .ui.header
+                    i.truck.icon
+                    | Vendors
+            .content
+                |reviews, lists, rankings
+        a.ui.card(href='/lostfound' class="{{isActivePath '/lostfound'}}")
+            .content
+                .ui.header
+                    i.circle.info.icon
+                    | Lost and Found
+        +buildings_widget
+            
+        a.ui.card(href='/keys' class="{{isActivePath '/keys'}}")
+            .content
+                .ui.header
+                    i.key.icon
+                    | Keys
                 .content
-                    .ui.header
-                        i.circle.info.icon
-                        | Desk Staff
-            +buildings_widget
-                
-            a.ui.card(href='/keys' class="{{isActivePath '/keys'}}")
-                .content
-                    .ui.header
-                        i.key.icon
-                        | Keys
                 
                 
 
