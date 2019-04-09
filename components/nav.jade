@@ -15,8 +15,8 @@ template(name='nav')
             i.tasks.icon
         a.icon.item(href='/posts' class="{{isActivePath '/posts'}}" title='Posts')
             i.newspaper.icon
-        a.icon.item(href='/staff' class="{{isActivePath '/staff'}}" title='Staff')
-            i.user.shield.icon
+        a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')
+            i.briefcase.icon
         a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
             i.clinic.medical.icon
         if currentUser

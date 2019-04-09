@@ -19,6 +19,7 @@ template(name='dashboard')
                     i.circle.info.icon
                     | Desk Staff
         +post_widget
+        +event_widget
         a.ui.card(href='/posts' class="{{isActivePath '/posts'}}")
             .content
                 .ui.header
@@ -64,6 +65,17 @@ template(name='post_widget')
                     a.item(href="/post/#{_id}/view")
                         |#{title}
             
+template(name='event_widget')
+    .ui.card
+        .content
+            a.ui.header(href='/events' class="{{isActivePath '/events'}}")
+                i.calendar.icon
+                | Events
+            .ui.link.list
+                each events
+                    a.item(href="/event/#{_id}/view")
+                        |#{title}
+            
 
 template(name='buildings_widget')
     a.ui.card(href='/buildings' class="{{isActivePath '/buildings'}}")
@@ -86,11 +98,9 @@ template(name='my_tasks')
                 |Tasks
             .ui.icon.button.add_task
                 i.plus.icon
-            each tasks
-                .ui.item
-                    .content
-                        .header #{title}
-                        .description #{description}
+            .ui.link.list
+                each tasks
+                    a.item #{title}
 
 
 

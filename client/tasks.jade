@@ -1,10 +1,10 @@
 
-template(name='edit_task')
+template(name='task_edit')
     with task
         .ui.stackable.padded.grid
             .four.wide.column
-                h1.ui.center.aligned.header edit task
-                a.ui.green.big.button(href='/tasks') save
+                h1.ui.center.aligned.header Edit Task
+                a.ui.green.big.fluid.button(href='/tasks') Save
                 #delete_task.ui.red.icon.button
                     i.trash.icon
             .twelve.wide.column
@@ -24,17 +24,22 @@ template(name='edit_task')
             
             
 template(name='tasks') 
-    .ui.container
-        h1.ui.center.aligned.header tasks
-        i#add_task.green.plus.link.icon 
-        +cloud filter='task'
-        .ui.centered.cards
-            each tasks
-                +task
+    .ui.padded.stackable.grid
+        .four.wide.column
+            h1.ui.center.aligned.header 
+                i.tasks.icon
+                |Tasks
+            #add_task.ui.fluid.icon.button
+                i.plus.large.icon
+            +cloud filter='task'
+        .twelve.wide.column
+            .ui.centered.cards
+                each tasks
+                    +task
                     
                 
 template(name='task')
-    .ui.card
+    .ui.fluid.card
         if before_image_id
             .image
                 .ui.shape
@@ -65,12 +70,10 @@ template(name='task')
                 span
                     i.calendar.icon
                     |#{due_date}
-        .content
             i.tags.icon
             each tags
                 .ui.basic.label #{this}
-        if complete
-            .content
+            if complete
                 |Completed by #{staff}
                 if complete_date
                     |on #{complete_date}
@@ -78,9 +81,7 @@ template(name='task')
                     div
                         i.edit.icon
                         |#{notes}
-        .content
-            a.ui.basic.button(href="/task/edit/#{_id}") 
+            a.ui.icon.button(href="/task/#{_id}/edit") 
                 i.pencil.icon
-                |edit
-            // a.ui.compact.button(href="/task/view/#{_id}") 
-            //     |View
+            //- a.ui.button(href="/task/#{_id}/view") 
+            //-     |View

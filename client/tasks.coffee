@@ -1,8 +1,7 @@
 if Meteor.isClient
     Router.route '/tasks', -> @render 'tasks'
-
-
-    Router.route '/task/edit/:doc_id', -> @render 'edit_task'
+    Router.route '/task/:doc_id/edit', -> @render 'task_edit'
+    Router.route '/task/:doc_id/view', -> @render 'task_view'
 
 
     # Template.task.onRendered ->
@@ -22,7 +21,7 @@ if Meteor.isClient
 
 
 
-    Template.edit_task.onCreated ->
+    Template.task_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'docs', [], 'building'
 
@@ -30,7 +29,7 @@ if Meteor.isClient
     Template.tasks.helpers
         tasks: -> Docs.find { type: 'task' }
 
-    Template.edit_task.helpers
+    Template.task_edit.helpers
         buildings: ->
             Docs.find type: 'building'
 
@@ -45,9 +44,8 @@ if Meteor.isClient
 
     Template.tasks.events
         'click #add_task': ->
-            # alert 'hi'
             id = Docs.insert type:'task'
-            Router.go "/task/edit/#{id}"
+            Router.go "/task/#{id}/edit"
 
     Template.task.events
         'click .flip_shape': (e,t)->
@@ -56,7 +54,7 @@ if Meteor.isClient
             # $('.shape').shape('flip up')
 
 
-    Template.edit_task.helpers
+    Template.task_edit.helpers
         task: ->
             doc_id = Router.current().params.doc_id
             # console.log doc_id
@@ -64,7 +62,7 @@ if Meteor.isClient
 
 
 
-    Template.edit_task.events
+    Template.task_edit.events
         'click #delete_task': (e,t)->
             swal {
                 title: 'Delete task?'
@@ -79,18 +77,3 @@ if Meteor.isClient
             }, ->
                 Docs.remove Router.current().params.doc_id, ->
                     Router.go "/tasks"
-
-        'blur #description': (e,t)->
-            description = $(e.currentTarget).closest('#description').val()
-            Docs.update @_id,
-                $set: description: description
-
-        'blur #complete_date': (e,t)->
-            complete_date = $(e.currentTarget).closest('#complete_date').val()
-            Docs.update @_id,
-                $set: complete_date: complete_date
-
-        'blur #location': (e,t)->
-            location = $(e.currentTarget).closest('#location').val()
-            Docs.update @_id,
-                $set: location: location

@@ -93,4 +93,4 @@ Template.notify_message.events
             user_ids:[current_user._id,Meteor.userId()]
             to_user_id:current_user._id
             to_username:current_user.username
-        Meteor.call 'notify_message', @_id            
+        Meteor.call 'notify_message', @_id
