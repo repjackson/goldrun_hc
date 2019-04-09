@@ -21,6 +21,11 @@ Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
 
+Template.registerHelper 'is_text', () ->
+    console.log @field_type
+    @field_type is 'text'
+
+
 Template.registerHelper 'current_schema', (input) ->
     Docs.findOne
         type:'schema'
@@ -39,6 +44,16 @@ Template.registerHelper 'is_admin', () ->
 Template.registerHelper 'is_dev', () ->
     if Meteor.user() and Meteor.user().roles
         if 'dev' in Meteor.user().roles then true else false
+
+
+Template.registerHelper 'view_template', ->
+    # console.log @
+    "#{@field_type}_view"
+
+Template.registerHelper 'edit_template', ->
+    # console.log @
+    "#{@field_type}_edit"
+
 
 
 

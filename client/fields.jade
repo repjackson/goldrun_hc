@@ -222,14 +222,17 @@ template(name='doc_view')
         
 template(name='text_edit')
     .ui.labeled.fluid.input
-        .ui.label
-            if icon
-                i.grey.icon(class=icon)
-            if label
-                |#{label}
-            else if key
-                |#{key}
+        if label
+            .ui.label
+                if icon
+                    i.grey.icon(class=icon)
+                if label
+                    |#{label}
+                //- else if key
+                //-     |#{key}
         input.edit_text(type='text' value=field_value placeholder=placeholder)
+
+
 template(name='text_view')
     if field_value
         unless header
@@ -539,7 +542,7 @@ template(name='multi_doc_edit')
     .ui.small.header(title=key)
         |#{label}
     each choices
-        .ui.compact.button.select_choice(class=choice_class)
+        .ui.button.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{label}

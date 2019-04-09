@@ -12,6 +12,49 @@ body {
     background-color: #482d1b !important;
 }
 
+
+.button {
+  animation: fadein 1s;
+}
+@keyframes fadein {
+  from { opacity: 0}
+  to   { opacity: 1}
+}
+
+
+.ui.header{
+  font-family: 'Ubuntu', sans-serif !important;
+}
+a {
+  font-family: 'Ubuntu', sans-serif !important;
+}
+.ui.button {
+  font-family: 'Ubuntu', sans-serif !important;
+}
+
+.button {
+  animation: fadein 1s;
+}
+.segment, .card {
+  animation: fadein 1s;
+}
+
+.icon.item {
+  animation: fadein 1s;
+}
+
+@keyframes fadein {
+  from { opacity: 0}
+  to   { opacity: 1}
+}
+
+#main {
+  animation: fadein 1s;
+}
+#result {
+  animation: fadein 1s;
+}
+
 .-autocomplete-container {
   margin-top: 12px;
 }
@@ -218,7 +261,8 @@ body {
     display: none !important;
   }
 }
-#main_area {
-  min-height: 500px;
-  bottom: 0;
+#main {
+    margin-top:20px;
+    min-height: 500px;
+    bottom: 0;
 }

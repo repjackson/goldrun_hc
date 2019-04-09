@@ -6,8 +6,9 @@ if Meteor.isClient
 
 
     Template.keys.onCreated ->
-        @autorun -> Meteor.subscribe('keys', selected_buildings.array())
-        @autorun -> Meteor.subscribe('docs', [], 'building')
+        # @autorun -> Meteor.subscribe('keys', selected_buildings.array())
+        @autorun -> Meteor.subscribe 'type', 'building'
+        @autorun -> Meteor.subscribe 'type', 'key'
 
     # Template.edit_key.onRendered ->
     #     Meteor.setTimeout (->
@@ -17,8 +18,8 @@ if Meteor.isClient
 
 
     Template.edit_key.onCreated ->
-        @autorun -> Meteor.subscribe('doc', Router.current().params.doc_id)
-        @autorun -> Meteor.subscribe('buildings')
+        @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun -> Meteor.subscribe 'type','building'
 
 
 

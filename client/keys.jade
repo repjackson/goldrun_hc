@@ -1,6 +1,6 @@
 template(name='edit_key')
     with key
-        .ui.text.container.segment
+        .ui.container.segment
             h1.ui.center.aligned.header Edit Key
             .ui.form
                 .fields
@@ -40,7 +40,7 @@ template(name='edit_key')
                             label Lock Apartment Number: #{apartment_number}
                             input#apartment_number(type='text' value=apartment_number)
 
-                +notes
+                +textarea_edit key='notes'
                 .ui.basic.center.aligned.segment
                     a.ui.green.big.button(href='/key/view/#{_id}') Save Key
                     #delete_key.ui.red.icon.button
@@ -95,4 +95,3 @@ template(name='keys')
                                     | View
                                 a.add_next_key.ui.basic.button
                                     | Add Next
-

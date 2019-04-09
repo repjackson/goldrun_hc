@@ -3,7 +3,7 @@ template(name='edit_building')
         .ui.container
             .ui.header Edit Building
             .ui.form
-                +building_code
+                +text_edit key='building_code' label='Building Code'
                 .field
                     label Building Numbers
                     .ui.divided.list
@@ -14,7 +14,7 @@ template(name='edit_building')
                     .ui.action.input
                         input#new_building_number(type='number' min='0')
                         #add_building_number.ui.button Add Building Number
-                +edit_tags
+                +array_edit key='tags'
                 .field
                     label Building Street: #{building_street}
                     // input#building_street(type='text' value=building_street)

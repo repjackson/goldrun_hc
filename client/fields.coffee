@@ -457,7 +457,7 @@ Template.single_doc_edit.helpers
 
         if target["#{ref_field.key}"]
             # console.log target["#{ref_field.key}"]
-            if @slug is target["#{ref_field.key}"] then 'teal' else ''
+            if @slug is target["#{ref_field.key}"] then 'teal' else 'basic'
 
 
 Template.single_doc_edit.events
@@ -537,7 +537,7 @@ Template.multi_doc_edit.helpers
 
         if target["#{ref_field.key}"]
             # console.log target["#{ref_field.key}"]
-            if @slug in target["#{ref_field.key}"] then 'teal' else ''
+            if @slug in target["#{ref_field.key}"] then 'teal' else 'basic'
 
 
 Template.multi_doc_edit.events

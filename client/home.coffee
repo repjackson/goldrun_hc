@@ -23,8 +23,17 @@ if Meteor.isClient
 
     Template.my_tasks.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'task'
-
     Template.my_tasks.helpers
         tasks: ->
             Docs.find
                 type:'task'
+
+
+
+
+    Template.buildings_widget.onCreated ->
+        @autorun -> Meteor.subscribe 'type', 'building'
+    Template.buildings_widget.helpers
+        buildings: ->
+            Docs.find
+                type:'building'
