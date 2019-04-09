@@ -266,3 +266,15 @@ a {
     min-height: 500px;
     bottom: 0;
 }
+
+
+.topnav{
+	overflow-y:hidden;
+	overflow-x:scroll;
+	/*max-height:1000px;*/
+	/*max-height:85vh;*/
+	/*padding: 1em;*/
+}
+.topnav::-webkit-scrollbar {
+    display: none;
+}

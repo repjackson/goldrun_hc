@@ -2,8 +2,7 @@ template(name='dashboard')
     .ui.stackable.padded.grid
         .centered.row
             .twelve.wide.column
-                .ui.center.aligned.header 
-                    i.dashboard.icon
+                .ui.center.aligned.large.header 
                     |Gold Run
         .ui.centered.cards
             .ui.card
@@ -11,19 +10,9 @@ template(name='dashboard')
                     a.header(href='/checkin') 
                         i.clinic.medical.icon
                         |Health Club
+                    .ui.button Check In
+                    .ui.header 4 Current Members
             +my_tasks
-            //- each models
-            //-     a.ui.card(href="/m/#{slug}" class="{{isActivePath '/models'}}")
-            //-         .content
-            //-             .ui.header
-            //-                 i.icon(class=icon)
-            //-                 | #{title}
-        .ui.centered.cards
-            //- a.ui.card(href='/models' class="{{isActivePath '/models'}}")
-            //-     .content
-            //-         .ui.header
-            //-             i.cubes.icon
-            //-             | Models
             a.ui.card(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
                 .content
                     .ui.header
@@ -53,17 +42,18 @@ template(name='buildings_widget')
                 
                 
 template(name='my_tasks')                
-    .ui.segment
-        a.ui.header(href='/tasks')
-            i.tasks.icon 
-            |Tasks
-        .ui.icon.button.add_task
-            i.plus.icon
-        each tasks
-            .ui.item
-                .content
-                    .header #{title}
-                    .description #{description}
+    .ui.card
+        .content
+            a.ui.header(href='/tasks')
+                i.tasks.icon 
+                |Tasks
+            .ui.icon.button.add_task
+                i.plus.icon
+            each tasks
+                .ui.item
+                    .content
+                        .header #{title}
+                        .description #{description}
 
 
 

@@ -1,5 +1,5 @@
 template(name='nav')
-    .ui.inverted.grbrown.borderless.stackable.attached.labeled.icon.menu
+    .ui.inverted.grbrown.borderless.attached.labeled.icon.menu.topnav
         //- a.toggle_sidebar.icon.item
         //-     i.sidebar.icon
         a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
@@ -7,43 +7,42 @@ template(name='nav')
             //- | dashboard
         a.icon.item(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
-            //- | users
-        //- a.icon.item(href='/models' class="{{isActivePath '/models'}}")
-        //-     i.sitemap.icon
-            //- | users
-        //- each models    
-        //-     a.icon.item(href="/m/#{slug}" class="{{isActivePath '/users'}}" title=title)
-        //-         i.icon(class=icon)
+        a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+            i.building.icon
+        a.icon.item(href='/keys' class="{{isActivePath '/keys'}}")
+            i.key.icon
+        a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}")
+            i.tasks.icon
+        a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
+            i.user.shield.icon
         a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}")
             i.clinic.medical.icon
-            //- | health club
-        .ui.mobile.hidden.labeled.icon.right.inverted.grbrown.menu
-            if currentUser
-                //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
-                //-     i.alarm.icon
-                //-     | alerts
-                //-     .menu
-                //-         each notifications
-                //-             .item #{text}
-                a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
-                    i.mail.icon
-                    //- | mail
-                a.mobile.hidden.item(href='/admin' class="{{isActivePath '/admin'}}")
-                    i.user.shield.icon
-                    //- | admin
-                a.mobile.hidden.item(href="/user/#{currentUser.username}/view" class="{{isActiveRoute regex='user_chat'}}")
-                    if currentUser.image_id
-                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                    else
-                        i.user.icon
-                    //- | #{currentUser.username}
-                //- a#logout.ui.mobile.hidden.item(href='#') 
-                //-     i.sign.out.icon
-                    //- | Sign Out
-            else
-                a.ui.mobile.hidden.item(href='/login') 
-                    i.sign.in.icon
-                    | log in
+        if currentUser
+            //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
+            //-     i.alarm.icon
+            //-     | alerts
+            //-     .menu
+            //-         each notifications
+            //-             .item #{text}
+            a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
+                i.mail.icon
+                //- | mail
+            a.mobile.hidden.item(href='/admin' class="{{isActivePath '/admin'}}")
+                i.user.shield.icon
+                //- | admin
+            a.mobile.hidden.item(href="/user/#{currentUser.username}/view" class="{{isActiveRoute regex='user_chat'}}")
+                if currentUser.image_id
+                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                else
+                    i.user.icon
+                //- | #{currentUser.username}
+            //- a#logout.ui.mobile.hidden.item(href='#') 
+            //-     i.sign.out.icon
+                //- | Sign Out
+        else
+            a.ui.mobile.hidden.item(href='/login') 
+                i.sign.in.icon
+                | log in
 
 
 template(name='sidebar')
