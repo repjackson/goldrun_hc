@@ -102,7 +102,7 @@ template(name='link_view')
 
 template(name='image_view')
     img.ui.large.centered.rounded.image(src="{{c.url field_value width=400 gravity='face' crop='fill'}}")
-    +call_visual
+    //- +call_visual
 
 template(name='image_edit')
     .ui.form
@@ -116,8 +116,8 @@ template(name='image_edit')
                 if icon
                     i.grey.icon(class=icon)
                 |#{label}
-                if is_dev
-                    input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id')
+                //- if is_dev
+                //-     input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id')
                 // else
                 //     label Upload Image
                 input(type='file' name='upload_image' accept='image/*')
@@ -151,7 +151,7 @@ template(name='textarea_view')
         .active.content
             if field_value
                 |#{nl2br field_value}
-                +call_watson mode='text' key=key
+                //- +call_watson mode='text' key=key
 
 template(name='textarea_edit')
     .ui.form
@@ -166,7 +166,7 @@ template(name='textarea_edit')
                 else
                     |#{this}
             textarea.edit_textarea(rows='5') #{field_value}
-        +call_watson mode='text' key=key
+        //- +call_watson mode='text' key=key
 
 
 template(name='html_edit')
@@ -183,8 +183,12 @@ template(name='html_edit')
                     |#{this}
     .froala-container
         +froalaReactive getFEContext
-    //- +call_watson mode='html'
-    //- +tone mode='html'
+    +call_watson mode='html'
+    +tone mode='html'
+    //- if watson
+    //-     +watson_view
+        
+        
 template(name='html_view')
     .ui.accordion
         .active.title
@@ -192,7 +196,7 @@ template(name='html_view')
             i.dropdown.icon
         .active.content
             |!{field_value}
-            +call_watson mode='html'
+            //- +call_watson mode='html'
 
 
 template(name='doc_edit')
@@ -212,6 +216,8 @@ template(name='doc_edit')
                     i.dropdown.icon
             .content 
                 |!{html}
+                
+                
 template(name='doc_view')
     .ui.styled.fluid.accordion
         .title 
@@ -283,10 +289,12 @@ template(name='code_edit')
 template(name='number_edit')
     .ui.labeled.fluid.input
         .ui.label
-            // if icon
-            //     i.grey.icon(class=icon)
+            if icon
+                i.grey.icon(class=icon)
             |#{label}
         input.edit_number(type='number' value=field_value placeholder=placeholder)
+            
+            
 template(name='number_view')
     div
     if icon
@@ -299,16 +307,15 @@ template(name='number_view')
 
 
 template(name='date_edit')
-    .ui.form
-        .field
-            label 
-                if label
-                    |#{label}
-                else if key
-                    |#{key}
-                else
-                    |#{this}
-            input.edit_date(type='date' value=field_value placeholder=placeholder)
+    .ui.labeled.fluid.input
+        .ui.label 
+            if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
+        input.edit_date(type='date' value=field_value placeholder=placeholder)
 
 
 template(name='date_view')
@@ -353,6 +360,7 @@ template(name='datetime_edit')
                 else
                     |#{key}
             input.edit_datetime(type='datetime' value=field_value placeholder=placeholder)
+
 template(name='datetime_view')
     if icon
         i.grey.icon(class=icon)
@@ -381,6 +389,7 @@ template(name='array_edit')
             .ui.large.label
                 i.delete.icon.remove_element
                 |#{this}
+                
 template(name='array_view')
     if field_value
         div 
@@ -498,7 +507,11 @@ template(name='youtube_view')
 
 
 template(name='boolean_edit')
-    .ui.header #{label}
+    div
+    .ui.inline.small.header
+        if icon
+            i.grey.icon(class=icon)
+        | #{label}
     .ui.button.toggle_boolean(class=boolean_toggle_class)
         if field_value
             |Yes

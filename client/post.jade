@@ -17,6 +17,8 @@ template(name='post_view')
                         h4.ui.header Published #{publish_when}
                     .ui.basic.segment
                         |!{content}
+                    if watson
+                        +watson_view
                     if tags
                         .ui.basic.segment
                             each tags

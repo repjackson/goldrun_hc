@@ -13,39 +13,20 @@ template(name='dashboard')
                 .ui.button Check In
                 .ui.header 4 Current Members
         +my_tasks
-        a.ui.card(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
-            .content
-                .ui.header
-                    i.circle.info.icon
-                    | Desk Staff
-        +post_widget
-        +event_widget
+        +frontdesk_card
+        +post_card
+        +event_card
+        
         a.ui.card(href='/posts' class="{{isActivePath '/posts'}}")
             .content
                 .ui.header
                     i.computer.icon
                     | Services
                 | resident directory
-        a.ui.card(href='/market' class="{{isActivePath '/market'}}")
-            .content
-                .ui.header
-                    i.cart.icon
-                    | Market
-                .content
-                    |for sale/rent, room, couch, crockpot
-        a.ui.card(href='/vendors' class="{{isActivePath '/vendors'}}")
-            .content
-                .ui.header
-                    i.truck.icon
-                    | Vendors
-            .content
-                |reviews, lists, rankings
-        a.ui.card(href='/lostfound' class="{{isActivePath '/lostfound'}}")
-            .content
-                .ui.header
-                    i.circle.info.icon
-                    | Lost and Found
-        +buildings_widget
+        +market_card
+        +work_orders_card
+        +lostfound_card
+        +buildings_card
             
         a.ui.card(href='/keys' class="{{isActivePath '/keys'}}")
             .content
@@ -54,7 +35,7 @@ template(name='dashboard')
                     | Keys
                 .content
                 
-template(name='post_widget')
+template(name='post_card')
     .ui.card
         .content
             a.ui.header(href='/posts' class="{{isActivePath '/posts'}}")
@@ -65,7 +46,7 @@ template(name='post_widget')
                     a.item(href="/post/#{_id}/view")
                         |#{title}
             
-template(name='event_widget')
+template(name='event_card')
     .ui.card
         .content
             a.ui.header(href='/events' class="{{isActivePath '/events'}}")
@@ -77,7 +58,7 @@ template(name='event_widget')
                         |#{title}
             
 
-template(name='buildings_widget')
+template(name='buildings_card')
     a.ui.card(href='/buildings' class="{{isActivePath '/buildings'}}")
         .content
             .ui.header
@@ -103,6 +84,22 @@ template(name='my_tasks')
                     a.item #{title}
 
 
+template(name='market_card')
+    .ui.card
+        .content
+            a.ui.header(href='/market' class="{{isActivePath '/market'}}")
+                i.cart.icon
+                | Market
+            .content
+                |for sale/rent, room, couch, crockpot
+
+
+template(name='lostfound_card')
+    .ui.card
+        .content
+            a.ui.header(href='/lostfound' class="{{isActivePath '/lostfound'}}")
+                i.circle.info.icon
+                | Lost and Found
 
 
 template(name='home')
@@ -115,3 +112,29 @@ template(name='home')
                     .ui.header
                         i.icon(class=icon)
                         |#{title}
+
+template(name='work_orders_card')
+    a.ui.card(href='/work_orders' class="{{isActivePath '/work_orders'}}")
+        .content
+            .ui.header
+                i.truck.icon
+                | Work Orders
+        .content
+            |reviews, lists, rankings
+
+template(name='vendors_card')
+    a.ui.card(href='/vendors' class="{{isActivePath '/vendors'}}")
+        .content
+            .ui.header
+                i.truck.icon
+                | Vendors
+        .content
+            |reviews, lists, rankings
+
+
+template(name='frontdesk_card')
+    a.ui.card(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
+        .content
+            .ui.header
+                i.circle.info.icon
+                | Desk Staff

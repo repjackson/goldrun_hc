@@ -31,17 +31,24 @@ if Meteor.isClient
 
 
 
-    Template.buildings_widget.onCreated ->
+    Template.buildings_card.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'building'
-    Template.buildings_widget.helpers
+    Template.buildings_card.helpers
         buildings: ->
             Docs.find
                 type:'building'
 
 
-    Template.post_widget.onCreated ->
+    Template.post_card.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'post'
-    Template.post_widget.helpers
+    Template.post_card.helpers
+        posts: ->
+            Docs.find
+                type:'post'
+
+    Template.post_card.onCreated ->
+        @autorun -> Meteor.subscribe 'type', 'post'
+    Template.post_card.helpers
         posts: ->
             Docs.find
                 type:'post'

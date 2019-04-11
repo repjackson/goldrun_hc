@@ -1,0 +1,98 @@
+
+template(name='work_order_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .four.wide.column
+                h1.ui.center.aligned.header Edit Work Order
+                a.ui.green.big.fluid.button(href='/work_orders') Save
+                #delete_work_order.ui.red.icon.button
+                    i.trash.icon
+            .twelve.wide.column
+                .ui.form
+                    +date_edit key='date' label='Date'
+                    +image_edit key='image' label='Image'
+                    .ui.secondary.segment
+                        .ui.header 
+                            i.grey.marker.icon
+                            |Location
+                        +single_doc_edit key='building_label' ref_schema='building' label='Building Label' icon='building'
+                        +text_edit key='building_label' label='Building Label' icon='building'
+                        +number_edit key='building_number' label='Building Number' icon='building'
+                        +number_edit key='unit' label='Unit' icon='home'
+                        +text_edit key='location' label='Location (other)'
+                        
+                    +text_edit key='reported_by' label='Reported By' icon='user'
+                    +boolean_edit key='need_to_schedule' label='Need to Schedule with Resident' icon='calendar'
+                    +boolean_edit key='key_on_file' label='Key on File' icon='key'
+                    +textarea_edit key='notes' label='Notes'
+                    +array_edit key='tags' label='Tags'
+                    
+                    .ui.secondary.segment
+                        +boolean_edit key='complete' label='Complete' icon='checkmark'
+                        if complete
+                            +textarea_edit key='work_completed' label='Work Completed' icon='checkmark'
+                            +date_edit key='complete_date' label='Complete Date'
+            
+            
+template(name='work_orders') 
+    .ui.padded.stackable.grid
+        .four.wide.column
+            h1.ui.center.aligned.header 
+                i.work_orders.icon
+                |Work Orders
+            #add_work_order.ui.fluid.icon.button
+                i.plus.large.icon
+            +cloud filter='work_order'
+        .twelve.wide.column
+            .ui.centered.cards
+                each work_orders
+                    +work_order
+                    
+                
+template(name='work_order')
+    .ui.fluid.card
+        if before_image_id
+            .image
+                .ui.shape
+                    .flip_shape.sides
+                        if before_image_id
+                            a.side.active
+                                .content
+                                    .ui.center.aligned.header Before
+                                .image
+                                    img.ui.image(src="{{c.url before_image_id width='400' height='400' crop='lpad' }}")
+                        if after_image_id
+                            a.side
+                                .content
+                                    .ui.center.aligned.header After
+                                .image
+                                    img.ui.image(src="{{c.url after_image_id width='400' height='400' crop='lpad' }}")
+        .content
+            if complete
+                span.right.floated
+                    i.green.large.check.icon
+            else
+                i.right.floated.remove.large.icon
+            .header #{description}
+            .meta
+                i.location.arrow.icon
+                |#{location}
+            if due_date
+                span
+                    i.calendar.icon
+                    |#{due_date}
+            i.tags.icon
+            each tags
+                .ui.basic.label #{this}
+            if complete
+                |Completed by #{staff}
+                if complete_date
+                    |on #{complete_date}
+                if notes
+                    div
+                        i.edit.icon
+                        |#{notes}
+            a.ui.icon.button(href="/work_order/#{_id}/edit") 
+                i.pencil.icon
+            //- a.ui.button(href="/work_order/#{_id}/view") 
+            //-     |View
