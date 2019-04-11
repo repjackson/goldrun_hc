@@ -15,7 +15,7 @@ template(name='work_order_edit')
                         .ui.header 
                             i.grey.marker.icon
                             |Location
-                        +single_doc_edit key='building_label' ref_schema='building' label='Building Label' icon='building'
+                        +single_doc_edit key='building_label' ref_schema='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
                         +text_edit key='building_label' label='Building Label' icon='building'
                         +number_edit key='building_number' label='Building Number' icon='building'
                         +number_edit key='unit' label='Unit' icon='home'

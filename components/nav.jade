@@ -17,6 +17,8 @@ template(name='nav')
             i.newspaper.icon
         a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')
             i.briefcase.icon
+        a.icon.item(href='/work_orders' class="{{isActivePath '/work_orders'}}" title='Work Orders')
+            i.tools.icon
         a.mobile.hidden.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
             i.clinic.medical.icon
         if currentUser

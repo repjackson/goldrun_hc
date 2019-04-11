@@ -1,4 +1,4 @@
-template(name='edit_building')
+template(name='building_edit')
     with building
         .ui.container
             .ui.header Edit Building
@@ -14,7 +14,7 @@ template(name='edit_building')
                     .ui.action.input
                         input#new_building_number(type='number' min='0')
                         #add_building_number.ui.button Add Building Number
-                +array_edit key='tags'
+                +array_edit key='tags'  
                 .field
                     label Building Street: #{building_street}
                     // input#building_street(type='text' value=building_street)
@@ -23,7 +23,7 @@ template(name='edit_building')
                         option(value='Shadow Creek Dr') Shadow Creek Dr
                         option(value='Sundown Ln') Sundown Ln
                         option(value='Springdale Ln') Springdale Ln
-                a.ui.green.big.button(href="/building/view/#{_id}") Save Building
+                a.ui.green.big.button(href="/building/#{_id}/view") Save Building
                 #delete_building.ui.red.icon.button
                     i.trash.icon            
             
@@ -48,16 +48,14 @@ template(name='buildings')
                                 .ui.basic.large.label #{this}
                         td.single.line #{building_street}
                         td.single.line 
-                            a.ui.compact.button(href="/building/edit/#{_id}")
+                            a.ui.large.icon.button(href="/building/#{_id}/edit")
                                 i.pencil.icon
-                                | Edit
-                            a.ui.compact.button(href="/building/view/#{_id}")
-                                i.right.arrow.icon
-                                | View
+                            a.ui.large.icon.button(href="/building/#{_id}/view")
+                                i.right.chevron.icon
 
             
             
-template(name='view_building')
+template(name='building_view')
     with current_doc
         .ui.padded.stackable.grid
             .row
@@ -82,5 +80,5 @@ template(name='view_building')
                     .ui.dividing.header
                         i.configure.icon
                         |Admin
-                    a.ui.button(href="/building/edit/#{_id}") Edit Building
+                    a.ui.button(href="/building/#{_id}/edit") Edit Building
                     

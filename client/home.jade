@@ -59,15 +59,14 @@ template(name='event_card')
             
 
 template(name='buildings_card')
-    a.ui.card(href='/buildings' class="{{isActivePath '/buildings'}}")
+    .ui.card
         .content
-            .ui.header
+            a.ui.header(href='/buildings' class="{{isActivePath '/buildings'}}")
                 i.building.icon
                 | Buildings
             each buildings
-                .ui.item
-                    .content
-                        .header #{building_code}
+                .ui.link.list
+                    a.item(href="/building/#{_id}/view") #{building_code}
                 
                 
                 

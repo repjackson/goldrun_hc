@@ -27,7 +27,7 @@ if Meteor.isClient
         keys: ->
             Docs.find {type: 'key'},
                 sort: tag_number: 1
-        buildings: -> Docs.find type: 'building'
+        buildings: -> Docs.find {type: 'building'}, sort:building_code:1
 
         selected_building_class: ->
             if @building_code in selected_buildings.array() then 'blue' else 'basic'
@@ -35,7 +35,7 @@ if Meteor.isClient
          selected_buildings: -> selected_buildings.array()
 
     Template.edit_key.helpers
-        buildings: -> Docs.find type: 'building'
+        buildings: -> Docs.find {type: 'building'}, sort:building_code:1
 
         building_numbers: ->
             # console.log @

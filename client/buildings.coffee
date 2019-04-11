@@ -1,44 +1,43 @@
 if Meteor.isClient
     Router.route '/buildings', -> @render 'buildings'
-    Router.route '/building/edit/:doc_id', -> @render 'edit_building'
-    Router.route '/building/view/:doc_id', -> @render 'view_building'
+    Router.route '/building/:doc_id/edit', -> @render 'building_edit'
+    Router.route '/building/:doc_id/view', -> @render 'building_view'
 
 
     Template.buildings.onCreated ->
         @autorun -> Meteor.subscribe('type', 'building')
 
-    Template.edit_building.onCreated ->
+    Template.building_edit.onCreated ->
         @autorun -> Meteor.subscribe('doc', Router.current().params.doc_id)
 
-    Template.view_building.onCreated ->
+    Template.building_view.onCreated ->
         @autorun -> Meteor.subscribe('doc', Router.current().params.doc_id)
 
 
 
     Template.buildings.helpers
         buildings: ->
-            Docs.find
-                type: 'building'
+            Docs.find {type: 'building'}, sort:building_code:1
 
     Template.buildings.events
         'click #add_building': ->
             id = Docs.insert type: 'building'
             Router.go "/building/edit/#{id}"
 
-    Template.edit_building.helpers
+    Template.building_edit.helpers
         building: ->
             doc_id = Router.current().params.doc_id
             # console.log doc_id
             Docs.findOne doc_id
 
-    Template.view_building.helpers
+    Template.building_view.helpers
         building: ->
             doc_id = Router.current().params.doc_id
             # console.log doc_id
             Docs.findOne doc_id
 
 
-    Template.edit_building.events
+    Template.building_edit.events
         'click #delete_building': (e,t)->
             swal {
                 title: 'Delete Building?'
