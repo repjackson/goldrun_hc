@@ -27,7 +27,7 @@ template(name='work_order_edit')
                     +boolean_edit key='key_on_file' label='Key on File' icon='key'
                     +textarea_edit key='notes' label='Notes'
                     +array_edit key='tags' label='Tags'
-                    +text_edit key='front_desk_staff' label='Front Desk Staff' icon='briefcase'
+                    +single_user_edit key='front_desk_staff' label='Front Desk Staff' icon='briefcase'
                     
                     .ui.secondary.segment
                         +boolean_edit key='complete' label='Complete' icon='checkmark'
@@ -73,7 +73,6 @@ template(name='work_order')
                     i.grey.marker.icon
                     |Location
                 +single_doc_view key='building_code' ref_schema='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
-                +text_view key='building_code' label='Building Label' icon='building'
                 +number_view key='building_number' label='Building Number' icon='building'
                 +number_view key='unit' label='Unit' icon='home'
                 +text_view key='location' label='Location (other)'

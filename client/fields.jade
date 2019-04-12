@@ -296,14 +296,15 @@ template(name='number_edit')
             
             
 template(name='number_view')
-    div
-    if icon
-        i.grey.icon(class=icon)
-    if label
-        |#{label}
-    else
-        |#{this}
-    strong &nbsp; #{field_value}
+    if field_value
+        div
+        if icon
+            i.grey.icon(class=icon)
+        if label
+            |#{label}
+        else
+            |#{this}
+        strong &nbsp; #{field_value}
 
 
 template(name='date_edit')

@@ -71,7 +71,7 @@ template(name='profile_layout')
                         //-                 .content    
                         //-                     .header
                         //-                         |#{plural}
-                        if is_user
+                        if current_user
                             .ui.vertical.fluid.menu
                                 a.item.logout(href='#')
                                     i.sign.out.icon

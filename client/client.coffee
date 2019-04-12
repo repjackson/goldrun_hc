@@ -26,6 +26,17 @@ Template.registerHelper 'is_text', () ->
     @field_type is 'text'
 
 
+Template.registerHelper 'current_user', (input) ->
+    Meteor.user() and Meteor.user().username is Router.current().params.username
+
+
+Template.registerHelper 'user_is_client', (input) ->
+    user = Meteor.users.findOne username:Router.current().params.username
+    if user and user.roles and 'client' in user.roles then true else false
+
+
+
+
 Template.registerHelper 'current_schema', (input) ->
     Docs.findOne
         type:'schema'
