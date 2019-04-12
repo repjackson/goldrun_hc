@@ -9,8 +9,8 @@ Meteor.users.allow
 
 Cloudinary.config
     cloud_name: 'facet'
-    api_key: Meteor.settings.cloudinary_key
-    api_secret: Meteor.settings.cloudinary_secret
+    api_key: Meteor.settings.private.cloudinary_key
+    api_secret: Meteor.settings.private.cloudinary_secret
 
 
 Meteor.publish 'type', (type)->
@@ -21,9 +21,9 @@ Meteor.publish 'child_docs', (id)->
     Docs.find
         parent_id:id
 
-Meteor.publish 'user_from_username', (username)->
-    Meteor.users.find
-        username: username
+# Meteor.publish 'user_from_username', (username)->
+#     Meteor.users.find
+#         username: username
 
 
 Meteor.publish 'facet_doc', (tags)->

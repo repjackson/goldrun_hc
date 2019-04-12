@@ -36,9 +36,10 @@ template(name='goldrun')
                             if checking_in
                                 if is_query
                                     .ui.center.aligned.header No Members Found
-                                    .ui.center.aligned.header Please ask staff to add
+                                    .ui.center.aligned.header 
+                                        |Please drop yellow card and ask staff to add.
                                     //- +add_resident
-                unless checking_in
+                if is_admin
                     .row
                         .sixteen.wide.column
                             //- .ui.two.column.stackable.grid
@@ -89,7 +90,7 @@ template(name='goldrun')
                                             .ui.red.button.sign_waiver
                                                 i.cancel.icon
                                                 |Waiver Not Signed
-                    .row
+                    .three.column.row
                         .column
                             .ui.header
                                 //- +icolor name='megaphone' classes='ui inline image'
@@ -118,11 +119,14 @@ template(name='goldrun')
                                                             |#{when}
                                                         //- if is_dev
                                                         //-     +remove_button
+                                
                             .ui.segment
+                        .column
                                 .ui.header
-                                    +icolor name='poll-topic' classes='ui inline image'
-                                    |poll
+                                    i.poll.icon
+                                    |Poll
                                 .content
+                        .column
                             .ui.segment
                                 .ui.small.header
                                     +icolor name='front-desk' classes='ui inline image'
@@ -135,12 +139,12 @@ template(name='goldrun')
                     .centered.row
                         .ui.basic.center.aligned.segment
                             if is_admin
-                                a.ui.button(href='/add_resident')
+                                a.ui.large.button(href='/add_resident')
                                     i.user.shield.icon
-                                    | add resident
+                                    | Add Resident
                             a.ui.large.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
-                                |rules and regulations
-                            a.ui.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
+                                |Rules and Regulations
+                            a.ui.large.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
                                 |Guest Waiver
             +health_club_info
                 
@@ -265,33 +269,33 @@ template(name='health_club_info')
     .ui.stackable.grid
         .three.column.inverted.row
             .column
-                .ui.inverted.header Wifi
+                .ui.header Wifi
                 | Gold Run Health Club / goldrun1
-                .ui.inverted.header Upstairs Code
+                .ui.header Upstairs Code
                 | 4589
-                .ui.inverted.header Security
+                .ui.header Security
                 | 303.443.3701
             .column
-                .ui.inverted.header Onsite Manager
+                .ui.header Onsite Manager
                 .ui.list
                     .item Rick Hamp 
                     .item 303.545.1787
                     .item goldruncondos@gmail.com
-                .ui.inverted.header After Hours Emergency
+                .ui.header After Hours Emergency
                 | 303.221.1117
-                .ui.inverted.header Boulder Valley Towing
+                .ui.header Boulder Valley Towing
                 | 303.444.4868
-                .ui.inverted.header Colorado Security Services
+                .ui.header Colorado Security Services
                 | 303.443.3701
-                .ui.inverted.header Gavins Plumbing
+                .ui.header Gavins Plumbing
                 | 303.571.5114
             .column
-                .ui.inverted.header health club hours
+                .ui.header Hours
                 .ui.list
-                    .item mon 7a-10p
-                    .item tues 7a-10p
-                    .item wed 7a-10p
-                    .item thur 7a-10p
-                    .item fri 7a-9p
-                    .item sat 8a-9p
-                    .item sun 8a-10p
+                    .item Mon 7a-10p
+                    .item Tues 7a-10p
+                    .item Wed 7a-10p
+                    .item Thur 7a-10p
+                    .item Fri 7a-9p
+                    .item Sat 8a-9p
+                    .item Sun 8a-10p
