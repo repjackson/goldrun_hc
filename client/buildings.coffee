@@ -22,7 +22,7 @@ if Meteor.isClient
     Template.buildings.events
         'click #add_building': ->
             id = Docs.insert type: 'building'
-            Router.go "/building/edit/#{id}"
+            Router.go "/building/#{id}/edit"
 
     Template.building_edit.helpers
         building: ->

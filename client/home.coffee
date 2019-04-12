@@ -35,8 +35,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'type', 'building'
     Template.buildings_card.helpers
         buildings: ->
-            Docs.find
-                type:'building'
+            Docs.find {type:'building'}, sort:building_code:1
 
 
     Template.post_card.onCreated ->

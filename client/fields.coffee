@@ -447,6 +447,12 @@ Template.single_doc_edit.helpers
                 type:@ref_schema
                 # tribe:Router.current().params.tribe_slug
 
+    calculated_label: ->
+        # console.log @
+        ref_doc = Template.currentData()
+        key = Template.parentData().button_label
+        ref_doc["#{key}"]
+
     choice_class: ->
         selection = @
         current = Template.currentData()
@@ -460,7 +466,7 @@ Template.single_doc_edit.helpers
 
         if target["#{ref_field.key}"]
             # console.log target["#{ref_field.key}"]
-            if @slug is target["#{ref_field.key}"] then 'teal' else 'basic'
+            if @slug is target["#{ref_field.key}"] then 'blue' else ''
 
 
 Template.single_doc_edit.events
@@ -470,11 +476,15 @@ Template.single_doc_edit.events
         ref_field = Template.currentData()
 
         # console.log parent
+        # key = ref_field.button_key
+        key = ref_field.key
         # console.log ref_field
         # console.log @
-        # console.log parent["#{@key}"]
+        # console.log parent["#{ref_field.button_key}"]
 
-        if parent["#{ref_field.key}"] and @slug in parent["#{ref_field.key}"]
+
+        # if parent["#{key}"] and @["#{ref_field.button_key}"] in parent["#{key}"]
+        if parent["#{key}"] and @slug in parent["#{key}"]
             doc = Docs.findOne parent._id
             user = Meteor.users.findOne parent._id
             if doc
@@ -501,9 +511,9 @@ Template.multi_doc_view.onCreated ->
 Template.multi_doc_view.helpers
     choices: ->
         console.log @ref_schema
-        Docs.find
+        Docs.find {
             type:@ref_schema
-
+        }, sort:slug:-1
 
 # Template.multi_doc_edit.onRendered ->
 #     $('.ui.dropdown').dropdown(
@@ -613,28 +623,32 @@ Template.single_user_edit.events
 
 
     'click .select_user': (e,t) ->
-        page_doc = Docs.findOne Router.current().params.id
+        # page_doc = Docs.findOne Router.current().params.id
 
         # console.log @
+        field = Template.currentData()
+        # console.log Template.parentData()
 
         val = t.$('.edit_text').val()
         parent = Template.parentData()
 
         Docs.update parent._id,
-            $set:"#{@key}":@_id
+            $set:"#{field.key}":@_id
 
         t.user_results.set null
         $('#single_user_select_input').val ''
         # Docs.update page_doc._id,
         #     $set: assignment_timestamp:Date.now()
 
-
-
     'click .pull_user': ->
-        parent = Template.currentData(0)
-        if confirm "Remove #{@username}?"
-            page_doc = Docs.findOne Router.current().params.id
-            Meteor.call 'unassign_user', page_doc._id, @
+        parent = Template.parentData()
+        field = Template.currentData()
+        Docs.update parent._id,
+            $unset:"#{field.key}":1
+
+        # if confirm "Remove #{@username}?"
+        #     page_doc = Docs.findOne Router.current().params.id
+            # Meteor.call 'unassign_user', page_doc._id, @
 
 
 

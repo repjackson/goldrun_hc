@@ -155,138 +155,6 @@ Template.user_edit.events
                         $set: "image_id": res.public_id
                 return
 
-    'blur #apt_number': (e) ->
-        val =  $('#apt_number').val()
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id,
-            $set: apt_number: val
-
-    'blur #building_number': (e) ->
-        val =  $('#building_number').val()
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id,
-            $set: building_number: val
-
-    'blur #first_name': (e) ->
-        val =  $('#first_name').val()
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id,
-            $set: first_name: val
-
-    'blur #last_name': (e) ->
-        val =  $('#last_name').val()
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id,
-            $set: last_name: val
-
-    'blur #address': (e) ->
-        val =  $('#address').val()
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id,
-            $set: address: val
-
-    'blur #start_date': (e) ->
-        val =  $('#start_date').val()
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id,
-            $set: start_date: val
-
-    'blur #lease_expiration': (e) ->
-        val =  $('#lease_expiration').val()
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id,
-            $set: lease_expiration: val
-
-    'blur #telephone': (e) ->
-        val =  parseInt($('#telephone').val())
-        console.log val
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id,
-            $set: telephone: val
-
-    'blur #email': (e) ->
-        val =  $('#email').val()
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id,
-            $set: email: val
-
-    'click .owner': (e) ->
-        user = Meteor.users.findOne username:Router.current().params.username
-        if current_user.owner
-            Meteor.users.update Router.current().params._id,
-                $set: owner: false
-        else
-            Meteor.users.update Router.current().params._id,
-                $set: owner: true
-
-    "change input[name='banner_image']": (e) ->
-        files = e.currentTarget.files
-        # console.log files
-        Cloudinary.upload files[0],
-            # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
-            # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
-            (err,res) -> #optional callback, you can catch with the Cloudinary collection as well
-                # console.log "Upload Error: #{err}"
-                # console.dir res
-                if err
-                    console.error 'Error uploading', err
-                else
-                    console.log res
-                    user = Meteor.users.findOne username:Router.current().params.username
-                    Meteor.users.update user._id,
-                        $set: "banner_image_id": res.public_id
-                return
-
-
-    'click #remove_photo': ->
-        if confirm 'Remove photo?'
-            user = Meteor.users.findOne username:Router.current().params.username
-            Meteor.users.update user._id,
-                $unset: "image_id": 1
-
-
-    'click #remove_banner': ->
-        if confirm 'Remove banner?'
-            user = Meteor.users.findOne username:Router.current().params.username
-            Meteor.users.update user._id,
-                $unset: "banner_image_id": 1
-
-
-#     'change #Profile_photo': (event, template) ->
-#         #  $('.imageprocessing').show();
-#         showLoadingMask()
-#         $('.clsProfilePic').hide()
-#         uploader = new (Slingshot.Upload)('myFileUploads')
-#         uploader.send document.getElementById('Profile_photo').files[0], (error, downloadUrl) ->
-#             if error
-#                 hideLoadingMask()
-#                 # Log service detailed response
-#                 console.log error
-#                 # console.error('Error uploading', uploader.xhr.response);
-#                 alert error.reason
-#             else
-#                 hideLoadingMask()
-#                 #  $('.imageprocessing').hide();
-#                 $('.clsProfilePic').show()
-#                 profilePicImage = downloadUrl
-#                 $('.clsProfilePic').attr 'src', downloadUrl
-#                 # ChurchCodes.update(template.data.code._id,{$set: {'customPage.header_image': downloadUrl}})
-
-    'click .update_profile': (e, t) ->
-        e.preventDefault()
-        name = $('#pname').val()
-        if !name
-            toastr.error 'Please enter person name'
-            return false
-        dataJson =
-            'profile.name': $('#pname').val()
-            'profile.profilePic': if profilePicImage == '/icons/Logo_sm_100.png' then '/icons/Logo_sm_100.png' else profilePicImage
-        Meteor.call 'updateUserDetail', dataJson, (err, res) ->
-            if err
-                toastr.error err.reason
-            else
-                toastr.success 'Account Details Updated'
-
 
 # Template.card_holder.events
 #     'click .remove': (event, template) ->
@@ -419,9 +287,11 @@ Template.user_edit.events
 Template.username_edit.events
     'click .change_username': (e,t)->
         new_username = t.$('.new_username').val()
+        current_user = Meteor.users.findOne username:Router.current().params.username
+        console.log current_user
         if new_username
-            if confirm "Change username from #{Meteor.user().username} to #{new_username}?"
-                Meteor.call 'change_username', Meteor.userId(), new_username, (err,res)->
+            if confirm "Change username from #{current_user.username} to #{new_username}?"
+                Meteor.call 'change_username', current_user._id, new_username, (err,res)->
                     if err
                         alert err
                         console.log err

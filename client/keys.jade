@@ -87,11 +87,9 @@ template(name='keys')
                                 |#{notes}
                             // td #{author.username} #{when}
                             td 
-                                a.ui.button(href="/key/edit/#{_id}")
+                                a.ui.icon.button(href="/key/edit/#{_id}")
                                     i.pencil.icon
-                                    | Edit
-                                a.ui.button(href="/key/view/#{_id}")
+                                a.ui.icon.button(href="/key/view/#{_id}")
                                     i.right.arrow.icon
-                                    | View
                                 a.add_next_key.ui.button
                                     | Add Next

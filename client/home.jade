@@ -65,8 +65,7 @@ template(name='buildings_card')
                 i.building.icon
                 | Buildings
             each buildings
-                .ui.link.list
-                    a.item(href="/building/#{_id}/view") #{building_code}
+                a.ui.button(href="/building/#{_id}/view") #{building_code}
                 
                 
                 
