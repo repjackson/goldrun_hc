@@ -8,8 +8,8 @@ body {
 }
 
 
-.grbrown {
-    background-color: #482d1b !important;
+.grblue {
+    background-color: #0e0e44 !important;
 }
 
 
@@ -174,24 +174,9 @@ a {
   font-family: imogen_swash;
   src: url("/fonts/ImogenAgnesSwash.ttf");
 }
-.imogen {
-  font-family: imogen;
-}
 .big-header {
   font-size: 800% !important;
   padding: 20px;
-}
-.imogen {
-  font-family: imogen !important;
-  font-size: 300% !important;
-}
-.imogen_big {
-  font-family: imogen !important;
-  font-size: 1000% !important;
-  color: #fff;
-}
-#layerslider {
-  margin-top: -1em;
 }
 .large {
   font-size: 130%;
@@ -271,7 +256,7 @@ a {
 }
 #main {
     margin-top:20px;
-    height: 100%;
+    height: 100vh;
     /* min-height: 500px; */
     /* bottom: 0; */
 }

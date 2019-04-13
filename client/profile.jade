@@ -13,9 +13,6 @@ template(name='profile_layout')
                         if image_id
                             a.item(href="/user/#{user_from_username_param.username}/about")
                                 img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
-                        //- if profile.image_id
-                        //-     a.item(href="/user/#{user_from_username_param.username}/about")
-                        //-         img.ui.medium.image(src="{{c.url profile.image_id height=400 crop='limit'}}")
                         // if current_user
                         if is_admin
                             .ui.vertical.fluid.menu
@@ -91,7 +88,11 @@ template(name='profile_layout')
                                 .ui.label #{this}
                     .twelve.wide.column.scrolling
                         +yield
-            +footer
+            
+            
+template(name='user_chat')
+    +view_chats
+            
             
             
 template(name='user_section')
@@ -256,7 +257,6 @@ template(name='user_following')
             |Following
         +user_array_list user=user_from_username_param array='following_ids'
           
-                    
 
 template(name='follow_user')    
     .ui.secondary.segment

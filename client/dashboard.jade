@@ -16,13 +16,7 @@ template(name='dashboard')
         +frontdesk_card
         +post_card
         +event_card
-        
-        a.ui.card(href='/posts' class="{{isActivePath '/posts'}}")
-            .content
-                .ui.header
-                    i.computer.icon
-                    | Services
-                | resident directory
+        +service_card
         +market_card
         +work_orders_card
         +lostfound_card
@@ -45,6 +39,18 @@ template(name='post_card')
                 each posts
                     a.item(href="/post/#{_id}/view")
                         |#{title}
+            
+template(name='service_card')
+    a.ui.card(href='/services' class="{{isActivePath '/services'}}")
+        .content
+            .ui.header
+                i.computer.icon
+                | Services
+            .ui.link.list
+                each services
+                    a.item(href="/service/#{_id}/view")
+                        |#{title}
+            
             
 template(name='event_card')
     .ui.card
@@ -88,8 +94,10 @@ template(name='market_card')
             a.ui.header(href='/market' class="{{isActivePath '/market'}}")
                 i.cart.icon
                 | Market
-            .content
-                |for sale/rent, room, couch, crockpot
+            .ui.link.list
+                each products
+                    a.item(href="/product/#{_id}/view")
+                        |#{title}
 
 
 template(name='lostfound_card')
@@ -98,6 +106,10 @@ template(name='lostfound_card')
             a.ui.header(href='/lostfound' class="{{isActivePath '/lostfound'}}")
                 i.circle.info.icon
                 | Lost and Found
+            .ui.link.list
+                each lostfound
+                    a.item(href="/lostfound/#{_id}/view")
+                        |#{title}
 
 
 template(name='home')
@@ -117,8 +129,10 @@ template(name='work_orders_card')
             .ui.header
                 i.truck.icon
                 | Work Orders
-        .content
-            |reviews, lists, rankings
+            .ui.link.list
+                each work_orders
+                    a.item(href="/work_order/#{_id}/view")
+                        |#{title}
 
 template(name='vendors_card')
     a.ui.card(href='/vendors' class="{{isActivePath '/vendors'}}")

@@ -29,6 +29,14 @@ if Meteor.isClient
                 type:'task'
 
 
+    Template.service_card.onCreated ->
+        @autorun -> Meteor.subscribe 'type', 'service'
+    Template.service_card.helpers
+        services: ->
+            Docs.find
+                type:'service'
+
+
 
 
     Template.buildings_card.onCreated ->

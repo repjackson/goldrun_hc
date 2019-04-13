@@ -46,7 +46,7 @@ template(name='request')
 
 
 template(name='edit_request')
-    with request
+    with current_doc
         .ui.text.container.segment
             .ui.center.aligned.header Edit Request
             .ui.form

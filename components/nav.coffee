@@ -19,6 +19,26 @@ if Meteor.isClient
             Docs.find
                 type:'model'
 
+    Template.nav.onRendered ->
+        Meteor.setTimeout ->
+            $('.context .ui.sidebar')
+                .sidebar({
+                    context: $('.context .segment')
+                    dimPage: false
+                    transition:  'push'
+                })
+                .sidebar('attach events', '.context .menu .toggle_sidebar.item')
+        , 1000
+
+    Template.nav.events
+        'click .sidebar_on': ->
+            $('.context .ui.sidebar')
+                .sidebar({
+                    context: $('.context .segment')
+                    dimPage: false
+                    transition:  'push'
+                })
+                .sidebar('attach events', '.context .menu .toggle_sidebar.item')
 
 
 if Meteor.isServer

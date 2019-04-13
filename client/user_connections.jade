@@ -1,0 +1,36 @@
+template(name='user_connections')
+    .ui.header 
+        i.tasks.icon
+        | Connections
+    .ui.header Connections
+    each connections
+        +user_segment
+    .ui.header Nonconnections    
+    each nonconnections
+        +user_segment
+
+
+template(name='user_segment')
+    .ui.horizontal.card
+        .image
+            if image_id
+                img(src="{{c.url image_id gravity='face' crop='fill'}}")
+        .content
+            a.ui.header(href="/u/#{username}")
+                |#{username}
+                |@#{first_name}
+                |@#{last_name}
+            .ui.header Tags
+            each tags
+                .ui.label #{this}
+            +user_status user
+            .ui.header #{body}
+            +user_connect_button
+
+template(name='user_connect_button')
+    if is_connected
+        .ui.blue.button.disconnect
+            |Connected
+    else
+        .ui.button.connect
+            |Connect

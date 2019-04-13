@@ -1,96 +1,94 @@
 template(name='nav')
-    .ui.inverted.grbrown.borderless.attached.labeled.icon.menu.topnav
-        //- a.toggle_sidebar.icon.item
-        //-     i.sidebar.icon
+    .ui.inverted.grblue.borderless.attached.menu.topnav
+        a.toggle_sidebar.icon.item.sidebar_on
+            i.big.sidebar.icon
         a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-            i.th.icon
-            //- | dashboard
+            i.big.th.icon
         a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
-            i.users.icon
+            i.big.users.icon
         a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}" title='Buildings')
-            i.building.icon
+            i.big.building.icon
         a.icon.item(href='/keys' class="{{isActivePath '/keys'}}" title='Keys')
-            i.key.icon
+            i.big.key.icon
         a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='Tasks')
-            i.tasks.icon
+            i.big.tasks.icon
         a.icon.item(href='/posts' class="{{isActivePath '/posts'}}" title='Posts')
-            i.newspaper.icon
+            i.big.newspaper.icon
         a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')
-            i.briefcase.icon
+            i.big.briefcase.icon
         a.icon.item(href='/work_orders' class="{{isActivePath '/work_orders'}}" title='Work Orders')
-            i.tools.icon
+            i.big.tools.icon
         a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
-            i.clinic.medical.icon
-        if currentUser
-            //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
-            //-     i.alarm.icon
-            //-     | alerts
-            //-     .menu
-            //-         each notifications
-            //-             .item #{text}
-            a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
-                i.mail.icon
-                //- | mail
-            a.item(href='/admin' class="{{isActivePath '/admin'}}")
-                i.user.shield.icon
-                //- | admin
-            a.item(href="/user/#{currentUser.username}/view" class="{{isActiveRoute regex='user_chat'}}")
-                if currentUser.image_id
-                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                else
-                    i.user.icon
-                //- | #{currentUser.username}
-            //- a#logout.ui.mobile.hidden.item(href='#') 
-            //-     i.sign.out.icon
-                //- | Sign Out
-        else
-            a.ui.item(href='/login' title='login') 
-                i.sign.in.icon
+            i.big.clinic.medical.icon
+        .right.menu
+            if currentUser
+                //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
+                //-     i.alarm.icon
+                //-     | alerts
+                //-     .menu
+                //-         each notifications
+                //-             .item #{text}
+                a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
+                    i.big.mail.icon
+                a.item(href='/admin' class="{{isActivePath '/admin'}}")
+                    i.big.shield.icon
+                a.item(href="/user/#{currentUser.username}/view" class="{{isActiveRoute regex='user_chat'}}")
+                    if currentUser.image_id
+                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                    else
+                        i.user.icon
+                    //- | #{currentUser.username}
+                //- a#logout.ui.mobile.hidden.item(href='#') 
+                //-     i.sign.out.icon
+                    //- | Sign Out
+            else
+                a.ui.item(href='/login' title='login') 
+                    i.sign.in.icon
 
 
 template(name='sidebar')
-    .ui.left.inline.vertical.sidebar.inverted.grbrown.fixed.menu
+    .ui.left.inline.vertical.sidebar.inverted.grblue.fixed.menu
         a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
             i.home.icon
-            | gold run
+            | Gold Run
         a.toggle_sidebar.item(href='/readings' class="{{isActivePath '/readings'}}")
             i.theme.icon
-            | readings
+            | Readings
         a.toggle_sidebar.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
             i.random.icon
-            | lost and found
+            | Lost and Found
         a.toggle_sidebar.item(href='/bikes' class="{{isActivePath '/bikes'}}")
             i.bicycle.icon
-            | bikes
+            | Bikes
         a.toggle_sidebar.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
             i.circle.info.icon
-            | desk staff
+            | Desk Staff
         a.toggle_sidebar.item(href='/buildings' class="{{isActivePath '/buildings'}}")
             i.building.icon
-            | buildings
+            | Buildings
         a.toggle_sidebar.item(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.edit.icon
-            | tasks
+            | Tasks
         a.toggle_sidebar.item(href='/keys' class="{{isActivePath '/keys'}}")
             i.key.icon
-            | keys
-        a.toggle_sidebar.item(href='/people' class="{{isActivePath '/people'}}")
+            | Keys
+        a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
-            | people
+            | People
         if currentUser
             a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                 i.dashboard.icon
-                | dashboard
+                | Dashboard
             .ui.simple.dropdown.icon.item
                 i.alarm.icon
-                | alerts
+                | Alerts
             a.item(href='/messages' class="{{isActivePath '/messages'}}")
                 i.mail.icon
-                | mail
+                | Mail
             if is_admin
                 a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
                     i.configure.icon
-                    | admin
+                    | Admin
             a.item(href="/user/#{currentUser.username}/edit" class="{{isActiveRoute regex='user_edit'}}")
                 if currentUser.image_id
                     img.ui.avatar.image(src="{{c.url currentUser.image_id width=50 height=50 gravity='face' crop='fill'}}")
@@ -99,17 +97,17 @@ template(name='sidebar')
                 | #{currentUser.username}
             a#logout.ui.item(href='#') 
                 i.sign.out.icon
-                | log out
+                | Log Out
         else
             a.ui.item(href='/login') 
                 i.sign.in.icon
-                | log in
+                | Log In
 
 
 
 
 template(name='footer')
-    .ui.fluid.inverted.grbrown.attached.segment.footer
+    .ui.fluid.inverted.grblue.attached.segment.footer
         .ui.container.grid
             .twelve.wide.inverted.column
                 +health_club_info    

@@ -122,15 +122,3 @@ Template.registerHelper 'calculated_size', (metric) ->
 Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
 
 Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
-
-
-Template.nav.onRendered ->
-    Meteor.setTimeout ->
-        $('.context.example .ui.sidebar')
-            .sidebar({
-                context: $('.context.example .segment')
-                dimPage: false
-                transition:  'push'
-            })
-            .sidebar('attach events', '.context.example .menu .toggle_sidebar.item')
-    , 1000

@@ -1,0 +1,65 @@
+template(name='service_edit')
+    with current_doc
+        .ui.container
+            .ui.header Edit Service
+            +text_edit key='title'
+            +textarea_edit key='description'
+            +array_edit key='tags'
+            +image_edit key='image'
+            
+template(name='services')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                i#add_service.green.plus.link.icon 
+            .twelve.wide.column
+                h1.ui.center.aligned.header 
+                |Services
+        .row
+            .four.wide.column
+                +cloud filter='service'
+            .twelve.wide.column
+                each services
+                    +service
+                    
+                    
+template(name='service')
+    .ui.fluid.card
+        if image
+            .image
+                +image_view key='image'
+        .content
+            .header #{title}
+            +textarea_view key='description'
+            +array_view key='tags'
+                             
+                
+            
+            
+template(name='service_view')
+    with current_doc
+        .ui.padded.stackable.grid
+            .row
+                .four.wide.column
+                    a.ui.button(href='/services')
+                        i.left.arrow.icon
+                        |services
+                .eight.wide.column
+                    h1.ui.center.aligned.header service #{service_code} Page
+                .four.wide.column
+            .row
+                .ten.wide.column
+                    .ui.dividing.header Notices
+                    .ui.dividing.header Posts
+                    .ui.dividing.header Maintenance Requests
+                    .ui.dividing.header Residents
+                .six.wide.column
+                    .ui.form
+                        +text_view key='service_code' label='Code'
+                        +array_view key='service_numbers' label='Numbers'
+                        +text_view key='service_street' label='Street'
+                    .ui.dividing.header
+                        i.configure.icon
+                        |Admin
+                    a.ui.button(href="/service/#{_id}/edit") Edit service
+                    

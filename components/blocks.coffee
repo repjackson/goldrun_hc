@@ -27,6 +27,13 @@ if Meteor.isClient
             if confirm 'Confirm remove comment'
                 Docs.remove @_id
 
+    Template.user_card.onCreated ->
+        @autorun => Meteor.subscribe 'user_from_id', @data
+    Template.user_card.helpers
+        user: ->
+            Meteor.users.findOne @valueOf()
+
+
 
 
 

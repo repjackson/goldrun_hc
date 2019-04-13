@@ -52,6 +52,14 @@ template(name='user_status')
         // else 
         //     |Offline
 
+template(name='user_card')
+    a.ui.segment(href="/u/#{user.username}")
+        if user.image_id
+            img.ui.small.image(src="{{c.url user.image_id }}")
+        |@#{user.username}
+        |@#{user.first_name}
+        |@#{user.last_name}
+        //- +user_status user
 
 
 template(name='user_info')
