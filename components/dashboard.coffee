@@ -3,9 +3,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'type', 'model'
 
     Template.dashboard.helpers
-        models: ->
-            Docs.find
-                type: 'model'
+        models: -> Docs.find type: 'model'
 
 
     Template.home.events
@@ -21,20 +19,21 @@ if Meteor.isClient
             Docs.findOne  doc_id
 
 
-    Template.my_tasks.onCreated ->
+    Template.task_card.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'task'
-    Template.my_tasks.helpers
-        tasks: ->
-            Docs.find
-                type:'task'
+    Template.task_card.helpers
+        tasks: -> Docs.find type:'task'
+
+    Template.healthclub_card.onCreated ->
+        @autorun -> Meteor.subscribe 'checkedin_members'
+    Template.healthclub_card.helpers
+        checked_in_count: -> Meteor.users.find(healthclub_checkedin:true).count()
 
 
     Template.service_card.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'service'
     Template.service_card.helpers
-        services: ->
-            Docs.find
-                type:'service'
+        services: -> Docs.find type:'service'
 
 
 
@@ -42,20 +41,21 @@ if Meteor.isClient
     Template.buildings_card.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'building'
     Template.buildings_card.helpers
-        buildings: ->
-            Docs.find {type:'building'}, sort:building_code:1
+        buildings: -> Docs.find {type:'building'}, sort:building_code:1
 
 
     Template.post_card.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'post'
     Template.post_card.helpers
-        posts: ->
-            Docs.find
-                type:'post'
+        posts: -> Docs.find type:'post'
 
     Template.post_card.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'post'
     Template.post_card.helpers
-        posts: ->
-            Docs.find
-                type:'post'
+        posts: -> Docs.find type:'post'
+
+
+if Meteor.isServer
+    Meteor.publish 'checkedin_members', ->
+        Meteor.users.find
+            healthclub_checkedin:true

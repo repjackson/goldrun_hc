@@ -4,22 +4,22 @@ template(name='nav')
             i.big.sidebar.icon
         a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
             i.big.th.icon
-        a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
-            i.big.users.icon
-        a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}" title='Buildings')
-            i.big.building.icon
-        a.icon.item(href='/keys' class="{{isActivePath '/keys'}}" title='Keys')
-            i.big.key.icon
-        a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='Tasks')
-            i.big.tasks.icon
-        a.icon.item(href='/posts' class="{{isActivePath '/posts'}}" title='Posts')
-            i.big.newspaper.icon
-        a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')
-            i.big.briefcase.icon
-        a.icon.item(href='/work_orders' class="{{isActivePath '/work_orders'}}" title='Work Orders')
-            i.big.tools.icon
-        a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
-            i.big.clinic.medical.icon
+        //- a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
+        //-     i.big.users.icon
+        //- a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}" title='Buildings')
+        //-     i.big.building.icon
+        //- a.icon.item(href='/keys' class="{{isActivePath '/keys'}}" title='Keys')
+        //-     i.big.key.icon
+        //- a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='Tasks')
+        //-     i.big.tasks.icon
+        //- a.icon.item(href='/posts' class="{{isActivePath '/posts'}}" title='Posts')
+        //-     i.big.newspaper.icon
+        //- a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')
+        //-     i.big.briefcase.icon
+        //- a.icon.item(href='/work_orders' class="{{isActivePath '/work_orders'}}" title='Work Orders')
+        //-     i.big.tools.icon
+        //- a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
+        //-     i.big.clinic.medical.icon
         .right.menu
             if currentUser
                 //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")

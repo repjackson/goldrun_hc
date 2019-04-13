@@ -3,16 +3,11 @@ template(name='dashboard')
         .centered.row
             .twelve.wide.column
                 .ui.center.aligned.large.header 
+                    i.home.icon
                     |Gold Run
     .ui.centered.cards
-        .ui.card
-            .content
-                a.header(href='/checkin') 
-                    i.clinic.medical.icon
-                    |Health Club
-                .ui.button Check In
-                .ui.header 4 Current Members
-        +my_tasks
+        +healthclub_card
+        +task_card
         +frontdesk_card
         +post_card
         +event_card
@@ -21,13 +16,15 @@ template(name='dashboard')
         +work_orders_card
         +lostfound_card
         +buildings_card
-            
-        a.ui.card(href='/keys' class="{{isActivePath '/keys'}}")
+        +keys_card
+        
+template(name='keys_card')        
+    a.ui.card(href='/keys' class="{{isActivePath '/keys'}}")
+        .content
+            .ui.header
+                i.key.icon
+                | Keys
             .content
-                .ui.header
-                    i.key.icon
-                    | Keys
-                .content
                 
 template(name='post_card')
     .ui.card
@@ -50,6 +47,18 @@ template(name='service_card')
                 each services
                     a.item(href="/service/#{_id}/view")
                         |#{title}
+            
+            
+            
+template(name='healthclub_card')
+    .ui.card
+        .content
+            a.header(href='/checkin') 
+                i.clinic.medical.icon
+                |Health Club
+            
+            //- .ui.button Check In
+            .ui.small.header #{checked_in_count} Current Members
             
             
 template(name='event_card')
@@ -75,7 +84,7 @@ template(name='buildings_card')
                 
                 
                 
-template(name='my_tasks')                
+template(name='task_card')                
     .ui.card
         .content
             a.ui.header(href='/tasks')

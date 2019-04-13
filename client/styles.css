@@ -256,7 +256,8 @@ a {
 }
 #main {
     margin-top:20px;
-    height: 100vh;
+    min-height: 120vh;
+    height: 100%;
     /* min-height: 500px; */
     /* bottom: 0; */
 }

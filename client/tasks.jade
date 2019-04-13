@@ -9,18 +9,20 @@ template(name='task_edit')
                     i.trash.icon
             .twelve.wide.column
                 .ui.form
+                    +text_edit key='title' label='Title'
+                    
                     +image_edit key='before_image_id'
-                    +text_edit key='location'
+                    +text_edit key='location' label='Location'
                     //- +single_user_ref key='user'
-                    +date_edit key='due_date'
+                    +date_edit key='due_date' label='Due Date'
                     .ui.secondary.segment
-                        +boolean_edit key='complete'
+                        +boolean_edit key='complete' label='Complete'
                         if complete
-                            +date_edit key='complete_date'
-                            +image_edit key='after_image'
-                            +textarea_edit key='notes'
-                    +textarea_edit key='description'
-                    +array_edit key='tags'
+                            +date_edit key='complete_date' label='Complete Date'
+                            +image_edit key='after_image' label='After Image'
+                            +textarea_edit key='notes' label='Notes'
+                    +textarea_edit key='description' label='Description'
+                    +array_edit key='tags' label='Tags'
             
             
 template(name='tasks') 
