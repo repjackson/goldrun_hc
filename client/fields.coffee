@@ -174,8 +174,16 @@ Template.image_edit.events
         parent = Template.parentData()
 
         if confirm 'Remove Photo?'
-            Docs.update parent._id,
-                $unset:"#{@key}":1
+            # Docs.update parent._id,
+            #     $unset:"#{@key}":1
+            doc = Docs.findOne parent._id
+            user = Meteor.users.findOne parent._id
+            if doc
+                Docs.update parent._id,
+                    $unset:"#{@key}":1
+            else if user
+                Meteor.users.update parent._id,
+                    $unset:"#{@key}":1
 
 
 

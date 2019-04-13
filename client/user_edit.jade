@@ -13,15 +13,8 @@ template(name='user_edit')
         .centered.row
             .six.wide.column
                 .field
-                    if user_from_username_param.image_id
-                        label Image
-                        .ui.centered.rounded.image
-                            img.ui.medium.image(src="{{c.url user_from_username_param.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                            a#remove_photo.ui.right.corner.link.label
-                                i.remove.link.icon
-                    else
-                        label Profile Image
-                        input(type='file' name='profile_image' accept='image/*')
+                    with user_from_username_param
+                        +image_edit key='image_id'
                 +password_edit
                 +phone_editor
                 +username_edit
