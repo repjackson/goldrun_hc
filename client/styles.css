@@ -15,7 +15,7 @@ body {
 
 
 .button {
-  animation: fadein 1s;
+  animation: fadein .5s;
 }
 @keyframes fadein {
   from { opacity: 0}
@@ -43,14 +43,14 @@ a {
 }
 
 .button {
-  animation: fadein 1s;
+  animation: fadein .5s;
 }
 .segment, .card {
-  animation: fadein 1s;
+  animation: fadein .5s;
 }
 
 .icon.item {
-  animation: fadein 1s;
+  animation: fadein .5s;
 }
 
 @keyframes fadein {
@@ -59,10 +59,10 @@ a {
 }
 
 #main {
-  animation: fadein 1s;
+  animation: fadein .5s;
 }
 #result {
-  animation: fadein 1s;
+  animation: fadein .5s;
 }
 
 .-autocomplete-container {

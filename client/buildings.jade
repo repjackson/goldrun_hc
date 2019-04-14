@@ -1,10 +1,11 @@
 template(name='building_edit')
-    with building
+    with current_doc
         .ui.container
             .ui.header Edit Building
             .ui.form
                 +text_edit key='building_code' label='Building Code'
                 +text_edit key='slug' label='Slug'
+                +image_edit key='image'
                 .field
                     label Building Numbers
                     .ui.divided.list
@@ -24,9 +25,6 @@ template(name='building_edit')
                         option(value='Shadow Creek Dr') Shadow Creek Dr
                         option(value='Sundown Ln') Sundown Ln
                         option(value='Springdale Ln') Springdale Ln
-                a.ui.green.big.button(href="/building/#{_id}/view") Save Building
-                #delete_building.ui.red.icon.button
-                    i.trash.icon            
             
 template(name='buildings')
     .ui.container
@@ -57,28 +55,17 @@ template(name='buildings')
             
             
 template(name='building_view')
-    .ui.padded.stackable.grid
-        .row
-            .four.wide.column
-                a.ui.button(href='/buildings')
-                    i.left.arrow.icon
-                    |Buildings
-            .eight.wide.column
-                h1.ui.center.aligned.header Building #{building_code} Page
-            .four.wide.column
-        .row
-            .ten.wide.column
-                .ui.dividing.header Notices
-                .ui.dividing.header Posts
-                .ui.dividing.header Maintenance Requests
-                .ui.dividing.header Residents
-            .six.wide.column
-                .ui.form
-                    +text_view key='building_code' label='Code'
-                    +array_view key='building_numbers' label='Numbers'
-                    +text_view key='building_street' label='Street'
-                .ui.dividing.header
-                    i.configure.icon
-                    |Admin
-                a.ui.button(href="/building/#{_id}/edit") Edit Building
-                    
+    //- .row
+    //-     .ten.wide.column
+    //-         .ui.dividing.header Notices
+    //-         .ui.dividing.header Posts
+    //-         .ui.dividing.header Maintenance Requests
+    //-         .ui.dividing.header Residents
+    //-     .six.wide.column
+    .ui.form
+        +text_view key='building_code' label='Code'
+        +image_view key='image'
+
+        +array_view key='building_numbers' label='Numbers'
+        +text_view key='building_street' label='Street'
+                

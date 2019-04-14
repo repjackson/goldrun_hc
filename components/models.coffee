@@ -3,13 +3,6 @@ if Meteor.isClient
     Router.route '/model/edit/:doc_id', -> @render 'edit_model'
     Router.route '/m/:model_slug', -> @render 'view_model'
 
-
-    # Template.model.onRendered ->
-    #     Meteor.setTimeout (->
-    #         $('.shape').shape()
-    #     ), 500
-
-
     Template.models.onCreated ->
         @autorun -> Meteor.subscribe 'docs', selected_tags.array(), 'model'
 
@@ -17,8 +10,8 @@ if Meteor.isClient
 
     Template.view_model.onCreated ->
         @autorun -> Meteor.subscribe 'model', Router.current().params.model_slug
-        @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
-        @autorun -> Meteor.subscribe 'model_docs', Router.current().params.model_slug
+        # @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.model_slug
 
     Template.view_model.helpers
         model: ->

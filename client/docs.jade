@@ -25,19 +25,19 @@
 
 
 template(name='cloud')
-    #cloud
+    #cloud.ui.basic.center.aligned.segment
         //- .ui.left.icon.input
         //-     i.search.icon
         //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
         // .ui.hidden.fitted.divider
         if selected_tags
-            #clear_tags.ui.grey.icon.large.circlar.button
+            #clear_tags.ui.grey.icon.big.circular.button
                 i.remove.icon
             each selected_tags
-                .unselect_tag.ui.grey.large.circular.button
+                .unselect_tag.ui.grey.big.circular.button
                     strong #{this}
         each all_tags
-            .ui.circular.button.select_tag(class=cloud_tag_class) 
+            .ui.circular.large.button.select_tag(class=cloud_tag_class) 
                 strong #{this.name}
 
 
@@ -97,10 +97,11 @@ template(name='edit')
     with current_doc
         .ui.stackable.padded.grid
             .four.wide.column
-                h1.ui.center.aligned.header Edit #{type}
-                a.ui.green.big.circular.button(href="/m/#{type}") Save
+                h1.ui.header Edit #{type}
+                a.ui.green.big.circular.icon.button(href="/m/#{type}") 
+                    i.large.checkmark.icon
                 #delete_model.ui.red.icon.circular.button
-                    i.trash.icon
+                    i.remove.icon
             .twelve.wide.column
                 //- each fields
                 +Template.dynamic template=edit_template

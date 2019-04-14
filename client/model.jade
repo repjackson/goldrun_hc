@@ -1,4 +1,3 @@
-
 template(name='edit_model')
     with model
         .ui.stackable.padded.grid
@@ -15,45 +14,47 @@ template(name='edit_model')
                     +text_edit key='icon' label='Icon'
                     +textarea_edit key='description' label='Description'
                     +array_edit key='tags' label='Tags'
-                //- .ui.small.header fields
-                //- .ui.icon.circular.button.add_field
-                //-     i.plus.icon
-                //- each fields
-                //-     +field_edit
+                .ui.inline.header fields
+                .ui.icon.circular.button.add_field
+                    i.plus.icon
+                each fields
+                    .ui.divider
+                    +field_edit
                     
 template(name='field_edit')
-    .ui.secondary.segment
-        +text_edit key='title'                    
-        +text_edit key='key'                    
-        +text_edit key='field_type'                    
-        +number_edit key='rank' label='rank'                  
+    +text_edit key='title'                    
+    +text_edit key='key'                    
+    +text_edit key='field_type'                    
+    +number_edit key='rank' label='rank'                  
 
             
 template(name='view_model')
     with model
         .ui.stackable.padded.grid
             .four.wide.column
-                h1.ui.center.aligned.header #{title}
-                a.ui.icon.circular.big.button(href="/model/edit/#{_id}")
-                    i.pencil.icon
-                .ui.circular.icon.big.button.add_child(title="Add #{slug}")
+                h1.ui.header #{title}
+                .ui.circular.icon.big.green.button.add_child(title="Add #{slug}")
                     i.plus.icon
-            .twelve.wide.column
+                a.ui.icon.circular.blue.big.button(href="/model/edit/#{_id}")
+                    i.pencil.icon
                 .ui.form
                     +text_view key='title'
                     +text_view key='slug'
                     +text_view key='icon'
                     +textarea_view key='description'
                     +array_view key='tags'
+                +cloud filter=slug
+        
+            .twelve.wide.column
                 //- .ui.header Fields
                 //- each fields
                 //-     .ui.divider
                 //-     +field_view
-                .ui.divider
                 each model_docs
-                    .ui.card
+                    .ui.fluid.card
                         .content
                             +Template.dynamic template=model_doc
+                            +array_view key='tags'
                             +edit_button
         
 template(name='field_view')

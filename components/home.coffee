@@ -1,8 +1,8 @@
 if Meteor.isClient
-    Template.dashboard.onCreated ->
+    Template.home.onCreated ->
         @autorun -> Meteor.subscribe('docs', selected_tags.array(), 'model')
 
-    Template.dashboard.helpers
+    Template.home.helpers
         models: -> Docs.find type: 'model'
 
     Template.home.events

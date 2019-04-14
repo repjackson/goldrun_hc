@@ -595,18 +595,6 @@ Template.multi_doc_edit.events
 
 
 
-Template.code_edit.onRendered ->
-    ace.require("ace/ext/language_tools")
-
-    editor = ace.edit('ace')
-    editor.session.setMode("ace/mode/html")
-    editor.setTheme("ace/theme/twilight")
-    editor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: false
-    })
-
 
 Template.single_user_edit.onCreated ->
     @user_results = new ReactiveVar

@@ -21,11 +21,25 @@ template(name='vendor_edit')
     +number_edit key='telephone'
     +textarea_edit key='notes'
 template(name='vendor_view')
-    .ui.header vendor
     +text_view key='title'
     +text_view key='contact'
     +number_view key='telephone'
     +textarea_view key='notes'
+    
+    
+    
+template(name='parking_space_edit')
+    +number_edit key='number'
+    +image_edit key='image'
+    +textarea_edit key='notes'
+    +single_doc_edit key='building' ref_schema='building'
+    +single_doc_edit key='unit' ref_schema='unit'
+template(name='parking_space_view')
+    +number_view key='number'
+    +image_view key='image'
+    +textarea_view key='notes'
+    +single_doc_view key='building' ref_schema='building'
+    +single_doc_view key='unit' ref_schema='unit'
     
     
     
@@ -36,7 +50,19 @@ template(name='for_rent_edit')
     +date_edit key='available'
     +array_edit key='tags'
 template(name='for_rent_view')
-    .ui.header For Rent
+    +text_view key='title'
+    +image_view key='image'
+    +date_view key='available'
+    +array_view key='tags'
+    
+    
+
+template(name='library_edit')
+    +text_edit key='title'
+    +image_edit key='image'
+    +date_edit key='available'
+    +array_edit key='tags'
+template(name='library_view')
     +text_view key='title'
     +image_view key='image'
     +date_view key='available'
@@ -51,7 +77,6 @@ template(name='photo_edit')
     +image_edit key='image'
     +array_edit key='tags'
 template(name='photo_view')
-    .ui.header Photo
     +text_view key='title'
     +image_view key='image'
     +array_view key='tags'
@@ -62,7 +87,6 @@ template(name='photo_view')
 template(name='healthclub_checkin_edit')
     +single_user_edit key='user'
 template(name='healthclub_checkin_view')
-    .ui.header HC Check In
     +single_user_view key='user'
     
 
@@ -70,11 +94,9 @@ template(name='healthclub_checkin_view')
 
 
 template(name='event_edit')
-    .ui.header communication
-    +text_edit key='person'
-    +text_edit key='company'
+    +time_edit key='time_start'
+    +time_end key='time_end'
     +textarea_edit key='notes'
-    +boolean_edit key='followup'
     +single_user_edit key='user'
     +single_doc_edit key='work_order' ref_schema='work_order'
     
@@ -82,12 +104,10 @@ template(name='event_edit')
 template(name='service_edit')
     with current_doc
         .ui.container
-            .ui.header Edit Service
             +text_edit key='title'
             +textarea_edit key='description'
             +array_edit key='tags'
             +image_edit key='image'
-            
 template(name='service')
     .ui.fluid.card
         if image

@@ -1,56 +1,34 @@
 template(name='work_order_edit')
     with current_doc
-        .ui.stackable.padded.grid
-            .four.wide.column
-                h1.ui.center.aligned.header Edit Work Order
-                a.ui.green.big.fluid.button(href='/work_orders') Save
-                #delete_work_order.ui.red.icon.button
-                    i.trash.icon
-            .twelve.wide.column
-                .ui.form
-                    +date_edit key='date' label='Date'
-                    +image_edit key='image' label='Image'
-                    .ui.secondary.segment
-                        .ui.header 
-                            i.grey.marker.icon
-                            |Location
-                        +single_doc_edit key='building_code' ref_schema='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
-                        //- +text_edit key='building_code' label='Building Label' icon='building'
-                        +number_edit key='building_number' label='Building Number' icon='building'
-                        +number_edit key='unit' label='Unit' icon='home'
-                        +text_edit key='location' label='Location (other)'
-                        
-                    //- +text_edit key='reported_by' label='Reported By' icon='user'
-                    +single_user_edit key='reported_by' label='Reported by Staff' icon='user'
-                    +boolean_edit key='need_to_schedule' label='Need to Schedule with Resident' icon='calendar'
-                    +boolean_edit key='key_on_file' label='Key on File' icon='key'
-                    +textarea_edit key='notes' label='Notes'
-                    +array_edit key='tags' label='Tags'
-                    +single_user_edit key='front_desk_staff' label='Front Desk Staff' icon='briefcase'
-                    
-                    .ui.secondary.segment
-                        +boolean_edit key='complete' label='Complete' icon='checkmark'
-                        if complete
-                            +textarea_edit key='work_completed' label='Work Completed' icon='checkmark'
-                            +date_edit key='complete_date' label='Complete Date'
-            
-            
-template(name='work_orders') 
-    .ui.padded.stackable.grid
-        .four.wide.column
-            h1.ui.center.aligned.header 
-                i.work_orders.icon
-                |Work Orders
-            #add_work_order.ui.fluid.icon.button
-                i.plus.large.icon
-            +cloud filter='work_order'
-        .twelve.wide.column
-            .ui.centered.cards
-                each work_orders
-                    +work_order
-                    
+        .ui.form
+            +date_edit key='date' label='Date'
+            +image_edit key='image' label='Image'
+            .ui.secondary.segment
+                .ui.header 
+                    i.grey.marker.icon
+                    |Location
+                +single_doc_edit key='building_code' ref_schema='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
+                //- +text_edit key='building_code' label='Building Label' icon='building'
+                +number_edit key='building_number' label='Building Number' icon='building'
+                +number_edit key='unit' label='Unit' icon='home'
+                +text_edit key='location' label='Location (other)'
                 
-template(name='work_order')
+            //- +text_edit key='reported_by' label='Reported By' icon='user'
+            +single_user_edit key='reported_by' label='Reported by Staff' icon='user'
+            +boolean_edit key='need_to_schedule' label='Need to Schedule with Resident' icon='calendar'
+            +boolean_edit key='key_on_file' label='Key on File' icon='key'
+            +textarea_edit key='notes' label='Notes'
+            +array_edit key='tags' label='Tags'
+            +single_user_edit key='front_desk_staff' label='Front Desk Staff' icon='briefcase'
+            
+            .ui.secondary.segment
+                +boolean_edit key='complete' label='Complete' icon='checkmark'
+                if complete
+                    +textarea_edit key='work_completed' label='Work Completed' icon='checkmark'
+                    +date_edit key='complete_date' label='Complete Date'
+    
+            
+template(name='work_order_view')
     .ui.fluid.card
         if image
             .image
@@ -76,33 +54,6 @@ template(name='work_order')
                 if complete
                     +textarea_view key='work_completed' label='Work Completed' icon='checkmark'
                     +date_view key='complete_date' label='Complete Date'
-            a.ui.icon.button(href="/work_order/#{_id}/edit") 
-                i.pencil.icon
-            //- a.ui.button(href="/work_order/#{_id}/view") 
-            //-     |View
-            
-template(name='work_order_small')
-    .ui.card
-        if image
-            .image
-                +image_view key='image'
-        .content
-            .header #{description}
-            +date_view key='date' label='Date'
-            +image_view key='image' label='Image'
-            +single_doc_view key='building_code' ref_schema='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
-            +number_view key='building_number' label='Building Number' icon='building'
-            +number_view key='unit' label='Unit' icon='home'
-            +text_view key='location' label='Location (other)'
-            +text_view key='reported_by' label='Reported By' icon='user'
-            +boolean_view key='need_to_schedule' label='Need to Schedule with Resident' icon='calendar'
-            +boolean_view key='key_on_file' label='Key on File' icon='key'
-            +textarea_view key='notes' label='Notes'
-            +array_view key='tags' label='Tags'
-            +boolean_view key='complete' label='Complete' icon='checkmark'
-            if complete
-                +textarea_view key='work_completed' label='Work Completed' icon='checkmark'
-                +date_view key='complete_date' label='Complete Date'
             a.ui.icon.button(href="/work_order/#{_id}/edit") 
                 i.pencil.icon
             //- a.ui.button(href="/work_order/#{_id}/view") 

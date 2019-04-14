@@ -1,8 +1,8 @@
-template(name='dashboard')
+template(name='home')
     .ui.container
         +cloud filter='model'
         .ui.hidden.divider
-        .ui.four.cards
+        .ui.four.stackable.centered.cards
             each models
                 +model_card
             //- +healthclub_card
@@ -28,16 +28,3 @@ template(name='healthclub_card')
             
             //- .ui.button Check In
             .ui.small.header #{checked_in_count} Current Members
-            
-            
-
-template(name='home')
-    .ui.centered.cards
-        #add_model.ui.icon.button
-            i.plus.icon
-        each models
-            a.ui.card(href="/s/#{slug}")
-                .content
-                    .ui.header
-                        i.icon(class=icon)
-                        |#{title}
