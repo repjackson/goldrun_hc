@@ -2,7 +2,7 @@ if Meteor.isClient
     Template.edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_from_child_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_fields_from_child_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'model_fields_from_child_id', Router.current().params.doc_id
 
     Template.edit.helpers
         current_doc: ->

@@ -1,25 +1,26 @@
 template(name='nav')
-    .ui.inverted.grblue.borderless.attached.menu.topnav
+    .ui.inverted.grblue.borderless.attached.large.menu.topnav
         a.toggle_sidebar.icon.item.sidebar_on
-            i.big.sidebar.icon
-        a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-            i.big.th.icon
+            i.large.sidebar.icon
+        a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+            i.large.home.icon
+            |Gold Run
         //- a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
-        //-     i.big.users.icon
+        //-     i.large.users.icon
         //- a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}" title='Buildings')
-        //-     i.big.building.icon
+        //-     i.large.building.icon
         //- a.icon.item(href='/keys' class="{{isActivePath '/keys'}}" title='Keys')
-        //-     i.big.key.icon
+        //-     i.large.key.icon
         //- a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='Tasks')
-        //-     i.big.tasks.icon
+        //-     i.large.tasks.icon
         //- a.icon.item(href='/posts' class="{{isActivePath '/posts'}}" title='Posts')
-        //-     i.big.newspaper.icon
+        //-     i.large.newspaper.icon
         //- a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')
-        //-     i.big.briefcase.icon
+        //-     i.large.briefcase.icon
         //- a.icon.item(href='/work_orders' class="{{isActivePath '/work_orders'}}" title='Work Orders')
-        //-     i.big.tools.icon
+        //-     i.large.tools.icon
         //- a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
-        //-     i.big.clinic.medical.icon
+        //-     i.large.clinic.medical.icon
         .right.menu
             if currentUser
                 //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
@@ -29,9 +30,9 @@ template(name='nav')
                 //-         each notifications
                 //-             .item #{text}
                 a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
-                    i.big.mail.icon
+                    i.large.mail.icon
                 a.item(href='/admin' class="{{isActivePath '/admin'}}")
-                    i.big.shield.icon
+                    i.large.shield.icon
                 a.item(href="/user/#{currentUser.username}/view" class="{{isActiveRoute regex='user_chat'}}")
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")

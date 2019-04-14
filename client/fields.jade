@@ -138,20 +138,21 @@ template(name='image_link_view')
 
 
 template(name='textarea_view')
-    .ui.unstyled.accordion
-        .active.title
-            |content
-            //- if label
-            //-     |#{label}
-            //- else if key
-            //-     |#{key}
-            //- else
-            //-     |#{this}
-            i.dropdown.icon
-        .active.content
-            if field_value
-                |#{nl2br field_value}
-                //- +call_watson mode='text' key=key
+    //- .ui.unstyled.accordion
+    //-     .active.title
+    //-         |content
+    //-         //- if label
+    //-         //-     |#{label}
+    //-         //- else if key
+    //-         //-     |#{key}
+    //-         //- else
+    //-         //-     |#{this}
+    //-         i.dropdown.icon
+    //-     .active.content
+    div
+    if field_value
+        |{{nl2br field_value}}
+        //- +call_watson mode='text' key=key
 
 template(name='textarea_edit')
     .ui.form
@@ -228,14 +229,13 @@ template(name='doc_view')
         
 template(name='text_edit')
     .ui.labeled.fluid.input
-        if label
-            .ui.label
-                if icon
-                    i.grey.icon(class=icon)
-                if label
-                    |#{label}
-                //- else if key
-                //-     |#{key}
+        .ui.label
+            if icon
+                i.grey.icon(class=icon)
+            if label
+                |#{label}
+            else if key
+                |#{key}
         input.edit_text(type='text' value=field_value placeholder=placeholder)
 
 
@@ -320,6 +320,7 @@ template(name='date_edit')
 
 
 template(name='date_view')
+    div
     if icon
         i.grey.icon(class=icon)
     if label

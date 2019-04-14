@@ -6,24 +6,83 @@ template(name='dashboard')
                     i.home.icon
                     |Gold Run
     .ui.centered.cards
+        each models
+            +model_card
         +healthclub_card
-        +task_card
-        +frontdesk_card
-        +post_card
-        +event_card
-        +service_card
-        +market_card
-        +work_orders_card
-        +lostfound_card
-        +buildings_card
-        +keys_card
+        //- +task_card
+        //- +frontdesk_card
+        //- +post_card
+        //- //- +event_card
+        //- +service_card
+        //- +work_orders_card
+        //- +lostfound_card
+        //- +building_card
+        //- +key_card
         
-template(name='keys_card')        
+        
+template(name='model_card')
+    a.ui.card(href="/m/#{slug}")
+        .content
+            .ui.header
+                i.icon(class=icon)
+                | #{title}
+            .content
+
+        
+template(name='key_card')        
     a.ui.card(href='/keys' class="{{isActivePath '/keys'}}")
         .content
             .ui.header
                 i.key.icon
                 | Keys
+            .content
+                
+template(name='car_card')        
+    a.ui.card(href='/s/car' class="{{isActivePath '/s/car'}}")
+        .content
+            .ui.header
+                i.car.icon
+                | Cars
+            .content
+                
+template(name='unit_card')        
+    a.ui.card(href='/s/unit' class="{{isActivePath '/s/unit'}}")
+        .content
+            .ui.header
+                i.home.icon
+                | Units
+            .content
+                
+template(name='bike_card')        
+    a.ui.card(href='/s/bike' class="{{isActivePath '/s/bike'}}")
+        .content
+            .ui.header
+                i.home.icon
+                | Bike
+            .content
+                
+template(name='for_rent_card')        
+    a.ui.card(href='/s/for_rent' class="{{isActivePath '/s/for_rent'}}")
+        .content
+            .ui.header
+                i.home.icon
+                | Bike
+            .content
+                
+template(name='for_sale_card')        
+    a.ui.card(href='/s/for_sale' class="{{isActivePath '/s/for_sale'}}")
+        .content
+            .ui.header
+                i.cart.icon
+                | For Sale
+            .content
+                
+template(name='idea_card')        
+    a.ui.card(href='/s/idea' class="{{isActivePath '/s/idea'}}")
+        .content
+            .ui.header
+                i.lightbulb.icon
+                | Ideas
             .content
                 
 template(name='post_card')
@@ -73,7 +132,7 @@ template(name='event_card')
                         |#{title}
             
 
-template(name='buildings_card')
+template(name='building_card')
     .ui.card
         .content
             a.ui.header(href='/buildings' class="{{isActivePath '/buildings'}}")
@@ -96,17 +155,6 @@ template(name='task_card')
                 each tasks
                     a.item #{title}
 
-
-template(name='market_card')
-    .ui.card
-        .content
-            a.ui.header(href='/market' class="{{isActivePath '/market'}}")
-                i.cart.icon
-                | Market
-            .ui.link.list
-                each products
-                    a.item(href="/product/#{_id}/view")
-                        |#{title}
 
 
 template(name='lostfound_card')
@@ -131,6 +179,8 @@ template(name='home')
                     .ui.header
                         i.icon(class=icon)
                         |#{title}
+
+
 
 template(name='work_orders_card')
     a.ui.card(href='/work_orders' class="{{isActivePath '/work_orders'}}")

@@ -5,7 +5,6 @@ if Meteor.isClient
     Template.dashboard.helpers
         models: -> Docs.find type: 'model'
 
-
     Template.home.events
         'click #add_model': ->
             id = Docs.insert
@@ -38,9 +37,9 @@ if Meteor.isClient
 
 
 
-    Template.buildings_card.onCreated ->
+    Template.building_card.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'building'
-    Template.buildings_card.helpers
+    Template.building_card.helpers
         buildings: -> Docs.find {type:'building'}, sort:building_code:1
 
 

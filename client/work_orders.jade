@@ -1,4 +1,3 @@
-
 template(name='work_order_edit')
     with current_doc
         .ui.stackable.padded.grid
@@ -57,21 +56,10 @@ template(name='work_order')
             .image
                 +image_view key='image'
         .content
-            if complete
-                span.right.floated
-                    i.green.large.check.icon
-            else
-                i.right.floated.remove.large.icon
             .header #{description}
-            .meta
-                i.location.arrow.icon
-                |#{location}
             +date_view key='date' label='Date'
             +image_view key='image' label='Image'
             .ui.secondary.segment
-                .ui.header 
-                    i.grey.marker.icon
-                    |Location
                 +single_doc_view key='building_code' ref_schema='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
                 +number_view key='building_number' label='Building Number' icon='building'
                 +number_view key='unit' label='Unit' icon='home'
@@ -88,6 +76,33 @@ template(name='work_order')
                 if complete
                     +textarea_view key='work_completed' label='Work Completed' icon='checkmark'
                     +date_view key='complete_date' label='Complete Date'
+            a.ui.icon.button(href="/work_order/#{_id}/edit") 
+                i.pencil.icon
+            //- a.ui.button(href="/work_order/#{_id}/view") 
+            //-     |View
+            
+template(name='work_order_small')
+    .ui.card
+        if image
+            .image
+                +image_view key='image'
+        .content
+            .header #{description}
+            +date_view key='date' label='Date'
+            +image_view key='image' label='Image'
+            +single_doc_view key='building_code' ref_schema='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
+            +number_view key='building_number' label='Building Number' icon='building'
+            +number_view key='unit' label='Unit' icon='home'
+            +text_view key='location' label='Location (other)'
+            +text_view key='reported_by' label='Reported By' icon='user'
+            +boolean_view key='need_to_schedule' label='Need to Schedule with Resident' icon='calendar'
+            +boolean_view key='key_on_file' label='Key on File' icon='key'
+            +textarea_view key='notes' label='Notes'
+            +array_view key='tags' label='Tags'
+            +boolean_view key='complete' label='Complete' icon='checkmark'
+            if complete
+                +textarea_view key='work_completed' label='Work Completed' icon='checkmark'
+                +date_view key='complete_date' label='Complete Date'
             a.ui.icon.button(href="/work_order/#{_id}/edit") 
                 i.pencil.icon
             //- a.ui.button(href="/work_order/#{_id}/view") 

@@ -1,4 +1,4 @@
-Router.route '/admin', -> @render 'user_table'
+Router.route '/admin', -> @render 'admin'
 
 
 if Meteor.isClient

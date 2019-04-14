@@ -34,6 +34,10 @@ Template.registerHelper 'user_is_client', (input) ->
     user = Meteor.users.findOne username:Router.current().params.username
     if user and user.roles and 'client' in user.roles then true else false
 
+Template.registerHelper 'nl2br', (text)->
+    nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
+    new Spacebars.SafeString(nl2br)
+
 
 
 
@@ -58,12 +62,12 @@ Template.registerHelper 'is_dev', () ->
 
 
 Template.registerHelper 'view_template', ->
-    # console.log @
+    console.log @
     "#{@field_type}_view"
 
 Template.registerHelper 'edit_template', ->
-    # console.log @
-    "#{@field_type}_edit"
+    console.log @
+    "#{@type}_edit"
 
 
 

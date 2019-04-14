@@ -18,12 +18,27 @@ if Meteor.isClient
     Template.view_model.onCreated ->
         @autorun -> Meteor.subscribe 'model', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_docs', Router.current().params.model_slug
 
     Template.view_model.helpers
         model: ->
             Docs.findOne
                 type:'model'
                 slug: Router.current().params.model_slug
+
+        model_docs: ->
+            model = Docs.findOne
+                type:'model'
+                slug: Router.current().params.model_slug
+
+            Docs.find
+                type:model.slug
+
+        model_doc: ->
+            model = Docs.findOne
+                type:'model'
+                slug: Router.current().params.model_slug
+            "#{model.slug}_view"
 
         fields: ->
             Docs.find
@@ -90,3 +105,10 @@ if Meteor.isServer
         Docs.find
             type:'field'
             parent_id:model._id
+
+    Meteor.publish 'model_docs', (slug)->
+        model = Docs.findOne
+            type:'model'
+            slug:slug
+        Docs.find
+            type:slug
