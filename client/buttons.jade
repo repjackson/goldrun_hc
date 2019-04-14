@@ -18,3 +18,8 @@ template(name='session_edit_icon')
             .save_doc.ui.basic.button(class=button_classes)
                 i.green.check.icon
                 |Save
+
+template(name='edit_button')
+    a.ui.circular.icon.button(href="/edit/#{_id}")
+        i.pencil.icon
+        

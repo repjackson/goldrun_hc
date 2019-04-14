@@ -13,8 +13,6 @@ template(name='vendor_edit')
     +text_edit key='contact'
     +number_edit key='telephone'
     +textarea_edit key='notes'
-    
-
 template(name='vendor_view')
     .ui.header vendor
     +text_view key='title'
@@ -22,11 +20,36 @@ template(name='vendor_view')
     +number_view key='telephone'
     +textarea_view key='notes'
     
+    
+    
+    
+template(name='for_rent_edit')
+    .ui.header For Rent
+    +text_edit key='title'
+    +image_edit key='image'
+    +date_edit key='available'
+    +array_edit key='tags'
+template(name='for_rent_view')
+    .ui.header For Rent
+    +text_view key='title'
+    +image_view key='image'
+    +date_view key='available'
+    +array_view key='tags'
+    
+    
+
+
+
 template(name='photo_edit')
     .ui.header Photo
     +text_edit key='title'
     +image_edit key='image'
     +array_edit key='tags'
+template(name='photo_view')
+    .ui.header Photo
+    +text_view key='title'
+    +image_view key='image'
+    +array_view key='tags'
     
 
 
