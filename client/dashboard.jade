@@ -1,23 +1,11 @@
 template(name='dashboard')
-    .ui.stackable.padded.grid
-        .centered.row
-            .twelve.wide.column
-                .ui.center.aligned.large.header 
-                    i.home.icon
-                    |Gold Run
-    .ui.centered.cards
-        each models
-            +model_card
-        +healthclub_card
-        //- +task_card
-        //- +frontdesk_card
-        //- +post_card
-        //- //- +event_card
-        //- +service_card
-        //- +work_orders_card
-        //- +lostfound_card
-        //- +building_card
-        //- +key_card
+    .ui.container
+        +cloud filter='model'
+        .ui.hidden.divider
+        .ui.four.cards
+            each models
+                +model_card
+            //- +healthclub_card
         
         
 template(name='model_card')
@@ -29,86 +17,8 @@ template(name='model_card')
             .content
 
         
-template(name='key_card')        
-    a.ui.card(href='/keys' class="{{isActivePath '/keys'}}")
-        .content
-            .ui.header
-                i.key.icon
-                | Keys
-            .content
                 
-template(name='car_card')        
-    a.ui.card(href='/s/car' class="{{isActivePath '/s/car'}}")
-        .content
-            .ui.header
-                i.car.icon
-                | Cars
-            .content
                 
-template(name='unit_card')        
-    a.ui.card(href='/s/unit' class="{{isActivePath '/s/unit'}}")
-        .content
-            .ui.header
-                i.home.icon
-                | Units
-            .content
-                
-template(name='bike_card')        
-    a.ui.card(href='/s/bike' class="{{isActivePath '/s/bike'}}")
-        .content
-            .ui.header
-                i.home.icon
-                | Bike
-            .content
-                
-template(name='for_rent_card')        
-    a.ui.card(href='/s/for_rent' class="{{isActivePath '/s/for_rent'}}")
-        .content
-            .ui.header
-                i.home.icon
-                | Bike
-            .content
-                
-template(name='for_sale_card')        
-    a.ui.card(href='/s/for_sale' class="{{isActivePath '/s/for_sale'}}")
-        .content
-            .ui.header
-                i.cart.icon
-                | For Sale
-            .content
-                
-template(name='idea_card')        
-    a.ui.card(href='/s/idea' class="{{isActivePath '/s/idea'}}")
-        .content
-            .ui.header
-                i.lightbulb.icon
-                | Ideas
-            .content
-                
-template(name='post_card')
-    .ui.card
-        .content
-            a.ui.header(href='/posts' class="{{isActivePath '/posts'}}")
-                i.newspaper.icon
-                | Posts
-            .ui.link.list
-                each posts
-                    a.item(href="/post/#{_id}/view")
-                        |#{title}
-            
-template(name='service_card')
-    a.ui.card(href='/services' class="{{isActivePath '/services'}}")
-        .content
-            .ui.header
-                i.computer.icon
-                | Services
-            .ui.link.list
-                each services
-                    a.item(href="/service/#{_id}/view")
-                        |#{title}
-            
-            
-            
 template(name='healthclub_card')
     .ui.card
         .content
@@ -120,54 +30,6 @@ template(name='healthclub_card')
             .ui.small.header #{checked_in_count} Current Members
             
             
-template(name='event_card')
-    .ui.card
-        .content
-            a.ui.header(href='/events' class="{{isActivePath '/events'}}")
-                i.calendar.icon
-                | Events
-            .ui.link.list
-                each events
-                    a.item(href="/event/#{_id}/view")
-                        |#{title}
-            
-
-template(name='building_card')
-    .ui.card
-        .content
-            a.ui.header(href='/buildings' class="{{isActivePath '/buildings'}}")
-                i.building.icon
-                | Buildings
-            each buildings
-                a.ui.button(href="/building/#{_id}/view") #{building_code}
-                
-                
-                
-template(name='task_card')                
-    .ui.card
-        .content
-            a.ui.header(href='/tasks')
-                i.tasks.icon 
-                |Tasks
-            .ui.icon.button.add_task
-                i.plus.icon
-            .ui.link.list
-                each tasks
-                    a.item #{title}
-
-
-
-template(name='lostfound_card')
-    .ui.card
-        .content
-            a.ui.header(href='/lostfound' class="{{isActivePath '/lostfound'}}")
-                i.circle.info.icon
-                | Lost and Found
-            .ui.link.list
-                each lostfound
-                    a.item(href="/lostfound/#{_id}/view")
-                        |#{title}
-
 
 template(name='home')
     .ui.centered.cards
@@ -179,33 +41,3 @@ template(name='home')
                     .ui.header
                         i.icon(class=icon)
                         |#{title}
-
-
-
-template(name='work_orders_card')
-    a.ui.card(href='/work_orders' class="{{isActivePath '/work_orders'}}")
-        .content
-            .ui.header
-                i.truck.icon
-                | Work Orders
-            .ui.link.list
-                each work_orders
-                    a.item(href="/work_order/#{_id}/view")
-                        |#{title}
-
-template(name='vendors_card')
-    a.ui.card(href='/vendors' class="{{isActivePath '/vendors'}}")
-        .content
-            .ui.header
-                i.truck.icon
-                | Vendors
-        .content
-            |reviews, lists, rankings
-
-
-template(name='frontdesk_card')
-    a.ui.card(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
-        .content
-            .ui.header
-                i.circle.info.icon
-                | Desk Staff

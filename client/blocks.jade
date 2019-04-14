@@ -62,6 +62,31 @@ template(name='user_card')
         //- +user_status user
 
 
+template(name='big_user_card')
+    .ui.card
+        .image
+            img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+        .content
+            .header #{first_name} #{last_name} 
+            .meta @#{username}
+        if is_admin
+            .content
+                div #{address}
+                strong #{building_number}
+                strong ##{apt_number}
+                div start 
+                    strong #{start_date}
+                div expiration 
+                    strong #{lease_expiration}
+                +icolor name='swimming-pool' classes='ui avatar image'
+                +icolor name='weightlift' classes='ui avatar image'
+                +icolor name='jacuzzi' classes='ui avatar image'
+                +icolor name='shower' classes='ui avatar image'
+                +icolor name='racquetball' classes='ui avatar image'
+                +icolor name='water-steam' classes='ui avatar image'
+
+
+
 template(name='user_info')
     a.ui.button.item(href="/user/#{user.username}/about")
         if image_id

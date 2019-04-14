@@ -3,8 +3,9 @@ template(name='edit_model')
     with model
         .ui.stackable.padded.grid
             .four.wide.column
-                h1.ui.center.aligned.header Edit Model
-                a.ui.green.big.circular.button(href="/m/#{slug}") Save
+                h1.ui.header edit model
+                a.ui.green.big.circular.icon.button(href="/m/#{slug}")
+                    i.big.checkmark.icon
                 #delete_model.ui.red.icon.circular.button
                     i.trash.icon
             .twelve.wide.column
@@ -14,9 +15,9 @@ template(name='edit_model')
                     +text_edit key='icon' label='Icon'
                     +textarea_edit key='description' label='Description'
                     +array_edit key='tags' label='Tags'
-                .ui.small.header fields
-                .ui.icon.circular.button.add_field
-                    i.plus.icon
+                //- .ui.small.header fields
+                //- .ui.icon.circular.button.add_field
+                //-     i.plus.icon
                 //- each fields
                 //-     +field_edit
                     
@@ -53,7 +54,7 @@ template(name='view_model')
                     .ui.card
                         .content
                             +Template.dynamic template=model_doc
-                        +edit_button
+                            +edit_button
         
 template(name='field_view')
     +text_view key='title'                    

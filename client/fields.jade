@@ -609,14 +609,14 @@ template(name='single_user_edit')
                 input#single_user_select_input(type='text' placeholder='Lookup User...')
                 each selections
                     .ui.large.label
-                        |#{username} #{profile.name}
+                        |#{first_name} #{last_name} #{username} 
             if user_results
                 .ui.top.attached.segment
                     .ui.middle.aligned.selection.animated.list
                         each user_results
                             .select_user.item
                                 h5.ui.header
-                                    img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                    img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
                                     |#{username}
         if field_value
             +user_info field_value
@@ -636,12 +636,9 @@ template(name='single_user_edit')
 
 
 template(name='single_user_view')
-    .ui.form
-        each selections
-            .ui.large.label
-                |#{username} #{profile.name}
-        .field
-            +user_info field_value
+    with field_value
+        +big_user_card
+            
 
 
 template(name='single_person_view')
