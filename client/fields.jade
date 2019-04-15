@@ -424,7 +424,7 @@ template(name='child_edit')
         i.dropdown.icon
         |#{rank} #{title} #{label}
     .content
-        each bricks
+        each fields
             +Template.dynamic template=edit_template 
         div
         +remove_button
@@ -462,7 +462,7 @@ template(name='children_view')
 
 
 template(name='child_view')
-    each bricks
+    each fields
         // if field_template
         //     .ui.header field template #{field_template}
         // else 

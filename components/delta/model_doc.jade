@@ -1,37 +1,25 @@
-template(name='model_edit')
+template(name='model_doc_edit')
     with current_doc
         .ui.stackable.padded.grid
             .centered.row
                 .four.wide.column
-                    .ui.header(title="model: #{type}")
+                    .ui.header(title="model: #{model}")
                         |#{title}
                     +creation_info
-                    h1.ui.header edit model
-                    .ui.form
-                        +text_edit key='title' label='Title'
-                        +text_edit key='slug' label='Slug'
-                        +text_edit key='icon' label='Icon'
-                        +textarea_edit key='description' label='Description'
-                        +array_edit key='tags' label='Tags'
-                    a.ui.green.big.circular.icon.button(href="/m/#{slug}")
+                    a.ui.green.big.circular.icon.button(href="/m/#{model}/#{_id}/view")
                         i.big.checkmark.icon
                     #delete_model.ui.red.icon.circular.button
                         i.trash.icon
                             
                 .twelve.wide.column
-                    //- |#{type}
+                    //- |#{model}
+                    .ui.inline.header fields
                     each fields
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}
-                    .ui.inline.header fields
-                    .ui.icon.circular.button.add_field
-                        i.plus.icon
-                    each fields
-                        .ui.divider
-                        +field_edit
 
 
-template(name='model_view')
+template(name='model_doc_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
@@ -48,15 +36,15 @@ template(name='model_view')
                             if title
                                 |#{title}
                             else
-                                | View #{type}
+                                | View #{model}
             .row
                 .four.wide.column
                     // .ui.header
-                    //     a.ui.icon.button(href="/m/#{type}" title=plural)
+                    //     a.ui.icon.button(href="/m/#{model}" title=plural)
                     //         i.chevron.left.icon
-                    //     |View #{type}
+                    //     |View #{model}
                     if can_edit
-                        a.ui.fluid.button(href="/m/#{type}/#{_id}/edit")
+                        a.ui.fluid.button(href="/m/#{model}/#{_id}/edit")
                             i.pencil.icon
                             |Edit
                     each model.actions
@@ -105,53 +93,3 @@ template(name='model_view')
                             +Template.dynamic template=model_doc
                             +array_view key='tags'
                             +edit_button
-
-                    
-
-
-
-template(name='field_edit')
-    +text_edit key='title'                    
-    +text_edit key='key'                    
-    +text_edit key='field_type'                    
-    +number_edit key='rank' label='rank'                  
-
-            
-//- template(name='view_model')
-        
-template(name='field_view')
-    +text_view key='title'                    
-    +text_view key='key'                    
-    +text_view key='field_type'                    
-    +number_view key='rank' label='rank'                  
-
-        
-        
-            
-template(name='models') 
-    .ui.stackable.padded.grid
-        .four.wide.column
-            h1.ui.center.aligned.header 
-                i.icon(class=icon)
-                |Models
-            #add_model.ui.icon.circular.button
-                i.green.plus.icon
-            +cloud filter='model'
-        .twelve.wide.column 
-            .ui.centered.cards
-                each models
-                    +model
-                    
-                
-template(name='model')
-    .ui.card
-        .content
-            .header 
-                i.icon(class=icon)
-                |#{title}
-            .description
-                +text_view key='slug'
-            a.ui.icon.circular.button(href="/model/edit/#{_id}") 
-                i.pencil.icon
-            a.ui.icon.circular.button(href="/m/#{slug}") 
-                i.right.arrow.icon

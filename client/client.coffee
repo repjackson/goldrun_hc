@@ -77,7 +77,7 @@ Template.registerHelper 'view_template', ->
     "#{@field_type}_view"
 
 Template.registerHelper 'edit_template', ->
-    "#{@type}_edit"
+    "#{@field_type}_edit"
 
 
 
@@ -112,12 +112,12 @@ Template.registerHelper 'field_value', () ->
     parent5 = Template.parentData(5)
     parent6 = Template.parentData(6)
 
-    console.log parent
-    console.log parent2
-    console.log parent3
-    console.log parent4
-    console.log parent5
-    console.log parent6
+    # console.log parent
+    # console.log parent2
+    # console.log parent3
+    # console.log parent4
+    # console.log parent5
+    # console.log parent6
 
     parent = Template.parentData(5)
     parent["#{@key}"]

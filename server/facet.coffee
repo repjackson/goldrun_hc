@@ -6,14 +6,14 @@ Meteor.methods
         model = Docs.findOne
             model:'model'
             slug:delta.model_filter
-        console.log model
+        # console.log model
         fields =
             Docs.find
                 model:'field'
                 parent_id:model._id
-        console.log 'fields', fields.fetch()
+        # console.log 'fields', fields.fetch()
         for field in fields.fetch()
-            console.log 'adding field to delta', field.key
+            # console.log 'adding field to delta', field.key
             Docs.update delta_id,
                 $addToSet:
                     facets: {
@@ -31,7 +31,7 @@ Meteor.methods
                 built_query["#{facet.key}"] = $all: facet.filters
 
         total = Docs.find(built_query).count()
-        console.log 'built query', built_query
+        # console.log 'built query', built_query
 
         # response
         for facet in delta.facets
@@ -69,8 +69,8 @@ Meteor.methods
         #     result_ids = []
         result_ids = results_cursor.fetch()
 
-        console.log 'result ids', result_ids
-        console.log 'delta', delta
+        # console.log 'result ids', result_ids
+        # console.log 'delta', delta
         # console.log Meteor.userId()
 
         Docs.update {_id:delta._id},
@@ -86,9 +86,9 @@ Meteor.methods
 
     agg: (query, key, collection)->
         limit=42
-        console.log 'agg query', query
-        console.log 'agg key', key
-        console.log 'agg collection', collection
+        # console.log 'agg query', query
+        # console.log 'agg key', key
+        # console.log 'agg collection', collection
         options = { explain:false }
         pipe =  [
             { $match: query }

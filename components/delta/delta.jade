@@ -123,9 +123,9 @@ template(name='delta_result')
                         +remove_button
                     if can_edit
                         //- a.ui.icon.large.button(href="/m/#{type}/#{_id}/edit")
-                        a.ui.icon.large.button(href="/m/#{type}/#{_id}/edit")
+                        a.ui.icon.large.button(href="/m/#{model}/#{_id}/edit")
                             i.pencil.large.icon
-                    a.ui.icon.large.button(href="/m/#{type}/#{_id}/view")
+                    a.ui.icon.large.button(href="/m/#{model}/#{_id}/view")
                         i.eye.large.icon
                     each model.actions
                         +Template.dynamic template=this data=..

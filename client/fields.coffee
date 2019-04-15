@@ -1,7 +1,7 @@
 Template.color_edit.events
     'blur .edit_color': (e,t)->
         val = t.$('.edit_color').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc
@@ -16,7 +16,7 @@ Template.color_edit.events
 Template.link_edit.events
     'blur .edit_url': (e,t)->
         val = t.$('.edit_url').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc
@@ -30,7 +30,7 @@ Template.link_edit.events
 Template.color_icon_edit.events
     'blur .color_icon': (e,t)->
         icon_class = t.$('.color_icon').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc
@@ -44,7 +44,7 @@ Template.color_icon_edit.events
 Template.icon_edit.events
     'blur .icon_val': (e,t)->
         val = t.$('.icon_val').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc
@@ -59,7 +59,7 @@ Template.icon_edit.events
 Template.html_edit.events
     'blur .froala-container': (e,t)->
         html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc
@@ -72,7 +72,7 @@ Template.html_edit.events
 
 Template.html_edit.helpers
     getFEContext: ->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         # @current_doc = Docs.findOne Router.current().params.doc_id
         # @current_doc = Docs.findOne @_id
         self = @
@@ -143,7 +143,7 @@ Template.image_edit.events
     "change input[name='upload_image']": (e) ->
         files = e.currentTarget.files
         # console.log files
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
@@ -165,13 +165,13 @@ Template.image_edit.events
 
     'blur .cloudinary_id': (e,t)->
         cloudinary_id = t.$('.cloudinary_id').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         Docs.update parent._id,
             $set:"#{@key}":cloudinary_id
 
 
     'click #remove_photo': ->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
 
         if confirm 'Remove Photo?'
             # Docs.update parent._id,
@@ -193,7 +193,7 @@ Template.array_edit.events
     'keyup .new_element': (e,t)->
         if e.which is 13
             element_val = t.$('.new_element').val().trim()
-            parent = Template.parentData()
+            parent = Template.parentData(5)
             doc = Docs.findOne parent._id
             user = Meteor.users.findOne parent._id
             if doc
@@ -206,7 +206,7 @@ Template.array_edit.events
 
     'click .remove_element': (e,t)->
         element = @valueOf()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         console.log element
         console.log parent
         field = Template.currentData()
@@ -237,7 +237,7 @@ Template.textarea_edit.events
 
     'blur .edit_textarea': (e,t)->
         textarea_val = t.$('.edit_textarea').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
@@ -253,7 +253,8 @@ Template.textarea_edit.events
 Template.text_edit.events
     'blur .edit_text': (e,t)->
         val = t.$('.edit_text').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
+
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc
@@ -266,7 +267,7 @@ Template.text_edit.events
 
 Template.boolean_edit.helpers
     boolean_toggle_class: ->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         # console.log parent
         # console.log @
         if parent["#{@key}"] then 'teal' else ''
@@ -274,7 +275,7 @@ Template.boolean_edit.helpers
 
 Template.boolean_edit.events
     'click .toggle_boolean': (e,t)->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
@@ -289,7 +290,7 @@ Template.boolean_edit.events
 
 Template.number_edit.events
     'blur .edit_number': (e,t)->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         val = t.$('.edit_number').val()
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
@@ -305,7 +306,7 @@ Template.number_edit.events
 
 Template.date_edit.events
     'blur .edit_date': (e,t)->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         val = t.$('.edit_date').val()
 
         doc = Docs.findOne parent._id
@@ -323,7 +324,7 @@ Template.date_edit.events
 
 Template.time_edit.events
     'blur .edit_time': (e,t)->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         val = t.$('.edit_time').val()
 
         doc = Docs.findOne parent._id
@@ -349,7 +350,7 @@ Template.youtube_view.onRendered ->
 
 Template.youtube_edit.events
     'blur .youtube_id': (e,t)->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         val = t.$('.youtube_id').val()
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
@@ -365,7 +366,7 @@ Template.children_view.onCreated ->
     # @autorun => Meteor.subscribe 'children', @data.ref_model, Template.parentData(5)._id
     @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
     @autorun => Meteor.subscribe 'model_from_slug', @data.ref_model
-    @autorun => Meteor.subscribe 'model_bricks_from_slug', @data.ref_model
+    @autorun => Meteor.subscribe 'model_fields_from_slug', @data.ref_model
 
 Template.children_view.onRendered ->
     Meteor.setTimeout ->
@@ -387,7 +388,7 @@ Template.children_view.helpers
         field = @
         # if Template.parentData(5)
         # else
-        #     parent = Template.parentData()
+        #     parent = Template.parentData(5)
         Docs.find {
             model: @ref_model
             parent_id: parent._id
@@ -400,7 +401,7 @@ Template.children_edit.onCreated ->
     @autorun => Meteor.subscribe 'children', @data.ref_model, Template.parentData(5)._id
     @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
     @autorun => Meteor.subscribe 'model_from_slug', @data.ref_model
-    @autorun => Meteor.subscribe 'model_bricks_from_slug', @data.ref_model
+    @autorun => Meteor.subscribe 'model_fields_from_slug', @data.ref_model
 
 Template.children_edit.onRendered ->
     Meteor.setTimeout ->
@@ -412,7 +413,7 @@ Template.children_edit.helpers
         field = @
         # if Template.parentData(5)
         # else
-        #     parent = Template.parentData()
+        #     parent = Template.parentData(5)
         Docs.find {
             model: @ref_model
             parent_id: parent._id
@@ -464,7 +465,7 @@ Template.single_doc_edit.helpers
     choice_class: ->
         selection = @
         current = Template.currentData()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         ref_field = Template.parentData(1)
         target = Template.parentData(2)
         # console.log @
@@ -548,7 +549,7 @@ Template.multi_doc_edit.helpers
     choice_class: ->
         selection = @
         current = Template.currentData()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         ref_field = Template.parentData(1)
         target = Template.parentData(2)
         # console.log @
@@ -626,7 +627,7 @@ Template.single_user_edit.events
         # console.log Template.parentData()
 
         val = t.$('.edit_text').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
 
         Docs.update parent._id,
             $set:"#{field.key}":@_id
@@ -637,7 +638,7 @@ Template.single_user_edit.events
         #     $set: assignment_timestamp:Date.now()
 
     'click .pull_user': ->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         field = Template.currentData()
         Docs.update parent._id,
             $unset:"#{field.key}":1
@@ -689,7 +690,7 @@ Template.single_person_edit.onCreated ->
 
 Template.single_person_edit.helpers
     # selected_person: ->
-    #     parent = Template.parentData()
+    #     parent = Template.parentData(5)
     #     # val = t.$('.edit_date').val()
     #     brick = Template.parentData(4)
     #     parent = Template.parentData(5)
@@ -726,7 +727,7 @@ Template.single_person_edit.events
     'click .select_person': (e,t) ->
         page_doc = Docs.findOne Router.current().params.id
         val = t.$('.edit_text').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
 
         Docs.update parent._id,
             $set:"#{@key}":@_id
@@ -781,7 +782,7 @@ Template.multi_user_edit.events
         # console.log @
 
         val = t.$('.edit_text').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
@@ -803,7 +804,7 @@ Template.multi_user_edit.events
     'click .pull_user': ->
         if confirm "Remove #{@username}?"
             page_doc = Docs.findOne Router.current().params.id
-            parent = Template.parentData()
+            parent = Template.parentData(5)
             doc = Docs.findOne parent._id
             user = Meteor.users.findOne parent._id
             if doc
