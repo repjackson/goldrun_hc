@@ -57,7 +57,7 @@ if Meteor.isClient
             model = Docs.findOne
                 model:'model'
                 slug: Router.current().params.model_slug
-            Router.go "/m/#{model.slug}/#{model._id}/edit"
+            Router.go "/model/edit/#{model._id}"
 
         'click .page_up': (e,t)->
             delta = Docs.findOne model:'delta'

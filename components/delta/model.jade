@@ -8,11 +8,11 @@ template(name='model_edit')
                     +creation_info
                     h1.ui.header edit model
                     .ui.form
-                        +text_edit key='title' label='Title'
-                        +text_edit key='slug' label='Slug'
-                        +text_edit key='icon' label='Icon'
-                        +textarea_edit key='description' label='Description'
-                        +array_edit key='tags' label='Tags'
+                        +text_edit key='title' label='Title' direct=true
+                        +text_edit key='slug' label='Slug' direct=true
+                        +text_edit key='icon' label='Icon' direct=true
+                        +textarea_edit key='description' label='Description' direct=true
+                        +array_edit key='tags' label='Tags' direct=true
                     a.ui.green.big.circular.icon.button(href="/m/#{slug}")
                         i.big.checkmark.icon
                     #delete_model.ui.red.icon.circular.button
@@ -111,10 +111,10 @@ template(name='model_view')
 
 
 template(name='field_edit')
-    +text_edit key='title'                    
-    +text_edit key='key'                    
-    +text_edit key='field_type'                    
-    +number_edit key='rank' label='rank'                  
+    +text_edit key='title' direct=true             
+    +text_edit key='key'  direct=true                  
+    +text_edit key='field_type' direct=true                   
+    +number_edit key='rank' label='rank' direct=true                 
 
             
 //- template(name='view_model')

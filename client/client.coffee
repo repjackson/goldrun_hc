@@ -121,7 +121,10 @@ Template.registerHelper 'field_value', () ->
     # console.log parent5
     # console.log parent6
 
-    parent = Template.parentData(5)
+    if @direct
+        parent = Template.parentData()
+    else
+        parent = Template.parentData(5)
     parent["#{@key}"]
 
 
