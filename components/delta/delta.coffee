@@ -176,6 +176,14 @@ if Meteor.isClient
         'click .set_model': ->
             Meteor.call 'set_delta_facets', @slug, Meteor.userId()
 
+        'click .route_model': ->
+            delta = Docs.findOne model:'delta'
+            Docs.update delta._id,
+                $set:model_filter:@slug
+
+            # Meteor.call 'set_delta_facets', @slug, Meteor.userId()
+            Meteor.call 'fum', delta._id, (err,res)->
+
 
 
 if Meteor.isServer

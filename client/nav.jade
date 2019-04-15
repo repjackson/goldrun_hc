@@ -2,7 +2,7 @@ template(name='nav')
     .ui.inverted.grblue.borderless.attached.large.menu.topnav
         //- a.toggle_sidebar.icon.item.sidebar_on
         //-     i.large.sidebar.icon
-        a.item(href='/' class="{{isActivePath '/'}}")
+        a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
             i.large.home.icon
             |Gold Run
         a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')

@@ -6,13 +6,21 @@ if Meteor.isClient
                 Session.set 'logging_out', false
                 Router.go '/'
 
+        'click .set_model': ->
+            delta = Docs.findOne model:'delta'
+            Docs.update delta._id,
+                $set:model_filter:'model'
+            if delta
+                Meteor.call 'fum', delta._id, (err,res)->
 
-    Template.sidebar.events
-        'click #logout': ->
-            Session.set 'logging_out', true
-            Meteor.logout ->
-                Session.set 'logging_out', false
-                Router.go '/'
+
+
+    # Template.sidebar.events
+    #     'click #logout': ->
+    #         Session.set 'logging_out', true
+    #         Meteor.logout ->
+    #             Session.set 'logging_out', false
+    #             Router.go '/'
 
 
     Template.nav.onCreated ->
@@ -30,26 +38,26 @@ if Meteor.isClient
             Docs.find
                 model:'model'
 
-    Template.nav.onRendered ->
-        Meteor.setTimeout ->
-            $('.context .ui.sidebar')
-                .sidebar({
-                    context: $('.context .segment')
-                    dimPage: false
-                    transition:  'push'
-                })
-                .sidebar('attach events', '.context .menu .toggle_sidebar.item')
-        , 1000
+    # Template.nav.onRendered ->
+    #     Meteor.setTimeout ->
+    #         $('.context .ui.sidebar')
+    #             .sidebar({
+    #                 context: $('.context .segment')
+    #                 dimPage: false
+    #                 transition:  'push'
+    #             })
+    #             .sidebar('attach events', '.context .menu .toggle_sidebar.item')
+    #     , 1000
 
-    Template.nav.events
-        'click .sidebar_on': ->
-            $('.context .ui.sidebar')
-                .sidebar({
-                    context: $('.context .segment')
-                    dimPage: false
-                    transition:  'push'
-                })
-                .sidebar('attach events', '.context .menu .toggle_sidebar.item')
+    # Template.nav.events
+    #     'click .sidebar_on': ->
+    #         $('.context .ui.sidebar')
+    #             .sidebar({
+    #                 context: $('.context .segment')
+    #                 dimPage: false
+    #                 transition:  'push'
+    #             })
+    #             .sidebar('attach events', '.context .menu .toggle_sidebar.item')
 
 
 if Meteor.isServer
