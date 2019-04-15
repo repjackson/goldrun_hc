@@ -31,10 +31,6 @@ template(name='model_view')
                     .ui.breadcrumb
                         a.section(href="/m/#{current_model.slug}" title=current_model.plural)
                             .ui.compact.small.button
-                                if model.color_icon
-                                     +icolor name=model.color_icon classes='ui mini inline image'
-                                // else
-                                // i.icon(class=current_model.icon)
                                 |#{current_model.title}
                         .divider
                             i.chevron.right.icon
