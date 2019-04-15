@@ -1,12 +1,12 @@
 if Meteor.isClient
     Template.delta.onCreated ->
-        # @autorun -> Meteor.subscribe 'model', Router.current().params.type
+        # @autorun -> Meteor.subscribe 'model', Router.current().params.model_slug
         # @autorun -> Meteor.subscribe 'type', 'model'
-        # @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.type
-        # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.type
-        @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.type
-        @autorun -> Meteor.subscribe 'model_bricks_from_slug', Router.current().params.type
-        # @autorun -> Meteor.subscribe 'deltas', Router.current().params.type
+        # @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.model_slug
+        # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_bricks_from_slug', Router.current().params.model_slug
+        # @autorun -> Meteor.subscribe 'deltas', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'my_delta'
 
     Template.delta.helpers
@@ -15,7 +15,7 @@ if Meteor.isClient
         current_delta: ->
             Docs.findOne
                 type:'delta'
-                _author_id:Meteor.userId()
+                author_id:Meteor.userId()
 
         global_tags: ->
             doc_count = Docs.find().count()
@@ -38,7 +38,7 @@ if Meteor.isClient
 
         'click .reset': ->
             delta = Docs.findOne type:'delta'
-            # console.log 'hi'
+            console.log 'hi'
             Meteor.call 'fum', delta._id, (err,res)->
 
         'click .delete_delta': (e,t)->
@@ -47,38 +47,17 @@ if Meteor.isClient
                 if confirm "delete  #{delta._id}?"
                     Docs.remove delta._id
 
-    Template.delta.events
         'click .add_type_doc': ->
             new_doc_id = Docs.insert
-                type:Router.current().params.type
-            Router.go "/m/#{Router.current().params.type}/#{new_doc_id}/edit"
+                type:Router.current().params.model_slug
+            Router.go "/m/#{Router.current().params.model_slug}/#{new_doc_id}/edit"
 
-        'click .create_delta': (e,t)->
-            Docs.insert
-                type:'delta'
-                # left_column_size: 6
-                # right_column_size: 10
-
-        'click .print_delta': (e,t)->
-            delta = Docs.findOne type:'delta'
-            console.log delta
-
-        'click .reset': ->
-            delta = Docs.findOne type:'delta'
-            Meteor.call 'fum', delta._id, (err,res)->
 
         'click .edit_model': ->
             model = Docs.findOne
                 type:'model'
-                slug: Router.current().params.type
+                slug: Router.current().params.model_slug
             Router.go "/m/#{model.slug}/#{model._id}/edit"
-
-        'click .delete_delta': (e,t)->
-            delta = Docs.findOne type:'delta'
-            if delta
-                if confirm "delete  #{delta._id}?"
-                    Docs.remove delta._id
-
 
         'click .page_up': (e,t)->
             delta = Docs.findOne type:'delta'
@@ -200,7 +179,7 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'model_from_slug', (tribe_slug, model_slug)->
+    Meteor.publish 'model_from_slug', (model_slug)->
         if model_slug in ['model','brick','field','tribe','block','page']
             Docs.find
                 type:'model'
@@ -213,31 +192,28 @@ if Meteor.isServer
 
             Docs.find match
 
-    Meteor.publish 'model_from_doc_id', (tribe_slug, model, id)->
+    Meteor.publish 'model_from_doc_id', (model, id)->
         doc = Docs.findOne id
         # console.log 'pub', tribe_slug, model, id
         if model in ['model','tribe','page','block','brick']
             Docs.find
                 type:'model'
                 slug:doc.type
-                # tribe:tribe_slug
         else
             match = {}
-            # if tribe_slug then match.slug = tribe_slug
             match.type = 'model'
             match.slug = doc.type
 
             Docs.find match
 
 
-    Meteor.publish 'model_bricks_from_slug', (type, tribe_slug)->
-        console.log tribe_slug
+    Meteor.publish 'model_bricks_from_slug', (model_slug)->
         # console.log type
 
         # else if type in ['field', 'brick','tribe','page','block','model']
         model = Docs.findOne
             type:'model'
-            slug:type
+            slug:model_slug
             # tribe:tribe_slug
         # else
         #     model = Docs.findOne
@@ -248,3 +224,9 @@ if Meteor.isServer
         Docs.find
             type:'brick'
             parent_id:model._id
+
+
+    Meteor.publish 'my_delta', ->
+        Docs.find
+            author_id:Meteor.userId()
+            type:'delta'

@@ -48,10 +48,6 @@ Docs.helpers
     author: -> Meteor.users.findOne @author_id
     when: -> moment(@timestamp).fromNow()
 
-Router.route '/docs', action: (params) ->
-    BlazeLayout.render 'layout',
-        # cloud: 'cloud'
-        main: 'docs'
 
 Meteor.methods
     add: (tags=[])->

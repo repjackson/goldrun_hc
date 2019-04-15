@@ -47,7 +47,7 @@ Template.registerHelper 'nl2br', (text)->
 Template.registerHelper 'current_model', (input) ->
     Docs.findOne
         type:'model'
-        slug: Router.current().params.type
+        slug: Router.current().params.model_slug
 
 Template.registerHelper 'in_list', (key) ->
     if Meteor.userId()

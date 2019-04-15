@@ -1,19 +1,16 @@
 if Meteor.isClient
-    Router.route '/models', -> @render 'models'
-    Router.route '/model/edit/:doc_id', -> @render 'edit_model'
-    Router.route '/m/:model_slug', -> @render 'view_model'
 
     Template.models.onCreated ->
         @autorun -> Meteor.subscribe 'docs', selected_tags.array(), 'model'
 
     Template.models.onRendered ->
 
-    Template.view_model.onCreated ->
+    Template.model_view.onCreated ->
         @autorun -> Meteor.subscribe 'model', Router.current().params.model_slug
         # @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.model_slug
 
-    Template.view_model.helpers
+    Template.model_view.helpers
         model: ->
             Docs.findOne
                 type:'model'
@@ -38,7 +35,7 @@ if Meteor.isClient
                 type:'field'
                 # parent_id: Router.current().params.doc_id
 
-    Template.view_model.events
+    Template.model_view.events
         'click .add_child': ->
             new_id = Docs.insert
                 type: Router.current().params.model_slug

@@ -16,13 +16,19 @@ Router.route('enroll', {
         Session.set('_resetPasswordToken', this.params.token)
         @subscribe('enrolledUser', this.params.token).wait()
 })
-Router.route '/m/:type', (->
+Router.route '/m/:model_slug', (->
     @layout 'layout'
     @render 'delta'
     ), name:'delta'
 
-Router.route '/m/:type/:_id/edit', -> @render 'type_edit'
-Router.route '/m/:type/:_id/view', -> @render 'type_view'
+Router.route '/m/:model_slug/:_id/edit', -> @render 'model_edit'
+Router.route '/m/:model_slug/:_id/view', -> @render 'model_view'
+
+
+Router.route '/models', -> @render 'models'
+Router.route '/model/edit/:doc_id', -> @render 'edit_model'
+
+
 
 # Router.route '/user/:username', -> @render 'user'
 Router.route '/edit/:doc_id', -> @render 'edit'
