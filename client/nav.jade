@@ -1,7 +1,7 @@
 template(name='nav')
     .ui.inverted.grblue.borderless.attached.large.menu.topnav
-        a.toggle_sidebar.icon.item.sidebar_on
-            i.large.sidebar.icon
+        //- a.toggle_sidebar.icon.item.sidebar_on
+        //-     i.large.sidebar.icon
         a.item(href='/' class="{{isActivePath '/'}}")
             i.large.home.icon
             |Gold Run
@@ -26,7 +26,7 @@ template(name='nav')
                         a.item(href='/admin' class="{{isActivePath '/admin'}}")
                             i.large.shield.icon
                     if is_dev
-                        a.item(href='/delta' class="{{isActivePath '/delta'}}")
+                        a.item(href='/m/model' class="{{isActivePath '/m/model'}}")
                             i.large.yin.yang.icon
                     a.item(href="/user/#{currentUser.username}/view" class="{{isActiveRoute regex='user_chat'}}")
                         if currentUser.image_id

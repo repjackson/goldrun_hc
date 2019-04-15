@@ -19,18 +19,18 @@ head
 
 
 template(name='layout')
-    .context
-        +nav
-        .ui.attached.basic.segment.pushable
-            +sidebar
-            .pusher
-                #main
-                    //- .ui.basic.fluid.segment
-                    +yield
+    //- .context
+    //-     +nav
+    //-     .ui.attached.basic.segment.pushable
+    //-         +sidebar
+    //-         .pusher
+    //-             #main
+    //-                 //- .ui.basic.fluid.segment
+    //-                 +yield
         //- +footer
-    //- +nav
-    //- #main
-    //-     +yield
+    +nav
+    #main
+        +yield
     //- +footer
 
 

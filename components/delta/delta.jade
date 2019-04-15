@@ -38,32 +38,10 @@ template(name='delta')
                             
                     each current_delta.facets
                         +facet
-                .eight.wide.column
+                .eight.wide.column.scrolling
                     each current_delta.result_ids
                         +delta_result
                 
-template(name='events_column')
-    .ui.accordion
-        h4.active.title
-            // +icolor name='edit-property' classes='ui inline image'
-                // .ui.inline.dividing.header 
-            i.rss.icon
-            | Log
-            i.dropdown.icon
-        .active.content
-            .ui.feed
-                each log_events
-                    .event
-                        .label
-                            img.ui.image(src="{{c.url object.image width=400 height=400 gravity='face' crop='fill'}}")
-                        .content
-                            .summary
-                                |#{body}
-                                .date
-                                    |#{when}
-                                if is_dev
-                                    +remove_button
-
 
 
 template(name='facet')

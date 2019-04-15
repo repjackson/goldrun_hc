@@ -8,6 +8,8 @@ Router.configure
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'
+Router.route '/admin', -> @render 'admin'
+
 Router.route('enroll', {
     path: '/enroll-account/:token'
     template: 'reset_password'
@@ -26,7 +28,7 @@ Router.route '/m/:model_slug/:doc_id/view', -> @render 'model_view'
 
 
 Router.route '/models', -> @render 'models'
-Router.route '/model/edit/:doc_id', -> @render 'edit_model'
+Router.route '/model/edit/:doc_id', -> @render 'model_edit'
 
 
 
