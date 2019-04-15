@@ -15,7 +15,7 @@ Cloudinary.config
 
 Meteor.publish 'type', (type)->
     Docs.find
-        type: type
+        model: type
 
 Meteor.publish 'child_docs', (id)->
     Docs.find
@@ -41,12 +41,12 @@ Meteor.publish 'user_from_id', (user_id)->
 
 Meteor.publish 'page', (slug)->
     Docs.find
-        type:'page'
+        model:'page'
         slug:slug
 
 Meteor.publish 'page_children', (slug)->
     page = Docs.findOne
-        type:'page'
+        model:'page'
         slug:slug
     # console.log page
     Docs.find
@@ -55,7 +55,7 @@ Meteor.publish 'page_children', (slug)->
 Meteor.publish 'page_blocks', (slug)->
     # console.log slug
     page = Docs.findOne
-        type:'page'
+        model:'page'
         slug:slug
     # console.log page
     if page

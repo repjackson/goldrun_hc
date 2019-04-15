@@ -14,7 +14,7 @@ if Meteor.isClient
         user_models: ->
             user = Meteor.users.findOne username:Router.current().params.username
             Docs.find
-                type:'model'
+                model:'model'
                 _id:$in:user.model_ids
 
 
@@ -92,7 +92,7 @@ if Meteor.isClient
                 current_user = Meteor.users.findOne username:Router.current().params.username
                 Docs.insert
                     body:post
-                    type:'task'
+                    model:'task'
                     assigned_user_id:current_user._id
                     assigned_username:current_user.username
 
@@ -103,5 +103,5 @@ if Meteor.isServer
     Meteor.publish 'wall_posts', (username)->
         console.log username
         Docs.find
-            type:'wall_post'
+            model:'wall_post'
             parent_username:username

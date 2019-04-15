@@ -21,8 +21,8 @@ Router.route '/m/:model_slug', (->
     @render 'delta'
     ), name:'delta'
 
-Router.route '/m/:model_slug/:_id/edit', -> @render 'model_edit'
-Router.route '/m/:model_slug/:_id/view', -> @render 'model_view'
+Router.route '/m/:model_slug/:doc_id/edit', -> @render 'model_edit'
+Router.route '/m/:model_slug/:doc_id/view', -> @render 'model_view'
 
 
 Router.route '/models', -> @render 'models'

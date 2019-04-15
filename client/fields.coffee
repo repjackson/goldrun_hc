@@ -146,7 +146,7 @@ Template.image_edit.events
         parent = Template.parentData()
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
-            # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
+            # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
             (err,res) => #optional callback, you can catch with the Cloudinary collection as well
                 # console.log "Upload Error: #{err}"
                 # console.dir res
@@ -389,7 +389,7 @@ Template.children_view.helpers
         # else
         #     parent = Template.parentData()
         Docs.find {
-            type: @ref_model
+            model: @ref_model
             parent_id: parent._id
             # view_roles:$in:Meteor.user().roles
         }, sort:rank:1
@@ -414,7 +414,7 @@ Template.children_edit.helpers
         # else
         #     parent = Template.parentData()
         Docs.find {
-            type: @ref_model
+            model: @ref_model
             parent_id: parent._id
             # view_roles:$in:Meteor.user().roles
         }, sort:rank:1
@@ -424,9 +424,9 @@ Template.children_edit.events
     'click .add_child': ->
         # console.log @
         new_id = Docs.insert
-            type: @ref_model
+            model: @ref_model
             parent_id: parent._id
-            parent_type:Router.current().params.type
+            parent_model:Router.current().params.type
         # console.log new_id
 
 
@@ -439,7 +439,7 @@ Template.single_doc_view.helpers
     choices: ->
         console.log @ref_model
         Docs.find
-            type:@ref_model
+            model:@ref_model
 
 
 
@@ -452,7 +452,7 @@ Template.single_doc_edit.helpers
         # console.log @ref_model
         if @ref_model
             Docs.find
-                type:@ref_model
+                model:@ref_model
                 # tribe:Router.current().params.tribe_slug
 
     calculated_label: ->
@@ -520,7 +520,7 @@ Template.multi_doc_view.helpers
     choices: ->
         console.log @ref_model
         Docs.find {
-            type:@ref_model
+            model:@ref_model
         }, sort:slug:-1
 
 # Template.multi_doc_edit.onRendered ->
@@ -543,7 +543,7 @@ Template.multi_doc_edit.onCreated ->
 Template.multi_doc_edit.helpers
     choices: ->
         # console.log @ref_model
-        Docs.find type:@ref_model
+        Docs.find model:@ref_model
 
     choice_class: ->
         selection = @
@@ -660,7 +660,7 @@ Template.doc_edit.onRendered ->
 Template.doc_edit.helpers
     referenced_document: ->
         Docs.findOne
-            type:'document'
+            model:'document'
             slug:@key
 
 
@@ -676,7 +676,7 @@ Template.doc_view.onRendered ->
 Template.doc_view.helpers
     referenced_document: ->
         Docs.findOne
-            type:'document'
+            model:'document'
             slug:@key
 
 

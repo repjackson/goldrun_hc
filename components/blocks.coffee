@@ -9,7 +9,7 @@ if Meteor.isClient
     Template.comments.helpers
         doc_comments: ->
             Docs.find
-                type:'comment'
+                model:'comment'
 
     Template.comments.events
         'keyup .add_comment': (e,t)->
@@ -19,7 +19,7 @@ if Meteor.isClient
                 console.log comment
                 Docs.insert
                     parent_id: parent._id
-                    type:'comment'
+                    model:'comment'
                     body:comment
                 t.$('.add_comment').val('')
 
@@ -188,7 +188,7 @@ if Meteor.isClient
     Template.add_button.events
         'click .add': ->
             Docs.insert
-                type: @type
+                model: @type
 
 
     Template.remove_button.events
@@ -199,7 +199,7 @@ if Meteor.isClient
 
     Template.add_type_button.events
         'click .add': ->
-            new_id = Docs.insert type: @type
+            new_id = Docs.insert model: @type
             Router.go "/edit/#{new_id}"
 
     Template.view_user_button.events
@@ -210,5 +210,5 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'children', (type, parent_id)->
         Docs.find
-            type:type
+            model:type
             parent_id:parent_id

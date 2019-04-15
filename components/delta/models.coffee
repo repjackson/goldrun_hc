@@ -13,54 +13,54 @@ if Meteor.isClient
     Template.model_view.helpers
         model: ->
             Docs.findOne
-                type:'model'
+                model:'model'
                 slug: Router.current().params.model_slug
 
         model_docs: ->
             model = Docs.findOne
-                type:'model'
+                model:'model'
                 slug: Router.current().params.model_slug
 
             Docs.find
-                type:model.slug
+                model:model.slug
 
         model_doc: ->
             model = Docs.findOne
-                type:'model'
+                model:'model'
                 slug: Router.current().params.model_slug
             "#{model.slug}_view"
 
         fields: ->
             Docs.find
-                type:'field'
+                model:'field'
                 # parent_id: Router.current().params.doc_id
 
     Template.model_view.events
         'click .add_child': ->
             new_id = Docs.insert
-                type: Router.current().params.model_slug
+                model: Router.current().params.model_slug
             Router.go "/edit/#{new_id}"
 
-    Template.edit_model.onCreated ->
+    Template.model_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'child_docs', Router.current().params.doc_id
 
 
     Template.models.helpers
-        models: -> Docs.find { type: 'model' }
+        models: -> Docs.find { model: 'model' }
 
-    Template.edit_model.helpers
+    Template.model_edit.helpers
 
 
     Template.models.events
         'click #add_model': ->
             # alert 'hi'
-            id = Docs.insert type:'model'
+            id = Docs.insert model:'model'
             Router.go "/model/edit/#{id}"
 
 
 
-    Template.edit_model.helpers
+    Template.model_edit.helpers
         model: ->
             doc_id = Router.current().params.doc_id
             # console.log doc_id
@@ -68,10 +68,10 @@ if Meteor.isClient
 
         fields: ->
             Docs.find
-                type:'field'
+                model:'field'
                 parent_id: Router.current().params.doc_id
 
-    Template.edit_model.events
+    Template.model_edit.events
         'click #delete_model': (e,t)->
             if confirm 'delete model?'
                 Docs.remove Router.current().params.doc_id, ->
@@ -79,26 +79,26 @@ if Meteor.isClient
 
         'click .add_field': ->
             Docs.insert
-                type:'field'
+                model:'field'
                 parent_id: Router.current().params.doc_id
 
 if Meteor.isServer
     Meteor.publish 'model', (slug)->
         Docs.find
-            type:'model'
+            model:'model'
             slug:slug
 
     Meteor.publish 'model_fields', (slug)->
         model = Docs.findOne
-            type:'model'
+            model:'model'
             slug:slug
         Docs.find
-            type:'field'
+            model:'field'
             parent_id:model._id
 
     Meteor.publish 'model_docs', (slug)->
         model = Docs.findOne
-            type:'model'
+            model:'model'
             slug:slug
         Docs.find
-            type:slug
+            model:slug

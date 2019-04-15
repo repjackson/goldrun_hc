@@ -1,26 +1,34 @@
-template(name='type_edit')
-    with doc
+template(name='model_edit')
+    with current_doc
         .ui.stackable.padded.grid
             .centered.row
                 .four.wide.column
-                    .ui.header(title="Type: #{type}")
+                    .ui.header(title="model: #{type}")
                         |#{title}
-                    each bricks
-                        if header
-                            +Template.dynamic template=view_template 
-                    div
                     +creation_info
-                    a.ui.fluid.button(href="/m/#{type}/#{_id}/view")
-                        i.checkmark.icon
-                        | save
-                    +remove_button
+                    h1.ui.header edit model
+                    .ui.form
+                        +text_edit key='title' label='Title'
+                        +text_edit key='slug' label='Slug'
+                        +text_edit key='icon' label='Icon'
+                        +textarea_edit key='description' label='Description'
+                        +array_edit key='tags' label='Tags'
+                    a.ui.green.big.circular.icon.button(href="/m/#{slug}")
+                        i.big.checkmark.icon
+                    #delete_model.ui.red.icon.circular.button
+                        i.trash.icon
+                            
                 .twelve.wide.column
                     //- |#{type}
-                    each small_bricks
-                        +Template.dynamic template=edit_template 
-                    each big_bricks
+                    each bricks
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}
+                    .ui.inline.header fields
+                    .ui.icon.circular.button.add_field
+                        i.plus.icon
+                    each fields
+                        .ui.divider
+                        +field_edit
 
 
 template(name='model_view')
@@ -71,34 +79,37 @@ template(name='model_view')
                     +comments
                     if watson
                         +watson_view
-                    
-                    
-
-
-
-template(name='edit_model')
-    with model
         .ui.stackable.padded.grid
             .four.wide.column
-                h1.ui.header edit model
-                a.ui.green.big.circular.icon.button(href="/m/#{slug}")
-                    i.big.checkmark.icon
-                #delete_model.ui.red.icon.circular.button
-                    i.trash.icon
-            .twelve.wide.column
-                .ui.form
-                    +text_edit key='title' label='Title'
-                    +text_edit key='slug' label='Slug'
-                    +text_edit key='icon' label='Icon'
-                    +textarea_edit key='description' label='Description'
-                    +array_edit key='tags' label='Tags'
-                .ui.inline.header fields
-                .ui.icon.circular.button.add_field
+                h1.ui.header #{title}
+                .ui.circular.icon.big.green.button.add_child(title="Add #{slug}")
                     i.plus.icon
-                each fields
-                    .ui.divider
-                    +field_edit
+                a.ui.icon.circular.blue.big.button(href="/model/edit/#{_id}")
+                    i.pencil.icon
+                .ui.form
+                    +text_view key='title'
+                    +text_view key='slug'
+                    +text_view key='icon'
+                    +textarea_view key='description'
+                    +array_view key='tags'
+                +cloud filter=slug
+
+            .twelve.wide.column
+                //- .ui.header Fields
+                //- each fields
+                //-     .ui.divider
+                //-     +field_view
+                each model_docs
+                    .ui.fluid.card
+                        .content
+                            +Template.dynamic template=model_doc
+                            +array_view key='tags'
+                            +edit_button
+
                     
+
+
+
 template(name='field_edit')
     +text_edit key='title'                    
     +text_edit key='key'                    
@@ -107,33 +118,6 @@ template(name='field_edit')
 
             
 //- template(name='view_model')
-//-     with model
-//-         .ui.stackable.padded.grid
-//-             .four.wide.column
-//-                 h1.ui.header #{title}
-//-                 .ui.circular.icon.big.green.button.add_child(title="Add #{slug}")
-//-                     i.plus.icon
-//-                 a.ui.icon.circular.blue.big.button(href="/model/edit/#{_id}")
-//-                     i.pencil.icon
-//-                 .ui.form
-//-                     +text_view key='title'
-//-                     +text_view key='slug'
-//-                     +text_view key='icon'
-//-                     +textarea_view key='description'
-//-                     +array_view key='tags'
-//-                 +cloud filter=slug
-//- 
-//-             .twelve.wide.column
-//-                 //- .ui.header Fields
-//-                 //- each fields
-//-                 //-     .ui.divider
-//-                 //-     +field_view
-//-                 each model_docs
-//-                     .ui.fluid.card
-//-                         .content
-//-                             +Template.dynamic template=model_doc
-//-                             +array_view key='tags'
-//-                             +edit_button
         
 template(name='field_view')
     +text_view key='title'                    

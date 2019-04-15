@@ -8,14 +8,14 @@ if Meteor.isClient
     Template.frontdesk.helpers
         frontdesk: ->
             Docs.find
-                type: 'frontdesk'
+                model: 'frontdesk'
 
 
 
     Template.frontdesk.events
         'click #add_impounded_frontdesk': ->
             id = Docs.insert
-                type: 'frontdesk'
+                model: 'frontdesk'
             Router.go "/frontdesk/edit/#{id}"
 
 

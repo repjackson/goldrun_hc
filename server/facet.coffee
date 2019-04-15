@@ -6,14 +6,14 @@ Meteor.methods
         # console.log delta
         if delta.model
             model = Docs.findOne
-                type:'model'
+                model:'model'
                 slug:delta.model
 
         if delta
             # console.log 'delta', delta
             if delta.model
-                built_query = { type:delta.model }
-                # built_query = { type:delta.model, archived:$ne:true }
+                built_query = { model:delta.model }
+                # built_query = { model:delta.model, archived:$ne:true }
             else
                 built_query = { }
                 # built_query = { archived:$ne:true}
@@ -71,7 +71,7 @@ Meteor.methods
             #     Docs.find( built_query, modifier )
             if delta.model
                 model = Docs.findOne
-                    type:'model'
+                    model:'model'
                     slug:delta.model
 
             if model and model.collection and model.collection is 'users'

@@ -66,7 +66,7 @@ Meteor.methods
     lookup_username: (username_query)->
         found_users =
             Docs.find({
-                type:'person'
+                model:'person'
                 username: {$regex:"#{username_query}", $options: 'i'}
                 }).fetch()
         found_users
@@ -74,7 +74,7 @@ Meteor.methods
     lookup_first_name: (first_name)->
         found_people =
             Docs.find({
-                type:'person'
+                model:'person'
                 first_name: {$regex:"#{first_name}", $options: 'i'}
                 }).fetch()
         found_people
@@ -82,7 +82,7 @@ Meteor.methods
     lookup_last_name: (last_name)->
         found_people =
             Docs.find({
-                type:'person'
+                model:'person'
                 last_name: {$regex:"#{last_name}", $options: 'i'}
                 }).fetch()
         found_people

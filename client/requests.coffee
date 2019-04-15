@@ -10,7 +10,7 @@ if Meteor.isClient
 
 
     Template.requests.helpers
-        requests: -> Docs.find type:'request'
+        requests: -> Docs.find model:'request'
 
 
 
@@ -18,7 +18,7 @@ if Meteor.isClient
 
     Template.requests.events
         'click #add_request': ->
-            id = Docs.insert type:'request'
+            id = Docs.insert model:'request'
             Router.go "/request/edit/#{id}"
 
 
@@ -63,7 +63,7 @@ if Meteor.isClient
             swal {
                 title: 'Delete request?'
                 # text: 'Confirm delete?'
-                type: 'error'
+                model: 'error'
                 animation: false
                 showCancelButton: true
                 closeOnConfirm: true

@@ -35,7 +35,7 @@ Template.user_connect_button.events
             current_user = Meteor.users.findOne username:Router.current().params.username
             Docs.insert
                 body:post
-                type:'task'
+                model:'task'
                 assigned_user_id:current_user._id
                 assigned_username:current_user.username
 

@@ -1,7 +1,7 @@
 if Meteor.isClient
     Template.delta.onCreated ->
         # @autorun -> Meteor.subscribe 'model', Router.current().params.model_slug
-        # @autorun -> Meteor.subscribe 'type', 'model'
+        # @autorun -> Meteor.subscribe 'model', 'model'
         # @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.model_slug
         # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
@@ -14,7 +14,7 @@ if Meteor.isClient
 
         current_delta: ->
             Docs.findOne
-                type:'delta'
+                model:'delta'
                 author_id:Meteor.userId()
 
         global_tags: ->
@@ -22,7 +22,7 @@ if Meteor.isClient
             if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find()
 
         single_doc: ->
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne model:'delta'
             count = delta.result_ids.length
             if count is 1 then true else false
 
@@ -30,37 +30,37 @@ if Meteor.isClient
     Template.delta.events
         'click .create_delta': (e,t)->
             Docs.insert
-                type:'delta'
+                model:'delta'
 
         'click .print_delta': (e,t)->
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne model:'delta'
             console.log delta
 
         'click .reset': ->
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne model:'delta'
             console.log 'hi'
             Meteor.call 'fum', delta._id, (err,res)->
 
         'click .delete_delta': (e,t)->
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne model:'delta'
             if delta
                 if confirm "delete  #{delta._id}?"
                     Docs.remove delta._id
 
-        'click .add_type_doc': ->
+        'click .add_model_doc': ->
             new_doc_id = Docs.insert
-                type:Router.current().params.model_slug
+                model:Router.current().params.model_slug
             Router.go "/m/#{Router.current().params.model_slug}/#{new_doc_id}/edit"
 
 
         'click .edit_model': ->
             model = Docs.findOne
-                type:'model'
+                model:'model'
                 slug: Router.current().params.model_slug
             Router.go "/m/#{model.slug}/#{model._id}/edit"
 
         'click .page_up': (e,t)->
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne model:'delta'
             Docs.update delta._id,
                 $inc: current_page:1
             Session.set 'is_calculating', true
@@ -70,7 +70,7 @@ if Meteor.isClient
                     Session.set 'is_calculating', false
 
         'click .page_down': (e,t)->
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne model:'delta'
             Docs.update delta._id,
                 $inc: current_page:-1
             Session.set 'is_calculating', true
@@ -107,7 +107,7 @@ if Meteor.isClient
             $('.accordion').accordion()
 
         'click .toggle_selection': ->
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne model:'delta'
             facet = Template.currentData()
             Session.set 'loading', true
             if facet.filters and @name in facet.filters
@@ -119,7 +119,7 @@ if Meteor.isClient
 
         'keyup .add_filter': (e,t)->
             if e.which is 13
-                delta = Docs.findOne type:'delta'
+                delta = Docs.findOne model:'delta'
                 facet = Template.currentData()
                 filter = t.$('.add_filter').val()
                 Session.set 'loading', true
@@ -132,7 +132,7 @@ if Meteor.isClient
 
     Template.facet.helpers
         filtering_res: ->
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne model:'delta'
             filtering_res = []
             if @key is '_keys'
                 @res
@@ -148,7 +148,7 @@ if Meteor.isClient
 
         toggle_value_class: ->
             facet = Template.parentData()
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne model:'delta'
             if Session.equals 'loading', true
                  'disabled'
             else if facet.filters.length > 0 and @name in facet.filters
@@ -182,12 +182,12 @@ if Meteor.isServer
     Meteor.publish 'model_from_slug', (model_slug)->
         if model_slug in ['model','brick','field','tribe','block','page']
             Docs.find
-                type:'model'
+                model:'model'
                 slug:model_slug
         else
             match = {}
             # if tribe_slug then match.slug = tribe_slug
-            match.type = 'model'
+            match.model = 'model'
             match.slug = model_slug
 
             Docs.find match
@@ -197,36 +197,36 @@ if Meteor.isServer
         # console.log 'pub', tribe_slug, model, id
         if model in ['model','tribe','page','block','brick']
             Docs.find
-                type:'model'
-                slug:doc.type
+                model:'model'
+                slug:doc.model
         else
             match = {}
-            match.type = 'model'
-            match.slug = doc.type
+            match.model = 'model'
+            match.slug = doc.model
 
             Docs.find match
 
 
     Meteor.publish 'model_bricks_from_slug', (model_slug)->
-        # console.log type
+        # console.log model
 
-        # else if type in ['field', 'brick','tribe','page','block','model']
+        # else if model in ['field', 'brick','tribe','page','block','model']
         model = Docs.findOne
-            type:'model'
+            model:'model'
             slug:model_slug
             # tribe:tribe_slug
         # else
         #     model = Docs.findOne
-        #         type:'model'
-        #         slug:type
+        #         model:'model'
+        #         slug:model
         #         tribe:tribe_slug
 
         Docs.find
-            type:'brick'
+            model:'brick'
             parent_id:model._id
 
 
     Meteor.publish 'my_delta', ->
         Docs.find
             author_id:Meteor.userId()
-            type:'delta'
+            model:'delta'

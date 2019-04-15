@@ -15,7 +15,7 @@ if Meteor.isClient
                     _id: Session.get('editing_id')
             else
                 Docs.find
-                    type: 'key_checkout'
+                    model: 'key_checkout'
 
         checkout_cal: -> moment(@checkout_dt).calendar()
         checkin_cal: -> moment(@checkin_dt).calendar()
@@ -26,7 +26,7 @@ if Meteor.isClient
         'click #log_checkout': ->
             swal {
                 title: "Checkout #{@building_code} ##{@apartment_number} Key?"
-                type: 'info'
+                model: 'info'
                 animation: true
                 showCancelButton: true
                 closeOnConfirm: true
@@ -38,7 +38,7 @@ if Meteor.isClient
                     building_code: @building_code
                     apartment_number: @apartment_number
                     checkout_dt: Date.now()
-                    type: 'key_checkout'
+                    model: 'key_checkout'
                 Docs.update Router.current().params.doc_id,
                     $set: checked_out: true
                 Session.set 'editing_id', new_id
@@ -49,7 +49,7 @@ if Meteor.isClient
         'click #delete_checkout': ->
             swal {
                 title: "Delete Checkout?"
-                type: 'warning'
+                model: 'warning'
                 animation: true
                 showCancelButton: true
                 closeOnConfirm: true
@@ -63,7 +63,7 @@ if Meteor.isClient
         'click .check_in_key': ->
             swal {
                 title: "Check In #{@building_code} ##{@apartment_number} Key for #{@name}?"
-                type: 'info'
+                model: 'info'
                 animation: true
                 showCancelButton: true
                 closeOnConfirm: true

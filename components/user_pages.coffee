@@ -10,7 +10,7 @@ if Meteor.isClient
 
         assigned_tasks: ->
             Docs.find
-                type:'task'
+                model:'task'
                 assigned_username:Router.current().params.username
 
     Template.user_tasks.events
@@ -24,7 +24,7 @@ if Meteor.isClient
                 current_user = Meteor.users.findOne username:Router.current().params.username
                 Docs.insert
                     body:post
-                    type:'task'
+                    model:'task'
                     assigned_user_id:current_user._id
                     assigned_username:current_user.username
 
@@ -65,7 +65,7 @@ if Meteor.isClient
     Template.user_messages.helpers
         user_messages: ->
             Docs.find {
-                type:'message'
+                model:'message'
             }, sort:_timestamp:-1
 
     Template.user_messages.events
@@ -76,7 +76,7 @@ if Meteor.isClient
                 current_user = Meteor.users.findOne username:Router.current().params.username
                 Docs.insert
                     body:body
-                    type:'message'
+                    model:'message'
                     to_user_id:current_user._id
                     to_username:current_user.username
 
@@ -87,7 +87,7 @@ if Meteor.isClient
         'click .notify': (e,t)->
             current_user = Meteor.users.findOne username:Router.current().params.username
             Docs.insert
-                type:'log_event'
+                model:'log_event'
                 body:"#{current_user.username} was notified about message: #{@body} by #{Meteor.user().username}."
                 user_ids:[current_user._id,Meteor.userId()]
                 to_user_id:current_user._id

@@ -25,9 +25,9 @@ if Meteor.isClient
 
     Template.keys.helpers
         keys: ->
-            Docs.find {type: 'key'},
+            Docs.find {model: 'key'},
                 sort: tag_number: 1
-        buildings: -> Docs.find {type: 'building'}, sort:building_code:1
+        buildings: -> Docs.find {model: 'building'}, sort:building_code:1
 
         selected_building_class: ->
             if @building_code in selected_buildings.array() then 'blue' else 'basic'
@@ -35,12 +35,12 @@ if Meteor.isClient
          selected_buildings: -> selected_buildings.array()
 
     Template.edit_key.helpers
-        buildings: -> Docs.find {type: 'building'}, sort:building_code:1
+        buildings: -> Docs.find {model: 'building'}, sort:building_code:1
 
         building_numbers: ->
             # console.log @
             building = Docs.findOne
-                type: 'building'
+                model: 'building'
                 building_code: @building_code
             # console.log building
             if building then building.building_numbers
@@ -62,7 +62,7 @@ if Meteor.isClient
 
     Template.keys.events
         'click #add_key': ->
-            id = Docs.insert type: 'key'
+            id = Docs.insert model: 'key'
             Router.go "/key/edit/#{id}"
 
         'click .add_next_key': ->
@@ -70,7 +70,7 @@ if Meteor.isClient
                 tag_number: @tag_number + 1
                 building_code: @building_code
                 building_number: @building_number
-                type: 'key'
+                model: 'key'
             Router.go "/key/edit/#{id}"
 
         'click .toggle_view_building': ->
@@ -81,7 +81,7 @@ if Meteor.isClient
             swal {
                 title: 'Delete Key?'
                 text: 'Cannot be undone.'
-                type: 'error'
+                model: 'error'
                 animation: false
                 showCancelButton: true
                 closeOnConfirm: true

@@ -20,7 +20,7 @@ Template.user_edit.onRendered ->
 Template.user_model_editor.helpers
     models: ->
         Docs.find
-            type:'model'
+            model:'model'
             user_model:true
 
     user_model_class: ->
@@ -63,7 +63,7 @@ Template.user_single_doc_ref_editor.helpers
     choices: ->
         # console.log @
         Docs.find
-            type:@model
+            model:@model
 
     choice_class: ->
         # console.log @
@@ -142,7 +142,7 @@ Template.user_edit.events
         # console.log files
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
-            # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
+            # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
             (err,res) -> #optional callback, you can catch with the Cloudinary collection as well
                 # console.log "Upload Error: #{err}"
                 # console.dir res
@@ -364,7 +364,7 @@ Template.password_edit.events
 #         # console.log files
 #         Cloudinary.upload files[0],
 #             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
-#             # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
+#             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
 #             (err,res) -> #optional callback, you can catch with the Cloudinary collection as well
 #                 # console.log "Upload Error: #{err}"
 #                 # console.dir res

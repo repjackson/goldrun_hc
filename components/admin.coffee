@@ -37,12 +37,12 @@ if Meteor.isClient
     # Template.article_list.helpers
     #     articles: ->
     #         Docs.find
-    #             type:'article'
+    #             model:'article'
     #
     # Template.article_list.events
     #     'click .add_article': ->
     #         Docs.insert
-    #             type:'article'
+    #             model:'article'
     #
     #     'click .delete_article': ->
     #         if confirm 'Delete article?'

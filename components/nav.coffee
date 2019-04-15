@@ -24,11 +24,11 @@ if Meteor.isClient
     Template.nav.helpers
         notifications: ->
             Docs.find
-                type:'notification'
+                model:'notification'
 
         models: ->
             Docs.find
-                type:'model'
+                model:'model'
 
     Template.nav.onRendered ->
         Meteor.setTimeout ->
@@ -55,7 +55,7 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'my_notifications', ->
         Docs.find
-            type:'notification'
+            model:'notification'
             user_id: Meteor.userId()
 
 

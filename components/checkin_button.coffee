@@ -5,7 +5,7 @@ if Meteor.isClient
             swal {
                 title: "Check in #{self.profile.first_name} #{self.profile.last_name}?"
                 # text: 'You will not be able to recover this imaginary file!'
-                type: 'warning'
+                model: 'warning'
                 animation: false
                 showCancelButton: true
                 # confirmButtonColor: '#DD6B55'
@@ -15,7 +15,7 @@ if Meteor.isClient
                 Meteor.call 'check_in_user', self._id, =>
                     swal { 
                         title: "Checked in #{self.name}"
-                        type: 'success'
+                        model: 'success'
                         animation: false
                     }
                     return
@@ -28,7 +28,7 @@ if Meteor.isClient
             swal {
                 title: "Check out #{self.profile.first_name} #{self.profile.last_name}?"
                 # text: 'You will not be able to recover this imaginary file!'
-                type: 'warning'
+                model: 'warning'
                 animation: false
                 showCancelButton: true
                 # confirmButtonColor: '#DD6B55'
@@ -38,7 +38,7 @@ if Meteor.isClient
                 Meteor.call 'check_out_user', self._id, =>
                     swal { 
                         title: "Checked out #{self.name}"
-                        type: 'success'
+                        model: 'success'
                         animation: false
                     }
                     return

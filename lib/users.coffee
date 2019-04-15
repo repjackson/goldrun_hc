@@ -11,7 +11,7 @@ if Meteor.isClient
 
     Template.users.events
         # 'click #add_user': ->
-        #     id = Docs.insert type:'person'
+        #     id = Docs.insert model:'person'
         #     Router.go "/person/edit/#{id}"
 
 

@@ -42,7 +42,7 @@ Template.goldrun.helpers
 
     events: ->
         Docs.find {
-           type:'log_event'
+           model:'log_event'
         }, sort:_timestamp:-1
 
 
@@ -57,7 +57,7 @@ Template.checkin_button.events
             Meteor.users.update @_id,
                 $set:healthclub_checkedin:true
             Docs.insert
-                type:'log_event'
+                model:'log_event'
                 object_id:@_id
                 body: "#{@username} checked in."
             # swal( "#{@username} checked in.", "", "success" )
@@ -72,7 +72,7 @@ Template.checkin_button.events
             Meteor.users.update @_id,
                 $set:healthclub_checkedin:false
             Docs.insert
-                type:'log_event'
+                model:'log_event'
                 parent_id:@_id
                 object_id:@_id
                 body: "#{@username} checked out."
@@ -89,7 +89,7 @@ Template.goldrun.events
     'click .sign_waiver': (e,t)->
         # console.log @
         receipt_id = Docs.insert
-            type:'rules_and_regulations_acknowledgement'
+            model:'rules_and_regulations_acknowledgement'
             resident_residence:@_id
             is_resident:true
         Router.go "/sign_waiver/#{receipt_id}"
@@ -133,11 +133,11 @@ Template.add_resident.events
                         last_name:last_name
                         healthclub_checkedin:true
                 Docs.insert
-                    type:'log_event'
+                    model:'log_event'
                     object_id:res
                     body: "#{username} was created."
                 Docs.insert
-                    type:'log_event'
+                    model:'log_event'
                     object_id:res
                     body: "#{username} checked in."
                 Session.set 'username_query',null
@@ -161,5 +161,5 @@ Template.sign_waiver.helpers
     receipt_doc: -> Docs.findOne Router.current().params.receipt_id
     waiver_doc: ->
         Docs.findOne
-            type:'document'
+            model:'document'
             slug:'rules_regs'

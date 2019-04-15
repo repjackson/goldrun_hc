@@ -3,12 +3,12 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe('docs', selected_tags.array(), 'model')
 
     Template.home.helpers
-        models: -> Docs.find type: 'model'
+        models: -> Docs.find model: 'model'
 
     Template.home.events
         'click #add_model': ->
             id = Docs.insert
-                type: 'model'
+                model: 'model'
             Router.go "/edit/#{id}"
 
 
