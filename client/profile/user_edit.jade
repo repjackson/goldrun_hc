@@ -55,18 +55,18 @@ template(name='user_edit')
                 //- .ui.fluid.button.update_profile Update
             .eleven.wide.column
                 //- +user_tribe_editor
-                //- +user_schema_editor
+                //- +user_model_editor
                 //- if is_admin
-                //-     +user_single_doc_ref_editor key='building' schema='building' label='Building'
-                //-     +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
+                //-     +user_single_doc_ref_editor key='building' model='building' label='Building'
+                //-     +user_single_doc_ref_editor key='membership' model='goldrun_role' label='Gold Run Role'
                 //- +stripe_connect
                 //- +payment_methods
 
 
-template(name='user_schema_editor')
+template(name='user_model_editor')
     .ui.header Profile Sections
-    each schemas
-        .ui.button.toggle_schema(class=user_schema_class title=title)
+    each models
+        .ui.button.toggle_model(class=user_model_class title=title)
             i.icon(class=icon)
             |#{title}
             

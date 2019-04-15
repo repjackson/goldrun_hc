@@ -1,7 +1,18 @@
 if Meteor.isClient
     Template.nav.events
         'click #logout': ->
-            Meteor.logout()
+            Session.set 'logging_out', true
+            Meteor.logout ->
+                Session.set 'logging_out', false
+                Router.go '/'
+
+
+    Template.sidebar.events
+        'click #logout': ->
+            Session.set 'logging_out', true
+            Meteor.logout ->
+                Session.set 'logging_out', false
+                Router.go '/'
 
 
     Template.nav.onCreated ->

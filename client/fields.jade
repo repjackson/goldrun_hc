@@ -413,7 +413,7 @@ template(name='children_edit')
     .ui.small.grey.header #{label}
     .ui.button.add_child
         i.plus.icon
-        |Add Child #{ref_schema}
+        |Add Child #{ref_model}
     .ui.styled.fluid.accordion
         each children
             +child_edit
@@ -432,14 +432,14 @@ template(name='child_edit')
         // .ui.red.segment
         //     +text_edit key='key'
         //     // +text_edit key='field'
-        //     +single_doc_edit key='field' ref_schema='field' ref_key='slug' label='Field Type'
+        //     +single_doc_edit key='field' ref_model='field' ref_key='slug' label='Field Type'
         //     +text_edit key='label'
         //     +text_edit key='icon'
         //     if icon
         //         i.big.icon(class=icon)
         //     // if is_reference
     
-        //     +single_doc_edit key='ref_schema' ref_schema='schema' ref_key='slug' label='Referenced Schema (if ref)'
+        //     +single_doc_edit key='ref_model' ref_model='model' ref_key='slug' label='Referenced model (if ref)'
         //     .ui.divider
 
 
@@ -471,14 +471,14 @@ template(name='child_view')
         // .ui.red.segment
         //     +text_edit key='key'
         //     // +text_edit key='field'
-        //     +single_doc_edit key='field' ref_schema='field' ref_key='slug' label='Field Type'
+        //     +single_doc_edit key='field' ref_model='field' ref_key='slug' label='Field Type'
         //     +text_edit key='label'
         //     +text_edit key='icon'
         //     if icon
         //         i.big.icon(class=icon)
         //     // if is_reference
     
-        //     +single_doc_edit key='ref_schema' ref_schema='schema' ref_key='slug' label='Referenced Schema (if ref)'
+        //     +single_doc_edit key='ref_model' ref_model='model' ref_key='slug' label='Referenced model (if ref)'
         //     .ui.divider
 
 

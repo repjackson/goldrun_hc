@@ -84,7 +84,7 @@ Meteor.publish 'doc_tags', (selected_tags)->
         { $limit: 50 }
         { $project: _id: 0, name: '$_id', count: 1 }
         ]
-    # console.log 'cloud, ', cloud
+    console.log 'cloud, ', cloud
     cloud.forEach (tag, i) ->
         self.added 'tags', Random.id(),
             name: tag.name

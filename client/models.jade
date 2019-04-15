@@ -4,14 +4,14 @@ template(name='communication_edit')
     +textarea_edit key='notes'
     +boolean_edit key='followup'
     +single_user_edit key='user'
-    +single_doc_edit key='work_order' ref_schema='work_order'
+    +single_doc_edit key='work_order' ref_model='work_order'
 template(name='communication_view')
     +text_view key='person'
     +text_view key='company'
     +textarea_view key='notes'
     +boolean_view key='followup'
     +single_user_view key='user'
-    +single_doc_view key='work_order' ref_schema='work_order'
+    +single_doc_view key='work_order' ref_model='work_order'
 
 
 
@@ -32,14 +32,14 @@ template(name='parking_space_edit')
     +number_edit key='number'
     +image_edit key='image'
     +textarea_edit key='notes'
-    +single_doc_edit key='building' ref_schema='building'
-    +single_doc_edit key='unit' ref_schema='unit'
+    +single_doc_edit key='building' ref_model='building'
+    +single_doc_edit key='unit' ref_model='unit'
 template(name='parking_space_view')
     +number_view key='number'
     +image_view key='image'
     +textarea_view key='notes'
-    +single_doc_view key='building' ref_schema='building'
-    +single_doc_view key='unit' ref_schema='unit'
+    +single_doc_view key='building' ref_model='building'
+    +single_doc_view key='unit' ref_model='unit'
     
     
     
@@ -98,7 +98,7 @@ template(name='event_edit')
     +time_end key='time_end'
     +textarea_edit key='notes'
     +single_user_edit key='user'
-    +single_doc_edit key='work_order' ref_schema='work_order'
+    +single_doc_edit key='work_order' ref_model='work_order'
     
 
 template(name='service_edit')

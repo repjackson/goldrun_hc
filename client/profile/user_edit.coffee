@@ -7,8 +7,8 @@ Template.user_edit.onCreated ->
     @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
 
 
-Template.user_schema_editor.onCreated ->
-    @autorun -> Meteor.subscribe 'user_schemas'
+Template.user_model_editor.onCreated ->
+    @autorun -> Meteor.subscribe 'user_models'
 
 
 Template.user_edit.onRendered ->
@@ -17,37 +17,37 @@ Template.user_edit.onRendered ->
     , 2000
 
 
-Template.user_schema_editor.helpers
-    schemas: ->
+Template.user_model_editor.helpers
+    models: ->
         Docs.find
-            type:'schema'
-            user_schema:true
+            type:'model'
+            user_model:true
 
-    user_schema_class: ->
+    user_model_class: ->
         current_user = Meteor.users.findOne username:Router.current().params.username
         # console.log @
         # console.log current_user
 
-        if current_user.schema_ids and @_id in current_user.schema_ids then 'grey' else ''
+        if current_user.model_ids and @_id in current_user.model_ids then 'grey' else ''
 
 
 
-Template.user_schema_editor.events
-    'click .toggle_schema': ->
+Template.user_model_editor.events
+    'click .toggle_model': ->
         current_user = Meteor.users.findOne username:Router.current().params.username
         console.log @
-        if current_user.schema_ids and @_id in current_user.schema_ids
+        if current_user.model_ids and @_id in current_user.model_ids
             Meteor.users.update current_user._id,
-                $pull: schema_ids: @_id
+                $pull: model_ids: @_id
         else
             Meteor.users.update current_user._id,
-                $addToSet: schema_ids: @_id
+                $addToSet: model_ids: @_id
 
 
 
 Template.user_single_doc_ref_editor.onCreated ->
     # console.log @data
-    @autorun => Meteor.subscribe 'type', @data.schema
+    @autorun => Meteor.subscribe 'type', @data.model
 
 
 
@@ -63,7 +63,7 @@ Template.user_single_doc_ref_editor.helpers
     choices: ->
         # console.log @
         Docs.find
-            type:@schema
+            type:@model
 
     choice_class: ->
         # console.log @

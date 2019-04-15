@@ -1,7 +1,7 @@
 if Meteor.isClient
     Template.profile_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
-        @autorun -> Meteor.subscribe 'user_schemas', Router.current().params.username
+        @autorun -> Meteor.subscribe 'user_models', Router.current().params.username
 
     Template.user_section.helpers
         user_section_template: ->
@@ -11,16 +11,16 @@ if Meteor.isClient
         user: ->
             Meteor.users.findOne username:Router.current().params.username
 
-        user_schemas: ->
+        user_models: ->
             user = Meteor.users.findOne username:Router.current().params.username
             Docs.find
-                type:'schema'
-                _id:$in:user.schema_ids
+                type:'model'
+                _id:$in:user.model_ids
 
 
 
     Template.profile_layout.events
-        'click .set_delta_schema': ->
+        'click .set_delta_model': ->
             console.log @
             Meteor.call 'set_delta_facets', @slug, null, true
 

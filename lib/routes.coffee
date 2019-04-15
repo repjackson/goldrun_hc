@@ -6,14 +6,8 @@ Router.configure
 
 
 Router.route '/chat', -> @render 'view_chats'
-Router.route '/add', -> @render 'add'
-Router.route '/pages', -> @render 'pages'
-Router.route '/menu', -> @render 'menu'
-Router.route '/me', -> @render 'me'
-# Router.route '/users', -> @render 'users'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'
-Router.route '/register_therapist', -> @render 'register_therapist'
 Router.route('enroll', {
     path: '/enroll-account/:token'
     template: 'reset_password'
@@ -22,25 +16,25 @@ Router.route('enroll', {
         Session.set('_resetPasswordToken', this.params.token)
         @subscribe('enrolledUser', this.params.token).wait()
 })
-Router.route '/s/:type', (->
+Router.route '/m/:type', (->
     @layout 'layout'
     @render 'delta'
     ), name:'delta'
 
-Router.route '/s/:type/:_id/edit', -> @render 'type_edit'
-Router.route '/s/:type/:_id/view', -> @render 'type_view'
+Router.route '/m/:type/:_id/edit', -> @render 'type_edit'
+Router.route '/m/:type/:_id/view', -> @render 'type_view'
 
 # Router.route '/user/:username', -> @render 'user'
 Router.route '/edit/:doc_id', -> @render 'edit'
 Router.route '/view/:doc_id', -> @render 'view'
 Router.route '*', -> @render 'not_found'
 
-# Router.route '/user/:username/s/:type', -> @render 'profile_layout', 'user_section'
+# Router.route '/user/:username/m/:type', -> @render 'profile_layout', 'user_section'
 Router.route '/add_resident', (->
     @layout 'layout'
     @render 'add_resident'
     ), name:'add_resident'
-Router.route '/user/:username/s/:type', (->
+Router.route '/user/:username/m/:type', (->
     @layout 'profile_layout'
     @render 'user_section'
     ), name:'user_section'

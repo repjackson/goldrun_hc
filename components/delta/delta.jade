@@ -1,0 +1,166 @@
+template(name='delta')
+    with current_model
+        .ui.stackable.grid
+            .row
+                // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
+                .eight.wide.right.aligned.column.scrolling
+                    .ui.right.aligned.inline.header
+                        i.icon(class=icon)
+                        | #{title}
+                    unless is_loading
+                        if can_add
+                            .ui.icon.button.add_type_doc(title="Add #{title}")
+                                i.plus.icon
+                                //- +icolor name='plus' classes='ui avatar image'
+                                //- |Add #{title}
+                        if can_edit
+                            //- +edit_button
+                            .ui.icon.button.edit_model
+                                i.cog.icon
+                                //- | Configure #{plural}
+                        // .ui.divider
+                        // // each sessions
+                        // //     .ui.icon.button.select_session(class=session_selector_class title='select session')
+                        // //         i.play.icon
+                                
+                        if current_delta
+                            .ui.icon.button.print_delta(title='Print Session Doc')
+                                i.code.icon
+                            .ui.reset.icon.button(title='Reload Session')
+                                i.refresh.icon
+                            .ui.delete_delta.icon.button(title='Delete Session')
+                                i.trash.icon
+                        else
+                            .create_delta.ui.basic.button.pointer(title='new session')
+                                i.plus.icon
+                                |Create Session
+                    // |did: #{session_delta_id}
+                            
+                    each current_delta.facets
+                        +facet
+                .eight.wide.column
+                        each current_delta.result_ids
+                            +delta_result
+                
+template(name='events_column')
+    .ui.accordion
+        h4.active.title
+            // +icolor name='edit-property' classes='ui inline image'
+                // .ui.inline.dividing.header 
+            i.rss.icon
+            | Log
+            i.dropdown.icon
+        .active.content
+            .ui.feed
+                each log_events
+                    .event
+                        .label
+                            img.ui.image(src="{{c.url object.image width=400 height=400 gravity='face' crop='fill'}}")
+                        .content
+                            .summary
+                                |#{body}
+                                .date
+                                    |#{when}
+                                if is_dev
+                                    +remove_button
+
+
+
+template(name='facet')
+    div
+    |&nbsp;
+    //- if filtering_res
+    //- .ui.inline.header 
+    //-     if icon
+    //-         i.small.grey.icon(class=icon)
+    //-     if label
+    //-         |#{label}
+    //-     else 
+    //-         |#{key}
+    .ui.icon.input
+        if icon
+            i.large.grey.icon(class=icon)
+        input.add_filter(type='text' placeholder=key)
+    //-     // i.grey.dropdown.icon
+    //-         // i.dropdown.icon
+    //-         // each filters
+    //-         //     .unselect.ui.grey.button #{this}
+    each filtering_res
+        if name
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                | #{name}
+                //- small #{count}
+        else
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                strong [null]
+                //- small #{count}
+
+        // div
+        // if icon
+        //     i.grey.icon(class=icon)
+        // .ui.small.inline.header 
+        //     |#{label}
+        // // .ui.transparent.left.icon.small.input
+        // //     i.search.icon
+        // //     input.add_filter(type='text' placeholder='search')
+        // // i.dropdown.icon
+        // // each filters
+        // //     .unselect.ui.grey.button #{this}
+        // each filtering_res
+        //     if name
+        //         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+        //             | #{name}
+        //             // small #{count}
+        //     else
+        //         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+        //             strong [null]
+        //         // small #{count}
+
+
+
+template(name='toggle_delta_config')
+    if boolean_true
+        .ui.grey.active.icon.button.disable_key(title=label)
+            i.icon(class=icon)
+            // | #{label}
+    else
+        .ui.icon.button.enable_key(title=label)
+            i.icon(class=icon)
+            // | #{label}
+
+
+
+template(name='delta_result')
+    with result 
+        unless is_loading
+            .ui.result.segment
+                a.ui.header(href="/view#{_id}")
+                    each bricks
+                        if header
+                            +Template.dynamic template=view_template 
+                    // |#{title}
+                .description
+                    each small_bricks
+                        unless header
+                            +Template.dynamic template=view_template 
+                .description
+                    each big_bricks
+                        unless header
+                            +Template.dynamic template=view_template 
+                .extra
+                    // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    if is_dev
+                        +remove_button
+                    if can_edit
+                        //- a.ui.icon.large.button(href="/m/#{type}/#{_id}/edit")
+                        a.ui.icon.large.button(href="/m/#{type}/#{_id}/edit")
+                            i.pencil.large.icon
+                    a.ui.icon.large.button(href="/m/#{type}/#{_id}/view")
+                        i.eye.large.icon
+                    each model.actions
+                        +Template.dynamic template=this data=..
+                    +author_info
+                    +creation_info
+
+    
+                    

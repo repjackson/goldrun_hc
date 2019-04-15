@@ -60,10 +60,10 @@ template(name='profile_layout')
                                 .content    
                                     .header
                                         |Contact
-                        //- if user_schemas
+                        //- if user_models
                         //-     .ui.vertical.large.fluid.menu
-                        //-         each user_schemas
-                        //-             a.item.set_delta_schema(href="/user/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                        //-         each user_models
+                        //-             a.item.set_delta_model(href="/user/#{user_from_username_param.username}/m/#{slug}" class="{{isActiveRoute regex=group}}")
                         //-                 i.icon(class=icon)
                         //-                 .content    
                         //-                     .header

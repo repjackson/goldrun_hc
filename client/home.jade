@@ -1,20 +1,25 @@
 template(name='home')
-    .ui.container
-        +cloud filter='model'
-        .ui.hidden.divider
-        .ui.four.stackable.centered.cards
-            each models
-                +model_card
-            //- +healthclub_card
+    .ui.stackable.padded.grid
+        .four.wide.column
+            +cloud filter='model'
+        .twelve.wide.column
+            .ui.stackable.cards
+                each models
+                    +model_card
+                //- +healthclub_card
         
         
 template(name='model_card')
-    a.ui.card(href="/m/#{slug}")
+    a.ui.fluid.card(href="/m/#{slug}")
         .content
             .ui.header
                 i.icon(class=icon)
                 | #{title}
             .content
+                each tags   
+                    .ui.label #{this}
+                a.ui.button(href="/m/#{slug}/")
+                    i.yin.yang.icon
 
         
                 

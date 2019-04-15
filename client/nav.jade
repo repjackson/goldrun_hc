@@ -5,46 +5,44 @@ template(name='nav')
         a.item(href='/' class="{{isActivePath '/'}}")
             i.large.home.icon
             |Gold Run
-        //- a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
-        //-     i.large.users.icon
-        //- a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}" title='Buildings')
-        //-     i.large.building.icon
-        //- a.icon.item(href='/keys' class="{{isActivePath '/keys'}}" title='Keys')
-        //-     i.large.key.icon
-        //- a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='Tasks')
-        //-     i.large.tasks.icon
-        //- a.icon.item(href='/posts' class="{{isActivePath '/posts'}}" title='Posts')
-        //-     i.large.newspaper.icon
-        //- a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')
-        //-     i.large.briefcase.icon
-        //- a.icon.item(href='/work_orders' class="{{isActivePath '/work_orders'}}" title='Work Orders')
-        //-     i.large.tools.icon
-        //- a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
-        //-     i.large.clinic.medical.icon
+        a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
+            i.large.users.icon
+        a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')
+            i.large.briefcase.icon
+        a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
+            i.large.clinic.medical.icon
         .right.menu
             if currentUser
-                //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
-                //-     i.alarm.icon
-                //-     | alerts
-                //-     .menu
-                //-         each notifications
-                //-             .item #{text}
-                a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
-                    i.large.mail.icon
-                a.item(href='/admin' class="{{isActivePath '/admin'}}")
-                    i.large.shield.icon
-                a.item(href="/user/#{currentUser.username}/view" class="{{isActiveRoute regex='user_chat'}}")
-                    if currentUser.image_id
-                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                    else
-                        i.user.icon
-                    //- | #{currentUser.username}
-                //- a#logout.ui.mobile.hidden.item(href='#') 
-                //-     i.sign.out.icon
-                    //- | Sign Out
+                unless logging_out
+                    //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
+                    //-     i.alarm.icon
+                    //-     | alerts
+                    //-     .menu
+                    //-         each notifications
+                    //-             .item #{text}
+                    a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
+                        i.large.mail.icon
+                    if is_admin
+                        a.item(href='/admin' class="{{isActivePath '/admin'}}")
+                            i.large.shield.icon
+                    if is_dev
+                        a.item(href='/delta' class="{{isActivePath '/delta'}}")
+                            i.large.yin.yang.icon
+                    a.item(href="/user/#{currentUser.username}/view" class="{{isActiveRoute regex='user_chat'}}")
+                        if currentUser.image_id
+                            img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                        else
+                            i.user.icon
+                        //- | #{currentUser.username}
+                if logging_out
+                    .icon.item
+                        i.large.loading.refresh.icon
+                else
+                    a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
+                        i.sign.out.large.icon
             else
-                a.ui.item(href='/login' title='login') 
-                    i.sign.in.icon
+                a.ui.icon.item(href='/login' title='Login') 
+                    i.sign.in.large.icon
 
 
 template(name='sidebar')
@@ -77,28 +75,34 @@ template(name='sidebar')
             i.users.icon
             | People
         if currentUser
-            a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                i.dashboard.icon
-                | Dashboard
-            .ui.simple.dropdown.icon.item
-                i.alarm.icon
-                | Alerts
-            a.item(href='/messages' class="{{isActivePath '/messages'}}")
-                i.mail.icon
-                | Mail
-            if is_admin
-                a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
-                    i.configure.icon
-                    | Admin
-            a.item(href="/user/#{currentUser.username}/edit" class="{{isActiveRoute regex='user_edit'}}")
-                if currentUser.image_id
-                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=50 height=50 gravity='face' crop='fill'}}")
-                else
-                    i.user.icon
-                | #{currentUser.username}
-            a#logout.ui.item(href='#') 
-                i.sign.out.icon
-                | Log Out
+            unless logging_out
+                a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                    i.dashboard.icon
+                    | Dashboard
+                .ui.simple.dropdown.icon.item
+                    i.alarm.icon
+                    | Alerts
+                a.item(href='/messages' class="{{isActivePath '/messages'}}")
+                    i.mail.icon
+                    | Mail
+                if is_admin
+                    a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
+                        i.configure.icon
+                        | Admin
+                a.item(href="/user/#{currentUser.username}/edit" class="{{isActiveRoute regex='user_edit'}}")
+                    if currentUser.image_id
+                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                    else
+                        i.user.icon
+                    | #{currentUser.username}
+            if logging_out
+                .item
+                    i.loading.refresh.icon
+                    |Logging Out...
+            else
+                a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
+                    i.sign.out.icon
+                    |Log Out
         else
             a.ui.item(href='/login') 
                 i.sign.in.icon

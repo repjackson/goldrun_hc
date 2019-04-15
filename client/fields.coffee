@@ -362,10 +362,10 @@ Template.youtube_edit.events
 
 
 Template.children_view.onCreated ->
-    # @autorun => Meteor.subscribe 'children', @data.ref_schema, Template.parentData(5)._id
+    # @autorun => Meteor.subscribe 'children', @data.ref_model, Template.parentData(5)._id
     @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
-    @autorun => Meteor.subscribe 'schema_from_slug', @data.ref_schema
-    @autorun => Meteor.subscribe 'schema_bricks_from_slug', @data.ref_schema
+    @autorun => Meteor.subscribe 'model_from_slug', @data.ref_model
+    @autorun => Meteor.subscribe 'model_bricks_from_slug', @data.ref_model
 
 Template.children_view.onRendered ->
     Meteor.setTimeout ->
@@ -389,7 +389,7 @@ Template.children_view.helpers
         # else
         #     parent = Template.parentData()
         Docs.find {
-            type: @ref_schema
+            type: @ref_model
             parent_id: parent._id
             # view_roles:$in:Meteor.user().roles
         }, sort:rank:1
@@ -397,10 +397,10 @@ Template.children_view.helpers
 
 Template.children_edit.onCreated ->
     console.log @data
-    @autorun => Meteor.subscribe 'children', @data.ref_schema, Template.parentData(5)._id
+    @autorun => Meteor.subscribe 'children', @data.ref_model, Template.parentData(5)._id
     @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
-    @autorun => Meteor.subscribe 'schema_from_slug', @data.ref_schema
-    @autorun => Meteor.subscribe 'schema_bricks_from_slug', @data.ref_schema
+    @autorun => Meteor.subscribe 'model_from_slug', @data.ref_model
+    @autorun => Meteor.subscribe 'model_bricks_from_slug', @data.ref_model
 
 Template.children_edit.onRendered ->
     Meteor.setTimeout ->
@@ -414,7 +414,7 @@ Template.children_edit.helpers
         # else
         #     parent = Template.parentData()
         Docs.find {
-            type: @ref_schema
+            type: @ref_model
             parent_id: parent._id
             # view_roles:$in:Meteor.user().roles
         }, sort:rank:1
@@ -424,7 +424,7 @@ Template.children_edit.events
     'click .add_child': ->
         # console.log @
         new_id = Docs.insert
-            type: @ref_schema
+            type: @ref_model
             parent_id: parent._id
             parent_type:Router.current().params.type
         # console.log new_id
@@ -433,26 +433,26 @@ Template.children_edit.events
 
 
 Template.single_doc_view.onCreated ->
-    # @autorun => Meteor.subscribe 'type', @data.ref_schema
+    # @autorun => Meteor.subscribe 'type', @data.ref_model
 
 Template.single_doc_view.helpers
     choices: ->
-        console.log @ref_schema
+        console.log @ref_model
         Docs.find
-            type:@ref_schema
+            type:@ref_model
 
 
 
 
 Template.single_doc_edit.onCreated ->
-    @autorun => Meteor.subscribe 'type', @data.ref_schema
+    @autorun => Meteor.subscribe 'type', @data.ref_model
 
 Template.single_doc_edit.helpers
     choices: ->
-        # console.log @ref_schema
-        if @ref_schema
+        # console.log @ref_model
+        if @ref_model
             Docs.find
-                type:@ref_schema
+                type:@ref_model
                 # tribe:Router.current().params.tribe_slug
 
     calculated_label: ->
@@ -514,13 +514,13 @@ Template.single_doc_edit.events
 
 
 Template.multi_doc_view.onCreated ->
-    @autorun => Meteor.subscribe 'type', @data.ref_schema
+    @autorun => Meteor.subscribe 'type', @data.ref_model
 
 Template.multi_doc_view.helpers
     choices: ->
-        console.log @ref_schema
+        console.log @ref_model
         Docs.find {
-            type:@ref_schema
+            type:@ref_model
         }, sort:slug:-1
 
 # Template.multi_doc_edit.onRendered ->
@@ -536,14 +536,14 @@ Template.multi_doc_view.helpers
 
 
 Template.multi_doc_edit.onCreated ->
-    @autorun => Meteor.subscribe 'type', @data.ref_schema
+    @autorun => Meteor.subscribe 'type', @data.ref_model
 
 
 
 Template.multi_doc_edit.helpers
     choices: ->
-        # console.log @ref_schema
-        Docs.find type:@ref_schema
+        # console.log @ref_model
+        Docs.find type:@ref_model
 
     choice_class: ->
         selection = @

@@ -19,11 +19,14 @@ Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
 Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM Do h:mm:ss a")
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
+Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
+
 
 
 Template.registerHelper 'is_text', () ->
     console.log @field_type
     @field_type is 'text'
+
 
 
 Template.registerHelper 'current_user', (input) ->
@@ -41,9 +44,9 @@ Template.registerHelper 'nl2br', (text)->
 
 
 
-Template.registerHelper 'current_schema', (input) ->
+Template.registerHelper 'current_model', (input) ->
     Docs.findOne
-        type:'schema'
+        type:'model'
         slug: Router.current().params.type
 
 Template.registerHelper 'in_list', (key) ->

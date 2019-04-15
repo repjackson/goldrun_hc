@@ -7,7 +7,7 @@ template(name='work_order_edit')
                 .ui.header 
                     i.grey.marker.icon
                     |Location
-                +single_doc_edit key='building_code' ref_schema='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
+                +single_doc_edit key='building_code' ref_model='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
                 //- +text_edit key='building_code' label='Building Label' icon='building'
                 +number_edit key='building_number' label='Building Number' icon='building'
                 +number_edit key='unit' label='Unit' icon='home'
@@ -38,7 +38,7 @@ template(name='work_order_view')
             +date_view key='date' label='Date'
             +image_view key='image' label='Image'
             .ui.secondary.segment
-                +single_doc_view key='building_code' ref_schema='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
+                +single_doc_view key='building_code' ref_model='building' button_label='building_code' button_key='building_code' label='Building Label' icon='building'
                 +number_view key='building_number' label='Building Number' icon='building'
                 +number_view key='unit' label='Unit' icon='home'
                 +text_view key='location' label='Location (other)'

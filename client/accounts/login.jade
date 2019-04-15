@@ -1,0 +1,33 @@
+template(name='login')
+    .ui.padded.stackable.grid
+        .centered.row
+            .twelve.wide.column
+                h1.ui.center.aligned.grey.header Gold Run Log In 
+                if message
+                    h4.ui.center.aligned.header #{message}
+                .ui.fluid.labeled.input(class=login_class)
+                    .ui.basic.label 
+                        i.user.grey.icon
+                        |Username
+                    input.username(type='text')
+                .ui.fluid.labeled.input(class=login_class)
+                    .ui.basic.label 
+                        i.lock.grey.icon
+                        | Password
+                    input.password(type='password')
+                if username
+                    if logging_in
+                        .ui.fluid.large.hhblue.circular.button.enter(title="Login #{username}" class=enter_class)
+                            |Login #{username}
+                            i.right.chevron.icon
+                    else
+                        .ui.center.aligned.secondary.segment
+                            .ui.small.grey.header Username "#{username}" not found
+                            a.ui.button(href='/register') Register
+                .ui.center.aligned.basic.segment    
+                    a.ui.circular.large.basic.button(href='/forgot_password')
+                        i.refresh.icon
+                        |Forgot Password
+                    a.ui.circular.large.basic.button(href='/register') 
+                        i.user.icon
+                        |Register

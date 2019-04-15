@@ -1,0 +1,80 @@
+template(name='type_edit')
+    with doc
+        .ui.stackable.padded.grid
+            .centered.row
+                .four.wide.column
+                    .ui.header(title="Type: #{type}")
+                        |#{title}
+                    each bricks
+                        if header
+                            +Template.dynamic template=view_template 
+                    // +ioffice name='pencil' classes='ui inline image'
+                    div
+                    +creation_info
+                    a.ui.fluid.button(href="/m/#{type}/#{_id}/view")
+                        i.checkmark.icon
+                        | Save
+                    +remove_button
+                .twelve.wide.column
+                    //- |#{type}
+                    each small_bricks
+                        +Template.dynamic template=edit_template 
+                    each big_bricks
+                        +Template.dynamic template=edit_template 
+                        // .ui.header #{key} [#{field}] #{label}
+
+
+template(name='type_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .sixteen.wide.column
+                    .ui.breadcrumb
+                        a.section(href="/m/#{current_model.slug}" title=current_model.plural)
+                            .ui.compact.small.button
+                                if model.color_icon
+                                     +icolor name=model.color_icon classes='ui mini inline image'
+                                // else
+                                // i.icon(class=current_model.icon)
+                                |#{current_model.plural}
+                        .divider
+                            i.chevron.right.icon
+                        .active.section
+                            if icon
+                                i.icon(class=icon)
+                            if title
+                                |#{title}
+                            else
+                                | View #{type}
+            .row
+                .four.wide.column
+                    // .ui.header
+                    //     a.ui.icon.button(href="/m/#{type}" title=plural)
+                    //         i.chevron.left.icon
+                    //     |View #{type}
+                    if can_edit
+                        a.ui.fluid.button(href="/m/#{type}/#{_id}/edit")
+                            i.pencil.icon
+                            |Edit
+                    each model.actions
+                        +Template.dynamic template=this data=current_doc
+                    // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    +creation_info
+                .twelve.wide.column
+                    .ui.header
+                        each bricks
+                            if header
+                                +Template.dynamic template=view_template 
+                        // if icon
+                        //     i.icon(class=icon)
+                        // |#{title}
+                    each bricks
+                        unless header
+                            .item
+                                +Template.dynamic template=view_template 
+                    div
+                    +comments
+                    if watson
+                        +watson_view
+                    
+                    

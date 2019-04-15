@@ -114,9 +114,6 @@ if Meteor.isServer
         update: (userId, doc) -> doc.author_id is userId or 'admin' in Meteor.user().roles
         remove: (userId, doc) -> doc.author_id is userId or 'admin' in Meteor.user().roles
 
-
-
-
     Meteor.publish 'docs', (selected_tags, filter)->
 
         # user = Meteor.users.findOne @userId

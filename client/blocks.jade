@@ -131,7 +131,7 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.icon.button.view(title='View' href="/s/#{type}/#{_id}/view")
+    a.ui.icon.button.view(title='View' href="/m/#{type}/#{_id}/view")
         i.right.chevron.icon
 
 
@@ -148,13 +148,13 @@ template(name='add_button')
 
 
 //- template(name='edit_button')
-//-     a.ui.button.icon.edit(title='Edit' href="/s/#{type}/#{_id}/edit")
+//-     a.ui.button.icon.edit(title='Edit' href="/m/#{type}/#{_id}/edit")
 //-         i.blue.pencil.icon
 //-         |Edit
 
 
 template(name='save_button')
-    a.ui.button.large.icon.save(title='Save' href="/s/#{type}/#{_id}/view")
+    a.ui.button.large.icon.save(title='Save' href="/m/#{type}/#{_id}/view")
         i.checkmark.green.icon
         |Save
 
