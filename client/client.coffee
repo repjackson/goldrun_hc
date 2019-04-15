@@ -27,6 +27,14 @@ Template.registerHelper 'is_text', () ->
     console.log @field_type
     @field_type is 'text'
 
+Template.registerHelper 'fields', () ->
+    model = Docs.findOne
+        model:'model'
+        slug:@model
+    console.log model
+    Docs.find
+        model:'field'
+        parent_id:model._id
 
 
 Template.registerHelper 'current_user', (input) ->
@@ -65,11 +73,9 @@ Template.registerHelper 'is_dev', () ->
 
 
 Template.registerHelper 'view_template', ->
-    console.log @
     "#{@field_type}_view"
 
 Template.registerHelper 'edit_template', ->
-    console.log @
     "#{@type}_edit"
 
 

@@ -5,7 +5,7 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.model_slug
         # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
-        @autorun -> Meteor.subscribe 'model_bricks_from_slug', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
         # @autorun -> Meteor.subscribe 'deltas', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'my_delta'
 
@@ -31,6 +31,7 @@ if Meteor.isClient
         'click .create_delta': (e,t)->
             Docs.insert
                 model:'delta'
+                model_filter: Router.current().params.model_slug
 
         'click .print_delta': (e,t)->
             delta = Docs.findOne model:'delta'
@@ -38,7 +39,6 @@ if Meteor.isClient
 
         'click .reset': ->
             delta = Docs.findOne model:'delta'
-            console.log 'hi'
             Meteor.call 'fum', delta._id, (err,res)->
 
         'click .delete_delta': (e,t)->
@@ -207,7 +207,7 @@ if Meteor.isServer
             Docs.find match
 
 
-    Meteor.publish 'model_bricks_from_slug', (model_slug)->
+    Meteor.publish 'model_fields_from_slug', (model_slug)->
         # console.log model
 
         # else if model in ['field', 'brick','tribe','page','block','model']
@@ -222,7 +222,7 @@ if Meteor.isServer
         #         tribe:tribe_slug
 
         Docs.find
-            model:'brick'
+            model:'field'
             parent_id:model._id
 
 

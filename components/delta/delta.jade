@@ -39,8 +39,8 @@ template(name='delta')
                     each current_delta.facets
                         +facet
                 .eight.wide.column
-                        each current_delta.result_ids
-                            +delta_result
+                    each current_delta.result_ids
+                        +delta_result
                 
 template(name='events_column')
     .ui.accordion
@@ -135,18 +135,10 @@ template(name='delta_result')
         unless is_loading
             .ui.result.segment
                 a.ui.header(href="/view#{_id}")
-                    each bricks
-                        if header
-                            +Template.dynamic template=view_template 
-                    // |#{title}
                 .description
-                    each small_bricks
-                        unless header
-                            +Template.dynamic template=view_template 
-                .description
-                    each big_bricks
-                        unless header
-                            +Template.dynamic template=view_template 
+                    each fields
+                        |#{title}
+                        +Template.dynamic template=view_template 
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     if is_dev

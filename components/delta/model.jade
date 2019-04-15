@@ -20,7 +20,7 @@ template(name='model_edit')
                             
                 .twelve.wide.column
                     //- |#{type}
-                    each bricks
+                    each fields
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}
                     .ui.inline.header fields
