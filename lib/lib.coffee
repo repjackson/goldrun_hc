@@ -9,11 +9,29 @@
 
 
 Docs.before.insert (userId, doc)->
-    doc.timestamp = Date.now()
-    doc.author_id = Meteor.userId()
+    doc._author_id = Meteor.userId()
+    timestamp = Date.now()
+    doc._timestamp = timestamp
+    doc._timestamp_long = moment(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")
+    date = moment(timestamp).format('Do')
+    weekdaynum = moment(timestamp).isoWeekday()
+    weekday = moment().isoWeekday(weekdaynum).format('dddd')
+
+    month = moment(timestamp).format('MMMM')
+    year = moment(timestamp).format('YYYY')
+
+    date_array = [weekday, month, date, year]
+    if _
+        date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
+    # date_array = _.each(date_array, (el)-> console.log(typeof el))
+    # console.log date_array
+        doc._timestamp_tags = date_array
+
+    doc._author_id = Meteor.userId()
+    doc._author_username = Meteor.user().username
+
     # doc.points = 0
     # doc.downvoters = []
-    # doc.tags.push Meteor.user().profile.current_herd
     # doc.upvoters = []
     return
 
@@ -21,9 +39,6 @@ if Meteor.isClient
     # console.log $
     $.cloudinary.config
         cloud_name:"facet"
-
-
-
 
 if Meteor.isServer
     Cloudinary.config
@@ -45,8 +60,8 @@ if Meteor.isServer
 
 
 Docs.helpers
-    author: -> Meteor.users.findOne @author_id
-    when: -> moment(@timestamp).fromNow()
+    author: -> Meteor.users.findOne @_author_id
+    when: -> moment(@_timestamp).fromNow()
 
 
 Meteor.methods
@@ -97,11 +112,8 @@ if Meteor.isClient
 
 
     Template.view.helpers
-        is_author: -> Meteor.userId() and @author_id is Meteor.userId()
-
         tag_class: -> if @valueOf() in selected_tags.array() then 'primary' else 'basic'
-
-        when: -> moment(@timestamp).fromNow()
+        when: -> moment(@_timestamp).fromNow()
 
     Template.view.events
         'click .tag': -> if @valueOf() in selected_tags.array() then selected_tags.remove(@valueOf()) else selected_tags.push(@valueOf())
@@ -129,9 +141,9 @@ if Meteor.isClient
 
 if Meteor.isServer
     Docs.allow
-        insert: (userId, doc) -> doc.author_id is userId
-        update: (userId, doc) -> doc.author_id is userId or 'admin' in Meteor.user().roles
-        remove: (userId, doc) -> doc.author_id is userId or 'admin' in Meteor.user().roles
+        insert: (userId, doc) -> doc._author_id is userId
+        update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
+        remove: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
 
     Meteor.publish 'docs', (selected_tags, filter)->
 
