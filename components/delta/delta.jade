@@ -3,7 +3,7 @@ template(name='delta')
         .ui.stackable.padded.grid
             .row
                 // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
-                .six.wide.column
+                .six.wide.column.scrolling
                     .ui.right.aligned.inline.header
                         i.icon(class=icon)
                         | #{title}
@@ -44,17 +44,18 @@ template(name='delta')
 
 template(name='facet')
     if filtering_res
-        .ui.header 
+        div
+        .ui.inline.header 
             if icon
                 i.small.grey.icon(class=icon)
             if label
                 |#{label}
             else 
                 |#{key}
-        //- .ui.icon.input
-        //-     if icon
-        //-         i.large.grey.icon(class=icon)
-        //-     input.add_filter(type='text' placeholder=key)
+        .ui.icon.small.input
+            if icon
+                i.large.grey.icon(class=icon)
+            input.add_filter(type='text' placeholder=key)
         //-     // i.grey.dropdown.icon
         //-         // i.dropdown.icon
         //-         // each filters
@@ -92,18 +93,19 @@ template(name='delta_result')
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     if is_model
-                        a.ui.icon.large.button.route_model(href="/m/#{slug}")
-                            i.sitemap.large.icon
-                        a.ui.icon.large.button.route_model(href="/model/edit/#{_id}")
-                            i.edit.large.icon
+                        a.ui.icon.large.circular.button.route_model(href="/m/#{slug}")
+                            i.sitemap.icon
+                        a.ui.icon.large.circular.button.route_model(href="/model/edit/#{_id}")
+                            i.edit.icon
                     else
-                        a.ui.icon.large.button(href="/m/#{model}/#{_id}/edit")
-                            i.pencil.large.icon
-                        a.ui.icon.large.button(href="/m/#{model}/#{_id}/view")
-                            i.eye.large.icon
+                        a.ui.icon.large.circular.button(href="/m/#{model}/#{_id}/edit")
+                            i.pencil.icon
+                        a.ui.icon.large.circular.button(href="/m/#{model}/#{_id}/view")
+                            i.eye.icon
                     each model.actions
                         +Template.dynamic template=this data=..
-                    +author_info
+                    if _author_id
+                        +author_info
                     +creation_info
 
     

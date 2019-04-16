@@ -15,7 +15,7 @@ if Meteor.isClient
         current_delta: ->
             Docs.findOne
                 model:'delta'
-                author_id:Meteor.userId()
+                _author_id:Meteor.userId()
 
         global_tags: ->
             doc_count = Docs.find().count()
@@ -236,5 +236,5 @@ if Meteor.isServer
 
     Meteor.publish 'my_delta', ->
         Docs.find
-            author_id:Meteor.userId()
+            _author_id:Meteor.userId()
             model:'delta'

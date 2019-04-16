@@ -256,13 +256,24 @@ a {
   }
 }
 #main {
-    margin-top:20px;
+    /* margin-top:20px; */
     min-height: 120vh;
     height: 100%;
     /* min-height: 500px; */
     /* bottom: 0; */
 }
+.scrolling{
+	overflow-y:scroll;
+	overflow-x:hidden;
+	max-height:200vh;
+	/*max-height:85vh;*/
+	/* padding-top: 1em; */
+	/*padding-left: 1em;*/
+}
 
+.scrolling::-webkit-scrollbar {
+    display: none;
+}
 
 .topnav{
 	overflow-y:hidden;

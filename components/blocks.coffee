@@ -169,7 +169,7 @@ if Meteor.isClient
                 Docs.update @_id,
                     $addToSet: upvoter_ids:Meteor.userId()
                     $inc:points:1
-            # Meteor.users.update @author_id,
+            # Meteor.users.update @_author_id,
             #     $inc:karma:1
 
         'click .downvote': ->
@@ -186,7 +186,7 @@ if Meteor.isClient
                 Docs.update @_id,
                     $addToSet: downvoter_ids:Meteor.userId()
                     $inc:points:-1
-            # Meteor.users.update @author_id,
+            # Meteor.users.update @_author_id,
             #     $inc:karma:-1
 
 

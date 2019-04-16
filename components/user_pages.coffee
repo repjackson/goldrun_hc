@@ -41,13 +41,13 @@ if Meteor.isClient
                 Docs.update @_id,
                     $inc:points:1
                     $addToSet:upvoters:Meteor.userId()
-                Meteor.users.update @author_id,
+                Meteor.users.update @_author_id,
                     $inc:points:-1
             else
-                Meteor.users.update @author_id,
+                Meteor.users.update @_author_id,
                     $pull:upvoters:Meteor.userId()
                     $inc:points:1
-                Meteor.users.update @author_id,
+                Meteor.users.update @_author_id,
                     $inc:points:1
 
         'click .mark_comment_read': ->

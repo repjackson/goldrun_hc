@@ -2,7 +2,7 @@ Meteor.methods
     set_facets: (model_slug)->
         delta = Docs.findOne
             model:'delta'
-            author_id:Meteor.userId()
+            _author_id:Meteor.userId()
         model = Docs.findOne
             model:'model'
             slug:model_slug
