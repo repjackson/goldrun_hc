@@ -7,12 +7,7 @@ if Meteor.isClient
                 Router.go '/'
 
         'click .set_model': ->
-            delta = Docs.findOne model:'delta'
-            Docs.update delta._id,
-                $set:model_filter:'model'
-            if delta
-                Meteor.call 'fum', delta._id, (err,res)->
-
+            Meteor.call 'set_facets', 'model'
 
 
     # Template.sidebar.events

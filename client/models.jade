@@ -1,20 +1,3 @@
-template(name='communication_edit')
-    +text_edit key='person'
-    +text_edit key='company'
-    +textarea_edit key='notes'
-    +boolean_edit key='followup'
-    +single_user_edit key='user'
-    +single_doc_edit key='work_order' ref_model='work_order'
-template(name='communication_view')
-    +text_view key='person'
-    +text_view key='company'
-    +textarea_view key='notes'
-    +boolean_view key='followup'
-    +single_user_view key='user'
-    +single_doc_view key='work_order' ref_model='work_order'
-
-
-
 template(name='vendor_edit')
     +text_edit key='title'
     +text_edit key='contact'
@@ -28,70 +11,6 @@ template(name='vendor_view')
     
     
     
-template(name='parking_space_edit')
-    +number_edit key='number'
-    +image_edit key='image'
-    +textarea_edit key='notes'
-    +single_doc_edit key='building' ref_model='building'
-    +single_doc_edit key='unit' ref_model='unit'
-template(name='parking_space_view')
-    +number_view key='number'
-    +image_view key='image'
-    +textarea_view key='notes'
-    +single_doc_view key='building' ref_model='building'
-    +single_doc_view key='unit' ref_model='unit'
-    
-    
-    
-    
-template(name='for_rent_edit')
-    +text_edit key='title'
-    +image_edit key='image'
-    +date_edit key='available'
-    +array_edit key='tags'
-template(name='for_rent_view')
-    +text_view key='title'
-    +image_view key='image'
-    +date_view key='available'
-    +array_view key='tags'
-    
-    
-
-template(name='library_edit')
-    +text_edit key='title'
-    +image_edit key='image'
-    +date_edit key='available'
-    +array_edit key='tags'
-template(name='library_view')
-    +text_view key='title'
-    +image_view key='image'
-    +date_view key='available'
-    +array_view key='tags'
-    
-    
-
-
-
-template(name='photo_edit')
-    +text_edit key='title'
-    +image_edit key='image'
-    +array_edit key='tags'
-template(name='photo_view')
-    +text_view key='title'
-    +image_view key='image'
-    +array_view key='tags'
-    
-
-
-
-template(name='healthclub_checkin_edit')
-    +single_user_edit key='user'
-template(name='healthclub_checkin_view')
-    +single_user_view key='user'
-    
-
-
-
 
 template(name='event_edit')
     +time_edit key='time_start'

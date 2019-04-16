@@ -1,4 +1,33 @@
 Meteor.methods
+    set_facets: (model_slug)->
+        delta = Docs.findOne
+            model:'delta'
+            author_id:Meteor.userId()
+        model = Docs.findOne
+            model:'model'
+            slug:model_slug
+        # console.log model
+        fields =
+            Docs.find
+                model:'field'
+                parent_id:model._id
+
+        Docs.update delta._id,
+            $set:model_filter:model_slug
+
+
+        for field in fields.fetch()
+            console.log 'adding field to delta', field.key
+            Docs.update delta._id,
+                $addToSet:
+                    facets: {
+                        key:field.key
+                        filters:[]
+                        res:[]
+                    }
+        Meteor.call 'fum', delta._id
+
+
     fum: (delta_id)->
         # console.log 'running fum', delta_id
         delta = Docs.findOne delta_id
@@ -13,18 +42,9 @@ Meteor.methods
                 parent_id:model._id
         # console.log 'fields', fields.fetch()
 
-        Docs.update delta_id,
-            $set:facets:[]
+        # Docs.update delta_id,
+        #     $set:facets:[]
 
-        for field in fields.fetch()
-            console.log 'adding field to delta', field.key
-            Docs.update delta_id,
-                $addToSet:
-                    facets: {
-                        key:field.key
-                        filters:[]
-                        res:[]
-                    }
         # console.log 'delta', delta
         built_query = { model:delta.model_filter }
 

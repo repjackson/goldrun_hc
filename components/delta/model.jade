@@ -20,15 +20,15 @@ template(name='model_edit')
                             
                 .twelve.wide.column
                     //- |#{type}
-                    each fields
-                        +Template.dynamic template=edit_template 
-                        // .ui.header #{key} [#{field}] #{label}
+                    //- each fields
+                    //-     +Template.dynamic template=edit_template 
+                    //-     // .ui.header #{key} [#{field}] #{label}
                     .ui.inline.header fields
                     .ui.icon.circular.button.add_field
                         i.plus.icon
                     each fields
-                        .ui.divider
                         +field_edit
+                        .ui.divider
 
 
 template(name='model_view')

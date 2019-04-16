@@ -3,7 +3,7 @@ if Meteor.isClient
     Router.route '/frontdesk/edit/:doc_id', -> @render 'edit_frontdesk'
 
     Template.frontdesk.onCreated ->
-        @autorun -> Meteor.subscribe('frontdesk')
+        @autorun -> Meteor.subscribe 'type', 'frontdesk'
 
     Template.frontdesk.helpers
         frontdesk: ->
@@ -17,23 +17,3 @@ if Meteor.isClient
             id = Docs.insert
                 model: 'frontdesk'
             Router.go "/frontdesk/edit/#{id}"
-
-
-
-
-if Meteor.isServer
-    Meteor.publish 'frontdesk', ()->
-
-        self = @
-        match = {}
-        match.type = 'frontdesk'
-        # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
-        #     match.published = true
-
-        Docs.find match,
-            limit: 10
-            sort:
-                timestamp: -1
-
-    Meteor.publish 'frontdesk', (doc_id)->
-        Docs.find doc_id

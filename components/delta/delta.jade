@@ -15,7 +15,7 @@ template(name='delta')
                                 //- |Add #{title}
                         if can_edit
                             //- +edit_button
-                            .ui.icon.button.edit_model
+                            .ui.icon.circular.button.edit_model
                                 i.cog.icon
                                 //- | Configure #{plural}
                         // .ui.divider
@@ -24,16 +24,16 @@ template(name='delta')
                         // //         i.play.icon
                                 
                         if current_delta
-                            .ui.icon.button.print_delta(title='Print Session Doc')
+                            .ui.icon.circular.button.print_delta(title='Print Session Doc')
                                 i.code.icon
-                            .ui.reset.icon.button(title='Reload Session')
+                            .ui.reset.icon.circular.button(title='Reload Session')
                                 i.refresh.icon
-                            .ui.delete_delta.icon.button(title='Delete Session')
+                            .ui.delete_delta.icon.circular.button(title='Delete Session')
                                 i.trash.icon
                         else
-                            .create_delta.ui.basic.button.pointer(title='new session')
+                            .create_delta.ui.button.pointer(title='new session')
                                 i.plus.icon
-                                |Create Session
+                                |Session
                     // |did: #{session_delta_id}
                             
                     each current_delta.facets
@@ -45,33 +45,31 @@ template(name='delta')
 
 
 template(name='facet')
-    div
-    |&nbsp;
-    //- if filtering_res
-    .ui.header 
-        if icon
-            i.small.grey.icon(class=icon)
-        if label
-            |#{label}
-        else 
-            |#{key}
-    //- .ui.icon.input
-    //-     if icon
-    //-         i.large.grey.icon(class=icon)
-    //-     input.add_filter(type='text' placeholder=key)
-    //-     // i.grey.dropdown.icon
-    //-         // i.dropdown.icon
-    //-         // each filters
-    //-         //     .unselect.ui.grey.button #{this}
-    each filtering_res
-        if name
-            .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-                | #{name}
-                //- small #{count}
-        else
-            .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-                strong [null]
-                //- small #{count}
+    if filtering_res
+        .ui.header 
+            if icon
+                i.small.grey.icon(class=icon)
+            if label
+                |#{label}
+            else 
+                |#{key}
+        //- .ui.icon.input
+        //-     if icon
+        //-         i.large.grey.icon(class=icon)
+        //-     input.add_filter(type='text' placeholder=key)
+        //-     // i.grey.dropdown.icon
+        //-         // i.dropdown.icon
+        //-         // each filters
+        //-         //     .unselect.ui.grey.button #{this}
+        each filtering_res
+            if name
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                    | #{name}
+                    //- small #{count}
+            else
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    //- small #{count}
 
         // div
         // if icon
@@ -115,7 +113,7 @@ template(name='delta_result')
                 a.ui.header(href="/view#{_id}")
                 .description
                     each fields
-                        |#{title}
+                        //- |#{title}
                         +Template.dynamic template=view_template 
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'

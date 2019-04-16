@@ -44,9 +44,8 @@ template(name='model_doc_view')
                     //         i.chevron.left.icon
                     //     |View #{model}
                     if can_edit
-                        a.ui.fluid.button(href="/m/#{model}/#{_id}/edit")
+                        a.ui.big.blue.circular.icon.button(href="/m/#{model}/#{_id}/edit")
                             i.pencil.icon
-                            |Edit
                     each model.actions
                         +Template.dynamic template=this data=current_doc
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
@@ -67,29 +66,3 @@ template(name='model_doc_view')
                     +comments
                     if watson
                         +watson_view
-        .ui.stackable.padded.grid
-            .four.wide.column
-                h1.ui.header #{title}
-                .ui.circular.icon.big.green.button.add_child(title="Add #{slug}")
-                    i.plus.icon
-                a.ui.icon.circular.blue.big.button(href="/model/edit/#{_id}")
-                    i.pencil.icon
-                .ui.form
-                    +text_view key='title'
-                    +text_view key='slug'
-                    +text_view key='icon'
-                    +textarea_view key='description'
-                    +array_view key='tags'
-                +cloud filter=slug
-
-            .twelve.wide.column
-                //- .ui.header Fields
-                //- each fields
-                //-     .ui.divider
-                //-     +field_view
-                each model_docs
-                    .ui.fluid.card
-                        .content
-                            +Template.dynamic template=model_doc
-                            +array_view key='tags'
-                            +edit_button

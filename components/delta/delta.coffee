@@ -103,12 +103,13 @@ if Meteor.isClient
         , 1500
 
     Template.facet.events
-        'click .ui.accordion': ->
-            $('.accordion').accordion()
+        # 'click .ui.accordion': ->
+        #     $('.accordion').accordion()
 
         'click .toggle_selection': ->
             delta = Docs.findOne model:'delta'
             facet = Template.currentData()
+
             Session.set 'loading', true
             if facet.filters and @name in facet.filters
                 Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
