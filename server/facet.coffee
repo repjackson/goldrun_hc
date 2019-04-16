@@ -24,14 +24,16 @@ Meteor.methods
                 }
             ]
         for field in fields.fetch()
-            # console.log 'adding field to delta', field.key
-            Docs.update delta._id,
-                $addToSet:
-                    facets: {
-                        key:field.key
-                        filters:[]
-                        res:[]
-                    }
+            unless field.field_type in ['textarea','image','youtube','html']
+                unless field.slug in ['slug','icon']
+                # console.log 'adding field to delta', field.key
+                    Docs.update delta._id,
+                        $addToSet:
+                            facets: {
+                                key:field.key
+                                filters:[]
+                                res:[]
+                            }
         Meteor.call 'fum', delta._id
 
 

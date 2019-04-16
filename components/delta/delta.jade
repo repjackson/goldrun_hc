@@ -3,7 +3,7 @@ template(name='delta')
         .ui.stackable.padded.grid
             .row
                 // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
-                .six.wide.column.scrolling
+                .eight.wide.right.aligned.column.scrolling
                     .ui.right.aligned.inline.header
                         i.icon(class=icon)
                         | #{title}
@@ -36,7 +36,7 @@ template(name='delta')
                             
                     each current_delta.facets
                         +facet
-                .ten.wide.column.scrolling
+                .eight.wide.column.scrolling
                     each current_delta.result_ids
                         +delta_result
                 
@@ -64,11 +64,11 @@ template(name='facet')
             if name
                 .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
                     | #{name}
-                    //- small #{count}
+                    small #{count}
             else
                 .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
-                    //- small #{count}
+                    small #{count}
 
 template(name='toggle_delta_config')
     if boolean_true

@@ -101,7 +101,7 @@ template(name='link_view')
 
 
 template(name='image_view')
-    img.ui.large.centered.rounded.image(src="{{c.url field_value width=400 gravity='face' crop='fill'}}")
+    img.ui.large.centered.rounded.image(src="{{c.url field_value }}")
     //- +call_visual
 
 template(name='image_edit')
@@ -183,8 +183,8 @@ template(name='html_edit')
         +froalaReactive getFEContext
     +call_watson mode='html'
     +tone mode='html'
-    //- if watson
-    //-     +watson_view
+    if watson
+        +watson_view
         
         
 template(name='html_view')
@@ -195,6 +195,8 @@ template(name='html_view')
     //-     .active.content
     |!{field_value}
     //- +call_watson mode='html'
+    if watson
+        +watson_view
 
 
 template(name='doc_edit')

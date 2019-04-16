@@ -286,6 +286,10 @@ a {
     display: none;
 }
 
+.ui.progress {
+    margin:0px !important;  
+}
+
 .f10 {
   font-size: 200%;
   line-height: 120%;
