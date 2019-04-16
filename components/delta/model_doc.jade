@@ -4,7 +4,7 @@ template(name='model_doc_edit')
             .centered.row
                 .four.wide.column
                     .ui.header(title="model: #{model}")
-                        |#{title}
+                        |Edit #{model}
                     +creation_info
                     a.ui.green.big.circular.icon.button(href="/m/#{model}/#{_id}/view")
                         i.big.checkmark.icon
@@ -13,7 +13,6 @@ template(name='model_doc_edit')
                             
                 .twelve.wide.column
                     //- |#{model}
-                    .ui.inline.header fields
                     each fields
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}

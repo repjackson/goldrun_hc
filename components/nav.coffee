@@ -7,7 +7,10 @@ if Meteor.isClient
                 Router.go '/'
 
         'click .set_model': ->
-            Meteor.call 'set_facets', 'model'
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'model', ->
+                Session.set 'loading', false
+
 
 
     # Template.sidebar.events

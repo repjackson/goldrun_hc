@@ -8,11 +8,9 @@ template(name='delta')
                         i.icon(class=icon)
                         | #{title}
                     unless is_loading
-                        if can_add
-                            .ui.icon.button.add_type_doc(title="Add #{title}")
-                                i.plus.icon
-                                //- +icolor name='plus' classes='ui avatar image'
-                                //- |Add #{title}
+                        //- if can_add
+                        .ui.icon.circular.green.big.button.add_model_doc(title="Add #{title}")
+                            i.plus.icon
                         if can_edit
                             //- +edit_button
                             .ui.icon.circular.button.edit_model
@@ -71,29 +69,6 @@ template(name='facet')
                     strong [null]
                     //- small #{count}
 
-        // div
-        // if icon
-        //     i.grey.icon(class=icon)
-        // .ui.small.inline.header 
-        //     |#{label}
-        // // .ui.transparent.left.icon.small.input
-        // //     i.search.icon
-        // //     input.add_filter(type='text' placeholder='search')
-        // // i.dropdown.icon
-        // // each filters
-        // //     .unselect.ui.grey.button #{this}
-        // each filtering_res
-        //     if name
-        //         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-        //             | #{name}
-        //             // small #{count}
-        //     else
-        //         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-        //             strong [null]
-        //         // small #{count}
-
-
-
 template(name='toggle_delta_config')
     if boolean_true
         .ui.grey.active.icon.button.disable_key(title=label)
@@ -110,7 +85,6 @@ template(name='delta_result')
     with result 
         unless is_loading
             .ui.result.segment
-                a.ui.header(href="/view#{_id}")
                 .description
                     each fields
                         //- |#{title}

@@ -15,9 +15,11 @@ Meteor.methods
         Docs.update delta._id,
             $set:model_filter:model_slug
 
+        Docs.update delta._id,
+            $set:facets:[]
 
         for field in fields.fetch()
-            console.log 'adding field to delta', field.key
+            # console.log 'adding field to delta', field.key
             Docs.update delta._id,
                 $addToSet:
                     facets: {
@@ -42,8 +44,6 @@ Meteor.methods
                 parent_id:model._id
         # console.log 'fields', fields.fetch()
 
-        # Docs.update delta_id,
-        #     $set:facets:[]
 
         # console.log 'delta', delta
         built_query = { model:delta.model_filter }
@@ -54,7 +54,7 @@ Meteor.methods
                 built_query["#{facet.key}"] = $all: facet.filters
 
         total = Docs.find(built_query).count()
-        console.log 'built query', built_query
+        # console.log 'built query', built_query
 
         # response
         for facet in delta.facets

@@ -38,8 +38,8 @@ if Meteor.isClient
             console.log delta
 
         'click .reset': ->
-            delta = Docs.findOne model:'delta'
-            Meteor.call 'fum', delta._id, (err,res)->
+            model_slug =  Router.current().params.model_slug
+            Meteor.call 'set_facets', model_slug
 
         'click .delete_delta': (e,t)->
             delta = Docs.findOne model:'delta'
@@ -160,9 +160,6 @@ if Meteor.isClient
         # Meteor.setTimeout ->
         #     $('.progress').popup()
         # , 2000
-
-
-
     Template.delta_result.onCreated ->
         @autorun => Meteor.subscribe 'doc', @data._id
 
@@ -178,12 +175,14 @@ if Meteor.isClient
             Meteor.call 'set_delta_facets', @slug, Meteor.userId()
 
         'click .route_model': ->
-            delta = Docs.findOne model:'delta'
-            Docs.update delta._id,
-                $set:model_filter:@slug
-
-            # Meteor.call 'set_delta_facets', @slug, Meteor.userId()
-            Meteor.call 'fum', delta._id, (err,res)->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', @slug, ->
+                Session.set 'loading', false
+            # delta = Docs.findOne model:'delta'
+            # Docs.update delta._id,
+            #     $set:model_filter:@slug
+            #
+            # Meteor.call 'fum', delta._id, (err,res)->
 
 
 

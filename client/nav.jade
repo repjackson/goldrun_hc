@@ -2,15 +2,19 @@ template(name='nav')
     .ui.inverted.grblue.borderless.attached.large.menu.topnav
         //- a.toggle_sidebar.icon.item.sidebar_on
         //-     i.large.sidebar.icon
-        a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
-            i.large.home.icon
-            |Gold Run
-        a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
-            i.large.users.icon
-        a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')
-            i.large.briefcase.icon
-        a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
-            i.large.clinic.medical.icon
+        if is_loading
+            .icon.item
+                i.big.grey.loading.yin.yang.icon
+        else
+            a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
+                i.large.home.icon
+                |Gold Run
+            a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
+                i.large.users.icon
+            a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')
+                i.large.briefcase.icon
+            a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
+                i.large.clinic.medical.icon
         .right.menu
             if currentUser
                 unless logging_out
