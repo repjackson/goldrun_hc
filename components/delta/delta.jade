@@ -107,6 +107,9 @@ template(name='delta_result')
                     if _author_id
                         +author_info
                     +creation_info
-
+                    .ui.small.inline.grey.header timestamp tags
+                    each _timestamp_tags
+                        .ui.label #{this}
+                    
     
                     

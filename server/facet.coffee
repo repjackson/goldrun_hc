@@ -16,8 +16,13 @@ Meteor.methods
             $set:model_filter:model_slug
 
         Docs.update delta._id,
-            $set:facets:[]
-
+            $set:facets:[
+                {
+                    key:'_timestamp_tags'
+                    filters:[]
+                    res:[]
+                }
+            ]
         for field in fields.fetch()
             # console.log 'adding field to delta', field.key
             Docs.update delta._id,

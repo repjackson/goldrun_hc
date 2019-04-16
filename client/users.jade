@@ -29,6 +29,7 @@ template(name='user_item')
         .twelve.wide.column
             a.ui.header(href="/user/#{username}") 
                 |#{profile.name}
+            a.ui.small.header(href="/user/#{username}") 
                 |#{username}
             .meta
                 each tags
@@ -130,7 +131,9 @@ template(name='users')
     .ui.padded.grid
         .row
             .sixteen.wide.column
-                h1.ui.center.aligned.header Users
+                h1.ui.center.aligned.header 
+                    i.users.icon
+                    |Users
                 .ui.centered.cards
                     each users
                         +user
@@ -139,14 +142,15 @@ template(name='user')
     .ui.card
         .image
             //- a(href="/user/#{username}/view")
-            img.ui.fluid.image(src="{{c.url image_id height=400 width=400 background='white' crop='pad'}}")
+            //- img(src="{{c.url image_id height=400 width=400 background='white' crop='pad'}}")
+            img(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
         .content
             a(href="/user/#{username}/view")
-                h2.ui.center.aligned.header #{first_name} #{last_name} #{username}
+                h2.ui.center.aligned.header #{first_name} #{last_name} 
+                .ui.small.grey.header @#{username}
             each five_tags
                 .ui.compact.small.circular.button.person_tag(class=tag_class) 
                     strong #{this}
-        .content
             +text_view key='first_name' label='First Name'
             +text_view key='last_name' label='Last Name'
             +text_view key='address' label='Address'
