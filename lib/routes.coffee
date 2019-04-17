@@ -112,6 +112,11 @@ Router.route '/p/:slug', -> @render 'page'
 Router.route '/settings', -> @render 'settings'
 # Router.route '/users', -> @render 'people'
 
+
+Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
+
+
+
 Router.route '/login', -> @render 'login'
 
 Router.route '/', (->

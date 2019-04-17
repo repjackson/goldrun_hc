@@ -105,44 +105,32 @@ template(name='user_about')
 
     .ui.padded.stackable.grid
         .eight.wide.column
-            .ui.list
-                .ui.item First Name 
-                    strong #{first_name}
-                .ui.item Last Name 
-                    strong #{last_name}
-                .ui.item Address 
-                    strong #{address}
-                .ui.item Unit # 
-                    strong #{apt_number}
-                .ui.item Building # 
-                    strong #{building_number}
-                .ui.item Start Date 
-                    strong #{start_date}
-                .ui.item Lease Expiration 
-                    strong #{lease_expiration}
-                .ui.item Telephone 
-                    strong #{telephone}
-                //- .ui.item Email 
-                //-     strong #{email}
-                .ui.item Owner 
-                    strong #{owner}
-                .ui.small.header 
-                    i.linkify.icon
-                    |Link
-                a(href=profile.website target='_blank') #{website}
+            +text_view key='first_name' label='First Name' direct=true
+            +text_view key='last_name' label='Last Name' direct=true
+            +text_view key='address' label='Address' direct=true
+            +number_view key='unit_number' label='Unit #' direct=true
+            +number_view key='building_number' label='Building #' direct=true
+            //- +text_view key='email' label='Email' direct=true
+            +phone_view key='phone' label='Phone' direct=true
+            +date_view key='start_date' label='Start Date' direct=true
+            +date_view key='expiration_date' label='Expiration Date' direct=true
+            
             each emails
                 .ui.label #{address}
     
             +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
-            +user_bookmarks    
+            //- +user_bookmarks    
         .eight.wide.column
-            +user_feed
+            //- +user_feed
+            +user_rules_widget
     if current_user
         +role_switcher
-    +user_tags
+    //- +user_tags
     
 
-
+template(name='user_rules_widget')
+    .ui.header User Rules Signature
+    
 
 
 

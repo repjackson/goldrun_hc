@@ -204,29 +204,7 @@ template(name='sign_waiver')
                             |Sign Waiver
                         with waiver_doc
                             |!{html}
-                        .ui.big.form
-                            .field
-                                |First Name
-                                input#first_name(type='text' val=first_name)
-                            .field
-                                |Last Name
-                                input#last_name(type='text' val=last_name)
-                            .disabled.field
-                                |Username
-                                input#username(type='text' val=username)
-                            .field
-                                |Last Name
-                                input#address(type='text' val=last_name)
-                            .field
-                                | Building
-                                input#address(type='text' val=last_name)
-                            .field
-                                | Apt #
-                                input#apt(type='number' val=last_name)
-                            .field
-                                | Phone
-                                input#apt(type='number' val=last_name)
-                            
+                        +signature
                         .ui.fluid.green.button.sign_waiver
                             | Sign Waiver
 

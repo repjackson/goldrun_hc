@@ -3,7 +3,7 @@ template(name='delta')
         .ui.stackable.padded.grid
             .row
                 // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
-                .six.wide.column.scrolling
+                .six.wide.right.aligned.column.scrolling
                     .ui.right.aligned.inline.header
                         i.icon(class=icon)
                         | #{title}
@@ -45,30 +45,30 @@ template(name='delta')
 template(name='facet')
     if filtering_res
         div
-        .ui.inline.header 
+        .ui.inline.grey.header 
             if icon
                 i.small.grey.icon(class=icon)
             if label
                 |#{label}
             else 
                 |#{key}
-        .ui.icon.small.input
-            if icon
-                i.large.grey.icon(class=icon)
-            input.add_filter(type='text' placeholder=key)
+        //- .ui.icon.small.input
+        //-     if icon
+        //-         i.large.grey.icon(class=icon)
+        //-     input.add_filter(type='text' placeholder=key)
         //-     // i.grey.dropdown.icon
         //-         // i.dropdown.icon
         //-         // each filters
         //-         //     .unselect.ui.grey.button #{this}
         each filtering_res
             if name
-                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.tertiary.large.button.toggle_selection(class=toggle_value_class title=count)
                     | #{name}
-                    small #{count}
+                    small #{cal_count}
             else
-                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.tertiary.large.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
-                    small #{count}
+                    small #{cal_count}
 
 template(name='toggle_delta_config')
     if boolean_true

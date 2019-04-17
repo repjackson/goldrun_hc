@@ -16,12 +16,16 @@ template(name='comments')
                         i.thumbs.up.link.icon
                         i.remove.link.remove_comment.icon
 
+template(name='signature')
+    canvas(id="signature-pad" class="signature-pad" width='400' height='200')
+
+
+
 
 template(name='events_column')
     .ui.accordion
         h4.active.title
             // +icolor name='edit-property' classes='ui inline image'
-                // .ui.inline.dividing.header 
             i.rss.icon
             | Log
             i.dropdown.icon

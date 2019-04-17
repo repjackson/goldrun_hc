@@ -289,7 +289,7 @@ template(name='number_edit')
         .ui.label
             if icon
                 i.grey.icon(class=icon)
-            |#{title}
+            |#{title} #{key}
         input.edit_number(type='number' value=field_value placeholder=placeholder)
             
             
