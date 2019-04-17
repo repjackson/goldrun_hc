@@ -24,8 +24,10 @@ Meteor.methods
                 }
             ]
         for field in fields.fetch()
+            # console.log field.field_type
+            # console.log field.key
             unless field.field_type in ['textarea','image','youtube','html']
-                unless field.slug in ['slug','icon']
+                unless field.key in ['slug','icon']
                 # console.log 'adding field to delta', field.key
                     Docs.update delta._id,
                         $addToSet:
@@ -50,8 +52,6 @@ Meteor.methods
                 model:'field'
                 parent_id:model._id
         # console.log 'fields', fields.fetch()
-
-
         # console.log 'delta', delta
         built_query = { model:delta.model_filter }
 

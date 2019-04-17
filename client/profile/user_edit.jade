@@ -14,7 +14,7 @@ template(name='user_edit')
             .six.wide.column
                 .field
                     with user_from_username_param
-                        +image_edit key='image_id'
+                        +image_edit key='image_id' direct=true
                 +password_edit
                 +phone_editor
                 +username_edit
@@ -26,15 +26,15 @@ template(name='user_edit')
             .ten.wide.column
                 .ui.form
                     with user_from_username_param
-                        +text_edit key='first_name' label='First Name'
-                        +text_edit key='last_name' label='Last Name'
-                        +text_edit key='address' label='Address'
-                        +number_edit key='unit_number' label='Unit #'
-                        +number_edit key='building_number' label='Building #'
-                        +text_edit key='email' label='Email'
-                        +phone_edit key='phone' label='Phone'
-                        +date_edit key='start_date' label='Start Date'
-                        +date_edit key='expiration_date' label='Expiration Date'
+                        +text_edit key='first_name' label='First Name' direct=true
+                        +text_edit key='last_name' label='Last Name' direct=true
+                        +text_edit key='address' label='Address' direct=true
+                        +number_edit key='unit_number' label='Unit #' direct=true
+                        +number_edit key='building_number' label='Building #' direct=true
+                        +text_edit key='email' label='Email' direct=true
+                        +phone_edit key='phone' label='Phone' direct=true
+                        +date_edit key='start_date' label='Start Date' direct=true
+                        +date_edit key='expiration_date' label='Expiration Date' direct=true
                         .ui.small.header Roles
                         +user_role_toggle role='admin'
                         +user_role_toggle role='staff'

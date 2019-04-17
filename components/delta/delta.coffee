@@ -39,7 +39,9 @@ if Meteor.isClient
 
         'click .reset': ->
             model_slug =  Router.current().params.model_slug
-            Meteor.call 'set_facets', model_slug
+            Session.set 'loading', true
+            Meteor.call 'set_facets', model_slug, ->
+                Session.set 'loading', false
 
         'click .delete_delta': (e,t)->
             delta = Docs.findOne model:'delta'
@@ -59,31 +61,31 @@ if Meteor.isClient
                 slug: Router.current().params.model_slug
             Router.go "/model/edit/#{model._id}"
 
-        'click .page_up': (e,t)->
-            delta = Docs.findOne model:'delta'
-            Docs.update delta._id,
-                $inc: current_page:1
-            Session.set 'is_calculating', true
-            Meteor.call 'fo', (err,res)->
-                if err then console.log err
-                else
-                    Session.set 'is_calculating', false
+        # 'click .page_up': (e,t)->
+        #     delta = Docs.findOne model:'delta'
+        #     Docs.update delta._id,
+        #         $inc: current_page:1
+        #     Session.set 'is_calculating', true
+        #     Meteor.call 'fo', (err,res)->
+        #         if err then console.log err
+        #         else
+        #             Session.set 'is_calculating', false
+        #
+        # 'click .page_down': (e,t)->
+        #     delta = Docs.findOne model:'delta'
+        #     Docs.update delta._id,
+        #         $inc: current_page:-1
+        #     Session.set 'is_calculating', true
+        #     Meteor.call 'fo', (err,res)->
+        #         if err then console.log err
+        #         else
+        #             Session.set 'is_calculating', false
 
-        'click .page_down': (e,t)->
-            delta = Docs.findOne model:'delta'
-            Docs.update delta._id,
-                $inc: current_page:-1
-            Session.set 'is_calculating', true
-            Meteor.call 'fo', (err,res)->
-                if err then console.log err
-                else
-                    Session.set 'is_calculating', false
-
-        'click .select_tag': -> selected_tags.push @name
-        'click .unselect_tag': -> selected_tags.remove @valueOf()
-        'click #clear_tags': -> selected_tags.clear()
-
-        'keyup #search': (e)->
+        # 'click .select_tag': -> selected_tags.push @name
+        # 'click .unselect_tag': -> selected_tags.remove @valueOf()
+        # 'click #clear_tags': -> selected_tags.clear()
+        #
+        # 'keyup #search': (e)->
             switch e.which
                 when 13
                     if e.target.value is 'clear'

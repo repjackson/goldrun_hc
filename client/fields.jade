@@ -330,6 +330,7 @@ template(name='date_view')
     strong &nbsp; #{field_value}
 
 
+
 template(name='time_edit')
     .ui.form
         .field
@@ -361,7 +362,7 @@ template(name='datetime_edit')
                     |#{title}
                 else
                     |#{key}
-            input.edit_datetime(type='datetime' value=field_value placeholder=placeholder)
+            input.edit_datetime(type='datetime-local' value=field_value placeholder=placeholder)
 
 template(name='datetime_view')
     if icon

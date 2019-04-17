@@ -86,3 +86,7 @@ Meteor.methods
                 last_name: {$regex:"#{last_name}", $options: 'i'}
                 }).fetch()
         found_people
+
+
+    set_password: (user_id, new_password)->
+        Accounts.setPassword(user_id, new_password)
