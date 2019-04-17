@@ -46,7 +46,7 @@ if Meteor.isClient
 
     Template.signature.onRendered ->
         canvas = document.querySelector('canvas')
-        signaturePad = new SignaturePad(canvas)
+        @signaturePad = new SignaturePad(canvas)
         # Returns signature image as data URL (see https://mdn.io/todataurl for the list of possible parameters)
 
     Template.signature.events
@@ -64,14 +64,17 @@ if Meteor.isClient
             data = signaturePad.toData()
             # Draws signature image from an array of point groups
             signaturePad.fromData data
+        'click .clear': (e,t)->
             # Clears the canvas
-            signaturePad.clear()
+            console.log t
+            Template.instance().signaturePad.clear()
             # Returns true if canvas is empty, otherwise returns false
-            signaturePad.isEmpty()
-            # Unbinds all event handlers
-            signaturePad.off()
-            # Rebinds all event handlers
-            signaturePad.on()
+
+            # signaturePad.isEmpty()
+            # # Unbinds all event handlers
+            # signaturePad.off()
+            # # Rebinds all event handlers
+            # signaturePad.on()
 
 
 
