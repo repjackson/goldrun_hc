@@ -99,9 +99,26 @@ if Meteor.isClient
                 t.$('.assign_task').val('')
 
 
+
+    Template.violations.onCreated ->
+        @autorun => Meteor.subscribe 'violations', Router.current().params.username
+
+    Template.violations.helpers
+        violations: ->
+            Docs.find
+                model:'violation'
+
+
+
 if Meteor.isServer
     Meteor.publish 'wall_posts', (username)->
         console.log username
         Docs.find
             model:'wall_post'
-            parent_username:username
+            # parent_username:username
+
+    Meteor.publish 'violations', (username)->
+        console.log 'violation', username
+        Docs.find
+            model:'violation'
+            # parent_username:username

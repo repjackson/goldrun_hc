@@ -3,7 +3,7 @@ template(name='delta')
         .ui.stackable.padded.grid
             .row
                 // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
-                .six.wide.right.aligned.column.scrolling
+                .six.wide.column.scrolling
                     .ui.right.aligned.inline.header
                         i.icon(class=icon)
                         | #{title}
@@ -45,28 +45,28 @@ template(name='delta')
 template(name='facet')
     if filtering_res
         div
-        .ui.inline.grey.header 
+        .ui.inline.header 
             if icon
                 i.small.grey.icon(class=icon)
             if label
                 |#{label}
             else 
                 |#{key}
-        //- .ui.icon.small.input
-        //-     if icon
-        //-         i.large.grey.icon(class=icon)
-        //-     input.add_filter(type='text' placeholder=key)
+        .ui.icon.small.input
+            if icon
+                i.large.grey.icon(class=icon)
+            input.add_filter(type='text' placeholder=key)
         //-     // i.grey.dropdown.icon
         //-         // i.dropdown.icon
         //-         // each filters
         //-         //     .unselect.ui.grey.button #{this}
         each filtering_res
             if name
-                .selector.ui.tertiary.large.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                     | #{name}
                     small #{cal_count}
             else
-                .selector.ui.tertiary.large.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
                     small #{cal_count}
 
@@ -93,15 +93,19 @@ template(name='delta_result')
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     if is_model
-                        a.ui.icon.large.circular.button.route_model(href="/m/#{slug}")
+                        a.ui.circular.button.route_model(href="/m/#{slug}")
                             i.sitemap.icon
-                        a.ui.icon.large.circular.button.route_model(href="/model/edit/#{_id}")
+                            |View Model
+                        a.ui.circular.button.route_model(href="/model/edit/#{_id}")
                             i.edit.icon
+                            |Edit Model
                     else
-                        a.ui.icon.large.circular.button(href="/m/#{model}/#{_id}/edit")
+                        a.ui.circular.button(href="/m/#{model}/#{_id}/edit")
                             i.pencil.icon
-                        a.ui.icon.large.circular.button(href="/m/#{model}/#{_id}/view")
+                            |Edit Doc
+                        a.ui.circular.button(href="/m/#{model}/#{_id}/view")
                             i.eye.icon
+                            |View Doc
                     each model.actions
                         +Template.dynamic template=this data=..
                     if _author_id

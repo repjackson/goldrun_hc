@@ -18,19 +18,11 @@ Router.route('enroll', {
         Session.set('_resetPasswordToken', this.params.token)
         @subscribe('enrolledUser', this.params.token).wait()
 })
-Router.route '/m/:model_slug', (->
-    @layout 'layout'
-    @render 'delta'
-    ), name:'delta'
-
+Router.route '/m/:model_slug', -> @render 'delta'
 Router.route '/m/:model_slug/:doc_id/edit', -> @render 'model_doc_edit'
 Router.route '/m/:model_slug/:doc_id/view', -> @render 'model_doc_view'
-
-
 Router.route '/models', -> @render 'models'
 Router.route '/model/edit/:doc_id', -> @render 'model_edit'
-
-
 
 # Router.route '/user/:username', -> @render 'user'
 Router.route '/edit/:doc_id', -> @render 'edit'
@@ -111,11 +103,7 @@ Router.route '/user/:username/edit', -> @render 'user_edit'
 Router.route '/p/:slug', -> @render 'page'
 Router.route '/settings', -> @render 'settings'
 # Router.route '/users', -> @render 'people'
-
-
 Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
-
-
 
 Router.route '/login', -> @render 'login'
 

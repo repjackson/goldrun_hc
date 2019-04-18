@@ -95,10 +95,3 @@ if Meteor.isServer
         Docs.find
             model:'field'
             parent_id:model._id
-
-    Meteor.publish 'model_docs', (slug)->
-        model = Docs.findOne
-            model:'model'
-            slug:slug
-        Docs.find
-            model:slug

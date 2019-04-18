@@ -99,7 +99,7 @@ template(name='big_user_card')
         .ui.card
             .image
                 img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-            .content
+            a.content(href="/user/#{username}")
                 .header #{first_name} #{last_name} 
                 .meta @#{username}
             if is_admin
@@ -107,16 +107,16 @@ template(name='big_user_card')
                     div #{address}
                     strong #{building_number}
                     strong ##{apt_number}
-                    div start 
+                    div Membership Start 
                         strong #{start_date}
-                    div expiration 
+                    div Member Expiration 
                         strong #{lease_expiration}
-                    +icolor name='swimming-pool' classes='ui avatar image'
-                    +icolor name='weightlift' classes='ui avatar image'
-                    +icolor name='jacuzzi' classes='ui avatar image'
-                    +icolor name='shower' classes='ui avatar image'
-                    +icolor name='racquetball' classes='ui avatar image'
-                    +icolor name='water-steam' classes='ui avatar image'
+                    //- +icolor name='swimming-pool' classes='ui avatar image'
+                    //- +icolor name='weightlift' classes='ui avatar image'
+                    //- +icolor name='jacuzzi' classes='ui avatar image'
+                    //- +icolor name='shower' classes='ui avatar image'
+                    //- +icolor name='racquetball' classes='ui avatar image'
+                    //- +icolor name='water-steam' classes='ui avatar image'
 
 
 

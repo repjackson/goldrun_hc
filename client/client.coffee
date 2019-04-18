@@ -148,4 +148,4 @@ Template.registerHelper 'calculated_size', (metric) ->
 
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 
-Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
+Template.registerHelper 'in_dev', () -> Meteor.isDevelopment

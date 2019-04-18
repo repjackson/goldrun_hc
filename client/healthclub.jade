@@ -59,6 +59,15 @@ template(name='goldrun')
                                             .header #{first_name} #{last_name} 
                                             .meta @#{username}
                                         if is_admin
+                                            if signed_waiver
+                                                .ui.green.basic.button
+                                                    i.checkmark.icon
+                                                    |Waiver Signed
+                                            else
+                                                .ui.red.button.sign_waiver
+                                                    i.cancel.icon
+                                                    |Waiver Not Signed
+                        
                                             .content
                                                 div #{address}
                                                 strong #{building_number}
@@ -82,14 +91,6 @@ template(name='goldrun')
                                         .content
                                             each tags
                                                 .ui.label #{this}
-                                        if signed_waiver
-                                            .ui.green.basic.button
-                                                i.checkmark.icon
-                                                |Waiver Signed
-                                        else
-                                            .ui.red.button.sign_waiver
-                                                i.cancel.icon
-                                                |Waiver Not Signed
                     .three.column.row
                         .column
                             .ui.header

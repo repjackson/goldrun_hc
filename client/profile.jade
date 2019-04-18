@@ -100,8 +100,8 @@ template(name='user_section')
     // +Template.dynamic template=user_section_template
 
 template(name='user_about')
-    //- .profile-banner-container
-    //-     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=300 crop='crop'}}")
+    .profile-banner-container
+        img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=300 crop='crop'}}")
 
     .ui.padded.stackable.grid
         .eight.wide.column
@@ -119,6 +119,7 @@ template(name='user_about')
                 .ui.label #{address}
     
             +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
+            +violations
             //- +user_bookmarks    
         .eight.wide.column
             //- +user_feed
@@ -127,6 +128,15 @@ template(name='user_about')
         +role_switcher
     //- +user_tags
     
+template(name='violations')
+    .ui.header 
+        i.exclamation.triangle.icon
+        |Violations
+    .ui.list
+        each violations
+            .item
+                .header #{title} #{violation_date} #{violation_time}
+
 
 template(name='user_rules_widget')
     .ui.header User Rules Signature

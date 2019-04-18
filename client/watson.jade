@@ -178,10 +178,10 @@ template(name='categories')
 
 template(name='semantic_roles')
     .ui.accordion
-        .active.title
+        .title
             .ui.header #{watson.semantic_roles.length} semantic roles
                 i.dropdown.icon
-        .active.content
+        .content
             +jsonView(json=watson.semantic_roles)
             //- .ui.list
             //-     each watson.semantic_roles
@@ -192,10 +192,10 @@ template(name='semantic_roles')
 
 template(name='relations')
     .ui.accordion
-        .active.title
+        .title
             .ui.inline.header #{watson.relations.length} relations
             i.dropdown.icon
-        .active.content    
+        .content    
             +jsonView(json=watson.relations)
             //- .ui.list
             //-     each watson.relations

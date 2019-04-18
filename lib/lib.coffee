@@ -68,12 +68,6 @@ Docs.helpers
 
 
 Meteor.methods
-    add: (tags=[])->
-        id = Docs.insert
-            tags: tags
-        # Meteor.call 'generate_person_cloud', Meteor.userId()
-        return id
-
     add_facet_filter: (delta_id, key, filter)->
         # if key is '_keys'
         #     new_facet_ob = {

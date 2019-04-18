@@ -6,7 +6,7 @@ template(name='model_edit')
                     .ui.header(title="model: #{type}")
                         |#{title}
                     +creation_info
-                    h1.ui.header edit model
+                    h1.ui.header Edit Model
                     .ui.form
                         +text_edit key='title' label='Title' direct=true
                         +text_edit key='slug' label='Slug' direct=true
@@ -23,12 +23,12 @@ template(name='model_edit')
                     //- each fields
                     //-     +Template.dynamic template=edit_template 
                     //-     // .ui.header #{key} [#{field}] #{label}
-                    .ui.inline.header fields
+                    .ui.inline.header Fields
                     .ui.icon.circular.button.add_field
                         i.plus.icon
                     each fields
-                        +field_edit
-                        .ui.divider
+                        .ui.segment
+                            +field_edit
 
 
 template(name='model_view')
@@ -111,11 +111,16 @@ template(name='model_view')
 
 
 template(name='field_edit')
-    +text_edit key='title' direct=true             
-    +text_edit key='key'  direct=true                  
-    +text_edit key='field_type' direct=true                   
+    +text_edit key='title' direct=true label='Title'        
+    +text_edit key='key'  direct=true label='Key'           
+    +text_edit key='field_type' direct=true label='Field Type'              
+    +single_doc_edit key='field_type' ref_model='field_type' label='Field Type' direct=true                 
     +number_edit key='rank' label='rank' direct=true                 
-
+    +text_edit key='ref_model' label='Reference Model' direct=true               
+    if is_ref  
+        +single_doc_edit key='ref_model' ref_model='model' label='Reference Model' direct=true
+    div             
+    +remove_button
             
 //- template(name='view_model')
         

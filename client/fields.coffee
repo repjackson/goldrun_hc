@@ -511,7 +511,7 @@ Template.children_edit.events
 
 
 Template.single_doc_view.onCreated ->
-    # @autorun => Meteor.subscribe 'type', @data.ref_model
+    # @autorun => Meteor.subscribe 'model_docs', @data.ref_model
 
 Template.single_doc_view.helpers
     choices: ->
@@ -523,7 +523,7 @@ Template.single_doc_view.helpers
 
 
 Template.single_doc_edit.onCreated ->
-    @autorun => Meteor.subscribe 'type', @data.ref_model
+    @autorun => Meteor.subscribe 'model_docs', @data.ref_model
 
 Template.single_doc_edit.helpers
     choices: ->
@@ -592,7 +592,7 @@ Template.single_doc_edit.events
 
 
 Template.multi_doc_view.onCreated ->
-    @autorun => Meteor.subscribe 'type', @data.ref_model
+    @autorun => Meteor.subscribe 'model_docs', @data.ref_model
 
 Template.multi_doc_view.helpers
     choices: ->
@@ -614,7 +614,7 @@ Template.multi_doc_view.helpers
 
 
 Template.multi_doc_edit.onCreated ->
-    @autorun => Meteor.subscribe 'type', @data.ref_model
+    @autorun => Meteor.subscribe 'model_docs', @data.ref_model
 
 
 

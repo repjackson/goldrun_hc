@@ -16,6 +16,8 @@ if Meteor.isClient
                 Docs.remove @_id
                 Router.go '/models'
 
+    Template.field_edit.helpers
+        is_ref: -> @field_type in ['single_doc', 'multi_doc']
 
     Template.model_doc_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id

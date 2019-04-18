@@ -2,7 +2,7 @@ template(name='user_edit')
     .ui.stackable.padded.grid.pad_left
         .middle.aligned.row
             .four.wide.center.aligned.column
-                a.ui.large.button(href="/user/#{user_from_username_param.username}/about" title='Profile') 
+                a.ui.large.basic.circular.green.button(href="/user/#{user_from_username_param.username}/about" title='Profile') 
                     i.checkmark.icon
                     |Save
             .eight.wide.center.aligned.column
@@ -42,23 +42,22 @@ template(name='user_edit')
                         +user_role_toggle role='owner'
                         +user_role_toggle role='guest'
 
-                    //- .field
-                    //-     if user_from_username_param.banner_image_id
-                    //-         label Banner Image
-                    //-         .ui.centered.rounded.image
-                    //-             img.ui.medium.image(src="{{c.url user_from_username_param.banner_image_id width=400 height=400 gravity='face' crop='fill'}}")
-                    //-             a#remove_banner.ui.right.corner.link.label
-                    //-                 i.remove.link.icon
-                    //-     else
-                    //-         label Banner Image
-                    //-         input(type='file' name='banner_image' accept='image/*')
+                    .field
+                        if user_from_username_param.banner_image_id
+                            label Banner Image
+                            .ui.centered.rounded.image
+                                img.ui.medium.image(src="{{c.url user_from_username_param.banner_image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                a#remove_banner.ui.right.corner.link.label
+                                    i.remove.link.icon
+                        else
+                            label Banner Image
+                            input(type='file' name='banner_image' accept='image/*')
                 //- .ui.fluid.button.update_profile Update
             .eleven.wide.column
-                //- +user_tribe_editor
-                //- +user_model_editor
-                //- if is_admin
-                //-     +user_single_doc_ref_editor key='building' model='building' label='Building'
-                //-     +user_single_doc_ref_editor key='membership' model='goldrun_role' label='Gold Run Role'
+                +user_model_editor
+                if is_admin
+                    +user_single_doc_ref_editor key='building' model='building' label='Building'
+                    +user_single_doc_ref_editor key='membership' model='goldrun_role' label='Gold Run Role'
                 //- +stripe_connect
                 //- +payment_methods
 
@@ -115,7 +114,7 @@ template(name='phone_editor')
                         i Resend Code
                     .btn.btn-danger.remove_phone.btn-block Remove Phone
         else
-            .ui.fluid.button.update_phone Add / Update Phone
+            .ui.fluid.circular.basic.button.update_phone Add / Update Phone
 
 
 template(name='add_card_modal')
@@ -131,14 +130,14 @@ template(name='password_edit')
             input#password(type='password', placeholder='Old Password')
         .ui.fluid.icon.input
             input#new_password(type='password', placeholder='New Password')
-        .ui.fluid.button.change_password
+        .ui.fluid.circular.basic.button.change_password
             i.refresh.icon
             |Set Password
         
-        .ui.fluid.button.send_enrollment_email
+        .ui.fluid.circular.basic.button.send_enrollment_email
             |Send Enrollment Email
         if is_dev
-            .ui.fluid.button.set_password
+            .ui.fluid.circular.basic.button.set_password
                 i.user.shield.icon
                 | Set Password
             

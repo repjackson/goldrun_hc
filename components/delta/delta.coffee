@@ -86,17 +86,17 @@ if Meteor.isClient
         # 'click #clear_tags': -> selected_tags.clear()
         #
         # 'keyup #search': (e)->
-            switch e.which
-                when 13
-                    if e.target.value is 'clear'
-                        selected_tags.clear()
-                        $('#search').val('')
-                    else
-                        selected_tags.push e.target.value.toLowerCase().trim()
-                        $('#search').val('')
-                when 8
-                    if e.target.value is ''
-                        selected_tags.pop()
+            # switch e.which
+            #     when 13
+            #         if e.target.value is 'clear'
+            #             selected_tags.clear()
+            #             $('#search').val('')
+            #         else
+            #             selected_tags.push e.target.value.toLowerCase().trim()
+            #             $('#search').val('')
+            #     when 8
+            #         if e.target.value is ''
+            #             selected_tags.pop()
 
 
     Template.facet.onRendered ->

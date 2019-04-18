@@ -13,9 +13,9 @@ Cloudinary.config
     api_secret: Meteor.settings.private.cloudinary_secret
 
 
-Meteor.publish 'type', (type)->
+Meteor.publish 'model_docs', (model)->
     Docs.find
-        model: type
+        model: model
 
 Meteor.publish 'child_docs', (id)->
     Docs.find
