@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Template.profile_layout.onCreated ->
+    Template.profile.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
         @autorun -> Meteor.subscribe 'user_models', Router.current().params.username
 
@@ -7,7 +7,7 @@ if Meteor.isClient
         user_section_template: ->
             "user_#{Router.current().params.group}"
 
-    Template.profile_layout.helpers
+    Template.profile.helpers
         user: ->
             Meteor.users.findOne username:Router.current().params.username
 
@@ -19,7 +19,7 @@ if Meteor.isClient
 
 
 
-    Template.profile_layout.events
+    Template.profile.events
         'click .set_delta_model': ->
             console.log @
             Meteor.call 'set_delta_facets', @slug, null, true

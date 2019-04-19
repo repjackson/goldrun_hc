@@ -24,10 +24,10 @@ template(name='nav')
                     //-     .menu
                     //-         each notifications
                     //-             .item #{text}
-                    a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
-                        i.large.mail.icon
+                    //- a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
+                    //-     i.large.mail.icon
                     if is_admin
-                        a.item(href='/admin' class="{{isActivePath '/admin'}}")
+                        a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
                             i.large.shield.icon
                     //- if is_dev
                     //-     a.icon.item(href='/m/model' class="{{isActivePath '/m/model'}}")

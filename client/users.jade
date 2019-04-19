@@ -21,7 +21,7 @@
                         
 template(name='user_item')                            
     .ui.stackable.grid.segment
-        a.four.wide.column(href="/user/#{_id}/about") 
+        a.four.wide.column(href="/user/#{_id}/view") 
             if image_id
                 img.ui.image(src="{{c.url image_id width=200 height=150 crop='fit'}}")
             else if profile.image_id
