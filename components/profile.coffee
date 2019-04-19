@@ -100,6 +100,47 @@ if Meteor.isClient
 
 
 
+    Template.user_wall.onCreated ->
+        @autorun => Meteor.subscribe 'wall_posts', Router.current().params.username
+    Template.user_wall.helpers
+        wall_posts: ->
+            Docs.find
+                model:'wall_post'
+
+    Template.user_wall.events
+        'keyup .new_post': (e,t)->
+            if e.which is 13
+                post = t.$('.new_post').val().trim()
+                Docs.insert
+                    body:post
+                    model:'wall_post'
+                t.$('.new_post').val('')
+
+
+        'click .remove_comment': ->
+            if confirm 'Remove Comment?'
+                Docs.remove @_id
+
+        'click .vote_up_comment': ->
+            if @upvoters and Meteor.userId() in @upvoters
+                Docs.update @_id,
+                    $inc:points:1
+                    $addToSet:upvoters:Meteor.userId()
+                Meteor.users.update @author_id,
+                    $inc:points:-1
+            else
+                Meteor.users.update @author_id,
+                    $pull:upvoters:Meteor.userId()
+                    $inc:points:1
+                Meteor.users.update @author_id,
+                    $inc:points:1
+
+        'click .mark_comment_read': ->
+            Docs.update @_id,
+                $addToSet:readers:Meteor.userId()
+
+
+
     Template.violations.onCreated ->
         @autorun => Meteor.subscribe 'violations', Router.current().params.username
 

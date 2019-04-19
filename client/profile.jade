@@ -120,13 +120,13 @@ template(name='user_about')
     
             +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
             +violations
-            //- +user_bookmarks    
+            +user_bookmarks    
         .eight.wide.column
-            //- +user_feed
+            +user_feed
             +user_rules_widget
     if current_user
         +role_switcher
-    //- +user_tags
+    +user_tags
     
 template(name='violations')
     .ui.header 
@@ -274,9 +274,9 @@ template(name='user_wall')
     if currentUser
         .ui.fluid.icon.input
             i.plus.icon
-            input.add_wall_post(type='text' placeholder='Add Note...')
+            input.new_post(type='text' placeholder='Add post...')
     .ui.comments
-        each user_posts
+        each wall_posts
             .comment
                 //- .avatar
                 .content
