@@ -27,8 +27,8 @@ Template.registerHelper 'is_text', () ->
 Template.registerHelper 'fields', () ->
     model = Docs.findOne
         model:'model'
-        slug:@model
-    # console.log model
+        slug:Router.current().params.model_slug
+    console.log 'looking for model', model
     Docs.find
         model:'field'
         parent_id:model._id

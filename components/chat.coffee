@@ -197,7 +197,7 @@ if Meteor.isClient
                 sort: timestamp: -1
                 limit: 1
 
-        chat_list_item_class: -> if Session.equals 'current_chat_id', @_id then 'darkblue inverted' else ''
+        chat_list_item_class: -> if Session.equals 'current_chat_id', @_id then 'grblue inverted' else ''
 
     Template.chat_list.events
         'click .chat_list_item': (e,t)->

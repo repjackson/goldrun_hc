@@ -18,13 +18,13 @@ template(name='nav')
         .right.menu
             if currentUser
                 unless logging_out
-                    .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
-                        i.alarm.icon
-                        .menu
-                            each notifications
-                                .item #{text}
-                    a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
-                        i.large.mail.icon
+                    //- .ui.simple.dropdown.icon.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
+                    //-     i.alarm.icon
+                    //-     .menu
+                    //-         each notifications
+                    //-             .item #{text}
+                    //- a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
+                    //-     i.large.mail.icon
                     a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
                         i.large.chat.icon
                     if is_admin

@@ -164,6 +164,7 @@ if Meteor.isClient
         # , 2000
     Template.delta_result.onCreated ->
         @autorun => Meteor.subscribe 'doc', @data._id
+        @autorun => Meteor.subscribe 'user_from_id', @data._id
 
     Template.delta_result.helpers
         result: ->

@@ -53,23 +53,30 @@ Meteor.methods
                 parent_id:model._id
         # console.log 'fields', fields.fetch()
         # console.log 'delta', delta
-        built_query = { model:delta.model_filter }
+        if model.collection and model.collection is 'users'
+            built_query = { roles:$in:[delta.model_filter] }
+
+        else
+            built_query = { model:delta.model_filter }
 
         for facet in delta.facets
             # console.log 'this facet', facet.key
             if facet.filters.length > 0
                 built_query["#{facet.key}"] = $all: facet.filters
 
-        total = Docs.find(built_query).count()
-        # console.log 'built query', built_query
+        if model.collection and model.collection is 'users'
+            total = Meteor.users.find(built_query).count()
+        else
+            total = Docs.find(built_query).count()
+        console.log 'built query', built_query
 
         # response
         for facet in delta.facets
             values = []
             local_return = []
 
-            # agg_res = Meteor.call 'agg', built_query, facet.key, model.collection
-            agg_res = Meteor.call 'agg', built_query, facet.key
+            agg_res = Meteor.call 'agg', built_query, facet.key, model.collection
+            # agg_res = Meteor.call 'agg', built_query, facet.key
 
             if agg_res
                 Docs.update { _id:delta._id, 'facets.key':facet.key},
@@ -118,7 +125,7 @@ Meteor.methods
         limit=42
         # console.log 'agg query', query
         # console.log 'agg key', key
-        # console.log 'agg collection', collection
+        console.log 'agg collection', collection
         options = { explain:false }
         pipe =  [
             { $match: query }
@@ -136,7 +143,7 @@ Meteor.methods
                 agg = global['Docs'].rawCollection().aggregate(pipe,options)
             # else
             res = {}
-            # console.log 'res', res
+            console.log 'res', res
             if agg
                 agg.toArray()
         else
