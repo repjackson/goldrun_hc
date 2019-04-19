@@ -338,6 +338,8 @@ template(name='date_view')
         i.grey.icon(class=icon)
     if title
         |#{title}
+    else if label
+        |#{label}
     else if key
         |#{key}
     else

@@ -1,28 +1,32 @@
 
 template(name='user_messages')
-    .ui.header 
-        i.mail.icon
-        |User Messages
-    if currentUser
-        .ui.fluid.input
-            input#new_message(type='text' placeholder='New Message')
-    else
-        |Login to message
-    each user_messages
-        .ui.segment
-            .ui.header #{title}
-            .ui.header #{body}
-            each tags
-                .ui.label #{this}
-            div
-            +notify_message
-            div
-            +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
-            if can_edit
-                +remove_button
-            +author_info
-            +creation_info
-            //- +watson_view
+    .ui.styled.fluid.accordion
+        .title
+            .ui.inline.header 
+                i.mail.small.icon
+                |User Messages
+                i.dropdown.icon
+        .content
+            if currentUser
+                .ui.fluid.icon.input
+                    i.plus.icon
+                    input#new_message(type='text' placeholder='New Message')
+            else
+                |Login to message
+            .ui.segments
+                each user_messages
+                    .ui.segment
+                        .ui.small.header #{body}
+                        each tags
+                            .ui.label #{this}
+                        div
+                        +notify_message
+                        +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
+                        if can_edit
+                            +remove_button
+                        +author_info
+                        +creation_info
+                        //- +watson_view
             
 
 template(name='notify_message')
