@@ -98,6 +98,11 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'user_messages', (username)->
         match = {}
-        match.type = 'message'
-        match.to_user   name = username
+        match.model = 'message'
+        match.to_username = username
+        Docs.find match
+    Meteor.publish 'assigned_tasks', (username)->
+        match = {}
+        match.model = 'task'
+        # match.to_username = username
         Docs.find match

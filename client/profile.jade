@@ -57,15 +57,26 @@ template(name='profile')
                     +violations
                     +user_bookmarks    
                     +user_feed
+                    +user_tasks
+                    +follow_user
                 .six.wide.column
+                    +user_messages
+                    +user_following
                     +user_rules_widget
                     if current_user
                         +role_switcher
                     +user_tags
-            
+                    +user_checkins
+                    +user_chat
             
 template(name='user_chat')
     +view_chats
+            
+            
+template(name='user_checkins')
+    .ui.header 
+        i.barbell.icon
+        | User Checkins
             
             
             
@@ -101,9 +112,9 @@ template(name='user_feed')
         .ui.header 
             i.rss.icon
             |Activity Feed
-        if current_user
-            .ui.fluid.input
-                input(type='text' placeholder='Share something...')
+        //- if current_user
+        //-     .ui.fluid.input
+        //-         input(type='text' placeholder='Share something...')
     .ui.secondary.segment
         +user_wall
                 
