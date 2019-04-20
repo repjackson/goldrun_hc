@@ -12,6 +12,12 @@ if Meteor.isClient
                 Session.set 'loading', false
 
 
+        'click .set_bookmarked_model': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', @slug, ->
+                Session.set 'loading', false
+
+
 
     # Template.sidebar.events
     #     'click #logout': ->
@@ -35,6 +41,11 @@ if Meteor.isClient
         models: ->
             Docs.find
                 model:'model'
+
+        bookmarked_models: ->
+            Docs.find
+                model:'model'
+                bookmark_ids:$in:[Meteor.userId()]
 
     # Template.nav.onRendered ->
     #     Meteor.setTimeout ->

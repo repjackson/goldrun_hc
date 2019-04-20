@@ -707,7 +707,7 @@ Template.single_user_edit.events
         parent = Template.parentData(5)
 
         Docs.update parent._id,
-            $set:"#{field.key}":@_id
+            $set:"#{field.key}":@username
 
         t.user_results.set null
         $('#single_user_select_input').val ''
@@ -865,10 +865,10 @@ Template.multi_user_edit.events
         user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $addToSet:"#{@key}":@_id
+                $addToSet:"#{@key}":@username
         else if user
             Meteor.users.update parent._id,
-                $addToSet:"#{@key}":@_id
+                $addToSet:"#{@key}":@username
 
 
         t.user_results.set null

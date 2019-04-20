@@ -159,4 +159,9 @@ if Meteor.isServer
 
 
     Meteor.publish 'doc', (id)->
-        Docs.find id
+        doc = Docs.findOne id
+        user = Meteor.users.findOne id
+        if doc
+            Docs.find id
+        else if user
+            Meteor.users.find id

@@ -38,11 +38,11 @@ a {
 /* .card a.header {
   color: #482d1b !important;
 } */
-.ui.button {
+.ui.button .ui.label {
   font-family: 'Ubuntu', sans-serif !important;
 }
 
-.button {
+.button .label {
   animation: fadein .5s;
 }
 .segment, .card {
@@ -78,7 +78,7 @@ a {
 }
 
 
- .ui.button, .ui.input {
+ .ui.button, .ui.input .ui.large.label {
 	 margin: 0.2em !important;
 }
 

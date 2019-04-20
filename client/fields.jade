@@ -181,7 +181,7 @@ template(name='html_edit')
                     |#{this}
     .froala-container
         +froalaReactive getFEContext
-    //- +call_watson mode='html'
+    +call_watson mode='html'
     //- +tone mode='html'
     //- if watson
     //-     +watson_view
@@ -194,7 +194,7 @@ template(name='html_view')
     //-         i.dropdown.icon
     //-     .active.content
     |!{field_value}
-    //- +call_watson mode='html'
+    +call_watson mode='html'
     if watson
         +watson_view
 
@@ -549,7 +549,7 @@ template(name='boolean_view')
     div
     .ui.small.inline.grey.header #{title}
     if field_value
-        .ui.basic.green.label Yes
+        .ui.green.label Yes
     else
         .ui.basic.label No
 
@@ -644,7 +644,7 @@ template(name='single_user_edit')
                                     img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
                                     |#{username}
         if field_value
-            +user_info field_value
+            +big_user_card field_value
             .pull_user.ui.icon.button(title='Remove User')
                 i.remove.icon
 
@@ -661,8 +661,9 @@ template(name='single_user_edit')
 
 
 template(name='single_user_view')
-    .ui.small.grey.header #{title} #{key}
+    .ui.small.grey.header #{title} #{key} #{label}
     with field_value
+        .ui.header #{field_value}
         +big_user_card
             
 
@@ -735,6 +736,7 @@ template(name='multi_user_edit')
             .ui.list
                 each field_value
                     // |#{this}
+                    +big_user_card
                     with user_from_id
                         .item
                             .right.floated.content

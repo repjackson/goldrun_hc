@@ -44,31 +44,29 @@ template(name='delta')
 
 template(name='facet')
     if filtering_res
-        div
-        .ui.inline.header 
-            if icon
-                i.small.grey.icon(class=icon)
-            if label
-                |#{label}
-            else 
-                |#{key}
-        .ui.icon.small.input
-            if icon
-                i.large.grey.icon(class=icon)
-            input.add_filter(type='text' placeholder=key)
-        //-     // i.grey.dropdown.icon
-        //-         // i.dropdown.icon
-        //-         // each filters
-        //-         //     .unselect.ui.grey.button #{this}
-        each filtering_res
-            if name
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    | #{name}
-                    small #{cal_count}
-            else
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    strong [null]
-                    small #{cal_count}
+        .ui.accordion
+            .active.title
+                .ui.inline.header 
+                    if icon
+                        i.small.grey.icon(class=icon)
+                    if label
+                        |#{label}
+                    else 
+                        |#{key}
+                .ui.icon.small.input
+                    if icon
+                        i.large.grey.icon(class=icon)
+                    input.add_filter(type='text' placeholder=key)
+            .active.content
+                each filtering_res
+                    if name
+                        .selector.ui.compact.circular.button.toggle_selection(class=toggle_value_class title=count)
+                            | #{name}
+                            small #{cal_count} #{count}
+                    else
+                        .selector.ui.compact.circular.button.toggle_selection(class=toggle_value_class title=count)
+                            strong [null]
+                            small #{cal_count}
 
 template(name='toggle_delta_config')
     if boolean_true
@@ -90,29 +88,30 @@ template(name='delta_result')
                     each fields
                         +Template.dynamic template=view_template 
                 .extra
-                    // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     if is_model
                         a.ui.circular.button.route_model(href="/m/#{slug}")
                             i.sitemap.icon
-                            |View Model
+                            |View
                         a.ui.circular.button.route_model(href="/model/edit/#{_id}")
                             i.edit.icon
-                            |Edit Model
+                            |Edit
                     else
-                        a.ui.circular.button(href="/m/#{model}/#{_id}/edit")
+                        a.ui.circular.button(href="/m/#{current_model.slug}/#{_id}/edit")
                             i.pencil.icon
-                            |Edit Doc
-                        a.ui.circular.button(href="/m/#{model}/#{_id}/view")
+                            |Edit
+                        a.ui.circular.button(href="/m/#{current_model.slug}/#{_id}/view")
                             i.eye.icon
-                            |View Doc
-                    each model.actions
-                        +Template.dynamic template=this data=..
+                            |View
+                    //- each model.actions
+                    //-     +Template.dynamic template=this data=..
                     if _author_id
                         +author_info
                     +creation_info
-                    .ui.small.inline.grey.header timestamp tags
-                    each _timestamp_tags
-                        .ui.label #{this}
+                    //- if _timestamp_tags
+                    //-     .ui.small.inline.grey.header timestamp tags
+                    //-     each _timestamp_tags
+                    //-         .ui.label #{this}
                     
     
                     

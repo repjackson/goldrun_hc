@@ -9,6 +9,10 @@ template(name='nav')
             a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
                 i.large.home.icon
                 |Gold Run
+            each bookmarked_models
+                a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
+                    //- i.large.icon(name=icon)
+                    |#{title}
             a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
                 i.large.users.icon
             //- a.icon.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}" title='Staff')

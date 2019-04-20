@@ -191,31 +191,31 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'model_from_slug', (model_slug)->
-        if model_slug in ['model','brick','field','tribe','block','page']
-            Docs.find
-                model:'model'
-                slug:model_slug
-        else
-            match = {}
-            # if tribe_slug then match.slug = tribe_slug
-            match.model = 'model'
-            match.slug = model_slug
+        # if model_slug in ['model','brick','field','tribe','block','page']
+        #     Docs.find
+        #         model:'model'
+        #         slug:model_slug
+        # else
+        match = {}
+        # if tribe_slug then match.slug = tribe_slug
+        match.model = 'model'
+        match.slug = model_slug
 
-            Docs.find match
+        Docs.find match
 
     Meteor.publish 'model_from_doc_id', (model, id)->
         doc = Docs.findOne id
         # console.log 'pub', tribe_slug, model, id
-        if model in ['model','tribe','page','block','brick']
-            Docs.find
-                model:'model'
-                slug:doc.model
-        else
-            match = {}
-            match.model = 'model'
-            match.slug = doc.model
+        # if model in ['model','tribe','page','block','brick']
+        #     Docs.find
+        #         model:'model'
+        #         slug:doc.model
+        # else
+        match = {}
+        match.model = 'model'
+        match.slug = doc.model
 
-            Docs.find match
+        Docs.find match
 
 
     Meteor.publish 'model_fields_from_slug', (model_slug)->

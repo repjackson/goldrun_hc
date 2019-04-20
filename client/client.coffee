@@ -28,7 +28,6 @@ Template.registerHelper 'fields', () ->
     model = Docs.findOne
         model:'model'
         slug:Router.current().params.model_slug
-    console.log 'looking for model', model
     Docs.find
         model:'field'
         parent_id:model._id
@@ -95,7 +94,10 @@ Template.registerHelper 'can_edit', () ->
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 
 Template.registerHelper 'current_doc', ->
-    Docs.findOne Router.current().params.doc_id
+    doc = Docs.findOne Router.current().params.doc_id
+    user = Meteor.users.findOne Router.current().params.doc_id
+    if doc then doc else if user then user
+
 
 Template.registerHelper 'user_from_username_param', () ->
     found = Meteor.users.findOne username:Router.current().params.username

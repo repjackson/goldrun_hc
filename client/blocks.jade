@@ -142,7 +142,7 @@ template(name='creation_info')
 
 template(name='user_list_toggle')
     if currentUser
-        a.ui.button.toggle(class=user_list_toggle_class title=add_label href='#')
+        a.ui.circular.button.toggle(class=user_list_toggle_class title=add_label href='#')
             i.icon(class=icon)
             |#{label}
         each list_users

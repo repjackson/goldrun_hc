@@ -120,8 +120,8 @@ Meteor.methods
                 categories: {}
                 emotion: {}
                 # metadata: {}
-                relations: {}
-                semantic_roles: {}
+                # relations: {}
+                # semantic_roles: {}
                 sentiment: {}
 
         switch mode
@@ -158,8 +158,8 @@ Meteor.methods
                         doc_sentiment_score: response.sentiment.document.score
                         doc_sentiment_label: response.sentiment.document.label
         )
-        Meteor.call 'call_personality', doc_id, ->
-        Meteor.call 'call_tone', doc_id, key, mode, ->
+        # Meteor.call 'call_personality', doc_id, ->
+        # Meteor.call 'call_tone', doc_id, key, mode, ->
 
 
     pull_site: (doc_id, url)->

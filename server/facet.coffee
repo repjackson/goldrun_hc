@@ -85,7 +85,7 @@ Meteor.methods
         modifier =
             {
                 fields:_id:1
-                limit:20
+                limit:5
                 sort:_timestamp:-1
             }
 

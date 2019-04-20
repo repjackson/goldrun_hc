@@ -48,9 +48,9 @@ template(name='doc_emotion')
             
             
 template(name='call_watson')
-    #call_watson.ui.icon.button 
+    #call_watson.ui.button 
         i.chess.knight.icon
-        
+        |Call Watson
 
 
 
@@ -99,32 +99,32 @@ template(name='keywords')
 template(name='entities')
     .ui.grey.header 
         |#{watson.entities.length} entities
-    .ui.list
+    .ui.four.column.stackable.grid
         each watson.entities
-            .item
+            .ui.column
                 .ui.small.grey.header #{type}: #{text}
-            if emotion
-                with emotion
-                    span {{ to_percent sadness }}% sadness
-                    .ui.blue.small.disabled.progress(data-percent="{{to_percent sadness}}" title="{{to_percent sadness}}% sadness")
-                        .bar
-                        .progress
-                    span {{ to_percent joy }}% joy 
-                    .ui.teal.small.disabled.progress(data-percent="{{to_percent joy}}" title="{{to_percent joy}}% joy")
-                        .bar
-                        .progress
-                    span {{ to_percent fear }}% fear
-                    //- .progress
-                    .ui.small.disabled.progress(data-percent="{{to_percent fear}}" title="{{to_percent fear}}% fear")
-                        .bar
-                    span {{ to_percent disgust }}% disgust 
-                    .ui.yellow.small.disabled.progress(data-percent="{{to_percent disgust}}" title="{{to_percent disgust}}% disgust")
-                        .bar
-                        .progress
-                    span {{ to_percent anger }}% anger 
-                    .ui.orange.small.disabled.progress(data-percent="{{to_percent anger}}" title="{{to_percent anger}}% anger")
-                        .bar
-                        .progress
+                if emotion
+                    with emotion
+                        span {{ to_percent sadness }}% sadness
+                        .ui.blue.small.disabled.progress(data-percent="{{to_percent sadness}}" title="{{to_percent sadness}}% sadness")
+                            .bar
+                            .progress
+                        span {{ to_percent joy }}% joy 
+                        .ui.teal.small.disabled.progress(data-percent="{{to_percent joy}}" title="{{to_percent joy}}% joy")
+                            .bar
+                            .progress
+                        span {{ to_percent fear }}% fear
+                        //- .progress
+                        .ui.small.disabled.progress(data-percent="{{to_percent fear}}" title="{{to_percent fear}}% fear")
+                            .bar
+                        span {{ to_percent disgust }}% disgust 
+                        .ui.yellow.small.disabled.progress(data-percent="{{to_percent disgust}}" title="{{to_percent disgust}}% disgust")
+                            .bar
+                            .progress
+                        span {{ to_percent anger }}% anger 
+                        .ui.orange.small.disabled.progress(data-percent="{{to_percent anger}}" title="{{to_percent anger}}% anger")
+                            .bar
+                            .progress
 
 
 

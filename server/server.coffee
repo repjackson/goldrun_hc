@@ -21,10 +21,6 @@ Meteor.publish 'child_docs', (id)->
     Docs.find
         parent_id:id
 
-# Meteor.publish 'user_from_username', (username)->
-#     Meteor.users.find
-#         username: username
-
 
 Meteor.publish 'facet_doc', (tags)->
     split_array = tags.split ','
