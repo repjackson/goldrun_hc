@@ -3,7 +3,7 @@ template(name='user_edit')
         .middle.aligned.row
             .four.wide.center.aligned.column
                 a.ui.large.circular.green.icon.button(href="/user/#{user_from_username_param.username}/" title='Save') 
-                    i.checkmark.icon
+                    i.checkmark.large.icon
                     //- |Save
             .eight.wide.center.aligned.column
                 .ui.center.aligned.large.header
@@ -35,6 +35,7 @@ template(name='user_edit')
                         +phone_edit key='phone' label='Phone' direct=true
                         +date_edit key='start_date' label='Start Date' direct=true
                         +date_edit key='expiration_date' label='Expiration Date' direct=true
+                        +image_edit key='lease_agreement_image' label='Lease Agreement Image' direct=true
                         .ui.small.header Roles
                         +user_role_toggle role='admin'
                         +user_role_toggle role='staff'
@@ -85,7 +86,7 @@ template(name='user_single_doc_ref_editor')
             |#{title}
 
 template(name='username_edit')
-    .ui.basic.segment
+    .ui.segment
         .ui.small.header 
             i.i.cursor.icon
             |Change Username [#{user_from_username_param.username}]
@@ -96,7 +97,7 @@ template(name='username_edit')
 
      
 template(name='phone_editor')
-    .ui.basic.segment
+    .ui.segment
         .ui.small.header    
             i.phone.icon
             |Phone
@@ -114,7 +115,7 @@ template(name='phone_editor')
                         i Resend Code
                     .btn.btn-danger.remove_phone.btn-block Remove Phone
         else
-            .ui.fluid.circular.basic.button.update_phone Add / Update Phone
+            .ui.fluid.circular.button.update_phone Add / Update Phone
 
 
 template(name='add_card_modal')
@@ -122,7 +123,7 @@ template(name='add_card_modal')
 
 
 template(name='password_edit')
-    .ui.basic.segment
+    .ui.segment
         .ui.small.header
             i.lock.icon
             |Change Password
@@ -130,14 +131,14 @@ template(name='password_edit')
             input#password(type='password', placeholder='Old Password')
         .ui.fluid.icon.input
             input#new_password(type='password', placeholder='New Password')
-        .ui.fluid.circular.basic.button.change_password
+        .ui.fluid.circular.button.change_password
             i.refresh.icon
             |Set Password
         
-        .ui.fluid.circular.basic.button.send_enrollment_email
+        .ui.fluid.circular.button.send_enrollment_email
             |Send Enrollment Email
         if is_dev
-            .ui.fluid.circular.basic.button.set_password
+            .ui.fluid.circular.button.set_password
                 i.user.shield.icon
                 | Set Password
             
@@ -153,7 +154,7 @@ template(name='user_field')
                         
                         
 template(name='church_profile')
-    .ui.basic.segment
+    .ui.segment
         #churchForm.form-horizontal
             legend Church Information
             .form-group
@@ -210,7 +211,7 @@ template(name='churchRepAccountEditor')
 
             
 template(name='emails_edit')
-    .ui.basic.segment
+    .ui.segment
         .ui.small.header 
             i.envelope.icon
             | Email(s)
@@ -226,7 +227,7 @@ template(name='emails_edit')
                         if verified
                             .ui.green.label Verified
                         else
-                            .ui.basic.label Unverified
+                            .ui.label Unverified
                             .send_verification_email.ui.button Verify
                         .ui.small.icon.button.remove_email
                             i.remove.icon

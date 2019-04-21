@@ -121,7 +121,7 @@ template(name='big_user_card')
 
 
 template(name='user_info')
-    a.ui.button.item(href="/user/#{user.username}/")
+    a.ui.small.circular.basic.button.item(href="/user/#{user.username}/")
         if image_id
             img.ui.avatar.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
         |#{user.first_name} #{user.last_name}
@@ -134,17 +134,20 @@ template(name='role_editor')
         .ui.button #{this}
 
 template(name='author_info')
-    a.ui.button(href="/user/#{_id}/view") by #{author.profile.name}
+    a.ui.circular.basic.button(href="/user/#{_id}/view")
+        if image_id
+            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+         by #{author.profile.name}
 
 template(name='creation_info')
-    .uismall.grey.inline.header #{when}
+    .ui.small.grey.inline.header #{when}
 
 
 template(name='user_list_toggle')
     if currentUser
-        a.ui.circular.button.toggle(class=user_list_toggle_class title=add_label href='#')
+        .ui.circular.icon.button.toggle(class=user_list_toggle_class title=label)
             i.icon(class=icon)
-            |#{label}
+            //- |#{label}
         each list_users
             +user_info
 
@@ -169,7 +172,7 @@ template(name='view_button')
 
 
 template(name='remove_button')
-    a.ui.icon.button.remove(title='Delete')
+    a.ui.icon.circular.basic.button.remove(title='Delete')
         i.remove.red.icon
         //- |Delete
 

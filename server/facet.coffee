@@ -23,6 +23,9 @@ Meteor.methods
         #             res:[]
         #         }
         #     ]
+        Docs.update delta._id,
+            $set:facets:[
+            ]
         for field in fields.fetch()
             # console.log field.field_type
             # console.log field.key
@@ -32,6 +35,8 @@ Meteor.methods
                     Docs.update delta._id,
                         $addToSet:
                             facets: {
+                                title:field.title
+                                icon:field.icon
                                 key:field.key
                                 filters:[]
                                 res:[]

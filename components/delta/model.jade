@@ -25,8 +25,8 @@ template(name='model_edit')
                     //-     +Template.dynamic template=edit_template 
                     //-     // .ui.header #{key} [#{field}] #{label}
                     .ui.inline.header Fields
-                    .ui.icon.circular.button.add_field
-                        i.plus.icon
+                    .ui.icon.basic.circular.button.add_field
+                        i.plus.green.icon
                     each fields
                         .ui.segment
                             +field_edit
@@ -62,7 +62,7 @@ template(name='model_view')
                             |Edit
                     each model.actions
                         +Template.dynamic template=this data=current_doc
-                    // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     +creation_info
                 .twelve.wide.column
                     .ui.header

@@ -37,6 +37,7 @@ if Meteor.isClient
                         message: err.reason
                     })
                 else
+                    # console.log res
                     Router.go "/user/#{username}"
 
         'keyup .password, keyup .username': (e,t)->

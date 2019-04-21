@@ -1,12 +1,12 @@
 
 template(name='user_messages')
     .ui.styled.fluid.accordion
-        .title
+        .active.title
             .ui.inline.header 
                 i.mail.small.icon
                 |User Messages
                 i.dropdown.icon
-        .content
+        .active.content
             if currentUser
                 .ui.fluid.icon.input
                     i.plus.icon
@@ -31,6 +31,5 @@ template(name='user_messages')
 
 template(name='notify_message')
     unless notified
-        .ui.button.notify
+        .ui.circular.basic.icon.button.notify(title="Notify #{to_username}")
             i.rss.icon
-            |Notify #{to_username}

@@ -49,48 +49,7 @@ template(name='goldrun')
                                 |#{checkedin_members.length} Checked In Members
                             .ui.doubling.centered.cards
                                 each checkedin_members
-                                    .card
-                                        .image
-                                            if profile.image_id
-                                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                            else if image_id
-                                                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                        .content
-                                            .header #{first_name} #{last_name} 
-                                            .meta @#{username}
-                                        if is_admin
-                                            if signed_waiver
-                                                .ui.green.basic.button
-                                                    i.checkmark.icon
-                                                    |Waiver Signed
-                                            else
-                                                .ui.red.button.sign_waiver
-                                                    i.cancel.icon
-                                                    |Waiver Not Signed
-                        
-                                            .content
-                                                div #{address}
-                                                strong #{building_number}
-                                                strong ##{apt_number}
-                                                div start 
-                                                    strong #{start_date}
-                                                div expiration 
-                                                    strong #{lease_expiration}
-                                                +icolor name='swimming-pool' classes='ui avatar image'
-                                                +icolor name='weightlift' classes='ui avatar image'
-                                                +icolor name='jacuzzi' classes='ui avatar image'
-                                                +icolor name='shower' classes='ui avatar image'
-                                                +icolor name='racquetball' classes='ui avatar image'
-                                                +icolor name='water-steam' classes='ui avatar image'
-
-                                        +checkin_button
-                                        if is_admin
-                                            a.ui.icon.button(href="/user/#{username}/")
-                                                i.user.shield.icon
-                                                |View
-                                        .content
-                                            each tags
-                                                .ui.label #{this}
+                                    +big_user_card username
                     .three.column.row
                         .column
                             .ui.header

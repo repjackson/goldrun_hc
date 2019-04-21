@@ -408,7 +408,7 @@ template(name='array_edit')
     div
     if field_value
         each field_value
-            .ui.large.label
+            .ui.large.basic.circular.label
                 i.delete.icon.remove_element
                 |#{this}
                 
@@ -426,7 +426,7 @@ template(name='array_view')
             else
                 |#{this}
             each field_value
-                .ui.large.label #{this}
+                .ui.large.basic.circular.label #{this}
 
 
 template(name='children_edit')
@@ -570,7 +570,7 @@ template(name='single_doc_edit')
             i.grey.icon(class=icon)
         |#{label}
     each choices
-        .ui.small.button.select_choice(class=choice_class)
+        .ui.small.circular.button.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{calculated_label}
@@ -583,7 +583,7 @@ template(name='multi_doc_edit')
     .ui.small.header(title=key)
         |#{title} #{label}
     each choices
-        .ui.button.select_choice(class=choice_class)
+        .ui.circular.button.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{title}
@@ -661,7 +661,9 @@ template(name='single_user_edit')
 
 
 template(name='single_user_view')
-    .ui.small.grey.header #{title} #{key} #{label}
+    .ui.small.grey.header 
+        |#{title}
+        //- #{key} #{label}
     with field_value
         .ui.header #{field_value}
         +big_user_card

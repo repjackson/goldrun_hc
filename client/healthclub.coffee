@@ -33,7 +33,8 @@ Template.goldrun.helpers
         Meteor.users.find({
             username: {$regex:"#{username_query}", $options: 'i'}
             healthclub_checkedin:$ne:true
-            },{ limit:5 }).fetch()
+            roles:$in:['resident','owner']
+            },{ limit:10 }).fetch()
 
     checking_in: ->
         Session.get('checking_in')
