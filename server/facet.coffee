@@ -15,14 +15,14 @@ Meteor.methods
         Docs.update delta._id,
             $set:model_filter:model_slug
 
-        Docs.update delta._id,
-            $set:facets:[
-                {
-                    key:'_timestamp_tags'
-                    filters:[]
-                    res:[]
-                }
-            ]
+        # Docs.update delta._id,
+        #     $set:facets:[
+        #         {
+        #             key:'_timestamp_tags'
+        #             filters:[]
+        #             res:[]
+        #         }
+        #     ]
         for field in fields.fetch()
             # console.log field.field_type
             # console.log field.key

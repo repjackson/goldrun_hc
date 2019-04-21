@@ -26,7 +26,7 @@ if Meteor.isClient
             Meteor.call 'create_user', options, (err,res)->
                 console.log res
                 Meteor.users.update res,
-                    $set: roles: ['client']
+                    $set: roles: []
                 Meteor.loginWithPassword username, password, (err,res)=>
                     if err
                         console.log err
@@ -61,9 +61,19 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.methods
-        # create_user: (options)->
-        #     Accounts.createUser options
+        create_user: (options)->
+            Accounts.createUser options
 
+        can_submit: ->
+            username = Session.get 'username'
+            email = Session.get 'email'
+            password = Session.get 'password'
+            password2 = Session.get 'password2'
+            if username and email
+                if password.length > 0 and password is password2
+                    true
+                else
+                    false
 
 
         find_username: (username)->

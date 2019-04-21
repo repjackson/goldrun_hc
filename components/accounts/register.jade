@@ -1,0 +1,39 @@
+template(name='register')
+    .ui.padded.stackable.grid
+        .centered.row
+            .twelve.wide.column
+
+                if message
+                    h4.ui.center.aligned.header #{message}
+                .ui.fluid.labeled.input(class=login_class)
+                    .ui.basic.label 
+                        i.user.icon
+                        |Username
+                    input.username(type='text')
+                .ui.fluid.labeled.input(class=login_class)
+                    .ui.basic.label 
+                        i.lock.icon
+                        | Password
+                    input.password(type='password' placeholder='password')
+                .ui.fluid.labeled.input(class=login_class)
+                    .ui.basic.label 
+                        i.lock.icon
+                        | Password (again)
+                    input.password2(type='password' placeholder='password')
+                if username
+                    if registering
+                        .ui.fluid.large.circular.inverted.grblue.button.enter(class=enter_class)
+                            i.user.plus.icon
+                            |Register '#{username}'
+                    else
+                        .ui.center.aligned.secondary.segment
+                            .ui.small.grey.header Username "#{username}" found
+                            a.ui.button(href='/login') Sign In
+                        
+                        
+                .ui.center.aligned.secondary.segment    
+                    //- .ui.small.header By clicking Register, you agree to our 
+                    //-     a(href='https://henry-health.com/privacy-policy/' target="_window") Privacy Policy
+                    .ui.small.header If you already have an account
+                        a.ui.circular.sign.in.button(href='/login') Sign In
+                    

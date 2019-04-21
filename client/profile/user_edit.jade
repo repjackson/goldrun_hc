@@ -2,9 +2,9 @@ template(name='user_edit')
     .ui.stackable.padded.grid.pad_left
         .middle.aligned.row
             .four.wide.center.aligned.column
-                a.ui.large.basic.circular.green.button(href="/user/#{user_from_username_param.username}/" title='Profile') 
+                a.ui.large.circular.green.icon.button(href="/user/#{user_from_username_param.username}/" title='Save') 
                     i.checkmark.icon
-                    |Save
+                    //- |Save
             .eight.wide.center.aligned.column
                 .ui.center.aligned.large.header
                     i.cog.icon

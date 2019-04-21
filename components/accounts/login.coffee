@@ -37,8 +37,7 @@ if Meteor.isClient
                         message: err.reason
                     })
                 else
-                    # console.log res
-                    Router.go "/"
+                    Router.go "/user/#{username}"
 
         'keyup .password, keyup .username': (e,t)->
             if e.which is 13
@@ -58,8 +57,7 @@ if Meteor.isClient
                                 message: err.reason
                             })
                         else
-                            # console.log res
-                            Router.go "/"
+                            Router.go "/user/#{username}"
 
 
     Template.login.helpers
