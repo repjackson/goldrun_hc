@@ -46,18 +46,18 @@ template(name='facet')
     if filtering_res
         .ui.accordion
             .active.title
-                .ui.inline.header 
+                .ui.inline.small.grey.header 
                     if icon
                         i.small.grey.icon(class=icon)
                     if label
                         |#{label}
                     else 
                         |#{key}
-                .ui.icon.small.input
-                    if icon
-                        i.large.grey.icon(class=icon)
-                    input.add_filter(type='text' placeholder=key)
+                    i.dropdown.icon
             .active.content
+                //- .ui.icon.small.transparent.input
+                //-     i.grey.search.icon
+                //-     input.add_filter(type='text')
                 each filtering_res
                     if name
                         .selector.ui.compact.circular.button.toggle_selection(class=toggle_value_class title=count)

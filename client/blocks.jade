@@ -121,7 +121,7 @@ template(name='big_user_card')
 
 
 template(name='user_info')
-    a.ui.button.item(href="/user/#{user.username}/view")
+    a.ui.button.item(href="/user/#{user.username}/")
         if image_id
             img.ui.avatar.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
         |#{user.first_name} #{user.last_name}

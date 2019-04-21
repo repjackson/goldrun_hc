@@ -78,7 +78,7 @@ if Meteor.isClient
 
 
     Template.user_info.onCreated ->
-        console.log @data
+        # console.log @data
         @autorun => Meteor.subscribe 'user_from_id', @data
 
     Template.user_info.helpers

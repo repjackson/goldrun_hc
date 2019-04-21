@@ -11,10 +11,10 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
 
     Template.model_edit.events
-        'click .delete_model': ->
-            if confirm 'Confirm delete model'
+        'click #delete_model': ->
+            if confirm 'Confirm delete doc'
                 Docs.remove @_id
-                Router.go '/models'
+                Router.go "/m/model"
 
     Template.field_edit.helpers
         is_ref: -> @field_type in ['single_doc', 'multi_doc']
@@ -31,6 +31,11 @@ if Meteor.isClient
         console.log Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
 
+    Template.model_doc_edit.events
+        'click #delete_doc': ->
+            if confirm 'Confirm delete doc'
+                Docs.remove @_id
+                Router.go "/m/#{@model}"
 
 
 if Meteor.isServer

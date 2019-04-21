@@ -12,7 +12,7 @@ template(name='profile')
                     .ui.center.aligned.header
                         | @#{user.username}                        
                     if image_id
-                        a.item(href="/user/#{user_from_username_param.username}/view")
+                        a.item(href="/user/#{user_from_username_param.username}/")
                             img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
                     // if current_user
                     .ui.segment
@@ -71,7 +71,7 @@ template(name='profile')
                         +role_switcher
                     +user_tags
                     +user_checkins
-                    +user_chat
+                    //- +user_chat
             
 template(name='user_chat')
     +view_chats
@@ -92,12 +92,12 @@ template(name='user_about')
     
 template(name='violations')
     .ui.fluid.styled.accordion
-        .title
+        .active.title
             .ui.inline.header 
                 i.exclamation.triangle.icon
                 |Violations
                 i.dropdown.icon
-        .content
+        .active.content
             .ui.list
                 each violations
                     .item
@@ -140,12 +140,12 @@ template(name='user_unread')
 
 template(name='user_tasks')
     .ui.fluid.styled.accordion
-        .title
+        .active.title
             .ui.inline.header 
                 i.tasks.icon
                 |Tasks
                 i.dropdown.icon
-        .content
+        .active.content
             .ui.fluid.input
                 input.assign_task(type='text' placeholder='Assign task')
             .ui.button.view_complete(class=view_complete_class)
@@ -174,12 +174,12 @@ template(name='user_array_list')
             
 template(name='role_switcher')
     .ui.fluid.styled.accordion
-        .title
+        .active.title
             .ui.inline.header 
                 i.user.shield.icon(title='Role Switcher')
                 |Roles
                 i.dropdown.icon
-        .content
+        .active.content
             if is_eric
                 +user_array_element_toggle key='roles' value='dev' user=currentUser
             +user_array_element_toggle key='roles' value='admin' user=currentUser
@@ -200,12 +200,12 @@ template(name='user_string_toggle')
         
 template(name='user_tags')
     .ui.fluid.styled.accordion
-        .title
+        .active.title
             .ui.inline.header 
                 i.tags.icon
                 |User Tags
                 i.dropdown.icon
-        .content
+        .active.content
             each tags
                 .ui.basic.label 
                     if is_user
@@ -219,12 +219,12 @@ template(name='user_tags')
             
 template(name='user_notifications')
     .ui.fluid.styled.accordion
-        .title
+        .active.title
             .ui.inline.header 
                 i.bullhorn.icon
                 |Notifications
                 i.dropdown.icon
-        .content
+        .active.content
             +user_following
             +follow_user
     
@@ -249,11 +249,11 @@ template(name='follow_user')
 
 template(name='user_wall')
     .ui.fluid.styled.accordion
-        .title
+        .active.title
             .ui.inline.header 
                 i.edit.icon
                 |Wall
-        .content
+        .active.content
             if currentUser
                 .ui.fluid.icon.input
                     i.plus.icon
@@ -262,7 +262,7 @@ template(name='user_wall')
                 each wall_posts
                     .comment
                         //- .avatar
-                        .content
+                        .active.content
                             a.author(href='#') #{author.first_name} #{author.last_name}
                             .metadata
                                 span.date #{when}

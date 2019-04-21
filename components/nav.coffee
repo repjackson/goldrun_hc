@@ -28,10 +28,8 @@ if Meteor.isClient
 
 
     Template.nav.onCreated ->
-        @autorun ->
-            Meteor.subscribe 'me'
-            Meteor.subscribe 'my_notifications'
-            # Meteor.subscribe 'type', 'model'
+        @autorun -> Meteor.subscribe 'me'
+        @autorun -> Meteor.subscribe 'bookmarked_models'
 
     Template.nav.helpers
         notifications: ->
@@ -43,9 +41,10 @@ if Meteor.isClient
                 model:'model'
 
         bookmarked_models: ->
-            Docs.find
-                model:'model'
-                bookmark_ids:$in:[Meteor.userId()]
+            if Meteor.userId()
+                Docs.find
+                    model:'model'
+                    bookmark_ids:$in:[Meteor.userId()]
 
     # Template.nav.onRendered ->
     #     Meteor.setTimeout ->
@@ -74,6 +73,12 @@ if Meteor.isServer
         Docs.find
             model:'notification'
             user_id: Meteor.userId()
+
+    Meteor.publish 'bookmarked_models', ->
+        if Meteor.userId()
+            Docs.find
+                model:'model'
+                bookmark_ids:$in:[Meteor.userId()]
 
 
     Meteor.publish 'me', ->

@@ -31,8 +31,7 @@ if Meteor.isClient
             "#{model.slug}_view"
 
         fields: ->
-            Docs.find
-                model:'field'
+            Docs.find { model:'field' }, sort:rank:1
                 # parent_id: Router.current().params.doc_id
 
     Template.model_view.events
@@ -67,9 +66,10 @@ if Meteor.isClient
             Docs.findOne doc_id
 
         fields: ->
-            Docs.find
+            Docs.find {
                 model:'field'
                 parent_id: Router.current().params.doc_id
+            }, sort:rank:1
 
     Template.model_edit.events
         'click #delete_model': (e,t)->

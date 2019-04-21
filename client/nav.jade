@@ -37,7 +37,7 @@ template(name='nav')
                     //- if is_dev
                     //-     a.icon.item(href='/m/model' class="{{isActivePath '/m/model'}}")
                     //-         i.large.yin.yang.icon
-                    a.icon.item(href="/user/#{currentUser.username}/view" class="{{isActiveRoute regex='user_chat'}}")
+                    a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                         if currentUser.image_id
                             img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
                         else

@@ -141,11 +141,11 @@ template(name='users')
 template(name='user')                
     .ui.card
         .image
-            //- a(href="/user/#{username}/view")
+            //- a(href="/user/#{username}/")
             //- img(src="{{c.url image_id height=400 width=400 background='white' crop='pad'}}")
             img(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
         .content
-            a(href="/user/#{username}/view")
+            a(href="/user/#{username}/")
                 h2.ui.center.aligned.header #{first_name} #{last_name} 
                 .ui.small.grey.header @#{username}
             each five_tags

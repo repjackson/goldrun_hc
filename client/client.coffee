@@ -28,10 +28,10 @@ Template.registerHelper 'fields', () ->
     model = Docs.findOne
         model:'model'
         slug:Router.current().params.model_slug
-    Docs.find
+    Docs.find {
         model:'field'
         parent_id:model._id
-
+    }, sort:rank:1
 
 Template.registerHelper 'current_user', (input) ->
     Meteor.user() and Meteor.user().username is Router.current().params.username
