@@ -5,7 +5,7 @@ template(name='admin')
 
 
 template(name='user_table')
-    a#add_user.ui.button(href='/user/add')
+    a#add_user.ui.circular.basic.button(href='/user/add')
         i.plus.icon
         |Add User
     table.ui.sortable.striped.table
@@ -33,14 +33,14 @@ template(name='user_table')
                         +user_role_toggle role='owner'
                         +user_role_toggle role='guest'
                     td
-                        a.ui.icon.button(href="/user/#{username}/edit")
+                        a.ui.icon.large.circular.basic.button(href="/user/#{username}/edit")
                             i.pencil.icon
-                        a.ui.icon.button(href="/user/#{username}/")
+                        a.ui.icon.large.circular.basic.button(href="/user/#{username}/")
                             i.chevron.right.icon
                         
 
 template(name='user_role_toggle')
     if is_in_role
-        .remove_role.ui.blue.compact.button #{role}
+        .remove_role.ui.blue.circular.button #{role}
     else
-        .add_role.ui.basic.compact.button #{role}
+        .add_role.ui.basic.circular.button #{role}

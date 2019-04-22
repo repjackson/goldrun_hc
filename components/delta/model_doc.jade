@@ -25,7 +25,7 @@ template(name='model_doc_view')
                 .sixteen.wide.column
                     .ui.breadcrumb
                         a.section(href="/m/#{current_model.slug}" title=current_model.plural)
-                            .ui.compact.small.button
+                            .ui.circular.basic.button
                                 |#{current_model.title}
                         .divider
                             i.chevron.right.icon
@@ -45,12 +45,14 @@ template(name='model_doc_view')
                     if can_edit
                         a.ui.big.blue.circular.icon.button(href="/m/#{model}/#{_id}/edit")
                             i.pencil.icon
-                    .ui.small.header timestamp tags
+                    .ui.small.header Timestamp Tags
                     each _timestamp_tags
-                        .ui.label #{this}
-                    each model.actions
-                        +Template.dynamic template=this data=current_doc
-                    // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                        .ui.circular.basic.label #{this}
+                    //- each model.actions
+                    //-     +Template.dynamic template=this data=current_doc
+                    div
+                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    div
                     +creation_info
                 .twelve.wide.column
                     .ui.header

@@ -12,16 +12,16 @@ template(name='user_edit')
                 .ui.center.aligned.small.header @#{user_from_username_param.username}
         .centered.row
             .six.wide.column
-                .field
-                    with user_from_username_param
-                        +image_edit key='image_id' direct=true
+                with user_from_username_param
+                    +image_edit key='image_id' direct=true
                 +password_edit
                 +phone_editor
                 +username_edit
                 +emails_edit
-                .ui.orange.button.remove_user 
-                    i.remove.icon
-                    |Delete User
+                with user_from_username_param
+                    .ui.orange.button.remove_user 
+                        i.remove.icon
+                        |Delete User
 
             .ten.wide.column
                 .ui.form
@@ -54,12 +54,12 @@ template(name='user_edit')
                             label Banner Image
                             input(type='file' name='banner_image' accept='image/*')
                 //- .ui.fluid.button.update_profile Update
-            .eleven.wide.column
-                +user_model_editor
-                if is_admin
-                    +user_single_doc_ref_editor key='building' model='building' label='Building'
-                    +user_single_doc_ref_editor key='membership' model='goldrun_role' label='Gold Run Role'
-                //- +stripe_connect
+            //- .eleven.wide.column
+            //-     +user_model_editor
+            //-     if is_admin
+            //-         +user_single_doc_ref_editor key='building' model='building' label='Building'
+            //-         +user_single_doc_ref_editor key='membership' model='goldrun_role' label='Gold Run Role'
+            //-     //- +stripe_connect
                 //- +payment_methods
 
 

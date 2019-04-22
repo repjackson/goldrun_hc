@@ -14,7 +14,7 @@ body {
 }
 
 
-.button {
+.button .selector {
   animation: fadein .5s;
 }
 @keyframes fadein {

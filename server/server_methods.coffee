@@ -45,21 +45,22 @@ Meteor.methods
             to_user = Meteor.users.findOne message.to_user_id
             console.log to_user.emails[0].address
 
-            message_link = "https://www.dao.af/u/#{to_user.username}/messages"
+            message_link = "https://www.goldrun.online/user/#{to_user.username}/messages"
 
         	Email.send({
                 to:["<#{to_user.emails[0].address}>"]
-                from:"relay@dao.af"
-                subject:"DAO Message Notification from #{message._author_username}"
+                from:"relay@goldrun.online"
+                subject:"Gold Run Message Notification from #{message._author_username}"
                 html: "<h3> #{message._author_username} sent you the message:</h3>"+"<h2> #{message.body}.</h2>"+
                     "<br><h4>View your messages here:<a href=#{message_link}>#{message_link}</a>.</h4>"
             })
 
 
-    lookup_user: (username_query)->
+    lookup_user: (username_query, role_filter)->
         found_users =
             Meteor.users.find({
                 username: {$regex:"#{username_query}", $options: 'i'}
+                roles:$in:[role_filter]
                 }).fetch()
         found_users
 

@@ -95,7 +95,6 @@ Template.goldrun.events
             is_resident:true
         Router.go "/sign_waiver/#{receipt_id}"
 
-
     'click .username_search': (e,t)->
         Session.set 'checking_in',true
 
@@ -115,15 +114,15 @@ Template.add_resident.onCreated ->
 
 Template.add_resident.events
     'keyup #last_name': (e,t)->
-        first_name = $('#first_name').val().toLowerCase()
-        last_name = $('#last_name').val().toLowerCase()
-        $('#username').val("#{first_name}_#{last_name}")
+        first_name = $('#first_name').val()
+        last_name = $('#last_name').val()
+        $('#username').val("#{first_name.toLowerCase()}_#{last_name.toLowerCase()}")
         Session.set 'permission',true
 
     'click .create_and_checkin': ->
-        first_name = $('#first_name').val().toLowerCase()
-        last_name = $('#last_name').val().toLowerCase()
-        username = "#{first_name}_#{last_name}"
+        first_name = $('#first_name').val()
+        last_name = $('#last_name').val()
+        username = "#{first_name.toLowerCase()}_#{last_name.toLowerCase()}"
         Meteor.call 'add_resident', first_name, last_name, username, (err,res)->
             if err
                 alert err

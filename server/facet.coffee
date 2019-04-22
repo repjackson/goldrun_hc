@@ -24,8 +24,7 @@ Meteor.methods
         #         }
         #     ]
         Docs.update delta._id,
-            $set:facets:[
-            ]
+            $set:facets:[]
         for field in fields.fetch()
             # console.log field.field_type
             # console.log field.key
@@ -64,6 +63,10 @@ Meteor.methods
         else
             built_query = { model:delta.model_filter }
 
+        if delta.model_filter is 'model'
+            unless 'dev' in Meteor.user().roles
+                built_query = view_roles:$in:Meteor.user().roles
+
         for facet in delta.facets
             # console.log 'this facet', facet.key
             if facet.filters.length > 0
@@ -90,7 +93,7 @@ Meteor.methods
         modifier =
             {
                 fields:_id:1
-                limit:5
+                limit:20
                 sort:_timestamp:-1
             }
 

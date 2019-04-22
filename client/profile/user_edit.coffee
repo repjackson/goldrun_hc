@@ -131,10 +131,10 @@ Template.phone_editor.events
 
 Template.user_edit.events
     'click .remove_user': ->
+        # console.log @
         if confirm "Confirm delete #{@username}?  Cannot be undone."
-            current_user = Meteor.users.findOne username:Router.current().params.username
-            if current_user
-                Meteor.users.remove current_user._id
+            console.log @_id
+            Meteor.users.remove @_id
             Router.go "/users"
 
     "change input[name='profile_image']": (e) ->

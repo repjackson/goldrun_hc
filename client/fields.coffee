@@ -682,15 +682,13 @@ Template.single_user_edit.helpers
         user_results = Template.instance().user_results.get()
         user_results
 
-
-
 Template.single_user_edit.events
     'click .clear_results': (e,t)->
         t.user_results.set null
 
     'keyup #single_user_select_input': (e,t)->
         search_value = $(e.currentTarget).closest('#single_user_select_input').val().trim()
-        Meteor.call 'lookup_user', search_value, (err,res)=>
+        Meteor.call 'lookup_user', search_value, @role_filter, (err,res)=>
             if err then console.error err
             else
                 t.user_results.set res
@@ -698,7 +696,6 @@ Template.single_user_edit.events
 
     'click .select_user': (e,t) ->
         # page_doc = Docs.findOne Router.current().params.id
-
         # console.log @
         field = Template.currentData()
         # console.log Template.parentData()

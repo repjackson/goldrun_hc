@@ -153,7 +153,7 @@ if Meteor.isClient
             facet = Template.parentData()
             delta = Docs.findOne model:'delta'
             if Session.equals 'loading', true
-                 'disabled'
+                 'disabled basic'
             else if facet.filters.length > 0 and @name in facet.filters
                 'grey'
             else 'basic'
