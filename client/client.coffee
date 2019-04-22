@@ -46,7 +46,8 @@ Template.registerHelper 'nl2br', (text)->
     new Spacebars.SafeString(nl2br)
 
 
-
+Template.registerHelper 'loading_class', () ->
+    if Session.get 'loading' then 'disabled' else ''
 
 Template.registerHelper 'current_model', (input) ->
     Docs.findOne

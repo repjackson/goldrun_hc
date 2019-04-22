@@ -82,36 +82,40 @@ template(name='toggle_delta_config')
 
 template(name='delta_result')
     with result 
-        unless is_loading
-            .ui.result.segment
-                .description
-                    each fields
-                        +Template.dynamic template=view_template 
-                .extra
-                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                    if is_model
-                        a.ui.circular.basic.button.route_model(href="/m/#{slug}")
-                            i.sitemap.icon
-                            |View
-                        a.ui.circular.basic.button.route_model(href="/model/edit/#{_id}")
-                            i.edit.icon
-                            |Edit
-                    else
-                        a.ui.circular.basic.button(href="/m/#{current_model.slug}/#{_id}/edit")
-                            i.pencil.icon
-                            |Edit
-                        a.ui.circular.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
-                            i.eye.icon
-                            |View
-                    //- each model.actions
-                    //-     +Template.dynamic template=this data=..
-                    if _author_id
-                        +author_info
-                    +creation_info
-                    //- if _timestamp_tags
-                    //-     .ui.small.inline.grey.header timestamp tags
-                    //-     each _timestamp_tags
-                    //-         .ui.label #{this}
-                    
+        .ui.result.smoothed.segment(class=loading_class)
+            if title
+                .ui.header
+                    if icon
+                        i.icon(class=icon)
+                    |#{title}
+            .description
+                each fields
+                    +Template.dynamic template=view_template 
+            .extra
+                +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                if is_model
+                    a.ui.circular.basic.button.route_model(href="/m/#{slug}")
+                        i.sitemap.icon
+                        |View
+                    a.ui.circular.basic.button.route_model(href="/model/edit/#{_id}")
+                        i.edit.icon
+                        |Edit
+                else
+                    a.ui.circular.basic.button(href="/m/#{current_model.slug}/#{_id}/edit")
+                        i.pencil.icon
+                        |Edit
+                    a.ui.circular.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
+                        i.eye.icon
+                        |View
+                //- each model.actions
+                //-     +Template.dynamic template=this data=..
+                if _author_id
+                    +author_info
+                +creation_info
+                //- if _timestamp_tags
+                //-     .ui.small.inline.grey.header timestamp tags
+                //-     each _timestamp_tags
+                //-         .ui.label #{this}
+                
     
                     

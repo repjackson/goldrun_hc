@@ -4,50 +4,52 @@ template(name='goldrun')
         .sixteen.wide.column
             //- h1.ui.center.aligned.header 
             //-     |Gold Run Health Club
-            .ui.left.icon.huge.fluid.action.input
-                //- i.sign.in.green.icon
+            .ui.left.icon.huge.fluid.input
                 input.username_search(type='text' placeholder='Check in Gold Run resident...')
                 if is_query
                     i.remove.link.icon.clear_results
+                else 
+                    i.sign.in.green.icon
             .ui.stackable.padded.grid
                 .row
                     .sixteen.wide.column
                         if checkedout_members.length
-                            .ui.header 
-                                //- +icolor name='internal' classes='ui inline image'
-                                |Check In Member
-                            .ui.three.centered.cards
-                                each checkedout_members
-                                    .card
-                                        .image
-                                            if image_id
-                                                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                        .content
-                                            .header #{first_name} #{last_name}
-                                            .meta @#{username}
-                                            if is_dev
-                                                a.ui.basic.circular.button(href="/user/#{username}/")
-                                                    |View Profile
-                                                    i.chevron.right.icon
-                                            +checkin_button
+                            .ui.cloud.center.aligned.segment
+                                h2.ui.center.aligned.header 
+                                    //- +icolor name='internal' classes='ui inline image'
+                                    |Check In Member
+                                .ui.three.centered.stackable.cards
+                                    each checkedout_members
+                                        .card
+                                            .image
+                                                if image_id
+                                                    img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                            .content
+                                                .header #{first_name} #{last_name}
+                                                .meta @#{username}
+                                                if is_dev
+                                                    a.ui.basic.circular.button(href="/user/#{username}/")
+                                                        |View Profile
+                                                        i.chevron.right.icon
+                                                +checkin_button
                         else
                             if checking_in
                                 if is_query
-                                    .ui.center.aligned.header No Members Found
-                                    .ui.center.aligned.header 
-                                        |Please drop yellow card and ask staff to add.
+                                    .ui.cloud.center.aligned.segment
+                                        .ui.center.aligned.header No Members Found
+                                        .ui.center.aligned.header 
+                                            |Please drop yellow card and ask staff to add.
                                     //- +add_resident
                 if is_admin
                     .row
                         .sixteen.wide.column
-                            //- .ui.two.column.stackable.grid
-                            //- .column.scrolling
-                            .ui.header
-                                //- +icolor name='internal' classes='ui image'
-                                |#{checkedin_members.length} Checked In Members
-                            .ui.doubling.centered.cards
-                                each checkedin_members
-                                    +big_user_card username
+                            .ui.cloud.segment
+                                h1.ui.center.aligned.header
+                                    //- +icolor name='internal' classes='ui image'
+                                    |#{checkedin_members.count} Checked In Members
+                                .ui.doubling.centered.cards
+                                    each checkedin_members
+                                        +big_user_card username
                     .three.column.row
                         .column
                             .ui.header
@@ -78,28 +80,26 @@ template(name='goldrun')
                                                         //- if is_dev
                                                         //-     +remove_button
                                 
-                            .ui.segment
                         .column
                                 .ui.header
                                     i.poll.icon
                                     |Poll
                                 .content
                         .column
-                            .ui.segment
-                                .ui.small.header
-                                    +icolor name='front-desk' classes='ui inline image'
-                                    | Staff on Duty
-                                with currentUser.username
-                                    +big_user_card
+                            .ui.header
+                                +icolor name='front-desk' classes='ui inline image'
+                                | Staff on Duty
+                            with currentUser.username
+                                +big_user_card
                     .centered.row
                         .ui.basic.center.aligned.segment
                             if is_admin
-                                a.ui.large.button(href='/add_resident')
+                                a.ui.large.circular.basic.button(href='/add_resident')
                                     i.user.shield.icon
                                     | Add Resident
-                            a.ui.large.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
+                            a.ui.large.circular.basic.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
                                 |Rules and Regulations
-                            a.ui.large.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
+                            a.ui.large.circular.basic.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
                                 |Guest Waiver
             +health_club_info
                 

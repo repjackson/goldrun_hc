@@ -80,17 +80,23 @@ template(name='profile')
             
 template(name='gr_status')   
     with user_from_username_param         
-        .ui.small.header Status
+        //- .ui.small.header
+        //-     i.clock.icon
+        //-     | Status
+        if current_user
+            +array_edit key='gr_status' label='Status' direct=true icon='clock'
+        else
             each gr_status
                 .ui.circular.basic.label #{this}
-        if current_user
-            +array_edit key='gr_status' label='Set Status' direct=true
             
-        .ui.small.header Location 
+        //- .ui.small.header
+        //-     i.marker.icon
+        //-     | Location 
+        if current_user
+            +array_edit key='gr_location' label='Location' direct=true icon='marker'
+        else 
             each gr_location
                 .ui.circular.basic.label #{this}
-        if current_user
-            +array_edit key='gr_location' label='Set Location' direct=true
             
 template(name='user_checkins')
     .ui.header 
