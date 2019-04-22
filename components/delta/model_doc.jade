@@ -26,6 +26,7 @@ template(name='model_doc_view')
                     .ui.breadcrumb
                         a.section(href="/m/#{current_model.slug}" title=current_model.plural)
                             .ui.circular.basic.button
+                                i.icon(class=current_model.icon)
                                 |#{current_model.title}
                         .divider
                             i.chevron.right.icon

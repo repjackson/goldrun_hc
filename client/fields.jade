@@ -28,20 +28,18 @@ template(name='color_view')
             |#{field_value}
 
 template(name='color_icon_edit')
-    .ui.form
-        .field
-            label 
-                if icon
-                    i.grey.icon(class=icon)
-                if title
-                    |#{title}
-                else if key
-                    |#{key}
-                else
-                    |#{this}
-            input.color_icon(type='url' value=field_value placeholder='icons8 class')
-        if field_value
-            img.ui.inline.image(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+    .ui.tiny.inline.grey.header
+        if icon
+            i.grey.icon(class=icon)
+        if title
+            |#{title}
+        else if key
+            |#{key}
+        else
+            |#{this}
+    input.color_icon(type='url' value=field_value placeholder='icons8 class')
+    if field_value
+        img.ui.inline.image(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
 template(name='icon_edit')
     .ui.form
@@ -244,8 +242,8 @@ template(name='document_view')
             |!{referenced_document.html}
         
 template(name='text_edit')
-    .ui.labeled.fluid.icon.input
-        .ui.basic.smoothed.label
+    .ui.fluid.icon.input
+        .ui.tiny.grey.inline.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -316,7 +314,7 @@ template(name='phone_view')
 
 template(name='number_edit')
     .ui.labeled.fluid.icon.input
-        .ui.basic.smoothed.label
+        .ui.tiny.inline.grey.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -423,7 +421,7 @@ template(name='datetime_view')
 
 template(name='array_edit')
     .ui.labeled.fluid.icon.input
-        .ui.basic.smoothed.label
+        .ui.tiny.inline.grey.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -559,16 +557,17 @@ template(name='youtube_view')
 
 
 
-
+template(name='signature_edit')
+    +signature
 
 template(name='boolean_edit')
-    div
-    .ui.inline.small.grey.header
+    //- div
+    .ui.small.grey.header
         if icon
             i.grey.icon(class=icon)
         | #{title}
-    //- .ui.button.toggle_boolean(class=boolean_toggle_class)
-    .ui.basic.circular.icon.button.toggle_boolean
+    //- .ui.basic.circular.icon.button.toggle_boolean
+    .ui.button.toggle_boolean(class=boolean_toggle_class)
         if field_value
             if true_icon
                 i.large.green.icon(class=true_icon)
@@ -582,8 +581,7 @@ template(name='boolean_edit')
 
 
 template(name='boolean_view')
-    div
-    .ui.small.inline.grey.header #{title}
+    .ui.small.grey.header #{title}
     if field_value
         .ui.green.label Yes
     else

@@ -35,6 +35,8 @@ Router.route '/add_resident', (->
     @render 'add_resident'
     ), name:'add_resident'
 Router.route '/user/:username', -> @render 'profile'
+Router.route '/forgot_password', -> @render 'forgot_password'
+
 Router.route '/checkin', -> @render 'goldrun'
 Router.route '/user/:username/edit', -> @render 'user_edit'
 Router.route '/p/:slug', -> @render 'page'

@@ -19,7 +19,7 @@ template(name='user_table')
             each users
                 tr
                     td 
-                        img.ui.tiny.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                        img.ui.small.circular.image(src="{{c.url image_id width=1000 height=1000 gravity='face' crop='crop'}}")
                     td 
                         .ui.header 
                             |#{name}

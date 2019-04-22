@@ -27,7 +27,7 @@ template(name='nav')
                     //-         each notifications
                     //-             .item #{text}
                     a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
-                        i.large.mail.icon
+                        i.large.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
                     a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
                         i.large.chat.icon
                     if is_admin
@@ -42,12 +42,12 @@ template(name='nav')
                         else
                             i.user.large.icon
                         //- | #{currentUser.username}
-                if logging_out
-                    .icon.item
-                        i.large.loading.refresh.icon
-                else
-                    a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
-                        i.sign.out.large.icon
+                //- if logging_out
+                //-     .icon.item
+                //-         i.large.loading.refresh.icon
+                //- else
+                //-     a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
+                //-         i.sign.out.large.icon
             else
                 a.ui.icon.item(href='/login' title='Login') 
                     i.sign.in.large.icon

@@ -16,9 +16,9 @@ template(name='profile')
                     .ui.center.aligned.header
                         | @#{user.username}        
                     +gr_status                
-                    .ui.segment
-                        +text_view key='first_name' label='First Name' direct=true
-                        +text_view key='last_name' label='Last Name' direct=true
+                    .ui.smoothed.segment
+                        //- +text_view key='first_name' label='First Name' direct=true
+                        //- +text_view key='last_name' label='Last Name' direct=true
                         +text_view key='address' label='Address' direct=true
                         +number_view key='unit_number' label='Unit #' direct=true
                         +number_view key='building_number' label='Building #' direct=true
@@ -29,7 +29,6 @@ template(name='profile')
                         +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
                         each emails
                             .ui.label #{address}
-                    
                     if is_admin
                         a.ui.circular.fluid.large.basic.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
@@ -42,11 +41,7 @@ template(name='profile')
                         .ui.circular.fluid.large.basic.button.logout
                             i.sign.out.icon
                             |Log Out
-                    .ui.segment
-                        .ui.header
-                            |#{user.points} Following
-                        .ui.header
-                            |#{user.points} Followers
+                    .ui.smoothed.segment
                         .ui.header
                             i.heartbeat.icon
                             |#{user.points} Karma
@@ -54,7 +49,7 @@ template(name='profile')
                             i.user.shield.icon
                             |Roles
                         each roles
-                            .ui.label #{this}
+                            .ui.circular.basic.label #{this}
             
                 .six.wide.column
                     +violations

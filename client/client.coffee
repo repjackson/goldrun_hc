@@ -124,7 +124,8 @@ Template.registerHelper 'field_value', () ->
         parent = Template.parentData()
     else
         parent = Template.parentData(5)
-    parent["#{@key}"]
+    if parent
+        parent["#{@key}"]
 
 
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()

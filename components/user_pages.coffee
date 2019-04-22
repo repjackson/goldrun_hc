@@ -64,8 +64,10 @@ if Meteor.isClient
 
     Template.user_messages.helpers
         user_messages: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
             Docs.find {
                 model:'message'
+                to_username:current_user.username
             }, sort:_timestamp:-1
 
     Template.user_messages.events
