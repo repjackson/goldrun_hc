@@ -1,20 +1,25 @@
 template(name='profile')
-    with user_from_username_param
+    // style.
+    //   .block_style {
+    //       background-image:url('/tw_bg.png') !important;
+    //       background-repeat: no-repeat;
+    //       background-position: right top;
+    //   }
     
-        .profile-banner-container
-            img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=300 crop='crop'}}")
-        .ui.padded.stackable.grid
+    with user_from_username_param  
+        img.ui.fluid.rounded.image.banner_image(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")
+        .ui.padded.stackable.grid.profile_grid
             .row
                 .four.wide.column.scrolling
+                    if image_id
+                        a.item(href="/user/#{user_from_username_param.username}/")
+                            img.ui.circular.centered.image(src="{{c.url image_id height=300 gravity='face' crop='fill'}}")
                     .ui.large.center.aligned.header
                         | #{user.first_name}
                         | #{user.last_name}
                     .ui.center.aligned.header
-                        | @#{user.username}                        
-                    if image_id
-                        a.item(href="/user/#{user_from_username_param.username}/")
-                            img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
-                    // if current_user
+                        | @#{user.username}        
+                    +gr_status                
                     .ui.segment
                         +text_view key='first_name' label='First Name' direct=true
                         +text_view key='last_name' label='Last Name' direct=true
@@ -26,16 +31,19 @@ template(name='profile')
                         +date_view key='start_date' label='Start Date' direct=true
                         +date_view key='expiration_date' label='Expiration Date' direct=true
                         +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
-
                         each emails
                             .ui.label #{address}
                     
                     if is_admin
-                        a.ui.circular.fluid.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.large.basic.button(href="/user/#{user_from_username_param.username}/edit")
+                            i.settings.icon
+                            | Settings
+                    else if current_user
+                        a.ui.circular.fluid.large.basic.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | Settings
                     if current_user
-                        .ui.circular.fluid.button.logout
+                        .ui.circular.fluid.large.basic.button.logout
                             i.sign.out.icon
                             |Log Out
                     .ui.segment
@@ -71,6 +79,21 @@ template(name='profile')
                     +user_checkins
                     //- +user_chat
             
+            
+            
+template(name='gr_status')   
+    with user_from_username_param         
+        .ui.small.header Status
+            each gr_status
+                .ui.circular.basic.label #{this}
+        if current_user
+            +array_edit key='gr_status' label='Set Status' direct=true
+            
+        .ui.small.header Location 
+            each gr_location
+                .ui.circular.basic.label #{this}
+        if current_user
+            +array_edit key='gr_location' label='Set Location' direct=true
             
 template(name='user_checkins')
     .ui.header 

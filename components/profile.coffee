@@ -17,6 +17,21 @@ if Meteor.isClient
                 model:'model'
                 _id:$in:user.model_ids
 
+        banner_style: ->
+            console.log @
+            # {
+            #     background: url(/image/signup-bg.png) center no-repeat;
+            #     /*height: 100%;*/
+            #     width: 100%;
+            #     height: 100vh;
+            #     background-repeat: no-repeat;
+            #     background-position: center center;
+            #     background-size: cover;
+            #     background-attachment: fixed;
+            #     position: relative;
+            # }
+
+
 
 
     Template.profile.events

@@ -8,9 +8,18 @@ body {
     /* background: #0e0e44 !important; */
 }
 
-
+.profile_grid {
+    position: absolute !important;
+    top:50px;
+}
 .grblue {
     background-color: #0e0e44 !important;
+}
+
+.banner_image {
+    opacity: 0.8;
+    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 

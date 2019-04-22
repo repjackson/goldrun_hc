@@ -101,15 +101,32 @@ template(name='link_view')
 
 
 template(name='image_view')
+    if icon
+        i.grey.icon(class=icon)
+    if title
+        |#{title}
+    else if key
+        |#{key}
+    else
+        |#{this}
+    
     img.ui.large.centered.rounded.image(src="{{c.url field_value }}")
     //- +call_visual
 
 template(name='image_edit')
     .ui.form
         .field
+            if icon
+                i.grey.icon(class=icon)
+            if title
+                |#{title}
+            else if key
+                |#{key}
+            else
+                |#{this}            
             if field_value
                 label Image
-                img.ui.large.image(src="{{c.url field_value height=500 crop='limit'}}")
+                img.ui.medium.centered.rounded.image(src="{{c.url field_value height=500 gravity='face' crop='fill'}}")
                 a#remove_photo.ui.right.corner.link.label
                     i.remove.red.link.icon
             else
@@ -200,7 +217,7 @@ template(name='html_view')
 
 
 template(name='doc_edit')
-    // .ui.labeled.fluid.input
+    // .ui.labeled.fluid.icon.input
     //     .ui.label 
     //         // if icon
     //         //     i.grey.icon(class=icon)
@@ -227,7 +244,7 @@ template(name='doc_view')
             |!{referenced_document.html}
         
 template(name='text_edit')
-    .ui.labeled.fluid.input
+    .ui.labeled.fluid.icon.input
         .ui.basic.label
             if icon
                 i.grey.icon(class=icon)
@@ -237,8 +254,14 @@ template(name='text_edit')
                 |#{label}
             else if key
                 |#{key}
+        +clear_value
         input.edit_text(type='text' value=field_value placeholder=placeholder)
+        
 
+
+template(name='clear_value')
+    if field_value
+        i.remove.grey.link.icon.clear_value
 
 template(name='text_view')
     if field_value
@@ -258,7 +281,7 @@ template(name='text_view')
         .ui.inline.small.header #{field_value}
 
 template(name='phone_edit')
-    .ui.labeled.fluid.input
+    .ui.labeled.fluid.icon.input
         // if icon
         //     i.grey.icon(class=icon)
         .ui.basic.label 
@@ -270,6 +293,7 @@ template(name='phone_edit')
                 |#{key}
             else
                 |#{this}
+        +clear_value                
         input.edit_phone(type='tel' value=field_value placeholder=placeholder)
 
 template(name='phone_view')
@@ -291,7 +315,7 @@ template(name='phone_view')
 
 
 template(name='number_edit')
-    .ui.labeled.fluid.input
+    .ui.labeled.fluid.icon.input
         .ui.basic.label
             if icon
                 i.grey.icon(class=icon)
@@ -301,6 +325,7 @@ template(name='number_edit')
                 |#{label}
             else
                 |#{key}
+        +clear_value                
         input.edit_number(type='number' value=field_value placeholder=placeholder)
             
             
@@ -319,7 +344,7 @@ template(name='number_view')
 
 
 template(name='date_edit')
-    .ui.labeled.fluid.input
+    .ui.labeled.fluid.icon.input
         .ui.basic.label 
             if title
                 |#{title}
@@ -329,6 +354,7 @@ template(name='date_edit')
                 |#{key}
             else
                 |#{this}
+        +clear_value                
         input.edit_date(type='date' value=field_value placeholder=placeholder)
 
 
@@ -356,6 +382,7 @@ template(name='time_edit')
                     |#{title}
                 else
                     |#{key}
+            +clear_value                
             input.edit_time(type='time' value=field_value placeholder=placeholder)
                 
                 
@@ -379,6 +406,7 @@ template(name='datetime_edit')
                     |#{title}
                 else
                     |#{key}
+            +clear_value                
             input.edit_datetime(type='datetime-local' value=field_value placeholder=placeholder)
 
 template(name='datetime_view')
@@ -394,7 +422,7 @@ template(name='datetime_view')
 
 
 template(name='array_edit')
-    .ui.labeled.fluid.input
+    .ui.labeled.fluid.icon.input
         .ui.basic.label
             if icon
                 i.grey.icon(class=icon)
@@ -404,6 +432,7 @@ template(name='array_edit')
                 |#{label}
             else if key
                 |#{key}
+        +clear_value                
         input.new_element(type='text' placeholder='+')
     div
     if field_value
@@ -510,7 +539,7 @@ template(name='child_view')
 
 
 template(name='youtube_edit')
-    .ui.labeled.fluid.input
+    .ui.labeled.fluid.icon.input
         .ui.basic.label 
             // if icon
             //     i.grey.icon(class=icon)

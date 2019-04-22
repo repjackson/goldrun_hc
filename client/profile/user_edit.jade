@@ -10,8 +10,8 @@ template(name='user_edit')
                     i.cog.icon
                     | #{user_from_username_param.first_name} #{user_from_username_param.last_name} Profile
                 .ui.center.aligned.small.header @#{user_from_username_param.username}
-        .centered.row
-            .six.wide.column
+        .three.column.row
+            .column
                 with user_from_username_param
                     +image_edit key='image_id' direct=true
                 +password_edit
@@ -22,8 +22,7 @@ template(name='user_edit')
                     .ui.orange.button.remove_user 
                         i.remove.icon
                         |Delete User
-
-            .ten.wide.column
+            .column
                 .ui.form
                     with user_from_username_param
                         +text_edit key='first_name' label='First Name' direct=true
@@ -42,24 +41,11 @@ template(name='user_edit')
                         +user_role_toggle role='resident'
                         +user_role_toggle role='owner'
                         +user_role_toggle role='guest'
-
-                    .field
-                        if user_from_username_param.banner_image_id
-                            label Banner Image
-                            .ui.centered.rounded.image
-                                img.ui.medium.image(src="{{c.url user_from_username_param.banner_image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                a#remove_banner.ui.right.corner.link.label
-                                    i.remove.link.icon
-                        else
-                            label Banner Image
-                            input(type='file' name='banner_image' accept='image/*')
-                //- .ui.fluid.button.update_profile Update
-            //- .eleven.wide.column
-            //-     +user_model_editor
-            //-     if is_admin
-            //-         +user_single_doc_ref_editor key='building' model='building' label='Building'
-            //-         +user_single_doc_ref_editor key='membership' model='goldrun_role' label='Gold Run Role'
-            //-     //- +stripe_connect
+                        +image_edit key='banner_image_id' label='Banner Image' direct=true
+            .column
+                with user_from_username_param
+                    +array_edit key='tags' label='Tags' direct=true
+                    +text_edit key='spirit_animal' label='Spirit Animal' direct=true
                 //- +payment_methods
 
 

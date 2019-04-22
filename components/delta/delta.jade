@@ -60,8 +60,8 @@ template(name='facet')
                 //-     input.add_filter(type='text')
                 each filtering_res
                     if name
-                        .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-                            | #{name}
+                        .selector.ui.circular.large.compact.button.toggle_selection(class=toggle_value_class title=count)
+                            strong #{name}
                             //- small #{cal_count} #{count}
                     else
                         .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
