@@ -1,14 +1,14 @@
 template(name='goldrun')
-    .ui.padded.grid
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=500 crop='crop'}}")
+    .ui.padded.grid.checkin_page
         .sixteen.wide.column
-            .ui.center.aligned.header 
-                |Gold Run Health Club
+            //- h1.ui.center.aligned.header 
+            //-     |Gold Run Health Club
             .ui.left.icon.huge.fluid.action.input
-                i.sign.in.green.icon
-                input.username_search(type='text' placeholder='Check In Resident')
+                //- i.sign.in.green.icon
+                input.username_search(type='text' placeholder='Check in Gold Run resident...')
                 if is_query
-                    .ui.icon.button.clear_results
-                        i.remove.icon
+                    i.remove.link.icon.clear_results
             .ui.stackable.padded.grid
                 .row
                     .sixteen.wide.column
@@ -20,18 +20,16 @@ template(name='goldrun')
                                 each checkedout_members
                                     .card
                                         .image
-                                            if profile.image_id
-                                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                            else if image_id
+                                            if image_id
                                                 img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                                         .content
                                             .header #{first_name} #{last_name}
                                             .meta @#{username}
                                             if is_dev
-                                                a.ui.icon.button(href="/user/#{username}/")
-                                                    //- |View
+                                                a.ui.basic.circular.button(href="/user/#{username}/")
+                                                    |View Profile
                                                     i.chevron.right.icon
-                                        +checkin_button
+                                            +checkin_button
                         else
                             if checking_in
                                 if is_query
@@ -71,7 +69,7 @@ template(name='goldrun')
                                         each events
                                             .event
                                                 .label
-                                                    img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                                    img.ui.image(src="{{c.url object.image_id width=400 height=400 gravity='face' crop='fill'}}")
                                                 .content
                                                     .summary
                                                         |#{body}
@@ -90,12 +88,9 @@ template(name='goldrun')
                             .ui.segment
                                 .ui.small.header
                                     +icolor name='front-desk' classes='ui inline image'
-                                    | staff on duty
-                                with currentUser
-                                    .ui.card
-                                        img.ui.image(src="{{c.url profile.image_id }}")
-                                        .content
-                                            .header #{username}
+                                    | Staff on Duty
+                                with currentUser.username
+                                    +big_user_card
                     .centered.row
                         .ui.basic.center.aligned.segment
                             if is_admin
@@ -172,12 +167,12 @@ template(name='sign_waiver')
 
 template(name='checkin_button')
     unless healthclub_checkedin
-        .ui.bottom.attached.button.checkin(title='Check In')
+        .ui.large.fluid.circular.basic.button.checkin(title='Check In')
             i.sign.in.large.icon
             //- +icolor name='internal' classes='ui image'
             |Check In
     if healthclub_checkedin
-        .ui.bottom.attached.button.checkout(title='Sign Out')
+        .ui.large.fluid.circular.basic.button.checkout(title='Sign Out')
             i.sign.out.large.icon
             //- +icolor name='exit-sign' classes='ui avatar image'
             |Check Out
@@ -193,7 +188,7 @@ template(name='checkin_button')
     //-             each log_events
     //-                 .event
     //-                     .label
-    //-                         img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+    //-                         img.ui.image(src="{{c.url object.image_id width=400 height=400 gravity='face' crop='fill'}}")
     //-                     .content
     //-                         .summary
     //-                             |#{body}

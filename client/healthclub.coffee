@@ -100,7 +100,12 @@ Template.goldrun.events
 
     'keyup .username_search': (e,t)->
         username_query = $('.username_search').val()
-        Session.set 'username_query',username_query
+        if e.which is 8
+            if username_query.length is 0
+                Session.set 'username_query',null
+                Session.set 'checking_in',false
+        else
+            Session.set 'username_query',username_query
 
     'click .clear_results': ->
         Session.set 'username_query',null

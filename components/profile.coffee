@@ -47,7 +47,7 @@ if Meteor.isClient
     Template.user_array_element_toggle.helpers
         user_array_element_toggle_class: ->
             # user = Meteor.users.findOne Router.current().params.username
-            if @user["#{@key}"] and @value in @user["#{@key}"] then 'grey' else ''
+            if @user["#{@key}"] and @value in @user["#{@key}"] then 'blue' else 'basic'
 
 
     Template.user_array_element_toggle.events

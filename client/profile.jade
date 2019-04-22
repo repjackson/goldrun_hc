@@ -1,22 +1,18 @@
 template(name='profile')
-    // style.
-    //   .block_style {
-    //       background-image:url('/tw_bg.png') !important;
-    //       background-repeat: no-repeat;
-    //       background-position: right top;
-    //   }
-    
     with user_from_username_param  
-        img.ui.fluid.rounded.image.banner_image(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")
+        img.ui.fluid.image.banner_image(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")
         .ui.padded.stackable.grid.profile_grid
             .row
                 .four.wide.column.scrolling
                     if image_id
-                        a.item(href="/user/#{user_from_username_param.username}/")
-                            img.ui.circular.centered.image(src="{{c.url image_id height=300 gravity='face' crop='fill'}}")
+                        img.ui.circular.centered.image(src="{{c.url image_id height=300 gravity='face' crop='fill'}}")
+                        //- a.item(href="/user/#{user_from_username_param.username}/")
                     .ui.large.center.aligned.header
                         | #{user.first_name}
                         | #{user.last_name}
+                        if current_user
+                            a(href="/user/#{user_from_username_param.username}/edit")
+                                i.cog.link.icon
                     .ui.center.aligned.header
                         | @#{user.username}        
                     +gr_status                
@@ -75,6 +71,7 @@ template(name='profile')
                             | Guests
                     if current_user
                         +role_switcher
+                    .ui.divider
                     +user_tags
                     +user_checkins
                     //- +user_chat
@@ -197,16 +194,18 @@ template(name='role_switcher')
         .active.content
             if is_eric
                 +user_array_element_toggle key='roles' value='dev' user=currentUser
-            +user_array_element_toggle key='roles' value='admin' user=currentUser
-            +user_array_element_toggle key='roles' value='user' user=currentUser
-            +user_array_element_toggle key='roles' value='staff' user=currentUser
-            +user_array_element_toggle key='roles' value='resident' user=currentUser
-            +user_array_element_toggle key='roles' value='owner' user=currentUser
+            with currentUser
+                +multi_doc_edit key='roles' label='Roles' ref_model='role'
+            //- +user_array_element_toggle key='roles' value='admin' user=currentUser
+            //- +user_array_element_toggle key='roles' value='user' user=currentUser
+            //- +user_array_element_toggle key='roles' value='staff' user=currentUser
+            //- +user_array_element_toggle key='roles' value='resident' user=currentUser
+            //- +user_array_element_toggle key='roles' value='owner' user=currentUser
 
 
             
 template(name='user_array_element_toggle')
-    .ui.button.toggle_element(class=user_array_element_toggle_class)
+    .ui.circular.button.toggle_element(class=user_array_element_toggle_class)
         |#{value}
 
 template(name='user_string_toggle')

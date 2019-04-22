@@ -1,30 +1,30 @@
 template(name='user_edit')
-    .ui.stackable.padded.grid.pad_left
-        .middle.aligned.row
-            .four.wide.center.aligned.column
-                a.ui.large.circular.green.icon.button(href="/user/#{user_from_username_param.username}/" title='Save') 
-                    i.checkmark.large.icon
-                    //- |Save
-            .eight.wide.center.aligned.column
-                .ui.center.aligned.large.header
-                    i.cog.icon
-                    | #{user_from_username_param.first_name} #{user_from_username_param.last_name} Profile
-                .ui.center.aligned.small.header @#{user_from_username_param.username}
-        .three.column.row
-            .column
-                with user_from_username_param
+    with user_from_username_param          
+        img.ui.fluid.image.banner_image(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
+        .ui.stackable.padded.grid.profile_grid
+            .middle.aligned.row
+                .four.wide.center.aligned.column
+                    a.ui.large.circular.green.icon.button(href="/user/#{user_from_username_param.username}/" title='Save') 
+                        i.checkmark.large.icon
+                        //- |Save
+                .eight.wide.center.aligned.column
+                    .ui.center.aligned.large.inline.header
+                        i.cog.icon
+                        | #{user_from_username_param.first_name} #{user_from_username_param.last_name} Profile
+                    .ui.center.aligned.small.inline.header @#{user_from_username_param.username}
+            .three.column.row
+                .column
                     +image_edit key='image_id' direct=true
-                +password_edit
-                +phone_editor
-                +username_edit
-                +emails_edit
-                with user_from_username_param
-                    .ui.orange.button.remove_user 
-                        i.remove.icon
-                        |Delete User
-            .column
-                .ui.form
+                    +password_edit
+                    +phone_editor
+                    +username_edit
+                    +emails_edit
                     with user_from_username_param
+                        .ui.orange.button.remove_user 
+                            i.remove.icon
+                            |Delete User
+                .column
+                    .ui.form
                         +text_edit key='first_name' label='First Name' direct=true
                         +text_edit key='last_name' label='Last Name' direct=true
                         +text_edit key='address' label='Address' direct=true
@@ -42,11 +42,10 @@ template(name='user_edit')
                         +user_role_toggle role='owner'
                         +user_role_toggle role='guest'
                         +image_edit key='banner_image_id' label='Banner Image' direct=true
-            .column
-                with user_from_username_param
+                .column
                     +array_edit key='tags' label='Tags' direct=true
                     +text_edit key='spirit_animal' label='Spirit Animal' direct=true
-                //- +payment_methods
+                    //- +payment_methods
 
 
 template(name='user_model_editor')

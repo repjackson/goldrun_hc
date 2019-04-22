@@ -26,8 +26,8 @@ template(name='nav')
                     //-     .menu
                     //-         each notifications
                     //-             .item #{text}
-                    //- a.icon.item(href="/user/#{currentUser.username}/messages" class="{{isActivePath '/messages'}}")
-                    //-     i.large.mail.icon
+                    a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
+                        i.large.mail.icon
                     a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
                         i.large.chat.icon
                     if is_admin

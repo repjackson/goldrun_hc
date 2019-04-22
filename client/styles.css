@@ -11,10 +11,23 @@ body {
 .profile_grid {
     position: absolute !important;
     top:50px;
+    width:100%;
 }
+.checkin_page {
+    position: absolute !important;
+    top:50px;
+    width:100%;
+}
+.checkin_banner {
+    opacity: 0.5;
+    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
 .grblue {
     background-color: #0e0e44 !important;
 }
+
 
 .banner_image {
     opacity: 0.8;
@@ -290,6 +303,9 @@ a {
 	/*max-height:1000px;*/
 	/*max-height:85vh;*/
 	/*padding: 1em;*/
+    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0.9)));
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+
 }
 .topnav::-webkit-scrollbar {
     display: none;
