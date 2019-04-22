@@ -737,33 +737,14 @@ Template.single_user_edit.events
             # Meteor.call 'unassign_user', page_doc._id, @
 
 
-
-Template.doc_edit.onCreated ->
+Template.document_view.onCreated ->
     @autorun => Meteor.subscribe 'document_by_slug', @data.key
-
-
-Template.doc_edit.onRendered ->
+Template.document_view.onRendered ->
     Meteor.setTimeout ->
         $('.accordion').accordion()
     , 1000
 
-Template.doc_edit.helpers
-    referenced_document: ->
-        Docs.findOne
-            model:'document'
-            slug:@key
-
-
-
-
-Template.doc_view.onCreated ->
-    @autorun => Meteor.subscribe 'document_by_slug', @data.key
-Template.doc_view.onRendered ->
-    Meteor.setTimeout ->
-        $('.accordion').accordion()
-    , 1000
-
-Template.doc_view.helpers
+Template.document_view.helpers
     referenced_document: ->
         Docs.findOne
             model:'document'

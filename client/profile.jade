@@ -64,14 +64,14 @@ template(name='profile')
                     +user_notifications
                 .six.wide.column
                     +user_messages
+                    +user_connections
                     +user_rules_widget
-                    .ui.segment
-                        .ui.header
+                    .ui.cloud.segment
+                        .ui.grey.header
                             i.user.icon
                             | Guests
                     if current_user
                         +role_switcher
-                    .ui.divider
                     +user_tags
                     +user_checkins
                     //- +user_chat
@@ -112,9 +112,9 @@ template(name='user_section')
 template(name='user_about')
     
 template(name='violations')
-    .ui.fluid.styled.accordion
+    .ui.fluid.styled.accordion.profile_block
         .active.title
-            .ui.grey.inline.header 
+            .ui.grey.inline.center.aligned.header 
                 i.exclamation.triangle.icon
                 |Violations
         .active.content
@@ -125,7 +125,10 @@ template(name='violations')
 
 
 template(name='user_rules_widget')
-    .ui.header User Rules Signature
+    .ui.cloud.segment
+        .ui.grey.header
+            i.edit.icon
+            | User Rules Signature
     
 
 template(name='user_people')
@@ -133,7 +136,7 @@ template(name='user_people')
     +follow_user
 
 template(name='user_feed')
-    .ui.secondary.segment
+    .ui.cloud.segment
         .ui.header 
             i.rss.icon
             |Activity Feed
@@ -151,7 +154,7 @@ template(name='user_bookmarks')
             
                 
 template(name='user_unread')
-    .ui.secondary.segment
+    .ui.cloud.segment
         .ui.header 
             i.new.icon
             |Unread Messages
@@ -159,27 +162,27 @@ template(name='user_unread')
                 
 
 template(name='user_tasks')
-    .ui.fluid.styled.accordion
+    .ui.fluid.styled.accordion.profile_block
         .active.title
-            .ui.grey.inline.header 
+            .ui.grey.inline.center.aligned.header 
                 i.tasks.icon
                 |Tasks
         .active.content
             .ui.fluid.input
                 input.assign_task(type='text' placeholder='Assign task')
-            .ui.button.view_complete(class=view_complete_class)
-                |View Completed
+            //- .ui.button.view_complete(class=view_complete_class)
+            //-     |View Completed
             // .ui.button.view_incomplete(class=view_complete_class)
             //     |View Incomplete
             each assigned_tasks
-                .ui.segment
+                .ui.smoothed.segment
                     .ui.header #{body}
-                    +boolean_edit key='complete' label='Complete'
-                    if complete
-                        i.big.green.checkmark.icon
+                    +boolean_edit key='complete' label='Complete' direct=true true_icon='checkmark' false_icon='remove'
                     +voting
                     +author_info
                     +creation_info
+                    if is_author
+                        +remove_button
                         
             
             
@@ -192,9 +195,9 @@ template(name='user_array_list')
             
             
 template(name='role_switcher')
-    .ui.fluid.styled.accordion
+    .ui.fluid.styled.accordion.profile_block
         .active.title
-            .ui.grey.inline.header 
+            .ui.grey.inline.center.aligned.header 
                 i.user.shield.icon(title='Role Switcher')
                 |Roles
         .active.content
@@ -219,9 +222,9 @@ template(name='user_string_toggle')
         |#{value}
         
 template(name='user_tags')
-    .ui.fluid.styled.accordion
+    .ui.fluid.styled.accordion.profile_block
         .active.title
-            .ui.grey.inline.header 
+            .ui.grey.inline.center.aligned.header 
                 i.tags.icon
                 |Tags
         .active.content
@@ -237,9 +240,9 @@ template(name='user_tags')
             
             
 template(name='user_notifications')
-    .ui.fluid.styled.accordion
+    .ui.fluid.styled.accordion.profile_block
         .active.title
-            .ui.grey.inline.header 
+            .ui.grey.inline.center.aligned.header 
                 i.bullhorn.icon
                 |Notifications
         .active.content
@@ -247,7 +250,7 @@ template(name='user_notifications')
             +follow_user
     
 template(name='user_following')    
-    .ui.secondary.segment
+    .ui.cloud.segment
         .ui.header 
             i.human.icon
             |Following
@@ -255,7 +258,7 @@ template(name='user_following')
           
 
 template(name='follow_user')    
-    .ui.secondary.segment
+    .ui.cloud.segment
         unless current_user
             a.toggle_follow_user(href='#' title='Follow User')
                 i.renew.icon
@@ -266,9 +269,9 @@ template(name='follow_user')
                 
 
 template(name='user_wall')
-    .ui.fluid.styled.accordion
+    .ui.fluid.styled.accordion.profile_block
         .active.title
-            .ui.grey.inline.header 
+            .ui.grey.inline.center.aligned.header 
                 i.edit.icon
                 |Wall
         .active.content

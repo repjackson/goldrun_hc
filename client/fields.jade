@@ -142,7 +142,7 @@ template(name='image_edit')
 
 template(name='image_link_edit')
     .ui.labeled.icon.fluid.input
-        .ui.basic.label image link
+        .ui.basic.smoothed.label image link
         i.image.icon
         input.edit_image_link(type='link' value=field_value placeholder='image link' )
     if field_value
@@ -216,7 +216,7 @@ template(name='html_view')
         +watson_view
 
 
-template(name='doc_edit')
+template(name='document_edit')
     // .ui.labeled.fluid.icon.input
     //     .ui.label 
     //         // if icon
@@ -235,7 +235,7 @@ template(name='doc_edit')
                 |!{html}
                 
                 
-template(name='doc_view')
+template(name='document_view')
     .ui.styled.fluid.accordion
         .title 
             .ui.header #{title}
@@ -245,7 +245,7 @@ template(name='doc_view')
         
 template(name='text_edit')
     .ui.labeled.fluid.icon.input
-        .ui.basic.label
+        .ui.basic.smoothed.label
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -284,7 +284,7 @@ template(name='phone_edit')
     .ui.labeled.fluid.icon.input
         // if icon
         //     i.grey.icon(class=icon)
-        .ui.basic.label 
+        .ui.basic.smoothed.label 
             if title
                 |#{title}
             else if label
@@ -316,7 +316,7 @@ template(name='phone_view')
 
 template(name='number_edit')
     .ui.labeled.fluid.icon.input
-        .ui.basic.label
+        .ui.basic.smoothed.label
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -345,7 +345,7 @@ template(name='number_view')
 
 template(name='date_edit')
     .ui.labeled.fluid.icon.input
-        .ui.basic.label 
+        .ui.basic.smoothed.label 
             if title
                 |#{title}
             else if label
@@ -423,7 +423,7 @@ template(name='datetime_view')
 
 template(name='array_edit')
     .ui.labeled.fluid.icon.input
-        .ui.basic.label
+        .ui.basic.smoothed.label
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -540,7 +540,7 @@ template(name='child_view')
 
 template(name='youtube_edit')
     .ui.labeled.fluid.icon.input
-        .ui.basic.label 
+        .ui.basic.smoothed.label 
             // if icon
             //     i.grey.icon(class=icon)
             |Youtube Id
@@ -567,11 +567,18 @@ template(name='boolean_edit')
         if icon
             i.grey.icon(class=icon)
         | #{title}
-    .ui.button.toggle_boolean(class=boolean_toggle_class)
+    //- .ui.button.toggle_boolean(class=boolean_toggle_class)
+    .ui.basic.circular.icon.button.toggle_boolean
         if field_value
-            |Yes
+            if true_icon
+                i.large.green.icon(class=true_icon)
+            else
+                |Yes
         else
-            |No
+            if false_icon
+                i.large.red.icon(class=false_icon)
+            else
+                |No
 
 
 template(name='boolean_view')
@@ -580,7 +587,7 @@ template(name='boolean_view')
     if field_value
         .ui.green.label Yes
     else
-        .ui.basic.label No
+        .ui.basic.smoothed.label No
 
 template(name='single_doc_view')
     if icon
@@ -646,7 +653,7 @@ template(name='multi_doc_view')
     .ui.header(title=key)
         |#{title}
     each field_value
-        .ui.basic.label
+        .ui.basic.smoothed.label
             |#{this}
     div
 

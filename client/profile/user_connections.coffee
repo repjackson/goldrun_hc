@@ -5,11 +5,12 @@ Template.user_connections.onCreated ->
 
 Template.user_connections.helpers
     connections: ->
+        current_user = Meteor.users.findOne username:Router.current().params.username
         Meteor.users.find
-            _id:$in:Meteor.user().connected_ids
+            _id:$in: current_user.connected_ids
 
     nonconnections: ->
-        Meteor.users.find 
+        Meteor.users.find
             _id:$nin:Meteor.user().connected_ids
 
 

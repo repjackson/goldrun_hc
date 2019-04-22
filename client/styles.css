@@ -35,6 +35,13 @@ input{
     border-radius: 50px !important;
 }
 
+.profile_block {
+    margin-bottom: 20px !important;
+    -webkit-border-radius: 20px !important;
+    -moz-border-radius: 20px !important;
+    border-radius: 20px !important;
+}
+
 .smoothed{
     -webkit-border-radius: 10px !important;
     -moz-border-radius: 10px !important;

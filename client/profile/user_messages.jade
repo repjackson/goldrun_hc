@@ -1,11 +1,10 @@
 
 template(name='user_messages')
-    .ui.styled.fluid.accordion
+    .ui.styled.fluid.profile_block.accordion
         .active.title
             .ui.inline.header 
                 i.mail.small.icon
                 |User Messages
-                i.dropdown.icon
         .active.content
             if currentUser
                 .ui.fluid.icon.input
