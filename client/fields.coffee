@@ -899,6 +899,10 @@ Template.multi_user_edit.events
             parent = Template.parentData(5)
             Meteor.call 'generate_rules_pdf', parent._id
 
+        'click .print_guest': ->
+            # parent = Template.parentData(5)
+            Meteor.call 'guest_pdf'
+
 
     Template.signature_edit.onRendered ->
         canvas = document.querySelector('canvas')

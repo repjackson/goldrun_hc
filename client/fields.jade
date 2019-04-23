@@ -574,13 +574,25 @@ template(name='signature_view')
     .ui.icon.button.print_rules
         i.download.icon
         |Download PDF
+    .ui.icon.button.print_guest
+        i.download.icon
+        |Download Guest PDF
+
+
 
 template(name='boolean_edit')
     //- div
     .ui.small.grey.header
         if icon
             i.grey.icon(class=icon)
-        | #{title}
+        if title
+            |#{title}
+        else if label
+            |#{label}
+        else if key
+            |#{key}
+        else
+            |#{this}
     //- .ui.basic.circular.icon.button.toggle_boolean
     .ui.circular.button.toggle_boolean(class=boolean_toggle_class)
         if field_value
@@ -627,6 +639,7 @@ template(name='single_doc_edit')
 
 
 template(name='multi_doc_edit')
+    div
     if icon
         i.grey.icon(class=icon)
     .ui.small.header(title=key)
