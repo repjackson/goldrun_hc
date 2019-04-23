@@ -37,11 +37,15 @@ input{
 
 .profile_block {
     margin-bottom: 20px !important;
-    -webkit-border-radius: 20px !important;
-    -moz-border-radius: 20px !important;
-    border-radius: 20px !important;
+    -webkit-border-radius: 15px !important;
+    -moz-border-radius: 15px !important;
+    border-radius: 15px !important;
+    box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1) !important;
+    opacity: .9;
 }
-
+.shadowed{
+    box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.2) !important;
+}
 .smoothed{
     -webkit-border-radius: 10px !important;
     -moz-border-radius: 10px !important;
@@ -60,6 +64,8 @@ input{
     /* opacity: 0.9; */
     -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+    background-repeat: no-repeat;
+    background-attachment: fixed
 }
 
 
@@ -330,7 +336,7 @@ a {
 	/*max-height:1000px;*/
 	/*max-height:85vh;*/
 	/*padding: 1em;*/
-    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0.9)));
+    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.9)), to(rgba(0,0,0,1)));
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 
 }

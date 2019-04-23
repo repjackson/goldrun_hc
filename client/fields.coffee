@@ -468,7 +468,7 @@ Template.children_view.onRendered ->
 Template.children_view.helpers
     children: ->
         field = @
-        console.log @
+        # console.log @
         # if Template.parentData(5)
         # else
         #     parent = Template.parentData(5)
@@ -480,7 +480,13 @@ Template.children_view.helpers
 
 
 Template.children_edit.onCreated ->
-    console.log @data
+    # console.log @data
+    @autorun => Meteor.subscribe 'children', @data.ref_model, Template.parentData(5)._id
+    # @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
+    @autorun => Meteor.subscribe 'model_from_slug', @data.ref_model
+    @autorun => Meteor.subscribe 'model_fields', @data.ref_model
+Template.children_view.onCreated ->
+    # console.log @data
     @autorun => Meteor.subscribe 'children', @data.ref_model, Template.parentData(5)._id
     # @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
     @autorun => Meteor.subscribe 'model_from_slug', @data.ref_model
@@ -492,7 +498,17 @@ Template.children_edit.onRendered ->
     , 1000
 Template.child_edit.helpers
     child_fields: ->
-        console.log @
+        # console.log @
+        model = Docs.findOne
+            model:'model'
+            slug:@model
+        Docs.find
+            model:'field'
+            parent_id:model._id
+
+Template.child_view.helpers
+    child_fields: ->
+        # console.log @
         model = Docs.findOne
             model:'model'
             slug:@model
@@ -561,10 +577,9 @@ Template.single_doc_edit.helpers
     choices: ->
         # console.log @ref_model
         if @ref_model
-            Docs.find
+            Docs.find {
                 model:@ref_model
-                # tribe:Router.current().params.tribe_slug
-
+            }, sort:slug:1
     calculated_label: ->
         # console.log @
         ref_doc = Template.currentData()
@@ -585,6 +600,7 @@ Template.single_doc_edit.helpers
         if target["#{ref_field.key}"]
             # console.log target["#{ref_field.key}"]
             if @slug is target["#{ref_field.key}"] then 'blue' else 'basic'
+        else 'basic'
 
 
 Template.single_doc_edit.events
@@ -688,10 +704,10 @@ Template.multi_doc_edit.events
         ref_field = Template.currentData()
         parent = Template.parentData(1)
 
-        console.log parent
-        console.log ref_field
-        console.log @
-        console.log parent["#{@key}"]
+        # console.log parent
+        # console.log ref_field
+        # console.log @
+        # console.log parent["#{@key}"]
 
         if parent["#{ref_field.key}"] and @slug in parent["#{ref_field.key}"]
             doc = Docs.findOne parent._id

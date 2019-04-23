@@ -9,6 +9,7 @@ if Meteor.isClient
     Template.comments.helpers
         doc_comments: ->
             Docs.find
+                parent_id:Router.current().params.doc_id
                 model:'comment'
 
     Template.comments.events

@@ -64,29 +64,29 @@ Meteor.methods
                 }).fetch()
         found_users
 
-    lookup_username: (username_query)->
-        found_users =
-            Docs.find({
-                model:'person'
-                username: {$regex:"#{username_query}", $options: 'i'}
-                }).fetch()
-        found_users
+    # lookup_username: (username_query)->
+    #     found_users =
+    #         Docs.find({
+    #             model:'person'
+    #             username: {$regex:"#{username_query}", $options: 'i'}
+    #             }).fetch()
+    #     found_users
 
-    lookup_first_name: (first_name)->
-        found_people =
-            Docs.find({
-                model:'person'
-                first_name: {$regex:"#{first_name}", $options: 'i'}
-                }).fetch()
-        found_people
-
-    lookup_last_name: (last_name)->
-        found_people =
-            Docs.find({
-                model:'person'
-                last_name: {$regex:"#{last_name}", $options: 'i'}
-                }).fetch()
-        found_people
+    # lookup_first_name: (first_name)->
+    #     found_people =
+    #         Docs.find({
+    #             model:'person'
+    #             first_name: {$regex:"#{first_name}", $options: 'i'}
+    #             }).fetch()
+    #     found_people
+    #
+    # lookup_last_name: (last_name)->
+    #     found_people =
+    #         Docs.find({
+    #             model:'person'
+    #             last_name: {$regex:"#{last_name}", $options: 'i'}
+    #             }).fetch()
+    #     found_people
 
 
     set_password: (user_id, new_password)->

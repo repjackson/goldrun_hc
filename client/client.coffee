@@ -98,8 +98,8 @@ Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 Template.registerHelper 'current_doc', ->
     doc = Docs.findOne Router.current().params.doc_id
     user = Meteor.users.findOne Router.current().params.doc_id
-    console.log doc
-    console.log user
+    # console.log doc
+    # console.log user
     if doc then doc else if user then user
 
 

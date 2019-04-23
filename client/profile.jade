@@ -5,7 +5,7 @@ template(name='profile')
             .row
                 .four.wide.column.scrolling
                     if image_id
-                        img.ui.circular.centered.image(src="{{c.url image_id height=300 gravity='face' crop='fill'}}")
+                        img.ui.circular.centered.shadowed.image(src="{{c.url image_id height=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     .ui.large.center.aligned.header
                         | #{user.first_name}
@@ -28,17 +28,17 @@ template(name='profile')
                         +date_view key='expiration_date' label='Expiration Date' direct=true
                         +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
                         each emails
-                            .ui.label #{address}
+                            .ui.circular.basic.label #{address}
                     if is_admin
                         a.ui.circular.fluid.large.basic.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | Settings
                     else if current_user
-                        a.ui.circular.fluid.large.basic.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.large.grey.basic.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | Settings
                     if current_user
-                        .ui.circular.fluid.large.basic.button.logout
+                        .ui.circular.fluid.large.grey.basic.button.logout
                             i.sign.out.icon
                             |Log Out
                     .ui.smoothed.segment
@@ -53,10 +53,11 @@ template(name='profile')
             
                 .six.wide.column
                     +violations
-                    //- +user_bookmarks    
+                    +user_bookmarks    
                     //- +user_feed
                     +user_tasks
                     +user_notifications
+                    +user_karma
                 .six.wide.column
                     +user_messages
                     +user_connections
@@ -94,9 +95,13 @@ template(name='gr_status')
                 .ui.circular.basic.label #{this}
             
 template(name='user_checkins')
-    .ui.header 
-        i.barbell.icon
-        | Checkins
+    .ui.fluid.styled.accordion.profile_block
+        .active.title
+            .ui.grey.inline.center.aligned.header 
+                i.tasks.icon
+                |Check In's
+        .active.content
+            .ui.fluid.input
             
             
             
@@ -142,9 +147,21 @@ template(name='user_feed')
                 
                 
 template(name='user_bookmarks')
-    .ui.header 
-        i.bookmark.icon
-        |Bookmarks
+    .ui.fluid.styled.accordion.profile_block
+        .active.title
+            .ui.grey.inline.center.aligned.header 
+                i.bookmark.icon
+                |Bookmarks
+        .active.content
+            
+            
+template(name='user_karma')
+    .ui.fluid.styled.accordion.profile_block
+        .active.title
+            .ui.grey.inline.center.aligned.header 
+                i.heartbeat.icon
+                | Karma
+        .active.content
             
             
                 

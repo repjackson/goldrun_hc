@@ -473,7 +473,7 @@ template(name='child_edit')
             each child_fields
                 |#{key}
                 +Template.dynamic template=edit_template 
-                +remove_button
+            +remove_button
         //-     +text_edit key='key'
         //-     +text_edit key='field'
         //-     +single_doc_edit key='field' ref_model='field_type' ref_key='slug' label='Field Type'
@@ -493,7 +493,7 @@ template(name='child_edit')
 
 template(name='children_view')
     .ui.accordion
-        .title
+        .active.title
             if title
                 |#{title}
             else if label
@@ -503,19 +503,22 @@ template(name='children_view')
             else
                 |#{this}
             i.dropdown.icon
-        .content
+        .active.content
             each children
                 .ui.fluid.secondary.segment
                     +child_view
 
 
 template(name='child_view')
-    each fields
-        .ui.header hi
+    each child_fields
+        //- |#{rank} #{title} #{title}
+        //- |#{key}
+        +Template.dynamic template=view_template 
+    +remove_button
+    +view_button
         // if field_template
         //     .ui.header field template #{field_template}
         // else 
-        +Template.dynamic template=view_template 
 
         // .ui.red.segment
         //     +text_edit key='key'

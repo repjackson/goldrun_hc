@@ -21,8 +21,8 @@ template(name='user_table')
                     td 
                         img.ui.small.circular.image(src="{{c.url image_id width=1000 height=1000 gravity='face' crop='crop'}}")
                     td 
-                        .ui.header 
-                            |#{name}
+                        a.ui.header(href="/user/#{username}")
+                            |#{first_name} #{last_name}
                         .ui.small.header @#{username}
                         each emails
                             |#{address}
