@@ -174,7 +174,7 @@ if Meteor.isServer
             # parent_username:username
 
     Meteor.publish 'violations', (username)->
-        console.log 'violation', username
+        # console.log 'violation', username
         Docs.find
             model:'violation'
             # parent_username:username

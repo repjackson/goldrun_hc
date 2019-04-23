@@ -893,6 +893,13 @@ Template.multi_user_edit.events
             # Meteor.call 'unassign_user', page_doc._id, @
 
 
+
+    Template.signature_view.events
+        'click .print_rules': ->
+            parent = Template.parentData(5)
+            Meteor.call 'generate_rules_pdf', parent._id
+
+
     Template.signature_edit.onRendered ->
         canvas = document.querySelector('canvas')
         @signaturePad = new SignaturePad(canvas,{
