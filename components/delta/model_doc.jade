@@ -11,7 +11,7 @@ template(name='model_doc_edit')
                     #delete_doc.ui.red.icon.circular.button
                         i.trash.icon
                             
-                .twelve.wide.column
+                .twelve.wide.column.scrolling
                     //- |#{model}
                     each fields
                         +Template.dynamic template=edit_template 
@@ -55,7 +55,7 @@ template(name='model_doc_view')
                     +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     div
                     +creation_info
-                .twelve.wide.column
+                .twelve.wide.column.scrolling
                     .ui.header
                         each fields
                             if header

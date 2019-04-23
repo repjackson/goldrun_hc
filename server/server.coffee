@@ -17,6 +17,11 @@ Meteor.publish 'model_docs', (model)->
     Docs.find
         model: model
 
+Meteor.publish 'document_by_slug', (slug)->
+    Docs.find
+        model: 'document'
+        slug:slug
+
 Meteor.publish 'child_docs', (id)->
     Docs.find
         parent_id:id

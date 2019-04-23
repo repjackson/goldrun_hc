@@ -1,7 +1,7 @@
 template(name='comments')
     .ui.grey.header
         i.chat.icon
-        |comments
+        |Comments
     if currentUser
         .ui.fluid.icon.input
             i.plus.icon
@@ -17,10 +17,6 @@ template(name='comments')
                         i.remove.link.remove_comment.icon
 
 
-template(name='signature')
-    .ui.segment
-        canvas(id="signature-pad" class="signature-pad" width='800' height='200')
-        .ui.button.clear Clear
 
 
 

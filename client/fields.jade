@@ -225,21 +225,20 @@ template(name='document_edit')
     //             |#{key}
     //     input.edit_text(type='text' value=field_value placeholder=placeholder)
     with referenced_document
-        .ui.styled.fluid.accordion
-            .title 
-                .ui.header #{title}
-                    i.dropdown.icon
-            .content 
-                |!{html}
-                
+        .ui.header 
+            |#{title}
+        .content 
+            |!{content}
+            
                 
 template(name='document_view')
     .ui.styled.fluid.accordion
         .title 
-            .ui.header #{title}
+            .ui.header 
+                |#{title}
                 i.dropdown.icon
         .content 
-            |!{referenced_document.html}
+            |!{referenced_document.content}
         
 template(name='text_edit')
     .ui.fluid.icon.input
@@ -558,7 +557,22 @@ template(name='youtube_view')
 
 
 template(name='signature_edit')
-    +signature
+    .ui.segment
+        canvas(id="signature-pad" class="signature-pad" width='800' height='200')
+        .ui.large.basic.button.save(title='Save')
+            i.checkmark.icon
+            |Save
+        .ui.large.icon.basic.button.clear(title='Clear')
+            i.remove.icon
+
+template(name='signature_view')
+    .ui.small.grey.header
+        if icon
+            i.grey.icon(class=icon)
+        | #{title}    
+    img.ui.large.centered.rounded.image(src=field_value)
+
+
 
 template(name='boolean_edit')
     //- div
@@ -567,7 +581,7 @@ template(name='boolean_edit')
             i.grey.icon(class=icon)
         | #{title}
     //- .ui.basic.circular.icon.button.toggle_boolean
-    .ui.button.toggle_boolean(class=boolean_toggle_class)
+    .ui.circular.button.toggle_boolean(class=boolean_toggle_class)
         if field_value
             if true_icon
                 i.large.green.icon(class=true_icon)
@@ -679,8 +693,8 @@ template(name='single_user_edit')
                                     |#{username}
         if field_value
             +big_user_card field_value
-            .pull_user.ui.icon.button(title='Remove User')
-                i.remove.icon
+            .pull_user.ui.icon.circular.basic.button(title='Remove User')
+                i.remove.red.icon
 
             //- |#{this}
             //- .item

@@ -327,7 +327,7 @@ Template.boolean_edit.helpers
             parent = Template.parentData(5)
         # console.log parent
         # console.log @
-        if parent["#{@key}"] then 'teal' else ''
+        if parent["#{@key}"] then 'blue' else 'basic'
 
 
 Template.boolean_edit.events
@@ -743,8 +743,20 @@ Template.document_view.onRendered ->
     Meteor.setTimeout ->
         $('.accordion').accordion()
     , 1000
-
 Template.document_view.helpers
+    referenced_document: ->
+        Docs.findOne
+            model:'document'
+            slug:@key
+
+
+Template.document_edit.onCreated ->
+    @autorun => Meteor.subscribe 'document_by_slug', @data.key
+Template.document_edit.onRendered ->
+    Meteor.setTimeout ->
+        $('.accordion').accordion()
+    , 1000
+Template.document_edit.helpers
     referenced_document: ->
         Docs.findOne
             model:'document'
@@ -848,9 +860,7 @@ Template.multi_user_edit.events
 
     'click .select_user': (e,t) ->
         page_doc = Docs.findOne Router.current().params.id
-
         # console.log @
-
         val = t.$('.edit_text').val()
         parent = Template.parentData(5)
 
@@ -863,13 +873,10 @@ Template.multi_user_edit.events
             Meteor.users.update parent._id,
                 $addToSet:"#{@key}":@username
 
-
         t.user_results.set null
         $('#multi_user_select_input').val ''
         # Docs.update page_doc._id,
         #     $set: assignment_timestamp:Date.now()
-
-
 
     'click .pull_user': ->
         if confirm "Remove #{@username}?"
@@ -883,6 +890,53 @@ Template.multi_user_edit.events
             else if user
                 Meteor.users.update parent._id,
                     $pull:"#{@key}":@_id
-
-
             # Meteor.call 'unassign_user', page_doc._id, @
+
+
+    Template.signature_edit.onRendered ->
+        canvas = document.querySelector('canvas')
+        @signaturePad = new SignaturePad(canvas,{
+            backgroundColor:"rgb(255,255,255)"
+            })
+        # Returns signature image as data URL (see https://mdn.io/todataurl for the list of possible parameters)
+    Template.signature_edit.events
+        # 'click .save': ->
+        #     image_data = Template.instance().signaturePad.toDataURL()
+        #     # save image as PNG
+        #     console.log image_data
+        'click .save': ->
+            jpeg = Template.instance().signaturePad.toDataURL 'image/jpeg'
+            console.log jpeg
+            page_doc = Docs.findOne Router.current().params.id
+            parent = Template.parentData(5)
+            doc = Docs.findOne parent._id
+            user = Meteor.users.findOne parent._id
+            if doc
+                Docs.update parent._id,
+                    $set:"#{@key}":jpeg
+            else if user
+                Meteor.users.update parent._id,
+                    $set:"#{@key}":jpeg
+
+            # save image as JPEG
+        'click .thing': ->
+            Template.instance().signaturePad.toDataURL 'image/svg+xml'
+            # save image as SVG
+            # Draws signature image from data URL.
+            # NOTE: This method does not populate internal data structure that represents drawn signature. Thus, after using #fromDataURL, #toData won't work properly.
+            Template.instance().signaturePad.fromDataURL 'data:image/png;base64,iVBORw0K...'
+            # Returns signature image as an array of point groups
+            data = Template.instance().signaturePad.toData()
+            # Draws signature image from an array of point groups
+            signaturePad.fromData data
+        'click .clear': (e,t)->
+            # Clears the canvas
+            console.log t
+            Template.instance().signaturePad.clear()
+            # Returns true if canvas is empty, otherwise returns false
+
+            # signaturePad.isEmpty()
+            # # Unbinds all event handlers
+            # signaturePad.off()
+            # # Rebinds all event handlers
+            # signaturePad.on()
