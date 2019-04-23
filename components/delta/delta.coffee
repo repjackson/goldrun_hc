@@ -1,12 +1,7 @@
 if Meteor.isClient
     Template.delta.onCreated ->
-        # @autorun -> Meteor.subscribe 'model', Router.current().params.model_slug
-        # @autorun -> Meteor.subscribe 'model', 'model'
-        # @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.model_slug
-        # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
-        @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
-        # @autorun -> Meteor.subscribe 'deltas', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'my_delta'
 
     Template.delta.helpers
@@ -202,39 +197,6 @@ if Meteor.isServer
         match.slug = model_slug
 
         Docs.find match
-
-    Meteor.publish 'model_from_doc_id', (model, id)->
-        doc = Docs.findOne id
-        # console.log 'pub', tribe_slug, model, id
-        # if model in ['model','tribe','page','block','brick']
-        #     Docs.find
-        #         model:'model'
-        #         slug:doc.model
-        # else
-        match = {}
-        match.model = 'model'
-        match.slug = doc.model
-
-        Docs.find match
-
-
-    Meteor.publish 'model_fields_from_slug', (model_slug)->
-        # console.log model
-
-        # else if model in ['field', 'brick','tribe','page','block','model']
-        model = Docs.findOne
-            model:'model'
-            slug:model_slug
-            # tribe:tribe_slug
-        # else
-        #     model = Docs.findOne
-        #         model:'model'
-        #         slug:model
-        #         tribe:tribe_slug
-
-        Docs.find
-            model:'field'
-            parent_id:model._id
 
 
     Meteor.publish 'my_delta', ->

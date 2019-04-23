@@ -4,7 +4,7 @@ if Meteor.isClient
 
 
     Template.role_editor.onCreated ->
-        @autorun => Meteor.subscribe 'type', 'role'
+        @autorun => Meteor.subscribe 'model', 'role'
 
     Template.comments.helpers
         doc_comments: ->
@@ -197,27 +197,30 @@ if Meteor.isClient
     Template.add_button.events
         'click .add': ->
             Docs.insert
-                model: @type
+                model: @model
 
 
     Template.remove_button.events
         'click .remove': ->
-            if confirm "Remove #{@type}?"
+            if confirm "Remove #{@model}?"
                 Docs.remove @_id
 
 
-    Template.add_type_button.events
+    Template.add_model_button.events
         'click .add': ->
-            new_id = Docs.insert model: @type
+            new_id = Docs.insert model: @model
             Router.go "/edit/#{new_id}"
 
     Template.view_user_button.events
         'click .view_user': ->
-            Router.go "/u/#{username}"
+            Router.go "/user/#{username}"
 
 
 if Meteor.isServer
-    Meteor.publish 'children', (type, parent_id)->
-        Docs.find
-            model:type
-            parent_id:parent_id
+    Meteor.publish 'children', (model, parent_id)->
+        console.log model
+        console.log parent_id
+        Docs.find {
+            model:model
+            # parent_id:parent_id
+        }, limit:10

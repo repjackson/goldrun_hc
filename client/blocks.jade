@@ -5,7 +5,7 @@ template(name='comments')
     if currentUser
         .ui.fluid.icon.input
             i.plus.icon
-            input.add_comment(type='text' placeholder='add...')
+            input.add_comment(model='text' placeholder='add...')
     .ui.comments
         each doc_comments
             .comment
@@ -162,7 +162,7 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.icon.button.view(title='View' href="/m/#{type}/#{_id}/view")
+    a.ui.icon.button.view(title='View' href="/m/#{model}/#{_id}/view")
         i.right.chevron.icon
 
 
@@ -173,19 +173,19 @@ template(name='remove_button')
 
 template(name='add_button')
     a.ui.button.add(title='Add')
-        i.plus' tooltip="Add #{type}.icon
-        |#{type}
+        i.plus' tooltip="Add #{model}.icon
+        |#{model}
 
 
 
 //- template(name='edit_button')
-//-     a.ui.button.icon.edit(title='Edit' href="/m/#{type}/#{_id}/edit")
+//-     a.ui.button.icon.edit(title='Edit' href="/m/#{model}/#{_id}/edit")
 //-         i.blue.pencil.icon
 //-         |Edit
 
 
 template(name='save_button')
-    a.ui.button.large.icon.save(title='Save' href="/m/#{type}/#{_id}/view")
+    a.ui.button.large.icon.save(title='Save' href="/m/#{model}/#{_id}/view")
         i.checkmark.green.icon
         |Save
 
@@ -201,7 +201,7 @@ template(name='view_user_button')
         i.play.icon
         |View
 
-template(name='add_type_button')
-    .ui.icon.button.add(title="add #{type}")
+template(name='add_model_button')
+    .ui.icon.button.add(title="add #{model}")
         i.plus.icon
-        |#{type}
+        |#{model}

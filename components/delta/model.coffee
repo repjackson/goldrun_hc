@@ -17,7 +17,7 @@ if Meteor.isClient
                 Router.go "/m/model"
 
     Template.field_edit.helpers
-        is_ref: -> @field_type in ['single_doc', 'multi_doc']
+        is_ref: -> @field_type in ['single_doc', 'multi_doc','children']
         is_user_ref: -> @field_type in ['single_user', 'multi_user']
 
     Template.model_doc_edit.onCreated ->

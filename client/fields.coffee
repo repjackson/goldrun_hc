@@ -465,6 +465,70 @@ Template.children_view.onRendered ->
         $('.accordion').accordion()
     , 1000
 
+Template.children_view.helpers
+    children: ->
+        field = @
+        console.log @
+        # if Template.parentData(5)
+        # else
+        #     parent = Template.parentData(5)
+        Docs.find {
+            model: @ref_model
+            # parent_id: parent._id
+            # view_roles:$in:Meteor.user().roles
+        }, sort:rank:1
+
+
+Template.children_edit.onCreated ->
+    console.log @data
+    @autorun => Meteor.subscribe 'children', @data.ref_model, Template.parentData(5)._id
+    # @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
+    @autorun => Meteor.subscribe 'model_from_slug', @data.ref_model
+    @autorun => Meteor.subscribe 'model_fields', @data.ref_model
+
+Template.children_edit.onRendered ->
+    Meteor.setTimeout ->
+        $('.accordion').accordion()
+    , 1000
+Template.child_edit.helpers
+    child_fields: ->
+        console.log @
+        model = Docs.findOne
+            model:'model'
+            slug:@model
+        Docs.find
+            model:'field'
+            parent_id:model._id
+
+
+Template.children_edit.helpers
+    children: ->
+        field = @
+
+        # if Template.parentData(5)
+        # else
+        parent = Template.parentData(5)
+        Docs.find {
+            model: @ref_model
+            # parent_id: parent._id
+            # view_roles:$in:Meteor.user().roles
+        }, sort:rank:1
+
+
+Template.children_edit.events
+    'click .add_child': ->
+        console.log @
+        new_id = Docs.insert
+            model: @ref_model
+            parent_id: parent._id
+            parent_model:Router.current().params.model_slug
+        console.log new_id
+
+
+
+
+
+
 Template.html_view.onRendered ->
     Meteor.setTimeout ->
         $('.accordion').accordion()
@@ -474,53 +538,6 @@ Template.textarea_view.onRendered ->
     Meteor.setTimeout ->
         $('.accordion').accordion()
     , 1000
-
-Template.children_view.helpers
-    children: ->
-        field = @
-        # if Template.parentData(5)
-        # else
-        #     parent = Template.parentData(5)
-        Docs.find {
-            model: @ref_model
-            parent_id: parent._id
-            # view_roles:$in:Meteor.user().roles
-        }, sort:rank:1
-
-
-Template.children_edit.onCreated ->
-    console.log @data
-    @autorun => Meteor.subscribe 'children', @data.ref_model, Template.parentData(5)._id
-    @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
-    @autorun => Meteor.subscribe 'model_from_slug', @data.ref_model
-    @autorun => Meteor.subscribe 'model_fields_from_slug', @data.ref_model
-
-Template.children_edit.onRendered ->
-    Meteor.setTimeout ->
-        $('.accordion').accordion()
-    , 1000
-
-Template.children_edit.helpers
-    children: ->
-        field = @
-        # if Template.parentData(5)
-        # else
-        #     parent = Template.parentData(5)
-        Docs.find {
-            model: @ref_model
-            parent_id: parent._id
-            # view_roles:$in:Meteor.user().roles
-        }, sort:rank:1
-
-
-Template.children_edit.events
-    'click .add_child': ->
-        # console.log @
-        new_id = Docs.insert
-            model: @ref_model
-            parent_id: parent._id
-            parent_model:Router.current().params.type
-        # console.log new_id
 
 
 

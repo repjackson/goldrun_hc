@@ -2,7 +2,7 @@ template(name='delta')
     with current_model
         .ui.stackable.padded.grid
             .row
-                .six.wide.column.scrolling
+                .eight.wide.column.scrolling
                     .ui.right.aligned.inline.header
                         i.icon(class=icon)
                         | #{title}
@@ -36,7 +36,7 @@ template(name='delta')
                             
                     each current_delta.facets
                         +facet
-                .ten.wide.column.scrolling
+                .eight.wide.column.scrolling
                     each current_delta.result_ids
                         +delta_result
                 
@@ -107,8 +107,8 @@ template(name='delta_result')
                     a.ui.circular.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
                         i.eye.icon
                         |View
-                //- each model.actions
-                //-     +Template.dynamic template=this data=..
+                each model.actions
+                    +Template.dynamic template=this data=..
                 if _author_id
                     +author_info
                 +creation_info
