@@ -1,13 +1,13 @@
 if Meteor.isClient
     Template.model_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'fields_from_doc_id', Router.current().params.model_slug, Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'model_from_doc_id', Router.current().params.model_slug, Router.current().params.doc_id
+        @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
 
 
     Template.model_view.onCreated ->
-        @autorun -> Meteor.subscribe 'model_from_doc_id', Router.current().params.model_slug, Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'fields_from_doc_id', Router.current().params.model_slug, Router.current().params.doc_id
+        @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
 
     Template.model_edit.events
@@ -22,14 +22,14 @@ if Meteor.isClient
 
     Template.model_doc_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'fields_from_doc_id', Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'model_from_doc_id', Router.current().params.model_slug, Router.current().params.doc_id
+        @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
 
 
     Template.model_doc_view.onCreated ->
-        @autorun -> Meteor.subscribe 'model_from_doc_id', Router.current().params.model_slug, Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'fields_from_doc_id', Router.current().params.doc_id
-        console.log Router.current().params.doc_id
+        @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
+        # console.log Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
 
     Template.model_doc_edit.events
@@ -40,17 +40,14 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'fields_from_doc_id', (doc_id)->
-        console.log 'doc_id', doc_id
-        doc = Docs.findOne doc_id
+    Meteor.publish 'model_fields', (model_slug)->
         # console.log 'doc', doc
         model =
             Docs.findOne
                 model:'model'
-                slug:doc.model
+                slug:model_slug
         # console.log "MODEL", model
 
-        Docs.find(
-                model:'field'
-                parent_id:model._id
-            )
+        Docs.find
+            model:'field'
+            parent_id:model._id

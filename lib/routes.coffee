@@ -4,7 +4,6 @@ Router.configure
     loadingTemplate: 'splash'
     trackPageView: true
 
-
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'
@@ -21,7 +20,6 @@ Router.route('enroll', {
 Router.route '/m/:model_slug', -> @render 'delta'
 Router.route '/m/:model_slug/:doc_id/edit', -> @render 'model_doc_edit'
 Router.route '/m/:model_slug/:doc_id/view', -> @render 'model_doc_view'
-Router.route '/models', -> @render 'models'
 Router.route '/model/edit/:doc_id', -> @render 'model_edit'
 
 # Router.route '/user/:username', -> @render 'user'
@@ -46,7 +44,8 @@ Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 
 Router.route '/login', -> @render 'login'
 
-Router.route '/', (->
-    @layout 'layout'
-    @render 'home'
-    ), name:'home'
+Router.route '/', -> @redirect '/m/model'
+    #
+    # @layout 'layout'
+    # @render 'home'
+    # ), name:'home'

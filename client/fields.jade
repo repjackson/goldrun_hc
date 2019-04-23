@@ -42,20 +42,19 @@ template(name='color_icon_edit')
         img.ui.inline.image(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
 template(name='icon_edit')
-    .ui.form
-        .field
-            label 
-                if icon
-                    i.grey.icon(class=icon)
-                if title
-                    |#{title}
-                else if key
-                    |#{key}
-                else
-                    |#{this}
-            input.icon_val(type='text' value=field_value placeholder='font awesome class')
+    .ui.icon.fluid.input
+        .ui.tiny.inline.grey.header
+            if icon
+                i.grey.icon(class=icon)
+            if title
+                |#{title}
+            else if key
+                |#{key}
+            else
+                |#{this}    
         if field_value
-            i.icon(class=field_value)
+            i.large.icon(class=field_value)
+        input.icon_val(type='text' value=field_value placeholder='font awesome class')
 
 
 template(name='color_icon_view')
@@ -108,7 +107,7 @@ template(name='image_view')
     else
         |#{this}
     
-    img.ui.large.centered.rounded.image(src="{{c.url field_value }}")
+    img.ui.large.centered.rounded.image(src="{{c.url field_value gravity='face' crop='fill'}}")
     //- +call_visual
 
 template(name='image_edit')
@@ -170,8 +169,8 @@ template(name='textarea_edit')
     .ui.form
         .field
             label 
-                if icon
-                    i.grey.icon(class=icon)
+                //- if icon
+                //-     i.grey.icon(class=icon)
                 if title
                     |#{title}
                 else if key
@@ -209,7 +208,7 @@ template(name='html_view')
     //-         i.dropdown.icon
     //-     .active.content
     |!{field_value}
-    +call_watson mode='html'
+    //- +call_watson mode='html'
     if watson
         +watson_view
 
@@ -783,12 +782,21 @@ template(name='single_person_edit')
 template(name='multi_user_edit')
     .ui.basic.segment
         .ui.form
-            .field.attached
-                label #{key}
+            .ui.small.grey.header
+                if icon
+                    i.grey.icon(class=icon)
+                if title
+                    |#{title}
+                else if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
                 input#multi_user_select_input(type='text' placeholder='Lookup User...')
                 each selections
                     .ui.large.label
-                        |#{username} #{profile.name}
+                        |#{username} #{first_name} #{last_name}
             if user_results
                 .ui.top.attached.segment
                     .ui.middle.aligned.selection.animated.list

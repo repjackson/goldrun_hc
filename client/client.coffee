@@ -28,10 +28,11 @@ Template.registerHelper 'fields', () ->
     model = Docs.findOne
         model:'model'
         slug:Router.current().params.model_slug
-    Docs.find {
-        model:'field'
-        parent_id:model._id
-    }, sort:rank:1
+    if model
+        Docs.find {
+            model:'field'
+            parent_id:model._id
+        }, sort:rank:1
 
 Template.registerHelper 'current_user', (input) ->
     Meteor.user() and Meteor.user().username is Router.current().params.username
@@ -81,8 +82,8 @@ Template.registerHelper 'is_model', -> @model is 'model'
 
 
 
-Template.body.events
-    'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
+# Template.body.events
+#     'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
 
 Template.registerHelper 'is_editing', () ->
     # console.log 'this', @
@@ -97,6 +98,8 @@ Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 Template.registerHelper 'current_doc', ->
     doc = Docs.findOne Router.current().params.doc_id
     user = Meteor.users.findOne Router.current().params.doc_id
+    console.log doc
+    console.log user
     if doc then doc else if user then user
 
 

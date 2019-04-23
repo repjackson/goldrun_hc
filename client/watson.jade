@@ -48,7 +48,7 @@ template(name='doc_emotion')
             
             
 template(name='call_watson')
-    #call_watson.ui.button 
+    #call_watson.ui.circular.basic.button 
         i.chess.knight.icon
         |Call Watson
 
@@ -132,7 +132,7 @@ template(name='keyword_list')
     .ui.small.grey.header 
         |#{watson_keywords.length} keywords
     each watson_keywords
-        .ui.label #{this}
+        .ui.large.circular.basic.label #{this}
         //- span(class="{{calculated_size 'relevance'}}") #{this}
 
 
@@ -141,7 +141,7 @@ template(name='concept_list')
     .ui.small.grey.header 
         |#{watson_concepts.length} concepts
     each watson_concepts
-        .ui.label #{this}
+        .ui.large.circular.basic.label #{this}
 
 
 
@@ -266,8 +266,7 @@ template(name='consumption_preferences')
 
 
 template(name='tone')
-    h3 tone
-    div
+    h3 Tone
     .ui.horizontal.list
         each tone.document_tone.tones
             .item #{tone_id} {{ to_percent score }}%
@@ -277,7 +276,7 @@ template(name='tone')
                 span #{sentence_id}
                 span.large120(title="#{sentence_id}") #{text}
                 each tones
-                    span(class="{{calculated_size 'score'}}" title="{{ to_percent score }}%") &nbsp; #{tone_id} 
+                    .ui.basic.circular.large.label(class="{{calculated_size 'score'}}") &nbsp; #{tone_id} {{ to_percent score }}% 
     // unless tone                
     //- #call_tone.ui.icon.button
     //-     i.refresh.icon

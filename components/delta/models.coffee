@@ -1,10 +1,4 @@
 if Meteor.isClient
-
-    Template.models.onCreated ->
-        @autorun -> Meteor.subscribe 'docs', selected_tags.array(), 'model'
-
-    Template.models.onRendered ->
-
     Template.model_view.onCreated ->
         @autorun -> Meteor.subscribe 'model', Router.current().params.model_slug
         # @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
@@ -45,20 +39,6 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'child_docs', Router.current().params.doc_id
 
 
-    Template.models.helpers
-        models: -> Docs.find { model: 'model' }
-
-    Template.model_edit.helpers
-
-
-    Template.models.events
-        'click #add_model': ->
-            # alert 'hi'
-            id = Docs.insert model:'model'
-            Router.go "/model/edit/#{id}"
-
-
-
     Template.model_edit.helpers
         model: ->
             doc_id = Router.current().params.doc_id
@@ -75,7 +55,7 @@ if Meteor.isClient
         'click #delete_model': (e,t)->
             if confirm 'delete model?'
                 Docs.remove Router.current().params.doc_id, ->
-                    Router.go "/models"
+                    Router.go "/"
 
         'click .add_field': ->
             Docs.insert

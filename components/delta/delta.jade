@@ -7,12 +7,12 @@ template(name='delta')
                         i.icon(class=icon)
                         | #{title}
                     unless is_loading
-                        if currentUser
-                            .ui.icon.circular.green.big.button.add_model_doc(title="Add #{title}")
-                                i.plus.icon
+                        //- if currentUser
+                        .ui.icon.circular.green.big.button.add_model_doc(title="Add #{title}")
+                            i.plus.icon
                         if can_edit
                             //- +edit_button
-                            .ui.icon.circular.button.edit_model
+                            .ui.icon.circular.basic.button.edit_model
                                 i.cog.icon
                                 //- | Configure #{plural}
                         // .ui.divider
@@ -22,11 +22,11 @@ template(name='delta')
                                 
                         if current_delta
                             if is_dev
-                                .ui.icon.circular.button.print_delta(title='Print Session Doc')
+                                .ui.icon.circular.basic.button.print_delta(title='Print Session Doc')
                                     i.code.icon
-                                .ui.reset.icon.circular.button(title='Reload Session')
+                                .ui.reset.icon.circular.basic.button(title='Reload Session')
                                     i.refresh.icon
-                                .ui.delete_delta.icon.circular.button(title='Delete Session')
+                                .ui.delete_delta.icon.circular.basic.button(title='Delete Session')
                                     i.trash.icon
                         else
                             .create_delta.ui.button.pointer(title='new session')
@@ -84,7 +84,7 @@ template(name='delta_result')
     with result 
         .ui.result.smoothed.segment(class=loading_class)
             if title
-                .ui.header
+                a.ui.header(href="/m/#{current_model.slug}/#{_id}/view")
                     if icon
                         i.icon(class=icon)
                     |#{title}

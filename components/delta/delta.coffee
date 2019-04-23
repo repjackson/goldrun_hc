@@ -238,6 +238,11 @@ if Meteor.isServer
 
 
     Meteor.publish 'my_delta', ->
-        Docs.find
-            _author_id:Meteor.userId()
-            model:'delta'
+        if Meteor.userId()
+            Docs.find
+                _author_id:Meteor.userId()
+                model:'delta'
+        else
+            Docs.find
+                _author_id:null
+                model:'delta'

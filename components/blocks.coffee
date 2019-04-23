@@ -14,11 +14,11 @@ if Meteor.isClient
     Template.comments.events
         'keyup .add_comment': (e,t)->
             if e.which is 13
-                parent = Docs.findOne Router.current().params.doc_id
+                # parent = Docs.findOne Router.current().params.doc_id
                 comment = t.$('.add_comment').val()
                 console.log comment
                 Docs.insert
-                    parent_id: parent._id
+                    parent_id: Router.current().params.doc_id
                     model:'comment'
                     body:comment
                 t.$('.add_comment').val('')
@@ -133,7 +133,7 @@ if Meteor.isClient
         user_list_toggle_class: ->
             if Meteor.user()
                 parent = Template.parentData()
-                ''
+                'basic'
             else
                 'disabled'
 

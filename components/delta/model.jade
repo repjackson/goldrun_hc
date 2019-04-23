@@ -117,7 +117,7 @@ template(name='field_edit')
     +text_edit key='field_type' direct=true label='Field Type'              
     +single_doc_edit key='field_type' ref_model='field_type' label='Field Type' direct=true                 
     +number_edit key='rank' label='Rank' direct=true                 
-    +text_edit key='ref_model' label='Reference Model' direct=true
+    //- +text_edit key='ref_model' label='Reference Model' direct=true
     +boolean_edit key='faceted' label='Faceted' direct=true
 
     if is_ref  
@@ -134,34 +134,3 @@ template(name='field_view')
     +text_view key='key'                    
     +text_view key='field_type'                    
     +number_view key='rank' label='rank'                  
-
-        
-        
-            
-template(name='models') 
-    .ui.stackable.padded.grid
-        .four.wide.column
-            h1.ui.center.aligned.header 
-                i.icon(class=icon)
-                |Models
-            #add_model.ui.icon.circular.button
-                i.green.plus.icon
-            +cloud filter='model'
-        .twelve.wide.column 
-            .ui.centered.cards
-                each models
-                    +model
-                    
-                
-template(name='model')
-    .ui.card
-        .content
-            .header 
-                i.icon(class=icon)
-                |#{title}
-            .description
-                +text_view key='slug'
-            a.ui.icon.circular.button(href="/model/edit/#{_id}") 
-                i.pencil.icon
-            a.ui.icon.circular.button(href="/m/#{slug}") 
-                i.right.arrow.icon

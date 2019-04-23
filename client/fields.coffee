@@ -573,10 +573,14 @@ Template.single_doc_edit.helpers
 Template.single_doc_edit.events
     'click .select_choice': ->
         selection = @
+        # if @direct
+        #     parent = Template.parentData(1)
+        # else
+        #     parent = Template.parentData(6)
         parent = Template.parentData(1)
         ref_field = Template.currentData()
 
-        # console.log parent
+        console.log parent
         # key = ref_field.button_key
         key = ref_field.key
         # console.log ref_field
@@ -641,7 +645,10 @@ Template.multi_doc_edit.helpers
     choice_class: ->
         selection = @
         current = Template.currentData()
-        parent = Template.parentData(5)
+        if @direct
+            parent = Template.parentData(1)
+        else
+            parent = Template.parentData(6)
         ref_field = Template.parentData(1)
         target = Template.parentData(2)
         # console.log @
@@ -657,13 +664,17 @@ Template.multi_doc_edit.helpers
 Template.multi_doc_edit.events
     'click .select_choice': ->
         selection = @
-        parent = Template.parentData(1)
+        # if @direct
+        #     parent = Template.parentData(1)
+        # else
+        #     parent = Template.parentData(6)
         ref_field = Template.currentData()
+        parent = Template.parentData(1)
 
-        # console.log parent
-        # console.log ref_field
-        # console.log @
-        # console.log parent["#{@key}"]
+        console.log parent
+        console.log ref_field
+        console.log @
+        console.log parent["#{@key}"]
 
         if parent["#{ref_field.key}"] and @slug in parent["#{ref_field.key}"]
             doc = Docs.findOne parent._id

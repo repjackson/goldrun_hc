@@ -8,9 +8,6 @@ template(name='chat_messages_pane')
             i.chevron.right.icon
             input.add_message(type='text' placeholder='Add Message')
                 
-                
-                
-                
 template(name='chat_list')
     .ui.segments
         each chat_list_items
@@ -46,11 +43,11 @@ template(name='chat_message')
     // .ui.segment.message_segment(class=message_segment_class)
         // .ui.comments
     .comment
-        a.avatar(href="/user/profile/#{author._id}")
+        a.avatar(href="/user/#{author.username}")
             // img.ui.avatar.image(src="{{c.url author.image_id width=50 height=50 gravity='face' crop='fill'}}")
             img.ui.avatar.image(src="{{c.url author.image_id width=400 height=400 gravity='face' crop='fill'}}")
         .content
-            a.author(href="/user/profile/#{author._id}") 
+            a.author(href="/user/#{author.username}") 
                 |#{author.username}
                 +user_status author
             .metadata
