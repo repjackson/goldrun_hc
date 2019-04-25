@@ -139,14 +139,14 @@ template(name='view_chat')
                                     | @#{username}
                                     +user_status
                 if is_admin
-                    .ui.button.close_chat(title='Close Chat')
+                    .ui.basic.circular.button.close_chat(title='Close Chat')
                         i.cancel.icon
                         |Close Chat
                 .ui.small.header 
                     i.tags.icon
                     | Tags
                 each tags
-                    .ui.large.label.doc_tag #{this}
+                    .ui.large.basic.label.doc_tag #{this}
                 // +subscribe_button
                 // +bookmark_button
                 // unless is_author

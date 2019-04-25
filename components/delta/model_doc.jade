@@ -43,12 +43,12 @@ template(name='model_doc_view')
                     //     a.ui.icon.button(href="/m/#{model}" title=plural)
                     //         i.chevron.left.icon
                     //     |View #{model}
-                    if can_edit
+                    if is_admin
                         a.ui.big.basic.circular.icon.button(href="/m/#{model}/#{_id}/edit" title='Edit')
                             i.blue.pencil.icon
-                    .ui.small.header Timestamp Tags
-                    each _timestamp_tags
-                        .ui.circular.basic.label #{this}
+                        .ui.small.header Timestamp Tags
+                        each _timestamp_tags
+                            .ui.circular.basic.label #{this}
                     //- each model.actions
                     //-     +Template.dynamic template=this data=current_doc
                     div

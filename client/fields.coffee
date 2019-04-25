@@ -16,7 +16,7 @@ Template.color_edit.events
 
 Template.clear_value.events
     'click .clear_value': ->
-        if confirm 'Clear value?'
+        if confirm "Clear #{@title} field?"
             if @direct
                 parent = Template.parentData()
             else
@@ -471,10 +471,10 @@ Template.children_view.helpers
         # console.log @
         # if Template.parentData(5)
         # else
-        #     parent = Template.parentData(5)
+        parent = Template.parentData(5)
         Docs.find {
             model: @ref_model
-            # parent_id: parent._id
+            parent_id: parent._id
             # view_roles:$in:Meteor.user().roles
         }, sort:rank:1
 
@@ -526,17 +526,31 @@ Template.children_edit.helpers
         parent = Template.parentData(5)
         Docs.find {
             model: @ref_model
-            # parent_id: parent._id
+            parent_id: parent._id
             # view_roles:$in:Meteor.user().roles
         }, sort:rank:1
 
 
 Template.children_edit.events
     'click .add_child': ->
+        parent = Template.parentData()
+        parent2 = Template.parentData(2)
+        parent3 = Template.parentData(3)
+        parent4 = Template.parentData(4)
+        parent5 = Template.parentData(5)
+        parent6 = Template.parentData(6)
+
+        # console.log parent
+        # console.log parent2
+        # console.log parent3
+        # console.log parent4
+        # console.log parent5
+        # console.log parent6
+
         console.log @
         new_id = Docs.insert
             model: @ref_model
-            parent_id: parent._id
+            parent_id: parent5._id
             parent_model:Router.current().params.model_slug
         console.log new_id
 
@@ -697,13 +711,27 @@ Template.multi_doc_edit.helpers
 Template.multi_doc_edit.events
     'click .select_choice': ->
         selection = @
-        # if @direct
-        #     parent = Template.parentData(1)
-        # else
-        #     parent = Template.parentData(6)
         ref_field = Template.currentData()
+        if ref_field.direct
+            parent = Template.parentData(2)
+        else
+            parent = Template.parentData(6)
         parent = Template.parentData(1)
+        parent2 = Template.parentData(2)
+        parent3 = Template.parentData(3)
+        parent4 = Template.parentData(4)
+        parent5 = Template.parentData(5)
+        parent6 = Template.parentData(6)
+        parent7 = Template.parentData(7)
 
+        # console.log parent
+        # console.log parent2
+        # console.log parent3
+        # console.log parent4
+        # console.log parent5
+        # console.log parent6
+        # console.log parent7
+        #
         # console.log parent
         # console.log ref_field
         # console.log @
@@ -721,7 +749,6 @@ Template.multi_doc_edit.events
         else
             doc = Docs.findOne parent._id
             user = Meteor.users.findOne parent._id
-
             if doc
                 Docs.update parent._id,
                     $addToSet: "#{ref_field.key}": @slug

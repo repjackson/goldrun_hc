@@ -35,12 +35,6 @@ template(name='user_edit')
                         +date_edit key='start_date' label='Start Date' direct=true
                         +date_edit key='expiration_date' label='Expiration Date' direct=true
                         +image_edit key='lease_agreement_image' label='Lease Agreement Image' direct=true
-                        .ui.small.header Roles
-                        +user_role_toggle role='admin'
-                        +user_role_toggle role='staff'
-                        +user_role_toggle role='resident'
-                        +user_role_toggle role='owner'
-                        +user_role_toggle role='guest'
                         +image_edit key='banner_image_id' label='Banner Image' direct=true
                 .column
                     +array_edit key='tags' label='Tags' direct=true

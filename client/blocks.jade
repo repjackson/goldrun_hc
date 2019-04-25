@@ -92,23 +92,25 @@ template(name='user_card')
 
 template(name='big_user_card')
     with user
-        //- .ui.horizontal.card
-        .ui.card
+        //- .ui.card
+        .ui.horizontal.card
             .image
-                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                img.ui.image(src="{{c.url image_id width=300 height=400 gravity='face' crop='fill'}}")
             a.content(href="/user/#{username}")
                 .header #{first_name} #{last_name} 
                 .meta @#{username}
+                +array_view key='tags' label='Tags' direct=true
             if is_admin
                 .content
                     div #{address}
                     strong #{building_number}
                     strong ##{apt_number}
-                    div Membership Start 
+                    +array_view key='tags' label='Tags'
+                    //- div Membership Start 
                         strong #{start_date}
-                    div Member Expiration 
-                        strong #{lease_expiration}
-                    +checkin_button
+                    //- div Expiration 
+                    //-     strong #{lease_expiration}
+                    //- +checkin_button
                     //- +icolor name='swimming-pool' classes='ui avatar image'
                     //- +icolor name='weightlift' classes='ui avatar image'
                     //- +icolor name='jacuzzi' classes='ui avatar image'
@@ -163,14 +165,14 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.icon.button.view(title='View' href="/m/#{model}/#{_id}/view")
-        i.right.chevron.icon
+    a.ui.icon.circular.large.basic.button.view(title='View' href="/m/#{model}/#{_id}/view")
+        i.right.chevron.large.icon
 
 
 template(name='remove_button')
-    a.ui.icon.circular.basic.button.remove(title='Delete')
+    a.ui.circular.basic.button.remove(title='Delete')
         i.remove.red.icon
-        //- |Delete
+        |Delete
 
 template(name='add_button')
     a.ui.button.add(title='Add')

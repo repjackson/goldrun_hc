@@ -202,9 +202,12 @@ if Meteor.isClient
 
 
     Template.remove_button.events
-        'click .remove': ->
+        'click .remove': (e,t)->
             if confirm "Remove #{@model}?"
-                Docs.remove @_id
+                $(e.currentTarget).closest('.segment').transition('fly right')
+                Meteor.setTimeout =>
+                    Docs.remove @_id
+                , 1000
 
 
     Template.add_model_button.events

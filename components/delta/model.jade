@@ -3,7 +3,7 @@ template(name='model_edit')
         .ui.stackable.padded.grid
             .centered.row
                 .six.wide.column
-                    .ui.header(title="model: #{type}")
+                    .ui.header(title="model: #{model}")
                         |#{title}
                     +creation_info
                     h1.ui.header Edit Model
@@ -28,7 +28,7 @@ template(name='model_edit')
                     .ui.icon.basic.circular.button.add_field
                         i.plus.green.icon
                     each fields
-                        .ui.segment
+                        .ui.smoothed.segment
                             +field_edit
 
 
@@ -53,11 +53,11 @@ template(name='model_view')
             .row
                 .four.wide.column
                     // .ui.header
-                    //     a.ui.icon.button(href="/m/#{type}" title=plural)
+                    //     a.ui.icon.button(href="/m/#{model}" title=plural)
                     //         i.chevron.left.icon
-                    //     |View #{type}
+                    //     |View #{model}
                     if can_edit
-                        a.ui.fluid.button(href="/m/#{type}/#{_id}/edit")
+                        a.ui.fluid.button(href="/m/#{model}/#{_id}/edit")
                             i.pencil.icon
                             |Edit
                     each model.actions
@@ -114,8 +114,11 @@ template(name='model_view')
 template(name='field_edit')
     +text_edit key='title' direct=true label='Title'        
     +text_edit key='key'  direct=true label='Key'           
-    +text_edit key='field_type' direct=true label='Field Type'              
+    //- +text_edit key='field_type' direct=true label='Field Type'              
+    +icon_edit key='icon' direct=true label='Icon'              
     +single_doc_edit key='field_type' ref_model='field_type' label='Field Type' direct=true                 
+    +multi_doc_edit key='view_roles' ref_model='role' label='View Roles' direct=true icon='eye'          
+    +multi_doc_edit key='edit_roles' ref_model='role' label='Edit Roles' direct=true icon='pencil'        
     +number_edit key='rank' label='Rank' direct=true                 
     //- +text_edit key='ref_model' label='Reference Model' direct=true
     +boolean_edit key='faceted' label='Faceted' direct=true

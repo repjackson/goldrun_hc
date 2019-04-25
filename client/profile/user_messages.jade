@@ -12,21 +12,20 @@ template(name='user_messages')
                     input#new_message(type='text' placeholder='New Message')
             else
                 |Login to message
-            .ui.segments
-                each user_messages
-                    .ui.segment
-                        .ui.small.header #{body}
-                        each tags
-                            .ui.label #{this}
-                        div
-                        +notify_message
-                        +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
-                        if can_edit
-                            +remove_button
-                        div
-                        +author_info
-                        +creation_info
-                        //- +watson_view
+            each user_messages
+                .ui.smoothed.segment
+                    .ui.small.header #{body}
+                    each tags
+                        .ui.label #{this}
+                    div
+                    +notify_message
+                    +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
+                    if can_edit
+                        +remove_button
+                    div
+                    +author_info
+                    +creation_info
+                    //- +watson_view
             
 
 template(name='notify_message')

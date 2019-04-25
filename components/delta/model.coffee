@@ -37,17 +37,3 @@ if Meteor.isClient
             if confirm 'Confirm delete doc'
                 Docs.remove @_id
                 Router.go "/m/#{@model}"
-
-
-if Meteor.isServer
-    Meteor.publish 'model_fields', (model_slug)->
-        # console.log 'doc', doc
-        model =
-            Docs.findOne
-                model:'model'
-                slug:model_slug
-        # console.log "MODEL", model
-
-        Docs.find
-            model:'field'
-            parent_id:model._id

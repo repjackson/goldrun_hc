@@ -34,11 +34,11 @@ template(name='profile')
                             i.settings.icon
                             | Settings
                     else if current_user
-                        a.ui.circular.fluid.large.grey.basic.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.large.basic.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | Settings
                     if current_user
-                        .ui.circular.fluid.large.grey.basic.button.logout
+                        .ui.circular.fluid.large.basic.button.logout
                             i.sign.out.icon
                             |Log Out
                     .ui.smoothed.segment
@@ -52,7 +52,7 @@ template(name='profile')
                             .ui.circular.basic.label #{this}
             
                 .six.wide.column
-                    +violations
+                    //- +violations
                     +user_bookmarks    
                     //- +user_feed
                     +user_tasks
@@ -61,15 +61,16 @@ template(name='profile')
                 .six.wide.column
                     +user_messages
                     +user_connections
-                    +user_rules_widget
-                    .ui.cloud.segment
-                        .ui.grey.header
-                            i.user.icon
-                            | Guests
-                    if current_user
-                        +role_switcher
+                    //- +user_rules_widget
+                    //- .ui.cloud.segment
+                    //-     .ui.grey.header
+                    //-         i.user.icon
+                    //-         | Guests
+                    //- if is_admin
+                    +role_switcher
+                    //- if current_user
                     +user_tags
-                    +user_checkins
+                    //- +user_checkins
                     //- +user_chat
             
             
@@ -216,7 +217,7 @@ template(name='role_switcher')
             if is_eric
                 +user_array_element_toggle key='roles' value='dev' user=currentUser
             with currentUser
-                +multi_doc_edit key='roles' label='Roles' ref_model='role'
+                +multi_doc_edit key='roles' label='Roles' ref_model='role' direct=true
             //- +user_array_element_toggle key='roles' value='admin' user=currentUser
             //- +user_array_element_toggle key='roles' value='user' user=currentUser
             //- +user_array_element_toggle key='roles' value='staff' user=currentUser

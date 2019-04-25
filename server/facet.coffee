@@ -6,7 +6,7 @@ Meteor.methods
         model = Docs.findOne
             model:'model'
             slug:model_slug
-        # console.log model
+        console.log 'model', model
         fields =
             Docs.find
                 model:'field'
@@ -26,8 +26,8 @@ Meteor.methods
         Docs.update delta._id,
             $set:facets:[]
         for field in fields.fetch()
-            # console.log field.field_type
-            # console.log field.key
+            console.log 'field type', field.field_type
+            console.log 'field key', field.key
             unless field.field_type in ['textarea','image','youtube','html']
                 unless field.key in ['slug','icon']
                 # console.log 'adding field to delta', field.key
@@ -51,21 +51,23 @@ Meteor.methods
             model:'model'
             slug:delta.model_filter
         # console.log model
+        built_query = {}
+
         fields =
             Docs.find
                 model:'field'
                 parent_id:model._id
-        # console.log 'fields', fields.fetch()
+        console.log 'fields', fields.fetch()
         # console.log 'delta', delta
         if model.collection and model.collection is 'users'
-            built_query = { roles:$in:[delta.model_filter] }
+            built_query.roles = $in:[delta.model_filter]
 
         else
-            built_query = { model:delta.model_filter }
+            built_query.model = delta.model_filter
 
         if delta.model_filter is 'model'
             unless 'dev' in Meteor.user().roles
-                built_query = view_roles:$in:Meteor.user().roles
+                built_query.view_roles = $in:Meteor.user().roles
 
         for facet in delta.facets
             # console.log 'this facet', facet.key
@@ -130,7 +132,7 @@ Meteor.methods
         # console.log 'delta', delta
 
     agg: (query, key, collection)->
-        limit=100
+        limit=50
         # console.log 'agg query', query
         # console.log 'agg key', key
         console.log 'agg collection', collection
