@@ -4,6 +4,20 @@ Router.configure
     loadingTemplate: 'splash'
     trackPageView: true
 
+force_loggedin =  ()->
+    if !Meteor.userId()
+        @render 'Login'
+    else
+        @next()
+
+Router.onBeforeAction(force_loggedin, {
+  # only: ['admin']
+  except: ['register', 'forgot_password','reset_password']
+});
+
+
+
+
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'

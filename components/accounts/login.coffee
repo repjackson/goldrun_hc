@@ -29,7 +29,7 @@ if Meteor.isClient
                 username:username
                 password:password
                 }
-            console.log options
+            # console.log options
             Meteor.loginWithPassword username, password, (err,res)=>
                 if err
                     console.log err
@@ -64,4 +64,10 @@ if Meteor.isClient
     Template.login.helpers
         username: -> Session.get 'username'
         logging_in: -> Session.equals 'enter_mode', 'login'
-        enter_class: -> if Meteor.loggingIn() then 'loading disabled' else ''
+        enter_class: ->
+            if Session.get('username').length
+                if Session.get 'enter_mode', 'login'
+                    if Meteor.loggingIn() then 'loading disabled' else ''
+            else
+                'disabled'
+        is_logging_in: -> Meteor.loggingIn()

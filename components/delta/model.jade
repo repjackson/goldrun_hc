@@ -25,7 +25,7 @@ template(name='model_edit')
                     //-     +Template.dynamic template=edit_template 
                     //-     // .ui.header #{key} [#{field}] #{label}
                     .ui.inline.header Fields
-                    .ui.icon.basic.circular.button.add_field
+                    .ui.icon.circular.button.add_field
                         i.plus.green.icon
                     each fields
                         .ui.smoothed.segment
@@ -39,7 +39,7 @@ template(name='model_view')
                 .sixteen.wide.column
                     .ui.breadcrumb
                         a.section(href="/m/#{current_model.slug}" title=current_model.plural)
-                            .ui.compact.circular.basic.button
+                            .ui.compact.circular.button
                                 |#{current_model.title}
                         .divider
                             i.chevron.right.icon

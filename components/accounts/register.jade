@@ -2,38 +2,43 @@ template(name='register')
     .ui.padded.stackable.grid
         .centered.row
             .twelve.wide.column
-
+                .ui.center.aligned.basic.segment
+                    i.massive.icons
+                        i.yin.yang.icon
+                        i.corner.plus.icon
                 if message
                     h4.ui.center.aligned.header #{message}
                 .ui.fluid.labeled.input(class=login_class)
-                    .ui.basic.label 
+                    .ui.small.inline.grey.header 
                         i.user.icon
-                        |Username
+                        |username
                     input.username(type='text')
                 .ui.fluid.labeled.input(class=login_class)
-                    .ui.basic.label 
+                    .ui.small.inline.grey.header 
                         i.lock.icon
-                        | Password
+                        | password
                     input.password(type='password' placeholder='password')
                 .ui.fluid.labeled.input(class=login_class)
-                    .ui.basic.label 
+                    .ui.small.inline.grey.header 
                         i.lock.icon
-                        | Password (again)
+                        | password again
                     input.password2(type='password' placeholder='password')
                 if username
                     if registering
                         .ui.fluid.large.circular.inverted.grblue.button.enter(class=enter_class)
                             i.user.plus.icon
-                            |Register '#{username}'
+                            |register '#{username}'
                     else
                         .ui.center.aligned.secondary.segment
-                            .ui.small.grey.header Username "#{username}" found
-                            a.ui.button(href='/login') Sign In
+                            .ui.small.grey.header username "#{username}" found
+                            a.ui.black.circular.button(href='/login') login
                         
                         
-                .ui.center.aligned.secondary.segment    
+                .ui.center.aligned.basic.segment    
                     //- .ui.small.header By clicking Register, you agree to our 
                     //-     a(href='https://henry-health.com/privacy-policy/' target="_window") Privacy Policy
-                    .ui.small.header If you already have an account
-                        a.ui.circular.sign.in.button(href='/login') Sign In
+                    .ui.small.header or
+                        a.ui.circular.black.sign.in.button(href='/login') 
+                            |login
+                            i.right.chevron.icon
                     

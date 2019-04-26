@@ -4,14 +4,12 @@ template(name='user_messages')
         .active.title
             .ui.inline.grey.header 
                 i.mail.icon
-                |User Messages
+                |user messages
         .active.content
             if currentUser
                 .ui.fluid.icon.input
                     i.plus.icon
                     input#new_message(type='text' placeholder='New Message')
-            else
-                |Login to message
             each user_messages
                 .ui.smoothed.segment
                     .ui.small.header #{body}
@@ -30,5 +28,5 @@ template(name='user_messages')
 
 template(name='notify_message')
     unless notified
-        .ui.circular.basic.icon.button.notify(title="Notify #{to_username}")
+        .ui.circular.basic.icon.button.notify(title="notify #{to_username}")
             i.rss.icon

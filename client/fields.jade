@@ -139,7 +139,7 @@ template(name='image_edit')
 
 template(name='image_link_edit')
     .ui.labeled.icon.fluid.input
-        .ui.basic.smoothed.label image link
+        .ui.smoothed.label image link
         i.image.icon
         input.edit_image_link(type='link' value=field_value placeholder='image link' )
     if field_value
@@ -319,7 +319,7 @@ template(name='phone_edit')
     .ui.labeled.fluid.icon.input
         // if icon
         //     i.grey.icon(class=icon)
-        .ui.basic.smoothed.label 
+        .ui.smoothed.label 
             if title
                 |#{title}
             else if label
@@ -350,6 +350,7 @@ template(name='phone_view')
 
 
 template(name='number_edit')
+    div
     .ui.labeled.icon.input
         .ui.small.inline.grey.header
             if icon
@@ -470,7 +471,7 @@ template(name='array_edit')
     div
     if field_value
         each field_value
-            .ui.large.basic.circular.label
+            .ui.large.circular.label
                 i.delete.icon.remove_element
                 |#{this}
                 
@@ -488,14 +489,14 @@ template(name='array_view')
             else
                 |#{this}
             each field_value
-                .ui.large.basic.circular.label #{this}
+                .ui.large.circular.label #{this}
 
 
 template(name='children_edit')
     div
     .ui.grey.inline.header 
         |#{title}
-    .ui.circular.icon.large.basic.button.add_child(title="Add Child #{ref_model}")
+    .ui.circular.icon.large.button.add_child(title="Add Child #{ref_model}")
         i.plus.icon
     //- .ui.styled.fluid.accordion
     each children
@@ -577,7 +578,7 @@ template(name='child_view')
 
 template(name='youtube_edit')
     .ui.labeled.fluid.icon.input
-        .ui.basic.smoothed.label 
+        .ui.smoothed.label 
             // if icon
             //     i.grey.icon(class=icon)
             |Youtube Id
@@ -599,10 +600,10 @@ template(name='youtube_view')
 template(name='signature_edit')
     .ui.segment
         canvas(id="signature-pad" class="signature-pad" width='800' height='200')
-        .ui.large.basic.button.save(title='Save')
+        .ui.large.button.save(title='Save')
             i.checkmark.icon
             |Save
-        .ui.large.icon.basic.button.clear(title='Clear')
+        .ui.large.icon.button.clear(title='Clear')
             i.remove.icon
 
 template(name='signature_view')
@@ -633,7 +634,7 @@ template(name='boolean_edit')
             |#{key}
         else
             |#{this}
-    //- .ui.basic.circular.icon.button.toggle_boolean
+    //- .ui.circular.icon.button.toggle_boolean
     .ui.circular.button.toggle_boolean(class=boolean_toggle_class)
         if field_value
             if true_icon
@@ -652,7 +653,7 @@ template(name='boolean_view')
     if field_value
         .ui.green.label Yes
     else
-        .ui.basic.smoothed.label No
+        .ui.smoothed.label No
 
 template(name='single_doc_view')
     if icon
@@ -720,7 +721,7 @@ template(name='multi_doc_view')
     .ui.header(title=key)
         |#{title}
     each field_value
-        .ui.basic.smoothed.label
+        .ui.smoothed.label
             |#{this}
     div
 
@@ -733,7 +734,7 @@ template(name='single_user_edit')
             i.icon(class=icon)
         |#{title}
         if field_value
-            .pull_user.ui.circular.basic.button(title='Remove User')
+            .pull_user.ui.circular.button(title='Remove User')
                 i.user.remove.icon
                 |Clear #{field_value}
     unless field_value
@@ -823,7 +824,7 @@ template(name='single_person_edit')
 
 
 template(name='multi_user_edit')
-    .ui.basic.segment
+    .ui.segment
         .ui.form
             .ui.small.grey.header
                 if icon

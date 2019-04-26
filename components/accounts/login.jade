@@ -1,33 +1,38 @@
 template(name='login')
     .ui.padded.stackable.grid
         .centered.row
-            .twelve.wide.column
-                h1.ui.center.aligned.grey.header Gold Run Log In 
+            .ten.wide.column
+                .ui.center.aligned.basic.segment
+                    i.massive.icons
+                        i.yin.yang.icon(class="{{#if is_logging_in}} loading {{/if}}")
+                        i.corner.right.chevron.icon
                 if message
                     h4.ui.center.aligned.header #{message}
-                .ui.fluid.labeled.input(class=login_class)
-                    .ui.smoothed.basic.label 
+                .ui.fluid.input(class=login_class)
+                    .ui.inline.grey.small.header 
                         i.user.grey.icon
-                        |Username
+                        |username
                     input.username(type='text')
-                .ui.fluid.labeled.input(class=login_class)
-                    .ui.smoothed.basic.label 
+                .ui.fluid.input(class=login_class)
+                    .ui.inline.grey.small.header 
                         i.lock.grey.icon
-                        | Password
+                        | password
                     input.password(type='password')
-                if username
-                    if logging_in
-                        .ui.fluid.large.blue.circular.button.enter(title="Login #{username}" class=enter_class)
-                            |Login #{username}
-                            i.right.chevron.icon
-                    else
-                        .ui.center.aligned.secondary.smoothed.segment
-                            .ui.small.grey.header Username "#{username}" not found
-                            a.ui.button(href='/register') Register
+                //- if username
+                if logging_in
+                    .ui.fluid.large.black.circular.button.enter(title="Login #{username}" class=enter_class)
+                        |login #{username}
+                        i.right.chevron.icon
+                else
+                    .ui.center.aligned.basic.segment
+                        .ui.small.grey.header no '#{username}' user
+                        a.ui.circular.black.button(href='/register')
+                            i.user.plus.icon
+                            |register
                 .ui.center.aligned.basic.segment    
-                    a.ui.circular.large.basic.button(href='/forgot_password')
+                    a.ui.circular.large.grey.button(href='/forgot_password')
                         i.refresh.icon
-                        |Forgot Password
-                    a.ui.circular.large.basic.button(href='/register') 
-                        i.user.icon
-                        |Register
+                        |forgot password
+                    a.ui.circular.large.grey.button(href='/register') 
+                        i.user.plus.icon
+                        |register

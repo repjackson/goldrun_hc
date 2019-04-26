@@ -4,7 +4,7 @@ body {
     font-size: 110% !important;
     /*line-height: 200% !important;*/
     /*background: #3d3d3d !important;*/
-    background: rgba(200, 200, 200, .05) !important
+    background: rgba(0, 0, 0, 1) !important
     /* background: #0e0e44 !important; */
 }
 
@@ -54,9 +54,9 @@ input{
 
 .cloud {
     opacity: 0.9;
-    -webkit-border-radius: 50px !important;
-    -moz-border-radius: 50px !important;
-    border-radius: 50px !important;
+    -webkit-border-radius: 20px !important;
+    -moz-border-radius: 20px !important;
+    border-radius: 20px !important;
 }
 
 
@@ -322,7 +322,7 @@ a {
 	overflow-x:hidden;
 	max-height:200vh;
 	/*max-height:85vh;*/
-	/* padding-top: 1em; */
+	padding-top: 1em;
 	/*padding-left: 1em;*/
 }
 

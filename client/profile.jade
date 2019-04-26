@@ -30,24 +30,24 @@ template(name='profile')
                         each emails
                             .ui.circular.basic.label #{address}
                     if is_admin
-                        a.ui.circular.fluid.large.basic.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.large.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
-                            | Settings
+                            | settings
                     else if current_user
-                        a.ui.circular.fluid.large.basic.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.large.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
-                            | Settings
+                            | settings
                     if current_user
-                        .ui.circular.fluid.large.basic.button.logout
+                        .ui.circular.fluid.large.button.logout
                             i.sign.out.icon
-                            |Log Out
+                            |log out
                     .ui.smoothed.segment
                         .ui.header
                             i.heartbeat.icon
                             |#{user.points} Karma
                         .ui.header 
                             i.user.shield.icon
-                            |Roles
+                            |roles
                         each roles
                             .ui.circular.basic.label #{this}
             
@@ -117,7 +117,7 @@ template(name='violations')
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.exclamation.triangle.icon
-                |Violations
+                |violations
         .active.content
             .ui.list
                 each violations
@@ -140,7 +140,7 @@ template(name='user_feed')
     .ui.cloud.segment
         .ui.header 
             i.rss.icon
-            |Activity Feed
+            |feed
         //- if current_user
         //-     .ui.fluid.input
         //-         input(type='text' placeholder='Share something...')
@@ -152,7 +152,7 @@ template(name='user_bookmarks')
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.bookmark.icon
-                |Bookmarks
+                |bookmarks
         .active.content
             
             
@@ -161,7 +161,7 @@ template(name='user_karma')
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.heartbeat.icon
-                | Karma
+                | karma
         .active.content
             
             
@@ -170,7 +170,7 @@ template(name='user_unread')
     .ui.cloud.segment
         .ui.header 
             i.new.icon
-            |Unread Messages
+            |unread messages
                 
                 
 
@@ -179,7 +179,7 @@ template(name='user_tasks')
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.tasks.icon
-                |Tasks
+                |tasks
         .active.content
             .ui.fluid.input
                 input.assign_task(type='text' placeholder='Assign task')
@@ -212,7 +212,7 @@ template(name='role_switcher')
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.user.shield.icon(title='Role Switcher')
-                |Roles
+                |roles
         .active.content
             if is_eric
                 +user_array_element_toggle key='roles' value='dev' user=currentUser
@@ -239,7 +239,7 @@ template(name='user_tags')
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.tags.icon
-                |Tags
+                |tags
         .active.content
             each tags
                 .ui.basic.label 
@@ -257,7 +257,7 @@ template(name='user_notifications')
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.bullhorn.icon
-                |Notifications
+                |notifications
         .active.content
             +user_following
             +follow_user
@@ -266,7 +266,7 @@ template(name='user_following')
     .ui.cloud.segment
         .ui.header 
             i.human.icon
-            |Following
+            |following
         +user_array_list user=user_from_username_param array='following_ids'
           
 
@@ -277,7 +277,7 @@ template(name='follow_user')
                 i.renew.icon
         else
             i.renew.icon
-        |Followed By
+        |followed by
         +user_array_list user=user_from_username_param array='followed_by_ids'
                 
 
@@ -286,7 +286,7 @@ template(name='user_wall')
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.edit.icon
-                |Wall
+                |wall
         .active.content
             if currentUser
                 .ui.fluid.icon.input

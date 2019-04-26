@@ -25,7 +25,7 @@ template(name='model_doc_view')
                 .sixteen.wide.column
                     .ui.breadcrumb
                         a.section(href="/m/#{current_model.slug}" title=current_model.plural)
-                            .ui.circular.basic.button
+                            .ui.circular.button
                                 i.icon(class=current_model.icon)
                                 |#{current_model.title}
                         .divider
@@ -44,11 +44,11 @@ template(name='model_doc_view')
                     //         i.chevron.left.icon
                     //     |View #{model}
                     if is_admin
-                        a.ui.big.basic.circular.icon.button(href="/m/#{model}/#{_id}/edit" title='Edit')
+                        a.ui.big.circular.icon.button(href="/m/#{model}/#{_id}/edit" title='Edit')
                             i.blue.pencil.icon
                         .ui.small.header Timestamp Tags
                         each _timestamp_tags
-                            .ui.circular.basic.label #{this}
+                            .ui.circular.label #{this}
                     //- each model.actions
                     //-     +Template.dynamic template=this data=current_doc
                     div

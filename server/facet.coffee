@@ -61,7 +61,6 @@ Meteor.methods
         # console.log 'delta', delta
         if model.collection and model.collection is 'users'
             built_query.roles = $in:[delta.model_filter]
-
         else
             built_query.model = delta.model_filter
 
@@ -132,10 +131,10 @@ Meteor.methods
         # console.log 'delta', delta
 
     agg: (query, key, collection)->
-        limit=50
+        limit=100
         # console.log 'agg query', query
         # console.log 'agg key', key
-        console.log 'agg collection', collection
+        # console.log 'agg collection', collection
         options = { explain:false }
         pipe =  [
             { $match: query }
@@ -153,7 +152,7 @@ Meteor.methods
                 agg = global['Docs'].rawCollection().aggregate(pipe,options)
             # else
             res = {}
-            console.log 'res', res
+            # console.log 'res', res
             if agg
                 agg.toArray()
         else
