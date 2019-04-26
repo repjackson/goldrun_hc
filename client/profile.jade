@@ -1,6 +1,6 @@
 template(name='profile')
     with user_from_username_param  
-        img.ui.fluid.image.banner_image(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")
+        //- img.ui.fluid.image.banner_image(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")
         .ui.padded.stackable.grid.profile_grid
             .row
                 .four.wide.column.scrolling
@@ -30,15 +30,15 @@ template(name='profile')
                         each emails
                             .ui.circular.basic.label #{address}
                     if is_admin
-                        a.ui.circular.fluid.large.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.large.inverted.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | settings
                     else if current_user
-                        a.ui.circular.fluid.large.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.large.inverted.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | settings
                     if current_user
-                        .ui.circular.fluid.large.button.logout
+                        .ui.circular.fluid.large.inverted.button.logout
                             i.sign.out.icon
                             |log out
                     .ui.smoothed.segment

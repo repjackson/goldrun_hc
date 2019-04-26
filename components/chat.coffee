@@ -10,13 +10,13 @@ if Meteor.isClient
         'click .close_chat': (e,t)->
             self = @
             swal {
-                title: "Close chat?"
-                text: 'This will also delete the messages.'
+                title: "close channel?"
+                text: 'this will delete the messages'
                 model: 'warning'
                 showCancelButton: true
                 animation: true
                 confirmButtonColor: '#DD6B55'
-                confirmButtonText: 'Close'
+                confirmButtonText: 'close'
                 closeOnConfirm: true
             }, ->
                 # message_count =
@@ -24,10 +24,21 @@ if Meteor.isClient
                 #         model: 'message'
                 #         group_id: self._id }).count()
                 # console.log message_count
-                $('.comment').transition('fly right')
-                Meteor.setTimeout =>
-                    Meteor.call 'close_chat', self._id, ->
-                , 1500
+                $('.comment').transition(
+                    animation: 'fly right'
+                    duration: 1000
+                    interval: 200
+                    onComplete: ()=>
+                        $('.segment').transition(
+                            animation: 'zoom'
+                            duration: 1000
+                            interval: 200
+                            onComplete: ()=>
+                                Meteor.setTimeout =>
+                                    Meteor.call 'close_chat', self._id, ->
+                                , 1000
+                        )
+                )
                 # console.log self
 
                 # swal "Submission Removed", "",'success'
@@ -197,7 +208,7 @@ if Meteor.isClient
                 sort: timestamp: -1
                 limit: 1
 
-        chat_list_item_class: -> if Session.equals 'current_chat_id', @_id then 'grblue inverted' else ''
+        chat_list_item_class: -> if Session.equals 'current_chat_id', @_id then 'inverted' else ''
 
     Template.chat_list.events
         'click .chat_list_item': (e,t)->
