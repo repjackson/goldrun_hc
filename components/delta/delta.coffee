@@ -94,10 +94,10 @@ if Meteor.isClient
             #             selected_tags.pop()
 
 
-    Template.facet.onRendered ->
-        Meteor.setTimeout ->
-            $('.accordion').accordion()
-        , 1500
+    # Template.facet.onRendered ->
+    #     Meteor.setTimeout ->
+    #         $('.accordion').accordion()
+    #     , 1500
 
     Template.facet.events
         # 'click .ui.accordion': ->
@@ -148,7 +148,7 @@ if Meteor.isClient
             facet = Template.parentData()
             delta = Docs.findOne model:'delta'
             if Session.equals 'loading', true
-                 'disabled basic'
+                 'disabled inverted'
             else if facet.filters.length > 0 and @name in facet.filters
                 'white'
             else 'inverted'

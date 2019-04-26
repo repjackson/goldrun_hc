@@ -6,7 +6,7 @@
 		"watson-developer-cloud": "^3.3.0"
 	},
 	"scripts": {
-		"start": "MONGO_URL=mongodb://goldrunadmin:turnfearagainstthose@aws-us-east-1-portal.21.dblayer.com:10444/goldrundb?ssl=true meteor --settings settings.json",
+		"start": "MAIL_URL='smtp://sethmintom@gmail.com:repj1984!@@smtp.gmail.com:587/' MONGO_URL=mongodb://goldrunadmin:turnfearagainstthose@aws-us-east-1-portal.21.dblayer.com:10444/goldrundb?ssl=true meteor --settings settings.json",
 		"local": "MAIL_URL='smtp://sethmintom@gmail.com:repj1984!@@smtp.gmail.com:587/' meteor --settings settings.json"
 	}
 }

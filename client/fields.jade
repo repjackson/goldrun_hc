@@ -28,7 +28,7 @@ template(name='color_view')
             |#{field_value}
 
 template(name='color_icon_edit')
-    .ui.small.inline.grey.header
+    .ui.small.inline.inverted.header
         if icon
             i.grey.icon(class=icon)
         if title
@@ -43,7 +43,7 @@ template(name='color_icon_edit')
 
 template(name='icon_edit')
     .ui.icon.input
-        .ui.small.inline.grey.header
+        .ui.small.inline.inverted.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -90,7 +90,7 @@ template(name='link_edit')
 
 
 template(name='link_view')
-    .ui.small.grey.header 
+    .ui.small.inverted.header 
         if icon
             i.grey.icon(class=icon)
         |#{title}
@@ -242,7 +242,7 @@ template(name='document_view')
         
 template(name='text_edit')
     .ui.fluid.icon.input
-        .ui.small.grey.inline.header
+        .ui.small.inverted.inline.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -282,7 +282,7 @@ template(name='text_view')
 
 template(name='parent_edit')
     .ui.fluid.icon.input
-        .ui.small.grey.inline.header
+        .ui.small.inverted.inline.header
             |Parent Edit
             if icon
                 i.grey.icon(class=icon)
@@ -352,7 +352,7 @@ template(name='phone_view')
 template(name='number_edit')
     div
     .ui.labeled.icon.input
-        .ui.small.inline.grey.header
+        .ui.small.inline.inverted.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -381,7 +381,7 @@ template(name='number_view')
 
 template(name='date_edit')
     .ui.labeled.icon.input
-        .ui.small.inline.grey.header
+        .ui.small.inline.inverted.header
             if title
                 |#{title}
             else if label
@@ -412,7 +412,7 @@ template(name='date_view')
 
 template(name='time_edit')
     .ui.labeled.icon.input
-        .ui.small.inline.grey.header
+        .ui.small.inline.inverted.header
             if title
                 |#{title}
             else
@@ -457,7 +457,7 @@ template(name='datetime_view')
 
 template(name='array_edit')
     .ui.labeled.icon.input
-        .ui.small.inline.grey.header
+        .ui.small.inline.inverted.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -494,7 +494,7 @@ template(name='array_view')
 
 template(name='children_edit')
     div
-    .ui.grey.inline.header 
+    .ui.inverted.inline.header 
         |#{title}
     .ui.circular.icon.large.button.add_child(title="Add Child #{ref_model}")
         i.plus.icon
@@ -607,7 +607,7 @@ template(name='signature_edit')
             i.remove.icon
 
 template(name='signature_view')
-    .ui.small.grey.header
+    .ui.small.inverted.header
         if icon
             i.grey.icon(class=icon)
         | #{title}    
@@ -623,7 +623,7 @@ template(name='signature_view')
 
 template(name='boolean_edit')
     //- div
-    .ui.small.grey.inline.header
+    .ui.small.inverted.inline.header
         if icon
             i.grey.icon(class=icon)
         if title
@@ -649,7 +649,7 @@ template(name='boolean_edit')
 
 
 template(name='boolean_view')
-    .ui.small.grey.header #{title}
+    .ui.small.inverted.header #{title}
     if field_value
         .ui.green.label Yes
     else
@@ -668,7 +668,7 @@ template(name='single_doc_view')
 
 template(name='single_doc_edit')
     div
-    .ui.small.inline.grey.header(title=key) 
+    .ui.small.inline.inverted.header(title=key) 
         if icon
             i.grey.icon(class=icon)
         |#{label}
@@ -682,7 +682,7 @@ template(name='single_doc_edit')
 
 template(name='multi_doc_edit')
     div
-    .ui.small.inline.grey.header(title=key)
+    .ui.small.inline.inverted.header(title=key)
         if icon
             i.icon(class=icon)
         |#{title} #{label}
@@ -729,7 +729,7 @@ template(name='multi_doc_view')
 
 template(name='single_user_edit')
     div
-    .ui.small.grey.inline.header 
+    .ui.small.inverted.inline.header 
         if icon
             i.icon(class=icon)
         |#{title}
@@ -766,7 +766,7 @@ template(name='single_user_edit')
 
 
 template(name='single_user_view')
-    .ui.small.grey.header 
+    .ui.small.inverted.header 
         |#{title}
         //- #{key} #{label}
     with field_value
@@ -777,14 +777,14 @@ template(name='single_user_view')
 
 template(name='single_person_view')
     div
-    .ui.small.grey.header #{title}
+    .ui.small.inverted.header #{title}
     if field_value
         +person_card field_value
     div
             
             
 template(name='single_person_edit')
-    .ui.small.grey.header #{title}
+    .ui.small.inverted.header #{title}
     .ui.form
         if field_value
             +person_card field_value
@@ -826,7 +826,7 @@ template(name='single_person_edit')
 template(name='multi_user_edit')
     .ui.segment
         .ui.form
-            .ui.small.grey.header
+            .ui.small.inverted.header
                 if icon
                     i.grey.icon(class=icon)
                 if title

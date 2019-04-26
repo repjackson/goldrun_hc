@@ -163,7 +163,10 @@ template(name='user_karma')
                 i.heartbeat.icon
                 | karma
         .active.content
-            
+            .ui.button buy karma
+            with user_from_username_param
+                |karma #{karma}
+                
             
                 
 template(name='user_unread')

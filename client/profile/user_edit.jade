@@ -1,56 +1,53 @@
 template(name='user_edit')
     with user_from_username_param          
-        img.ui.fluid.image.banner_image(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
-        .ui.stackable.padded.grid.profile_grid
-            .middle.aligned.row
-                .four.wide.center.aligned.column
-                    a.ui.large.circular.green.icon.button(href="/user/#{user_from_username_param.username}/" title='Save') 
-                        i.checkmark.large.icon
-                        //- |Save
-                .eight.wide.center.aligned.column
-                    .ui.center.aligned.large.inline.header
-                        i.cog.icon
-                        | #{user_from_username_param.first_name} #{user_from_username_param.last_name} Profile
-                    .ui.center.aligned.small.inline.header @#{user_from_username_param.username}
+        //- img.ui.fluid.image.banner_image(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
+        .ui.stackable.padded.grid
             .three.column.row
                 .column
+                    a.ui.large.circular.inverted.icon.button(href="/user/#{user_from_username_param.username}/" title='save') 
+                        i.checkmark.large.icon
+                    .ui.center.aligned.large.inline.inverted.header
+                        | #{user_from_username_param.first_name} #{user_from_username_param.last_name} profile
+                    .ui.center.aligned.small.inline.inverted.header @#{user_from_username_param.username}
+                    //- i.cog.icon
                     +image_edit key='image_id' direct=true
                     +password_edit
                     +phone_editor
                     +username_edit
                     +emails_edit
-                    with user_from_username_param
-                        .ui.orange.button.remove_user 
-                            i.remove.icon
-                            |Delete User
+                    if is_dev
+                        with user_from_username_param
+                            .ui.orange.button.remove_user 
+                                i.remove.icon
+                                |delete user
                 .column
                     .ui.form
-                        +text_edit key='first_name' label='First Name' direct=true
-                        +text_edit key='last_name' label='Last Name' direct=true
-                        +text_edit key='address' label='Address' direct=true
-                        +number_edit key='unit_number' label='Unit #' direct=true
-                        +number_edit key='building_number' label='Building #' direct=true
+                        +text_edit key='first_name' label='first name' direct=true
+                        +text_edit key='last_name' label='last name' direct=true
+                        +text_edit key='address' label='address' direct=true
+                        +number_edit key='unit_number' label='unit #' direct=true
+                        +number_edit key='building_number' label='building #' direct=true
                         //- +text_edit key='email' label='Email' direct=true
-                        +phone_edit key='phone' label='Phone' direct=true
-                        +date_edit key='start_date' label='Start Date' direct=true
-                        +date_edit key='expiration_date' label='Expiration Date' direct=true
-                        +image_edit key='lease_agreement_image' label='Lease Agreement Image' direct=true
-                        +image_edit key='banner_image_id' label='Banner Image' direct=true
+                        +phone_edit key='phone' label='phone' direct=true
+                        +date_edit key='start_date' label='start date' direct=true
+                        +date_edit key='expiration_date' label='expiration date' direct=true
+                        +image_edit key='lease_agreement_image' label='lease agreement image' direct=true
+                        //- +image_edit key='banner_image_id' label='Banner Image' direct=true
                 .column
-                    +array_edit key='tags' label='Tags' direct=true
-                    +text_edit key='spirit_animal' label='Spirit Animal' direct=true
+                    +array_edit key='tags' label='tags' direct=true
+                    +text_edit key='spirit_animal' label='spirit animal' direct=true
                     //- +payment_methods
 
 
 template(name='user_model_editor')
-    .ui.header Profile Sections
+    .ui.inverted.header Profile Sections
     each models
         .ui.button.toggle_model(class=user_model_class title=title)
             i.icon(class=icon)
             |#{title}
             
 template(name='user_tribe_editor')
-    .ui.header My Tribes
+    .ui.inverted.header My Tribes
     each tribes
         .ui.button.toggle_tribe(class=user_tribe_class title=title)
             i.icon(class=icon)
@@ -58,43 +55,43 @@ template(name='user_tribe_editor')
             
             
 template(name='user_single_doc_ref_editor')
-    .ui.header #{label}
+    .ui.inverted.header #{label}
     each choices
         .ui.button.select_choice(class=choice_class title=title)
             i.icon(class=icon)
             |#{title}
 
 template(name='username_edit')
-    .ui.segment
-        .ui.small.header 
+    .ui.inverted.smoothed.segment
+        .ui.small.inverted.header 
             i.i.cursor.icon
-            |Change Username [#{user_from_username_param.username}]
+            |change username [#{user_from_username_param.username}]
         .ui.icon.fluid.input
-            input.new_username(type='text' placeholder='New Username...')
+            input.new_username(type='text' placeholder='new username...')
             i.play.link.icon.change_username
 
 
      
 template(name='phone_editor')
-    .ui.segment
-        .ui.small.header    
+    .ui.inverted.smoothed.segment
+        .ui.small.inverted.header    
             i.phone.icon
-            |Phone
+            |phone
         .ui.icon.fluid.input(title='Add Phone')
             i.plus.icon
             input#phone.form-control(type='phone', name='phone', value='{{newNumber}}')
         if user_from_username_param.profile.phone
             if user_from_username_param.profile.phone_verified
-                p
-                span.label.label-success Verified
+                .ui.basic.green.label verified
             else
                 p
-                    span.label.label-danger Not Verified
+                    .ui.basic.label not verified
                     a.resend_verification(href='#')
-                        i Resend Code
-                    .btn.btn-danger.remove_phone.btn-block Remove Phone
+                        |resend code
+                    .ui.small.icon.button.remove_phone(title='remove phone')
+                        i.remove.icon
         else
-            .ui.fluid.circular.button.update_phone Add / Update Phone
+            .ui.fluid.circular.button.update_phone add / update phone
 
 
 template(name='add_card_modal')
@@ -102,24 +99,24 @@ template(name='add_card_modal')
 
 
 template(name='password_edit')
-    .ui.segment
-        .ui.small.header
+    .ui.inverted.smoothed.segment
+        .ui.small.inverted.header
             i.lock.icon
-            |Change Password
+            |change password
         .ui.fluid.input
             input#password(type='password', placeholder='Old Password')
         .ui.fluid.icon.input
             input#new_password(type='password', placeholder='New Password')
         .ui.fluid.circular.button.change_password
             i.refresh.icon
-            |Set Password
+            |set password
         
         .ui.fluid.circular.button.send_enrollment_email
-            |Send Enrollment Email
+            |send enrollment email
         if is_dev
             .ui.fluid.circular.button.set_password
                 i.user.shield.icon
-                | Set Password
+                | set password
             
             
             
@@ -134,12 +131,12 @@ template(name='user_field')
                         
             
 template(name='emails_edit')
-    .ui.segment
-        .ui.small.header 
+    .ui.inverted.smoothed.segment
+        .ui.small.inverted.header 
             i.envelope.icon
-            | Email(s)
+            | email(s)
         //- #test_email.ui.big.button test email
-        .ui.divided.list
+        .ui.divided.inverted.list
             each current_user.emails
                 .item 
                     // unless verified
@@ -148,12 +145,12 @@ template(name='emails_edit')
                     .content
                         |#{address}
                         if verified
-                            .ui.green.label Verified
+                            .ui.green.label verified
                         else
-                            .ui.label Unverified
-                            .send_verification_email.ui.button Verify
+                            .ui.label unverified
+                            .send_verification_email.ui.button verify
                         .ui.small.icon.button.remove_email
                             i.remove.icon
         .ui.action.fluid.input
             input#new_email(type='email')
-            #add_email.ui.submit.button Add Email
+            #add_email.ui.submit.button add email
