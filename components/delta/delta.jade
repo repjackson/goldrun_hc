@@ -2,18 +2,18 @@ template(name='delta')
     with current_model
         .ui.stackable.padded.grid
             .row
-                .eight.wide.right.aligned.column.scrolling
+                .eight.wide.right.aligned.scrolling.column
                     .ui.right.aligned.inline.inverted.header
                         i.icon(class=icon)
                         | #{title}
                     unless is_loading
                         if is_admin
-                            .ui.icon.circular.big.button.add_model_doc(title="Add #{title}")
+                            .ui.icon.circular.big.black.button.add_model_doc(title="Add #{title}")
                                 i.green.plus.icon
                         //- if can_edit
                             //- +edit_button
                         if is_admin
-                            .ui.icon.circular.button.edit_model
+                            .ui.icon.black.circular.button.edit_model
                                 i.cog.icon
                                 //- | Configure #{plural}
                         // .ui.divider
@@ -23,11 +23,11 @@ template(name='delta')
                                 
                         if current_delta
                             if is_dev
-                                .ui.icon.circular.button.print_delta(title='Print Session Doc')
+                                .ui.icon.black.circular.button.print_delta(title='Print Session Doc')
                                     i.code.icon
-                            .ui.reset.icon.circular.button(title='Reload Session')
+                            .ui.reset.icon.black.circular.button(title='Reload Session')
                                 i.refresh.icon
-                            .ui.delete_delta.icon.circular.button(title='Delete Session')
+                            .ui.delete_delta.icon.black.circular.button(title='Delete Session')
                                 i.trash.icon
                         else
                             .create_delta.ui.button.pointer(title='new session')
@@ -45,29 +45,29 @@ template(name='delta')
 
 template(name='facet')
     if filtering_res
-        .ui.accordion
-            .active.title
-                .ui.inline.small.inverted.header 
-                    if icon
-                        i.small.grey.icon(class=icon)
-                    if title
-                        |#{title}
-                    else 
-                        |#{key}
-                    i.dropdown.icon
-            .active.content
-                .ui.icon.small.inverted.transparent.input
-                    i.inverted.search.icon
-                    input.add_filter(type='text')
-                each filtering_res
-                    if name
-                        .selector.ui.circular.large.button.toggle_selection(class=toggle_value_class title=count)
-                            strong #{name}
-                            //- small #{cal_count} #{count}
-                    else
-                        .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-                            strong [null]
-                            //- small #{cal_count}
+        //- .ui.accordion
+        //-     .active.title
+        .ui.inverted.header 
+            if icon
+                i.icon(class=icon)
+            if title
+                |#{title}
+            else 
+                |#{key}
+            //- i.dropdown.icon
+            //- .active.content
+        .ui.icon.small.inverted.transparent.input
+            i.inverted.search.icon
+            input.add_filter(type='text')
+        each filtering_res
+            if name
+                .selector.ui.circular.big.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    strong #{name}
+                    //- small #{cal_count} #{count}
+            else
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    //- small #{cal_count}
 
 template(name='toggle_delta_config')
     if boolean_true
@@ -101,15 +101,15 @@ template(name='delta_result')
                     if is_admin
                         a.ui.circular.button.route_model(href="/model/edit/#{_id}")
                             i.edit.icon
-                            |edit
+                            |edit model
                 else
                     if is_admin
-                        a.ui.circular.button(href="/m/#{current_model.slug}/#{_id}/edit")
+                        a.ui.circular.big.icon.black.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
                             i.pencil.icon
-                            |edit
-                    a.ui.circular.button(href="/m/#{current_model.slug}/#{_id}/view")
+                            //- |edit
+                    a.ui.circular.icon.big.black.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
                         i.eye.icon
-                        |view
+                        //- |view
                 each model.actions
                     +Template.dynamic template=this data=..
                 //- if _author_id
