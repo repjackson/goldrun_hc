@@ -2,14 +2,14 @@ template(name='delta')
     with current_model
         .ui.stackable.padded.grid
             .row
-                .six.wide.column.scrolling
-                    .ui.right.aligned.inline.grey.header
+                .eight.wide.right.aligned.column.scrolling
+                    .ui.right.aligned.inline.inverted.header
                         i.icon(class=icon)
                         | #{title}
                     unless is_loading
                         if is_admin
-                            .ui.icon.circular.green.big.button.add_model_doc(title="Add #{title}")
-                                i.plus.icon
+                            .ui.icon.circular.big.button.add_model_doc(title="Add #{title}")
+                                i.green.plus.icon
                         //- if can_edit
                             //- +edit_button
                         if is_admin
@@ -25,10 +25,10 @@ template(name='delta')
                             if is_dev
                                 .ui.icon.circular.button.print_delta(title='Print Session Doc')
                                     i.code.icon
-                                .ui.reset.icon.circular.button(title='Reload Session')
-                                    i.refresh.icon
-                                .ui.delete_delta.icon.circular.button(title='Delete Session')
-                                    i.trash.icon
+                            .ui.reset.icon.circular.button(title='Reload Session')
+                                i.refresh.icon
+                            .ui.delete_delta.icon.circular.button(title='Delete Session')
+                                i.trash.icon
                         else
                             .create_delta.ui.button.pointer(title='new session')
                                 i.plus.icon
@@ -37,7 +37,7 @@ template(name='delta')
                             
                     each current_delta.facets
                         +facet
-                .ten.wide.column.scrolling
+                .eight.wide.column.scrolling
                     each current_delta.result_ids
                         +delta_result
                 
@@ -56,12 +56,12 @@ template(name='facet')
                         |#{key}
                     i.dropdown.icon
             .active.content
-                .ui.icon.small.transparent.input
-                    i.grey.search.icon
+                .ui.icon.small.inverted.transparent.input
+                    i.inverted.search.icon
                     input.add_filter(type='text')
                 each filtering_res
                     if name
-                        .selector.ui.circular.large.compact.button.toggle_selection(class=toggle_value_class title=count)
+                        .selector.ui.circular.large.button.toggle_selection(class=toggle_value_class title=count)
                             strong #{name}
                             //- small #{cal_count} #{count}
                     else

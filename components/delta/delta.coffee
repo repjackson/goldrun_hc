@@ -150,8 +150,8 @@ if Meteor.isClient
             if Session.equals 'loading', true
                  'disabled basic'
             else if facet.filters.length > 0 and @name in facet.filters
-                'grey'
-            else ''
+                'white'
+            else 'black'
 
     Template.delta_result.onRendered ->
         # Meteor.setTimeout ->

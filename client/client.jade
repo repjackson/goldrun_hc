@@ -20,10 +20,11 @@ head
 
 
 template(name='layout')
-    +nav
     //- img.ui.fluid.image.banner_image(src="{{c.url 'stars_big' width=1000 height=500 crop='crop'}}")
     img.ui.fluid.image(src="{{c.url 'stars_big' width=2000}}")
     .ui.stackable.grid.profile_grid
+        .centered.row
+            +nav
         .row
             .sixteen.wide.column
                 #main

@@ -10,7 +10,7 @@ body {
 
 .profile_grid {
     position: absolute !important;
-    top:50px;
+    top:0px;
     width:100%;
 }
 .checkin_page {
