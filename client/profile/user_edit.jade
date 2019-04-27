@@ -36,6 +36,7 @@ template(name='user_edit')
                 .column
                     +array_edit key='tags' label='tags' direct=true
                     +text_edit key='spirit_animal' label='spirit animal' direct=true
+                    +boolean_edit key='published' label='profile published'
                     //- +payment_methods
 
 
@@ -62,36 +63,34 @@ template(name='user_single_doc_ref_editor')
             |#{title}
 
 template(name='username_edit')
-    .ui.inverted.smoothed.segment
-        .ui.small.inverted.header 
-            i.i.cursor.icon
-            |change username [#{user_from_username_param.username}]
-        .ui.icon.fluid.input
-            input.new_username(type='text' placeholder='new username...')
-            i.play.link.icon.change_username
+    .ui.small.inverted.header 
+        i.i.cursor.icon
+        |change username [#{user_from_username_param.username}]
+    .ui.icon.fluid.input
+        input.new_username(type='text' placeholder='new username...')
+        i.play.link.icon.change_username
 
 
      
 template(name='phone_editor')
-    .ui.inverted.smoothed.segment
-        .ui.small.inverted.header    
-            i.phone.icon
-            |phone
-        .ui.icon.fluid.input(title='Add Phone')
-            i.plus.icon
-            input#phone.form-control(type='phone', name='phone', value='{{newNumber}}')
-        if user_from_username_param.profile.phone
-            if user_from_username_param.profile.phone_verified
-                .ui.basic.green.label verified
-            else
-                p
-                    .ui.basic.label not verified
-                    a.resend_verification(href='#')
-                        |resend code
-                    .ui.small.icon.button.remove_phone(title='remove phone')
-                        i.remove.icon
+    .ui.small.inverted.header    
+        i.phone.icon
+        |phone
+    .ui.icon.fluid.input(title='Add Phone')
+        i.plus.icon
+        input#phone.form-control(type='phone', name='phone', value='{{newNumber}}')
+    if user_from_username_param.profile.phone
+        if user_from_username_param.profile.phone_verified
+            .ui.basic.green.label verified
         else
-            .ui.fluid.circular.button.update_phone add / update phone
+            p
+                .ui.basic.label not verified
+                a.resend_verification(href='#')
+                    |resend code
+                .ui.small.icon.button.remove_phone(title='remove phone')
+                    i.remove.icon
+    else
+        .ui.fluid.circular.button.update_phone add phone
 
 
 template(name='add_card_modal')
@@ -99,24 +98,23 @@ template(name='add_card_modal')
 
 
 template(name='password_edit')
-    .ui.inverted.smoothed.segment
-        .ui.small.inverted.header
-            i.lock.icon
-            |change password
-        .ui.fluid.input
-            input#password(type='password', placeholder='Old Password')
-        .ui.fluid.icon.input
-            input#new_password(type='password', placeholder='New Password')
-        .ui.fluid.circular.button.change_password
-            i.refresh.icon
-            |set password
-        
-        .ui.fluid.circular.button.send_enrollment_email
-            |send enrollment email
-        if is_dev
-            .ui.fluid.circular.button.set_password
-                i.user.shield.icon
-                | set password
+    .ui.small.inverted.header
+        i.lock.icon
+        |change password
+    .ui.fluid.input
+        input#password(type='password', placeholder='old password')
+    .ui.fluid.icon.input
+        input#new_password(type='password', placeholder='new password')
+    .ui.fluid.circular.button.change_password
+        i.refresh.icon
+        |set password
+    
+    .ui.fluid.circular.button.send_enrollment_email
+        |send enrollment email
+    if is_dev
+        .ui.fluid.circular.button.set_password
+            i.user.shield.icon
+            | set password
             
             
             
@@ -131,26 +129,25 @@ template(name='user_field')
                         
             
 template(name='emails_edit')
-    .ui.inverted.smoothed.segment
-        .ui.small.inverted.header 
-            i.envelope.icon
-            | email(s)
-        //- #test_email.ui.big.button test email
-        .ui.divided.inverted.list
-            each current_user.emails
-                .item 
-                    // unless verified
-                    //     .right.floated.content
-                    //         .ui.button Verify
-                    .content
-                        |#{address}
-                        if verified
-                            .ui.green.label verified
-                        else
-                            .ui.label unverified
-                            .send_verification_email.ui.button verify
-                        .ui.small.icon.button.remove_email
-                            i.remove.icon
-        .ui.action.fluid.input
-            input#new_email(type='email')
-            #add_email.ui.submit.button add email
+    .ui.small.inverted.header 
+        i.envelope.icon
+        | email(s)
+    //- #test_email.ui.big.button test email
+    .ui.divided.inverted.list
+        each current_user.emails
+            .item 
+                // unless verified
+                //     .right.floated.content
+                //         .ui.button Verify
+                .content
+                    |#{address}
+                    if verified
+                        .ui.green.label verified
+                    else
+                        .ui.label unverified
+                        .send_verification_email.ui.button verify
+                    .ui.small.icon.button.remove_email
+                        i.remove.icon
+    .ui.action.fluid.input
+        input#new_email(type='email')
+        #add_email.ui.submit.circular.button + email

@@ -30,21 +30,19 @@ if Meteor.isClient
                     # console.log if 'passwordVar.length' + password.length >= 6 then true else false
                     if password.length >= 6 then true else false
                 else
-                    alert 'Passwords dont match'
+                    alert "passwords dont match"
 
             if is_valid_password(password, password_confirm)
                 # if (isNotEmpty(password) && areValidPasswords(password, password_confirm)) {
                 Accounts.resetPassword resetPassword, password, (err) ->
                     if err
-                        console.log 'We are sorry but something went wrong.'
+                        console.log 'error'
                     else
-                        console.log 'Your password has been changed. Welcome back!'
+                        console.log 'password changed'
                         Session.set 'resetPassword', null
                         Router.go '/'
             else
-                alert 'password should be at least 6 characters long'
-
-
+                alert 'passwords need to be at least 6 characters long'
 
     Template.forgot_password.onCreated ->
         @autorun -> Meteor.subscribe 'users'
@@ -61,15 +59,12 @@ if Meteor.isClient
             email = email_trim.toLowerCase()
             Accounts.forgotPassword { email: email }, (err) ->
                 if err
-                    if err.message == 'User not found [403]'
-                        console.log 'This email does not exist.'
-                        alert 'This email does not exist.'
+                    if err.message == 'user not found [403]'
+                        alert 'email does not exist'
                     else
-                        console.log 'We are sorry but something went wrong.'
-                        alert 'We are sorry but something went wrong.'
+                        alert "error: #{err.message}"
                 else
-                    console.log 'Email Sent. Check your mailbox.'
-                    alert 'Email Sent. Check your mailbox.'
+                    alert 'email sent'
 
 
         'click .submit_username': (e, t) ->
@@ -80,16 +75,14 @@ if Meteor.isClient
             user = Meteor.users.findOne username:username
             email = user.emails[0].address
             if not email
-                alert "No email found for user.  Please contact admin@henry-health.com."
+                alert "no email found for user.  email admin@dao.af."
 
             Accounts.forgotPassword { email: email }, (err) ->
                 if err
-                    if err.message == 'User not found [403]'
-                        console.log 'This email does not exist.'
-                        alert 'This email does not exist.'
+                    if err.message == 'user not found [403]'
+                        console.log 'email does not exist'
+                        alert 'email does not exist'
                     else
-                        console.log 'We are sorry but something went wrong.'
-                        alert 'We are sorry but something went wrong.'
+                        alert "error: #{err.message}"
                 else
-                    console.log 'Email Sent. Check your mailbox.'
-                    alert 'Email Sent. Check your mailbox.'
+                    alert 'email sent'

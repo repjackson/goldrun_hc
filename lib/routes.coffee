@@ -6,7 +6,7 @@ Router.configure
 
 force_loggedin =  ()->
     if !Meteor.userId()
-        @render 'Login'
+        @render 'login'
     else
         @next()
 
@@ -15,7 +15,21 @@ Router.onBeforeAction(force_loggedin, {
   except: ['register', 'forgot_password','reset_password']
 });
 
+Router.route '/reset_password/:token', -> @render 'reset_password'
 
+Router.route '/verify-email/:token', ->
+    # onBeforeAction: ->
+    console.log @
+    # Session.set('_resetPasswordToken', this.params.token)
+    # @subscribe('enrolledUser', this.params.token).wait()
+    console.log @params
+    Accounts.verifyEmail(@params.token, (err) =>
+        if err
+            console.log err
+            alert err
+        else
+            Router.go '/dashboard'
+    )
 
 
 Router.route '/chat', -> @render 'view_chats'

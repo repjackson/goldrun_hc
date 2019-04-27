@@ -7,7 +7,7 @@ template(name='profile')
                     if image_id
                         img.ui.circular.centered.shadowed.image(src="{{c.url image_id height=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
-                    .ui.large.center.aligned.header
+                    .ui.large.center.aligned.inverted.header
                         | #{user.first_name}
                         | #{user.last_name}
                         if current_user
@@ -81,7 +81,7 @@ template(name='gr_status')
         //-     i.clock.icon
         //-     | Status
         if current_user
-            +array_edit key='gr_status' label='Status' direct=true icon='clock'
+            +array_edit key='gr_status' label='status' direct=true icon='clock'
         else
             each gr_status
                 .ui.circular.basic.label #{this}
@@ -90,7 +90,7 @@ template(name='gr_status')
         //-     i.marker.icon
         //-     | Location 
         if current_user
-            +array_edit key='gr_location' label='Location' direct=true icon='marker'
+            +array_edit key='gr_location' label='location' direct=true icon='marker'
         else 
             each gr_location
                 .ui.circular.basic.label #{this}

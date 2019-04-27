@@ -4,7 +4,7 @@ template(name='login')
             .ten.wide.column
                 .ui.center.aligned.basic.segment
                     i.massive.icons
-                        i.yin.yang.icon(class="{{#if is_logging_in}} loading {{/if}}")
+                        i.yin.yang.grey.icon(class="{{#if is_logging_in}} loading {{/if}}")
                         i.corner.right.chevron.icon
                 if message
                     h4.ui.center.aligned.header #{message}
