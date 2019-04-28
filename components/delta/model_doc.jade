@@ -6,9 +6,9 @@ template(name='model_doc_edit')
                     .ui.header(title="model: #{model}")
                         |Edit #{model}
                     +creation_info
-                    a.ui.big.circular.icon.button(href="/m/#{current_model.slug}/#{_id}/view")
-                        i.big.green.checkmark.icon
-                    #delete_doc.ui.red.icon.circular.button
+                    a.ui.big.circular.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
+                        i.big.checkmark.icon
+                    #delete_doc.ui.red.icon.circular.basic.button
                         i.trash.icon
                             
                 .ten.wide.column.scrolling

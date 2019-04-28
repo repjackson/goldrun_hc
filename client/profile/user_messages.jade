@@ -4,12 +4,12 @@ template(name='user_messages')
         .active.title
             .ui.inline.grey.header 
                 i.mail.icon
-                |user messages
+                |mail
         .active.content
             if currentUser
                 .ui.fluid.icon.input
                     i.plus.icon
-                    input#new_message(type='text' placeholder='New Message')
+                    input#new_message(type='text' placeholder='new message...')
             each user_messages
                 .ui.smoothed.segment
                     .ui.small.header #{body}

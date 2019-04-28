@@ -12,7 +12,7 @@ if Meteor.isClient
 
     Template.user_role_toggle.helpers
         is_in_role: ->
-            @role in Template.parentData().roles
+            Template.parentData().roles and @role in Template.parentData().roles
 
     Template.user_role_toggle.events
         'click .add_role': ->

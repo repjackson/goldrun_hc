@@ -327,7 +327,7 @@ Template.boolean_edit.helpers
             parent = Template.parentData(5)
         # console.log parent
         # console.log @
-        if parent["#{@key}"] then 'black' else ''
+        if parent["#{@key}"] then 'grey' else ''
 
 
 Template.boolean_edit.events
@@ -613,7 +613,7 @@ Template.single_doc_edit.helpers
 
         if target["#{ref_field.key}"]
             # console.log target["#{ref_field.key}"]
-            if @slug is target["#{ref_field.key}"] then 'black' else 'basic'
+            if @slug is target["#{ref_field.key}"] then 'grey' else 'basic'
         else 'basic'
 
 
@@ -705,7 +705,7 @@ Template.multi_doc_edit.helpers
 
         if target["#{ref_field.key}"]
             # console.log target["#{ref_field.key}"]
-            if @slug in target["#{ref_field.key}"] then 'black' else 'basic'
+            if @slug in target["#{ref_field.key}"] then 'grey' else 'basic'
         else
             'basic'
 

@@ -28,7 +28,7 @@ template(name='color_view')
             |#{field_value}
 
 template(name='color_icon_edit')
-    .ui.small.inline.header
+    .ui.small.inline.grey.header
         if icon
             i.grey.icon(class=icon)
         if title
@@ -43,7 +43,7 @@ template(name='color_icon_edit')
 
 template(name='icon_edit')
     .ui.icon.input
-        .ui.small.inline.header
+        .ui.small.inline.grey.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -243,7 +243,7 @@ template(name='document_view')
         
 template(name='text_edit')
     .ui.fluid.icon.input
-        .ui.small.inline.header
+        .ui.small.inline.grey.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -283,7 +283,7 @@ template(name='text_view')
 
 template(name='parent_edit')
     .ui.fluid.icon.input
-        .ui.small.inline.header
+        .ui.small.inline.grey.header
             |Parent Edit
             if icon
                 i.grey.icon(class=icon)
@@ -320,7 +320,7 @@ template(name='phone_edit')
     .ui.fluid.input
         // if icon
         //     i.grey.icon(class=icon)
-        .ui.inline.header 
+        .ui.inline.small.header 
             if title
                 |#{title}
             else if label
@@ -353,7 +353,7 @@ template(name='phone_view')
 template(name='number_edit')
     div
     .ui.fluid.input
-        .ui.small.inline.header
+        .ui.small.inline.grey.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -382,7 +382,7 @@ template(name='number_view')
 
 template(name='date_edit')
     .ui.fluid.input
-        .ui.small.inline.header
+        .ui.small.inline.grey.header
             if title
                 |#{title}
             else if label
@@ -413,7 +413,7 @@ template(name='date_view')
 
 template(name='time_edit')
     .ui.fluid.input
-        .ui.small.inline.header
+        .ui.small.inline.grey.header
             if title
                 |#{title}
             else
@@ -458,7 +458,7 @@ template(name='datetime_view')
 
 template(name='array_edit')
     .ui.fluid.input
-        .ui.small.inline.header
+        .ui.small.inline.grey.header
             if icon
                 i.grey.icon(class=icon)
             if title
@@ -624,7 +624,7 @@ template(name='signature_view')
 
 template(name='boolean_edit')
     div
-    .ui.small.inline.header
+    .ui.small.inline.grey.header
         if icon
             i.grey.icon(class=icon)
         if title
@@ -651,7 +651,7 @@ template(name='boolean_edit')
 
 template(name='boolean_view')
     div
-    .ui.small.inline.header #{title}
+    .ui.small.inline.grey.header #{title}
     if field_value
         i.large.green.checkmark.icon
     else
@@ -670,7 +670,7 @@ template(name='single_doc_view')
 
 template(name='single_doc_edit')
     div
-    .ui.small.inline.header(title=key) 
+    .ui.small.inline.grey.header(title=key) 
         if icon
             i.grey.icon(class=icon)
         |#{label}
@@ -684,7 +684,7 @@ template(name='single_doc_edit')
 
 template(name='multi_doc_edit')
     div
-    .ui.small.inline.header(title=key)
+    .ui.small.inline.grey.header(title=key)
         if icon
             i.icon(class=icon)
         |#{title} #{label}

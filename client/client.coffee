@@ -78,9 +78,20 @@ Template.registerHelper 'is_resident', () ->
         # if _.intersection(['dev','resident'], Meteor.user().roles) then true else false
         if 'resident' in Meteor.user().roles then true else false
 
+Template.registerHelper 'user_is_resident', () ->
+        # if _.intersection(['dev','resident'], Meteor.user().roles) then true else false
+    if @roles and 'resident' in @roles then true else false
+
 Template.registerHelper 'is_dev', () ->
     if Meteor.user() and Meteor.user().roles
         if 'dev' in Meteor.user().roles then true else false
+
+Template.registerHelper 'is_eric', () ->
+    if Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId() then true else false
+
+
+Template.registerHelper 'current_user', () ->
+    Meteor.users.findOne username:Router.current().params.username
 
 
 Template.registerHelper 'view_template', ->

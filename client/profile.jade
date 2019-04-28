@@ -20,26 +20,27 @@ template(name='profile')
                         //- +text_view key='first_name' label='First Name' direct=true
                         //- +text_view key='last_name' label='Last Name' direct=true
                         +text_view key='address' label='Address' direct=true
-                        +number_view key='unit_number' label='Unit #' direct=true
-                        +number_view key='building_number' label='Building #' direct=true
-                        +text_view key='building_code' label='Building Code' direct=true
                         //- +text_view key='email' label='Email' direct=true
                         +phone_view key='phone' label='Phone' direct=true
-                        +date_view key='start_date' label='Start Date' direct=true
-                        +date_view key='expiration_date' label='Expiration Date' direct=true
-                        +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
+                        if user_is_resident
+                            +number_view key='unit_number' label='Unit #' direct=true
+                            +number_view key='building_number' label='Building #' direct=true
+                            +text_view key='building_code' label='Building Code' direct=true
+                            +date_view key='start_date' label='Start Date' direct=true
+                            +date_view key='expiration_date' label='Expiration Date' direct=true
+                        //- +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
                         each emails
                             .ui.circular.basic.label #{address}
                     if is_admin
-                        a.ui.circular.fluid.large.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.basic.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | settings
                     else if current_user
-                        a.ui.circular.fluid.large.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.basic.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | settings
                     if current_user
-                        .ui.circular.fluid.large.button.logout
+                        .ui.circular.fluid.basic.button.logout
                             i.sign.out.icon
                             |log out
                     .ui.smoothed.segment
@@ -53,7 +54,13 @@ template(name='profile')
                             .ui.circular.basic.label #{this}
             
                 .six.wide.column
-                    //- +violations
+                    if user_is_resident
+                        +violations
+                        +user_checkins
+                        .ui.cloud.segment
+                            .ui.grey.header
+                                i.user.icon
+                                | guests
                     //- +user_bookmarks    
                     //- +user_feed
                     +user_tasks
@@ -63,15 +70,10 @@ template(name='profile')
                     +user_messages
                     //- +user_connections
                     //- +user_rules_widget
-                    //- .ui.cloud.segment
-                    //-     .ui.grey.header
-                    //-         i.user.icon
-                    //-         | Guests
-                    //- if is_admin
-                    +role_switcher
+                    if is_eric
+                        +role_switcher
                     //- if current_user
                     //- +user_tags
-                    //- +user_checkins
                     //- +user_chat
             
             
@@ -186,7 +188,7 @@ template(name='user_tasks')
                 |tasks
         .active.content
             .ui.fluid.input
-                input.assign_task(type='text' placeholder='Assign task')
+                input.assign_task(type='text' placeholder='assign task...')
             //- .ui.button.view_complete(class=view_complete_class)
             //-     |View Completed
             // .ui.button.view_incomplete(class=view_complete_class)
@@ -195,7 +197,7 @@ template(name='user_tasks')
                 .ui.smoothed.segment
                     .ui.header #{body}
                     +boolean_edit key='complete' label='Complete' direct=true true_icon='checkmark' false_icon='remove'
-                    +voting
+                    //- +voting
                     +author_info
                     +creation_info
                     if is_author
@@ -218,9 +220,9 @@ template(name='role_switcher')
                 i.user.shield.icon(title='Role Switcher')
                 |roles
         .active.content
-            if is_eric
-                +user_array_element_toggle key='roles' value='dev' user=currentUser
-            with currentUser
+            //- if is_eric
+            //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
+            with current_user
                 +multi_doc_edit key='roles' label='Roles' ref_model='role' direct=true
             //- +user_array_element_toggle key='roles' value='admin' user=currentUser
             //- +user_array_element_toggle key='roles' value='user' user=currentUser

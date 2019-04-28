@@ -12,7 +12,7 @@ template(name='delta')
                             i.green.plus.large.icon
                         //- if can_edit
                             //- +edit_button
-                        .ui.icon.circular.basic.button.edit_model
+                        .ui.icon.circular.basic.big.button.edit_model
                             i.cog.icon
                         //- if is_admin
                                 //- | Configure #{plural}
@@ -23,14 +23,14 @@ template(name='delta')
                                 
                         if current_delta
                             if is_dev
-                                .ui.icon.circular.basic.button.print_delta(title='Print Session Doc')
+                                .ui.icon.circular.basic.big.button.print_delta(title='Print Session Doc')
                                     i.code.icon
-                            .ui.reset.icon.circular.basic.button(title='Reload Session')
+                            .ui.reset.icon.circular.basic.big.button(title='Reload Session')
                                 i.refresh.icon
-                            .ui.delete_delta.icon.circular.basic.button(title='Delete Session')
+                            .ui.delete_delta.icon.circular.basic.big.button(title='Delete Session')
                                 i.trash.icon
                         else
-                            .create_delta.ui.button.pointer(title='new session')
+                            .create_delta.ui.big.circular.basic.button(title='new session')
                                 i.plus.icon
                                 |Session
                     // |did: #{session_delta_id}

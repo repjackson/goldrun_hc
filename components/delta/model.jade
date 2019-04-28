@@ -15,10 +15,11 @@ template(name='model_edit')
                         +array_edit key='tags' label='Tags' direct=true
                         +text_edit key='collection' label='Collection' direct=true
                         +multi_doc_edit key='view_roles' label='View Roles' ref_model='role' direct=true
-                    a.ui.green.big.circular.icon.button(href="/m/#{slug}")
-                        i.big.checkmark.icon
-                    #delete_model.ui.red.icon.circular.button
-                        i.trash.icon
+                    .ui.basic.center.aligned.segment
+                        a.ui.huge.circular.icon.basic.button(href="/m/#{slug}")
+                            i.big.checkmark.icon
+                        #delete_model.ui.icon.circular.basic.button
+                            i.trash.icon
                 .ten.wide.column
                     //- |#{type}
                     //- each fields
