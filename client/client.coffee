@@ -19,6 +19,8 @@ Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
 
 
+Template.registerHelper 'author', () ->
+    Meteor.users.findOne @_author_id
 
 Template.registerHelper 'is_text', () ->
     console.log @field_type

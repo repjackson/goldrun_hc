@@ -472,7 +472,7 @@ template(name='array_edit')
     div
     if field_value
         each field_value
-            .ui.large.circular.label
+            .ui.large.circular.basic.label
                 i.delete.icon.remove_element
                 |#{this}
                 
@@ -623,7 +623,7 @@ template(name='signature_view')
 
 
 template(name='boolean_edit')
-    //- div
+    div
     .ui.small.inline.header
         if icon
             i.grey.icon(class=icon)
@@ -650,11 +650,12 @@ template(name='boolean_edit')
 
 
 template(name='boolean_view')
+    div
     .ui.small.inline.header #{title}
     if field_value
-        .ui.green.label Yes
+        i.large.green.checkmark.icon
     else
-        .ui.smoothed.label No
+        i.large.cancel.icon
 
 template(name='single_doc_view')
     if icon
@@ -674,7 +675,7 @@ template(name='single_doc_edit')
             i.grey.icon(class=icon)
         |#{label}
     each choices
-        .ui.small.circular.compact.button.select_choice(class=choice_class)
+        .ui.small.circular.button.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{calculated_label}
@@ -688,7 +689,7 @@ template(name='multi_doc_edit')
             i.icon(class=icon)
         |#{title} #{label}
     each choices
-        .ui.circular.compact.button.select_choice(class=choice_class)
+        .ui.circular.button.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{title}
@@ -730,14 +731,14 @@ template(name='multi_doc_view')
 
 template(name='single_user_edit')
     div
-    .ui.small.inline.header 
+    .ui.inline.header 
         if icon
             i.icon(class=icon)
         |#{title}
-        if field_value
-            .pull_user.ui.circular.button(title='Remove User')
-                i.user.remove.icon
-                |clear #{field_value}
+    if field_value
+        .pull_user.ui.circular.basic.button(title='Remove User')
+            i.user.remove.icon
+            |clear #{field_value}
     unless field_value
         .ui.input
             input#single_user_select_input(type='text' placeholder='Lookup User...')

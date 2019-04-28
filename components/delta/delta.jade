@@ -2,32 +2,32 @@ template(name='delta')
     with current_model
         .ui.stackable.padded.grid
             .row
-                .six.wide.scrolling.column
+                .six.wide.column
                     .ui.right.aligned.inline.header
                         i.icon(class=icon)
                         | #{title}
                     unless is_loading
-                        if is_admin
-                            .ui.icon.circular.big.button.add_model_doc(title="Add #{title}")
-                                i.green.plus.icon
+                        //- if is_admin
+                        .ui.icon.circular.big.basic.button.add_model_doc(title="Add #{title}")
+                            i.green.plus.large.icon
                         //- if can_edit
                             //- +edit_button
-                        .ui.icon.circular.button.edit_model
+                        .ui.icon.circular.basic.button.edit_model
                             i.cog.icon
                         //- if is_admin
                                 //- | Configure #{plural}
                         // .ui.divider
                         // // each sessions
-                        // //     .ui.icon.button.select_session(class=session_selector_class title='select session')
+                        // //     .ui.icon.basic.button.select_session(class=session_selector_class title='select session')
                         // //         i.play.icon
                                 
                         if current_delta
                             if is_dev
-                                .ui.icon.circular.button.print_delta(title='Print Session Doc')
+                                .ui.icon.circular.basic.button.print_delta(title='Print Session Doc')
                                     i.code.icon
-                            .ui.reset.icon.circular.button(title='Reload Session')
+                            .ui.reset.icon.circular.basic.button(title='Reload Session')
                                 i.refresh.icon
-                            .ui.delete_delta.icon.circular.button(title='Delete Session')
+                            .ui.delete_delta.icon.circular.basic.button(title='Delete Session')
                                 i.trash.icon
                         else
                             .create_delta.ui.button.pointer(title='new session')
@@ -47,7 +47,7 @@ template(name='facet')
     if filtering_res
         //- .ui.accordion
         //-     .active.title
-        .ui.header 
+        .ui.grey.header 
             if icon
                 i.icon(class=icon)
             if title
@@ -103,17 +103,17 @@ template(name='delta_result')
                             i.edit.icon
                             |edit model
                 else
-                    if is_admin
-                        a.ui.circular.big.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
-                            i.pencil.icon
+                    //- if is_admin
+                    a.ui.circular.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
+                        i.pencil.large.icon
                             //- |edit
-                    a.ui.circular.icon.big.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
-                        i.eye.icon
+                    a.ui.circular.icon.big.basic.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
+                        i.right.chevron.large.icon
                         //- |view
                 each model.actions
                     +Template.dynamic template=this data=..
-                //- if _author_id
-                //-     +author_info
+                if _author_id
+                    +author_info
                 +creation_info
                 //- if _timestamp_tags
                 //-     .ui.small.inline.grey.header timestamp tags

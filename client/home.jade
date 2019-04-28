@@ -1,7 +1,7 @@
 template(name='staff')
     h1.ui.center.aligned.header 
         i.home.icon
-        |Gold Run Staff
+        |staff
     .three.column.row
         .column
             +schedule
@@ -16,7 +16,7 @@ template(name='staff')
 template(name='home')
     h1.ui.center.aligned.header 
         i.home.icon
-        |Gold Run
+        |gold run
     .ui.centered.stackable.cards
         each role_models
             a.card.set_model(href="/m/#{slug}")

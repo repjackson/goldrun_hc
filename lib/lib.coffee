@@ -139,7 +139,8 @@ if Meteor.isClient
 if Meteor.isServer
     Docs.allow
         insert: (userId, doc) -> doc._author_id is userId
-        update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
+        update: (userId, doc) -> userId
+        # update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
         remove: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
 
     Meteor.publish 'docs', (selected_tags, filter)->

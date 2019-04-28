@@ -11,9 +11,12 @@ if Meteor.isClient
 
     Template.home.helpers
         role_models: ->
-            Docs.find
+            Docs.find {
                 model:'model'
                 view_roles:$in:Meteor.user().roles
+            }, sort:title:1
+
+
 
 if Meteor.isServer
     Meteor.publish 'role_models', ()->
