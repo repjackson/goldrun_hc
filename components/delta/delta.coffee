@@ -12,6 +12,15 @@ if Meteor.isClient
                 model:'delta'
                 _author_id:Meteor.userId()
 
+        sorted_facets: ->
+            current_delta =
+                Docs.findOne
+                    model:'delta'
+                    _author_id:Meteor.userId()
+            if current_delta
+                console.log _.sortBy current_delta.facets,'rank'
+                _.sortBy current_delta.facets,'rank'
+
         global_tags: ->
             doc_count = Docs.find().count()
             if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find()
@@ -148,10 +157,10 @@ if Meteor.isClient
             facet = Template.parentData()
             delta = Docs.findOne model:'delta'
             if Session.equals 'loading', true
-                 'disabled inverted'
+                 'disabled '
             else if facet.filters.length > 0 and @name in facet.filters
-                'white'
-            else 'inverted'
+                'grey'
+            else ''
 
     Template.delta_result.onRendered ->
         # Meteor.setTimeout ->

@@ -8,13 +8,13 @@ profile
 
 admin
     pool readings
-    
-    
+
+
 front desk
     scheduling
     shift change
     messaging
-    
+
 lost and found
 
 
@@ -23,7 +23,13 @@ resident
     classifides
     services
     events
-    
+
 todo
     cloudinary id
-    
+
+
+
+
+jackie todo
+staff page
+login   

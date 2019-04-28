@@ -99,7 +99,7 @@ template(name='big_user_card')
             a.content(href="/user/#{username}")
                 .header #{first_name} #{last_name} 
                 .meta @#{username}
-                +array_view key='tags' label='Tags' direct=true
+                //- +array_view key='tags' label='Tags' direct=true
             if is_admin
                 .content
                     div #{address}
@@ -110,7 +110,7 @@ template(name='big_user_card')
                         strong #{start_date}
                     //- div Expiration 
                     //-     strong #{lease_expiration}
-                    //- +checkin_button
+                    +checkin_button
                     //- +icolor name='swimming-pool' classes='ui avatar image'
                     //- +icolor name='weightlift' classes='ui avatar image'
                     //- +icolor name='jacuzzi' classes='ui avatar image'

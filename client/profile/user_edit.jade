@@ -4,11 +4,11 @@ template(name='user_edit')
         .ui.stackable.padded.grid
             .three.column.row
                 .column
-                    a.ui.large.circular.inverted.icon.button(href="/user/#{user_from_username_param.username}/" title='save') 
+                    a.ui.large.circular.icon.button(href="/user/#{user_from_username_param.username}/" title='save') 
                         i.checkmark.large.icon
-                    .ui.center.aligned.large.inline.inverted.header
+                    .ui.center.aligned.large.inline.header
                         | #{user_from_username_param.first_name} #{user_from_username_param.last_name} profile
-                    .ui.center.aligned.small.inline.inverted.header @#{user_from_username_param.username}
+                    .ui.center.aligned.small.inline.header @#{user_from_username_param.username}
                     //- i.cog.icon
                     +image_edit key='image_id' direct=true
                     +password_edit
@@ -27,6 +27,7 @@ template(name='user_edit')
                         +text_edit key='address' label='address' direct=true
                         +number_edit key='unit_number' label='unit #' direct=true
                         +number_edit key='building_number' label='building #' direct=true
+                        +text_edit key='building_code' label='building code' direct=true
                         //- +text_edit key='email' label='Email' direct=true
                         +phone_edit key='phone' label='phone' direct=true
                         +date_edit key='start_date' label='start date' direct=true
@@ -34,21 +35,21 @@ template(name='user_edit')
                         +image_edit key='lease_agreement_image' label='lease agreement image' direct=true
                         //- +image_edit key='banner_image_id' label='Banner Image' direct=true
                 .column
-                    +array_edit key='tags' label='tags' direct=true
-                    +text_edit key='spirit_animal' label='spirit animal' direct=true
+                    //- +array_edit key='tags' label='tags' direct=true
+                    //- +text_edit key='spirit_animal' label='spirit animal' direct=true
                     +boolean_edit key='published' label='profile published'
                     //- +payment_methods
 
 
 template(name='user_model_editor')
-    .ui.inverted.header Profile Sections
+    .ui.header Profile Sections
     each models
         .ui.button.toggle_model(class=user_model_class title=title)
             i.icon(class=icon)
             |#{title}
             
 template(name='user_tribe_editor')
-    .ui.inverted.header My Tribes
+    .ui.header My Tribes
     each tribes
         .ui.button.toggle_tribe(class=user_tribe_class title=title)
             i.icon(class=icon)
@@ -56,14 +57,14 @@ template(name='user_tribe_editor')
             
             
 template(name='user_single_doc_ref_editor')
-    .ui.inverted.header #{label}
+    .ui.header #{label}
     each choices
         .ui.button.select_choice(class=choice_class title=title)
             i.icon(class=icon)
             |#{title}
 
 template(name='username_edit')
-    .ui.small.inverted.header 
+    .ui.small.header 
         i.i.cursor.icon
         |change username [#{user_from_username_param.username}]
     .ui.icon.fluid.input
@@ -73,7 +74,7 @@ template(name='username_edit')
 
      
 template(name='phone_editor')
-    .ui.small.inverted.header    
+    .ui.small.header    
         i.phone.icon
         |phone
     .ui.icon.fluid.input(title='Add Phone')
@@ -98,7 +99,7 @@ template(name='add_card_modal')
 
 
 template(name='password_edit')
-    .ui.small.inverted.header
+    .ui.small.header
         i.lock.icon
         |change password
     .ui.fluid.input
@@ -129,11 +130,11 @@ template(name='user_field')
                         
             
 template(name='emails_edit')
-    .ui.small.inverted.header 
+    .ui.small.header 
         i.envelope.icon
         | email(s)
     //- #test_email.ui.big.button test email
-    .ui.divided.inverted.list
+    .ui.divided.list
         each current_user.emails
             .item 
                 // unless verified

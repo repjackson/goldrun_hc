@@ -1,17 +1,17 @@
 if Meteor.isClient
     Template.facet_staff_select.onCreated ->
         @autorun => Meteor.subscribe 'facet_doc', @data.tags
-        
+
     Template.facet_staff_select.helpers
-        doc: ->
+        facet_doc: ->
             tags = Template.currentData().tags
             split_array = tags.split ','
 
             Docs.findOne
                 tags: split_array
-    
+
         template_tags: -> Template.currentData().tags
-    
+
         doc_classes: -> Template.parentData().classes
 
     Template.facet_staff_select.events

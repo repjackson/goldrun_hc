@@ -66,6 +66,16 @@ Template.registerHelper 'is_admin', () ->
         # if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
         if 'admin' in Meteor.user().roles then true else false
 
+Template.registerHelper 'is_staff', () ->
+    if Meteor.user() and Meteor.user().roles
+        # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
+        if 'staff' in Meteor.user().roles then true else false
+
+Template.registerHelper 'is_resident', () ->
+    if Meteor.user() and Meteor.user().roles
+        # if _.intersection(['dev','resident'], Meteor.user().roles) then true else false
+        if 'resident' in Meteor.user().roles then true else false
+
 Template.registerHelper 'is_dev', () ->
     if Meteor.user() and Meteor.user().roles
         if 'dev' in Meteor.user().roles then true else false

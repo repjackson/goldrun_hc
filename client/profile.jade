@@ -7,7 +7,7 @@ template(name='profile')
                     if image_id
                         img.ui.circular.centered.shadowed.image(src="{{c.url image_id height=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
-                    .ui.large.center.aligned.inverted.header
+                    .ui.large.center.aligned.header
                         | #{user.first_name}
                         | #{user.last_name}
                         if current_user
@@ -15,13 +15,14 @@ template(name='profile')
                                 i.cog.link.icon
                     .ui.center.aligned.header
                         | @#{user.username}        
-                    +gr_status                
+                    //- +gr_status                
                     .ui.smoothed.segment
                         //- +text_view key='first_name' label='First Name' direct=true
                         //- +text_view key='last_name' label='Last Name' direct=true
                         +text_view key='address' label='Address' direct=true
                         +number_view key='unit_number' label='Unit #' direct=true
                         +number_view key='building_number' label='Building #' direct=true
+                        +text_view key='building_code' label='Building Code' direct=true
                         //- +text_view key='email' label='Email' direct=true
                         +phone_view key='phone' label='Phone' direct=true
                         +date_view key='start_date' label='Start Date' direct=true
@@ -30,21 +31,21 @@ template(name='profile')
                         each emails
                             .ui.circular.basic.label #{address}
                     if is_admin
-                        a.ui.circular.fluid.large.inverted.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.large.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | settings
                     else if current_user
-                        a.ui.circular.fluid.large.inverted.button(href="/user/#{user_from_username_param.username}/edit")
+                        a.ui.circular.fluid.large.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | settings
                     if current_user
-                        .ui.circular.fluid.large.inverted.button.logout
+                        .ui.circular.fluid.large.button.logout
                             i.sign.out.icon
                             |log out
                     .ui.smoothed.segment
-                        .ui.header
-                            i.heartbeat.icon
-                            |#{user.points} Karma
+                        //- .ui.header
+                        //-     i.heartbeat.icon
+                        //-     |#{user.points} Karma
                         .ui.header 
                             i.user.shield.icon
                             |roles
@@ -53,14 +54,14 @@ template(name='profile')
             
                 .six.wide.column
                     //- +violations
-                    +user_bookmarks    
+                    //- +user_bookmarks    
                     //- +user_feed
                     +user_tasks
-                    +user_notifications
-                    +user_karma
+                    //- +user_notifications
+                    //- +user_karma
                 .six.wide.column
                     +user_messages
-                    +user_connections
+                    //- +user_connections
                     //- +user_rules_widget
                     //- .ui.cloud.segment
                     //-     .ui.grey.header
@@ -69,7 +70,7 @@ template(name='profile')
                     //- if is_admin
                     +role_switcher
                     //- if current_user
-                    +user_tags
+                    //- +user_tags
                     //- +user_checkins
                     //- +user_chat
             

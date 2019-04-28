@@ -64,6 +64,7 @@ Router.route '/user/:username', -> @render 'profile'
 Router.route '/forgot_password', -> @render 'forgot_password'
 
 Router.route '/checkin', -> @render 'goldrun'
+Router.route '/frontdesk', -> @render 'frontdesk'
 Router.route '/user/:username/edit', -> @render 'user_edit'
 Router.route '/p/:slug', -> @render 'page'
 Router.route '/settings', -> @render 'settings'
@@ -72,7 +73,8 @@ Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 
 Router.route '/login', -> @render 'login'
 
-Router.route '/', -> @redirect '/m/model'
+# Router.route '/', -> @redirect '/m/model'
+Router.route '/', -> @render 'home'
     #
     # @layout 'layout'
     # @render 'home'

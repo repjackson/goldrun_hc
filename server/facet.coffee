@@ -26,20 +26,22 @@ Meteor.methods
         Docs.update delta._id,
             $set:facets:[]
         for field in fields.fetch()
-            console.log 'field type', field.field_type
-            console.log 'field key', field.key
+            # console.log 'field type', field.field_type
+            # console.log 'field key', field.key
             unless field.field_type in ['textarea','image','youtube','html']
                 unless field.key in ['slug','icon']
                 # console.log 'adding field to delta', field.key
-                    Docs.update delta._id,
-                        $addToSet:
-                            facets: {
-                                title:field.title
-                                icon:field.icon
-                                key:field.key
-                                filters:[]
-                                res:[]
-                            }
+                    if field.faceted is true
+                        Docs.update delta._id,
+                            $addToSet:
+                                facets: {
+                                    title:field.title
+                                    icon:field.icon
+                                    key:field.key
+                                    rank:field.rank
+                                    filters:[]
+                                    res:[]
+                                }
         Meteor.call 'fum', delta._id
 
 
