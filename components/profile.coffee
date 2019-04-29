@@ -121,7 +121,6 @@ if Meteor.isClient
         wall_posts: ->
             Docs.find
                 model:'wall_post'
-
     Template.user_wall.events
         'keyup .new_post': (e,t)->
             if e.which is 13
@@ -173,6 +172,14 @@ if Meteor.isClient
                 model:'key'
 
 
+    Template.user_unit.onCreated ->
+        @autorun => Meteor.subscribe 'user_unit', Router.current().params.username
+    Template.user_unit.helpers
+        unit: ->
+            Docs.findOne
+                model:'unit'
+
+
     Template.user_log.onCreated ->
         @autorun => Meteor.subscribe 'user_log', Router.current().params.username
     Template.user_log.helpers
@@ -184,7 +191,7 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'wall_posts', (username)->
-        console.log username
+        # console.log username
         Docs.find
             model:'wall_post'
             # parent_username:username
@@ -192,9 +199,18 @@ if Meteor.isServer
     Meteor.publish 'user_key', (username)->
         # console.log 'violation', username
         user = Meteor.users.findOne username:username
-        console.log user
+        # console.log user
         Docs.find
             model:'key'
+            building_code:user.building_code
+            unit_number:user.unit_number
+
+    Meteor.publish 'user_unit', (username)->
+        # console.log 'violation', username
+        user = Meteor.users.findOne username:username
+        # console.log user
+        Docs.find
+            model:'unit'
             building_code:user.building_code
             unit_number:user.unit_number
 

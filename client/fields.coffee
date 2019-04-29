@@ -781,7 +781,6 @@ Template.single_user_edit.events
             else
                 t.user_results.set res
 
-
     'click .select_user': (e,t) ->
         # page_doc = Docs.findOne Router.current().params.id
         # console.log @
@@ -794,8 +793,14 @@ Template.single_user_edit.events
         else
             parent = Template.parentData(5)
 
-        Docs.update parent._id,
-            $set:"#{field.key}":@username
+        doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:"#{@key}":@username
+        else if user
+            Meteor.users.update parent._id,
+                $set:"#{@key}":@username
 
         t.user_results.set null
         $('#single_user_select_input').val ''

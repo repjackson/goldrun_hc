@@ -1,12 +1,12 @@
 template(name='home')
-    h1.ui.center.aligned.header 
-        i.home.icon
+    h1.ui.center.aligned.grey.header 
         |gold run
-    .ui.centered.stackable.cards
+    .ui.stackable.four.column.grid
         each role_models
-            a.card.set_model(href="/m/#{slug}")
-                .content
-                    .header 
-                        i.icon(class=icon)
-                        |#{title}
+            .column
+                .ui.segment.profile_block.set_model
+                    a(href="/m/#{slug}")
+                        .ui.grey.header 
+                            i.icon(class=icon)
+                            |#{title}
                 

@@ -51,7 +51,7 @@ template(name='profile')
                             |log out
                     if user_is_resident
                         if is_staff
-                            +textarea_edit key='staff_notes' label='notes'
+                            +textarea_edit key='staff_notes' title='staff notes'
                 
                 .six.wide.column
                     if user_is_resident
@@ -60,9 +60,6 @@ template(name='profile')
                         +user_guests
                         +user_card_replacements
                         +user_signatures
-                        +user_key
-                        if is_staff
-                            +textarea_edit key='staff_notes' label='notes'
                     +user_log
                     //- +user_bookmarks    
                     //- +user_feed
@@ -70,6 +67,8 @@ template(name='profile')
                     //- +user_notifications
                     //- +user_karma
                 .six.wide.column
+                    +user_key
+                    +user_unit
                     +user_messages
                     //- +user_connections
                     //- +user_rules_widget
@@ -83,7 +82,7 @@ template(name='profile')
 template(name='user_card_replacements')
     .ui.segment.profile_block
         .ui.grey.inline.center.aligned.header 
-            i.credit.card.icon
+            i.id.card.alternate.icon
             |card replacements
 
             
@@ -92,6 +91,10 @@ template(name='user_signatures')
         .ui.grey.inline.center.aligned.header 
             i.signature.icon
             | signatures
+        .ui.link.large.list
+            a.item(href='#') rules and regulations
+            a.item(href='#') proof of residency
+            a.item(href='#') injury waiver
 
             
             
@@ -152,6 +155,19 @@ template(name='user_key')
             +view_button
 
             
+template(name='user_unit')
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.home.icon
+            |unit
+        with unit
+            +number_view key='building_number' label='Building Number' direct=true
+            +number_view key='unit_number' label='Unit #' direct=true
+            div
+            +edit_button
+            +view_button
+
+            
             
             
 template(name='user_section')
@@ -165,21 +181,21 @@ template(name='violations')
         .ui.grey.inline.center.aligned.header 
             i.exclamation.triangle.icon
             |violations
-        .ui.list
-            each violations
-                .item
-                    img.ui.avatar.image(src="{{c.url image_id height=100 gravity='face' crop='fill'}}")
-                    .content
-                        .header #{title}
-                        .description !{description}
-                            |date:#{violation_date}
-                            |time: #{violation_time}
+        //- .ui.list
+        //-     each violations
+        //-         .item
+        //-             img.ui.avatar.image(src="{{c.url image_id height=100 gravity='face' crop='fill'}}")
+        //-             .content
+        //-                 .header #{title}
+        //-                 .description !{description}
+        //-                     |date:#{violation_date}
+        //-                     |time: #{violation_time}
         .ui.comments
             each violations
                 .comment
                     img.ui.avatar.image(src="{{c.url image_id height=100 gravity='face' crop='fill'}}")
                     .content
-                        .header !{description}
+                        a.header(href="/m/violation/#{_id}/view") !{description}
                         .meta #{when}
                             |date:#{violation_date}
                             |time: #{violation_time}
