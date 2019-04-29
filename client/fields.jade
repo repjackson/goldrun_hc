@@ -42,7 +42,7 @@ template(name='color_icon_edit')
         img.ui.inline.image(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
 template(name='icon_edit')
-    .ui.icon.input
+    .ui.right.icon.input
         .ui.small.inline.grey.header
             if icon
                 i.grey.icon(class=icon)
@@ -233,13 +233,13 @@ template(name='document_edit')
             
                 
 template(name='document_view')
-    .ui.styled.fluid.accordion
-        .title 
-            .ui.header 
-                |#{title}
-                i.dropdown.icon
-        .content 
-            |!{referenced_document.content}
+    //- .ui.styled.fluid.accordion
+    //-     .title 
+    //-         .ui.header 
+    //-             |#{title}
+    //-             i.dropdown.icon
+    //-     .content 
+    |!{referenced_document.content}
         
 template(name='text_edit')
     .ui.fluid.icon.input
@@ -496,7 +496,7 @@ template(name='array_view')
             else
                 |#{this}
             each field_value
-                .ui.large.circular.label #{this}
+                .ui.large.circular.basic.label #{this}
 
 
 template(name='children_edit')

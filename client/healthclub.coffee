@@ -62,9 +62,14 @@ Template.checkin_button.events
                 object_id:@_id
                 body: "#{@username} checked in."
             # swal( "#{@username} checked in.", "", "success" )
+
             Session.set 'username_query',null
             Session.set 'checking_in',false
             $('.username_search').val('')
+            Session.set 'displaying_profile',@_id
+            Meteor.setTimeout =>
+                Session.set 'displaying_profile', null
+            , 4000
         , 750
 
     'click .checkout': (e,t)->

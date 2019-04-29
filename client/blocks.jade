@@ -119,6 +119,29 @@ template(name='big_user_card')
                     //- +icolor name='water-steam' classes='ui avatar image'
 
 
+template(name='big_checkin_card')
+    with user
+        //- .ui.card
+        .ui.fluid.card
+            .image
+                img.ui.image(src="{{c.url image_id width=300 height=400 gravity='face' crop='fill'}}")
+            a.content(href="/user/#{username}")
+                .header #{first_name} #{last_name} 
+                .meta @#{username}
+                //- +array_view key='tags' label='Tags' direct=true
+            if is_admin
+                .content
+                    div #{address}
+                    strong #{building_number}
+                    strong ##{apt_number}
+                    +array_view key='tags' label='Tags'
+                    //- div Membership Start 
+                        strong #{start_date}
+                    //- div Expiration 
+                    //-     strong #{lease_expiration}
+                    +checkin_button
+
+
 
 template(name='user_info')
     a.ui.small.circular.basic.compact.button(href="/user/#{user.username}/")

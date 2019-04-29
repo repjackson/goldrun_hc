@@ -17,18 +17,20 @@ head
     meta(name="theme-color" content="#000000")
 
 
-
-
 template(name='layout')
     //- img.ui.fluid.image.banner_image(src="{{c.url 'stars_big' width=1000 height=500 crop='crop'}}")
     //- img.ui.fluid.image(src="{{c.url 'stars_big' width=2000}}")
     if currentUser
         +nav
     .ui.stackable.padded.grid
-        .row
-            .sixteen.wide.column
+        .centered.row
+            if displaying_profile
+                .twelve.wide.column
+                    +big_checkin_card displaying_profile
                 //- #main
-                +yield
+            else 
+                .sixteen.wide.column
+                    +yield
     
     //- .context
     //-     +nav

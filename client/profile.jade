@@ -16,7 +16,7 @@ template(name='profile')
                     .ui.center.aligned.header
                         | @#{user.username}        
                     //- +gr_status                
-                    .ui.smoothed.segment
+                    .ui.profile_block.segment
                         //- +text_view key='first_name' label='First Name' direct=true
                         //- +text_view key='last_name' label='Last Name' direct=true
                         +text_view key='address' label='address' direct=true
@@ -31,6 +31,12 @@ template(name='profile')
                         //- +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
                         each emails
                             .ui.circular.basic.label #{address}
+                    .ui.profile_block.segment
+                        .ui.grey.header 
+                            i.user.shield.icon
+                            |roles
+                        each roles
+                            .ui.circular.basic.label #{this}                    
                     if is_admin
                         a.ui.circular.fluid.basic.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
@@ -43,18 +49,20 @@ template(name='profile')
                         .ui.circular.fluid.basic.button.logout
                             i.sign.out.icon
                             |log out
-                    .ui.smoothed.segment
-                        .ui.grey.header 
-                            i.user.shield.icon
-                            |roles
-                        each roles
-                            .ui.circular.basic.label #{this}
+                    if user_is_resident
+                        if is_staff
+                            +textarea_edit key='staff_notes' label='notes'
+                
                 .six.wide.column
                     if user_is_resident
                         +violations
                         +user_checkins
                         +user_guests
+                        +user_card_replacements
+                        +user_signatures
                         +user_key
+                        if is_staff
+                            +textarea_edit key='staff_notes' label='notes'
                     +user_log
                     //- +user_bookmarks    
                     //- +user_feed
@@ -72,6 +80,19 @@ template(name='profile')
                     //- +user_chat
             
             
+template(name='user_card_replacements')
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.credit.card.icon
+            |card replacements
+
+            
+template(name='user_signatures')
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.signature.icon
+            | signatures
+
             
             
 template(name='gr_status')   
@@ -147,7 +168,26 @@ template(name='violations')
         .ui.list
             each violations
                 .item
-                    .header #{title} #{violation_date} #{violation_time}
+                    img.ui.avatar.image(src="{{c.url image_id height=100 gravity='face' crop='fill'}}")
+                    .content
+                        .header #{title}
+                        .description !{description}
+                            |date:#{violation_date}
+                            |time: #{violation_time}
+        .ui.comments
+            each violations
+                .comment
+                    img.ui.avatar.image(src="{{c.url image_id height=100 gravity='face' crop='fill'}}")
+                    .content
+                        .header !{description}
+                        .meta #{when}
+                            |date:#{violation_date}
+                            |time: #{violation_time}
+                        //- .actions
+                            //- i.thumbs.up.link.icon
+                            //- i.remove.link.remove_comment.icon
+
+
 
 
 template(name='user_log')

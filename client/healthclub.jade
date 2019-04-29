@@ -5,7 +5,7 @@ template(name='goldrun')
             //- h1.ui.center.aligned.header 
             //-     |Gold Run Health Club
             .ui.left.icon.huge.fluid.input
-                input.username_search(type='text' placeholder='Check in Gold Run resident...')
+                input.username_search(type='text' placeholder='check in...')
                 if is_query
                     i.remove.link.icon.clear_results
                 else 
@@ -17,7 +17,7 @@ template(name='goldrun')
                             .ui.cloud.center.aligned.segment
                                 h2.ui.center.aligned.header 
                                     //- +icolor name='internal' classes='ui inline image'
-                                    |Check In Member
+                                    |check in member
                                 .ui.three.centered.stackable.cards
                                     each checkedout_members
                                         .card
@@ -29,16 +29,16 @@ template(name='goldrun')
                                                 .meta @#{username}
                                                 if is_dev
                                                     a.ui.basic.circular.button(href="/user/#{username}/")
-                                                        |View Profile
+                                                        |view profile
                                                         i.chevron.right.icon
                                                 +checkin_button
                         else
                             if checking_in
                                 if is_query
                                     .ui.cloud.center.aligned.segment
-                                        .ui.center.aligned.header No Members Found
+                                        .ui.center.aligned.header no members found
                                         .ui.center.aligned.header 
-                                            |Please drop yellow card and ask staff to add.
+                                            |please show yellow card to staff and ask to add profile
                                     //- +add_resident
                 if is_admin
                     .row
@@ -46,7 +46,7 @@ template(name='goldrun')
                             .ui.cloud.segment
                                 h1.ui.center.aligned.header
                                     //- +icolor name='internal' classes='ui image'
-                                    |#{checkedin_members.count} Checked In Members
+                                    |#{checkedin_members.count} checked in members
                                 .ui.doubling.centered.cards
                                     each checkedin_members
                                         +big_user_card username
@@ -55,10 +55,9 @@ template(name='goldrun')
                             .ui.header
                                 //- +icolor name='megaphone' classes='ui inline image'
                                 //- i.rss.icon
-                                |Notices
+                                |notices
                             .content
-                                .ui.small.header FM receiver headsets now available to borrow for tvs
-                                
+                                +document_view key='health_club_notices'            
                             .ui.accordion
                                 h4.title
                                     // +icolor name='edit-property' classes='ui inline image'
@@ -101,7 +100,7 @@ template(name='goldrun')
                                 |Rules and Regulations
                             a.ui.large.circular.basic.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
                                 |Guest Waiver
-            +health_club_info
+            +document_view key='health_club_info'
                 
             //- .ui.check_out.modal
             //-     .header Checkout #{selected_person.username}?
@@ -166,12 +165,12 @@ template(name='sign_waiver')
 template(name='checkin_button')
     unless healthclub_checkedin
         .ui.large.fluid.circular.basic.button.checkin(title='Check In')
-            i.sign.in.large.icon
+            i.sign.in.icon
             //- +icolor name='internal' classes='ui image'
             |Check In
     if healthclub_checkedin
-        .ui.large.fluid.circular.basic.button.checkout(title='Sign Out')
-            i.sign.out.large.icon
+        .ui.fluid.circular.basic.button.checkout(title='Sign Out')
+            i.sign.out.icon
             //- +icolor name='exit-sign' classes='ui avatar image'
             |Check Out
     //- +rules_sign
@@ -197,36 +196,3 @@ template(name='checkin_button')
 
 
 template(name='health_club_info')
-    .ui.stackable.grid
-        .three.column.inverted.row
-            .column
-                .ui.header Wifi
-                | Gold Run Health Club / goldrun1
-                .ui.header Upstairs Code
-                | 4589
-                .ui.header Security
-                | 303.443.3701
-            .column
-                .ui.header Onsite Manager
-                .ui.list
-                    .item Rick Hamp 
-                    .item 303.545.1787
-                    .item goldruncondos@gmail.com
-                .ui.header After Hours Emergency
-                | 303.221.1117
-                .ui.header Boulder Valley Towing
-                | 303.444.4868
-                .ui.header Colorado Security Services
-                | 303.443.3701
-                .ui.header Gavins Plumbing
-                | 303.571.5114
-            .column
-                .ui.header Hours
-                .ui.list
-                    .item Mon 7a-10p
-                    .item Tues 7a-10p
-                    .item Wed 7a-10p
-                    .item Thur 7a-10p
-                    .item Fri 7a-9p
-                    .item Sat 8a-9p
-                    .item Sun 8a-10p
