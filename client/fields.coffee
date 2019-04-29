@@ -327,7 +327,7 @@ Template.boolean_edit.helpers
             parent = Template.parentData(5)
         # console.log parent
         # console.log @
-        if parent["#{@key}"] then 'grey' else ''
+        if parent["#{@key}"] then 'grey' else 'basic'
 
 
 Template.boolean_edit.events

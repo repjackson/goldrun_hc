@@ -1,37 +1,21 @@
-template(name='frontdesk')
-    .ui.container
-        h1.ui.center.aligned.header 
-            i.briefcase.icon
-            |Staff
-            // i#add_impounded_bike.green.plus.link.icon 
-        //- +requests
-        +schedule
-        .ui.header Notices
-        //- .ui.centerd.cards
-        //-     each bikes
-        //-         +bike
-
-
-
-
 template(name='schedule')
-    .ui.center.aligned.header 
-        i.calendar.icon
-        |Schedule
+    //- .ui.center.aligned.header 
+    //-     i.calendar.icon
+    //-     |schedule
     table.ui.definition.celled.striped.selectable.table
         thead
             tr
                 th
-                th Sunday
-                th Monday
-                th Tuesday
-                th Wednesday
-                th Thursday
-                th Friday
-                th Saturday
+                th sunday
+                th monday
+                th tuesday
+                th wednesday
+                th thursday
+                th friday
+                th saturday
         tbody
             tr
-                td Morning 7am-12pm
+                td morning 7am-12pm
                 td 
                     +facet_staff_select tags='shift,sunday,morning'
                 td 
@@ -47,7 +31,7 @@ template(name='schedule')
                 td 
                     +facet_staff_select tags='shift,saturday,morning'
             tr
-                td Afternoon 12pm-4pm
+                td afternoon 12pm-4pm
                 td 
                     +facet_staff_select tags='shift,sunday,afternoon'
                 td 
@@ -63,7 +47,7 @@ template(name='schedule')
                 td 
                     +facet_staff_select tags='shift,saturday,afternoon'
             tr
-                td Evening 4pm-9pm
+                td evening 4pm-9pm
                 td 
                     +facet_staff_select tags='shift,sunday,evening'
                 td 

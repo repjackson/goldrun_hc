@@ -4,11 +4,11 @@ template(name='model_doc_edit')
             .centered.row
                 .six.wide.column
                     .ui.header(title="model: #{model}")
-                        |Edit #{model}
+                        |edit #{model}
                     +creation_info
                     a.ui.big.circular.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
                         i.big.checkmark.icon
-                    #delete_doc.ui.red.icon.circular.basic.button
+                    #delete_doc.ui.icon.circular.large.basic.button
                         i.trash.icon
                             
                 .ten.wide.column.scrolling

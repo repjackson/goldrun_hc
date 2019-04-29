@@ -18,7 +18,7 @@ if Meteor.isClient
                     model:'delta'
                     _author_id:Meteor.userId()
             if current_delta
-                console.log _.sortBy current_delta.facets,'rank'
+                # console.log _.sortBy current_delta.facets,'rank'
                 _.sortBy current_delta.facets,'rank'
 
         global_tags: ->

@@ -19,15 +19,15 @@ template(name='profile')
                     .ui.smoothed.segment
                         //- +text_view key='first_name' label='First Name' direct=true
                         //- +text_view key='last_name' label='Last Name' direct=true
-                        +text_view key='address' label='Address' direct=true
+                        +text_view key='address' label='address' direct=true
                         //- +text_view key='email' label='Email' direct=true
-                        +phone_view key='phone' label='Phone' direct=true
+                        +phone_view key='phone' label='phone' direct=true
                         if user_is_resident
-                            +number_view key='unit_number' label='Unit #' direct=true
-                            +number_view key='building_number' label='Building #' direct=true
-                            +text_view key='building_code' label='Building Code' direct=true
-                            +date_view key='start_date' label='Start Date' direct=true
-                            +date_view key='expiration_date' label='Expiration Date' direct=true
+                            +number_view key='unit_number' label='unit #' direct=true
+                            +number_view key='building_number' label='building #' direct=true
+                            +text_view key='building_code' label='building code' direct=true
+                            +date_view key='start_date' label='start date' direct=true
+                            +date_view key='expiration_date' label='expiration date' direct=true
                         //- +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
                         each emails
                             .ui.circular.basic.label #{address}
@@ -44,23 +44,17 @@ template(name='profile')
                             i.sign.out.icon
                             |log out
                     .ui.smoothed.segment
-                        //- .ui.header
-                        //-     i.heartbeat.icon
-                        //-     |#{user.points} Karma
-                        .ui.header 
+                        .ui.grey.header 
                             i.user.shield.icon
                             |roles
                         each roles
                             .ui.circular.basic.label #{this}
-            
                 .six.wide.column
                     if user_is_resident
                         +violations
                         +user_checkins
-                        .ui.cloud.segment
-                            .ui.grey.header
-                                i.user.icon
-                                | guests
+                        +user_guests
+                    +user_log
                     //- +user_bookmarks    
                     //- +user_feed
                     +user_tasks
@@ -78,6 +72,7 @@ template(name='profile')
             
             
             
+            
 template(name='gr_status')   
     with user_from_username_param         
         //- .ui.small.header
@@ -88,7 +83,6 @@ template(name='gr_status')
         else
             each gr_status
                 .ui.circular.basic.label #{this}
-            
         //- .ui.small.header
         //-     i.marker.icon
         //-     | Location 
@@ -98,14 +92,23 @@ template(name='gr_status')
             each gr_location
                 .ui.circular.basic.label #{this}
             
+            
+            
 template(name='user_checkins')
-    .ui.fluid.styled.accordion.profile_block
-        .active.title
-            .ui.grey.inline.center.aligned.header 
-                i.tasks.icon
-                |Check In's
-        .active.content
-            .ui.fluid.input
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.tasks.icon
+            |check ins
+        +checkin_button
+            
+            
+            
+            
+template(name='user_guests')
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.id.card.alternate.icon
+            |guests
             
             
             
@@ -116,16 +119,28 @@ template(name='user_section')
 template(name='user_about')
     
 template(name='violations')
-    .ui.fluid.styled.accordion.profile_block
-        .active.title
-            .ui.grey.inline.center.aligned.header 
-                i.exclamation.triangle.icon
-                |violations
-        .active.content
-            .ui.list
-                each violations
-                    .item
-                        .header #{title} #{violation_date} #{violation_time}
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.exclamation.triangle.icon
+            |violations
+        .ui.list
+            each violations
+                .item
+                    .header #{title} #{violation_date} #{violation_time}
+
+
+template(name='user_log')
+    //- .ui.fluid.styled.accordion.profile_block
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.feed.icon
+            |log
+        .ui.list
+            each user_log_events
+                .item
+                    .content
+                        .header #{body}
+                        .description #{when}
 
 
 template(name='user_rules_widget')
@@ -139,6 +154,7 @@ template(name='user_people')
     +user_following
     +follow_user
 
+
 template(name='user_feed')
     .ui.cloud.segment
         .ui.header 
@@ -148,6 +164,7 @@ template(name='user_feed')
         //-     .ui.fluid.input
         //-         input(type='text' placeholder='Share something...')
     +user_wall
+                
                 
                 
 template(name='user_bookmarks')
@@ -181,28 +198,28 @@ template(name='user_unread')
                 
 
 template(name='user_tasks')
-    .ui.fluid.styled.accordion.profile_block
-        .active.title
-            .ui.grey.inline.center.aligned.header 
-                i.tasks.icon
-                |tasks
-        .active.content
-            .ui.fluid.input
-                input.assign_task(type='text' placeholder='assign task...')
-            //- .ui.button.view_complete(class=view_complete_class)
-            //-     |View Completed
-            // .ui.button.view_incomplete(class=view_complete_class)
-            //     |View Incomplete
-            each assigned_tasks
-                .ui.smoothed.segment
-                    .ui.header #{body}
-                    +boolean_edit key='complete' label='Complete' direct=true true_icon='checkmark' false_icon='remove'
-                    //- +voting
-                    +author_info
-                    +creation_info
-                    if is_author
-                        +remove_button
-                        
+    //- .ui.fluid.styled.accordion.profile_block
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.tasks.icon
+            |tasks
+        .ui.icon.input
+            i.plus.icon
+            input.assign_task(type='text' placeholder='assign task...')
+        //- .ui.button.view_complete(class=view_complete_class)
+        //-     |View Completed
+        // .ui.button.view_incomplete(class=view_complete_class)
+        //     |View Incomplete
+        each assigned_tasks
+            .ui.smoothed.segment
+                .ui.header #{body}
+                +boolean_edit key='complete' label='Complete' direct=true true_icon='checkmark' false_icon='remove'
+                //- +voting
+                +author_info
+                +creation_info
+                if is_author
+                    +remove_button
+                    
             
             
 template(name='user_array_list')

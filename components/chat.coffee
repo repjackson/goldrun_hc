@@ -6,12 +6,11 @@ if Meteor.isClient
         'click .join_chat': (e,t)-> Meteor.call 'join_chat', @_id, ->
         'click .leave_chat': (e,t)-> Meteor.call 'leave_chat', @_id, ->
 
-
         'click .close_chat': (e,t)->
             self = @
             swal {
                 title: "close channel?"
-                text: 'this will delete the messages'
+                text: 'this will delete all the messages'
                 model: 'warning'
                 showCancelButton: true
                 animation: true

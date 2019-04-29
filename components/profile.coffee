@@ -158,12 +158,19 @@ if Meteor.isClient
 
     Template.violations.onCreated ->
         @autorun => Meteor.subscribe 'violations', Router.current().params.username
-
     Template.violations.helpers
         violations: ->
             Docs.find
                 model:'violation'
 
+
+    Template.user_log.onCreated ->
+        @autorun => Meteor.subscribe 'user_log', Router.current().params.username
+    Template.user_log.helpers
+        user_log_events: ->
+            Docs.find {
+                model:'log_event'
+            }, sort:_timestamp:-1
 
 
 if Meteor.isServer
@@ -178,3 +185,11 @@ if Meteor.isServer
         Docs.find
             model:'violation'
             # parent_username:username
+
+
+    Meteor.publish 'user_log', (username)->
+        # console.log 'violation', username
+        user = Meteor.users.findOne username:username
+        Docs.find
+            model:'log_event'
+            object_id:user._id

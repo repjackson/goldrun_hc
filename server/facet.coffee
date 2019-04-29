@@ -6,7 +6,7 @@ Meteor.methods
         model = Docs.findOne
             model:'model'
             slug:model_slug
-        console.log 'model', model
+        # console.log 'model', model
         fields =
             Docs.find
                 model:'field'
@@ -59,7 +59,7 @@ Meteor.methods
             Docs.find
                 model:'field'
                 parent_id:model._id
-        console.log 'fields', fields.fetch()
+        # console.log 'fields', fields.fetch()
         # console.log 'delta', delta
         if model.collection and model.collection is 'users'
             built_query.roles = $in:[delta.model_filter]
@@ -79,7 +79,7 @@ Meteor.methods
             total = Meteor.users.find(built_query).count()
         else
             total = Docs.find(built_query).count()
-        console.log 'built query', built_query
+        # console.log 'built query', built_query
 
         # response
         for facet in delta.facets

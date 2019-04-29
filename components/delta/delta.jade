@@ -12,9 +12,9 @@ template(name='delta')
                             i.green.plus.large.icon
                         //- if can_edit
                             //- +edit_button
-                        .ui.icon.circular.basic.big.button.edit_model
-                            i.cog.icon
-                        //- if is_admin
+                        if is_admin
+                            .ui.icon.circular.basic.big.button.edit_model
+                                i.cog.icon
                                 //- | Configure #{plural}
                         // .ui.divider
                         // // each sessions
@@ -23,9 +23,9 @@ template(name='delta')
                                 
                         if current_delta
                             if is_dev
-                                .ui.icon.circular.basic.big.button.print_delta(title='Print Session Doc')
+                                .ui.icon.circular.basic.large.button.print_delta(title='Print Session Doc')
                                     i.code.icon
-                            .ui.reset.icon.circular.basic.big.button(title='Reload Session')
+                            .ui.reset.icon.circular.basic.large.button(title='Reload Session')
                                 i.refresh.icon
                             .ui.delete_delta.icon.circular.basic.big.button(title='Delete Session')
                                 i.trash.icon

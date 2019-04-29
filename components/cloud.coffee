@@ -64,20 +64,20 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'tags', (selected_tags, filter)->
-        # user = Meteor.users.findOne @userId
+        # user = Meteor.users.finPdOne @userId
         # current_herd = user.profile.current_herd
 
         self = @
         match = {}
 
         # selected_tags.push current_herd
-        # match.tags = $all: selected_tags
-
 
         if selected_tags.length > 0 then match.tags = $all: selected_tags
-        if filter then match.type = filter
+        if filter then match.model = filter
         # console.log filter
-
+        # console.log match
+        # console.log 'hi'
+        # console.log Docs.find(match).fetch()
         cloud = Docs.aggregate [
             { $match: match }
             { $project: tags: 1 }
@@ -89,8 +89,8 @@ if Meteor.isServer
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
 
-
         cloud.forEach (tag, i) ->
+            console.log 'hi', tag
             self.added 'tags', Random.id(),
                 name: tag.name
                 count: tag.count
