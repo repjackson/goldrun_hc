@@ -164,6 +164,15 @@ if Meteor.isClient
                 model:'violation'
 
 
+
+    Template.user_key.onCreated ->
+        @autorun => Meteor.subscribe 'user_key', Router.current().params.username
+    Template.user_key.helpers
+        key: ->
+            Docs.findOne
+                model:'key'
+
+
     Template.user_log.onCreated ->
         @autorun => Meteor.subscribe 'user_log', Router.current().params.username
     Template.user_log.helpers
@@ -179,6 +188,16 @@ if Meteor.isServer
         Docs.find
             model:'wall_post'
             # parent_username:username
+
+    Meteor.publish 'user_key', (username)->
+        # console.log 'violation', username
+        user = Meteor.users.findOne username:username
+        console.log user
+        Docs.find
+            model:'key'
+            building_code:user.building_code
+            unit_number:user.unit_number
+
 
     Meteor.publish 'violations', (username)->
         # console.log 'violation', username

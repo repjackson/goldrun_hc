@@ -54,6 +54,7 @@ template(name='profile')
                         +violations
                         +user_checkins
                         +user_guests
+                        +user_key
                     +user_log
                     //- +user_bookmarks    
                     //- +user_feed
@@ -109,6 +110,26 @@ template(name='user_guests')
         .ui.grey.inline.center.aligned.header 
             i.id.card.alternate.icon
             |guests
+            
+            
+template(name='user_key')
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.key.icon
+            |key
+        with key
+            if is_admin
+                +number_view key='tag_number' label='Tag Number' direct=true
+            if is_staff
+                +number_view key='tag_number' label='Tag Number' direct=true
+            +boolean_view key='fowler' label='Fowler' direct=true
+            +boolean_view key='key_exists' label='Key Exists' direct=true
+            +number_view key='building_number' label='Building Number' direct=true
+            +number_view key='unit_number' label='Unit #' direct=true
+            div
+            +edit_button
+            +view_button
+
             
             
             

@@ -369,14 +369,17 @@ template(name='number_edit')
 template(name='number_view')
     if field_value
         div
-        if icon
-            i.grey.icon(class=icon)
-        if title
-            |#{title}
-        else if label
-            |#{label}
-        else
-            |#{key}
+        .ui.small.inline.grey.header
+            if icon
+                i.grey.icon(class=icon)
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
         strong &nbsp; #{field_value}
 
 
@@ -654,7 +657,17 @@ template(name='boolean_edit')
 
 template(name='boolean_view')
     div
-    .ui.small.inline.grey.header #{title}
+    .ui.small.inline.grey.header
+        if icon
+            i.grey.icon(class=icon)
+        if title
+            |#{title}
+        else if label
+            |#{label}
+        else if key
+            |#{key}
+        else
+            |#{this}
     if field_value
         i.large.green.checkmark.icon
     else
