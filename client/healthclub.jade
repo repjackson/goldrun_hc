@@ -131,20 +131,18 @@ template(name='add_resident')
             .eight.wide.column
                 h1.ui.center.aligned.header
                     i.user.plus.icon
-                    | Resident
+                    | resident
                 .ui.big.form
                     .field
-                        //- |First Name
-                        input#first_name(type='text' placeholder='First Name')
+                        input#first_name(type='text' placeholder='first name')
                     .field
-                        //- |Last Name
-                        input#last_name(type='text' placeholder='Last Name')
+                        input#last_name(type='text' placeholder='last name')
                     //- .field
                     //-     |Username
                     //-     input#username(type='text')
                 if permission
-                    .ui.fluid.green.button.create_and_checkin
-                        |Create and Check In
+                    .ui.fluid.green.circular.button.create_and_checkin
+                        |create and check in
         .row
         
         

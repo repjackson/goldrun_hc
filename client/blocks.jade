@@ -121,10 +121,18 @@ template(name='big_user_card')
 
 
 template(name='user_info')
-    a.ui.small.circular.basic.compact.button.item(href="/user/#{user.username}/")
-        //- if user.image_id
-        //-     img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100 gravity='face' crop='fill'}}")
-        //- |#{user.first_name} #{user.last_name}
+    a.ui.small.circular.basic.compact.button(href="/user/#{user.username}/")
+        if user.image_id
+            img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100 gravity='face' crop='fill'}}")
+        |#{user.first_name} #{user.last_name}
+        |@#{user.username}
+        +user_status user
+
+template(name='username_info')
+    a.ui.small.circular.basic.compact.button(href="/user/#{user.username}/")
+        if user.image_id
+            img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100}}")
+        |#{user.first_name} #{user.last_name}
         |@#{user.username}
         +user_status user
 
@@ -156,14 +164,14 @@ template(name='user_list_toggle')
 template(name='voting')
     if points
         strong #{points}
-    .ui.circular.icon.basic.button.upvote(class=upvote_class title='upvote')
-        i.thumbs.up.icon
-    each upvoter_ids
-        +user_info
-    .ui.circular.icon.basic.button.downvote(class=downvote_class title='downvote')
-        i.thumbs.down.icon
-    each downvoter_ids
-        +user_info
+    .ui.circular.icon.basic.button.upvote(title='upvote')
+        i.thumbs.up.icon(class=upvote_class)
+    //- each upvoter_ids
+    //-     +user_info
+    .ui.circular.icon.basic.button.downvote(title='downvote')
+        i.thumbs.down.icon(class=downvote_class)
+    //- each downvoter_ids
+    //-     +user_info
 
 
 

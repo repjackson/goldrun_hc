@@ -43,18 +43,19 @@ if Meteor.isClient
 
 
 
+    Template.username_info.onCreated ->
+        @autorun => Meteor.subscribe 'user_from_username', @data
+    Template.username_info.helpers
+        user: -> Meteor.users.findOne username:@valueOf()
+
 
 
 
 
     Template.user_info.onCreated ->
-        # console.log @data
         @autorun => Meteor.subscribe 'user_from_id', @data
-
     Template.user_info.helpers
-        user: ->
-            # console.log @
-            Meteor.users.findOne @valueOf()
+        user: -> Meteor.users.findOne @valueOf()
 
 
     Template.toggle_edit.events
@@ -205,6 +206,7 @@ if Meteor.isClient
         'click .remove': (e,t)->
             if confirm "Remove #{@model}?"
                 $(e.currentTarget).closest('.segment').transition('fly right')
+                $(e.currentTarget).closest('tr').transition('fly right')
                 Meteor.setTimeout =>
                     Docs.remove @_id
                 , 1000

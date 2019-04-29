@@ -77,7 +77,7 @@ if Meteor.isServer
         # console.log filter
         # console.log match
         # console.log 'hi'
-        console.log Docs.find(match).fetch()
+        # console.log Docs.find(match).fetch()
         cloud = Docs.aggregate [
             { $match: match }
             { $project: tags: 1 }
@@ -90,7 +90,7 @@ if Meteor.isServer
             ]
 
         cloud.forEach (tag, i) ->
-            console.log 'hi', tag
+            # console.log 'hi', tag
             self.added 'tags', Random.id(),
                 name: tag.name
                 count: tag.count

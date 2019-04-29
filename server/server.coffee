@@ -69,7 +69,7 @@ Meteor.publish 'doc_tags', (selected_tags)->
     user = Meteor.users.findOne @userId
     # current_herd = user.profile.current_herd
 
-    console.log selected_tags
+    # console.log selected_tags
     self = @
     match = {}
 

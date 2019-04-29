@@ -1,3 +1,16 @@
+template(name='staff')
+    h1.ui.center.aligned.grey.header 
+        i.user.shield.icon
+        |staff
+    +schedule
+    +shift_change_requests
+    +view_chats
+
+
+
+
+
+
 template(name='schedule')
     //- .ui.center.aligned.header 
     //-     i.calendar.icon
@@ -63,6 +76,56 @@ template(name='schedule')
                 td 
                     +facet_staff_select tags='shift,saturday,evening'
 
+
+template(name='shift_change_requests')
+    .ui.grey.inline.header
+        i.clock.icon
+        |shift change requests
+    .ui.icon.circular.basic.button.add_shift_change_request
+        i.large.icons
+            i.clock.icon
+            i.plus.corner.icon
+    table.ui.celled.table
+        thead
+            tr
+                th date
+                th time
+                th author
+                th assigned staff
+                th 
+        tbody
+            each requests
+                +request_row
+                
+                
+template(name='request_row')
+    tr
+        td(data-label='Date')
+            if can_edit
+                +date_edit key='date' direct=true
+            else
+                +date_view key='date' direct=true
+        td(data-label='Time')
+            if can_edit
+                +time_edit key='time' direct=true
+            else
+                +time_view key='time' direct=true
+        td(data-label='Author')
+            +author_info
+        td(data-label='Assigned Staff')
+            //- if can_edit
+            //-     +single_user_edit key='assigned_staff' role_filter='staff' direct=true
+            //- else
+            +username_info assigned_staff
+        td(data-label='Actions')
+            .ui.basic.icon.circular.button.take_shift(title='take shift')
+                i.checkmark.icon
+            .ui.basic.icon.circular.button.declare_unavailable(title='declare unavailable')
+                i.ban.icon
+            each unavailable
+                .ui.basic.circular.label(title='unavailable') #{this}
+            if can_edit
+                +remove_button
 
 
 // template(name='edit_bike')

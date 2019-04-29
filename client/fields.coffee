@@ -789,7 +789,10 @@ Template.single_user_edit.events
         # console.log Template.parentData()
 
         val = t.$('.edit_text').val()
-        parent = Template.parentData(5)
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
 
         Docs.update parent._id,
             $set:"#{field.key}":@username

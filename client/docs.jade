@@ -25,20 +25,20 @@
 
 
 template(name='cloud')
-    #cloud
+    //- #cloud
         //- .ui.left.icon.input
         //-     i.search.icon
         //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
         // .ui.hidden.fitted.divider
-        if selected_tags
-            #clear_tags.ui.grey.icon.big.circular.button
-                i.remove.icon
-            each selected_tags
-                .unselect_tag.ui.grey.big.circular.button
-                    strong #{this}
-        each all_tags
-            .ui.circular.large.button.select_tag(class=cloud_tag_class) 
-                strong #{this.name}
+    if selected_tags
+        #clear_tags.ui.grey.icon.circular.button
+            i.remove.icon
+        each selected_tags
+            .unselect_tag.ui.grey.circular.button
+                strong #{this}
+    each all_tags
+        .ui.circular.basic.button.select_tag(class=cloud_tag_class) 
+            strong #{this.name}
 
 
 

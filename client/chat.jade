@@ -80,6 +80,8 @@ template(name='view_chats')
                     i.plus.large.icon
                 .unread_icon(data-tooltip='Unread Messages' data-position='bottom center')
                     i.secured-letter.icon
+                .ui.inline.grey.header 
+                    i.tags.icon
                 +cloud filter='chat'
                 //- +participant_filter type='chat'
                 +chat_list
@@ -150,6 +152,11 @@ template(name='view_chat')
                     else     
                         each tags
                             .ui.large.label.doc_tag #{this}
+                    if can_edit
+                        +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
+                    else     
+                        each tags
+                            .ui.large.label.doc_tag #{this}
                     //- +subscribe_button
                     //- +bookmark_button
                     //- unless is_author
@@ -157,17 +164,17 @@ template(name='view_chat')
                     //-     +thanks_button
                     //- +resonates_list
 
-                    .ui.small.header 
-                        i.eye.icon
-                        |visibility
-                    if published
-                        .ui.green.large.label 
-                            i.unlock.icon
-                            | public
-                    else
-                        .ui.large.label 
-                            i.lock.icon
-                            | private
+                    //- .ui.small.header 
+                    //-     i.eye.icon
+                    //-     |visibility
+                    //- if published
+                    //-     .ui.green.large.label 
+                    //-         i.unlock.icon
+                    //-         | public
+                    //- else
+                    //-     .ui.large.label 
+                    //-         i.lock.icon
+                    //-         | private
                     .ui.small.header started by 
                         img.ui.avatar.image(src="{{c.url author.image_id width=400 height=400 gravity='face' crop='fill'}}")
                         |#{author.username} #{when}
