@@ -144,19 +144,15 @@ if Meteor.isServer
         remove: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
 
     Meteor.publish 'docs', (selected_tags, filter)->
-
         # user = Meteor.users.findOne @userId
-        # current_herd = user.profile.current_herd
-
+        console.log selected_tags
+        console.log filter
         self = @
         match = {}
-        # selected_tags.push current_herd
-        # match.tags = $all: selected_tags
         if selected_tags.length > 0 then match.tags = $all: selected_tags
         if filter then match.model = filter
 
         Docs.find match
-            # limit: 20
 
 
     Meteor.publish 'doc', (id)->

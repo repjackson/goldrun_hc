@@ -77,7 +77,7 @@ if Meteor.isServer
         # console.log filter
         # console.log match
         # console.log 'hi'
-        # console.log Docs.find(match).fetch()
+        console.log Docs.find(match).fetch()
         cloud = Docs.aggregate [
             { $match: match }
             { $project: tags: 1 }

@@ -83,15 +83,15 @@ template(name='view_chats')
                 +cloud filter='chat'
                 //- +participant_filter type='chat'
                 +chat_list
-                .ui.small.header viewing: 
-                    if viewing_published
-                        #view_private_chats.ui.button 
-                            i.unhide.icon
-                            |published
-                    if viewing_private
-                        #view_published_chats.ui.button 
-                            i.lock.icon
-                            |private
+                //- .ui.small.header viewing: 
+                //-     if viewing_published
+                //-         #view_private_chats.ui.button 
+                //-             i.unhide.icon
+                //-             |published
+                //-     if viewing_private
+                //-         #view_published_chats.ui.button 
+                //-             i.lock.icon
+                //-             |private
             .twelve.wide.column
                 with selected_chat
                     +view_chat
