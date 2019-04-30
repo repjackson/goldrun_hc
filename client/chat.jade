@@ -150,13 +150,11 @@ template(name='view_chat')
                     if can_edit
                         +array_edit key='tags' label='tags' direct=true
                     else     
-                        each tags
-                            .ui.large.label.doc_tag #{this}
+                        +array_view key='tags' label='tags' direct=true
                     if can_edit
                         +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
                     else     
-                        each tags
-                            .ui.large.label.doc_tag #{this}
+                        +multi_doc_view key='view_roles' label='view roles' ref_model='role' direct=true
                     //- +subscribe_button
                     //- +bookmark_button
                     //- unless is_author

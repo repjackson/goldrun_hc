@@ -325,6 +325,14 @@ a {
 	/* padding-top: 1em; */
 	/*padding-left: 1em;*/
 }
+.smallscroll{
+	overflow-y:scroll;
+	overflow-x:hidden;
+	max-height:400px;
+	/*max-height:85vh;*/
+	/* padding-top: 1em; */
+	/*padding-left: 1em;*/
+}
 
 .scrolling::-webkit-scrollbar {
     display: none;

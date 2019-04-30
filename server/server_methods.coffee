@@ -1,11 +1,7 @@
 Meteor.methods
-    add_resident: (first_name,last_name,username)->
-        profile = {}
-        profile.first_name = first_name
-        profile.last_name = last_name
+    add_user: (username)->
         options = {}
         options.username = username
-        options.profile = profile
 
         res= Accounts.createUser options
         if res
@@ -57,12 +53,11 @@ Meteor.methods
 
 
     lookup_user: (username_query, role_filter)->
-        found_users =
-            Meteor.users.find({
-                username: {$regex:"#{username_query}", $options: 'i'}
-                roles:$in:[role_filter]
-                }).fetch()
-        found_users
+        console.log role_filter
+        Meteor.users.find({
+            username: {$regex:"#{username_query}", $options: 'i'}
+            roles:$in:[role_filter]
+            }).fetch()
 
     # lookup_username: (username_query)->
     #     found_users =

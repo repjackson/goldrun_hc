@@ -11,7 +11,7 @@ if Meteor.isClient
 
     Template.home.helpers
         role_models: ->
-            console.log Meteor.user().roles
+            # console.log Meteor.user().roles
             Docs.find {
                 model:'model'
                 view_roles:$in:Meteor.user().roles

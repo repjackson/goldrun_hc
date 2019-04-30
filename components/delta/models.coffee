@@ -30,9 +30,11 @@ if Meteor.isClient
 
     Template.model_view.events
         'click .add_child': ->
-            new_id = Docs.insert
-                model: Router.current().params.model_slug
-            Router.go "/edit/#{new_id}"
+            model = Docs.findOne slug:Router.current().params.model_slug
+            console.log model
+            # new_id = Docs.insert
+            #     model: Router.current().params.model_slug
+            # Router.go "/edit/#{new_id}"
 
     Template.model_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id

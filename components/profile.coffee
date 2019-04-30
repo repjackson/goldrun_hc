@@ -180,6 +180,14 @@ if Meteor.isClient
                 model:'unit'
 
 
+    Template.user_guests.onCreated ->
+        @autorun => Meteor.subscribe 'user_guests', Router.current().params.username
+    Template.user_guests.helpers
+        guests: ->
+            Meteor.users.find
+                roles:$in:['guest']
+                resident_connection:Router.current().params.username
+
     Template.user_log.onCreated ->
         @autorun => Meteor.subscribe 'user_log', Router.current().params.username
     Template.user_log.helpers
@@ -220,6 +228,13 @@ if Meteor.isServer
         Docs.find
             model:'violation'
             # parent_username:username
+
+
+    Meteor.publish 'user_guests', (username)->
+        # console.log 'violation', username
+        Meteor.users.find
+            roles:$in:['guest']
+            resident_connection:username
 
 
     Meteor.publish 'user_log', (username)->

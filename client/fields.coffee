@@ -318,6 +318,23 @@ Template.text_edit.events
             Meteor.users.update parent._id,
                 $set:"#{@key}":val
 
+Template.phone_edit.events
+    'blur .edit_phone': (e,t)->
+        val = t.$('.edit_phone').val()
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+
+        doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:"#{@key}":val
+        else if user
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
+
 
 Template.boolean_edit.helpers
     boolean_toggle_class: ->
@@ -681,9 +698,6 @@ Template.multi_doc_view.helpers
 
 Template.multi_doc_edit.onCreated ->
     @autorun => Meteor.subscribe 'model_docs', @data.ref_model
-
-
-
 Template.multi_doc_edit.helpers
     choices: ->
         # console.log @ref_model
@@ -708,8 +722,6 @@ Template.multi_doc_edit.helpers
             if @slug in target["#{ref_field.key}"] then 'grey' else 'basic'
         else
             'basic'
-
-
 Template.multi_doc_edit.events
     'click .select_choice': ->
         selection = @
@@ -759,17 +771,10 @@ Template.multi_doc_edit.events
                     $addToSet: "#{ref_field.key}": @slug
 
 
-
-
-
 Template.single_user_edit.onCreated ->
     @user_results = new ReactiveVar
-
 Template.single_user_edit.helpers
-    user_results: ->
-        user_results = Template.instance().user_results.get()
-        user_results
-
+    user_results: ->Template.instance().user_results.get()
 Template.single_user_edit.events
     'click .clear_results': (e,t)->
         t.user_results.set null
@@ -788,19 +793,21 @@ Template.single_user_edit.events
         # console.log Template.parentData()
 
         val = t.$('.edit_text').val()
-        if @direct
+        if field.direct
             parent = Template.parentData()
         else
             parent = Template.parentData(5)
+
+        console.log parent
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $set:"#{@key}":@username
+                $set:"#{field.key}":@username
         else if user
             Meteor.users.update parent._id,
-                $set:"#{@key}":@username
+                $set:"#{field.key}":@username
 
         t.user_results.set null
         $('#single_user_select_input').val ''
@@ -850,7 +857,6 @@ Template.document_edit.helpers
 
 Template.single_person_edit.onCreated ->
     @person_results = new ReactiveVar
-
 Template.single_person_edit.helpers
     # selected_person: ->
     #     parent = Template.parentData(5)
@@ -869,11 +875,9 @@ Template.single_person_edit.helpers
     person_results: ->
         person_results = Template.instance().person_results.get()
         person_results
-
 Template.single_person_edit.events
     'click .clear_results': (e,t)->
         t.person_results.set null
-
     'click .clear_selection': (e,t)->
         if confirm "Clear Selection?"
             Docs.update parent._id,
@@ -919,40 +923,38 @@ Template.single_person_edit.events
 
 Template.multi_user_edit.onCreated ->
     @user_results = new ReactiveVar
-
 Template.multi_user_edit.helpers
-    user_results: ->
-        user_results = Template.instance().user_results.get()
-        user_results
-
-
-
+    user_results: -> Template.instance().user_results.get()
 Template.multi_user_edit.events
     'click .clear_results': (e,t)->
         t.user_results.set null
-
     'keyup #multi_user_select_input': (e,t)->
         search_value = $(e.currentTarget).closest('#multi_user_select_input').val().trim()
-        Meteor.call 'lookup_user', search_value, (err,res)=>
+        Meteor.call 'lookup_user', search_value, @role_filter, (err,res)=>
             if err then console.error err
             else
                 t.user_results.set res
-
-
     'click .select_user': (e,t) ->
         page_doc = Docs.findOne Router.current().params.id
         # console.log @
         val = t.$('.edit_text').val()
-        parent = Template.parentData(5)
+        field = Template.currentData()
+        # console.log Template.parentData()
+
+        if field.direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $addToSet:"#{@key}":@username
+                $addToSet:"#{field.key}":@username
         else if user
             Meteor.users.update parent._id,
-                $addToSet:"#{@key}":@username
+                $addToSet:"#{field.key}":@username
+
 
         t.user_results.set null
         $('#multi_user_select_input').val ''

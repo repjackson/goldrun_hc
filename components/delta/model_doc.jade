@@ -43,8 +43,8 @@ template(name='model_doc_view')
                         //         i.chevron.left.icon
                         //     |View #{model}
                         if is_admin
-                            a.ui.big.circular.basic.icon.button(href="/m/#{model}/#{_id}/edit" title='Edit')
-                                i.blue.pencil.icon
+                            a.ui.big.circular.basic.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
+                                i.pencil.icon
                             .ui.small.header Timestamp Tags
                             each _timestamp_tags
                                 .ui.circular.basic.label #{this}

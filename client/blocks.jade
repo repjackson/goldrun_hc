@@ -17,8 +17,9 @@ template(name='comments')
                         i.remove.link.remove_comment.icon
 
 
-
-
+template(name='goto_model')
+    a.ui.circular.icon.button.goto_model(href="/m/#{slug}" title="goto #{model}")
+        i.external.icon
 
 template(name='events_column')
     .ui.accordion
@@ -93,7 +94,7 @@ template(name='user_card')
 template(name='big_user_card')
     with user
         //- .ui.card
-        .ui.horizontal.card
+        .ui.card
             .image
                 img.ui.image(src="{{c.url image_id width=300 height=400 gravity='face' crop='fill'}}")
             a.content(href="/user/#{username}")
@@ -102,15 +103,18 @@ template(name='big_user_card')
                 //- +array_view key='tags' label='Tags' direct=true
             if is_admin
                 .content
-                    div #{address}
-                    strong #{building_number}
-                    strong ##{apt_number}
-                    +array_view key='tags' label='Tags'
-                    //- div Membership Start 
-                        strong #{start_date}
-                    //- div Expiration 
-                    //-     strong #{lease_expiration}
-                    +checkin_button
+                    +text_view key='address' label='address' direct=true
+                    +number_view key='building_number' label='building #' direct=true
+                    +number_view key='unit_number' label='apartment #' direct=true
+                    +text_view key='building_code' label='building code' direct=true
+                    //- +array_view key='tags' label='Tags'
+                    if user_is_resident
+                        div membership start 
+                            strong #{start_date}
+                        div expiration 
+                            strong #{lease_expiration}
+                    if is_staff
+                        +checkin_button
                     //- +icolor name='swimming-pool' classes='ui avatar image'
                     //- +icolor name='weightlift' classes='ui avatar image'
                     //- +icolor name='jacuzzi' classes='ui avatar image'

@@ -76,47 +76,31 @@ Template.registerHelper 'is_staff', () ->
 
 Template.registerHelper 'is_resident', () ->
     if Meteor.user() and Meteor.user().roles
-        # if _.intersection(['dev','resident'], Meteor.user().roles) then true else false
         if 'resident' in Meteor.user().roles then true else false
 
-Template.registerHelper 'user_is_resident', () ->
-        # if _.intersection(['dev','resident'], Meteor.user().roles) then true else false
-    if @roles and 'resident' in @roles then true else false
+Template.registerHelper 'user_is_resident', () -> if @roles and 'resident' in @roles then true else false
+Template.registerHelper 'user_is_owner', () -> if @roles and 'owner' in @roles then true else false
 
 Template.registerHelper 'is_dev', () ->
     if Meteor.user() and Meteor.user().roles
         if 'dev' in Meteor.user().roles then true else false
 
-Template.registerHelper 'is_eric', () ->
-    if Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId() then true else false
+Template.registerHelper 'is_eric', () -> if Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId() then true else false
 
 
-Template.registerHelper 'current_user', () ->
-    Meteor.users.findOne username:Router.current().params.username
-
-
-Template.registerHelper 'view_template', ->
-    # console.log @
-    "#{@field_type}_view"
-
-Template.registerHelper 'edit_template', ->
-    "#{@field_type}_edit"
-
+Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
+Template.registerHelper 'view_template', -> "#{@field_type}_view"
+Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
 Template.registerHelper 'is_model', -> @model is 'model'
-
-
 
 
 # Template.body.events
 #     'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
 
-Template.registerHelper 'is_editing', () ->
-    # console.log 'this', @
-    Session.equals 'editing_id', @_id
+Template.registerHelper 'is_editing', () -> Session.equals 'editing_id', @_id
 
 
-Template.registerHelper 'can_edit', () ->
-    Meteor.userId() is @_author_id or 'admin' in Meteor.user().roles
+Template.registerHelper 'can_edit', () -> Meteor.userId() is @_author_id or 'admin' in Meteor.user().roles
 
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 

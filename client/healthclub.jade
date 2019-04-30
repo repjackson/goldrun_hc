@@ -40,7 +40,7 @@ template(name='goldrun')
                                         .ui.center.aligned.header 
                                             |please show yellow card to staff and ask to add profile
                                     //- +add_resident
-                if is_admin
+                if is_staff
                     .row
                         .sixteen.wide.column
                             .ui.cloud.segment
@@ -65,7 +65,7 @@ template(name='goldrun')
                                     i.rss.icon
                                     | Log
                                     i.dropdown.icon
-                                .content
+                                .content.smallscroll
                                     .ui.feed
                                         each events
                                             .event
@@ -153,26 +153,26 @@ template(name='sign_waiver')
                     .row
                         h1.ui.center.aligned.header
                             i.user.plus.icon
-                            |Sign Waiver
+                            |sign waiver
                         with waiver_doc
                             |!{html}
                         +signature
                         .ui.fluid.green.button.sign_waiver
-                            | Sign Waiver
+                            | sign waiver
 
 
 
 template(name='checkin_button')
     unless healthclub_checkedin
-        .ui.large.fluid.circular.basic.button.checkin(title='Check In')
+        .ui.large.fluid.circular.basic.button.checkin
             i.sign.in.icon
             //- +icolor name='internal' classes='ui image'
-            |Check In
+            |check in
     if healthclub_checkedin
-        .ui.fluid.circular.basic.button.checkout(title='Sign Out')
+        .ui.fluid.circular.basic.button.checkout
             i.sign.out.icon
             //- +icolor name='exit-sign' classes='ui avatar image'
-            |Check Out
+            |check out
     //- +rules_sign
     //- +guest_sign
     //- .ui.accordion
@@ -193,6 +193,3 @@ template(name='checkin_button')
     //-                                 |#{when}
     //-                             if is_dev
     //-                                 +remove_button
-
-
-template(name='health_club_info')

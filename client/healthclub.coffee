@@ -1,7 +1,7 @@
 Template.goldrun.onCreated ->
     @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
     # @autorun => Meteor.subscribe 'type', 'field'
-    # @autorun => Meteor.subscribe 'type', 'log_event'
+    @autorun => Meteor.subscribe 'model_docs', 'log_event'
     @autorun => Meteor.subscribe 'users'
 
 
@@ -133,7 +133,7 @@ Template.add_resident.events
         first_name = $('#first_name').val()
         last_name = $('#last_name').val()
         username = "#{first_name.toLowerCase()}_#{last_name.toLowerCase()}"
-        Meteor.call 'add_resident', first_name, last_name, username, (err,res)->
+        Meteor.call 'add_user', username, (err,res)=>
             if err
                 alert err
             else
@@ -141,6 +141,7 @@ Template.add_resident.events
                     $set:
                         first_name:first_name
                         last_name:last_name
+                        roles:['resident']
                         healthclub_checkedin:true
                 Docs.insert
                     model:'log_event'
