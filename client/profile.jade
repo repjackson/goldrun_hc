@@ -67,8 +67,9 @@ template(name='profile')
                     //- +user_notifications
                     //- +user_karma
                 .six.wide.column
-                    +user_key
-                    +user_unit
+                    if user_is_resident
+                        +user_key
+                        +user_unit
                     +user_messages
                     //- +user_connections
                     //- +user_rules_widget
@@ -93,6 +94,8 @@ template(name='user_signatures')
             | signatures
         .ui.link.large.list
             a.item(href='#') rules and regulations
+            +goto_model slug='rules_'
+
             a.item(href='#') proof of residency
             a.item(href='#') injury waiver
 

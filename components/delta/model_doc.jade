@@ -13,7 +13,7 @@ template(name='model_doc_edit')
                             
                 .ten.wide.column.scrolling
                     //- |#{model}
-                    each fields
+                    each edit_fields
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}
 
@@ -45,7 +45,7 @@ template(name='model_doc_view')
                         if is_admin
                             a.ui.big.circular.basic.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
                                 i.pencil.icon
-                            .ui.small.header Timestamp Tags
+                            .ui.small.header timestamp tags
                             each _timestamp_tags
                                 .ui.circular.basic.label #{this}
                         //- each model.actions
@@ -54,6 +54,9 @@ template(name='model_doc_view')
                         +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                         div
                         +creation_info
+                        div
+                        |by
+                        +author_info
                 .ten.wide.column.scrolling
                     .ui.cloud.segment
                         .ui.header
