@@ -18,8 +18,9 @@ template(name='comments')
 
 
 template(name='goto_model')
-    a.ui.circular.icon.button.goto_model(href="/m/#{slug}" title="goto #{model}")
-        i.external.icon
+    if is_admin
+        a.ui.circular.icon.button.goto_model(href="/m/#{slug}" title="goto #{model}")
+            i.external.icon
 
 template(name='events_column')
     .ui.accordion
@@ -115,10 +116,10 @@ template(name='big_user_card')
                             strong #{lease_expiration}
                     if is_staff
                         +checkin_button
-                    .ui.large.circular.red.button
-                        |rules and regulations not signed
-                    .ui.large.circular.yellow.fluid.button
-                        |email not verified
+                    +email_validation_check
+                    +lease_expiration_check
+                    +rules_and_regs_check
+                        
                     //- +icolor name='swimming-pool' classes='ui avatar image'
                     //- +icolor name='weightlift' classes='ui avatar image'
                     //- +icolor name='jacuzzi' classes='ui avatar image'

@@ -129,12 +129,9 @@ if Meteor.isClient
                     body:post
                     model:'wall_post'
                 t.$('.new_post').val('')
-
-
         'click .remove_comment': ->
             if confirm 'Remove Comment?'
                 Docs.remove @_id
-
         'click .vote_up_comment': ->
             if @upvoters and Meteor.userId() in @upvoters
                 Docs.update @_id,
@@ -188,12 +185,24 @@ if Meteor.isClient
                 roles:$in:['guest']
                 resident_connection:Router.current().params.username
 
+
+
+
     Template.user_log.onCreated ->
         @autorun => Meteor.subscribe 'user_log', Router.current().params.username
     Template.user_log.helpers
         user_log_events: ->
             Docs.find {
                 model:'log_event'
+            }, sort:_timestamp:-1
+
+    Template.user_bookmarks.onCreated ->
+        @autorun => Meteor.subscribe 'user_bookmarks', Router.current().params.username
+    Template.user_bookmarks.helpers
+        bookmarks: ->
+            current_user = Meteor.users.find username:Router.current().params.username
+            Docs.find {
+                bookmark_ids:$in:[user._id]
             }, sort:_timestamp:-1
 
 
@@ -213,6 +222,8 @@ if Meteor.isServer
             building_code:user.building_code
             unit_number:user.unit_number
 
+
+
     Meteor.publish 'user_unit', (username)->
         # console.log 'violation', username
         user = Meteor.users.findOne username:username
@@ -221,6 +232,14 @@ if Meteor.isServer
             model:'unit'
             building_code:user.building_code
             unit_number:user.unit_number
+
+
+    Meteor.publish 'user_bookmarks', (username)->
+        # console.log 'violation', username
+        user = Meteor.users.findOne username:username
+        # console.log user
+        Docs.find
+            bookmark_ids:$in:[user._id]
 
 
     Meteor.publish 'violations', (username)->

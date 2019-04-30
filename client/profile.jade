@@ -49,10 +49,10 @@ template(name='profile')
                         .ui.circular.fluid.button.logout
                             i.sign.out.icon
                             |log out
-                    if user_is_resident
-                        if is_staff
-                            +textarea_edit key='staff_notes' title='staff notes'
-                
+                    if user_is_staff
+                        +user_notes
+                        +user_tasks
+
                 .four.wide.column
                     if user_is_resident
                         +violations
@@ -60,27 +60,28 @@ template(name='profile')
                         +user_guests
                         +user_card_replacements
                         +user_signatures
+                        +user_following
+                        +follow_user
+    
                 .four.wide.column
                     +user_log
-                    //- +user_bookmarks    
-                    //- +user_feed
-                    if user_is_staff
-                        +user_tasks
-                    //- +user_notifications
-                    //- +user_karma
+                    +user_alerts
+                    if is_resident
+                        +user_karma
+                        +user_bookmarks    
+                        +user_feed
                 .four.wide.column
                     if user_is_resident
                         +user_key
                         +user_unit
+                        +user_tags
+                        +user_connections
                     if user_is_staff
                         +user_messages
-                    //- +user_connections
                     //- +user_rules_widget
                     if is_eric
                         +role_switcher
                     //- if current_user
-                    //- +user_tags
-                    //- +user_chat
             
             
 template(name='user_card_replacements')
@@ -101,6 +102,14 @@ template(name='user_signatures')
 
             a.item(href='#') proof of residency
             a.item(href='#') injury waiver
+
+
+
+template(name='user_notes')
+    if user_is_resident
+        if is_staff
+            .ui.segment.profile_block
+                +textarea_edit key='staff_notes' title='staff notes'
 
             
             
@@ -167,9 +176,10 @@ template(name='user_key')
             +boolean_view key='key_exists' label='Key Exists' direct=true
             +number_view key='building_number' label='Building Number' direct=true
             +number_view key='unit_number' label='Unit #' direct=true
-            div
-            +edit_button
-            +view_button
+            if is_admin
+                div
+                +edit_button
+                +view_button
 
             
 template(name='user_unit')
@@ -181,9 +191,10 @@ template(name='user_unit')
         with unit
             +number_view key='building_number' label='Building Number' direct=true
             +number_view key='unit_number' label='Unit #' direct=true
-            div
-            +edit_button
-            +view_button
+            if is_admin
+                div
+                +edit_button
+                +view_button
 
             
             
@@ -255,7 +266,7 @@ template(name='user_people')
 
 template(name='user_feed')
     .ui.cloud.segment
-        .ui.header 
+        .ui.grey.inline.header 
             i.rss.icon
             |feed
         //- if current_user
@@ -266,12 +277,17 @@ template(name='user_feed')
                 
                 
 template(name='user_bookmarks')
-    .ui.fluid.styled.accordion.profile_block
-        .active.title
-            .ui.grey.inline.center.aligned.header 
-                i.bookmark.icon
-                |bookmarks
-        .active.content
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.bookmark.icon
+            |bookmarks
+        .ui.list.smallscroll
+            each bookmarks
+                .item
+                    .content
+                        a.header(href="/m/#{model}/#{_id}/view") #{title} [#{model}]
+                        .description #{when}
+
             
             
 template(name='user_karma')
@@ -281,7 +297,7 @@ template(name='user_karma')
                 i.heartbeat.icon
                 | karma
         .active.content
-            .ui.button buy karma
+            .ui.circular.basic.button buy karma
             with user_from_username_param
                 |karma #{karma}
                 
@@ -338,10 +354,10 @@ template(name='role_switcher')
         //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
         if current_user
             with current_user
-                +multi_doc_edit key='roles' label='Roles' ref_model='role' direct=true
+                +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
         else if currentUser
             with currentUser
-                +multi_doc_edit key='roles' label='Roles' ref_model='role' direct=true
+                +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
         //- +user_array_element_toggle key='roles' value='admin' user=currentUser
         //- +user_array_element_toggle key='roles' value='user' user=currentUser
         //- +user_array_element_toggle key='roles' value='staff' user=currentUser
@@ -376,32 +392,75 @@ template(name='user_tags')
             //     input(type='text' placeholder="Tag #{user_from_username_param.name}")
             
             
-template(name='user_notifications')
-    .ui.fluid.styled.accordion.profile_block
+template(name='user_alerts')
+    .ui.segment.profile_block
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.bullhorn.icon
-                |notifications
-        .active.content
-            +user_following
-            +follow_user
-    
+                |alerts
+        +email_validation_check
+        +lease_expiration_check
+        +rules_and_regs_check
+        //- +rules_and_regs_
+            
+template(name='email_validation_check')
+    if email_validated
+        .ui.large.circular.green.label
+            i.checkmark.icon
+            |email validated
+    else
+        .ui.basic.yellow.circular.large.button
+            i.ban.icon
+            |email unvalidated
+        .ui.basic.circular.label
+            |x
+            |#{times}
+        
+        
+        
+template(name='lease_expiration_check')
+    if lease_expiring
+        .ui.large.circular.yellow.label
+            i.clock.icon
+            |lease expiring 
+        
+        
+template(name='rules_and_regs_check')
+    unless rules_signed
+        .ui.basic.large.circular.red.button
+            i.signature.icon
+            |rules and regs not signed 
+        
+        
+template(name='guest_waiver_check')
+    unless waiver_signed
+        .ui.basic.large.circular.red.button
+            i.signature.icon
+            |guest waiver not signed 
+        
+        
+        
+        
+        
+        
+        
 template(name='user_following')    
     .ui.cloud.segment
-        .ui.header 
-            i.human.icon
+        .ui.grey.header 
+            i.bell.icon
             |following
         +user_array_list user=user_from_username_param array='following_ids'
           
 
 template(name='follow_user')    
     .ui.cloud.segment
-        unless current_user
-            a.toggle_follow_user(href='#' title='Follow User')
-                i.renew.icon
-        else
-            i.renew.icon
-        |followed by
+        .ui.grey.inline.header
+            unless current_user
+                a.toggle_follow_user(href='#' title='Follow User')
+                    i.renew.icon
+            else
+                i.bell.icon
+            |followed by
         +user_array_list user=user_from_username_param array='followed_by_ids'
                 
 
