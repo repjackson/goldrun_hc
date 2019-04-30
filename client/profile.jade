@@ -1,11 +1,11 @@
 template(name='profile')
     with user_from_username_param  
         //- img.ui.fluid.image.banner_image(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")
-        .ui.padded.stackable.grid.profile_grid
+        .ui.padded.stackable.grid
             .row
                 .four.wide.column.scrolling
                     if image_id
-                        img.ui.circular.centered.shadowed.image(src="{{c.url image_id height=300 gravity='face' crop='fill'}}")
+                        img.ui.circular.centered.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     .ui.large.center.aligned.header
                         | #{user.first_name}
@@ -53,24 +53,27 @@ template(name='profile')
                         if is_staff
                             +textarea_edit key='staff_notes' title='staff notes'
                 
-                .six.wide.column
+                .four.wide.column
                     if user_is_resident
                         +violations
                         +user_checkins
                         +user_guests
                         +user_card_replacements
                         +user_signatures
+                .four.wide.column
                     +user_log
                     //- +user_bookmarks    
                     //- +user_feed
-                    +user_tasks
+                    if user_is_staff
+                        +user_tasks
                     //- +user_notifications
                     //- +user_karma
-                .six.wide.column
+                .four.wide.column
                     if user_is_resident
                         +user_key
                         +user_unit
-                    +user_messages
+                    if user_is_staff
+                        +user_messages
                     //- +user_connections
                     //- +user_rules_widget
                     if is_eric
@@ -297,7 +300,7 @@ template(name='user_tasks')
     .ui.segment.profile_block
         .ui.grey.inline.center.aligned.header 
             i.tasks.icon
-            |tasks
+            |staff tasks
         +goto_model slug='task'
         .ui.icon.input
             i.plus.icon
@@ -327,21 +330,23 @@ template(name='user_array_list')
             
             
 template(name='role_switcher')
-    .ui.fluid.styled.accordion.profile_block
-        .active.title
-            .ui.grey.inline.center.aligned.header 
-                i.user.shield.icon(title='role switcher')
-                |roles
-        .active.content
-            //- if is_eric
-            //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
+    .ui.segment.profile_block
+        .ui.grey.inline.center.aligned.header 
+            i.user.shield.blue.icon(title='role switcher')
+            |#{user_from_username_param.username} role switcher
+        //- if is_eric
+        //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
+        if current_user
             with current_user
                 +multi_doc_edit key='roles' label='Roles' ref_model='role' direct=true
-            //- +user_array_element_toggle key='roles' value='admin' user=currentUser
-            //- +user_array_element_toggle key='roles' value='user' user=currentUser
-            //- +user_array_element_toggle key='roles' value='staff' user=currentUser
-            //- +user_array_element_toggle key='roles' value='resident' user=currentUser
-            //- +user_array_element_toggle key='roles' value='owner' user=currentUser
+        else if currentUser
+            with currentUser
+                +multi_doc_edit key='roles' label='Roles' ref_model='role' direct=true
+        //- +user_array_element_toggle key='roles' value='admin' user=currentUser
+        //- +user_array_element_toggle key='roles' value='user' user=currentUser
+        //- +user_array_element_toggle key='roles' value='staff' user=currentUser
+        //- +user_array_element_toggle key='roles' value='resident' user=currentUser
+        //- +user_array_element_toggle key='roles' value='owner' user=currentUser
 
 
             

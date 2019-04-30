@@ -82,7 +82,7 @@ template(name='user_status')
         //     |Offline
 
 template(name='user_card')
-    a.ui.segment(href="/u/#{user.username}")
+    a.ui.segment(href="/user/#{user.username}")
         if user.image_id
             img.ui.small.image(src="{{c.url user.image_id }}")
         |@#{user.username}
@@ -96,7 +96,7 @@ template(name='big_user_card')
         //- .ui.card
         .ui.card
             .image
-                img.ui.image(src="{{c.url image_id width=300 height=400 gravity='face' crop='fill'}}")
+                img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             a.content(href="/user/#{username}")
                 .header #{first_name} #{last_name} 
                 .meta @#{username}
@@ -115,6 +115,10 @@ template(name='big_user_card')
                             strong #{lease_expiration}
                     if is_staff
                         +checkin_button
+                    .ui.large.circular.red.button
+                        |rules and regulations not signed
+                    .ui.large.circular.yellow.fluid.button
+                        |email not verified
                     //- +icolor name='swimming-pool' classes='ui avatar image'
                     //- +icolor name='weightlift' classes='ui avatar image'
                     //- +icolor name='jacuzzi' classes='ui avatar image'
@@ -126,15 +130,17 @@ template(name='big_user_card')
 template(name='big_checkin_card')
     with user
         //- .ui.card
-        .ui.fluid.card
-            .image
-                img.ui.image(src="{{c.url image_id width=300 height=400 gravity='face' crop='fill'}}")
-            a.content(href="/user/#{username}")
-                .header #{first_name} #{last_name} 
+        .ui.grid
+            .eight.wide.column
+                img.ui.fluid.image(src="{{c.url image_id width=500 height=400 gravity='face' crop='fill'}}")
+            .eight.wide.column
+                a.header(href="/user/#{username}")
+                     |#{first_name} #{last_name} 
                 .meta @#{username}
+                .ui.large.circular.red.button
+                    |Rules and Regs Not Signed
                 //- +array_view key='tags' label='Tags' direct=true
-            if is_admin
-                .content
+                if is_admin
                     div #{address}
                     strong #{building_number}
                     strong ##{apt_number}
@@ -144,6 +150,7 @@ template(name='big_checkin_card')
                     //- div Expiration 
                     //-     strong #{lease_expiration}
                     +checkin_button
+        
 
 
 

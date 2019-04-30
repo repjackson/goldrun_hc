@@ -18,7 +18,7 @@ template(name='goldrun')
                                 h2.ui.center.aligned.header 
                                     //- +icolor name='internal' classes='ui inline image'
                                     |check in member
-                                .ui.three.centered.stackable.cards
+                                .ui.centered.stackable.cards
                                     each checkedout_members
                                         .card
                                             .image
@@ -28,7 +28,7 @@ template(name='goldrun')
                                                 .header #{first_name} #{last_name}
                                                 .meta @#{username}
                                                 if is_dev
-                                                    a.ui.basic.circular.button(href="/user/#{username}/")
+                                                    a.ui.circular.button(href="/user/#{username}/")
                                                         |view profile
                                                         i.chevron.right.icon
                                                 +checkin_button
@@ -45,7 +45,7 @@ template(name='goldrun')
                         .sixteen.wide.column
                             .ui.cloud.segment
                                 h1.ui.center.aligned.header
-                                    //- +icolor name='internal' classes='ui image'
+                                    i.blue.user.shield.icon
                                     |#{checkedin_members.count} checked in members
                                 .ui.doubling.centered.cards
                                     each checkedin_members
@@ -63,7 +63,7 @@ template(name='goldrun')
                                     // +icolor name='edit-property' classes='ui inline image'
                                         // .ui.inline.header 
                                     i.rss.icon
-                                    | Log
+                                    | log
                                     i.dropdown.icon
                                 .content.smallscroll
                                     .ui.feed
@@ -87,19 +87,19 @@ template(name='goldrun')
                         .column
                             .ui.header
                                 +icolor name='front-desk' classes='ui inline image'
-                                | Staff on Duty
+                                | staff on duty
                             with currentUser.username
                                 +big_user_card
                     .centered.row
-                        .ui.basic.center.aligned.segment
+                        .ui.center.aligned.segment
                             if is_admin
-                                a.ui.large.circular.basic.button(href='/add_resident')
+                                a.ui.large.circular.button(href='/add_resident')
                                     i.user.shield.icon
-                                    | Add Resident
-                            a.ui.large.circular.basic.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
-                                |Rules and Regulations
-                            a.ui.large.circular.basic.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
-                                |Guest Waiver
+                                    | add resident
+                            a.ui.large.circular.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
+                                |rules and regulations
+                            a.ui.large.circular.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
+                                |guest waiver
             +document_view key='health_club_info'
                 
             //- .ui.check_out.modal
@@ -110,7 +110,7 @@ template(name='goldrun')
             //-     .actions
             //-         .ui.large.ok.teal.button
             //-             |Check Out
-            //-         .ui.large.cancel.basic.button
+            //-         .ui.large.cancel.button
             //-             |Cancel
             //- .ui.check_in.modal
             //-     .header Check In #{selected_person.username}?
@@ -120,7 +120,7 @@ template(name='goldrun')
             //-     .actions
             //-         .ui.large.ok.green.button
             //-             |Check In
-            //-         .ui.large.cancel.basic.button
+            //-         .ui.large.cancel.button
             //-             |Cancel
                         
                         
@@ -164,12 +164,12 @@ template(name='sign_waiver')
 
 template(name='checkin_button')
     unless healthclub_checkedin
-        .ui.large.fluid.circular.basic.button.checkin
+        .ui.large.fluid.circular.button.checkin
             i.sign.in.icon
             //- +icolor name='internal' classes='ui image'
             |check in
     if healthclub_checkedin
-        .ui.fluid.circular.basic.button.checkout
+        .ui.fluid.circular.button.checkout
             i.sign.out.icon
             //- +icolor name='exit-sign' classes='ui avatar image'
             |check out

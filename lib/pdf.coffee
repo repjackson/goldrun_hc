@@ -211,8 +211,10 @@ Meteor.methods
         doc.font('Times-Roman').text("Associationonline.com User Name and Password: GRC88", {align:'left'})
 
 
-        doc.font('Times-Bold').text(" Resident:#{signing_doc.resident}", {align: 'left'})
-        doc.image(signing_doc.signature, 200, 400, {width: 300})
+        doc.font('Times-Bold').text(" Username:#{user.username}", {align: 'left'})
+        doc.font('Times-Bold').text(" First Name:#{user.first_name}", {align: 'left'})
+        doc.font('Times-Bold').text(" Last Name:#{user.last_name}", {align: 'left'})
+        doc.image(signing_doc.signature, 200, 600, {width: 300})
 
         # doc.moveDown();
         doc.write("Gold_Run_Rules_Regs_Contract_#{doc.first_name}.pdf")

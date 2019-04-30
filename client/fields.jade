@@ -265,17 +265,17 @@ template(name='text_view')
     if field_value
         unless header
             div
-            // if icon
-            //     i.grey.icon(class=icon)
-            | &nbsp;
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}
+            .ui.small.inline.grey.header
+                // if icon
+                //     i.grey.icon(class=icon)
+                if title
+                    |#{title}
+                else if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
         .ui.inline.small.header #{field_value}
 
 
@@ -336,16 +336,17 @@ template(name='phone_view')
     if field_value
         unless header
             div
-            // if icon
-            //     i.grey.icon(class=icon)
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}
+            .ui.small.inline.grey.header
+                // if icon
+                //     i.grey.icon(class=icon)
+                if title
+                    |#{title}
+                else if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
         strong &nbsp; #{field_value}
 
 
@@ -400,16 +401,17 @@ template(name='date_edit')
 
 template(name='date_view')
     div
-    if icon
-        i.grey.icon(class=icon)
-    if title
-        |#{title}
-    else if label
-        |#{label}
-    else if key
-        |#{key}
-    else
-        |#{this}
+    .ui.small.inline.grey.header
+        if icon
+            i.grey.icon(class=icon)
+        if title
+            |#{title}
+        else if label
+            |#{label}
+        else if key
+            |#{key}
+        else
+            |#{this}
     strong &nbsp; #{field_value}
 
 

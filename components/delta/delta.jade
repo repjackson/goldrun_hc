@@ -45,7 +45,7 @@ template(name='delta')
 
 template(name='facet')
     if filtering_res
-        div
+        .ui.divider
         //- .ui.accordion
         //-     .active.title
         .ui.grey.inline.header 
@@ -60,6 +60,7 @@ template(name='facet')
         .ui.icon.small.transparent.input
             i.search.icon
             input.add_filter(type='text')
+        div
         each filtering_res
             if name
                 .selector.ui.circular.large.compact.button.toggle_selection(class=toggle_value_class title=count)
