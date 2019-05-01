@@ -98,7 +98,7 @@ template(name='user_signatures')
             | signatures
         .ui.link.large.list
             a.item(href='#') rules and regulations
-            +goto_model slug='rules_'
+            +goto_model slug='rules_regs_signing'
 
             a.item(href='#') proof of residency
             a.item(href='#') injury waiver
@@ -166,16 +166,19 @@ template(name='user_key')
             |key
         if is_admin
             +goto_model slug='key'
-    
         with key
             if is_admin
-                +number_view key='tag_number' label='Tag Number' direct=true
-            else if is_staff
-                +number_view key='tag_number' label='Tag Number' direct=true
-            +boolean_view key='fowler' label='Fowler' direct=true
-            +boolean_view key='key_exists' label='Key Exists' direct=true
-            +number_view key='building_number' label='Building Number' direct=true
-            +number_view key='unit_number' label='Unit #' direct=true
+                +number_view key='tag_number' label='tag number' direct=true
+            else if viewing_code
+                .ui.huge.basic.label
+                    +number_view key='tag_number' label='tag number' direct=true
+            else
+                .ui.circular.icon.button.view_code
+                    i.eye.icon
+            +boolean_view key='fowler' label='fowler' direct=true
+            +boolean_view key='key_exists' label='key exists' direct=true
+            +number_view key='building_number' label='building number' direct=true
+            +number_view key='unit_number' label='unit #' direct=true
             if is_admin
                 div
                 +edit_button

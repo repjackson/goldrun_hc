@@ -164,9 +164,17 @@ if Meteor.isClient
     Template.user_key.onCreated ->
         @autorun => Meteor.subscribe 'user_key', Router.current().params.username
     Template.user_key.helpers
-        key: ->
-            Docs.findOne
-                model:'key'
+        key: -> Docs.findOne model:'key'
+        viewing_code: -> Session.get 'viewing_code '
+    Template.user_key.events
+        'click .view_code': ->
+            access = prompt 'admin code'
+            if access is '2959'
+                Session.set 'viewing_code', true
+                Meteor.setTimeout ->
+                    Session.set 'viewing_code', false
+                , 5000
+
 
 
     Template.user_unit.onCreated ->
@@ -202,7 +210,7 @@ if Meteor.isClient
         bookmarks: ->
             current_user = Meteor.users.find username:Router.current().params.username
             Docs.find {
-                bookmark_ids:$in:[user._id]
+                bookmark_ids:$in:[current_user._id]
             }, sort:_timestamp:-1
 
 
