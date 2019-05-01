@@ -41,11 +41,11 @@ template(name='profile')
                         a.ui.circular.fluid.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | settings
-                    else if current_user
+                    else if is_current_user
                         a.ui.circular.fluid.button(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.icon
                             | settings
-                    if current_user
+                    if is_current_user
                         .ui.circular.fluid.button.logout
                             i.sign.out.icon
                             |log out
