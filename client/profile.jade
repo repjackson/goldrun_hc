@@ -1,6 +1,6 @@
 template(name='profile')
     with user_from_username_param  
-        //- img.ui.fluid.image.banner_image(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")
+        img.ui.fluid.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
         .ui.padded.stackable.grid
             .row
                 .four.wide.column.scrolling
@@ -13,7 +13,10 @@ template(name='profile')
                         if current_user
                             a(href="/user/#{user_from_username_param.username}/edit")
                                 i.cog.link.icon
-                    .ui.center.aligned.header
+                    .ui.center.aligned.small.grey.header
+                        | #{user.tagline}        
+                        
+                    .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     //- +gr_status                
                     .ui.profile_block.segment
