@@ -2,33 +2,31 @@ template(name='user_connections')
     .ui.segment.profile_block
         .ui.grey.inline.center.aligned.header 
             i.people.carry.icon
-            | Connections
-        .ui.middle.aligned.selection.animated.large.list
+            | connections
+        unless is_user
+            with user_from_username_param
+                +user_connect_button
+        .ui.tiny.grey.header connected to
+        .ui.middle.aligned.list
             each connections
                 +user_segment
-    //- .ui.fluid.styled.accordion.profile_block
-    //-     .active.title
-    //-         .ui.grey.inline.center.aligned.header 
-    //-             i.tasks.icon
-    //-             | Connections
-    //-     .active.content
-    //-         .ui.link.items
-    //-             each connections
-    //-                 +user_segment
-    //- .ui.header Nonconnections    
-    //- each nonconnections
-    //-     +user_segment
+        .ui.tiny.grey.header people connected to #{user_from_username_param.username}
+            each people_connected
+                +user_segment
 
 
 template(name='user_segment')
-    a.item(href="/user/#{username}")
+    .item
         img.ui.avatar.image(src="{{c.url image_id gravity='face' crop='crop'}}")
         .content
-            .header
-                |#{first_name} #{last_name}
+            a.header(href="/user/#{username}")
+                |#{first_name} #{last_name} 
+                small @#{username}
             .description
                 each tags
                     .ui.basic.circular.label #{this}
+            +user_connect_button
+            +user_status user
 
     //- .ui.horizontal.card
     //-     .image
@@ -41,14 +39,12 @@ template(name='user_segment')
     //-         //- .ui.header Tags
     //-         each tags
     //-             .ui.basic.circular.label #{this}
-    //-         +user_status user
     //-         .ui.header #{body}
-    //-         +user_connect_button
 
 template(name='user_connect_button')
     if is_connected
-        .ui.blue.circular.button.disconnect
-            |Connected
+        .ui.blue.icon.circular.button.disconnect(title='connected')
+            i.handshake.icon
     else
-        .ui.basic.circular.button.connect
-            |Connect
+        .ui.basic.icon.circular.button.connect(title='not connected')
+            i.handshake.outline.icon

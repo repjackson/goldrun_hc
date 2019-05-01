@@ -8,8 +8,9 @@ template(name='nav')
         else
             a.header.icon.item(href='/' class="{{isActivePath '/'}}")
                 i.grey.home.large.icon
-            a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
-                i.grey.user.shield.large.icon
+            if is_staff
+                a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
+                    i.grey.user.shield.large.icon
             //- each bookmarked_models
             //-     a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}" title=title)
             //-         i.large.icon(class=icon)
