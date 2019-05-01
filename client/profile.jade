@@ -183,6 +183,13 @@ template(name='user_key')
                 div
                 +edit_button
                 +view_button
+            if is_staff
+                .ui.tiny.grey.header
+                    i.grey.shield.icon
+                    |access log
+                .ui.list
+                    each access_log
+                        .item #{when} by #{_author_username}
 
             
 template(name='user_unit')

@@ -125,7 +125,8 @@ template(name='footer')
             .twelve.wide.column
                 //- +health_club_info    
             .four.wide.column
-                +role_switcher
+                if is_eric
+                    +role_switcher
         .row
             .ui.center.aligned.header
                 i.creative.commons.icon

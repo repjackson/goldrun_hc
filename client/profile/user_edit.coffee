@@ -320,7 +320,7 @@ Template.password_edit.events
     'click .send_enrollment_email': (e,t)->
         current_user = Meteor.users.findOne username:Router.current().params.username
         # console.log current_user
-        Meteor.call 'send_enrollment_demail', current_user._id, @address, ->
+        Meteor.call 'send_enrollment_email', current_user._id, @address, ->
             alert 'Enrollment Email Sent'
 
 

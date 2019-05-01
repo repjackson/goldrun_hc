@@ -28,7 +28,8 @@ Router.route '/verify-email/:token', ->
             console.log err
             alert err
         else
-            Router.go '/dashboard'
+            alert 'Email Verified'
+            Router.go "/user/#{Meteor.user().username}"
     )
 
 
