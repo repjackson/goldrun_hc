@@ -9,18 +9,20 @@ body {
 }
 
 .red_flagged {
-  border-style: solid;
-  border-color: red;
+  border: 10px solid red;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgb(220,20,60, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .yellow_flagged {
-  border-style: solid;
-  border-color: yellow;
+  border: 10px solid yellow;
+  border-radius: 5px;
 }
 
 .green_flagged {
-  border-style: solid;
-  border-color: green;
+  border: 10px solid green;
+  border-radius: 5px;
 }
 
 

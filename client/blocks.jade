@@ -145,42 +145,7 @@ template(name='big_user_card')
                     //- +icolor name='water-steam' classes='ui avatar image'
 
 
-template(name='big_checkin_card')
-    with user
-        //- .ui.card
-        .ui.grid(class=checkin_card_class)
-            .eight.wide.column
-                img.ui.fluid.rounded.image(src="{{c.url image_id width=500 height=400 gravity='face' crop='fill'}}")
-            .eight.wide.column
-                a.ui.header(href="/user/#{username}")
-                     |#{first_name} #{last_name} 
-                .meta @#{username}
-                //- +array_view key='tags' label='Tags' direct=true
-                if is_admin
-                    div #{address}
-                    strong #{building_number}
-                    strong ##{apt_number}
-                    div Membership Start 
-                    strong #{start_date}
-                    div Expiration 
-                        strong #{lease_expiration}
-                +email_validation_check
-                +lease_expiration_check
-                +rules_and_regs_check
-                +checkin_guest
                 
-                
-template(name='checkin_guest')                
-    .ui.big.circular.button.checkin_guest
-        i.user.plus.icon
-        |Check in Guest
-    if checking_in_guest
-        .ui.header checking in
-        each guests
-            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-            |#{first_name} #{last_name}
-        
-
 
 
 template(name='user_info')
@@ -293,12 +258,11 @@ template(name='email_validation_check')
             i.checkmark.icon
             |email validated
     else
-        .ui.basic.yellow.circular.large.button
+        .ui.basic.yellow.circular.large.button.send_verification
             i.ban.icon
             |email unvalidated
         .ui.basic.circular.label
-            |x
-            |#{times}
+            |#{times} times sent
         
         
 template(name='lease_expiration_check')

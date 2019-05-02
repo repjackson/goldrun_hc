@@ -67,8 +67,8 @@ Docs.helpers
     when: -> moment(@_timestamp).fromNow()
 
 Meteor.users.helpers
-    email_address: -> @emails[0].address
-    email_verified: -> @emails[0].verified
+    email_address: -> if @emails then @emails[0].address
+    email_verified: -> if @emails then @emails[0].verified
 
 
 Meteor.methods

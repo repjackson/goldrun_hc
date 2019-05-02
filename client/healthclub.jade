@@ -225,3 +225,47 @@ template(name='health_club_info')
                     .item Fri 7a-9p
                     .item Sat 8a-9p
                     .item Sun 8a-10p
+
+
+template(name='big_checkin_card')
+    with user
+        //- .ui.card
+        .ui.grid(class=checkin_card_class)
+            .eight.wide.column
+                img.ui.fluid.rounded.image(src="{{c.url image_id width=500 height=400 gravity='face' crop='fill'}}")
+            .eight.wide.column
+                a.ui.header(href="/user/#{username}")
+                     |#{first_name} #{last_name} 
+                .meta @#{username}
+                //- +array_view key='tags' label='Tags' direct=true
+                if is_admin
+                    div #{address}
+                    strong #{building_number}
+                    strong ##{apt_number}
+                    div Membership Start 
+                    strong #{start_date}
+                    div Expiration 
+                        strong #{lease_expiration}
+                +email_validation_check
+                +lease_expiration_check
+                +rules_and_regs_check
+                div
+                +checkin_guest
+                
+
+template(name='checkin_guest')                
+    .ui.big.circular.button.checkin_guest
+        i.user.plus.icon
+        |check in guest
+    if checking_in_guest
+        .ui.header last guest
+        .ui.header frequent guests
+        each guests
+            div
+            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+            .ui.small.inline.header #{first_name} #{last_name}
+        .ui.header select other 
+        .ui.fluid.input
+            input(type='text' placeholder='lookup name')
+        
+            

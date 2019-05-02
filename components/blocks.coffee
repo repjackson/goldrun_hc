@@ -239,7 +239,10 @@ if Meteor.isClient
 
 
 
-
+    Template.email_validation_check.events
+        'click .send_verification': ->
+            if confirm 'send verification email?'
+                alert 'email sent'
 
 
 

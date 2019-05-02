@@ -30,7 +30,7 @@ if Meteor.isClient
     Template.nav.onCreated ->
         @autorun -> Meteor.subscribe 'me'
         # @autorun -> Meteor.subscribe 'bookmarked_models'
-        @autorun -> Meteor.subscribe 'unread_messages'
+        # @autorun -> Meteor.subscribe 'unread_messages'
 
     Template.nav.helpers
         notifications: ->

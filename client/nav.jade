@@ -27,10 +27,11 @@ template(name='nav')
                     //-     .menu
                     //-         each notifications
                     //-             .ui.circular.button #{text}
-                    a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
-                        i.large.grey.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
-                    a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
-                        i.large.grey.chat.icon
+                    if is_admin
+                        a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
+                            i.large.grey.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
+                        a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
+                            i.large.grey.chat.icon
                     if is_admin
                         a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
                             i.large.grey.shield.icon
