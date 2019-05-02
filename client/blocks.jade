@@ -253,8 +253,8 @@ template(name='add_model_button')
 
             
 template(name='email_validation_check')
-    if email_validated
-        .ui.large.circular.green.label
+    if email_verified
+        .ui.large.circular.green.basic.label
             i.checkmark.icon
             |email validated
     else
@@ -278,7 +278,7 @@ template(name='rules_and_regs_check')
             i.signature.icon
             |rules and regs not signed 
     else
-        a.ui.basic.large.circular.green.button(href="/m/rules_regs_signing/#{rules_signed._id}")
+        a.ui.basic.circular.green.button(href="/m/rules_regs_signing/#{rules_signed._id}")
             i.signature.icon
             |rules and regs signed 
         

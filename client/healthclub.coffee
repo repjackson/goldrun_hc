@@ -49,26 +49,24 @@ Template.checkin_button.events
     'click .checkin': (e,t)->
         $(e.currentTarget).closest('.card').transition('fade up')
         Meteor.setTimeout =>
-            # $('body').toast({
-            #     message: "#{@username} checked in."
-            #     class: 'success'
-            # })
 
-            # Meteor.users.update @_id,
-            #     $set:healthclub_checkedin:true
-            # Docs.insert
-            #     model:'log_event'
-            #     object_id:@_id
-            #     body: "#{@username} checked in."
-            # # swal( "#{@username} checked in.", "", "success" )
+            Meteor.users.update @_id,
+                $set:healthclub_checkedin:true
+            Docs.insert
+                model:'log_event'
+                object_id:@_id
+                body: "#{@username} checked in."
             #
-            # Session.set 'username_query',null
+            Session.set 'username_query',null
             # Session.set 'checking_in',false
-            # $('.username_search').val('')
+            $('.username_search').val('')
             Session.set 'displaying_profile',@_id
-            # Meteor.setTimeout =>
-            #     Session.set 'displaying_profile', null
-            # , 5000
+            Meteor.setTimeout =>
+                Session.set 'displaying_profile', null
+                $('body').toast({
+                    message: "#{@username} checked in."
+                    class: 'success'})
+            , 5000
         , 750
 
     'click .checkout': (e,t)->

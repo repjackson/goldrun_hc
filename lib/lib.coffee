@@ -69,6 +69,8 @@ Docs.helpers
 Meteor.users.helpers
     email_address: -> if @emails then @emails[0].address
     email_verified: -> if @emails then @emails[0].verified
+    five_tags: -> if @tags then @tags[..4]
+    three_tags: -> if @tags then @tags[..2]
 
 
 Meteor.methods

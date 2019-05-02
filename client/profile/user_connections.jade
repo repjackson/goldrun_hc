@@ -23,7 +23,7 @@ template(name='user_segment')
                 |#{first_name} #{last_name} 
                 small @#{username}
             .description
-                each tags
+                each three_tags
                     .ui.basic.circular.label #{this}
             +user_connect_button
             +user_status user
