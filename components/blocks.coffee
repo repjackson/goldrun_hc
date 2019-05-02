@@ -17,7 +17,7 @@ if Meteor.isClient
             if e.which is 13
                 # parent = Docs.findOne Router.current().params.doc_id
                 comment = t.$('.add_comment').val()
-                console.log comment
+                # console.log comment
                 Docs.insert
                     parent_id: Router.current().params.doc_id
                     model:'comment'
@@ -222,6 +222,26 @@ if Meteor.isClient
             Session.set 'displaying_profile',null
 
 
+    # Template.single_person_edit.onCreated ->
+    #     @checking_in = new ReactiveVar
+
+    Template.checkin_guest.onCreated ->
+        @autorun => Meteor.subscribe 'guests'
+    Template.checkin_guest.helpers
+        checking_in_guest: -> Session.get 'checking_in_guest'
+        guests: ->
+            Meteor.users.find
+                roles:$in:['guest']
+
+    Template.checkin_guest.events
+        'click .checkin_guest': ->
+            Session.set('checking_in_guest', !Session.get('checking_in_guest'))
+
+
+
+
+
+
 
     Template.add_button.events
         'click .add': ->
@@ -255,6 +275,10 @@ if Meteor.isServer
             model:'rules_and_regs_signing'
             resident:username
             # agree:true
+
+    Meteor.publish 'guests', ()->
+        Meteor.users.find
+            roles:$in:['guest']
 
 
     Meteor.publish 'children', (model, parent_id)->

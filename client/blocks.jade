@@ -84,17 +84,21 @@ template(name='user_status')
 
 template(name='user_card')
     with user
-        .ui.segment
-            if image_id
-                img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
-            .header #{first_name} #{last_name} 
-            .meta @#{username}
-            +user_email
+        .ui.grid
+            .four.wide.column
+                if image_id
+                    img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+            .twelve.wide.column
+                .header #{first_name} #{last_name} 
+                .meta @#{username}
+                +user_email
+                +emails_edit    
         //- +user_status user
 
 
 template(name='user_email')
     .ui.small.header #{email_address}
+    
     if email_verified
         .ui.green.label 
             i.checkmark.icon
@@ -146,7 +150,7 @@ template(name='big_checkin_card')
         //- .ui.card
         .ui.grid(class=checkin_card_class)
             .eight.wide.column
-                img.ui.fluid.image(src="{{c.url image_id width=500 height=400 gravity='face' crop='fill'}}")
+                img.ui.fluid.rounded.image(src="{{c.url image_id width=500 height=400 gravity='face' crop='fill'}}")
             .eight.wide.column
                 a.ui.header(href="/user/#{username}")
                      |#{first_name} #{last_name} 
@@ -163,6 +167,18 @@ template(name='big_checkin_card')
                 +email_validation_check
                 +lease_expiration_check
                 +rules_and_regs_check
+                +checkin_guest
+                
+                
+template(name='checkin_guest')                
+    .ui.big.circular.button.checkin_guest
+        i.user.plus.icon
+        |Check in Guest
+    if checking_in_guest
+        .ui.header checking in
+        each guests
+            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+            |#{first_name} #{last_name}
         
 
 
