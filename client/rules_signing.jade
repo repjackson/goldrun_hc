@@ -1,0 +1,19 @@
+template(name='rules_signing')
+    with signing_doc
+        +document_view key='rules_regs'
+        +user_card resident
+        .ui.header I agree
+            if agree
+                i.huge.checkmark.green.link.icon.agree
+            else
+                i.huge.circle.outline.grey.icon.agree
+        if agree
+            if signature_saved
+                +signature_view key='signature' direct=true
+                i.pencil.icon.edit_signature
+            else
+                +signature_edit key='signature' direct=true
+            if signature_saved
+                .ui.big.circular.blue.fluid.button
+                    |Submit
+                    i.right.chevron.icon

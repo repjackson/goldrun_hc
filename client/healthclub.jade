@@ -26,8 +26,8 @@ template(name='goldrun')
                                                     img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                                             .content
                                                 .header #{first_name} #{last_name}
-                                                .meta @#{username}
                                                 if is_dev
+                                                    .meta @#{username}
                                                     a.ui.circular.button(href="/user/#{username}/")
                                                         |view profile
                                                         i.chevron.right.icon
@@ -90,18 +90,18 @@ template(name='goldrun')
                                 | staff on duty
                             with currentUser.username
                                 +big_user_card
-                    .centered.row
-                        .ui.center.aligned.segment
-                            if is_admin
-                                a.ui.large.circular.button(href='/add_resident')
-                                    i.user.shield.icon
-                                    | add resident
-                            a.ui.large.circular.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
-                                |rules and regulations
-                            a.ui.large.circular.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
-                                |guest waiver
-            +document_view key='health_club_info'
-                
+                .centered.row
+                    .ui.center.aligned.basic.segment
+                        if is_admin
+                            a.ui.large.circular.button(href='/add_resident')
+                                i.user.shield.icon
+                                | add resident
+                        a.ui.large.circular.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
+                            |rules and regulations
+                        a.ui.large.circular.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
+                            |guest waiver
+            +document_view key='health_club_notices'
+            +health_club_info
             //- .ui.check_out.modal
             //-     .header Checkout #{selected_person.username}?
             //-     .content
@@ -193,3 +193,35 @@ template(name='checkin_button')
     //-                                 |#{when}
     //-                             if is_dev
     //-                                 +remove_button
+
+
+template(name='health_club_info')
+    .ui.stackable.grid
+        .three.column.inverted.row
+            .column
+                .ui.header Wifi
+                | Gold Run Health Club / goldrun1
+                .ui.header Upstairs Code
+                | 4589
+                .ui.header Colorado Security Services
+                | 303.443.3701
+            .column
+                .ui.header Onsite Manager
+                .ui.list
+                    .item Rick Hamp 
+                    .item 303.545.1787
+                    .item goldruncondos@gmail.com
+                .ui.header After Hours Emergency
+                | 303.221.1117
+                .ui.header Boulder Valley Towing
+                | 303.444.4868
+            .column
+                .ui.header Hours
+                .ui.list
+                    .item Mon 7a-10p
+                    .item Tues 7a-10p
+                    .item Wed 7a-10p
+                    .item Thur 7a-10p
+                    .item Fri 7a-9p
+                    .item Sat 8a-9p
+                    .item Sun 8a-10p

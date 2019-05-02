@@ -66,6 +66,10 @@ Docs.helpers
     author: -> Meteor.users.findOne @_author_id
     when: -> moment(@_timestamp).fromNow()
 
+Meteor.users.helpers
+    email_address: -> @emails[0].address
+    email_verified: -> @emails[0].verified
+
 
 Meteor.methods
     add_facet_filter: (delta_id, key, filter)->

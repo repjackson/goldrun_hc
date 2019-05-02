@@ -8,6 +8,24 @@ body {
     /* background: #0e0e44 !important; */
 }
 
+.red_flagged {
+  border-style: solid;
+  border-color: red;
+}
+
+.yellow_flagged {
+  border-style: solid;
+  border-color: yellow;
+}
+
+.green_flagged {
+  border-style: solid;
+  border-color: green;
+}
+
+
+
+
 .profile_grid {
     position: absolute !important;
     top:0px;

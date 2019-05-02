@@ -979,7 +979,10 @@ Template.multi_user_edit.events
 
     Template.signature_view.events
         'click .print_rules': ->
-            parent = Template.parentData(5)
+            if @direct
+                parent = Template.parentData()
+            else
+                parent = Template.parentData(5)
             Meteor.call 'generate_rules_pdf', parent._id
 
         'click .print_guest': ->
@@ -1000,17 +1003,25 @@ Template.multi_user_edit.events
         #     console.log image_data
         'click .save': ->
             jpeg = Template.instance().signaturePad.toDataURL 'image/jpeg'
-            console.log jpeg
+            # console.log jpeg
             page_doc = Docs.findOne Router.current().params.id
-            parent = Template.parentData(5)
+            if @direct
+                parent = Template.parentData()
+            else
+                parent = Template.parentData(5)
+
             doc = Docs.findOne parent._id
             user = Meteor.users.findOne parent._id
+
             if doc
                 Docs.update parent._id,
-                    $set:"#{@key}":jpeg
+                    $set:
+                        "#{@key}":jpeg
+                        signature_saved:true
             else if user
                 Meteor.users.update parent._id,
                     $set:"#{@key}":jpeg
+                    signature_saved:true
 
             # save image as JPEG
         'click .thing': ->
@@ -1025,7 +1036,9 @@ Template.multi_user_edit.events
             signaturePad.fromData data
         'click .clear': (e,t)->
             # Clears the canvas
-            console.log t
+            # console.log t
+            $(e.currentTarget).closest('.segment').transition('shake')
+
             Template.instance().signaturePad.clear()
             # Returns true if canvas is empty, otherwise returns false
 

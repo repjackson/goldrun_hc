@@ -1,7 +1,7 @@
 Template.goldrun.onCreated ->
     @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
     # @autorun => Meteor.subscribe 'type', 'field'
-    @autorun => Meteor.subscribe 'model_docs', 'log_event'
+    # @autorun => Meteor.subscribe 'model_docs', 'log_event'
     @autorun => Meteor.subscribe 'users'
 
 
@@ -36,10 +36,8 @@ Template.goldrun.helpers
             roles:$in:['resident','owner']
             },{ limit:10 }).fetch()
 
-    checking_in: ->
-        Session.get('checking_in')
-    is_query: ->
-        Session.get('username_query')
+    checking_in: -> Session.get('checking_in')
+    is_query: -> Session.get('username_query')
 
     events: ->
         Docs.find {
@@ -51,25 +49,26 @@ Template.checkin_button.events
     'click .checkin': (e,t)->
         $(e.currentTarget).closest('.card').transition('fade up')
         Meteor.setTimeout =>
-            $('body').toast({
-                message: "#{@username} checked in."
-                class: 'success'
-            })
-            Meteor.users.update @_id,
-                $set:healthclub_checkedin:true
-            Docs.insert
-                model:'log_event'
-                object_id:@_id
-                body: "#{@username} checked in."
-            # swal( "#{@username} checked in.", "", "success" )
+            # $('body').toast({
+            #     message: "#{@username} checked in."
+            #     class: 'success'
+            # })
 
-            Session.set 'username_query',null
-            Session.set 'checking_in',false
-            $('.username_search').val('')
+            # Meteor.users.update @_id,
+            #     $set:healthclub_checkedin:true
+            # Docs.insert
+            #     model:'log_event'
+            #     object_id:@_id
+            #     body: "#{@username} checked in."
+            # # swal( "#{@username} checked in.", "", "success" )
+            #
+            # Session.set 'username_query',null
+            # Session.set 'checking_in',false
+            # $('.username_search').val('')
             Session.set 'displaying_profile',@_id
-            Meteor.setTimeout =>
-                Session.set 'displaying_profile', null
-            , 4000
+            # Meteor.setTimeout =>
+            #     Session.set 'displaying_profile', null
+            # , 5000
         , 750
 
     'click .checkout': (e,t)->

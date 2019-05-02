@@ -70,6 +70,7 @@ Router.route '/frontdesk', -> @render 'frontdesk'
 Router.route '/user/:username/edit', -> @render 'user_edit'
 Router.route '/p/:slug', -> @render 'page'
 Router.route '/settings', -> @render 'settings'
+Router.route '/sign_rules/:doc_id', -> @render 'rules_signing'
 # Router.route '/users', -> @render 'people'
 Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 

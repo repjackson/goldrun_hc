@@ -11,12 +11,12 @@ template(name='nav')
             if is_staff
                 a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
                     i.grey.user.shield.large.icon
+                a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
+                    i.large.grey.users.icon
             //- each bookmarked_models
             //-     a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}" title=title)
             //-         i.large.icon(class=icon)
                     //- |#{title}
-            a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
-                i.large.grey.users.icon
             a.icon.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
                 i.large.grey.clinic.medical.icon
         .right.menu
@@ -122,12 +122,16 @@ template(name='sidebar')
 
 template(name='footer')
     .ui.fluid.secondary.attached.segment.footer
-        .ui.container.grid
-            .twelve.wide.column
-                //- +health_club_info    
-            .four.wide.column
+        .ui.container.stackable.grid
+            .eight.wide.column
+                //- +health_club_info
+                if is_eric    
+                    with current_user
+                        +role_switcher
+            .eight.wide.column
                 if is_eric
-                    +role_switcher
+                    with currentUser
+                        +role_switcher
         .row
             .ui.center.aligned.header
                 i.creative.commons.icon

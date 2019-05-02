@@ -1,6 +1,7 @@
 template(name='profile')
-    with user_from_username_param  
-        img.ui.fluid.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
+    with user_from_username_param
+        if user_is_resident  
+            img.ui.fluid.image(src="{{c.url banner_image_id width=1000 height=100 crop='crop'}}")
         .ui.padded.stackable.grid
             .row
                 .four.wide.column.scrolling
@@ -14,8 +15,7 @@ template(name='profile')
                             a(href="/user/#{user_from_username_param.username}/edit")
                                 i.cog.link.icon
                     .ui.center.aligned.small.grey.header
-                        | #{user.tagline}        
-                        
+                        | #{user.tagline}
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     //- +gr_status                
@@ -58,32 +58,35 @@ template(name='profile')
 
                 .four.wide.column
                     if user_is_resident
-                        +violations
-                        +user_checkins
-                        +user_guests
-                        +user_card_replacements
-                        +user_signatures
-                        +user_following
-                        +follow_user
+                        if is_staff
+                            +violations
+                            +user_checkins
+                            +user_guests
+                            +user_card_replacements
+                            +user_signatures
+                        if is_resident
+                            +user_following
+                            +follow_user
     
                 .four.wide.column
                     +user_log
-                    +user_alerts
-                    if is_resident
-                        +user_karma
-                        +user_bookmarks    
-                        +user_feed
+                    +membership_status
+                    if user_is_resident
+                        if is_resient
+                            +user_karma
+                            +user_bookmarks    
+                            +user_feed
                 .four.wide.column
                     if user_is_resident
                         +user_key
                         +user_unit
                         +user_tags
                         +user_connections
-                    if user_is_staff
+                    if user_is_resident
                         +user_messages
                     //- +user_rules_widget
-                    if is_eric
-                        +role_switcher
+                    //- if is_eric
+                    //-     +role_switcher
                     //- if current_user
             
             
@@ -362,15 +365,15 @@ template(name='role_switcher')
     .ui.segment.profile_block
         .ui.grey.inline.center.aligned.header 
             i.user.shield.blue.icon(title='role switcher')
-            |#{user_from_username_param.username} role switcher
+            |#{username} role switcher
         //- if is_eric
         //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
-        if current_user
-            with current_user
-                +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
-        else if currentUser
-            with currentUser
-                +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
+        //- if current_user
+        //-     with current_user
+        //-         +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
+        //- else if currentUser
+        //-     with currentUser
+        +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
         //- +user_array_element_toggle key='roles' value='admin' user=currentUser
         //- +user_array_element_toggle key='roles' value='user' user=currentUser
         //- +user_array_element_toggle key='roles' value='staff' user=currentUser
@@ -405,55 +408,15 @@ template(name='user_tags')
             //     input(type='text' placeholder="Tag #{user_from_username_param.name}")
             
             
-template(name='user_alerts')
+template(name='membership_status')
     .ui.segment.profile_block
         .active.title
             .ui.grey.inline.center.aligned.header 
-                i.bullhorn.icon
-                |alerts
+                |membership status
         +email_validation_check
         +lease_expiration_check
         +rules_and_regs_check
         //- +rules_and_regs_
-            
-template(name='email_validation_check')
-    if email_validated
-        .ui.large.circular.green.label
-            i.checkmark.icon
-            |email validated
-    else
-        .ui.basic.yellow.circular.large.button
-            i.ban.icon
-            |email unvalidated
-        .ui.basic.circular.label
-            |x
-            |#{times}
-        
-        
-        
-template(name='lease_expiration_check')
-    if lease_expiring
-        .ui.large.circular.yellow.label
-            i.clock.icon
-            |lease expiring 
-        
-        
-template(name='rules_and_regs_check')
-    unless rules_signed
-        .ui.basic.large.circular.red.button
-            i.signature.icon
-            |rules and regs not signed 
-        
-        
-template(name='guest_waiver_check')
-    unless waiver_signed
-        .ui.basic.large.circular.red.button
-            i.signature.icon
-            |guest waiver not signed 
-        
-        
-        
-        
         
         
         

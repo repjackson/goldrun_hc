@@ -239,6 +239,9 @@ template(name='document_view')
     //-             |#{title}
     //-             i.dropdown.icon
     //-     .content 
+    if can_edit
+        with referenced_document
+            +edit_button
     |!{referenced_document.content}
         
 template(name='text_edit')
@@ -609,10 +612,10 @@ template(name='youtube_view')
 template(name='signature_edit')
     .ui.segment
         canvas(id="signature-pad" class="signature-pad" width='800' height='200')
-        .ui.large.button.save(title='Save')
+        .ui.large.circular.basic.button.save(title='Save')
             i.checkmark.icon
             |Save
-        .ui.large.icon.button.clear(title='Clear')
+        .ui.large.icon.circular.basic.button.clear(title='Clear')
             i.remove.icon
 
 template(name='signature_view')
@@ -621,12 +624,12 @@ template(name='signature_view')
             i.grey.icon(class=icon)
         | #{title}    
     img.ui.large.centered.rounded.image(src=field_value)
-    .ui.icon.button.print_rules
+    .ui.circular.basic.button.print_rules
         i.download.icon
         |Download PDF
-    .ui.icon.button.print_guest
-        i.download.icon
-        |Download Guest PDF
+    //- .ui.icon.button.print_guest
+    //-     i.download.icon
+    //-     |Download Guest PDF
 
 
 

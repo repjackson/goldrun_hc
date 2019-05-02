@@ -1,0 +1,16 @@
+if Meteor.isClient
+    Template.rules_signing.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.rules_signing.helpers
+        signing_doc: -> Docs.findOne Router.current().params.doc_id
+        agree_class: ->
+            if @agree then 'green' else 'basic'
+    Template.rules_signing.events
+        'click .agree':->
+            signing_doc = Docs.findOne Router.current().params.doc_id
+            if signing_doc.agree
+                Docs.update signing_doc._id,
+                    $set:agree:false
+            else
+                Docs.update signing_doc._id,
+                    $set:agree:true

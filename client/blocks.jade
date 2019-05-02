@@ -83,14 +83,27 @@ template(name='user_status')
         //     |Offline
 
 template(name='user_card')
-    a.ui.segment(href="/user/#{user.username}")
-        if user.image_id
-            img.ui.small.image(src="{{c.url user.image_id }}")
-        |@#{user.username}
-        |@#{user.first_name}
-        |@#{user.last_name}
+    with user
+        .ui.segment
+            if image_id
+                img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+            .header #{first_name} #{last_name} 
+            .meta @#{username}
+            +user_email
         //- +user_status user
 
+
+template(name='user_email')
+    .ui.small.header #{email_address}
+    if email_verified
+        .ui.green.label 
+            i.checkmark.icon
+            |verified
+    else
+        .ui.orange.label 
+            i.ban.icon
+            |unverified
+        
 
 template(name='big_user_card')
     with user
@@ -131,26 +144,25 @@ template(name='big_user_card')
 template(name='big_checkin_card')
     with user
         //- .ui.card
-        .ui.grid
+        .ui.grid(class=checkin_card_class)
             .eight.wide.column
                 img.ui.fluid.image(src="{{c.url image_id width=500 height=400 gravity='face' crop='fill'}}")
             .eight.wide.column
-                a.header(href="/user/#{username}")
+                a.ui.header(href="/user/#{username}")
                      |#{first_name} #{last_name} 
                 .meta @#{username}
-                .ui.large.circular.red.button
-                    |Rules and Regs Not Signed
                 //- +array_view key='tags' label='Tags' direct=true
                 if is_admin
                     div #{address}
                     strong #{building_number}
                     strong ##{apt_number}
-                    +array_view key='tags' label='Tags'
-                    //- div Membership Start 
-                        strong #{start_date}
-                    //- div Expiration 
-                    //-     strong #{lease_expiration}
-                    +checkin_button
+                    div Membership Start 
+                    strong #{start_date}
+                    div Expiration 
+                        strong #{lease_expiration}
+                +email_validation_check
+                +lease_expiration_check
+                +rules_and_regs_check
         
 
 
@@ -252,3 +264,51 @@ template(name='add_model_button')
     .ui.icon.button.add(title="add #{model}")
         i.plus.icon
         |#{model}
+
+
+
+
+
+
+            
+template(name='email_validation_check')
+    if email_validated
+        .ui.large.circular.green.label
+            i.checkmark.icon
+            |email validated
+    else
+        .ui.basic.yellow.circular.large.button
+            i.ban.icon
+            |email unvalidated
+        .ui.basic.circular.label
+            |x
+            |#{times}
+        
+        
+template(name='lease_expiration_check')
+    if lease_expiring
+        .ui.large.circular.yellow.label
+            i.clock.icon
+            |lease expiring 
+        
+        
+template(name='rules_and_regs_check')
+    unless rules_signed
+        .ui.basic.large.circular.red.button.sign_rules
+            i.signature.icon
+            |rules and regs not signed 
+    else
+        a.ui.basic.large.circular.green.button(href="/m/rules_regs_signing/#{rules_signed._id}")
+            i.signature.icon
+            |rules and regs signed 
+        
+        
+template(name='guest_waiver_check')
+    unless waiver_signed
+        .ui.basic.large.circular.red.button
+            i.signature.icon
+            |guest waiver not signed 
+        
+        
+        
+        

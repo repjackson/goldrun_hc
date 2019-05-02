@@ -2,16 +2,16 @@ if Meteor.isClient
     Template.comments.onCreated ->
         @autorun => Meteor.subscribe 'children', 'comment', Router.current().params.doc_id
 
-
-    Template.role_editor.onCreated ->
-        @autorun => Meteor.subscribe 'model', 'role'
-
     Template.comments.helpers
         doc_comments: ->
             Docs.find
                 parent_id:Router.current().params.doc_id
                 model:'comment'
 
+
+
+    Template.role_editor.onCreated ->
+        @autorun => Meteor.subscribe 'model', 'role'
     Template.comments.events
         'keyup .add_comment': (e,t)->
             if e.which is 13
@@ -31,7 +31,7 @@ if Meteor.isClient
     Template.user_card.onCreated ->
         @autorun => Meteor.subscribe 'user_from_username', @data
     Template.user_card.helpers
-        user: -> Meteor.users.findOne username:@data
+        user: -> Meteor.users.findOne username:@valueOf()
 
 
 
@@ -54,6 +54,10 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'user_from_id', @data
     Template.big_checkin_card.helpers
         user: -> Meteor.users.findOne @valueOf()
+        checkin_card_class: ->
+            unless @rules_signed then 'red_flagged'
+            else if @email_verified then 'yellow_flagged'
+            else "green_flagged"
 
 
     Template.user_info.onCreated ->
@@ -163,9 +167,6 @@ if Meteor.isClient
         upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else 'outline'
         downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else 'outline'
 
-
-
-
     Template.voting.events
         'click .upvote': ->
             if @downvoter_ids and Meteor.userId() in @downvoter_ids
@@ -202,6 +203,23 @@ if Meteor.isClient
             #     $inc:karma:-1
 
 
+    Template.rules_and_regs_check.onCreated ->
+        @autorun => Meteor.subscribe 'rules_signed_username', @data.username
+    Template.rules_and_regs_check.helpers
+        rules_signed: ->
+            Docs.findOne
+                model:'rules_and_regs_signing'
+                resident:@username
+
+
+    Template.rules_and_regs_check.events
+        'click .sign_rules': ->
+            new_id = Docs.insert
+                model:'rules_and_regs_signing'
+                resident: @username
+
+            Router.go "/sign_rules/#{new_id}"
+            Session.set 'displaying_profile',null
 
 
 
@@ -232,6 +250,13 @@ if Meteor.isClient
 
 
 if Meteor.isServer
+    Meteor.publish 'rules_signed_username', (username)->
+        Docs.find
+            model:'rules_and_regs_signing'
+            resident:username
+            # agree:true
+
+
     Meteor.publish 'children', (model, parent_id)->
         console.log model
         console.log parent_id
