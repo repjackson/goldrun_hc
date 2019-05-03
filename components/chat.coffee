@@ -4,7 +4,9 @@ if Meteor.isClient
 
     Template.view_chat.events
         'click .join_chat': (e,t)-> Meteor.call 'join_chat', @_id, ->
-        'click .leave_chat': (e,t)-> Meteor.call 'leave_chat', @_id, ->
+        'click .leave_chat': (e,t)->
+            console.log @
+            Meteor.call 'leave_chat', @_id, ->
 
         'click .close_chat': (e,t)->
             self = @
@@ -91,7 +93,7 @@ if Meteor.isClient
                 group_id: @_id },
                 sort: _timestamp: 1
 
-        chat_tag_class:-> if @valueOf() in selected_chat_tags.array() then 'teal' else ''
+        chat_tag_class:-> if @valueOf() in selected_chat_tags.array() then 'blue' else ''
 
         chat: -> Docs.findOne @_id
 
@@ -208,7 +210,7 @@ if Meteor.isClient
                 sort: timestamp: -1
                 limit: 1
 
-        chat_list_item_class: -> if Session.equals 'current_chat_id', @_id then 'inverted' else ''
+        chat_list_item_class: -> if Session.equals 'current_chat_id', @_id then 'inverted blue' else ''
 
     Template.chat_list.events
         'click .chat_list_item': (e,t)->

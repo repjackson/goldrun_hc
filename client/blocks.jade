@@ -19,8 +19,9 @@ template(name='comments')
 
 template(name='goto_model')
     if is_admin
-        a.ui.circular.icon.button.goto_model(href="/m/#{slug}" title="goto #{model}")
-            i.external.icon
+        a.ui.circular.icon.basic.button.goto_model(href="/m/#{slug}" title="goto #{slug}")
+            //- i.external.icon
+            +ismall name='external-link'
 
 template(name='events_column')
     .ui.accordion
@@ -202,8 +203,9 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.icon.circular.large.button.view(title='view' href="/m/#{model}/#{_id}/view")
-        i.right.chevron.large.icon
+    a.ui.icon.circular.large.basic.button.view(title='view' href="/m/#{model}/#{_id}/view")
+        //- i.right.chevron.large.icon
+        +ismall name='chevron right'
 
 
 template(name='remove_button')

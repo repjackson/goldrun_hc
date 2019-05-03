@@ -28,7 +28,7 @@ template(name='doc_emotion')
             .bar
             .progress
                 .label {{to_percent sadness}}% sadness 
-        .ui.teal.disabled.small.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
+        .ui.blue.disabled.small.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
             .bar
             .progress
                 .label {{to_percent joy}}% joy 
@@ -77,7 +77,7 @@ template(name='keywords')
                                 .bar
                                 //- .progress
                             span {{ to_percent joy }}% joy 
-                            .ui.teal.small.disabled.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
+                            .ui.blue.small.disabled.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
                                 .bar
                                 //- .progress
                             span {{ to_percent fear }}% fear
@@ -110,7 +110,7 @@ template(name='entities')
                             .bar
                             .progress
                         span {{ to_percent joy }}% joy 
-                        .ui.teal.small.disabled.progress(data-percent="{{to_percent joy}}" title="{{to_percent joy}}% joy")
+                        .ui.blue.small.disabled.progress(data-percent="{{to_percent joy}}" title="{{to_percent joy}}% joy")
                             .bar
                             .progress
                         span {{ to_percent fear }}% fear

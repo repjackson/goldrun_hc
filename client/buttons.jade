@@ -20,6 +20,6 @@ template(name='session_edit_icon')
                 |Save
 
 template(name='edit_button')
-    a.ui.circular.icon.button(href="/m/#{model}/#{_id}/edit")
-        i.pencil.icon
+    a.ui.circular.basic.icon.button(href="/m/#{model}/#{_id}/edit" title='edit')
+        +ismall name='pencil'
         

@@ -18,7 +18,21 @@ template(name='profile')
                         | #{user.tagline}
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
-                    //- +gr_status                
+                    if is_admin
+                        a.ui.circular.basic.icon.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                            +i name='settings'
+                            //- | settings
+                    else if is_current_user
+                        a.ui.circular.basic.icon.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                            +i name='settings'
+                            //- | settings
+                    if is_current_user
+                        .ui.circular.basic.icon.button.logout(title='log out')
+                            +i name='logout-rounded'
+                            //- |log out
+                    if user_is_resident
+                        if is_resident
+                            +gr_status                
                     .ui.profile_block.segment
                         //- +text_view key='first_name' label='First Name' direct=true
                         //- +text_view key='last_name' label='Last Name' direct=true
@@ -40,18 +54,6 @@ template(name='profile')
                             |roles
                         each roles
                             .ui.circular.basic.label #{this}                    
-                    if is_admin
-                        a.ui.circular.fluid.button(href="/user/#{user_from_username_param.username}/edit")
-                            i.settings.icon
-                            | settings
-                    else if is_current_user
-                        a.ui.circular.fluid.button(href="/user/#{user_from_username_param.username}/edit")
-                            i.settings.icon
-                            | settings
-                    if is_current_user
-                        .ui.circular.fluid.button.logout
-                            i.sign.out.icon
-                            |log out
                     if user_is_staff
                         +user_notes
                         +user_tasks
@@ -185,18 +187,19 @@ template(name='user_key')
         if is_admin
             +goto_model slug='key'
         with key
-            if is_admin
-                +number_view key='tag_number' label='tag number' direct=true
-            else if viewing_code
-                .ui.huge.basic.label
-                    +number_view key='tag_number' label='tag number' direct=true
-            else
-                .ui.circular.icon.button.view_code
-                    i.eye.icon
             +boolean_view key='fowler' label='fowler' direct=true
             +boolean_view key='key_exists' label='key exists' direct=true
             +number_view key='building_number' label='building number' direct=true
             +number_view key='unit_number' label='unit #' direct=true
+            div
+            if is_admin
+                +number_view key='tag_number' label='tag number' direct=true
+            else if viewing_code
+                .ui.huge.basic.circular.label
+                    +number_view key='tag_number' label='tag number' direct=true
+            else
+                +i name='enter-pin' classes='view_code pointer' title='view code'
+
             if is_admin
                 div
                 +edit_button

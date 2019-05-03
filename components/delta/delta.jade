@@ -4,7 +4,8 @@ template(name='delta')
             .row
                 .six.wide.column
                     .ui.right.aligned.inline.header
-                        i.icon(class=icon)
+                        //- i.icon(class=icon)
+                        +i name=icon
                         | #{title}
                     unless is_loading
                         //- if is_admin
@@ -50,7 +51,8 @@ template(name='facet')
         //-     .active.title
         .ui.grey.inline.header 
             if icon
-                i.icon(class=icon)
+                //- i.icon(class=icon)
+                +i name=icon            
             if title
                 |#{title}
             else 
@@ -89,7 +91,9 @@ template(name='delta_result')
             if title
                 a.ui.header(href="/m/#{current_model.slug}/#{_id}/view")
                     if icon
-                        i.icon(class=icon)
+                        //- i.icon(class=icon)
+                        +i name=icon
+                    
                     |#{title}
             .description
                 each fields

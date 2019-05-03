@@ -33,20 +33,21 @@ template(name='nav')
                     //-             .ui.circular.button #{text}
                     if is_admin
                         a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
-                            i.large.grey.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
+                            +i name='new-post'
+                            //- i.large.grey.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
                         a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
-                            i.large.grey.chat.icon
+                            +i name='filled-topic'
                     if is_admin
                         a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
-                            i.large.grey.shield.icon
+                            +i name='user shield'
                     if is_dev
                         a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
-                            i.large.grey.sitemap.icon
+                            +i name='active directory'
                     a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                         if currentUser.image_id
                             img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
                         else
-                            i.user.large.icon
+                            +i name='user'
                         //- | #{currentUser.username}
                 if logging_out
                     .item

@@ -26,9 +26,9 @@ template(name='goldrun')
                                             .header #{first_name} #{last_name}
                                             if is_dev
                                                 .meta @#{username}
-                                                a.ui.circular.button(href="/user/#{username}/")
+                                                a.ui.circular.basic.button(href="/user/#{username}/")
                                                     |view profile
-                                                    i.chevron.right.icon
+                                                    +ismall name='chevron right'
                                             +checkin_button
                         else
                             if checking_in
@@ -105,7 +105,7 @@ template(name='goldrun')
             //-         .ui.header #{selected_person.first_name} #{selected_person.last_name}
             //-         .ui.header #{selected_person.username}
             //-     .actions
-            //-         .ui.large.ok.teal.button
+            //-         .ui.large.ok.blue.button
             //-             |Check Out
             //-         .ui.large.cancel.button
             //-             |Cancel
@@ -161,14 +161,14 @@ template(name='sign_waiver')
 
 template(name='checkin_button')
     unless healthclub_checkedin
-        .ui.large.fluid.circular.button.checkin
-            i.sign.in.icon
-            //- +i name='internal' classes='ui image'
+        .ui.large.fluid.circular.basic.button.checkin
+            //- i.sign.in.icon
+            +i name='internal' classes='ui avatar image'
             |check in
     if healthclub_checkedin
-        .ui.fluid.circular.button.checkout
-            i.sign.out.icon
-            //- +i name='exit-sign' classes='ui avatar image'
+        .ui.fluid.circular.basic.button.checkout
+            //- i.sign.out.icon
+            +i name='exit-sign' classes='ui avatar image'
             |check out
     //- +rules_sign
     //- +guest_sign
