@@ -27,11 +27,12 @@ template(name='user_table')
                         each emails
                             |#{address}
                     td 
-                        +user_role_toggle role='admin'
-                        +user_role_toggle role='staff'
-                        +user_role_toggle role='resident'
-                        +user_role_toggle role='owner'
-                        +user_role_toggle role='guest'
+                        +multi_doc_edit key='roles' ref_model='role' direct=true
+                        //- +user_role_toggle role='admin'
+                        //- +user_role_toggle role='staff'
+                        //- +user_role_toggle role='resident'
+                        //- +user_role_toggle role='owner'
+                        //- +user_role_toggle role='guest'
                     td
                         a.ui.icon.large.circular.basic.button(href="/user/#{username}/edit")
                             i.pencil.icon

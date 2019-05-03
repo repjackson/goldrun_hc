@@ -67,8 +67,8 @@ Meteor.methods
             built_query.model = delta.model_filter
 
         if delta.model_filter is 'model'
-            unless 'dev' in Meteor.user().roles
-                built_query.view_roles = $in:Meteor.user().roles
+            # unless 'dev' in Meteor.user().roles
+            built_query.view_roles = $in:Meteor.user().roles
 
         for facet in delta.facets
             # console.log 'this facet', facet.key

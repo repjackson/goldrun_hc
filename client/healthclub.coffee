@@ -49,8 +49,6 @@ Template.checkin_button.events
     'click .checkin': (e,t)->
         $(e.currentTarget).closest('.card').transition('fade up')
         Meteor.setTimeout =>
-            Meteor.users.update @_id,
-                $set:healthclub_checkedin:true
             # Docs.insert
             #     model:'log_event'
             #     object_id:@_id
@@ -173,6 +171,16 @@ Template.sign_waiver.helpers
 
 
 Template.checkin_card.events
+    'click .cancel_checkin': (e,t)->
+        $(e.currentTarget).closest('.segment').transition('fade right',1000)
+        Meteor.setTimeout =>
+            Session.set 'displaying_profile', null
+            checkin_doc = Docs.findOne Session.get 'checkin_document'
+            Docs.remove checkin_doc._id
+            checkin_doc = Session.set 'checkin_document',null
+        , 1000
+
+
     'click .complete_checkin': (e,t)->
         $(e.currentTarget).closest('.segment').transition('fade left',1000)
         Meteor.setTimeout =>
@@ -197,3 +205,18 @@ Template.checkin_card.helpers
         unless @rules_signed then 'red_flagged'
         else if @email_verified then 'yellow_flagged'
         else "green_flagged"
+
+
+
+
+    Template.checkin_guest.onCreated ->
+        @autorun => Meteor.subscribe 'guests'
+    Template.checkin_guest.helpers
+        checking_in_guest: -> Session.get 'checking_in_guest'
+        guests: ->
+            Meteor.users.find
+                roles:$in:['guest']
+
+    Template.checkin_guest.events
+        'click .checkin_guest': ->
+            Session.set('checking_in_guest', !Session.get('checking_in_guest'))

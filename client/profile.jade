@@ -11,9 +11,9 @@ template(name='profile')
                     .ui.large.center.aligned.header
                         | #{user.first_name}
                         | #{user.last_name}
-                        if current_user
-                            a(href="/user/#{user_from_username_param.username}/edit")
-                                i.cog.link.icon
+                        //- if current_user
+                        //-     a(href="/user/#{user_from_username_param.username}/edit")
+                        //-         i.cog.link.icon
                     .ui.center.aligned.small.grey.header
                         | #{user.tagline}
                     .ui.center.aligned.small.grey.header

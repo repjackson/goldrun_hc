@@ -40,9 +40,9 @@ template(name='nav')
                     if is_admin
                         a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
                             +i name='user shield'
-                    if is_dev
-                        a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
-                            +i name='active directory'
+                    a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
+                        +i name='active directory'
+                    //- if is_dev
                     a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                         if currentUser.image_id
                             img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")

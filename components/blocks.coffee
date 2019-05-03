@@ -216,19 +216,6 @@ if Meteor.isClient
     # Template.single_person_edit.onCreated ->
     #     @checking_in = new ReactiveVar
 
-    Template.checkin_guest.onCreated ->
-        @autorun => Meteor.subscribe 'guests'
-    Template.checkin_guest.helpers
-        checking_in_guest: -> Session.get 'checking_in_guest'
-        guests: ->
-            Meteor.users.find
-                roles:$in:['guest']
-
-    Template.checkin_guest.events
-        'click .checkin_guest': ->
-            Session.set('checking_in_guest', !Session.get('checking_in_guest'))
-
-
 
     Template.email_validation_check.events
         'click .send_verification': ->
