@@ -50,14 +50,14 @@ template(name='goldrun')
                     .three.column.row
                         .column
                             .ui.header
-                                //- +icolor name='megaphone' classes='ui inline image'
+                                //- +i name='megaphone' classes='ui inline image'
                                 //- i.rss.icon
                                 |notices
                             .content
                                 +document_view key='health_club_notices'            
                             .ui.accordion
                                 h4.title
-                                    // +icolor name='edit-property' classes='ui inline image'
+                                    // +i name='edit-property' classes='ui inline image'
                                         // .ui.inline.header 
                                     i.rss.icon
                                     | log
@@ -83,7 +83,7 @@ template(name='goldrun')
                                 .content
                         .column
                             .ui.header
-                                +icolor name='front-desk' classes='ui inline image'
+                                +i name='front-desk' classes='ui inline image'
                                 | staff on duty
                             with currentUser.username
                                 +big_user_card
@@ -163,12 +163,12 @@ template(name='checkin_button')
     unless healthclub_checkedin
         .ui.large.fluid.circular.button.checkin
             i.sign.in.icon
-            //- +icolor name='internal' classes='ui image'
+            //- +i name='internal' classes='ui image'
             |check in
     if healthclub_checkedin
         .ui.fluid.circular.button.checkout
             i.sign.out.icon
-            //- +icolor name='exit-sign' classes='ui avatar image'
+            //- +i name='exit-sign' classes='ui avatar image'
             |check out
     //- +rules_sign
     //- +guest_sign

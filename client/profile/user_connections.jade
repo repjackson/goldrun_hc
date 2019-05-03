@@ -1,7 +1,7 @@
 template(name='user_connections')
     .ui.segment.profile_block
         .ui.grey.inline.center.aligned.header 
-            i.people.carry.icon
+            +i name='omnichannel'
             | connections
         unless is_user
             with user_from_username_param

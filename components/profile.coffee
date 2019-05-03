@@ -168,7 +168,10 @@ if Meteor.isClient
         key: -> Docs.findOne model:'key'
         viewing_code: -> Session.get 'viewing_code'
         access_log: ->
-            Docs.find {model:'unit_key_access'}, sort:_timestamp:-1
+            Docs.find {
+                model:'unit_key_access'
+                key_id:Docs.findOne(model:'key')._id
+            }, sort:_timestamp:-1
     Template.user_key.events
         'click .view_code': ->
             access = prompt 'admin code'
@@ -208,6 +211,17 @@ if Meteor.isClient
 
 
 
+    Template.user_checkins.onCreated ->
+        @autorun => Meteor.subscribe 'healthclub_checkins', Router.current().params.username
+    Template.user_checkins.helpers
+        healthclub_checkins: ->
+            Docs.find
+                model:'healthclub_checkin'
+                resident_username:Router.current().params.username
+
+
+
+
     Template.user_log.onCreated ->
         @autorun => Meteor.subscribe 'user_log', Router.current().params.username
     Template.user_log.helpers
@@ -232,6 +246,12 @@ if Meteor.isServer
         Docs.find
             model:'wall_post'
             # parent_username:username
+
+    Meteor.publish 'healthclub_checkins', (username)->
+        # console.log username
+        Docs.find
+            model:'healthclub_checkin'
+            resident_username:username
 
     Meteor.publish 'user_key', (username)->
         # console.log 'violation', username
@@ -266,7 +286,7 @@ if Meteor.isServer
         # console.log 'violation', username
         Docs.find
             model:'violation'
-            # parent_username:username
+            parent_username:username
 
 
     Meteor.publish 'user_guests', (username)->

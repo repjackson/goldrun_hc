@@ -9,6 +9,7 @@ template(name='home')
                 .ui.segment.profile_block.set_model
                     a(href="/m/#{slug}")
                         .ui.grey.header 
-                            i.icon(class=icon)
+                            //- i.icon(class=icon)
+                            +i name=icon
                             |#{title}
                 

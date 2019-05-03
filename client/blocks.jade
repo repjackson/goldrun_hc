@@ -25,7 +25,7 @@ template(name='goto_model')
 template(name='events_column')
     .ui.accordion
         h4.active.title
-            // +icolor name='edit-property' classes='ui inline image'
+            // +i name='edit-property' classes='ui inline image'
             i.rss.icon
             | log
             i.dropdown.icon
@@ -137,12 +137,12 @@ template(name='big_user_card')
                     +lease_expiration_check
                     +rules_and_regs_check
                         
-                    //- +icolor name='swimming-pool' classes='ui avatar image'
-                    //- +icolor name='weightlift' classes='ui avatar image'
-                    //- +icolor name='jacuzzi' classes='ui avatar image'
-                    //- +icolor name='shower' classes='ui avatar image'
-                    //- +icolor name='racquetball' classes='ui avatar image'
-                    //- +icolor name='water-steam' classes='ui avatar image'
+                    //- +i name='swimming-pool' classes='ui avatar image'
+                    //- +i name='weightlift' classes='ui avatar image'
+                    //- +i name='jacuzzi' classes='ui avatar image'
+                    //- +i name='shower' classes='ui avatar image'
+                    //- +i name='racquetball' classes='ui avatar image'
+                    //- +i name='water-steam' classes='ui avatar image'
 
 
                 
@@ -202,18 +202,18 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.icon.circular.large.button.view(title='View' href="/m/#{model}/#{_id}/view")
+    a.ui.icon.circular.large.button.view(title='view' href="/m/#{model}/#{_id}/view")
         i.right.chevron.large.icon
 
 
 template(name='remove_button')
-    a.ui.circular.basic.icon.button.remove(title='Delete')
+    a.ui.circular.basic.icon.button.remove(title='delete')
         i.remove.red.icon
         //- |Delete
 
 template(name='add_button')
     a.ui.button.add(title='Add')
-        i.plus' tooltip="Add #{model}.icon
+        i.plus.icon tooltip="add #{model}"
         |#{model}
 
 

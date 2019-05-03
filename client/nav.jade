@@ -6,19 +6,23 @@ template(name='nav')
             .icon.item
                 i.large.grey.loading.notched.circle.icon
         else
-            a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                i.grey.home.large.icon
+            a.header.icon.item(href='/' class="{{isActivePath '/'}}" title='home')
+                //- i.grey.home.large.icon
+                +i name='home-page'    
             if is_staff
-                a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
-                    i.grey.user.shield.large.icon
-                a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
-                    i.large.grey.users.icon
+                a.icon.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
+                    //- i.grey.user.shield.large.icon
+                    +i name='employee-card'
+                a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='users')
+                    //- i.large.grey.users.icon
+                    +i name='groups'
             //- each bookmarked_models
             //-     a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}" title=title)
             //-         i.large.icon(class=icon)
                     //- |#{title}
-            a.icon.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
-                i.large.grey.clinic.medical.icon
+            a.icon.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='health club')
+                //- i.large.grey.clinic.medical.icon
+                +i name='treadmill'    
         .right.menu
             if currentUser
                 unless logging_out

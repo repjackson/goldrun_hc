@@ -17,6 +17,16 @@ if Meteor.isClient
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
 
+    Template.nav.onRendered ->
+        # @autorun =>
+        #     if @subscriptionsReady()
+        #         Meteor.setTimeout ->
+        #             $('.dropdown').dropdown()
+        #         , 3000
+
+        Meteor.setTimeout ->
+            $('.item').popup()
+        , 3000
 
 
     # Template.sidebar.events
