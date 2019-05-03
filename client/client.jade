@@ -26,7 +26,7 @@ template(name='layout')
         .centered.row
             .sixteen.wide.column
                 if displaying_profile
-                    +big_checkin_card displaying_profile
+                    +checkin_card displaying_profile
                 else 
                     +yield
         +footer

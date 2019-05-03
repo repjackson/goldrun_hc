@@ -49,24 +49,22 @@ Template.checkin_button.events
     'click .checkin': (e,t)->
         $(e.currentTarget).closest('.card').transition('fade up')
         Meteor.setTimeout =>
-
             Meteor.users.update @_id,
                 $set:healthclub_checkedin:true
-            Docs.insert
-                model:'log_event'
+            # Docs.insert
+            #     model:'log_event'
+            #     object_id:@_id
+            #     body: "#{@username} checked in."
+            checkin_document = Docs.insert
+                model:'healthclub_checkin'
                 object_id:@_id
+                resident_username:@username
                 body: "#{@username} checked in."
-            #
             Session.set 'username_query',null
+            Session.set 'checkin_document',checkin_document
             # Session.set 'checking_in',false
             $('.username_search').val('')
             Session.set 'displaying_profile',@_id
-            Meteor.setTimeout =>
-                Session.set 'displaying_profile', null
-                $('body').toast({
-                    message: "#{@username} checked in."
-                    class: 'success'})
-            , 5000
         , 750
 
     'click .checkout': (e,t)->
@@ -171,3 +169,31 @@ Template.sign_waiver.helpers
         Docs.findOne
             model:'document'
             slug:'rules_regs'
+
+
+
+Template.checkin_card.events
+    'click .complete_checkin': (e,t)->
+        $(e.currentTarget).closest('.segment').transition('fade left',1000)
+        Meteor.setTimeout =>
+            Session.set 'displaying_profile', null
+            $('body').toast({
+                message: "#{@username} checked in."
+                class: 'success'})
+        , 1000
+        Meteor.users.update @_id,
+            $set:healthclub_checkedin:true
+        Docs.insert
+            model:'log_event'
+            object_id:@_id
+            body: "#{@username} checked in."
+
+
+Template.checkin_card.onCreated ->
+    @autorun => Meteor.subscribe 'user_from_id', @data
+Template.checkin_card.helpers
+    user: -> Meteor.users.findOne @valueOf()
+    checkin_card_class: ->
+        unless @rules_signed then 'red_flagged'
+        else if @email_verified then 'yellow_flagged'
+        else "green_flagged"

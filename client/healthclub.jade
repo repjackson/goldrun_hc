@@ -5,7 +5,7 @@ template(name='goldrun')
             //- h1.ui.center.aligned.header 
             //-     |Gold Run Health Club
             .ui.left.icon.huge.fluid.input
-                input.username_search(type='text' placeholder='check in...')
+                input.username_search(type='text' placeholder='lookup resident name...')
                 if is_query
                     i.remove.link.icon.clear_results
                 else 
@@ -14,24 +14,22 @@ template(name='goldrun')
                 .row
                     .sixteen.wide.column
                         if checkedout_members.length
-                            .ui.cloud.center.aligned.segment
-                                h2.ui.center.aligned.header 
-                                    //- +icolor name='internal' classes='ui inline image'
-                                    |check in member
-                                .ui.centered.stackable.cards
-                                    each checkedout_members
-                                        .card
-                                            .image
-                                                if image_id
-                                                    img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                            .content
-                                                .header #{first_name} #{last_name}
-                                                if is_dev
-                                                    .meta @#{username}
-                                                    a.ui.circular.button(href="/user/#{username}/")
-                                                        |view profile
-                                                        i.chevron.right.icon
-                                                +checkin_button
+                            h2.ui.center.aligned.header 
+                                |check in member
+                            .ui.centered.cards
+                                each checkedout_members
+                                    .card
+                                        .image
+                                            if image_id
+                                                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                        .content
+                                            .header #{first_name} #{last_name}
+                                            if is_dev
+                                                .meta @#{username}
+                                                a.ui.circular.button(href="/user/#{username}/")
+                                                    |view profile
+                                                    i.chevron.right.icon
+                                            +checkin_button
                         else
                             if checking_in
                                 if is_query
@@ -43,13 +41,12 @@ template(name='goldrun')
                 if is_staff
                     .row
                         .sixteen.wide.column
-                            .ui.cloud.segment
-                                h1.ui.center.aligned.header
-                                    i.blue.user.shield.icon
-                                    |#{checkedin_members.count} checked in members
-                                .ui.doubling.centered.cards
-                                    each checkedin_members
-                                        +big_user_card username
+                            h1.ui.center.aligned.header
+                                i.blue.user.shield.icon
+                                |#{checkedin_members.count} checked in members
+                            .ui.doubling.centered.cards
+                                each checkedin_members
+                                    +big_user_card username
                     .three.column.row
                         .column
                             .ui.header
@@ -227,30 +224,34 @@ template(name='health_club_info')
                     .item Sun 8a-10p
 
 
-template(name='big_checkin_card')
+template(name='checkin_card')
     with user
         //- .ui.card
-        .ui.grid(class=checkin_card_class)
+        .ui.grid.cloud.segment(class=checkin_card_class)
             .eight.wide.column
-                img.ui.fluid.rounded.image(src="{{c.url image_id width=500 height=400 gravity='face' crop='fill'}}")
+                img.ui.fluid.rounded.image(src="{{c.url user.image_id width=500 height=400 gravity='face' crop='fill'}}")
             .eight.wide.column
-                a.ui.header(href="/user/#{username}")
-                     |#{first_name} #{last_name} 
-                .meta @#{username}
+                a.ui.header(href="/user/#{user.username}")
+                     |#{user.first_name} #{user.last_name} 
+                .meta @#{user.username}
                 //- +array_view key='tags' label='Tags' direct=true
                 if is_admin
-                    div #{address}
-                    strong #{building_number}
-                    strong ##{apt_number}
+                    div #{user.address}
+                    strong #{user.building_number}
+                    strong ##{user.apt_number}
                     div Membership Start 
-                    strong #{start_date}
+                    strong #{user.start_date}
                     div Expiration 
-                        strong #{lease_expiration}
-                +email_validation_check
-                +lease_expiration_check
-                +rules_and_regs_check
+                        strong #{user.lease_expiration}
+                with user
+                    +email_validation_check
+                    +lease_expiration_check
+                    +rules_and_regs_check
                 div
                 +checkin_guest
+            .ui.fluid.green.big.button.circular.complete_checkin
+                |complete check in
+                i.right.chevron.icon
                 
 
 template(name='checkin_guest')                
@@ -265,7 +266,7 @@ template(name='checkin_guest')
             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
             .ui.small.inline.header #{first_name} #{last_name}
         .ui.header select other 
-        .ui.fluid.input
-            input(type='text' placeholder='lookup name')
+        with checking_in_doc    
+            +multi_user_edit key='guests' ref_model='guest' direct=true
         
             

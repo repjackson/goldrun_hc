@@ -51,6 +51,11 @@ Meteor.methods
                     "<br><h4>View your messages here:<a href=#{message_link}>#{message_link}</a>.</h4>"
             })
 
+    auto_checkout_members: ()->
+        now = Date.now()
+        checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
+        for member in checkedin_members
+            console.log member
 
     lookup_user: (username_query, role_filter)->
         console.log role_filter

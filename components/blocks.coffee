@@ -50,15 +50,6 @@ if Meteor.isClient
 
 
 
-    Template.big_checkin_card.onCreated ->
-        @autorun => Meteor.subscribe 'user_from_id', @data
-    Template.big_checkin_card.helpers
-        user: -> Meteor.users.findOne @valueOf()
-        checkin_card_class: ->
-            unless @rules_signed then 'red_flagged'
-            else if @email_verified then 'yellow_flagged'
-            else "green_flagged"
-
 
     Template.user_info.onCreated ->
         @autorun => Meteor.subscribe 'user_from_id', @data
@@ -256,7 +247,7 @@ if Meteor.isClient
         'click .remove': (e,t)->
             if confirm "Remove #{@model}?"
                 $(e.currentTarget).closest('.segment').transition('fly right')
-                $(e.currentTarget).closest('tr').transition('fly right')
+                # $(e.currentTarget).closest('tr').transition('fly right')
                 Meteor.setTimeout =>
                     Docs.remove @_id
                 , 1000

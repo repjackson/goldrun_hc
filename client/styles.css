@@ -89,7 +89,7 @@ input{
 }
 
 
-.button .selector {
+.button .selector .card{
   animation: fadein .5s;
 }
 @keyframes fadein {
