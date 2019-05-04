@@ -11,6 +11,11 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'model', ->
                 Session.set 'loading', false
 
+        'click .set_marketplace': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'marketplace', ->
+                Session.set 'loading', false
+
 
         'click .set_bookmarked_model': ->
             Session.set 'loading', true

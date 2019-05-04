@@ -1,6 +1,6 @@
 template(name='delta')
     with current_model
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
                 .six.wide.column
                     .ui.right.aligned.inline.header
@@ -46,32 +46,32 @@ template(name='delta')
 
 template(name='facet')
     if filtering_res
-        .ui.hidden.divider
-        //- .ui.accordion
-        //-     .active.title
-        .ui.grey.inline.header 
-            if icon
-                //- i.icon(class=icon)
-                +i name=icon            
-            if title
-                |#{title}
-            else 
-                |#{key}
+        //- .ui.hidden.divider
+        .ui.styled.accordion
+            .active.title
+                .ui.grey.inline.header 
+                    if icon
+                        //- i.icon(class=icon)
+                        +ismall name=icon            
+                    if title
+                        |#{title}
+                    else 
+                        |#{key}
             //- i.dropdown.icon
-            //- .active.content
-        .ui.icon.small.transparent.input
-            i.search.icon
-            input.add_filter(type='text')
-        div
-        each filtering_res
-            if name
-                .selector.ui.circular.large.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    strong #{name}
-                    //- small #{cal_count} #{count}
-            else
-                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-                    strong [null]
-                    //- small #{cal_count}
+            .active.content
+                .ui.icon.small.transparent.input
+                    i.search.icon
+                    input.add_filter(type='text')
+                div
+                each filtering_res
+                    if name
+                        .selector.ui.circular.large.compact.button.toggle_selection(class=toggle_value_class title=count)
+                            strong #{name}
+                            //- small #{cal_count} #{count}
+                    else
+                        .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                            strong [null]
+                            //- small #{cal_count}
 
 template(name='toggle_delta_config')
     if boolean_true

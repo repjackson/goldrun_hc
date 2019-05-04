@@ -124,10 +124,10 @@ if Meteor.isClient
             #             selected_tags.pop()
 
 
-    # Template.facet.onRendered ->
-    #     Meteor.setTimeout ->
-    #         $('.accordion').accordion()
-    #     , 1500
+    Template.facet.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 1500
 
     Template.facet.events
         # 'click .ui.accordion': ->

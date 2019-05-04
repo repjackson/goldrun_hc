@@ -4,9 +4,9 @@ template(name='user_edit')
         .ui.stackable.padded.grid
             .three.column.row
                 .column
-                    a.ui.large.circular.icon.button(href="/user/#{user_from_username_param.username}/" title='save') 
-                        i.checkmark.large.icon
-                    .ui.center.aligned.large.inline.header
+                    a.ui.large.circular.icon.basic.button(href="/user/#{user_from_username_param.username}/" title='save') 
+                        i.checkmark.large.green.icon
+                    .ui.center.aligned.large.inline.grey.header
                         | #{user_from_username_param.first_name} #{user_from_username_param.last_name} profile
                     .ui.center.aligned.small.inline.header @#{user_from_username_param.username}
                     //- i.cog.icon
@@ -47,9 +47,9 @@ template(name='user_edit')
                                     +date_view key='expiration_date' label='expiration date' direct=true
                                 +image_view key='lease_agreement_image' label='lease agreement image' direct=true
                         //- +text_edit key='email' label='Email' direct=true
-                        +phone_edit key='phone' label='phone' direct=true
-                        +image_edit key='banner_image_id' label='Banner Image' direct=true
-                        +text_edit key='tagline' label='tag line' direct=true
+                        //- +phone_edit key='phone' label='phone' direct=true
+                        //- +image_edit key='banner_image_id' label='Banner Image' direct=true
+                        //- +text_edit key='tagline' label='tag line' direct=true
                         
                         if is_resident
                             +array_edit key='tags' label='tags' direct=true
@@ -127,20 +127,19 @@ template(name='add_card_modal')
 
 
 template(name='password_edit')
-    .ui.small.header
+    .ui.small.grey.header
         i.lock.icon
         |change password
     .ui.fluid.input
         input#password(type='password', placeholder='old password')
     .ui.fluid.icon.input
         input#new_password(type='password', placeholder='new password')
-    .ui.fluid.circular.button.change_password
+    .ui.fluid.circular.basic.button.change_password
         i.refresh.icon
         |set password
-    
-    .ui.fluid.circular.button.send_enrollment_email
-        |send enrollment email
     if is_dev
+        .ui.fluid.circular.button.send_enrollment_email
+            |send enrollment email
         .ui.fluid.circular.button.set_password
             i.user.shield.icon
             | set password
@@ -158,7 +157,7 @@ template(name='user_field')
                         
             
 template(name='emails_edit')
-    .ui.small.header 
+    .ui.small.grey.header 
         i.envelope.icon
         | email(s)
     //- #test_email.ui.big.button test email
@@ -175,8 +174,8 @@ template(name='emails_edit')
                     else
                         .ui.label unverified
                         .send_verification_email.ui.button verify
-                    .ui.small.icon.button.remove_email
+                    .ui.small.icon.circular.basic.button.remove_email
                         i.remove.icon
     .ui.action.fluid.input
         input#new_email(type='email')
-        #add_email.ui.submit.circular.button + email
+        #add_email.ui.submit.circular.basic.button + email

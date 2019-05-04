@@ -30,9 +30,9 @@ template(name='profile')
                         .ui.circular.basic.icon.button.logout(title='log out')
                             +i name='logout-rounded'
                             //- |log out
-                    if user_is_resident
-                        if is_resident
-                            +gr_status                
+                    //- if user_is_resident
+                    //-     if is_resident
+                    //-         +gr_status                
                     .ui.profile_block.segment
                         //- +text_view key='first_name' label='First Name' direct=true
                         //- +text_view key='last_name' label='Last Name' direct=true
@@ -60,6 +60,9 @@ template(name='profile')
 
                 .four.wide.column
                     if user_is_resident
+                        +user_messages
+                
+                    if user_is_resident
                         if is_staff
                             +violations
                             +user_checkins
@@ -81,12 +84,10 @@ template(name='profile')
                 .four.wide.column
                     if user_is_resident
                         +user_key
-                        +user_garden
+                        //- +user_garden
                         +user_unit
                         +user_tags
                         +user_connections
-                    if user_is_resident
-                        +user_messages
                     //- +user_rules_widget
                     //- if is_eric
                     //-     +role_switcher
@@ -194,11 +195,12 @@ template(name='user_key')
             div
             if is_admin
                 +number_view key='tag_number' label='tag number' direct=true
-            else if viewing_code
-                .ui.huge.basic.circular.label
-                    +number_view key='tag_number' label='tag number' direct=true
-            else
-                +i name='enter-pin' classes='view_code pointer' title='view code'
+            if is_staff
+                if viewing_code
+                    .ui.huge.basic.circular.label
+                        +number_view key='tag_number' label='tag number' direct=true
+                else
+                    +i name='enter-pin' classes='view_code pointer' title='view code'
 
             if is_admin
                 div

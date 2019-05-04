@@ -128,7 +128,7 @@ template(name='image_edit')
                 |#{this}            
         .field
             if field_value
-                label Image
+                //- label Image
                 img.ui.medium.centered.rounded.image(src="{{c.url field_value height=500 gravity='face' crop='fill'}}")
                 a#remove_photo.ui.right.corner.link.label
                     i.remove.red.link.icon
@@ -201,7 +201,8 @@ template(name='html_edit')
                     |#{this}
     .froala-container
         +froalaReactive getFEContext
-    +call_watson mode='html'
+    if is_dev
+        +call_watson mode='html'
     div
     //- +tone mode='html'
     //- if watson
@@ -796,10 +797,10 @@ template(name='single_user_edit')
 template(name='single_user_view')
     .ui.small.header 
         |#{title}
-        //- #{key} #{label}
+        |#{label}
     with field_value
         .ui.header #{field_value}
-        +big_user_card
+        +username_info
             
 
 
