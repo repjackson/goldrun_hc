@@ -26,10 +26,10 @@ template(name='delta')
                             if is_dev
                                 .ui.icon.circular.basic.large.button.print_delta(title='Print Session Doc')
                                     i.code.icon
-                            .ui.reset.icon.circular.basic.large.button(title='Reload Session')
-                                i.refresh.icon
-                            .ui.delete_delta.icon.circular.basic.big.button(title='Delete Session')
-                                i.trash.icon
+                                .ui.reset.icon.circular.basic.large.button(title='Reload Session')
+                                    i.refresh.icon
+                                .ui.delete_delta.icon.circular.basic.big.button(title='Delete Session')
+                                    i.trash.icon
                         else
                             .create_delta.ui.big.circular.basic.button(title='new session')
                                 i.plus.icon
@@ -47,31 +47,31 @@ template(name='delta')
 template(name='facet')
     if filtering_res
         //- .ui.hidden.divider
-        .ui.styled.accordion
-            .active.title
-                .ui.grey.inline.header 
-                    if icon
-                        //- i.icon(class=icon)
-                        +ismall name=icon            
-                    if title
-                        |#{title}
-                    else 
-                        |#{key}
+        //- .ui.styled.accordion
+        //-     .active.title
+        .ui.grey.header 
+            if icon
+                //- i.icon(class=icon)
+                +i name=icon            
+            if title
+                |#{title}
+            else 
+                |#{key}
             //- i.dropdown.icon
-            .active.content
-                .ui.icon.small.transparent.input
-                    i.search.icon
-                    input.add_filter(type='text')
-                div
-                each filtering_res
-                    if name
-                        .selector.ui.circular.large.compact.button.toggle_selection(class=toggle_value_class title=count)
-                            strong #{name}
-                            //- small #{cal_count} #{count}
-                    else
-                        .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-                            strong [null]
-                            //- small #{cal_count}
+            //- .active.content
+                //- .ui.icon.small.transparent.input
+                //-     i.search.icon
+                //-     input.add_filter(type='text')
+                //- div
+        each filtering_res
+            if name
+                .selector.ui.circular.large.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    strong #{name}
+                    //- small #{cal_count} #{count}
+            else
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    //- small #{cal_count}
 
 template(name='toggle_delta_config')
     if boolean_true
@@ -88,18 +88,31 @@ template(name='toggle_delta_config')
 template(name='delta_result')
     with result 
         .ui.result.cloud.segment(class=loading_class)
-            if title
-                a.ui.header(href="/m/#{current_model.slug}/#{_id}/view")
-                    if icon
-                        //- i.icon(class=icon)
-                        +i name=icon
-                    
-                    |#{title}
+            //- if title
+            //-     a.ui.header(href="/m/#{current_model.slug}/#{_id}/view")
+            //-         if icon
+            //-             //- i.icon(class=icon)
+            //-             +i name=icon
+            //- 
+            //-         |#{title}
             .description
-                each fields
-                    +Template.dynamic template=view_template 
+                if picture
+                    img.ui.medium.centered.rounded.image(src="{{c.url picture gravity='face' crop='crop'}}")
+
+            .description
+                if description
+                    |!{description}
+                if content
+                    |!{content}
+                //- each fields
+                //-     +Template.dynamic template=view_template 
             .extra
-                +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                if tags
+                    each tags
+                        .ui.circular.basic.label
+                            |#{this}
+                //- +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+            .extra
                 if is_model
                     a.ui.circular.button.route_model(href="/m/#{slug}")
                         i.sitemap.icon
@@ -116,8 +129,8 @@ template(name='delta_result')
                     a.ui.circular.icon.big.basic.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
                         i.right.chevron.large.icon
                         //- |view
-                each model.actions
-                    +Template.dynamic template=this data=..
+                //- each model.actions
+                //-     +Template.dynamic template=this data=..
                 if _author_id
                     +author_info
                 +creation_info

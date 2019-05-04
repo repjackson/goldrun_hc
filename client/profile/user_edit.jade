@@ -52,7 +52,8 @@ template(name='user_edit')
                         //- +text_edit key='tagline' label='tag line' direct=true
                         
                         if is_resident
-                            +array_edit key='tags' label='tags' direct=true
+                            if is_staff
+                                +array_edit key='tags' label='tags' direct=true
                 .column
                     if is_staff
                         //- with user_from_username_param
@@ -130,19 +131,19 @@ template(name='password_edit')
     .ui.small.grey.header
         i.lock.icon
         |change password
-    .ui.fluid.input
-        input#password(type='password', placeholder='old password')
+    //- .ui.fluid.input
+    //-     input#password(type='password', placeholder='old password')
     .ui.fluid.icon.input
         input#new_password(type='password', placeholder='new password')
-    .ui.fluid.circular.basic.button.change_password
-        i.refresh.icon
-        |set password
+    //- .ui.fluid.circular.basic.button.change_password
+    //-     i.refresh.icon
+    //-     |set password
     if is_dev
         .ui.fluid.circular.button.send_enrollment_email
             |send enrollment email
-        .ui.fluid.circular.button.set_password
-            i.user.shield.icon
-            | set password
+    .ui.fluid.circular.basic.button.set_password
+        i.user.shield.icon
+        | set password
             
             
             

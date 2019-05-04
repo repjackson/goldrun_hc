@@ -1,15 +1,27 @@
+//- template(name='home')
+//-     h1.ui.center.aligned.grey.header 
+//-         each currentUser.roles
+//-             strong #{this} &nbsp;
+//-         |portal
+//-     .ui.stackable.four.column.grid
+//-         each role_models
+//-             .column
+//-                 .ui.segment.profile_block.set_model
+//-                     a(href="/m/#{slug}")
+//-                         .ui.grey.header 
+//-                             //- i.icon(class=icon)
+//-                             +i name=icon
+//-                             |#{title}
+//- 
+
+
 template(name='home')
-    h1.ui.center.aligned.grey.header 
-        each currentUser.roles
-            strong #{this} &nbsp;
-        |portal
-    .ui.stackable.four.column.grid
-        each role_models
-            .column
-                .ui.segment.profile_block.set_model
-                    a(href="/m/#{slug}")
-                        .ui.grey.header 
-                            //- i.icon(class=icon)
-                            +i name=icon
-                            |#{title}
-                
+    .ui.grid
+        .eight.wide.column
+            .ui.header marketplace
+            each marketplace_items
+                +marketplace_item
+        .eight.wide.column
+            .ui.header posts
+            each posts
+                +post

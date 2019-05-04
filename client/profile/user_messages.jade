@@ -4,22 +4,23 @@ template(name='user_messages')
             i.mail.icon
             |mail
         if currentUser
-            .ui.icon.input
+            .ui.icon.fluid.input
                 i.plus.icon
-                input#new_message(type='text' placeholder='new message...')
+                input#new_message(type='text' placeholder="send message to #{current_user.username}...")
         each user_messages
             .ui.smoothed.segment
                 .ui.small.header #{body}
-                each tags
-                    .ui.label #{this}
+                //- each tags
+                //-     .ui.label #{this}
+                //- div
+                //- +notify_message
+                //- +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
                 div
-                +notify_message
-                +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
-                if can_edit
-                    +remove_button
-                div
+                |by
                 +author_info
                 +creation_info
+                if can_edit
+                    +remove_button
                 //- +watson_view
         
 

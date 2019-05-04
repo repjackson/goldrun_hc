@@ -103,16 +103,17 @@ template(name='link_view')
 
 
 template(name='image_view')
-    if icon
-        i.grey.icon(class=icon)
-    if title
-        |#{title}
-    else if key
-        |#{key}
-    else
-        |#{this}
-    
-    img.ui.medium.centered.rounded.image(src="{{c.url field_value gravity='face' crop='crop'}}")
+    if field_value
+        if icon
+            i.grey.icon(class=icon)
+        if title
+            |#{title}
+        else if key
+            |#{key}
+        else
+            |#{this}
+        
+        img.ui.medium.centered.rounded.image(src="{{c.url field_value gravity='face' crop='crop'}}")
     //- +call_visual
 
 template(name='image_edit')
@@ -217,8 +218,8 @@ template(name='html_view')
     //-     .active.content
     |!{field_value}
     //- +call_watson mode='html'
-    if watson
-        +watson_view
+    //- if watson
+    //-     +watson_view
 
 
 template(name='document_edit')
