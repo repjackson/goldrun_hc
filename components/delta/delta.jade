@@ -122,13 +122,18 @@ template(name='delta_result')
                             i.edit.icon
                             |edit model
                 else
-                    //- if is_admin
-                    a.ui.circular.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
-                        i.pencil.large.icon
+                    if can_edit
+                        a.ui.circular.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
+                            i.pencil.large.icon
                             //- |edit
                     a.ui.circular.icon.big.basic.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
                         i.right.chevron.large.icon
                         //- |view
+                    if is_post
+                        +voting
+                    if is_marketplace
+                        .ui.small.header karma price 
+                        .ui.header #{karma_price}
                 //- each model.actions
                 //-     +Template.dynamic template=this data=..
                 if _author_id

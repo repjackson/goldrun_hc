@@ -157,6 +157,10 @@ Template.registerHelper 'field_value', () ->
         parent["#{@key}"]
 
 
+Template.registerHelper 'is_marketplace', () -> @model is 'marketplace'
+Template.registerHelper 'is_post', () -> @model is 'post'
+
+
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
