@@ -131,9 +131,12 @@ template(name='users')
     .ui.padded.grid
         .row
             .sixteen.wide.column
-                h1.ui.center.aligned.header 
-                    i.users.icon
-                    |Users
+                h1.ui.center.aligned.grey.header 
+                    +i name='groups'
+                    |users
+                .ui.left.icon.huge.fluid.input
+                    input.username_search(type='text' placeholder='lookup resident name...')
+        
                 .ui.centered.cards
                     each users
                         +user

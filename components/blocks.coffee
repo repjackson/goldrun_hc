@@ -226,8 +226,9 @@ if Meteor.isClient
 
     Template.add_button.events
         'click .add': ->
-            Docs.insert
+            new_id = Docs.insert
                 model: @model
+            Router.go "/m/#{@model}/#{new_id}/edit"
 
 
     Template.remove_button.events

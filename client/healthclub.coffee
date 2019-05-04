@@ -102,6 +102,8 @@ Template.goldrun.events
             if username_query.length is 0
                 Session.set 'username_query',null
                 Session.set 'checking_in',false
+            else
+                Session.set 'username_query',username_query
         else
             Session.set 'username_query',username_query
 

@@ -90,12 +90,12 @@ template(name='goldrun')
                 .centered.row
                     .ui.center.aligned.basic.segment
                         if is_admin
-                            a.ui.large.circular.button(href='/add_resident')
+                            a.ui.large.circular.basic.button(href='/add_resident')
                                 i.user.shield.icon
                                 | add resident
-                        a.ui.large.circular.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
+                        a.ui.large.circular.basic.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
                             |rules and regulations
-                        a.ui.large.circular.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
+                        a.ui.large.circular.basic.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
                             |guest waiver
             +document_view key='health_club_notices'
             +health_club_info
