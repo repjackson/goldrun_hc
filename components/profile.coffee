@@ -160,6 +160,50 @@ if Meteor.isClient
                 model:'violation'
 
 
+    Template.user_transactions.onCreated ->
+        @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
+    Template.user_transactions.helpers
+        user_transactions: ->
+            Docs.find
+                model:'karma_transaction'
+                recipient:Router.current().params.username
+                # confirmed:true
+
+
+    Template.send_karma.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Session.get('sending_karma')
+    Template.send_karma.events
+        'click .send_new': ->
+            new_transaction_id =
+                Docs.insert
+                    model:'karma_transaction'
+            Session.set 'sending_karma', new_transaction_id
+
+        'click .cancel_sending': ->
+            Docs.remove Session.get('sending_karma')
+            Session.set 'sending_karma', null
+
+        'click .complete_sending': ->
+            if confirm 'confirm send karma?'
+                transaction_doc = Docs.findOne Session.get('sending_karma')
+                Docs.update Session.get('sending_karma'),
+                    $set:
+                        recipient:Router.current().params.username
+                        confirmed:true
+                amount = transaction_doc.karma_amount
+                Meteor.users.update Meteor.userId(),
+                    $inc:points:-amount
+                recipient = Meteor.users.findOne username:Router.current().params.username
+                Meteor.users.update recipient._id,
+                    $inc:points:amount
+
+    Template.send_karma.helpers
+        sending_karma: -> Session.get 'sending_karma'
+        send_karma_transaction: ->
+            Docs.findOne(Session.get('sending_karma'))
+
+
+
 
     Template.user_key.onCreated ->
         @autorun => Meteor.subscribe 'user_key', Router.current().params.username
@@ -287,6 +331,13 @@ if Meteor.isServer
         Docs.find
             model:'violation'
             parent_username:username
+
+    Meteor.publish 'user_confirmed_transactions', (username)->
+        # console.log 'violation', username
+        Docs.find
+            model:'karma_transaction'
+            recipient:username
+            # confirmed:true
 
 
     Meteor.publish 'user_guests', (username)->

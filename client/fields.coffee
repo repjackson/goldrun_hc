@@ -251,13 +251,13 @@ Template.array_edit.events
 
     'click .remove_element': (e,t)->
         element = @valueOf()
-        if @direct
+        field = Template.currentData()
+        if field.direct
             parent = Template.parentData()
         else
             parent = Template.parentData(5)
         console.log element
         console.log parent
-        field = Template.currentData()
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id

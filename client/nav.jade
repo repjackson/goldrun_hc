@@ -31,6 +31,8 @@ template(name='nav')
                     +i name='treadmill'    
         .right.menu
             if currentUser
+                .item
+                    .ui.header(title='your karma') #{currentUser.karma}
                 unless logging_out
                     //- .ui.simple.dropdown.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
                     //-     i.alarm.icon

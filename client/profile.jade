@@ -1,7 +1,7 @@
 template(name='profile')
     with user_from_username_param
-        if user_is_resident  
-            img.ui.fluid.image(src="{{c.url banner_image_id width=1000 height=100 crop='crop'}}")
+        //- if user_is_resident  
+        //-     img.ui.fluid.image(src="{{c.url banner_image_id width=1000 height=100 crop='crop'}}")
         .ui.padded.stackable.grid
             .row
                 .four.wide.column.scrolling
@@ -33,42 +33,44 @@ template(name='profile')
                     //- if user_is_resident
                     //-     if is_resident
                     //-         +gr_status                
-                    .ui.profile_block.segment
-                        //- +text_view key='first_name' label='First Name' direct=true
-                        //- +text_view key='last_name' label='Last Name' direct=true
-                        if is_admin
-                            +text_view key='address' label='address' direct=true
-                        //- +text_view key='email' label='Email' direct=true
-                        +phone_view key='phone' label='phone' direct=true
-                        if user_is_resident
-                            if is_staff
-                                +number_view key='unit_number' label='unit #' direct=true
-                                +number_view key='building_number' label='building #' direct=true
-                                +text_view key='building_code' label='building code' direct=true
-                                +date_view key='start_date' label='start date' direct=true
-                                +date_view key='expiration_date' label='expiration date' direct=true
-                        //- +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
-                        each emails
-                            .ui.circular.basic.label #{address}
-                    if is_admin
-                        .ui.profile_block.segment
-                            .ui.grey.header 
-                                +i name='user shield'
-                                |roles
-                            each roles
-                                .ui.circular.basic.label #{this}                    
-                    if user_is_staff
-                        +user_notes
-                        +user_tasks
+                    //- .ui.profile_block.segment
+                    //-     //- +text_view key='first_name' label='First Name' direct=true
+                    //-     //- +text_view key='last_name' label='Last Name' direct=true
+                    //-     if is_admin
+                    //-         +text_view key='address' label='address' direct=true
+                    //-     //- +text_view key='email' label='Email' direct=true
+                    //-     +phone_view key='phone' label='phone' direct=true
+                    //-     if user_is_resident
+                    //-         if is_staff
+                    //-             +number_view key='unit_number' label='unit #' direct=true
+                    //-             +number_view key='building_number' label='building #' direct=true
+                    //-             +text_view key='building_code' label='building code' direct=true
+                    //-             +date_view key='start_date' label='start date' direct=true
+                    //-             +date_view key='expiration_date' label='expiration date' direct=true
+                    //-     //- +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
+                    //-     each emails
+                    //-         .ui.circular.basic.label #{address}
+                    //- if is_admin
+                    //-     .ui.profile_block.segment
+                    //-         .ui.grey.header 
+                    //-             +i name='user shield'
+                    //-             |roles
+                    //-         each roles
+                    //-             .ui.circular.basic.label #{this}                    
+                    //- if user_is_staff
+                    //-     +user_notes
+                    //-     +user_tasks
 
-                .twelve.wide.column
+                .six.wide.column
                     .ui.header karma
                     .ui.header #{karma}
                     if user_is_resident
                         +user_messages
                     +user_transactions
                     +received_karma
+                .six.wide.column
                     +user_connections
+                    +send_karma
                     if user_is_resident
                         if is_staff
                             +violations
@@ -106,7 +108,7 @@ template(name='user_transactions')
         each user_transactions
             .ui.segment
                 .ui.small.inline.header #{_author_username}
-                |#{body}
+                |#{description}
                 .ui.small.inline.header #{karma_amount}
             
 template(name='received_karma')
@@ -146,6 +148,21 @@ template(name='user_signatures')
 
             a.item(href='#') proof of residency
             a.item(href='#') injury waiver
+
+
+template(name='send_karma')
+    .ui.profile_block.segment
+        .ui.button.send_new
+            |send karma
+        if sending_karma
+            .ui.circular.basic.icon.button.cancel_sending
+                i.remove.icon
+            with send_karma_transaction
+                +textarea_edit key='description' direct=true
+                +array_edit key='tags' direct=true
+                +number_edit key='karma_amount' direct=true
+                .ui.green.button.complete_sending
+                    |complete
 
 
 
