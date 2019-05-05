@@ -68,6 +68,7 @@ template(name='profile')
                         +user_messages
                     +user_transactions
                     +received_karma
+                    +user_connections
                     if user_is_resident
                         if is_staff
                             +violations
@@ -93,7 +94,6 @@ template(name='profile')
                 //-             //- +user_garden
                 //-             +user_unit
                 //-             +user_tags
-                //-             +user_connections
                 //-     //- +user_rules_widget
                 //-     //- if is_eric
                 //-     //-     +role_switcher

@@ -14,9 +14,9 @@ template(name='nav')
                 a.icon.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                     //- i.grey.user.shield.large.icon
                     +i name='employee-card'
-                a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='users')
-                    //- i.large.grey.users.icon
-                    +i name='groups'
+            a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='users')
+                //- i.large.grey.users.icon
+                +i name='groups'
             a.item.set_marketplace(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}")
                 +i name='shop'
             a.item.set_post(href='/m/post' class="{{isActivePath '/m/post'}}")

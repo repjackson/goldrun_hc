@@ -12,9 +12,9 @@ if Meteor.isClient
             username_query = Session.get('username_query')
             Meteor.users.find({
                 username: {$regex:"#{username_query}", $options: 'i'}
-                healthclub_checkedin:$ne:true
-                roles:$in:['resident','owner']
-                },{ limit:10 }).fetch()
+                # healthclub_checkedin:$ne:true
+                # roles:$in:['resident','owner']
+                },{ limit:20 }).fetch()
 
     Template.users.events
         # 'click #add_user': ->

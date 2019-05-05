@@ -7,11 +7,6 @@ if Meteor.isClient
             Docs.find
                 parent_id:Router.current().params.doc_id
                 model:'comment'
-
-
-
-    Template.role_editor.onCreated ->
-        @autorun => Meteor.subscribe 'model', 'role'
     Template.comments.events
         'keyup .add_comment': (e,t)->
             if e.which is 13
@@ -27,6 +22,13 @@ if Meteor.isClient
         'click .remove_comment': ->
             if confirm 'Confirm remove comment'
                 Docs.remove @_id
+
+
+
+
+
+    Template.role_editor.onCreated ->
+        @autorun => Meteor.subscribe 'model', 'role'
 
     Template.user_card.onCreated ->
         @autorun => Meteor.subscribe 'user_from_username', @data
@@ -268,5 +270,5 @@ if Meteor.isServer
         console.log parent_id
         Docs.find {
             model:model
-            # parent_id:parent_id
+            parent_id:parent_id
         }, limit:10
