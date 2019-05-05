@@ -37,16 +37,16 @@ template(name='nav')
                     //-     .menu
                     //-         each notifications
                     //-             .ui.circular.button #{text}
-                    if is_admin
-                        a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
-                            +i name='new-post'
+                    //- if is_admin
+                    //-     a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
+                    //-         +i name='new-post'
                             //- i.large.grey.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
-                    if is_staff
-                        a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
-                            +i name='filled-topic'
-                    if is_admin
-                        a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
-                            +i name='user shield'
+                    //- if is_staff
+                    //-     a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
+                    //-         +i name='filled-topic'
+                    //- if is_admin
+                    //-     a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
+                    //-         +i name='user shield'
                     if is_dev
                         a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
                             +i name='active directory'

@@ -62,9 +62,12 @@ template(name='profile')
                         +user_tasks
 
                 .twelve.wide.column
+                    .ui.header karma
+                    .ui.header #{karma}
                     if user_is_resident
                         +user_messages
-                
+                    +user_transactions
+                    +received_karma
                     if user_is_resident
                         if is_staff
                             +violations
@@ -96,6 +99,26 @@ template(name='profile')
                 //-     //-     +role_switcher
                 //-     //- if current_user
                 //- 
+            
+template(name='user_transactions')
+    .ui.segment.profile_block
+        .ui.header transactions
+        each user_transactions
+            .ui.segment
+                .ui.small.inline.header #{_author_username}
+                |#{body}
+                .ui.small.inline.header #{karma_amount}
+            
+template(name='received_karma')
+    .ui.segment.profile_block
+        .ui.header received karma
+        each received_karma
+            .ui.segment
+                .ui.small.inline.header #{_author_username}
+                |#{body}
+                .ui.small.inline.header #{karma_amount}
+                
+            
             
 template(name='user_card_replacements')
     .ui.segment.profile_block

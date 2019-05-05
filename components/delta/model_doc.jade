@@ -57,7 +57,20 @@ template(name='model_doc_view')
                         div
                         |by
                         +author_info
-                .ten.wide.column.scrolling
+                    .ui.cloud.segment
+                        if is_marketplace
+                            +karma_transaction
+                        if is_post
+                            +voting
+                            .ui.header karma earned
+                            |#{points} points
+                            .ui.header upvoters
+                            each upvoters
+                                .ui.large.circular.label #{username}
+                            .ui.header downvoters
+                            each downvoters
+                                .ui.large.circular.label #{username}
+                .ten.wide.column
                     .ui.cloud.segment
                         .ui.header
                             each fields
@@ -72,5 +85,21 @@ template(name='model_doc_view')
                                     +Template.dynamic template=view_template 
                         div
                         +comments
-                        if watson
-                            +watson_view
+                        //- if watson
+                        //-     +watson_view
+
+
+template(name='karma_transaction')
+    .ui.header my karma #{currentUser.karma}
+    .ui.header offer karma
+    .ui.input
+        input.offer_karma_amount(type='number')
+    .ui.circular.basic.button.offer_karma
+        i.right.chevron.icon
+    each offers
+        +offer
+        
+        
+template(name='offer')
+    .ui.small.inline.header amount #{amount}
+    +author_info

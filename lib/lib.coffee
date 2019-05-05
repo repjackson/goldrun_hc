@@ -65,7 +65,20 @@ if Meteor.isServer
 Docs.helpers
     author: -> Meteor.users.findOne @_author_id
     when: -> moment(@_timestamp).fromNow()
-
+    upvoters: ->
+        if @upvoter_ids
+            upvoters = []
+            for upvoter_id in @upvoter_ids
+                upvoter = Meteor.users.findOne upvoter_id
+                upvoters.push upvoter
+            upvoters
+    downvoters: ->
+        if @downvoter_ids
+            downvoters = []
+            for downvoter_id in @downvoter_ids
+                downvoter = Meteor.users.findOne downvoter_id
+                downvoters.push downvoter
+            downvoters
 Meteor.users.helpers
     email_address: -> if @emails then @emails[0].address
     email_verified: -> if @emails then @emails[0].verified

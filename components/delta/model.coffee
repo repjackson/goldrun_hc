@@ -31,9 +31,21 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
         # console.log Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun -> Meteor.subscribe 'upvoters', Router.current().params.doc_id
+        @autorun -> Meteor.subscribe 'downvoters', Router.current().params.doc_id
 
     Template.model_doc_edit.events
         'click #delete_doc': ->
             if confirm 'Confirm delete doc'
                 Docs.remove @_id
                 Router.go "/m/#{@model}"
+
+if Meteor.isServer
+    Meteor.publish 'upvoters', (doc_id)->
+        doc = Docs.findOne doc_id
+        if doc.upvoter_ids
+            Meteor.users.find _id:$in:doc.upvoter_ids
+    Meteor.publish 'downvoters', (doc_id)->
+        doc = Docs.findOne doc_id
+        if doc.downvoter_ids
+            Meteor.users.find _id:$in:doc.downvoter_ids

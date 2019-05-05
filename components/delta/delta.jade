@@ -130,7 +130,8 @@ template(name='delta_result')
                         i.right.chevron.large.icon
                         //- |view
                     if is_post
-                        +voting
+                        unless is_author
+                            +voting
                     if is_marketplace
                         .ui.small.header karma price 
                         .ui.header #{karma_price}
