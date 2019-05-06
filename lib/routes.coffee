@@ -76,8 +76,8 @@ Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 
 Router.route '/login', -> @render 'login'
 
-# Router.route '/', -> @redirect '/m/model'
-Router.route '/', -> @redirect "/user/#{Meteor.user().username}"
+Router.route '/', -> @redirect '/m/model'
+# Router.route '/', -> @redirect "/user/#{Meteor.user().username}"
 # Router.route '/', -> @render 'home'
     #
     # @layout 'layout'

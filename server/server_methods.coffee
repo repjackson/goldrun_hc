@@ -10,6 +10,21 @@ Meteor.methods
             Throw.new Meteor.Error 'err creating user'
         # console.log 'created user', res
 
+    parse_keys: ->
+        cursor = Docs.find
+            model:'key'
+        for key in cursor.fetch()
+            # console.log typeof key.building_number
+            # console.log typeof key.building_code
+            # console.log typeof key.building_code
+            # new_building_number = parseInt key.building_number
+            new_unit_number = parseInt key.unit_number
+            console.log typeof new_building_code
+            console.log typeof new_building_number
+            Docs.update key._id,
+                $set:
+                    unit_number:new_unit_number
+
 
     change_username:  (user_id, new_username) ->
         user = Meteor.users.findOne user_id

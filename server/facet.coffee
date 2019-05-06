@@ -64,7 +64,8 @@ Meteor.methods
         if model.collection and model.collection is 'users'
             built_query.roles = $in:[delta.model_filter]
         else
-            built_query.model = delta.model_filter
+            unless delta.model_filter is 'post'
+                built_query.model = delta.model_filter
 
         if delta.model_filter is 'model'
             # unless 'dev' in Meteor.user().roles
@@ -96,7 +97,7 @@ Meteor.methods
         modifier =
             {
                 fields:_id:1
-                limit:20
+                limit:3
                 sort:_timestamp:-1
             }
 

@@ -169,6 +169,15 @@ if Meteor.isClient
                 recipient:Router.current().params.username
                 # confirmed:true
 
+    Template.received_karma.onCreated ->
+        @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
+    Template.received_karma.helpers
+        received_karma: ->
+            Docs.find
+                model:'karma_transaction'
+                recipient:Router.current().params.username
+                # confirmed:true
+
 
     Template.send_karma.onCreated ->
         @autorun => Meteor.subscribe 'doc', Session.get('sending_karma')
@@ -191,11 +200,13 @@ if Meteor.isClient
                         recipient:Router.current().params.username
                         confirmed:true
                 amount = transaction_doc.karma_amount
+                console.log amount
                 Meteor.users.update Meteor.userId(),
-                    $inc:points:-amount
+                    $inc:karma:-amount
                 recipient = Meteor.users.findOne username:Router.current().params.username
                 Meteor.users.update recipient._id,
-                    $inc:points:amount
+                    $inc:karma:amount
+                Session.set 'sending_karma', null
 
     Template.send_karma.helpers
         sending_karma: -> Session.get 'sending_karma'
@@ -303,7 +314,7 @@ if Meteor.isServer
         # console.log user
         Docs.find
             model:'key'
-            building_code:user.building_code
+            building_number:user.building_number
             unit_number:user.unit_number
 
 

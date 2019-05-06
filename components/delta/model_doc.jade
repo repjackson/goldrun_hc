@@ -10,7 +10,7 @@ template(name='model_doc_edit')
                         i.big.checkmark.icon
                     #delete_doc.ui.icon.circular.large.basic.button
                         i.trash.icon
-                            
+                    +boolean_edit key='private' direct=true
                 .ten.wide.column.scrolling
                     //- |#{model}
                     each edit_fields

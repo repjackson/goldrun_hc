@@ -33,7 +33,7 @@ template(name='delta')
                         else
                             .create_delta.ui.big.circular.basic.button(title='new session')
                                 i.plus.icon
-                                |Session
+                                |session
                     // |did: #{session_delta_id}
                             
                     each sorted_facets
@@ -46,10 +46,11 @@ template(name='delta')
 
 template(name='facet')
     if filtering_res
+        div
         //- .ui.hidden.divider
         //- .ui.styled.accordion
         //-     .active.title
-        .ui.grey.header 
+        .ui.grey.inline.header 
             if icon
                 //- i.icon(class=icon)
                 +i name=icon            
@@ -59,15 +60,15 @@ template(name='facet')
                 |#{key}
             //- i.dropdown.icon
             //- .active.content
-                //- .ui.icon.small.transparent.input
-                //-     i.search.icon
-                //-     input.add_filter(type='text')
+            .ui.icon.small.transparent.input
+                i.search.icon
+                input.add_filter(type='text')
                 //- div
         each filtering_res
             if name
                 .selector.ui.circular.large.compact.button.toggle_selection(class=toggle_value_class title=count)
                     strong #{name}
-                    //- small #{cal_count} #{count}
+                    small #{cal_count} #{count}
             else
                 .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
@@ -88,24 +89,25 @@ template(name='toggle_delta_config')
 template(name='delta_result')
     with result 
         .ui.result.cloud.segment(class=loading_class)
-            //- if title
-            //-     a.ui.header(href="/m/#{current_model.slug}/#{_id}/view")
-            //-         if icon
-            //-             //- i.icon(class=icon)
-            //-             +i name=icon
-            //- 
-            //-         |#{title}
+            if title
+                a.ui.header(href="/m/#{current_model.slug}/#{_id}/view")
+                    if icon
+                        //- i.icon(class=icon)
+                        +i name=icon
+            
+                    |#{title}
             .description
                 if picture
                     img.ui.medium.centered.rounded.image(src="{{c.url picture gravity='face' crop='crop'}}")
-
+                if youtube_id
+                    +youtube_view key='youtube_id' direct=true
             .description
                 if description
                     |!{description}
                 if content
                     |!{content}
-                //- each fields
-                //-     +Template.dynamic template=view_template 
+                each fields
+                    +Template.dynamic template=view_template 
             .extra
                 if tags
                     each tags

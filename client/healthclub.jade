@@ -47,46 +47,62 @@ template(name='goldrun')
                             .ui.doubling.centered.cards
                                 each checkedin_members
                                     +big_user_card username
-                    .three.column.row
-                        .column
-                            .ui.header
-                                //- +i name='megaphone' classes='ui inline image'
-                                //- i.rss.icon
-                                |notices
-                            .content
-                                +document_view key='health_club_notices'            
-                            .ui.accordion
-                                h4.title
-                                    // +i name='edit-property' classes='ui inline image'
-                                        // .ui.inline.header 
-                                    i.rss.icon
-                                    | log
-                                    i.dropdown.icon
-                                .content.smallscroll
-                                    .ui.feed
-                                        each events
-                                            .event
-                                                .label
-                                                    img.ui.image(src="{{c.url object.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                                .content
-                                                    .summary
-                                                        |#{body}
-                                                        .date
-                                                            |#{when}
-                                                        //- if is_dev
-                                                        //-     +remove_button
-                                
-                        .column
-                                .ui.header
-                                    i.poll.icon
-                                    |Poll
-                                .content
-                        .column
-                            .ui.header
-                                +i name='front-desk' classes='ui inline image'
-                                | staff on duty
-                            with currentUser.username
-                                +big_user_card
+                if is_frontdesk
+                    .row
+                        .sixteen.wide.column
+                            h1.ui.center.aligned.header
+                                i.blue.user.shield.icon
+                                |#{checkedin_members.count} checked in members
+                            .ui.divided.items
+                                each checkedin_members
+                                    .ui.item
+                                        .ui.small.circular.image
+                                            img(src="{{c.url image_id width='290' height='310' crop='lpad'}}")
+                                        .middle.aligned.content
+                                            .ui.header #{first_name} #{last_name} #{username}
+                                        .extra.middle.aligned.content
+                                            .right.floated
+                                                +checkin_button
+                    //- .three.column.row
+                    //-     .column
+                    //-         .ui.header
+                    //-             //- +i name='megaphone' classes='ui inline image'
+                    //-             //- i.rss.icon
+                    //-             |notices
+                    //-         .content
+                    //-             +document_view key='health_club_notices'            
+                    //-         .ui.accordion
+                    //-             h4.title
+                    //-                 // +i name='edit-property' classes='ui inline image'
+                    //-                     // .ui.inline.header 
+                    //-                 i.rss.icon
+                    //-                 | log
+                    //-                 i.dropdown.icon
+                    //-             .content.smallscroll
+                    //-                 .ui.feed
+                    //-                     each events
+                    //-                         .event
+                    //-                             .label
+                    //-                                 img.ui.image(src="{{c.url object.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                    //-                             .content
+                    //-                                 .summary
+                    //-                                     |#{body}
+                    //-                                     .date
+                    //-                                         |#{when}
+                    //-                                     //- if is_dev
+                    //-                                     //-     +remove_button
+                    //- 
+                    //-     .column
+                    //-             .ui.header
+                    //-                 i.poll.icon
+                    //-                 |Poll
+                    //-             .content
+                    //-     .column
+                    //-         .ui.header
+                    //-             +i name='front-desk' classes='ui inline image'
+                    //-             | staff on duty
+                    //-         with currentUser.username
+                    //-             +big_user_card
                 .centered.row
                     .ui.center.aligned.basic.segment
                         if is_admin
@@ -197,24 +213,24 @@ template(name='health_club_info')
         .three.column.inverted.row
             .column
                 .ui.header Wifi
-                | Gold Run Health Club / goldrun1
+                .ui.small.grey.header Gold Run Health Club / goldrun1
                 .ui.header Upstairs Code
-                | 4589
+                .ui.small.grey.header 4589
                 .ui.header Colorado Security Services
-                | 303.443.3701
+                .ui.small.grey.header 303.443.3701
             .column
                 .ui.header Onsite Manager
-                .ui.list
+                .ui.large.list
                     .item Rick Hamp 
                     .item 303.545.1787
                     .item goldruncondos@gmail.com
                 .ui.header After Hours Emergency
-                | 303.221.1117
+                .ui.small.grey.header 303.221.1117
                 .ui.header Boulder Valley Towing
-                | 303.444.4868
+                .ui.small.grey.header 303.444.4868
             .column
                 .ui.header Hours
-                .ui.list
+                .ui.large.list
                     .item Mon 7a-10p
                     .item Tues 7a-10p
                     .item Wed 7a-10p

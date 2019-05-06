@@ -193,8 +193,14 @@ if Meteor.isClient
 
     Template.delta_result.helpers
         result: ->
+
             if Docs.findOne @_id
-                Docs.findOne @_id
+                result = Docs.findOne @_id
+                if result.private is true
+                    if result._author_id is Meteor.userId()
+                        result
+                else
+                    result
             else if Meteor.users.findOne @_id
                 Meteor.users.findOne @_id
 

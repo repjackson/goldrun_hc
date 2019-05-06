@@ -14,8 +14,8 @@ template(name='profile')
                         //- if current_user
                         //-     a(href="/user/#{user_from_username_param.username}/edit")
                         //-         i.cog.link.icon
-                    .ui.center.aligned.small.grey.header
-                        | #{user.tagline}
+                    //- .ui.center.aligned.small.grey.header
+                    //-     | #{user.tagline}
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     if is_admin
@@ -33,82 +33,84 @@ template(name='profile')
                     //- if user_is_resident
                     //-     if is_resident
                     //-         +gr_status                
-                    //- .ui.profile_block.segment
-                    //-     //- +text_view key='first_name' label='First Name' direct=true
-                    //-     //- +text_view key='last_name' label='Last Name' direct=true
-                    //-     if is_admin
-                    //-         +text_view key='address' label='address' direct=true
-                    //-     //- +text_view key='email' label='Email' direct=true
-                    //-     +phone_view key='phone' label='phone' direct=true
-                    //-     if user_is_resident
-                    //-         if is_staff
-                    //-             +number_view key='unit_number' label='unit #' direct=true
-                    //-             +number_view key='building_number' label='building #' direct=true
-                    //-             +text_view key='building_code' label='building code' direct=true
-                    //-             +date_view key='start_date' label='start date' direct=true
-                    //-             +date_view key='expiration_date' label='expiration date' direct=true
-                    //-     //- +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
-                    //-     each emails
-                    //-         .ui.circular.basic.label #{address}
-                    //- if is_admin
-                    //-     .ui.profile_block.segment
-                    //-         .ui.grey.header 
-                    //-             +i name='user shield'
-                    //-             |roles
-                    //-         each roles
-                    //-             .ui.circular.basic.label #{this}                    
-                    //- if user_is_staff
-                    //-     +user_notes
-                    //-     +user_tasks
+                    .ui.profile_block.segment
+                        //- +text_view key='first_name' label='First Name' direct=true
+                        //- +text_view key='last_name' label='Last Name' direct=true
+                        if is_admin
+                            +text_view key='address' label='address' direct=true
+                        //- +text_view key='email' label='Email' direct=true
+                        +phone_view key='phone' label='phone' direct=true
+                        if user_is_resident
+                            //- if is_staff
+                            +number_view key='unit_number' label='unit #' direct=true
+                            +number_view key='building_number' label='building #' direct=true
+                            +text_view key='building_code' label='building code' direct=true
+                            +date_view key='start_date' label='start date' direct=true
+                            +date_view key='expiration_date' label='expiration date' direct=true
+                        +textarea_view key='notes' label='notes' icon='align-left' direct=true
+                        each emails
+                            .ui.circular.basic.label #{address}
+                    if is_admin
+                        .ui.profile_block.segment
+                            .ui.grey.header 
+                                +i name='user shield'
+                                |roles
+                            each roles
+                                .ui.circular.basic.label #{this}                    
+                    if user_is_staff
+                        +user_notes
+                        //- +user_tasks
 
+                //- .six.wide.column
+                    //- .ui.header karma
+                    //- .ui.header #{karma}
+                    //- if user_is_resident
+                    //-     +user_messages
+                    //- +user_transactions
+                    //- +received_karma
                 .six.wide.column
-                    .ui.header karma
-                    .ui.header #{karma}
-                    if user_is_resident
-                        +user_messages
-                    +user_transactions
-                    +received_karma
-                .six.wide.column
-                    +user_connections
-                    +send_karma
+                    //- +user_connections
+                    //- +send_karma
                     if user_is_resident
                         if is_staff
-                            +violations
+                            //- +violations
                             +user_checkins
                             +user_guests
-                            +user_card_replacements
-                            +user_signatures
+                            //- +user_card_replacements
+                            //- +user_signatures
                         //- if is_resident
                         //-     +user_following
                         //-     +follow_user
     
-                //- .eight.wide.column
-                //-     if user_is_resident
-                //-         if is_admin
-                //-             +user_log
-                //-             +membership_status
-                //-             +user_karma
-                //-             +user_bookmarks    
-                //-             +user_feed
-                //-     if user_is_resident
-                //-         if is_staff
-                //-             +user_key
-                //-             //- +user_garden
-                //-             +user_unit
-                //-             +user_tags
-                //-     //- +user_rules_widget
-                //-     //- if is_eric
-                //-     //-     +role_switcher
-                //-     //- if current_user
-                //- 
+                .six.wide.column
+                    if user_is_resident
+                        if is_admin
+                            +user_log
+                            +membership_status
+                            //- +user_karma
+                            //- +user_bookmarks    
+                            //- +user_feed
+                    if user_is_resident
+                        //- if is_staff
+                        +user_key
+                            //- +user_garden
+                        +user_unit
+                            //- +user_tags
+                    //- +user_rules_widget
+                    //- if is_eric
+                    //-     +role_switcher
+                    //- if current_user
+                
             
 template(name='user_transactions')
     .ui.segment.profile_block
-        .ui.header transactions
-        each user_transactions
+        .ui.header sent karma
+        each sent_karma
             .ui.segment
                 .ui.small.inline.header #{_author_username}
                 |#{description}
+                each tags
+                    .ui.basic.label #{this}
                 .ui.small.inline.header #{karma_amount}
             
 template(name='received_karma')
@@ -117,7 +119,9 @@ template(name='received_karma')
         each received_karma
             .ui.segment
                 .ui.small.inline.header #{_author_username}
-                |#{body}
+                |#{description}
+                each tags
+                    .ui.basic.label #{this}
                 .ui.small.inline.header #{karma_amount}
                 
             
@@ -170,7 +174,7 @@ template(name='user_notes')
     if user_is_resident
         if is_staff
             .ui.segment.profile_block
-                +textarea_edit key='staff_notes' title='staff notes'
+                +textarea_edit key='staff_notes' title='staff notes' direct=true
 
             
             
