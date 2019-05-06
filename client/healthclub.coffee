@@ -157,12 +157,9 @@ Template.add_resident.helpers
 
 
 
-
 Template.sign_waiver.onCreated ->
     @autorun => Meteor.subscribe 'doc', Router.current().params.receipt_id
     @autorun => Meteor.subscribe 'document_from_slug', 'rules_regs'
-
-
 Template.sign_waiver.helpers
     receipt_doc: -> Docs.findOne Router.current().params.receipt_id
     waiver_doc: ->
@@ -172,9 +169,32 @@ Template.sign_waiver.helpers
 
 
 
+
+Template.checkin_card.onCreated ->
+    @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
+Template.checkin_card.helpers
+    new_guest_doc: -> Docs.findOne Session.get('new_guest_id')
+    user: -> Meteor.users.findOne @valueOf()
+    checkin_card_class: ->
+        unless @rules_signed then 'red_flagged'
+        else if @email_verified then 'yellow_flagged'
+        else "green_flagged"
+
+    red_flagged: ->
+        rule_doc = Docs.findOne(
+            model:'rules_and_regs_signing'
+            resident:@username)
+        if rule_doc
+            console.log 'true'
+            false
+        else
+            console.log 'false'
+            true
+        # unless @rules_signed then true else false
+
 Template.checkin_card.events
     'click .cancel_checkin': (e,t)->
-        $(e.currentTarget).closest('.segment').transition('fade right',1000)
+        $(e.currentTarget).closest('.segment').transition('fade right',500)
         Meteor.setTimeout =>
             Session.set 'displaying_profile', null
             checkin_doc = Docs.findOne Session.get 'checkin_document'
@@ -182,9 +202,8 @@ Template.checkin_card.events
             checkin_doc = Session.set 'checkin_document',null
         , 1000
 
-
     'click .complete_checkin': (e,t)->
-        $(e.currentTarget).closest('.segment').transition('fade left',1000)
+        $(e.currentTarget).closest('.segment').transition('fade left',500)
         Meteor.setTimeout =>
             Session.set 'displaying_profile', null
             $('body').toast({
@@ -198,32 +217,26 @@ Template.checkin_card.events
             object_id:@_id
             body: "#{@username} checked in."
 
-
     'click .add_guest': ->
+        new_guest_id =
+            Docs.insert
+                model:'guest'
+        Session.set 'new_guest_id', new_guest_id
         $('.ui.fullscreen.modal').modal('show')
-
 
 
 Template.checkin_card.onCreated ->
     @autorun => Meteor.subscribe 'user_from_id', @data
-Template.checkin_card.helpers
-    user: -> Meteor.users.findOne @valueOf()
-    checkin_card_class: ->
-        unless @rules_signed then 'red_flagged'
-        else if @email_verified then 'yellow_flagged'
-        else "green_flagged"
 
 
+Template.checkin_guest.onCreated ->
+    @autorun => Meteor.subscribe 'guests'
+Template.checkin_guest.helpers
+    checking_in_guest: -> Session.get 'checking_in_guest'
+    guests: ->
+        Meteor.users.find
+            roles:$in:['guest']
 
-
-    Template.checkin_guest.onCreated ->
-        @autorun => Meteor.subscribe 'guests'
-    Template.checkin_guest.helpers
-        checking_in_guest: -> Session.get 'checking_in_guest'
-        guests: ->
-            Meteor.users.find
-                roles:$in:['guest']
-
-    Template.checkin_guest.events
-        'click .checkin_guest': ->
-            Session.set('checking_in_guest', !Session.get('checking_in_guest'))
+Template.checkin_guest.events
+    'click .checkin_guest': ->
+        Session.set('checking_in_guest', !Session.get('checking_in_guest'))

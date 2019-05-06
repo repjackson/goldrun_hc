@@ -254,9 +254,9 @@ template(name='checkin_card')
                     div #{user.address}
                     strong #{user.building_number}
                     strong ##{user.apt_number}
-                    div Membership Start 
+                    div membership start 
                     strong #{user.start_date}
-                    div Expiration 
+                    div expiration 
                         strong #{user.lease_expiration}
                 with user
                     +email_validation_check
@@ -265,21 +265,32 @@ template(name='checkin_card')
                     +rules_and_regs_check
                 .ui.hidden.divider
                 +multi_user_edit key='guests' role_filter='guest' title='check in guest' direct=true
-                .ui.circular.basic.circular.button.add_guest
+                .ui.basic.circular.large.button.add_guest
+                    +ismall name='plus' classes='ui avatar image'
                     |add guest
-                    
             .row
                 .two.wide.column
                     .ui.fluid.red.big.button.icon.circular.cancel_checkin
                         i.ban.icon
                 .fourteen.wide.column
-                    .ui.fluid.green.big.button.circular.complete_checkin
-                        |complete check in
-                        i.right.chevron.icon
+                    if red_flagged
+                        .ui.fluid.red.big.button.circular.complete_checkin
+                            |sign rules and regs
+                            i.right.chevron.icon
+                    else
+                        .ui.fluid.green.big.button.circular.complete_checkin
+                            |complete check in
+                            i.right.chevron.icon
             .ui.fullscreen.modal
                 .header
                     .scrolling.content
-                        +document_view key='guest_waiver'
+                        with new_guest_doc
+                            +text_edit key='first_name' direct=true
+                            +text_edit key='last_name' direct=true
+                            //- +text_edit key='emergency_contact_name'
+                            //- +text_edit key='emergency_contact_phone'
+                            +document_view key='guest_waiver'
+                            +signature_edit key='signature' direct=true
 
 
 
