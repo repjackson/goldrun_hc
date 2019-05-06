@@ -199,6 +199,11 @@ Template.checkin_card.events
             body: "#{@username} checked in."
 
 
+    'click .add_guest': ->
+        $('.ui.fullscreen.modal').modal('show')
+
+
+
 Template.checkin_card.onCreated ->
     @autorun => Meteor.subscribe 'user_from_id', @data
 Template.checkin_card.helpers

@@ -269,7 +269,7 @@ template(name='text_edit')
 
 template(name='clear_value')
     if field_value
-        i.remove.grey.link.icon.clear_value
+        i.remove.grey.link.large.icon.clear_value
 
 template(name='text_view')
     if field_value
@@ -866,7 +866,7 @@ template(name='multi_user_edit')
                 |#{key}
             else
                 |#{this}
-            input#multi_user_select_input(type='text' placeholder='lookup user...')
+            input#multi_user_select_input(type='text' placeholder="lookup #{role_filter}...")
             each selections
                 .ui.large.label
                     |#{username} #{first_name} #{last_name}

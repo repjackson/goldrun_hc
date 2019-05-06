@@ -120,7 +120,7 @@ template(name='big_user_card')
                 .header #{first_name} #{last_name} 
                 .meta @#{username}
                 //- +array_view key='tags' label='Tags' direct=true
-            if is_admin
+            if is_staff
                 .content
                     +text_view key='address' label='address' direct=true
                     +number_view key='building_number' label='building #' direct=true
@@ -262,7 +262,7 @@ template(name='email_validation_check')
             i.checkmark.icon
             |email validated
     else
-        .ui.basic.yellow.circular.large.button.send_verification
+        .ui.basic.orange.circular.large.button.send_verification
             i.ban.icon
             |email unvalidated
         .ui.basic.circular.label
