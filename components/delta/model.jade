@@ -113,23 +113,29 @@ template(name='model_view')
 
 
 template(name='field_edit')
-    +text_edit key='title' direct=true label='Title'        
-    +text_edit key='key'  direct=true label='Key'           
-    //- +text_edit key='field_type' direct=true label='Field Type'              
-    +icon_edit key='icon' direct=true label='Icon'              
-    +single_doc_edit key='field_type' ref_model='field_type' label='Field Type' direct=true                 
-    +multi_doc_edit key='view_roles' ref_model='role' label='View Roles' direct=true icon='eye'          
-    +multi_doc_edit key='edit_roles' ref_model='role' label='Edit Roles' direct=true icon='pencil'        
-    +number_edit key='rank' label='Rank' direct=true                 
-    //- +text_edit key='ref_model' label='Reference Model' direct=true
-    +boolean_edit key='faceted' label='Faceted' direct=true
+    .ui.accordion
+        .title 
+            |#{rank}:
+            |#{title} 
+            i.dropdown.icon
+        .content
+            +text_edit key='title' direct=true label='Title'        
+            +text_edit key='key'  direct=true label='Key'           
+            //- +text_edit key='field_type' direct=true label='Field Type'              
+            +icon_edit key='icon' direct=true label='Icon'              
+            +single_doc_edit key='field_type' ref_model='field_type' label='Field Type' direct=true                 
+            +multi_doc_edit key='view_roles' ref_model='role' label='View Roles' direct=true icon='eye'          
+            +multi_doc_edit key='edit_roles' ref_model='role' label='Edit Roles' direct=true icon='pencil'        
+            +number_edit key='rank' label='Rank' direct=true                 
+            //- +text_edit key='ref_model' label='Reference Model' direct=true
+            +boolean_edit key='faceted' label='Faceted' direct=true
 
-    if is_ref  
-        +single_doc_edit key='ref_model' ref_model='model' label='Reference Model' direct=true
-    else if is_user_ref  
-        +single_doc_edit key='role_filter' ref_model='role' label='Role Filter' direct=true
-    div             
-    +remove_button
+            if is_ref  
+                +single_doc_edit key='ref_model' ref_model='model' label='Reference Model' direct=true
+            else if is_user_ref  
+                +single_doc_edit key='role_filter' ref_model='role' label='Role Filter' direct=true
+            div             
+            +remove_button
             
 //- template(name='view_model')
         

@@ -10,7 +10,7 @@ template(name='user_edit')
                         | #{user_from_username_param.first_name} #{user_from_username_param.last_name} profile
                     .ui.center.aligned.small.inline.header @#{user_from_username_param.username}
                     //- i.cog.icon
-                    +image_edit key='image_id' direct=true
+                    +image_edit key='image_id' title='profile image' direct=true
                     +password_edit
                     if is_dev
                         +phone_editor
@@ -32,9 +32,12 @@ template(name='user_edit')
                                 +number_edit key='building_number' label='building #' direct=true
                                 +text_edit key='building_code' label='building code' direct=true
                                 +date_edit key='start_date' label='start date' direct=true
-                                unless user_is_owner
+                                if user_is_owner
+                                    +image_edit key='ownership_paperwork' label='ownership paperwork' direct=true
+                                else if user_is_resident
                                     +date_edit key='expiration_date' label='expiration date' direct=true
-                                +image_edit key='lease_agreement_image' label='lease agreement image' direct=true
+                                    +image_edit key='lease_agreement_image' label='lease agreement image' direct=true
+                                +image_edit key='member_guidelines_and_waiver' label='lease agreement image' direct=true
                             else
                                 +text_view key='first_name' label='first name' direct=true
                                 +text_view key='last_name' label='last name' direct=true
@@ -43,9 +46,12 @@ template(name='user_edit')
                                 +number_view key='building_number' label='building #' direct=true
                                 +text_view key='building_code' label='building code' direct=true
                                 +date_view key='start_date' label='start date' direct=true
-                                unless user_is_owner
+                                if user_is_owner
+                                    +image_view key='ownership_paperwork' label='ownership paperwork' direct=true
+                                if user_is_resident
                                     +date_view key='expiration_date' label='expiration date' direct=true
-                                +image_view key='lease_agreement_image' label='lease agreement image' direct=true
+                                    +image_view key='lease_agreement_image' label='lease agreement image' direct=true
+                                +image_view key='member_guidelines_and_waiver' label='lease agreement image' direct=true
                         //- +text_edit key='email' label='Email' direct=true
                         +phone_edit key='phone' label='phone' direct=true
                         //- +image_edit key='banner_image_id' label='Banner Image' direct=true
@@ -173,8 +179,10 @@ template(name='emails_edit')
                     if verified
                         .ui.green.label verified
                     else
-                        .ui.label unverified
-                        .send_verification_email.ui.button verify
+                        .ui.basic.circular.label unverified
+                        .send_verification_email.ui.circular.basic.button 
+                            |verify
+                            i.caret.right.icon
                     .ui.small.icon.circular.basic.button.remove_email
                         i.remove.icon
     .ui.action.fluid.input

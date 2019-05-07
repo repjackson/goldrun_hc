@@ -112,7 +112,6 @@ template(name='image_view')
             |#{key}
         else
             |#{this}
-        
         img.ui.medium.centered.rounded.image(src="{{c.url field_value gravity='face' crop='crop'}}")
     //- +call_visual
 
@@ -123,6 +122,8 @@ template(name='image_edit')
                 i.grey.icon(class=icon)
             if title
                 |#{title}
+            else if label
+                |#{label}
             else if key
                 |#{key}
             else
@@ -134,9 +135,9 @@ template(name='image_edit')
                 a#remove_photo.ui.right.corner.link.label
                     i.remove.red.link.icon
             else
-                if icon
-                    i.grey.icon(class=icon)
-                |#{title}
+                //- if icon
+                //-     i.grey.icon(class=icon)
+                //- |#{title}
                 //- if is_dev
                 //-     input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id')
                 // else
@@ -262,7 +263,7 @@ template(name='text_edit')
                 |#{label}
             else if key
                 |#{key}
-        +clear_value
+        //- +clear_value
         input.edit_text(type='text' value=field_value placeholder=placeholder)
         
 
@@ -373,7 +374,7 @@ template(name='number_edit')
                 |#{label}
             else
                 |#{key}
-        +clear_value                
+        //- +clear_value                
         input.edit_number(type='number' value=field_value placeholder=placeholder)
             
             
@@ -405,7 +406,7 @@ template(name='date_edit')
             //-     |#{key}
             //- else
             //-     |#{this}
-        +clear_value                
+        //- +clear_value                
         input.edit_date(type='date' value=field_value placeholder=placeholder)
 
 
@@ -458,7 +459,7 @@ template(name='datetime_edit')
                     |#{title}
                 else
                     |#{key}
-            +clear_value                
+            //- +clear_value                
             input.edit_datetime(type='datetime-local' value=field_value placeholder=placeholder)
 
 template(name='datetime_view')
@@ -486,7 +487,7 @@ template(name='array_edit')
             else if key
                 |#{key}
         input.new_element(type='text' placeholder='+')
-        +clear_value                
+        //- +clear_value                
     div
     if field_value
         each field_value
