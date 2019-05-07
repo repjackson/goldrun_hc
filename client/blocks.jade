@@ -85,21 +85,25 @@ template(name='user_status')
 
 template(name='user_card')
     with user
-        .ui.grid
+        .ui.grid.smoothed.segment
             .four.wide.column
                 if image_id
                     img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .twelve.wide.column
                 .header #{first_name} #{last_name} 
                 .meta @#{username}
+                +text_view key='address' direct=true
+                +text_view key='building_code' direct=true
+                +number_view key='unit_number' direct=true
+                +number_view key='building_number' direct=true
+                div
                 +user_email
                 //- +emails_edit    
         //- +user_status user
 
 
 template(name='user_email')
-    .ui.small.header #{email_address}
-    
+    .ui.small.inline.header #{email_address}
     if email_verified
         .ui.green.label 
             i.checkmark.icon
@@ -137,6 +141,7 @@ template(name='big_user_card')
                     +email_validation_check
                     +lease_expiration_check
                     +rules_and_regs_check
+                    +array_view key='roles' direct=true
                         
                     //- +i name='swimming-pool' classes='ui avatar image'
                     //- +i name='weightlift' classes='ui avatar image'
@@ -262,11 +267,14 @@ template(name='email_validation_check')
             i.checkmark.icon
             |email validated
     else
-        .ui.basic.orange.circular.large.button.send_verification
+        .ui.orange.circular.large.button.send_verification
             i.ban.icon
             |email unvalidated
-        .ui.basic.circular.label
-            |#{times} times sent
+        if times
+            .ui.basic.circular.label
+                |#{times}
+            //- else
+                //- |#{times}x sent
         
         
 template(name='lease_expiration_check')
@@ -278,13 +286,18 @@ template(name='lease_expiration_check')
         
 template(name='rules_and_regs_check')
     unless rules_signed
-        .ui.basic.large.circular.red.button.sign_rules
+        .ui.large.circular.red.button.sign_rules
             i.signature.icon
             |rules and regs not signed 
     else
-        a.ui.basic.circular.green.button(href="/m/rules_regs_signing/#{rules_signed._id}")
-            i.signature.icon
-            |rules and regs signed 
+        if is_admin
+            a.ui.circular.green.button(href="/m/rules_regs_signing/#{rules_signed._id}/view")
+                i.signature.icon
+                |rules and regs signed 
+        else if is_staff
+            .ui.large.circular.green.label
+                i.signature.icon
+                |rules and regs signed 
         
         
 template(name='guest_waiver_check')

@@ -619,9 +619,9 @@ template(name='youtube_view')
 template(name='signature_edit')
     .ui.segment
         canvas(id="signature-pad" class="signature-pad" width='800' height='200')
-        .ui.large.circular.basic.button.save(title='Save')
-            i.checkmark.icon
-            |Save
+        .ui.huge.circular.basic.green.button.save(title='Save')
+            i.green.checkmark.icon
+            |save
         .ui.large.icon.circular.basic.button.clear(title='Clear')
             i.remove.icon
 
@@ -633,7 +633,7 @@ template(name='signature_view')
     img.ui.fluid.centered.rounded.image(src=field_value)
     .ui.circular.basic.button.print_rules
         i.download.icon
-        |Download PDF
+        |download PDF
     //- .ui.icon.button.print_guest
     //-     i.download.icon
     //-     |Download Guest PDF

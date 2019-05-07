@@ -25,4 +25,5 @@ if Meteor.isClient
             user = Meteor.users.findOne username:signing_doc.resident
             Meteor.users.update user._id,
                 $set:rules_signed:true
+            Session.set 'displaying_profile', user._id
             Router.go "/checkin"

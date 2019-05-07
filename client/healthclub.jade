@@ -19,9 +19,9 @@ template(name='goldrun')
                             .ui.centered.cards
                                 each checkedout_members
                                     .card
-                                        .image
-                                            if image_id
-                                                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                        //- .image
+                                        //-     if image_id
+                                        //-         img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                                         .content
                                             .header #{first_name} #{last_name}
                                             if is_dev
@@ -42,7 +42,7 @@ template(name='goldrun')
                     .row
                         .sixteen.wide.column
                             h1.ui.center.aligned.header
-                                i.blue.user.shield.icon
+                                i.shield.icon
                                 |#{checkedin_members.count} checked in members
                             .ui.doubling.centered.cards
                                 each checkedin_members
@@ -52,15 +52,15 @@ template(name='goldrun')
                         .sixteen.wide.column
                             h1.ui.center.aligned.header
                                 |#{checkedin_members.count} checked in members
-                            .ui.divided.items
-                                each checkedin_members
-                                    .ui.item
-                                        img.ui.small.circular.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                        .middle.aligned.content
-                                            .ui.header #{first_name} #{last_name}
-                                        .extra.middle.aligned.content
-                                            .right.floated
-                                                +checkin_button
+                    .centered.row
+                        .ten.wide.column
+                            each checkedin_members
+                                .row
+                                    //- img.ui.small.circular.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                    .twelve.wide.column
+                                        h1.ui.header #{first_name} #{last_name}
+                                    .four.wide.column
+                                        +checkin_button
                     //- .three.column.row
                     //-     .column
                     //-         .ui.header
@@ -103,13 +103,13 @@ template(name='goldrun')
                     //-             +big_user_card
                 .centered.row
                     .ui.center.aligned.basic.segment
-                        if is_admin
-                            a.ui.large.circular.basic.button(href='/add_resident')
+                        if is_staff
+                            a.ui.big.circular.basic.button(href='/add_resident')
                                 i.user.shield.icon
                                 | add resident
-                        a.ui.large.circular.basic.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
+                        a.ui.big.circular.basic.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
                             |rules and regulations
-                        a.ui.large.circular.basic.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
+                        a.ui.big.circular.basic.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
                             |guest waiver
             +document_view key='health_club_notices'
             +health_club_info
@@ -153,7 +153,7 @@ template(name='add_resident')
                 if permission
                     .ui.fluid.green.circular.button.create_and_checkin
                         |create and check in
-        .row
+        //- .row
         
         
 template(name='sign_waiver')
@@ -175,7 +175,7 @@ template(name='sign_waiver')
 
 template(name='checkin_button')
     unless healthclub_checkedin
-        .ui.large.fluid.circular.basic.button.checkin
+        .ui.large.circular.basic.button.checkin
             //- i.sign.in.icon
             +i name='internal' classes='ui avatar image'
             |check in
@@ -242,56 +242,65 @@ template(name='checkin_card')
     with user
         //- .ui.card
         .ui.grid.cloud.segment(class=checkin_card_class)
-            .eight.wide.column
-                img.ui.fluid.rounded.image(src="{{c.url user.image_id width=500 height=400 gravity='face' crop='fill'}}")
-            .eight.wide.column
-                //- a.ui.header(href="/user/#{user.username}")
-                .ui.large.header(href="/user/#{user.username}")
-                     |#{user.first_name} #{user.last_name} 
-                //- .meta @#{user.username}
-                //- +array_view key='tags' label='Tags' direct=true
-                if is_admin
-                    div #{user.address}
-                    strong #{user.building_number}
-                    strong ##{user.apt_number}
-                    div membership start 
-                    strong #{user.start_date}
-                    div expiration 
-                        strong #{user.lease_expiration}
-                with user
-                    +email_validation_check
-                    div
-                    +lease_expiration_check
-                    +rules_and_regs_check
-                .ui.hidden.divider
-                +multi_user_edit key='guests' role_filter='guest' title='check in guest' direct=true
-                .ui.basic.circular.large.button.add_guest
-                    +ismall name='plus' classes='ui avatar image'
-                    |add guest
+            .centered.row
+                //- .eight.wide.column
+                //-     img.ui.fluid.rounded.image(src="{{c.url user.image_id width=500 height=400 gravity='face' crop='fill'}}")
+                .eight.wide.column
+                    //- a.ui.header(href="/user/#{user.username}")
+                    .ui.large.header(href="/user/#{user.username}")
+                         |#{user.first_name} #{user.last_name} 
+                    //- .meta @#{user.username}
+                    //- +array_view key='tags' label='Tags' direct=true
+                    if is_admin
+                        div #{user.address}
+                        strong #{user.building_number}
+                        strong ##{user.apt_number}
+                        div membership start 
+                        strong #{user.start_date}
+                        div expiration 
+                            strong #{user.lease_expiration}
+                    with user
+                        +email_validation_check
+                        div
+                        +lease_expiration_check
+                        +rules_and_regs_check
+                    .ui.hidden.divider
+                    +multi_user_edit key='guests' role_filter='guest' title='check in guest' direct=true
+                    .ui.basic.circular.large.button.add_guest
+                        +ismall name='plus' classes='ui avatar image'
+                        |add guest
             .row
                 .two.wide.column
                     .ui.fluid.red.big.button.icon.circular.cancel_checkin
                         i.ban.icon
                 .fourteen.wide.column
                     if red_flagged
-                        .ui.fluid.red.big.button.circular.complete_checkin
-                            |sign rules and regs
-                            i.right.chevron.icon
+                        .ui.fluid.red.big.circular.disabled.button
+                            |sign rules and regs to continue
+                            //- i.right.chevron.icon
                     else
                         .ui.fluid.green.big.button.circular.complete_checkin
                             |complete check in
                             i.right.chevron.icon
             .ui.fullscreen.modal
-                .header
-                    .scrolling.content
-                        with new_guest_doc
-                            +text_edit key='first_name' direct=true
-                            +text_edit key='last_name' direct=true
-                            //- +text_edit key='emergency_contact_name'
-                            //- +text_edit key='emergency_contact_phone'
-                            +document_view key='guest_waiver'
-                            +signature_edit key='signature' direct=true
-
+                +guest_modal_content
+                
+template(name='guest_modal_content')
+    .header
+        .scrolling.content
+            with new_guest_doc
+                +text_edit key='first_name' title='first name' direct=true
+                +text_edit key='last_name' title='last name' direct=true
+                //- +text_edit key='emergency_contact_name'
+                //- +text_edit key='emergency_contact_phone'
+                +document_view key='guest_waiver'
+                +signature_edit key='signature' direct=true
+        .actions
+            .ui.grid
+                .two.wide.column
+                    .ui.cancel.red.circular.button cancel
+                .fourteen.wide.column
+                    .ui.approve.circular.green.fluid.button submit
 
 
 

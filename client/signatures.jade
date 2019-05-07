@@ -8,7 +8,7 @@ template(name='rules_signing')
             else
                 i.huge.circle.outline.grey.icon.agree
         if agree
-            .ui.header please sign
+            .ui.header please sign below
             if signature_saved
                 +signature_view key='signature' direct=true
                 i.pencil.circular.large.icon.edit_signature
@@ -16,5 +16,5 @@ template(name='rules_signing')
                 +signature_edit key='signature' direct=true
             if signature_saved
                 .ui.big.circular.blue.fluid.button.submit_rules
-                    |Submit
+                    |submit
                     i.right.chevron.icon

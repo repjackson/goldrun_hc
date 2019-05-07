@@ -218,11 +218,39 @@ Template.checkin_card.events
             body: "#{@username} checked in."
 
     'click .add_guest': ->
+        # console.log @
         new_guest_id =
             Docs.insert
                 model:'guest'
+                resident_id: @_id
         Session.set 'new_guest_id', new_guest_id
-        $('.ui.fullscreen.modal').modal('show')
+        $('.ui.fullscreen.modal').modal({
+            closable: false
+            onDeny: ->
+                # window.alert('Wait not yet!')
+                # return false;
+                Docs.remove new_guest_id
+            onApprove: ->
+                # window.alert('Approved!')
+          })
+          .modal('show')
+
+
+Template.guest_modal_content.onCreated ->
+    @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
+Template.guest_modal_content.helpers
+    new_guest_doc: -> Docs.findOne Session.get('new_guest_id')
+
+Template.guest_modal_content.events
+    'click .submit_new_guest': ->
+        console.log @
+
+    'click .cancel_new_guest': ->
+        Docs.remove Session.get('new_guest_id')
+        $('body').toast({
+            message: "Adding guest canceled."
+            class: 'info'
+        })
 
 
 Template.checkin_card.onCreated ->
