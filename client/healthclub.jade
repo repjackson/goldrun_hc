@@ -52,15 +52,13 @@ template(name='goldrun')
                         .sixteen.wide.column
                             h1.ui.center.aligned.header
                                 |#{checkedin_members.count} checked in members
-                    .centered.row
-                        .ten.wide.column
-                            each checkedin_members
-                                .row
+                    .ui.centered.cards
+                        each checkedin_members
+                            .card
+                                .content
                                     //- img.ui.small.circular.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                    .twelve.wide.column
-                                        h1.ui.header #{first_name} #{last_name}
-                                    .four.wide.column
-                                        +checkin_button
+                                    .ui.large.header #{first_name} #{last_name_initial}
+                                    +checkin_button
                     //- .three.column.row
                     //-     .column
                     //-         .ui.header
@@ -153,7 +151,6 @@ template(name='add_resident')
                 if permission
                     .ui.fluid.green.circular.button.create_and_checkin
                         |create and check in
-        //- .row
         
         
 template(name='sign_waiver')
@@ -180,7 +177,7 @@ template(name='checkin_button')
             +i name='internal' classes='ui avatar image'
             |check in
     if healthclub_checkedin
-        .ui.fluid.circular.basic.button.checkout
+        .ui.circular.basic.large.button.checkout
             //- i.sign.out.icon
             +i name='exit-sign' classes='ui avatar image'
             |check out
