@@ -61,16 +61,19 @@ template(name='profile')
                         +user_notes
                         //- +user_tasks
 
-                //- .six.wide.column
-                    //- .ui.header karma
-                    //- .ui.header #{karma}
-                    //- if user_is_resident
-                    //-     +user_messages
-                    //- +user_transactions
-                    //- +received_karma
-                .six.wide.column
-                    //- +user_connections
-                    //- +send_karma
+                .four.wide.column
+                    if user_is_resident
+                        if is_resident
+                            //- .ui.header karma
+                            //- .ui.header #{karma}
+                            +user_messages
+                            +user_transactions
+                            //- +received_karma
+                .four.wide.column
+                    if user_is_resident
+                        if is_resident
+                            +user_connections
+                            //- +send_karma
                     if user_is_resident
                         if is_staff
                             //- +violations
@@ -82,7 +85,7 @@ template(name='profile')
                         //-     +user_following
                         //-     +follow_user
     
-                .six.wide.column
+                .four.wide.column
                     if user_is_resident
                         if is_admin
                             +user_log

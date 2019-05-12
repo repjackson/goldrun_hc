@@ -1,7 +1,7 @@
 if Meteor.isClient
     Template.home.onCreated ->
         # @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs', 'marketplace'
         @autorun => Meteor.subscribe 'model_docs', 'post'
         # @autorun => Meteor.subscribe 'model_fields_from_child_id', Router.current().params.doc_id

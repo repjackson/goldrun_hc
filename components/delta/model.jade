@@ -8,13 +8,13 @@ template(name='model_edit')
                     +creation_info
                     h1.ui.header edit model
                     .ui.form
-                        +text_edit key='title' label='Title' direct=true
-                        +text_edit key='slug' label='Slug' direct=true
-                        +icon_edit key='icon' label='Icon' direct=true
-                        +textarea_edit key='description' label='Description' direct=true
-                        +array_edit key='tags' label='Tags' direct=true
-                        +text_edit key='collection' label='Collection' direct=true
-                        +multi_doc_edit key='view_roles' label='View Roles' ref_model='role' direct=true
+                        +text_edit key='title' label='title' direct=true
+                        +text_edit key='slug' label='slug' direct=true
+                        +icon_edit key='icon' label='icon' direct=true
+                        +textarea_edit key='description' label='description' direct=true
+                        +array_edit key='tags' label='tags' direct=true
+                        +text_edit key='collection' label='collection' direct=true
+                        +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
                     .ui.basic.center.aligned.segment
                         a.ui.huge.circular.icon.basic.button(href="/m/#{slug}")
                             i.big.checkmark.icon
@@ -119,21 +119,21 @@ template(name='field_edit')
             |#{title} 
             i.dropdown.icon
         .content
-            +text_edit key='title' direct=true label='Title'        
-            +text_edit key='key'  direct=true label='Key'           
+            +text_edit key='title' direct=true label='title'        
+            +text_edit key='key'  direct=true label='key'           
             //- +text_edit key='field_type' direct=true label='Field Type'              
-            +icon_edit key='icon' direct=true label='Icon'              
-            +single_doc_edit key='field_type' ref_model='field_type' label='Field Type' direct=true                 
-            +multi_doc_edit key='view_roles' ref_model='role' label='View Roles' direct=true icon='eye'          
-            +multi_doc_edit key='edit_roles' ref_model='role' label='Edit Roles' direct=true icon='pencil'        
+            +icon_edit key='icon' direct=true label='icon'              
+            +single_doc_edit key='field_type' ref_model='field_type' label='field type' direct=true                 
+            +multi_doc_edit key='view_roles' ref_model='role' label='view roles' direct=true icon='eye'          
+            +multi_doc_edit key='edit_roles' ref_model='role' label='edit roles' direct=true icon='pencil'        
             +number_edit key='rank' label='Rank' direct=true                 
             //- +text_edit key='ref_model' label='Reference Model' direct=true
-            +boolean_edit key='faceted' label='Faceted' direct=true
+            +boolean_edit key='faceted' label='faceted' direct=true
 
             if is_ref  
-                +single_doc_edit key='ref_model' ref_model='model' label='Reference Model' direct=true
+                +single_doc_edit key='ref_model' ref_model='model' label='reference model' direct=true
             else if is_user_ref  
-                +single_doc_edit key='role_filter' ref_model='role' label='Role Filter' direct=true
+                +single_doc_edit key='role_filter' ref_model='role' label='role filter' direct=true
             div             
             +remove_button
             

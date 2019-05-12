@@ -3,9 +3,10 @@ template(name='register')
         .centered.row
             .ten.wide.column
                 .ui.center.aligned.basic.segment
-                    i.massive.icons
-                        i.home.grey.icon
-                        i.corner.plus.icon
+                    .ui.header gold run online registration
+                    //- i.massive.icons
+                    //-     i.home.grey.icon
+                    //-     i.corner.plus.icon
                 if message
                     h4.ui.center.aligned.header #{message}
                 .ui.fluid.labeled.input(class=login_class)
@@ -30,14 +31,14 @@ template(name='register')
                             |register '#{username}'
                     else
                         .ui.small.header username "#{username}" found
-                        a.ui.black.circular.button(href='/login') login
+                        a.ui.basic.circular.button(href='/login') login
                         
                         
                 .ui.center.aligned.basic.segment    
                     //- .ui.small.header By clicking Register, you agree to our 
                     //-     a(href='https://henry-health.com/privacy-policy/' target="_window") Privacy Policy
                     .ui.small.header or
-                        a.ui.circular.black.sign.in.button(href='/login') 
+                        a.ui.circular.basic.sign.in.button(href='/login') 
                             |login
                             i.right.chevron.icon
                     

@@ -620,36 +620,44 @@ Template.single_doc_edit.helpers
     choice_class: ->
         selection = @
         current = Template.currentData()
-        parent = Template.parentData(5)
         ref_field = Template.parentData(1)
+        if ref_field.direct
+            parent = Template.parentData(2)
+        else
+            parent = Template.parentData(5)
         target = Template.parentData(2)
         # console.log @
         # console.log parent
         # console.log ref_field
         # console.log target
-
-        if target["#{ref_field.key}"]
-            # console.log target["#{ref_field.key}"]
-            if @slug is target["#{ref_field.key}"] then 'blue' else 'basic'
-        else 'basic'
+        if @direct
+            if target["#{ref_field.key}"]
+                # console.log parent["#{ref_field.key}"]
+                if @ref_field is target["#{ref_field.key}"] then 'blue' else 'basic'
+            else 'basic'
+        else
+            if parent["#{ref_field.key}"]
+                # console.log parent["#{ref_field.key}"]
+                if @slug is parent["#{ref_field.key}"] then 'blue' else 'basic'
+            else 'basic'
 
 
 Template.single_doc_edit.events
     'click .select_choice': ->
         selection = @
-        # if @direct
-        #     parent = Template.parentData(1)
-        # else
-        #     parent = Template.parentData(6)
-        parent = Template.parentData(1)
         ref_field = Template.currentData()
+        if ref_field.direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        # parent = Template.parentData(1)
 
-        console.log parent
+        # console.log parent
         # key = ref_field.button_key
         key = ref_field.key
         # console.log ref_field
         # console.log @
-        # console.log parent["#{ref_field.button_key}"]
+        # console.log parent["#{key}"]
 
 
         # if parent["#{key}"] and @["#{ref_field.button_key}"] in parent["#{key}"]
@@ -707,9 +715,9 @@ Template.multi_doc_edit.helpers
         selection = @
         current = Template.currentData()
         if @direct
-            parent = Template.parentData(1)
+            parent = Template.parentData()
         else
-            parent = Template.parentData(6)
+            parent = Template.parentData(5)
         ref_field = Template.parentData(1)
         target = Template.parentData(2)
         # console.log @

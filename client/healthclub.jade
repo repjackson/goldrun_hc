@@ -2,8 +2,8 @@ template(name='goldrun')
     //- img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=500 crop='crop'}}")
     .ui.padded.stackable.grid
         .sixteen.wide.column
-            //- h1.ui.center.aligned.header 
-            //-     |Gold Run Health Club
+            .ui.header 
+                |health club check in
             .ui.left.icon.huge.fluid.input
                 input.username_search(type='text' placeholder='lookup resident name...')
                 if is_query
@@ -14,11 +14,11 @@ template(name='goldrun')
                 .row
                     .sixteen.wide.column
                         if checkedout_members.length
-                            h2.ui.center.aligned.header 
-                                |check in member
+                            //- h2.ui.center.aligned.header 
+                            //-     |check in member
                             .ui.centered.cards
                                 each checkedout_members
-                                    .card
+                                    //- .card
                                         //- .image
                                         //-     if image_id
                                         //-         img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
@@ -29,7 +29,7 @@ template(name='goldrun')
                                                 a.ui.circular.basic.button(href="/user/#{username}/")
                                                     |view profile
                                                     +ismall name='chevron right'
-                                            +checkin_button
+                                    +checkin_button
                         else
                             if checking_in
                                 if is_query
@@ -38,27 +38,18 @@ template(name='goldrun')
                                         .ui.center.aligned.header 
                                             |please show yellow card to staff and ask to add profile
                                     //- +add_resident
-                if is_staff
-                    .row
-                        .sixteen.wide.column
-                            h1.ui.center.aligned.header
-                                i.shield.icon
-                                |#{checkedin_members.count} checked in members
-                            .ui.doubling.centered.cards
-                                each checkedin_members
-                                    +big_user_card username
-                if is_frontdesk
-                    .row
-                        .sixteen.wide.column
-                            h1.ui.center.aligned.header
-                                |#{checkedin_members.count} checked in members
-                    .ui.centered.cards
-                        each checkedin_members
-                            .card
-                                .content
-                                    //- img.ui.small.circular.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                    .ui.large.header #{first_name} #{last_name_initial}
-                                    +checkin_button
+                //- if is_frontdesk
+                //-     .row
+                //-         .sixteen.wide.column
+                //-             h1.ui.center.aligned.header
+                //-                 |#{checkedin_members.count} checked in members
+                    //- .ui.centered.cards
+                    //-     each checkedin_members
+                    //-         .card
+                    //-             .content
+                    //-                 //- img.ui.small.circular.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    //-                 .ui.large.header #{first_name} #{last_name_initial}
+                    //-                 +checkin_button
                     //- .three.column.row
                     //-     .column
                     //-         .ui.header
@@ -99,16 +90,10 @@ template(name='goldrun')
                     //-             | staff on duty
                     //-         with currentUser.username
                     //-             +big_user_card
-                .centered.row
-                    .ui.center.aligned.basic.segment
-                        if is_staff
-                            a.ui.big.circular.basic.button(href='/add_resident')
-                                i.user.shield.icon
-                                | add resident
-                        a.ui.big.circular.basic.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
-                            |rules and regulations
-                        a.ui.big.circular.basic.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
-                            |guest waiver
+                        //- a.ui.big.circular.basic.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
+                        //-     |rules and regulations
+                        //- a.ui.big.circular.basic.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
+                        //-     |guest waiver
             +document_view key='health_club_notices'
             +health_club_info
             //- .ui.check_out.modal
@@ -172,10 +157,12 @@ template(name='sign_waiver')
 
 template(name='checkin_button')
     unless healthclub_checkedin
-        .ui.large.circular.basic.button.checkin
+        .ui.huge.circular.basic.button.checkin
             //- i.sign.in.icon
-            +i name='internal' classes='ui avatar image'
-            |check in
+            //- +i name='internal' classes='ui avatar image'
+            //- |check in
+            .ui.grey.header #{first_name} #{last_name}
+            
     if healthclub_checkedin
         .ui.circular.basic.large.button.checkout
             //- i.sign.out.icon
@@ -207,32 +194,32 @@ template(name='health_club_info')
     .ui.stackable.grid
         .three.column.inverted.row
             .column
-                .ui.header Wifi
-                .ui.small.grey.header Gold Run Health Club / goldrun1
-                .ui.header Upstairs Code
-                .ui.small.grey.header 4589
-                .ui.header Colorado Security Services
-                .ui.small.grey.header 303.443.3701
+                .ui.header wifi
+                .ui.grey.header Gold Run Health Club / goldrun1
+                .ui.header upstairs code
+                .ui.grey.header 4589
+                .ui.header colorado security services
+                .ui.grey.header 303.443.3701
             .column
-                .ui.header Onsite Manager
+                .ui.header onsite manager
                 .ui.large.list
                     .item Rick Hamp 
                     .item 303.545.1787
                     .item goldruncondos@gmail.com
-                .ui.header After Hours Emergency
-                .ui.small.grey.header 303.221.1117
-                .ui.header Boulder Valley Towing
-                .ui.small.grey.header 303.444.4868
+                .ui.header after hours emergency
+                .ui.grey.header 303.221.1117
+                .ui.header boulder valley towing
+                .ui.grey.header 303.444.4868
             .column
-                .ui.header Hours
+                .ui.header hours
                 .ui.large.list
-                    .item Mon 7a-10p
-                    .item Tues 7a-10p
-                    .item Wed 7a-10p
-                    .item Thur 7a-10p
-                    .item Fri 7a-9p
-                    .item Sat 8a-9p
-                    .item Sun 8a-10p
+                    .item mon 7a-10p
+                    .item tues 7a-10p
+                    .item wed 7a-10p
+                    .item thur 7a-10p
+                    .item fri 7a-9p
+                    .item sat 8a-9p
+                    .item sun 8a-10p
 
 
 template(name='checkin_card')
@@ -257,15 +244,16 @@ template(name='checkin_card')
                         div expiration 
                             strong #{user.lease_expiration}
                     with user
-                        +email_validation_check
+                        //- +email_validation_check
                         div
                         +lease_expiration_check
                         +rules_and_regs_check
-                    .ui.hidden.divider
-                    +multi_user_edit key='guests' role_filter='guest' title='check in guest' direct=true
-                    .ui.basic.circular.large.button.add_guest
-                        +ismall name='plus' classes='ui avatar image'
-                        |add guest
+                    if is_admin
+                        .ui.hidden.divider
+                        +multi_user_edit key='guests' role_filter='guest' title='check in guest' direct=true
+                        .ui.basic.circular.large.button.add_guest
+                            +ismall name='plus' classes='ui avatar image'
+                            |add guest
             .row
                 .two.wide.column
                     .ui.fluid.red.big.button.icon.circular.cancel_checkin

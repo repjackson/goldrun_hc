@@ -2,6 +2,16 @@ if Meteor.isClient
     Template.shift_change_requests.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'shift_change_request'
 
+    Template.staff.onCreated ->
+        @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
+
+
+    Template.staff.helpers
+        checkedin_members: ->
+            Meteor.users.find
+                healthclub_checkedin:true
+
+
     Template.shift_change_requests.helpers
         requests: ->
             Docs.find {model:'shift_change_request'},
@@ -23,6 +33,13 @@ if Meteor.isClient
                 $set:assigned_staff:Meteor.user().username
 
 
+    Template.task_widget.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'task'
+
+    Template.task_widget.helpers
+        tasks: ->
+            Docs.find {model:'task'},
+                sort: date: -1
 
 
 # if Meteor.isServer

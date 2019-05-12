@@ -6,13 +6,14 @@ template(name='user_connections')
         unless is_user
             with user_from_username_param
                 +user_connect_button
-        .ui.tiny.grey.header people #{user_from_username_param.username} connected to
+        //- .ui.tiny.grey.header people #{user_from_username_param.username} connected to
         .ui.middle.aligned.list
             each connections
                 +user_segment
-        .ui.tiny.grey.header people connected to #{user_from_username_param.username}
-            each people_connected
-                +user_segment
+        if is_dev
+            .ui.tiny.grey.header people connected to #{user_from_username_param.username}
+                each people_connected
+                    +user_segment
 
 
 template(name='user_segment')

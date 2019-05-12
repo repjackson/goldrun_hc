@@ -47,7 +47,7 @@ Template.goldrun.helpers
 
 Template.checkin_button.events
     'click .checkin': (e,t)->
-        $(e.currentTarget).closest('.card').transition('fade up')
+        $(e.currentTarget).closest('.button').transition('fade up')
         Meteor.setTimeout =>
             # Docs.insert
             #     model:'log_event'

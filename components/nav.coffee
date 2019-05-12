@@ -11,14 +11,14 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'model', ->
                 Session.set 'loading', false
 
-        'click .set_marketplace': ->
+        'click .set_note': ->
             Session.set 'loading', true
-            Meteor.call 'set_facets', 'marketplace', ->
+            Meteor.call 'set_facets', 'note', ->
                 Session.set 'loading', false
 
-        'click .set_post': ->
+        'click .set_task': ->
             Session.set 'loading', true
-            Meteor.call 'set_facets', 'post', ->
+            Meteor.call 'set_facets', 'task', ->
                 Session.set 'loading', false
 
 

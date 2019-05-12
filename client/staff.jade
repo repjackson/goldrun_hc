@@ -2,15 +2,33 @@ template(name='staff')
     h1.ui.center.aligned.grey.header 
         +i name='user shield'
         |staff
-    .ui.header current health club checked in
-    each active_healthclub_sessions
-        .ui.header this
-    .ui.header current court keys checked out
-    each court_key_sessions
-        .ui.header this
-    .ui.header checklist reminders
-    each court_key_sessions
-        .ui.header this
+    .ui.inline.header
+        |#{checkedin_members.count} checked in members
+    .ui.doubling.centered.cards
+        each checkedin_members
+            +big_user_card username
+    .ui.center.aligned.basic.segment
+        a.ui.big.circular.basic.button(href='/add_resident')
+            i.user.shield.icon
+            | add resident
+        
+    .ui.stackable.padded.grid
+        .three.column.row
+            //- .column
+            //-     +task_widget
+            .column
+                +wywo
+            .column
+    //- .ui.header current health club checked in
+    //- each active_healthclub_sessions
+    //-     .ui.header this
+    //- .ui.header current court keys checked out
+    //- each court_key_sessions
+    //-     .ui.header this
+    //- .ui.header checklist reminders
+    //- each court_key_sessions
+    //-     .ui.header this
+    
     .ui.header notes/work orders
     +add_button model='work_order'
     .ui.header communication log
@@ -18,10 +36,46 @@ template(name='staff')
     //- +model_docs_crud model='communication'
     
     
-    +schedule
-    +shift_change_requests
+    //- +schedule
+    //- +shift_change_requests
     +view_chats
 
+
+template(name='task_widget')
+    .ui.smoothed.segment
+        .ui.header 
+            +i name='task'
+            |todos
+        //- .ui.fluid.styled.accordion.profile_block
+        +goto_model slug='task'
+        .ui.icon.circular.basic.button.new_task
+            i.plus.icon
+            //- input.assign_task(type='text' placeholder='assign task...')
+        //- .ui.button.view_complete(class=view_complete_class)
+        //-     |View Completed
+        // .ui.button.view_incomplete(class=view_complete_class)
+        //     |View Incomplete
+        each tasks
+            .ui.smoothed.segment
+                .ui.header #{body}
+                +boolean_edit key='complete' label='Complete' direct=true true_icon='checkmark' false_icon='remove' icon_only=true
+                //- +voting
+                +author_info
+                +creation_info
+                if is_author
+                    +remove_button
+    
+    
+    
+    
+    
+    
+template(name='wywo')
+    .ui.smoothed.segment
+        .ui.header 
+            +i name='note'
+            |while you were out
+        
 
 
 template(name='schedule')

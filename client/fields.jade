@@ -12,6 +12,8 @@ template(name='color_edit')
                     |#{this}
             input.edit_color(type='color' value=field_value placeholder='color')
 
+
+
 template(name='color_view')
     .ui.form
         .field
@@ -217,6 +219,7 @@ template(name='html_view')
     //-         large content
     //-         i.dropdown.icon
     //-     .active.content
+    .ui.hidden.divider
     |!{field_value}
     //- +call_watson mode='html'
     //- if watson
@@ -783,7 +786,7 @@ template(name='single_user_edit')
                                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 |#{first_name} #{last_name} #{username}
     if field_value
-        +big_user_card field_value
+        +user_card field_value
         //- |#{this}
         //- .item
         //-     .right.floated.content
@@ -902,7 +905,7 @@ template(name='multi_user_view')
         //- #{key} #{label}
     each field_value
         .ui.stackable.cards
-            +big_user_card
+            +user_card
             
 
 

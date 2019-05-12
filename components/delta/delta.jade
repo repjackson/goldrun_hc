@@ -89,30 +89,30 @@ template(name='toggle_delta_config')
 template(name='delta_result')
     with result 
         .ui.result.cloud.segment(class=loading_class)
-            if title
-                a.ui.header(href="/m/#{current_model.slug}/#{_id}/view")
-                    if icon
-                        //- i.icon(class=icon)
-                        +i name=icon
-            
-                    |#{title}
-            .description
-                if picture
-                    img.ui.medium.centered.rounded.image(src="{{c.url picture gravity='face' crop='crop'}}")
-                if youtube_id
-                    +youtube_view key='youtube_id' direct=true
-            .description
-                if description
-                    |!{description}
-                if content
-                    |!{content}
-                each fields
-                    +Template.dynamic template=view_template 
-            .extra
-                if tags
-                    each tags
-                        .ui.circular.basic.label
-                            |#{this}
+            //- if title
+            //-     a.ui.header(href="/m/#{current_model.slug}/#{_id}/view")
+            //-         if icon
+            //-             //- i.icon(class=icon)
+            //-             +i name=icon
+            //- 
+            //-         |#{title}
+            //- .description
+            //-     if picture
+            //-         img.ui.medium.centered.rounded.image(src="{{c.url picture gravity='face' crop='crop'}}")
+            //-     if youtube_id
+            //-         +youtube_view key='youtube_id' direct=true
+            //- .description
+            //-     if description
+            //-         |!{description}
+            //-     if content
+            //-         |!{content}
+            each fields
+                +Template.dynamic template=view_template 
+            //- .extra
+            //-     if tags
+            //-         each tags
+            //-             .ui.circular.basic.label
+            //-                 |#{this}
                 //- +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
             .extra
                 if is_model
@@ -131,12 +131,12 @@ template(name='delta_result')
                     a.ui.circular.icon.big.basic.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
                         i.right.chevron.large.icon
                         //- |view
-                    if is_post
-                        unless is_author
-                            +voting
-                    if is_marketplace
-                        .ui.small.header karma price 
-                        .ui.header #{karma_price}
+                    //- if is_post
+                    //-     unless is_author
+                +voting
+                    //- if is_marketplace
+                    //-     .ui.small.header karma price 
+                    //-     .ui.header #{karma_price}
                 //- each model.actions
                 //-     +Template.dynamic template=this data=..
                 if _author_id

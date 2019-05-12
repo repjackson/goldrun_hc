@@ -57,7 +57,7 @@ if Meteor.isClient
             model = Docs.findOne
                 model:'model'
                 slug: Router.current().params.model_slug
-            console.log model
+            # console.log model
             if model.collection and model.collection is 'users'
                 name = prompt 'first and last name'
                 split = name.split ' '
@@ -178,7 +178,7 @@ if Meteor.isClient
             facet = Template.parentData()
             delta = Docs.findOne model:'delta'
             if Session.equals 'loading', true
-                 'disabled '
+                 'disabled basic'
             else if facet.filters.length > 0 and @name in facet.filters
                 'grey'
             else 'basic'
