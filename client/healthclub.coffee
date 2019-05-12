@@ -76,8 +76,13 @@ Template.checkin_button.events
                 object_id:@_id
                 body: "#{@username} checked out."
             $('body').toast({
-                message: "#{@username} checked out."
-                class: 'info'
+                title: "#{@username} checked out."
+                class: 'success'
+                transition:
+                    showMethod   : 'zoom',
+                    showDuration : 1000,
+                    hideMethod   : 'fade',
+                    hideDuration : 1000
             })
             Session.set 'username_query',null
             $('.username_search').val('')
@@ -172,6 +177,8 @@ Template.sign_waiver.helpers
 
 Template.checkin_card.onCreated ->
     @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
+    @autorun => Meteor.subscribe 'checkin_guests', Session.get('checkin_document')
+
 Template.checkin_card.helpers
     new_guest_doc: -> Docs.findOne Session.get('new_guest_id')
     user: -> Meteor.users.findOne @valueOf()
@@ -185,10 +192,10 @@ Template.checkin_card.helpers
             model:'rules_and_regs_signing'
             resident:@username)
         if rule_doc
-            console.log 'true'
+            # console.log 'true'
             false
         else
-            console.log 'false'
+            # console.log 'false'
             true
         # unless @rules_signed then true else false
 
@@ -207,8 +214,14 @@ Template.checkin_card.events
         Meteor.setTimeout =>
             Session.set 'displaying_profile', null
             $('body').toast({
-                message: "#{@username} checked in."
-                class: 'success'})
+                title: "#{@username} checked in."
+                class: 'success'
+                transition:
+                  showMethod   : 'zoom',
+                  showDuration : 1000,
+                  hideMethod   : 'fade',
+                  hideDuration : 1000
+                })
         , 1000
         Meteor.users.update @_id,
             $set:healthclub_checkedin:true
@@ -216,6 +229,12 @@ Template.checkin_card.events
             model:'log_event'
             object_id:@_id
             body: "#{@username} checked in."
+
+    'click .remove_guest': ->
+        console.log @
+        checkin_doc = Docs.findOne Session.get('checkin_document')
+        Docs.update checkin_doc._id,
+            $pull:guest_ids:@_id
 
     'click .add_guest': ->
         # console.log @
@@ -248,8 +267,13 @@ Template.guest_modal_content.events
     'click .cancel_new_guest': ->
         Docs.remove Session.get('new_guest_id')
         $('body').toast({
-            message: "Adding guest canceled."
-            class: 'info'
+            title: "Adding guest canceled."
+            class: 'success'
+            transition:
+                showMethod   : 'zoom',
+                showDuration : 1000,
+                hideMethod   : 'fade',
+                hideDuration : 1000
         })
 
 

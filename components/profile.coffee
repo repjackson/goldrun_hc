@@ -39,6 +39,9 @@ if Meteor.isClient
             console.log @
             Meteor.call 'set_delta_facets', @slug, null, true
 
+        'click .logout_other_clients': ->
+            Meteor.logoutOtherClients()
+
         'click .logout': ->
             Meteor.logout()
             Router.go '/login'

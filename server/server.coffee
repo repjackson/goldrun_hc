@@ -91,6 +91,17 @@ Meteor.publish 'page_children', (slug)->
     Docs.find
         parent_id:page._id
 
+
+
+Meteor.publish 'checkin_guests', (checkin_document_id)->
+    checkin_document = Docs.findOne checkin_document_id
+    console.log checkin_document.guest_ids
+    Docs.find
+        _id:$in:checkin_document.guest_ids
+
+
+
+
 Meteor.publish 'page_blocks', (slug)->
     # console.log slug
     page = Docs.findOne

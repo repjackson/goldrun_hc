@@ -73,10 +73,18 @@ Meteor.methods
             console.log member
 
     lookup_user: (username_query, role_filter)->
-        console.log role_filter
+        # console.log role_filter
         Meteor.users.find({
             username: {$regex:"#{username_query}", $options: 'i'}
             roles:$in:[role_filter]
+            }).fetch()
+
+    lookup_doc: (first_name, model_filter)->
+        console.log first_name
+        console.log model_filter
+        Docs.find({
+            model:model_filter
+            first_name: {$regex:"#{first_name}", $options: 'i'}
             }).fetch()
 
     # lookup_username: (username_query)->

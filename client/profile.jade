@@ -30,6 +30,9 @@ template(name='profile')
                         .ui.circular.basic.icon.button.logout(title='log out')
                             +i name='logout-rounded'
                             //- |log out
+                        .ui.button.logout_other_clients
+                            |logout other clients
+                
                     //- if user_is_resident
                     //-     if is_resident
                     //-         +gr_status                
@@ -59,6 +62,7 @@ template(name='profile')
                                 .ui.circular.basic.label #{this}                    
                     if user_is_staff
                         +user_notes
+                        
                         //- +user_tasks
 
                 .four.wide.column

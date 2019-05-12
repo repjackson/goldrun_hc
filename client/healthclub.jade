@@ -4,7 +4,7 @@ template(name='goldrun')
         .sixteen.wide.column
             .ui.header 
                 |health club check in
-            .ui.left.icon.huge.fluid.input
+            .ui.left.icon.massive.fluid.input
                 input.username_search(type='text' placeholder='lookup resident name...')
                 if is_query
                     i.remove.link.icon.clear_results
@@ -161,7 +161,7 @@ template(name='checkin_button')
             //- i.sign.in.icon
             //- +i name='internal' classes='ui avatar image'
             //- |check in
-            .ui.grey.header #{first_name} #{last_name}
+            .ui.grey.large.header #{first_name} #{last_name}
             
     if healthclub_checkedin
         .ui.circular.basic.large.button.checkout
@@ -229,9 +229,9 @@ template(name='checkin_card')
             .centered.row
                 //- .eight.wide.column
                 //-     img.ui.fluid.rounded.image(src="{{c.url user.image_id width=500 height=400 gravity='face' crop='fill'}}")
-                .eight.wide.column
+                .sixteen.wide.column
                     //- a.ui.header(href="/user/#{user.username}")
-                    .ui.large.header(href="/user/#{user.username}")
+                    .ui.huge.header(href="/user/#{user.username}")
                          |#{user.first_name} #{user.last_name} 
                     //- .meta @#{user.username}
                     //- +array_view key='tags' label='Tags' direct=true
@@ -248,25 +248,36 @@ template(name='checkin_card')
                         div
                         +lease_expiration_check
                         +rules_and_regs_check
-                    if is_admin
-                        .ui.hidden.divider
-                        +multi_user_edit key='guests' role_filter='guest' title='check in guest' direct=true
-                        .ui.basic.circular.large.button.add_guest
-                            +ismall name='plus' classes='ui avatar image'
-                            |add guest
-            .row
+                    .ui.hidden.divider
+                    .ui.input
+                        +multi_doc_input key='guests' ref_model='guest' title='check in previous guest' direct=true
+                    .ui.basic.circular.large.button.add_guest
+                        +ismall name='plus' classes='ui avatar image'
+                        |create new guest
+                    with checking_in_doc
+                        each checkin_guest_docs
+                            .ui.big.basic.circular.button.remove_guest 
+                                i.remove.grey.icon
+                                |#{first_name} #{last_name}
+            .middle.aligned.row
                 .two.wide.column
-                    .ui.fluid.red.big.button.icon.circular.cancel_checkin
-                        i.ban.icon
+                    .ui.fluid.basic.large.button.icon.circular.cancel_checkin
+                        //- i.ban.icon
+                        +i name='undo'
                 .fourteen.wide.column
                     if red_flagged
-                        .ui.fluid.red.big.circular.disabled.button
+                        .ui.red.big.circular.disabled.button
                             |sign rules and regs to continue
                             //- i.right.chevron.icon
                     else
-                        .ui.fluid.green.big.button.circular.complete_checkin
-                            |complete check in
-                            i.right.chevron.icon
+                        .ui.basic.big.button.circular.complete_checkin
+                            +i name='treadmill' classes='ui inline image'
+                            .ui.inline.header health club check in
+                            //- i.right.chevron.icon
+                        .ui.basic.big.button.circular.complete_checkin
+                            +i name='key' classes='ui inline image'
+                            .ui.inline.header court key check out
+                            //- i.right.chevron.icon
             .ui.fullscreen.modal
                 +guest_modal_content
                 

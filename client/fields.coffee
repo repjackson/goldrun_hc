@@ -985,6 +985,49 @@ Template.multi_user_edit.events
 
 
 
+Template.multi_doc_input.onCreated ->
+    @doc_results = new ReactiveVar
+Template.multi_doc_input.helpers
+    doc_results: -> Template.instance().doc_results.get()
+Template.multi_doc_input.events
+    'click .clear_results': (e,t)->
+        t.doc_results.set null
+    'keyup #multi_doc_select_input': (e,t)->
+        search_value = $(e.currentTarget).closest('#multi_doc_select_input').val().trim()
+        Meteor.call 'lookup_doc', search_value, 'guest', (err,res)=>
+            if err then console.error err
+            else
+                console.log res
+                t.doc_results.set res
+    'click .select_doc': (e,t) ->
+        checkin_document = Docs.findOne Session.get('checkin_document')
+        Docs.update checkin_document._id,
+            $addToSet:guest_ids:@_id
+
+
+        t.doc_results.set null
+        $('#multi_user_select_input').val ''
+        # Docs.update page_doc._id,
+        #     $set: assignment_timestamp:Date.now()
+
+    'click .pull_user': ->
+        if confirm "Remove #{@username}?"
+            page_doc = Docs.findOne Router.current().params.id
+            parent = Template.parentData(5)
+            doc = Docs.findOne parent._id
+            user = Meteor.users.findOne parent._id
+            if doc
+                Docs.update parent._id,
+                    $pull:"#{@key}":@_id
+            else if user
+                Meteor.users.update parent._id,
+                    $pull:"#{@key}":@_id
+            # Meteor.call 'unassign_user', page_doc._id, @
+
+
+
+
+
     Template.signature_view.events
         'click .print_rules': ->
             if @direct

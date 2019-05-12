@@ -21,6 +21,17 @@ Template.registerHelper 'displaying_profile', () -> Session.get 'displaying_prof
 
 Template.registerHelper 'checking_in_doc', () -> Docs.findOne Session.get('checkin_document')
 
+Template.registerHelper 'checkin_guest_docs', () ->
+    Docs.findOne Session.get('checkin_document')
+    checkin_document = Docs.findOne Session.get('checkin_document')
+    console.log checkin_document.guest_ids
+    Docs.find
+        _id:$in:checkin_document.guest_ids
+
+
+
+
+
 Template.registerHelper 'author', () -> Meteor.users.findOne @_author_id
 
 Template.registerHelper 'is_text', () ->
