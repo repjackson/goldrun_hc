@@ -986,6 +986,11 @@ Template.multi_user_edit.events
 
 
 Template.multi_doc_input.onCreated ->
+    @autorun => Meteor.subscribe 'model_docs', 'guest'
+
+
+
+Template.multi_doc_input.onCreated ->
     @doc_results = new ReactiveVar
 Template.multi_doc_input.helpers
     doc_results: -> Template.instance().doc_results.get()
@@ -994,11 +999,14 @@ Template.multi_doc_input.events
         t.doc_results.set null
     'keyup #multi_doc_select_input': (e,t)->
         search_value = $(e.currentTarget).closest('#multi_doc_select_input').val().trim()
-        Meteor.call 'lookup_doc', search_value, 'guest', (err,res)=>
-            if err then console.error err
-            else
-                console.log res
-                t.doc_results.set res
+        if search_value.length is 0
+            t.doc_results.set null
+        else if search_value
+            Meteor.call 'lookup_doc', search_value, 'guest', (err,res)=>
+                if err then console.error err
+                else
+                    console.log res
+                    t.doc_results.set res
     'click .select_doc': (e,t) ->
         checkin_document = Docs.findOne Session.get('checkin_document')
         Docs.update checkin_document._id,

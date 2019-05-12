@@ -263,11 +263,11 @@ template(name='add_model_button')
             
 template(name='email_validation_check')
     if email_verified
-        .ui.large.circular.green.basic.label
+        .ui.large.circular.green.basic.button
             i.checkmark.icon
             |email validated
     else
-        .ui.orange.circular.large.button.send_verification
+        .ui.orange.circular.basic.large.button.send_verification
             i.ban.icon
             |email unvalidated
         if times
@@ -286,18 +286,39 @@ template(name='lease_expiration_check')
         
 template(name='rules_and_regs_check')
     unless rules_signed
-        .ui.large.circular.red.button.sign_rules
+        .ui.large.circular.basic.red.button.sign_rules
             i.signature.icon
-            |rules and regs not signed 
+            |click to sign rules and regulationss 
     else
         if is_admin
-            a.ui.circular.green.button(href="/m/rules_regs_signing/#{rules_signed._id}/view")
+            a.ui.circular.large.green.basic.button(href="/m/rules_regs_signing/#{rules_signed._id}/view")
                 i.signature.icon
                 |rules and regs signed 
         else if is_staff
-            .ui.large.circular.green.label
+            .ui.large.circular.green.basic.button
                 i.signature.icon
                 |rules and regs signed 
+                
+template(name='member_waiver_check')
+    unless waiver_signed
+        .ui.large.circular.basic.red.button.sign_rules
+            i.signature.icon
+            |click to sign member waiver 
+    else
+        if is_admin
+            a.ui.circular.large.green.basic.button(href="/m/rules_regs_signing/#{rules_signed._id}/view")
+                i.signature.icon
+                |member waiver signed 
+        
+template(name='resident_key_check')
+    unless key_on_file
+        .ui.large.circular.basic.orange.button
+            i.ban.icon
+            |key not on file 
+    else
+        .ui.circular.large.basic.button
+            i.key.icon
+            |key on file 
         
         
 template(name='guest_waiver_check')

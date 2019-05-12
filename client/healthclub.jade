@@ -122,14 +122,14 @@ template(name='add_resident')
     .ui.stackable.padded.grid
         .centered.row
             .eight.wide.column
-                h1.ui.center.aligned.header
+                h1.ui.center.aligned.grey.header
                     i.user.plus.icon
                     | resident
                 .ui.big.form
                     .field
-                        input#first_name(type='text' placeholder='first name')
+                        input#first_name(type='text' placeholder='first name' autocomplete='off')
                     .field
-                        input#last_name(type='text' placeholder='last name')
+                        input#last_name(type='text' placeholder='last name' autocomplete='off')
                     //- .field
                     //-     |Username
                     //-     input#username(type='text')
@@ -225,7 +225,8 @@ template(name='health_club_info')
 template(name='checkin_card')
     with user
         //- .ui.card
-        .ui.grid.cloud.segment(class=checkin_card_class)
+        //- .ui.grid.cloud.segment(class=checkin_card_class)
+        .ui.grid.cloud.segment
             .centered.row
                 //- .eight.wide.column
                 //-     img.ui.fluid.rounded.image(src="{{c.url user.image_id width=500 height=400 gravity='face' crop='fill'}}")
@@ -244,13 +245,15 @@ template(name='checkin_card')
                         div expiration 
                             strong #{user.lease_expiration}
                     with user
-                        //- +email_validation_check
-                        div
+                        +email_validation_check
+                        +resident_key_check
                         +lease_expiration_check
                         +rules_and_regs_check
+                        +member_waiver_check
                     .ui.hidden.divider
                     .ui.input
                         +multi_doc_input key='guests' ref_model='guest' title='check in previous guest' direct=true
+                    .ui.hidden.divider
                     .ui.basic.circular.large.button.add_guest
                         +ismall name='plus' classes='ui avatar image'
                         |create new guest

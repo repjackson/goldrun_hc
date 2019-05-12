@@ -10,7 +10,7 @@ template(name='color_edit')
                     |#{key}
                 else
                     |#{this}
-            input.edit_color(type='color' value=field_value placeholder='color')
+            input.edit_color(type='color' value=field_value placeholder='color' autocomplete="off")
 
 
 
@@ -39,7 +39,7 @@ template(name='color_icon_edit')
             |#{key}
         else
             |#{this}
-    input.color_icon(type='url' value=field_value placeholder='icons8 class')
+    input.color_icon(type='url' value=field_value placeholder='icons8 class' autocomplete="off")
     if field_value
         img.ui.inline.image(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
@@ -57,7 +57,7 @@ template(name='icon_edit')
         if field_value
             //- i.large.icon(class=field_value)
             img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
-        input.icon_val(type='text' value=field_value placeholder='font awesome class')
+        input.icon_val(type='text' value=field_value placeholder='font awesome class' autocomplete="off")
 
 
 template(name='color_icon_view')
@@ -92,7 +92,7 @@ template(name='link_edit')
                 if icon
                     i.grey.icon(class=icon)
                 |#{title}
-            input.edit_url(type='url' value=field_value placeholder='url')
+            input.edit_url(type='url' value=field_value placeholder='url' autocomplete="off")
         // +call_watson mode='url'
 
 
@@ -141,7 +141,7 @@ template(name='image_edit')
                 //-     i.grey.icon(class=icon)
                 //- |#{title}
                 //- if is_dev
-                //-     input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id')
+                //-     input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id' autocomplete="off")
                 // else
                 //     label Upload Image
                 input(type='file' name='upload_image' accept='image/*')
@@ -151,7 +151,7 @@ template(name='image_link_edit')
     .ui.fluid.input
         .ui.smoothed.label image link
         i.image.icon
-        input.edit_image_link(type='link' value=field_value placeholder='image link' )
+        input.edit_image_link(type='link' value=field_value placeholder='image link'  autocomplete="off")
     if field_value
         img.ui.fluid.image(src=field_value)
     // +call_visual
@@ -235,7 +235,7 @@ template(name='document_edit')
     //             |#{title}
     //         else
     //             |#{key}
-    //     input.edit_text(type='text' value=field_value placeholder=placeholder)
+    //     input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
     with referenced_document
         .ui.header 
             |#{title}
@@ -267,7 +267,7 @@ template(name='text_edit')
             else if key
                 |#{key}
         //- +clear_value
-        input.edit_text(type='text' value=field_value placeholder=placeholder)
+        input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
         
 
 
@@ -308,7 +308,7 @@ template(name='parent_edit')
             else if key
                 |#{key}
         +clear_value
-        input.edit_text(type='text' value=field_value placeholder=placeholder)
+        input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
         
 template(name='parent_view')
     if field_value
@@ -344,7 +344,7 @@ template(name='phone_edit')
             else
                 |#{this}
         +clear_value                
-        input.edit_phone(type='tel' value=field_value placeholder=placeholder)
+        input.edit_phone(type='tel' value=field_value placeholder=placeholder autocomplete="off")
 
 template(name='phone_view')
     if field_value
@@ -378,7 +378,7 @@ template(name='number_edit')
             else
                 |#{key}
         //- +clear_value                
-        input.edit_number(type='number' value=field_value placeholder=placeholder)
+        input.edit_number(type='number' value=field_value placeholder=placeholder autocomplete="off")
             
             
 template(name='number_view')
@@ -410,7 +410,7 @@ template(name='date_edit')
             //- else
             //-     |#{this}
         //- +clear_value                
-        input.edit_date(type='date' value=field_value placeholder=placeholder)
+        input.edit_date(type='date' value=field_value placeholder=placeholder autocomplete="off")
 
 
 template(name='date_view')
@@ -440,7 +440,7 @@ template(name='time_edit')
             //- else
             //-     |#{key}
         //- +clear_value                
-        input.edit_time(type='time' value=field_value placeholder=placeholder)
+        input.edit_time(type='time' value=field_value placeholder=placeholder autocomplete="off")
                 
                 
 template(name='time_view')
@@ -463,7 +463,7 @@ template(name='datetime_edit')
                 else
                     |#{key}
             //- +clear_value                
-            input.edit_datetime(type='datetime-local' value=field_value placeholder=placeholder)
+            input.edit_datetime(type='datetime-local' value=field_value placeholder=placeholder autocomplete="off")
 
 template(name='datetime_view')
     if icon
@@ -489,7 +489,7 @@ template(name='array_edit')
                 |#{label}
             else if key
                 |#{key}
-        input.new_element(type='text' placeholder='+')
+        input.new_element(type='text' placeholder='+' autocomplete="off")
         //- +clear_value                
     div
     if field_value
@@ -605,7 +605,7 @@ template(name='youtube_edit')
             // if icon
             //     i.grey.icon(class=icon)
             |Youtube Id
-        input.youtube_id(type='text' value=field_value placeholder=placeholder)
+        input.youtube_id(type='text' value=field_value placeholder=placeholder autocomplete="off")
     if field_value
         iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
@@ -918,11 +918,11 @@ template(name='multi_doc_input')
                 .ui.large.label
                     |#{first_name} #{last_name}
         if doc_results
-            .ui.top.attached.segment
+            .ui.attached.segment
                 .ui.middle.aligned.selection.animated.list
                     each doc_results
                         .select_doc.item
-                            h4.ui.header
+                            h3.ui.header
                                 //- img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 strong #{first_name} #{last_name}
         //- +clear_value                
