@@ -4,7 +4,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs', 'marketplace'
         @autorun => Meteor.subscribe 'model_docs', 'gr_post'
-        @autorun => Meteor.subscribe 'model_docs', 'gr_post'
+        # @autorun => Meteor.subscribe 'model_docs', 'gr_post'
         # @autorun => Meteor.subscribe 'model_fields_from_child_id', Router.current().params.doc_id
 
     Template.front.events
@@ -34,17 +34,40 @@ if Meteor.isClient
             }, sort:_timestamp:1
 
 
-    Template.slideshow.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'photo'
 
-    Template.slideshow.helpers
-        current_photo: ->
-            Docs.findOne
-                model:'photo'
+
+    Template.model_scroller.onCreated ->
+        @skip = new ReactiveVar 0
+        @autorun => Meteor.subscribe 'model_docs_with_skip', @data.model, @skip.get()
+    Template.model_scroller.helpers
+        user_results: -> Template.instance().user_results.get()
+        current_doc: ->
+            console.log @model
+            Docs.findOne {
+                model:@model
+            }, skip: Template.instance().skip.get()
+            # }
+        model_doc_template: ->
+            console.log "#{@model}_doc_view"
+            "#{@model}_doc_view"
+
+    Template.model_scroller.events
+        'click .go_left': ->
+            current_skip = Template.instance().skip.get()
+            unless current_skip is 0
+                Template.instance().skip.set(current_skip-1)
+        'click .go_right': ->
+            current_skip = Template.instance().skip.get()
+            Template.instance().skip.set(current_skip+1)
+
+
+
 
 
 if Meteor.isServer
-    Meteor.publish 'role_models', ()->
-        Docs.find
-            model:'model'
-            view_roles:$in:Meteor.user().roles
+    Meteor.publish 'model_docs_with_skip', (model, skip)->
+        console.log model
+        console.log skip
+        Docs.find {
+            model:model
+        }

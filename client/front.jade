@@ -25,18 +25,14 @@ template(name='front')
                     .ui.small.grey.header
                         |Last recorded temp: 80.3
             .eight.wide.column
-                +slideshow
+                +model_scroller model='photo' header='Photos'
         .eight.wide.column
-            .ui.header Marketplace
-            each marketplace_items
-                +marketplace_item
+            +model_scroller model='marketplace' header='Marketplace'
         .eight.wide.column
-            .ui.header Posts
-            each posts
-                +post
+            +model_scroller model='gr_post' header='Posts'
 
 
-template(name='post')
+template(name='gr_post_doc_view')
     +image_view key='image' direct=true
     +html_view key='content' direct=true
     each tags
@@ -44,7 +40,7 @@ template(name='post')
 
 
 
-template(name='marketplace_item')
+template(name='marketplace_doc_view')
     .ui.header hi
     +image_view key='picture' direct=true
     +html_view key='content' direct=true
@@ -54,12 +50,18 @@ template(name='marketplace_item')
 
 
 
-template(name='slideshow')
-    .ui.button.move_left
-        i.left.chevron.icon
-    with current_photo
-        img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
-    .ui.button.move_right
-        i.right.chevron.icon
+template(name='photo_doc_view')
+    img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
         
+        
+template(name='model_scroller')
+    .ui.smoothed.segment
+        .ui.inline.header #{header}
+        .ui.circular.icon.basic.button.go_left
+            i.left.chevron.icon
+        .ui.circular.icon.basic.button.go_right
+            i.right.chevron.icon
+        with current_doc
+            +Template.dynamic template=model_doc_template
+                
     
