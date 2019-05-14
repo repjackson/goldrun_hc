@@ -12,14 +12,12 @@ force_loggedin =  ()->
 
 Router.onBeforeAction(force_loggedin, {
   # only: ['admin']
-  except: ['register', 'forgot_password','reset_password']
+  except: ['register', 'forgot_password','reset_password','front']
 });
 
 Router.route '/reset_password/:token', -> @render 'reset_password'
 
-
 Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
-
 
 Router.route '/verify-email/:token', ->
     # onBeforeAction: ->
@@ -82,8 +80,8 @@ Router.route '/login', -> @render 'login'
 
 # Router.route '/', -> @redirect '/m/model'
 # Router.route '/', -> @redirect "/user/#{Meteor.user().username}"
-Router.route '/', -> @render 'home'
-    #
-    # @layout 'layout'
-    # @render 'home'
-    # ), name:'home'
+# Router.route '/', -> @render 'front'
+Router.route '/', (->
+    @layout 'layout'
+    @render 'front'
+    ), name:'front'

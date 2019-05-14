@@ -1,0 +1,17 @@
+template(name='front')
+    .ui.padded.grid
+        .row
+            .sixteen.wide.column
+                .ui.large.header Gold Run Community
+                .ui.header Health Club News
+                .ui.small.header 
+                    i.green.checkmark.icon
+                    |Hot Tub Operational
+        .eight.wide.column
+            .ui.header Marketplace
+            each marketplace_items
+                +marketplace_item
+        .eight.wide.column
+            .ui.header Posts
+            each posts
+                +post

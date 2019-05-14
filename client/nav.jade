@@ -7,16 +7,14 @@ template(name='nav')
                 .icon.item
                     i.large.grey.loading.notched.circle.icon
             else
-                unless is_frontdesk
-                    a.header.icon.set_model.item(href='/' class="{{isActivePath '/'}}")
-                        i.grey.home.large.icon
-                        //- +i name='home-page'    
+                a.header.icon.set_model.item(href='/' class="{{isActivePath '/'}}")
+                    i.grey.home.large.icon
+                    //- +i name='home-page'    
                 if is_staff
                     a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                         //- +i name='employee-card'
                         i.shield.grey.icon
                         .mobile.hidden Staff
-                if is_staff
                     a.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
                         i.grey.users.icon
                         //- +i name='groups'
@@ -169,10 +167,14 @@ template(name='footer')
                     with current_user
                         +role_switcher
             .eight.wide.column
+                unless currentUser
+                    a.ui.basic.circular.button(href='/login')
+                        i.sign.in.icon
+                        |Login
                 if is_eric
                     with currentUser
                         +role_switcher
-        //- .row
-        //-     .ui.center.aligned.grey.header
-        //-         i.copyright.outline.icon
-        //-         |Gold Run Online
+        .row
+            .ui.center.aligned.grey.header
+                i.copyright.outline.icon
+                |Gold Run Community

@@ -92,12 +92,13 @@ template(name='user_card')
             .twelve.wide.column
                 .header #{first_name} #{last_name} 
                 .meta @#{username}
-                +text_view key='address' direct=true
-                +text_view key='building_code' direct=true
-                +number_view key='unit_number' direct=true
-                +number_view key='building_number' direct=true
-                div
-                +user_email
+                +text_view key='address' direct=true label='Address'
+                +text_view key='building_code' direct=true label='Building Code'
+                +number_view key='unit_number' direct=true label='Unit #'
+                +number_view key='building_number' direct=true label='Building #'
+                if is_admin
+                    div
+                    +user_email
                 //- +emails_edit    
         //- +user_status user
 
