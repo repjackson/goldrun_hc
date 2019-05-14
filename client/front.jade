@@ -2,11 +2,30 @@ template(name='front')
     .ui.padded.grid
         .row
             .sixteen.wide.column
-                .ui.large.header Gold Run Community
-                .ui.header Health Club News
-                .ui.small.header 
-                    i.green.checkmark.icon
-                    |Hot Tub Operational
+                .ui.large.center.aligned.header 
+                    +i name='apartment'
+                    |Gold Run Community
+        .row
+            .eight.wide.column
+                .ui.smoothed.segment
+                    .ui.header 
+                        +i name='treadmill'
+                        |Health Club
+                    .ui.small.header
+                        i.ban.icon
+                        |Upper Hot Tub out for forseeable future due to crack in frame.
+                    .ui.small.header
+                        i.green.checkmark.icon
+                        |Lower Hot Tub Operational
+                    .ui.small.grey.header
+                        |Last recorded temp: 99.9
+                    .ui.small.header
+                        i.green.checkmark.icon
+                        |Pool Operational
+                    .ui.small.grey.header
+                        |Last recorded temp: 80.3
+            .eight.wide.column
+                +slideshow
         .eight.wide.column
             .ui.header Marketplace
             each marketplace_items
@@ -15,3 +34,32 @@ template(name='front')
             .ui.header Posts
             each posts
                 +post
+
+
+template(name='post')
+    +image_view key='image' direct=true
+    +html_view key='content' direct=true
+    each tags
+        .ui.label #{this}
+
+
+
+template(name='marketplace_item')
+    .ui.header hi
+    +image_view key='picture' direct=true
+    +html_view key='content' direct=true
+    each tags
+        .ui.label #{this}
+
+
+
+
+template(name='slideshow')
+    .ui.button.move_left
+        i.left.chevron.icon
+    with current_photo
+        img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+    .ui.button.move_right
+        i.right.chevron.icon
+        
+    

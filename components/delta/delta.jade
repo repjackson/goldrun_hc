@@ -60,15 +60,17 @@ template(name='facet')
                 |#{key}
             //- i.dropdown.icon
             //- .active.content
-            .ui.icon.small.transparent.input
-                i.search.icon
-                input.add_filter(type='text')
+            if is_admin
+                .ui.icon.small.transparent.input
+                    i.search.icon
+                    input.add_filter(type='text')
                 //- div
         each filtering_res
             if name
                 .selector.ui.circular.large.compact.button.toggle_selection(class=toggle_value_class title=count)
                     strong #{name}
-                    small #{cal_count} #{count}
+                    if is_admin
+                        small #{cal_count} #{count}
             else
                 .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]

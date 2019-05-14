@@ -33,7 +33,7 @@ template(name='profile')
                             //- +i name='logout-rounded'
                             i.sign.out.icon
                             //- |log out
-                        .ui.button.logout_other_clients
+                        .ui.small.basic.circular.button.logout_other_clients
                             |logout other clients
                 
                     //- if user_is_resident
@@ -68,44 +68,44 @@ template(name='profile')
                         
                         //- +user_tasks
 
-                //- .four.wide.column
-                    //- if user_is_resident
-                    //-     if is_resident
-                    //-         //- .ui.header karma
-                    //-         //- .ui.header #{karma}
-                    //-         +user_messages
-                    //-         +user_transactions
-                    //-         //- +received_karma
                 .six.wide.column
-                    //- if user_is_resident
-                    //-     if is_resident
-                    //-         +user_connections
-                            //- +send_karma
                     if user_is_resident
-                        +user_checkins
-                        +user_guests
+                        if is_resident
+                            //- .ui.header karma
+                            //- .ui.header #{karma}
+                            +user_messages
+                            +user_transactions
+                            //- +received_karma
+                    if user_is_resident
+                        if is_resident
+                            +user_connections
+                    if user_is_resident
+                        if is_staff
+                            +user_checkins
+                            +user_guests
                         //- if is   _staff
                             //- +violations
                             //- +user_card_replacements
                             //- +user_signatures
-                        //- if is_resident
-                        //-     +user_following
-                        //-     +follow_user
+                        if is_resident
+                            +user_following
+                            +follow_user
     
                 .six.wide.column
                     if user_is_resident
-                        if is_admin
-                            +user_log
+                        if is_staff
                             +membership_status
-                            //- +user_karma
-                            //- +user_bookmarks    
-                            //- +user_feed
+                            +user_log
+                        if is_resident
+                            +user_karma
+                            +user_bookmarks    
+                            +user_feed
                     if user_is_resident
                         //- if is_staff
                         +user_key
                             //- +user_garden
                         +user_unit
-                            //- +user_tags
+                        +user_tags
                     //- +user_rules_widget
                     //- if is_eric
                     //-     +role_switcher
@@ -162,22 +162,6 @@ template(name='user_signatures')
 
             a.item(href='#') proof of residency
             a.item(href='#') injury waiver
-
-
-template(name='send_karma')
-    .ui.profile_block.segment
-        .ui.button.send_new
-            |send karma
-        if sending_karma
-            .ui.circular.basic.icon.button.cancel_sending
-                i.remove.icon
-            with send_karma_transaction
-                +textarea_edit key='description' direct=true
-                +array_edit key='tags' direct=true
-                +number_edit key='karma_amount' direct=true
-                .ui.green.button.complete_sending
-                    |complete
-
 
 
 template(name='user_notes')
@@ -395,7 +379,19 @@ template(name='user_karma')
             .ui.circular.basic.button buy karma
             with user_from_username_param
                 |karma #{karma}
-                
+        .ui.basic.circular.button.send_new
+            |send karma
+        if sending_karma
+            .ui.circular.basic.icon.button.cancel_sending
+                i.remove.icon
+            with send_karma_transaction
+                +textarea_edit key='description' direct=true
+                +array_edit key='tags' direct=true
+                +number_edit key='karma_amount' direct=true
+                .ui.green.button.complete_sending
+                    |complete
+
+
             
                 
 template(name='user_unread')

@@ -8,11 +8,12 @@ template(name='nav')
                     i.large.grey.loading.notched.circle.icon
             else
                 a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                    i.grey.home.large.icon
-                    //- +i name='home-page'    
-                a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
-                    i.grey.th.large.icon
-                    //- +i name='home-page'    
+                    //- i.grey.home.large.icon
+                    +i name='home-page'  
+                if currentUser  
+                    a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
+                        //- i.grey.th.large.icon
+                        +i name='squared-menu'    
                 if is_staff
                     a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                         //- +i name='employee-card'
@@ -34,13 +35,14 @@ template(name='nav')
                         //- +i name='treadmill'    
                         .mobile.hidden Health Club
             .right.menu
-                if currentUser
+                if is_admin
                     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                        //- +i name='task'
-                        i.task.icon
+                        +i name='task'
+                        //- i.tasks.icon
                     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
-                        //- +i name='note'
-                        i.note.icon
+                        +i name='note'
+                        //- i.note.icon
+                if currentUser
                     //- .item
                     //-     .ui.header(title='your karma') #{currentUser.karma}
                     unless logging_out
@@ -53,9 +55,9 @@ template(name='nav')
                         //-     a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                         //-         +i name='new-post'
                                 //- i.large.grey.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
-                        //- if is_staff
-                        //-     a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
-                        //-         +i name='filled-topic'
+                        if is_resident
+                            a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
+                                +i name='filled-topic'
                         //- if is_admin
                         //-     a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
                         //-         +i name='user shield'
@@ -152,18 +154,20 @@ template(name='footer')
     .ui.fluid.secondary.attached.segment.footer
         .ui.container.stackable.grid
             .eight.wide.column
-                //- if is_resident
-                //-     +ads
-                //- form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                //-     input(type='hidden', name='cmd', value='_s-xclick')
-                //-     input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                //-     <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
-                //-     // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                //-     //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                //-     img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                //-     button.ui.large.circular.icon.basic.button(type='submit')
-                //-         //- i.pied.piper.alternate.large.icon
-                //-         |donate
+                //- +health_club_info
+            
+                if is_resident
+                    +ads
+                form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                    input(type='hidden', name='cmd', value='_s-xclick')
+                    input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                    <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
+                    // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                    //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                    img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                    button.ui.large.circular.icon.basic.button(type='submit')
+                        //- i.pied.piper.alternate.large.icon
+                        |donate
                 
                 //- +health_club_info
                 if is_eric    
