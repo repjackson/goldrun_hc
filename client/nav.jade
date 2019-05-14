@@ -9,17 +9,18 @@ template(name='nav')
             else
                 unless is_frontdesk
                     a.header.icon.set_model.item(href='/' class="{{isActivePath '/'}}")
-                        //- i.grey.home.large.icon
-                        +i name='home-page'    
+                        i.grey.home.large.icon
+                        //- +i name='home-page'    
                 if is_staff
-                    a.icon.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
-                        +i name='employee-card'
-                        .mobile.hidden staff
+                    a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
+                        //- +i name='employee-card'
+                        i.shield.grey.icon
+                        .mobile.hidden Staff
                 if is_staff
-                    a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
-                        //- i.large.grey.users.icon
-                        +i name='groups'
-                        .mobile.hidden users
+                    a.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
+                        i.grey.users.icon
+                        //- +i name='groups'
+                        .mobile.hidden Users
                 //- a.item.set_marketplace(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}")
                 //-     +i name='shop'
                 //- each bookmarked_models
@@ -27,16 +28,18 @@ template(name='nav')
                 //-         i.large.icon(class=icon)
                 //-         |#{title}
                 //- if is_frontdesk
-                a.icon.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
-                    //- i.large.grey.clinic.medical.icon
-                    +i name='treadmill'    
-                    .mobile.hidden health club
+                a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
+                    i.grey.clinic.medical.icon
+                    //- +i name='treadmill'    
+                    .mobile.hidden Health Club
             .right.menu
                 if currentUser
-                    a.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                        +i name='task'
-                    a.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
-                        +i name='note'
+                    a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
+                        //- +i name='task'
+                        i.task.icon
+                    a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
+                        //- +i name='note'
+                        i.note.icon
                     //- .item
                     //-     .ui.header(title='your karma') #{currentUser.karma}
                     unless logging_out
@@ -57,13 +60,15 @@ template(name='nav')
                         //-         +i name='user shield'
                         if is_dev
                             a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
-                                +i name='active directory'
+                                //- +i name='active directory'
+                                i.sitemap.icon
                         unless is_frontdesk
                             a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                                 if currentUser.image_id
                                     img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 else
-                                    +i name='user'
+                                    //- +i name='user'
+                                    i.user.icon
                                 //- | #{currentUser.username}
                     if logging_out
                         .item
@@ -146,8 +151,8 @@ template(name='footer')
     .ui.fluid.secondary.attached.segment.footer
         .ui.container.stackable.grid
             .eight.wide.column
-                if is_resident
-                    +ads
+                //- if is_resident
+                //-     +ads
                 //- form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                 //-     input(type='hidden', name='cmd', value='_s-xclick')
                 //-     input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
@@ -167,7 +172,7 @@ template(name='footer')
                 if is_eric
                     with currentUser
                         +role_switcher
-        .row
-            .ui.center.aligned.grey.header
-                i.copyright.outline.icon
-                |gold run online
+        //- .row
+        //-     .ui.center.aligned.grey.header
+        //-         i.copyright.outline.icon
+        //-         |Gold Run Online

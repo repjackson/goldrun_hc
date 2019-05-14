@@ -17,6 +17,10 @@ Router.onBeforeAction(force_loggedin, {
 
 Router.route '/reset_password/:token', -> @render 'reset_password'
 
+
+Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
+
+
 Router.route '/verify-email/:token', ->
     # onBeforeAction: ->
     console.log @

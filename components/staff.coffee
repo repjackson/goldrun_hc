@@ -3,7 +3,8 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'shift_change_request'
 
     Template.staff.onCreated ->
-        @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
+        # @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
+        @autorun => Meteor.subscribe 'users'
 
 
     Template.staff.helpers

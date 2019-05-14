@@ -18,17 +18,20 @@ template(name='profile')
                     //-     | #{user.tagline}
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
-                    if is_admin
-                        a.ui.circular.basic.icon.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                            +i name='settings'
+                    if is_staff
+                        a.ui.circular.basic.icon.large.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                            //- +i name='settings'
+                            i.cog.large.icon
                             //- | settings
                     else if is_current_user
-                        a.ui.circular.basic.icon.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                            +i name='settings'
+                        a.ui.circular.basic.icon.big.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                            //- +i name='settings'
+                            i.cog.icon
                             //- | settings
                     if is_current_user
-                        .ui.circular.basic.icon.button.logout(title='log out')
-                            +i name='logout-rounded'
+                        .ui.circular.basic.icon.big.button.logout(title='log out')
+                            //- +i name='logout-rounded'
+                            i.sign.out.icon
                             //- |log out
                         .ui.button.logout_other_clients
                             |logout other clients
@@ -53,7 +56,7 @@ template(name='profile')
                         +textarea_view key='notes' label='notes' icon='align-left' direct=true
                         each emails
                             .ui.circular.basic.label #{address}
-                    if is_admin
+                    if is_staff
                         .ui.profile_block.segment
                             .ui.grey.header 
                                 +i name='user shield'
@@ -65,31 +68,31 @@ template(name='profile')
                         
                         //- +user_tasks
 
-                .four.wide.column
-                    if user_is_resident
-                        if is_resident
-                            //- .ui.header karma
-                            //- .ui.header #{karma}
-                            +user_messages
-                            +user_transactions
-                            //- +received_karma
-                .four.wide.column
-                    if user_is_resident
-                        if is_resident
-                            +user_connections
+                //- .four.wide.column
+                    //- if user_is_resident
+                    //-     if is_resident
+                    //-         //- .ui.header karma
+                    //-         //- .ui.header #{karma}
+                    //-         +user_messages
+                    //-         +user_transactions
+                    //-         //- +received_karma
+                .six.wide.column
+                    //- if user_is_resident
+                    //-     if is_resident
+                    //-         +user_connections
                             //- +send_karma
                     if user_is_resident
-                        if is_staff
+                        +user_checkins
+                        +user_guests
+                        //- if is   _staff
                             //- +violations
-                            +user_checkins
-                            +user_guests
                             //- +user_card_replacements
                             //- +user_signatures
                         //- if is_resident
                         //-     +user_following
                         //-     +follow_user
     
-                .four.wide.column
+                .six.wide.column
                     if user_is_resident
                         if is_admin
                             +user_log
@@ -210,8 +213,9 @@ template(name='user_checkins')
     .ui.segment.profile_block
         .ui.grey.inline.center.aligned.header 
             +i name='internal'
-            |check ins
-        +checkin_button
+            |Health Club Check In's
+        if is_staff
+            +checkin_button
         .ui.list
             each healthclub_checkins
                 .item #{when}
@@ -222,8 +226,11 @@ template(name='user_guests')
     .ui.segment.profile_block
         .ui.grey.inline.center.aligned.header 
             +i name='badge'
-            |guests
+            |Guests
         +goto_model slug='guest'
+        +add_button model='guest'
+        //- .ui.circular.basic.button.add_guest
+        //-     |Add Guest
         .ui.link.large.list
             each guests
                 a.item(href="/m/guest/#{_id}/view")
@@ -236,10 +243,10 @@ template(name='user_guests')
 template(name='user_key')
     .ui.segment.profile_block
         .ui.grey.inline.center.aligned.header 
-            //- i.key.icon
-            +i name='key'
-            |key
-        if is_admin
+            i.key.icon
+            //- +i name='key'
+            |Key
+        if is_staff
             +goto_model slug='key'
         with key
             +boolean_view key='fowler' label='fowler' direct=true
@@ -272,9 +279,9 @@ template(name='user_key')
 template(name='user_unit')
     .ui.segment.profile_block
         .ui.grey.inline.center.aligned.header 
-            //- i.home.icon
-            +i name='interior'
-            |unit
+            i.home.icon
+            //- +i name='interior'
+            |Unit
         +goto_model slug='unit'
         with unit
             +number_view key='building_number' label='Building Number' direct=true
@@ -436,8 +443,8 @@ template(name='user_array_list')
 template(name='role_switcher')
     .ui.segment.profile_block
         .ui.grey.inline.center.aligned.header 
-            +i name='user-shield'
-            //- i.user.shield.blue.icon(title='role switcher')
+            //- +i name='user-shield'
+            i.shield.icon(title='role switcher')
             |#{username} role switcher
         //- if is_eric
         //-     +user_array_element_toggle key='roles' value='dev' user=currentUser

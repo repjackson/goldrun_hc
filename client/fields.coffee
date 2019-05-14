@@ -344,7 +344,7 @@ Template.boolean_edit.helpers
             parent = Template.parentData(5)
         # console.log parent
         # console.log @
-        if parent["#{@key}"] then 'blue' else 'basic'
+        if parent["#{@key}"] then 'black' else 'basic'
 
 
 Template.boolean_edit.events
@@ -633,12 +633,12 @@ Template.single_doc_edit.helpers
         if @direct
             if target["#{ref_field.key}"]
                 # console.log parent["#{ref_field.key}"]
-                if @ref_field is target["#{ref_field.key}"] then 'blue' else 'basic'
+                if @ref_field is target["#{ref_field.key}"] then 'black' else 'basic'
             else 'basic'
         else
             if parent["#{ref_field.key}"]
                 # console.log parent["#{ref_field.key}"]
-                if @slug is parent["#{ref_field.key}"] then 'blue' else 'basic'
+                if @slug is parent["#{ref_field.key}"] then 'black' else 'basic'
             else 'basic'
 
 
@@ -727,7 +727,7 @@ Template.multi_doc_edit.helpers
 
         if target["#{ref_field.key}"]
             # console.log target["#{ref_field.key}"]
-            if @slug in target["#{ref_field.key}"] then 'blue' else 'basic'
+            if @slug in target["#{ref_field.key}"] then 'black' else 'basic'
         else
             'basic'
 Template.multi_doc_edit.events
@@ -1096,7 +1096,7 @@ Template.multi_doc_input.events
         'click .clear': (e,t)->
             # Clears the canvas
             # console.log t
-            $(e.currentTarget).closest('.segment').transition('shake')
+            $(e.currentTarget).closest('.segment').transition('shake', 250)
 
             Template.instance().signaturePad.clear()
             # Returns true if canvas is empty, otherwise returns false

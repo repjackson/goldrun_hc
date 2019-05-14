@@ -23,14 +23,14 @@ template(name='user_edit')
                                 |delete user
                 .column
                     .ui.form
-                        if user_is_resident
+                        if user_is_resident_or_owner
                             if is_staff
-                                +text_edit key='first_name' label='first name' direct=true
-                                +text_edit key='last_name' label='last name' direct=true
-                                +text_edit key='address' label='address' direct=true
-                                +number_edit key='unit_number' label='unit #' direct=true
-                                +number_edit key='building_number' label='building #' direct=true
-                                +text_edit key='building_code' label='building code' direct=true
+                                +text_edit key='first_name' label='First Name' direct=true
+                                +text_edit key='last_name' label='Last Name' direct=true
+                                //- +text_edit key='address' label='Address' direct=true
+                                +number_edit key='unit_number' label='Unit #' direct=true
+                                +number_edit key='building_number' label='Building #' direct=true
+                                //- +text_edit key='building_code' label='Building Code' direct=true
                                 +date_edit key='start_date' label='start date' direct=true
                                 if user_is_owner
                                     +image_edit key='ownership_paperwork' label='ownership paperwork' direct=true
@@ -45,15 +45,15 @@ template(name='user_edit')
                                 +number_view key='unit_number' label='unit #' direct=true
                                 +number_view key='building_number' label='building #' direct=true
                                 +text_view key='building_code' label='building code' direct=true
-                                +date_view key='start_date' label='start date' direct=true
+                                +date_view key='start_date' label='Start Date' direct=true
                                 if user_is_owner
-                                    +image_view key='ownership_paperwork' label='ownership paperwork' direct=true
+                                    +image_view key='ownership_paperwork' label='Ownership Paperwork' direct=true
                                 if user_is_resident
-                                    +date_view key='expiration_date' label='expiration date' direct=true
-                                    +image_view key='lease_agreement_image' label='lease agreement image' direct=true
-                                +image_view key='member_guidelines_and_waiver' label='lease agreement image' direct=true
+                                    +date_view key='expiration_date' label='Expiration Date' direct=true
+                                    +image_view key='lease_agreement_image' label='Lease Agreement Image' direct=true
+                                +image_view key='member_guidelines_and_waiver' label='Lease Agreement Image' direct=true
                         //- +text_edit key='email' label='Email' direct=true
-                        +phone_edit key='phone' label='phone' direct=true
+                        +phone_edit key='phone' label='Phone' direct=true
                         //- +image_edit key='banner_image_id' label='Banner Image' direct=true
                         //- +text_edit key='tagline' label='tag line' direct=true
                         

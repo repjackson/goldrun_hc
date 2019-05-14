@@ -164,8 +164,8 @@ if Meteor.isServer
 
     Meteor.publish 'docs', (selected_tags, filter)->
         # user = Meteor.users.findOne @userId
-        console.log selected_tags
-        console.log filter
+        # console.log selected_tags
+        # console.log filter
         self = @
         match = {}
         if selected_tags.length > 0 then match.tags = $all: selected_tags

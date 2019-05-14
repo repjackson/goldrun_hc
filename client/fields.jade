@@ -66,8 +66,8 @@ template(name='color_icon_view')
 
 template(name='icon_view')
     if field_value
-        img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
-        //- i.icon(class=field_value)
+        i.icon(class=field_value)
+        //- img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
 
 template(name='i')
@@ -623,11 +623,15 @@ template(name='youtube_view')
 template(name='signature_edit')
     .ui.segment
         canvas(id="signature-pad" class="signature-pad" width='800' height='200')
-        .ui.huge.circular.basic.green.button.save(title='Save')
-            i.green.checkmark.icon
-            |save
-        .ui.large.icon.circular.basic.button.clear(title='Clear')
-            i.remove.icon
+        .ui.stackable.grid
+            .middle.aligned.row
+                .fourteen.wide.column
+                    .ui.huge.fluid.circular.basic.button.save(title='Save')
+                        i.checkmark.icon
+                        |Save
+                .two.wide.column
+                    .ui.large.icon.circular.basic.button.clear(title='Clear')
+                        i.remove.icon
 
 template(name='signature_view')
     .ui.small.header
@@ -635,9 +639,10 @@ template(name='signature_view')
             i.grey.icon(class=icon)
         | #{title}    
     img.ui.fluid.centered.rounded.image(src=field_value)
-    .ui.circular.basic.button.print_rules
-        i.download.icon
-        |download PDF
+    if is_admin
+        .ui.circular.basic.button.print_rules
+            i.download.icon
+            |download PDF
     //- .ui.icon.button.print_guest
     //-     i.download.icon
     //-     |Download Guest PDF
@@ -901,30 +906,31 @@ template(name='multi_user_edit')
 
 
 template(name='multi_doc_input')
-    .ui.form
-        .ui.small.inline.grey.header
-            if icon
-                i.grey.icon(class=icon)
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}
-            input#multi_doc_select_input(type='text' placeholder="lookup #{ref_model}..." autocomplete="off")
-            each selections
-                .ui.large.label
-                    |#{first_name} #{last_name}
-        if doc_results
-            .ui.attached.segment
-                .ui.middle.aligned.selection.animated.list
-                    each doc_results
-                        .select_doc.item
-                            h3.ui.header
-                                //- img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-                                strong #{first_name} #{last_name}
+    //- .ui.form
+        //- .ui.small.inline.grey.header
+        //-     if icon
+        //-         i.grey.icon(class=icon)
+        //-     if title
+        //-         |#{title}
+        //-     else if label
+        //-         |#{label}
+        //-     else if key
+        //-         |#{key}
+        //-     else
+        //-         |#{this}
+    .ui.big.input
+        input#multi_doc_select_input(type='text' placeholder="Lookup #{ref_model}..." autocomplete="off")
+    each selections
+        .ui.large.label
+            |#{first_name} #{last_name}
+    if doc_results
+        .ui.attached.segment
+            .ui.middle.aligned.selection.animated.list
+                each doc_results
+                    .select_doc.item
+                        h3.ui.header
+                            //- img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                            strong #{first_name} #{last_name}
         //- +clear_value                
         //- .ui.list
         //-     each field_value

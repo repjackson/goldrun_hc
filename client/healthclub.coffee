@@ -47,46 +47,46 @@ Template.goldrun.helpers
 
 Template.checkin_button.events
     'click .checkin': (e,t)->
-        $(e.currentTarget).closest('.button').transition('fade up')
-        Meteor.setTimeout =>
-            # Docs.insert
-            #     model:'log_event'
-            #     object_id:@_id
-            #     body: "#{@username} checked in."
-            checkin_document = Docs.insert
-                model:'healthclub_checkin'
-                object_id:@_id
-                resident_username:@username
-                body: "#{@username} checked in."
-            Session.set 'username_query',null
-            Session.set 'checkin_document',checkin_document
-            # Session.set 'checking_in',false
-            $('.username_search').val('')
-            Session.set 'displaying_profile',@_id
-        , 750
+        # $(e.currentTarget).closest('.button').transition('fade up')
+        # Meteor.setTimeout =>
+        # Docs.insert
+        #     model:'log_event'
+        #     object_id:@_id
+        #     body: "#{@username} checked in."
+        checkin_document = Docs.insert
+            model:'healthclub_checkin'
+            object_id:@_id
+            resident_username:@username
+            body: "#{@username} checked in."
+        Session.set 'username_query',null
+        Session.set 'checkin_document',checkin_document
+        # Session.set 'checking_in',false
+        $('.username_search').val('')
+        Session.set 'displaying_profile',@_id
+        # , 750
 
     'click .checkout': (e,t)->
-        $(e.currentTarget).closest('.card').transition('fade up')
-        Meteor.setTimeout =>
-            Meteor.users.update @_id,
-                $set:healthclub_checkedin:false
-            Docs.insert
-                model:'log_event'
-                parent_id:@_id
-                object_id:@_id
-                body: "#{@username} checked out."
-            $('body').toast({
-                title: "#{@username} checked out."
-                class: 'success'
-                transition:
-                    showMethod   : 'zoom',
-                    showDuration : 1000,
-                    hideMethod   : 'fade',
-                    hideDuration : 1000
-            })
-            Session.set 'username_query',null
-            $('.username_search').val('')
-        , 1000
+        # $(e.currentTarget).closest('.card').transition('fade up')
+        # Meteor.setTimeout =>
+        Meteor.users.update @_id,
+            $set:healthclub_checkedin:false
+        Docs.insert
+            model:'log_event'
+            parent_id:@_id
+            object_id:@_id
+            body: "#{@username} checked out."
+        $('body').toast({
+            title: "#{@username} checked out."
+            class: 'success'
+            transition:
+                showMethod   : 'zoom',
+                showDuration : 100,
+                hideMethod   : 'fade',
+                hideDuration : 100
+        })
+        Session.set 'username_query',null
+        $('.username_search').val('')
+        # , 100
 
 
 Template.goldrun.events
@@ -201,28 +201,28 @@ Template.checkin_card.helpers
 
 Template.checkin_card.events
     'click .cancel_checkin': (e,t)->
-        $(e.currentTarget).closest('.segment').transition('fade right',500)
+        $(e.currentTarget).closest('.segment').transition('fade right',100)
         Meteor.setTimeout =>
             Session.set 'displaying_profile', null
             checkin_doc = Docs.findOne Session.get 'checkin_document'
             Docs.remove checkin_doc._id
             checkin_doc = Session.set 'checkin_document',null
-        , 1000
+        , 100
 
     'click .complete_checkin': (e,t)->
-        $(e.currentTarget).closest('.segment').transition('fade left',500)
-        Meteor.setTimeout =>
-            Session.set 'displaying_profile', null
-            $('body').toast({
-                title: "#{@username} checked in."
-                class: 'success'
-                transition:
-                  showMethod   : 'zoom',
-                  showDuration : 1000,
-                  hideMethod   : 'fade',
-                  hideDuration : 1000
-                })
-        , 1000
+        # $(e.currentTarget).closest('.segment').transition('fade left',100)
+        # Meteor.setTimeout =>
+        Session.set 'displaying_profile', null
+        $('body').toast({
+            title: "#{@username} checked in."
+            class: 'success'
+            transition:
+              showMethod   : 'zoom',
+              showDuration : 100,
+              hideMethod   : 'fade',
+              hideDuration : 100
+            })
+        # , 100
         Meteor.users.update @_id,
             $set:healthclub_checkedin:true
         Docs.insert
@@ -237,44 +237,29 @@ Template.checkin_card.events
             $pull:guest_ids:@_id
 
     'click .add_guest': ->
-        # console.log @
+        console.log @
         new_guest_id =
             Docs.insert
                 model:'guest'
                 resident_id: @_id
-        Session.set 'new_guest_id', new_guest_id
-        $('.ui.fullscreen.modal').modal({
-            closable: false
-            onDeny: ->
-                # window.alert('Wait not yet!')
-                # return false;
-                Docs.remove new_guest_id
-            onApprove: ->
-                # window.alert('Approved!')
-          })
-          .modal('show')
+                resident: @username
+        Session.set 'displaying_profile', null
+        #
+        Router.go "/add_guest/#{new_guest_id}"
+        #
+        # Session.set 'new_guest_id', new_guest_id
+        # $('.ui.fullscreen.modal').modal({
+        #     closable: false
+        #     onDeny: ->
+        #         # window.alert('Wait not yet!')
+        #         # return false;
+        #         Docs.remove new_guest_id
+        #     onApprove: ->
+        #         # window.alert('Approved!')
+        #   })
+        #   .modal('show')
 
 
-Template.guest_modal_content.onCreated ->
-    @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
-Template.guest_modal_content.helpers
-    new_guest_doc: -> Docs.findOne Session.get('new_guest_id')
-
-Template.guest_modal_content.events
-    'click .submit_new_guest': ->
-        console.log @
-
-    'click .cancel_new_guest': ->
-        Docs.remove Session.get('new_guest_id')
-        $('body').toast({
-            title: "Adding guest canceled."
-            class: 'success'
-            transition:
-                showMethod   : 'zoom',
-                showDuration : 1000,
-                hideMethod   : 'fade',
-                hideDuration : 1000
-        })
 
 
 Template.checkin_card.onCreated ->
@@ -284,11 +269,13 @@ Template.checkin_card.onCreated ->
 Template.checkin_guest.onCreated ->
     @autorun => Meteor.subscribe 'guests'
 Template.checkin_guest.helpers
-    checking_in_guest: -> Session.get 'checking_in_guest'
+    checking_in_guest: -> Docs.findOne Router.current().params.new_guest_id
     guests: ->
         Meteor.users.find
             roles:$in:['guest']
 
 Template.checkin_guest.events
     'click .checkin_guest': ->
-        Session.set('checking_in_guest', !Session.get('checking_in_guest'))
+        new_guest_id = Docs.insert model:'guest'
+        Router.go "/add_guest/#{new_guest_id}"
+        # Session.set('checking_in_guest', !Session.get('checking_in_guest'))

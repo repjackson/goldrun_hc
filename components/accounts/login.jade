@@ -3,7 +3,7 @@ template(name='login')
         .centered.row
             .ten.wide.column
                 .ui.center.aligned.basic.segment
-                    .ui.header gold run online login
+                    .ui.header Gold Run Online Login
                     //- i.massive.icons
                     //-     i.home.grey.icon
                     //-     i.corner.right.chevron.icon
@@ -12,17 +12,17 @@ template(name='login')
                 .ui.fluid.input(class=login_class)
                     .ui.inline.grey.small.header 
                         i.user.grey.icon
-                        |username
+                        |Username
                     input.username(type='text')
                 .ui.fluid.input(class=login_class)
                     .ui.inline.grey.small.header 
                         i.lock.grey.icon
-                        | password
+                        | Password
                     input.password(type='password')
                 //- if username
                 if logging_in
                     .ui.fluid.large.circular.basic.button.enter(title="Login #{username}" class=enter_class)
-                        |login #{username}
+                        | Login #{username}
                         i.right.chevron.icon
                 else
                     if username
@@ -30,11 +30,11 @@ template(name='login')
                             .ui.small.grey.header no '#{username}' user
                             a.ui.circular.grey.button(href='/register')
                                 i.user.plus.icon
-                                |register
+                                | Register
                 .ui.center.aligned.basic.segment    
                     a.ui.circular.large.basic.button(href='/forgot_password')
                         i.refresh.icon
-                        |forgot password
+                        |Forgot Password
                     a.ui.circular.large.basic.button(href='/register') 
                         i.user.plus.icon
-                        |register
+                        |Register

@@ -196,23 +196,6 @@ if Meteor.isClient
             #     $inc:karma:-1
 
 
-    Template.rules_and_regs_check.onCreated ->
-        @autorun => Meteor.subscribe 'rules_signed_username', @data.username
-    Template.rules_and_regs_check.helpers
-        rules_signed: ->
-            Docs.findOne
-                model:'rules_and_regs_signing'
-                resident:@username
-
-
-    Template.rules_and_regs_check.events
-        'click .sign_rules': ->
-            new_id = Docs.insert
-                model:'rules_and_regs_signing'
-                resident: @username
-
-            Router.go "/sign_rules/#{new_id}"
-            Session.set 'displaying_profile',null
 
 
     # Template.single_person_edit.onCreated ->
