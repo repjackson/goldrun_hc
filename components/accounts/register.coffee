@@ -26,7 +26,7 @@ if Meteor.isClient
             Meteor.call 'create_user', options, (err,res)->
                 console.log res
                 Meteor.users.update res,
-                    $set: roles: []
+                    $set: roles: ['user']
                 Meteor.loginWithPassword username, password, (err,res)=>
                     if err
                         console.log err

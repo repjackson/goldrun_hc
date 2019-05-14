@@ -20,8 +20,8 @@ head
 template(name='layout')
     //- img.ui.fluid.image.banner_image(src="{{c.url 'stars_big' width=1000 height=500 crop='crop'}}")
     //- img.ui.fluid.image(src="{{c.url 'stars_big' width=2000}}")
-    if currentUser
-        +nav
+    +nav
+    //- if currentUser
     .ui.stackable.padded.grid
         .centered.row
             .sixteen.wide.column

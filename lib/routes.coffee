@@ -80,7 +80,7 @@ Router.route '/login', -> @render 'login'
 
 # Router.route '/', -> @redirect '/m/model'
 # Router.route '/', -> @redirect "/user/#{Meteor.user().username}"
-# Router.route '/', -> @render 'front'
+Router.route '/home', -> @render 'home'
 Router.route '/', (->
     @layout 'layout'
     @render 'front'
