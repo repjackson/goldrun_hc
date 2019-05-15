@@ -109,7 +109,7 @@ template(name='photo_doc_view')
         
 template(name='model_scroller')
     .ui.smoothed.segment
-        .ui.inline.header 
+        a.ui.inline.header.go_to_model(href="/m/#{model}")
             if icon 
                 +i name=icon
             |#{header}

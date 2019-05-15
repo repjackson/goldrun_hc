@@ -39,18 +39,18 @@ template(name='goldrun')
                                         //- .ui.center.aligned.header 
                                             //- |please show card to staff and ask to add profile
                                     //- +add_resident
-                if is_frontdesk
-                    .row
-                        .sixteen.wide.column
-                            h1.ui.center.aligned.header
-                                |#{checkedin_members.count} checked in members
-                    .ui.centered.cards
-                        each checkedin_members
-                            .card
-                                .content
-                                    //- img.ui.small.circular.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                    .ui.big.header #{first_name} #{last_name_initial}
-                                    +checkin_button
+                //- if is_frontdesk
+                //-     .row
+                //-         .sixteen.wide.column
+                //-             h1.ui.center.aligned.header
+                //-                 |#{checkedin_members.count} checked in members
+                //-     .ui.centered.cards
+                //-         each checkedin_members
+                //-             .card
+                //-                 .content
+                //-                     //- img.ui.small.circular.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                //-                     .ui.big.header #{first_name} #{last_name_initial}
+                //-                     +checkin_button
                     //- .three.column.row
                     //-     .column
                     //-         .ui.header

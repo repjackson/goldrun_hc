@@ -60,6 +60,12 @@ if Meteor.isClient
 
 
     Template.model_scroller.events
+        'click .go_to_model': ->
+            # console.log @
+            Session.set 'loading', true
+            Meteor.call 'set_facets', @model, ->
+                Session.set 'loading', false
+            # Router.go "/m/#{@model}"
         'click .go_left': ->
             current_skip = Template.instance().skip.get()
             unless current_skip is 0
