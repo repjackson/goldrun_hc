@@ -46,6 +46,14 @@ if Meteor.isClient
                 Docs.remove @_id
                 Router.go "/m/#{@model}"
 
+    Template.model_doc_view.events
+        'click .back_to_model': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', @model, ->
+                Session.set 'loading', false
+            Router.go "/m/#{@model}"
+
+
 if Meteor.isServer
     Meteor.publish 'upvoters', (doc_id)->
         doc = Docs.findOne doc_id

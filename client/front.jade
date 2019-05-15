@@ -1,12 +1,12 @@
 template(name='front')
-    .ui.padded.grid
+    .ui.padded.stackable.grid
         .row
             .sixteen.wide.column
                 .ui.large.center.aligned.header 
                     +i name='apartment'
                     |Gold Run Community
-        .row
-            .eight.wide.column
+        .three.column.row
+            .column
                 .ui.smoothed.segment
                     .ui.header 
                         +i name='treadmill'
@@ -24,29 +24,82 @@ template(name='front')
                         |Pool Operational
                     .ui.small.grey.header
                         |Last recorded temp: 80.3
-            .eight.wide.column
-                +model_scroller model='photo' header='Photos'
-        .eight.wide.column
-            +model_scroller model='marketplace' header='Marketplace'
-        .eight.wide.column
-            +model_scroller model='gr_post' header='Posts'
+            .column
+                +model_scroller model='photo' header='Photos' icon='image'
+            .column
+                +model_scroller model='marketplace' header='Marketplace' icon='shop'
+        .three.column.row    
+            .column
+                +model_scroller model='gr_post' header='Posts' icon='post'
+            .column
+                +model_scroller model='group' header='Groups' icon='groups'
+            .column
+                +model_scroller model='company' header='Businesses' icon='business'
+        .four.column.row    
+            .column
+                +model_scroller model='free' header='Free' icon='handshake'
+            .column
+                +model_scroller model='library' header='Library' icon='library'
+            .column
+                +model_scroller model='ad' header='Resident Ads' icon='presentation'
+            .column
+                +model_scroller model='for_rent' header='For Rent' icon='business'
 
 
 template(name='gr_post_doc_view')
     +image_view key='image' direct=true
     +html_view key='content' direct=true
-    each tags
-        .ui.label #{this}
+    +array_view key='tags' direct=true
+
+
+
+template(name='company_doc_view')
+    +image_view key='logo' direct=true
+    +html_view key='content' direct=true
+    +array_view key='tags' direct=true
+
+
+template(name='group_doc_view')
+    +text_view key='title' direct=true
+    +image_view key='image' direct=true
+    +html_view key='content' direct=true
+    +array_view key='tags' direct=true
+
+
+template(name='ad_doc_view')
+    +image_view key='image' direct=true
+    +html_view key='content' direct=true
+    +array_view key='tags' direct=true
+
+
+template(name='library_doc_view')
+    +image_view key='image' direct=true
+    +html_view key='content' direct=true
+    +array_view key='tags' direct=true
+
+
+template(name='for_rent_doc_view')
+    +image_view key='image' direct=true
+    +html_view key='content' direct=true
+    +array_view key='tags' direct=true
+
+template(name='free_doc_view')
+    +image_view key='image' direct=true
+    +html_view key='content' direct=true
+    +array_view key='tags' direct=true
+
+
+template(name='business_doc_view')
+    +image_view key='image' direct=true
+    +html_view key='content' direct=true
+    +array_view key='tags' direct=true
 
 
 
 template(name='marketplace_doc_view')
-    .ui.header hi
     +image_view key='picture' direct=true
     +html_view key='content' direct=true
-    each tags
-        .ui.label #{this}
-
+    +array_view key='tags' direct=true
 
 
 
@@ -56,12 +109,17 @@ template(name='photo_doc_view')
         
 template(name='model_scroller')
     .ui.smoothed.segment
-        .ui.inline.header #{header}
+        .ui.inline.header 
+            if icon 
+                +i name=icon
+            |#{header}
         .ui.circular.icon.basic.button.go_left
             i.left.chevron.icon
         .ui.circular.icon.basic.button.go_right
             i.right.chevron.icon
         with current_doc
             +Template.dynamic template=model_doc_template
+            //- if currentUser
+            +view_button
                 
     

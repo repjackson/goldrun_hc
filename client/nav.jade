@@ -29,7 +29,7 @@ template(name='nav')
                 //-     a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}" title=title)
                 //-         i.large.icon(class=icon)
                 //-         |#{title}
-                if is_frontdesk
+                if is_staff
                     a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
                         i.grey.clinic.medical.icon
                         //- +i name='treadmill'    
@@ -158,16 +158,16 @@ template(name='footer')
             
                 if is_resident
                     +ads
-                form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                    input(type='hidden', name='cmd', value='_s-xclick')
-                    input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                    <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
-                    // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                    //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                    img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                    button.ui.large.circular.icon.basic.button(type='submit')
-                        //- i.pied.piper.alternate.large.icon
-                        |donate
+                    form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                        input(type='hidden', name='cmd', value='_s-xclick')
+                        input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                        <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
+                        // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                        //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                        button.ui.large.circular.icon.basic.button(type='submit')
+                            //- i.pied.piper.alternate.large.icon
+                            |donate
                 
                 //- +health_club_info
                 if is_eric    

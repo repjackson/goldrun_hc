@@ -2,8 +2,8 @@ if Meteor.isClient
     Template.front.onCreated ->
         # @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'marketplace'
-        @autorun => Meteor.subscribe 'model_docs', 'gr_post'
+        # @autorun => Meteor.subscribe 'model_docs', 'marketplace'
+        # @autorun => Meteor.subscribe 'model_docs', 'gr_post'
         # @autorun => Meteor.subscribe 'model_docs', 'gr_post'
         # @autorun => Meteor.subscribe 'model_fields_from_child_id', Router.current().params.doc_id
 
@@ -42,13 +42,13 @@ if Meteor.isClient
     Template.model_scroller.helpers
         user_results: -> Template.instance().user_results.get()
         current_doc: ->
-            console.log @model
+            # console.log @model
             Docs.findOne {
                 model:@model
             }, skip: Template.instance().skip.get()
             # }
         model_doc_template: ->
-            console.log "#{@model}_doc_view"
+            # console.log "#{@model}_doc_view"
             "#{@model}_doc_view"
 
     Template.model_scroller.events
@@ -66,8 +66,8 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'model_docs_with_skip', (model, skip)->
-        console.log model
-        console.log skip
+        # console.log model
+        # console.log skip
         Docs.find {
             model:model
         }

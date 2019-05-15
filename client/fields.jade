@@ -110,11 +110,11 @@ template(name='image_view')
             i.grey.icon(class=icon)
         if title
             |#{title}
-        else if key
-            |#{key}
-        else
-            |#{this}
-        img.ui.medium.centered.rounded.image(src="{{c.url field_value gravity='face' crop='crop'}}")
+        //- else if key
+        //-     |#{key}
+        //- else
+        //-     |#{this}
+        img.ui.large.centered.rounded.image(src="{{c.url field_value gravity='face' crop='crop'}}")
     //- +call_visual
 
 template(name='image_edit')
@@ -133,7 +133,7 @@ template(name='image_edit')
         .field
             if field_value
                 //- label Image
-                img.ui.medium.centered.rounded.image(src="{{c.url field_value height=500 gravity='face' crop='fill'}}")
+                img.ui.fluid.centered.rounded.image(src="{{c.url field_value height=500 gravity='face' crop='fill'}}")
                 a#remove_photo.ui.right.corner.link.label
                     i.remove.red.link.icon
             else
