@@ -113,9 +113,11 @@ template(name='model_scroller')
             if icon 
                 +i name=icon
             |#{header}
-        .ui.circular.icon.basic.button.go_left
+        //- if can_go_left            
+        .ui.circular.icon.basic.button.go_left(class="{{#unless can_go_left}}disabled{{/unless}}")
             i.left.chevron.icon
-        .ui.circular.icon.basic.button.go_right
+        //- if can_go_right
+        .ui.circular.icon.basic.button.go_right(class="{{#unless can_go_right}}disabled{{/unless}}")
             i.right.chevron.icon
         with current_doc
             +Template.dynamic template=model_doc_template

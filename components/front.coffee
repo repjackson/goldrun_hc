@@ -51,6 +51,14 @@ if Meteor.isClient
             # console.log "#{@model}_doc_view"
             "#{@model}_doc_view"
 
+        can_go_left: ->
+            Template.instance().skip.get() > 0
+        can_go_right: ->
+            count = Docs.find(model:@model).count()
+            # console.log count
+            Template.instance().skip.get() < count-1
+
+
     Template.model_scroller.events
         'click .go_left': ->
             current_skip = Template.instance().skip.get()
