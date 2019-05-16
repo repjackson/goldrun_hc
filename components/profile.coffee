@@ -3,6 +3,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
         @autorun -> Meteor.subscribe 'user_models', Router.current().params.username
 
+
     Template.user_section.helpers
         user_section_template: ->
             "user_#{Router.current().params.group}"
@@ -45,6 +46,15 @@ if Meteor.isClient
         'click .logout': ->
             Meteor.logout()
             Router.go '/login'
+
+        'click .generate_barcode': ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            if current_user.healthclub_code
+                JsBarcode("#barcode", current_user.healthclub_code);
+            else
+                alert 'No healthclub code'
+
+
 
 
     Template.user_array_element_toggle.helpers

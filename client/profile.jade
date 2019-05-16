@@ -50,6 +50,7 @@ template(name='profile')
                             //- if is_staff
                             +number_view key='unit_number' label='unit #' direct=true
                             +number_view key='building_number' label='building #' direct=true
+                            +number_view key='healthclub_code' label='healthclub_code' direct=true
                             +text_view key='building_code' label='building code' direct=true
                             +date_view key='start_date' label='start date' direct=true
                             +date_view key='expiration_date' label='expiration date' direct=true
@@ -69,6 +70,10 @@ template(name='profile')
                         //- +user_tasks
 
                 .six.wide.column
+                    .ui.circular.basic.button.generate_barcode
+                        i.barcode.icon
+                        |Generate Barcode
+                    svg#barcode
                     if user_is_resident
                         if is_resident
                             //- .ui.header karma

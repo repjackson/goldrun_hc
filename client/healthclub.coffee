@@ -1,11 +1,11 @@
-Template.goldrun.onCreated ->
+Template.healthclub.onCreated ->
     @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
     # @autorun => Meteor.subscribe 'type', 'field'
     # @autorun => Meteor.subscribe 'model_docs', 'log_event'
     @autorun => Meteor.subscribe 'users'
 
 
-Template.goldrun.onRendered ->
+Template.healthclub.onRendered ->
     # @autorun =>
     #     if @subscriptionsReady()
     #         Meteor.setTimeout ->
@@ -20,7 +20,7 @@ Template.goldrun.onRendered ->
     , 3000
 
 
-Template.goldrun.helpers
+Template.healthclub.helpers
     selected_person: ->
         Meteor.users.findOne Session.get('selected_user_id')
 
@@ -38,6 +38,9 @@ Template.goldrun.helpers
 
     checking_in: -> Session.get('checking_in')
     is_query: -> Session.get('username_query')
+
+
+
 
     events: ->
         Docs.find {
@@ -89,7 +92,7 @@ Template.checkin_button.events
         # , 100
 
 
-Template.goldrun.events
+Template.healthclub.events
     'click .sign_waiver': (e,t)->
         # console.log @
         receipt_id = Docs.insert
@@ -111,6 +114,13 @@ Template.goldrun.events
                 Session.set 'username_query',username_query
         else
             Session.set 'username_query',username_query
+
+    'input .barcode_entry': _.debounce((e, t)->
+        barcode_entry = $('.barcode_entry').val()
+        alert barcode_entry
+    , 500)
+
+
 
     'click .clear_results': ->
         Session.set 'username_query',null

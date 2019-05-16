@@ -66,7 +66,7 @@ Router.route '/add_resident', (->
 Router.route '/user/:username', -> @render 'profile'
 Router.route '/forgot_password', -> @render 'forgot_password'
 
-Router.route '/checkin', -> @render 'goldrun'
+Router.route '/checkin', -> @render 'healthclub'
 Router.route '/staff', -> @render 'staff'
 Router.route '/frontdesk', -> @render 'frontdesk'
 Router.route '/user/:username/edit', -> @render 'user_edit'

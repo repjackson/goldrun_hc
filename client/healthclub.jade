@@ -1,11 +1,14 @@
-template(name='goldrun')
+template(name='healthclub')
     //- img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=500 crop='crop'}}")
     .ui.padded.stackable.grid
         .sixteen.wide.column
             .ui.header 
                 |Health Club Check In
             .ui.left.icon.massive.fluid.input
-                input.username_search(type='text' placeholder='Lookup resident name...')
+                input.barcode_entry(type='text' placeholder='Barcode lookup...' autofocus)
+                i.qrcode.icon
+            .ui.left.icon.massive.fluid.input
+                input.username_search(type='text' placeholder='Manual resident name lookup...')
                 if is_query
                     i.remove.link.icon.clear_results
                 else 

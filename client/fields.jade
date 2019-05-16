@@ -97,11 +97,13 @@ template(name='link_edit')
 
 
 template(name='link_view')
-    .ui.small.header 
-        if icon
-            i.grey.icon(class=icon)
-        |#{title}
-    a(href=field_value target='_window') #{field_value}
+    if field_value
+        div
+        .ui.small.inline.header 
+            if icon
+                i.grey.icon(class=icon)
+            |#{title}
+        a(href=field_value target='_window') #{field_value}
 
 
 template(name='image_view')
