@@ -21,7 +21,8 @@ template(name='delta')
                         // // each sessions
                         // //     .ui.icon.basic.button.select_session(class=session_selector_class title='select session')
                         // //         i.play.icon
-                                
+                        .ui.basic.segment
+                            |#{description}
                         if current_delta
                             if is_dev
                                 .ui.icon.circular.basic.large.button.print_delta(title='Print Session Doc')
@@ -48,33 +49,33 @@ template(name='facet')
     if filtering_res
         div
         //- .ui.hidden.divider
-        //- .ui.styled.accordion
-        //-     .active.title
-        .ui.grey.inline.header 
-            if icon
-                //- i.icon(class=icon)
-                +i name=icon            
-            if title
-                |#{title}
-            else 
-                |#{key}
-            //- i.dropdown.icon
-            //- .active.content
-            if is_admin
-                .ui.icon.small.transparent.input
-                    i.search.icon
-                    input.add_filter(type='text')
-                //- div
-        each filtering_res
-            if name
-                .selector.ui.circular.large.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    strong #{name}
-                    if is_admin
-                        small #{cal_count} #{count}
-            else
-                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-                    strong [null]
-                    //- small #{cal_count}
+        .ui.styled.accordion
+            .active.title
+                .ui.grey.small.inline.header 
+                    if icon
+                        //- i.icon(class=icon)
+                        +i name=icon            
+                    if title
+                        |#{title}
+                    else 
+                        |#{key}
+                i.dropdown.icon
+            .active.content
+                if is_admin
+                    .ui.icon.small.transparent.input
+                        i.search.icon
+                        input.add_filter(type='text')
+                    //- div
+                each filtering_res
+                    if name
+                        .selector.ui.circular.compact.button.toggle_selection(class=toggle_value_class title=count)
+                            strong #{name}
+                            if is_admin
+                                small #{cal_count} #{count}
+                    else
+                        .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                            strong [null]
+                            //- small #{cal_count}
 
 template(name='toggle_delta_config')
     if boolean_true

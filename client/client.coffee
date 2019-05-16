@@ -107,6 +107,10 @@ Template.registerHelper 'is_resident', () ->
     if Meteor.user() and Meteor.user().roles
         if 'resident' in Meteor.user().roles then true else false
 
+Template.registerHelper 'is_resident_or_user', () ->
+    if Meteor.user() and Meteor.user().roles
+        if _.intersection(Meteor.user().roles, ['resident','user']) then true else false
+
 Template.registerHelper 'user_is_resident', () -> if @roles and 'resident' in @roles then true else false
 Template.registerHelper 'user_is_owner', () -> if @roles and 'owner' in @roles then true else false
 Template.registerHelper 'user_is_staff', () -> if @roles and 'staff' in @roles then true else false

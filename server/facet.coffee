@@ -97,7 +97,7 @@ Meteor.methods
         modifier =
             {
                 fields:_id:1
-                limit:3
+                limit:10
                 sort:_timestamp:-1
             }
 

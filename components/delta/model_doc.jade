@@ -16,7 +16,10 @@ template(name='model_doc_edit')
                     each edit_fields
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}
-
+            if watson 
+                .row
+                    .sixteen.wide.column
+                        +watson_view
 
 template(name='model_doc_view')
     with current_doc
@@ -85,8 +88,8 @@ template(name='model_doc_view')
                                     +Template.dynamic template=view_template 
                         div
                         +comments
-                        //- if watson
-                        //-     +watson_view
+                        if watson
+                            +watson_view
 
 
 template(name='karma_transaction')

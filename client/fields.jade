@@ -114,7 +114,7 @@ template(name='image_view')
         //-     |#{key}
         //- else
         //-     |#{this}
-        img.ui.large.centered.rounded.image(src="{{c.url field_value gravity='face' crop='crop'}}")
+        img.ui.centered.rounded.image(src="{{c.url field_value gravity='face' crop='fit'}}")
     //- +call_visual
 
 template(name='image_edit')
@@ -209,8 +209,8 @@ template(name='html_edit')
         +call_watson mode='html'
     div
     //- +tone mode='html'
-    //- if watson
-    //-     +watson_view
+    if watson
+        +watson_view
         
         
 template(name='html_view')
@@ -695,14 +695,15 @@ template(name='boolean_view')
         i.large.cancel.icon
 
 template(name='single_doc_view')
-    if icon
-        i.grey.icon(class=icon)
-    .ui.header(title=key)
-        |#{title}
-    .ui.label
+    if field_value
         if icon
             i.grey.icon(class=icon)
-        |#{field_value}
+        .ui.header(title=key)
+            |#{title}
+        .ui.label
+            if icon
+                i.grey.icon(class=icon)
+            |#{field_value}
 
 
 template(name='single_doc_edit')
@@ -710,7 +711,7 @@ template(name='single_doc_edit')
     .ui.small.inline.grey.header(title=key) 
         if icon
             i.grey.icon(class=icon)
-        |#{label}
+        |#{label} #{title}
     each choices
         .ui.small.circular.button.select_choice(class=choice_class)
             if icon

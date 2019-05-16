@@ -5,7 +5,7 @@ template(name='front')
                 .ui.large.center.aligned.header 
                     +i name='apartment'
                     |Gold Run Community
-        .three.column.row
+        .four.column.row
             .column
                 .ui.smoothed.segment
                     .ui.header 
@@ -25,10 +25,14 @@ template(name='front')
                     .ui.small.grey.header
                         |Last recorded temp: 80.3
             .column
+                +model_scroller model='event' header='Events' icon='calendar'
+            .column
                 +model_scroller model='photo' header='Photos' icon='image'
             .column
                 +model_scroller model='marketplace' header='Marketplace' icon='shop'
-        .three.column.row    
+        .four.column.row    
+            .column
+                +model_scroller model='free' header='Free' icon='handshake'
             .column
                 +model_scroller model='gr_post' header='Posts' icon='post'
             .column
