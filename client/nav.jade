@@ -155,8 +155,7 @@ template(name='footer')
         .ui.container.stackable.grid
             .eight.wide.column
                 //- +health_club_info
-            
-                if is_resident_or_user
+                if is_user
                     +ads
                     form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                         input(type='hidden', name='cmd', value='_s-xclick')

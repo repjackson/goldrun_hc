@@ -4,6 +4,9 @@ template(name='healthclub')
         .sixteen.wide.column
             .ui.header 
                 |Health Club Check In
+            //- .ui.inline.header Technology provided by
+            //- img.ui.small.inline.image(src="{{c.url 'skynet'}}")
+
             .ui.left.icon.massive.fluid.input
                 input.barcode_entry(type='text' placeholder='Barcode lookup...' autofocus)
                 i.qrcode.icon

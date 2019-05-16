@@ -113,6 +113,9 @@ Template.healthclub.events
             else
                 Session.set 'username_query',username_query
         else
+            audio = new Audio('wargames.wav');
+            audio.play();
+            console.log 'hi'
             Session.set 'username_query',username_query
 
     'input .barcode_entry': _.debounce((e, t)->
@@ -121,7 +124,8 @@ Template.healthclub.events
         Meteor.call 'lookup_user_by_code', barcode_entry, (err,res)->
             console.log res
             Session.set 'displaying_profile',res[0]._id
-
+            audio = new Audio('cantdo.mp3');
+            audio.play();
     , 500)
 
 
