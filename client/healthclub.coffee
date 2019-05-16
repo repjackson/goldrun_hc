@@ -116,8 +116,12 @@ Template.healthclub.events
             Session.set 'username_query',username_query
 
     'input .barcode_entry': _.debounce((e, t)->
-        barcode_entry = $('.barcode_entry').val()
-        alert barcode_entry
+        barcode_entry = parseInt $('.barcode_entry').val()
+        # alert barcode_entry
+        Meteor.call 'lookup_user_by_code', barcode_entry, (err,res)->
+            console.log res
+            Session.set 'displaying_profile',res[0]._id
+
     , 500)
 
 
