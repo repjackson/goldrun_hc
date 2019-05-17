@@ -19,7 +19,7 @@ template(name='comments')
 
 template(name='goto_model')
     if is_admin
-        a.ui.circular.icon.basic.button.goto_model(href="/m/#{slug}" title="goto #{slug}")
+        a.ui.icon.button.goto_model(href="/m/#{slug}" title="goto #{slug}")
             //- i.external.icon
             +ismall name='external-link'
 
@@ -74,11 +74,11 @@ template(name='view_full_button')
 template(name='user_status')
     if online 
         // .ui.label(class='{{labelClass}}') 
-        .ui.empty.green.circular.label(title='Online')
+        .ui.empty.green.label(title='Online')
         // img.ui.avatar.image(src="https://img.icons8.com/connection-user_status-on/color/48" title='Online' width="48" height="48")
         // |Online
     else if idle
-        .ui.empty.yellow.circular.label(title='Idle')
+        .ui.empty.yellow.label(title='Idle')
         // .ui.label(class='{{labelClass}}') Idle
         // else 
         //     |Offline
@@ -86,19 +86,21 @@ template(name='user_status')
 template(name='user_card')
     with user
         .ui.grid.smoothed.segment
-            .four.wide.column
-                if image_id
-                    img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+            if is_admin
+                .four.wide.column
+                    if image_id
+                        img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .twelve.wide.column
                 .header #{first_name} #{last_name} 
-                .meta @#{username}
-                +text_view key='address' direct=true label='Address'
-                +text_view key='building_code' direct=true label='Building Code'
-                +number_view key='unit_number' direct=true label='Unit #'
-                +number_view key='building_number' direct=true label='Building #'
                 if is_admin
-                    div
-                    +user_email
+                    .meta @#{username}
+                    +text_view key='address' direct=true label='Address'
+                    +text_view key='building_code' direct=true label='Building Code'
+                    +number_view key='unit_number' direct=true label='Unit #'
+                    +number_view key='building_number' direct=true label='Building #'
+                    if is_admin
+                        div
+                        +user_email
                 //- +emails_edit    
         //- +user_status user
 
@@ -156,7 +158,7 @@ template(name='big_user_card')
 
 
 template(name='user_info')
-    a.ui.small.circular.basic.compact.button(href="/user/#{user.username}/")
+    a.ui.small.compact.button(href="/user/#{user.username}/")
         if user.image_id
             img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100 gravity='face' crop='fill'}}")
         |#{user.first_name} #{user.last_name}
@@ -164,7 +166,7 @@ template(name='user_info')
         +user_status user
 
 template(name='username_info')
-    a.ui.small.circular.basic.compact.button(href="/user/#{user.username}/")
+    a.ui.small.compact.button(href="/user/#{user.username}/")
         if user.image_id
             img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100}}")
         |#{user.first_name} #{user.last_name}
@@ -178,7 +180,7 @@ template(name='role_editor')
 
 template(name='author_info')
     with author
-        a.ui.circular.compact.basic.button(href="/user/#{username}")
+        a.ui.compact.button(href="/user/#{username}")
             if image_id
                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
              by #{first_name} #{last_name}
@@ -189,7 +191,7 @@ template(name='creation_info')
 
 template(name='user_list_toggle')
     if currentUser
-        .ui.circular.icon.button.toggle(class=user_list_toggle_class title=label)
+        .ui.icon.button.toggle(class=user_list_toggle_class title=label)
             i.icon(class=icon)
             //- |#{label}
         each list_users
@@ -199,11 +201,11 @@ template(name='user_list_toggle')
 template(name='voting')
     if points
         strong #{points}
-    .ui.circular.basic.icon.button.upvote(class=upvote_class title='upvote')
+    .ui.icon.button.upvote(class=upvote_class title='upvote')
         i.thumbs.up.large.icon
     //- each upvoter_ids
     //-     +user_info
-    .ui.circular.basic.icon.button.downvote(title='downvote' class=downvote_class)
+    .ui.icon.button.downvote(title='downvote' class=downvote_class)
         i.thumbs.down.large.icon
     //- each downvoter_ids
     //-     +user_info
@@ -211,18 +213,18 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.icon.circular.large.basic.button.view(title='view' href="/m/#{model}/#{_id}/view")
-        //- i.right.chevron.large.icon
-        +ismall name='chevron right'
+    a.ui.icon.large.button.view(title='view' href="/m/#{model}/#{_id}/view")
+        i.right.chevron.large.icon
+        //- +ismall name='chevron right'
 
 
 template(name='remove_button')
-    a.ui.circular.basic.icon.button.remove(title='delete')
+    a.ui.icon.button.remove(title='delete')
         i.remove.red.icon
         //- |Delete
 
 template(name='add_button')
-    a.ui.large.basic.circular.button.add(title="Add #{model}")
+    a.ui.large.button.add(title="Add #{model}")
         i.plus.icon
         |#{model}
 
@@ -264,15 +266,15 @@ template(name='add_model_button')
             
 template(name='email_validation_check')
     if email_verified
-        .ui.large.circular.green.basic.button
+        .ui.large.green.button
             i.checkmark.icon
             |email validated
     else
-        .ui.circular.basic.large.button.send_verification
+        .ui.large.button.send_verification
             //- i.ban.icon
             |email unvalidated
         if times
-            .ui.basic.circular.label
+            .ui.label
                 |#{times}
             //- else
                 //- |#{times}x sent
@@ -280,50 +282,50 @@ template(name='email_validation_check')
         
 template(name='lease_expiration_check')
     if lease_expiring
-        .ui.large.circular.yellow.label
+        .ui.large.yellow.label
             i.clock.icon
             |lease expiring 
         
         
 template(name='rules_and_regs_check')
     unless rules_signed
-        .ui.large.circular.basic.red.button.sign_rules
+        .ui.large.red.button.sign_rules
             i.signature.icon
             |click to sign rules and regulationss 
     else
         if is_admin
-            a.ui.circular.large.basic.button(href="/m/rules_regs_signing/#{rules_signed._id}/view")
+            a.ui.large.button(href="/m/rules_regs_signing/#{rules_signed._id}/view")
                 i.signature.icon
                 |rules and regs signed 
         else if is_staff
-            .ui.large.circular.basic.button
+            .ui.large.button
                 i.signature.icon
                 |rules and regs signed 
                 
 template(name='member_waiver_check')
     //- unless waiver_signed
-    //-     .ui.large.circular.basic.red.button.sign_rules
+    //-     .ui.large.red.button.sign_rules
     //-         i.signature.icon
     //-         |member waiver not signed 
     //- else
-    .ui.circular.large.basic.button
+    .ui.large.button
         i.signature.icon
         |member waiver signed 
         
 template(name='resident_key_check')
     //- unless key_on_file
-    //-     .ui.large.circular.basic.orange.button
+    //-     .ui.large.orange.button
     //-         i.ban.icon
     //-         |key not on file 
     //- else
-    .ui.circular.large.basic.button
+    .ui.large.button
         i.key.icon
         |key on file 
         
         
 template(name='guest_waiver_check')
     unless waiver_signed
-        .ui.basic.large.circular.red.button
+        .ui.large.red.button
             i.signature.icon
             |guest waiver not signed 
         

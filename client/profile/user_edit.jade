@@ -4,7 +4,7 @@ template(name='user_edit')
         .ui.stackable.padded.grid
             .three.column.row
                 .column
-                    a.ui.large.circular.icon.basic.button(href="/user/#{user_from_username_param.username}/" title='save') 
+                    a.ui.large.circular.icon.button(href="/user/#{user_from_username_param.username}/" title='save') 
                         i.checkmark.large.green.icon
                     .ui.center.aligned.large.inline.grey.header
                         | #{user_from_username_param.first_name} #{user_from_username_param.last_name} profile
@@ -118,10 +118,10 @@ template(name='phone_editor')
         input#phone.form-control(type='phone', name='phone', value='{{newNumber}}')
     if user_from_username_param.profile.phone
         if user_from_username_param.profile.phone_verified
-            .ui.basic.green.label verified
+            .ui.green.label verified
         else
             p
-                .ui.basic.label not verified
+                .ui.label not verified
                 a.resend_verification(href='#')
                     |resend code
                 .ui.small.icon.button.remove_phone(title='remove phone')
@@ -142,13 +142,13 @@ template(name='password_edit')
     //-     input#password(type='password', placeholder='old password')
     .ui.fluid.icon.input
         input#new_password(type='password', placeholder='new password')
-    //- .ui.fluid.circular.basic.button.change_password
+    //- .ui.fluid.circular.button.change_password
     //-     i.refresh.icon
     //-     |set password
     if is_dev
         .ui.fluid.circular.button.send_enrollment_email
             |send enrollment email
-    .ui.fluid.circular.basic.button.set_password
+    .ui.fluid.circular.button.set_password
         i.user.shield.icon
         | set password
             
@@ -180,12 +180,12 @@ template(name='emails_edit')
                     if verified
                         .ui.green.label verified
                     else
-                        .ui.basic.circular.label unverified
-                        .send_verification_email.ui.circular.basic.button 
+                        .ui.circular.label unverified
+                        .send_verification_email.ui.circular.button 
                             |verify
                             i.caret.right.icon
-                    .ui.small.icon.circular.basic.button.remove_email
+                    .ui.small.icon.circular.button.remove_email
                         i.remove.icon
     .ui.action.fluid.input
         input#new_email(type='email')
-        #add_email.ui.submit.circular.basic.button + email
+        #add_email.ui.submit.circular.button + email

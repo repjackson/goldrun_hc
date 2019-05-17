@@ -178,10 +178,10 @@ if Meteor.isClient
             facet = Template.parentData()
             delta = Docs.findOne model:'delta'
             if Session.equals 'loading', true
-                 'disabled basic'
+                 'disabled'
             else if facet.filters.length > 0 and @name in facet.filters
                 'grey'
-            else 'basic'
+            else ''
 
     Template.delta_result.onRendered ->
         # Meteor.setTimeout ->

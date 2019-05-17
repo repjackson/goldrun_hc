@@ -128,8 +128,6 @@ Template.healthclub.events
             audio.play();
     , 500)
 
-
-
     'click .clear_results': ->
         Session.set 'username_query',null
         Session.set 'checking_in',false
@@ -226,6 +224,7 @@ Template.checkin_card.events
             Docs.remove checkin_doc._id
             checkin_doc = Session.set 'checkin_document',null
         , 100
+        document.reload()
 
     'click .complete_checkin': (e,t)->
         # $(e.currentTarget).closest('.segment').transition('fade left',100)
@@ -247,6 +246,7 @@ Template.checkin_card.events
             model:'log_event'
             object_id:@_id
             body: "#{@username} checked in."
+        document.reload()
 
     'click .remove_guest': ->
         console.log @

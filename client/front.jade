@@ -1,47 +1,48 @@
 template(name='front')
     .ui.padded.stackable.grid
-        .row
-            .sixteen.wide.column
-                .ui.large.center.aligned.header 
-                    +i name='apartment'
-                    |Gold Run Community
-        .four.column.row
+        //- .row
+        //-     .sixteen.wide.column
+        //-         .ui.large.center.aligned.header 
+        //-             +i name='apartment'
+        //-             |Gold Run Community
+        .three.column.row
             .column
                 .ui.smoothed.segment
                     .ui.header 
-                        +i name='treadmill'
+                        //- +i name='treadmill'
                         |Health Club
                     .ui.small.header
                         i.ban.icon
                         |Upper Hot Tub out for forseeable future due to crack in frame.
                     .ui.small.header
                         i.green.checkmark.icon
-                        |Lower Hot Tub Operational
-                    .ui.small.grey.header
-                        |Last recorded temp: 99.9
+                        |Lower Hot Tub
+                    //- .ui.small.grey.header
+                    //-     |Temp: 99.9
                     .ui.small.header
                         i.green.checkmark.icon
-                        |Pool Operational
-                    .ui.small.grey.header
-                        |Last recorded temp: 80.3
+                        |Pool
+                    //- .ui.small.grey.header
+                    //-     |Temp: 80.3
             .column
                 +model_scroller model='event' header='Events' icon='calendar'
             .column
                 +model_scroller model='photo' header='Photos' icon='image'
+        .three.column.row    
             .column
                 +model_scroller model='marketplace' header='Marketplace' icon='shop'
-        .four.column.row    
             .column
                 +model_scroller model='free' header='Free' icon='handshake'
             .column
                 +model_scroller model='gr_post' header='Posts' icon='post'
+        .three.column.row    
             .column
                 +model_scroller model='group' header='Groups' icon='groups'
             .column
                 +model_scroller model='company' header='Businesses' icon='business'
-        .four.column.row    
             .column
                 +model_scroller model='free' header='Free' icon='handshake'
+        .three.column.row    
             .column
                 +model_scroller model='library' header='Library' icon='library'
             .column
@@ -53,14 +54,14 @@ template(name='front')
 template(name='gr_post_doc_view')
     +image_view key='image' direct=true
     +html_view key='content' direct=true
-    +array_view key='tags' direct=true
+    //- +array_view key='tags' direct=true
 
 
 
 template(name='company_doc_view')
     +image_view key='logo' direct=true
     +html_view key='content' direct=true
-    +array_view key='tags' direct=true
+    //- +array_view key='tags' direct=true
 
 
 template(name='group_doc_view')
@@ -73,37 +74,45 @@ template(name='group_doc_view')
 template(name='ad_doc_view')
     +image_view key='image' direct=true
     +html_view key='content' direct=true
-    +array_view key='tags' direct=true
+    //- +array_view key='tags' direct=true
 
 
 template(name='library_doc_view')
     +image_view key='image' direct=true
     +html_view key='content' direct=true
-    +array_view key='tags' direct=true
+    //- +array_view key='tags' direct=true
 
 
 template(name='for_rent_doc_view')
     +image_view key='image' direct=true
     +html_view key='content' direct=true
-    +array_view key='tags' direct=true
+    //- +array_view key='tags' direct=true
 
 template(name='free_doc_view')
     +image_view key='image' direct=true
     +html_view key='content' direct=true
-    +array_view key='tags' direct=true
+    //- +array_view key='tags' direct=true
 
 
 template(name='business_doc_view')
     +image_view key='image' direct=true
     +html_view key='content' direct=true
-    +array_view key='tags' direct=true
+    //- +array_view key='tags' direct=true
+
+
+
+template(name='event_doc_view')
+    +text_view key='title' direct=true
+    +image_view key='image' direct=true
+    +html_view key='description' direct=true
+    //- +array_view key='tags' direct=true
 
 
 
 template(name='marketplace_doc_view')
     +image_view key='picture' direct=true
     +html_view key='content' direct=true
-    +array_view key='tags' direct=true
+    //- +array_view key='tags' direct=true
 
 
 
@@ -115,13 +124,14 @@ template(name='model_scroller')
     .ui.smoothed.segment
         a.ui.inline.header.go_to_model(href="/m/#{model}")
             if icon 
-                +i name=icon
+                //- +i name=icon
+                i.icon(class=icon)
             |#{header}
         //- if can_go_left            
-        .ui.circular.icon.basic.button.go_left(class="{{#unless can_go_left}}disabled{{/unless}}")
+        .ui.icon.button.go_left(class="{{#unless can_go_left}}disabled{{/unless}}")
             i.left.chevron.icon
         //- if can_go_right
-        .ui.circular.icon.basic.button.go_right(class="{{#unless can_go_right}}disabled{{/unless}}")
+        .ui.icon.button.go_right(class="{{#unless can_go_right}}disabled{{/unless}}")
             i.right.chevron.icon
         with current_doc
             +Template.dynamic template=model_doc_template

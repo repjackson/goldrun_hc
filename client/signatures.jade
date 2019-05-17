@@ -8,7 +8,7 @@ template(name='rules_signing')
             else
                 i.huge.circle.outline.grey.icon.agree
         if agree
-            .ui.header Sign Below
+            .ui.header Please Sign Below
             if signature_saved
                 +signature_view key='signature' direct=true
                 i.pencil.circular.large.icon.edit_signature
@@ -23,28 +23,30 @@ template(name='rules_signing')
 
 template(name='add_guest')
     with new_guest_doc
-        .ui.circular.basic.button.cancel_new_guest
+        .ui.circular.fluid.button.cancel_new_guest
             i.left.chevron.icon
+            |Back to Check In
         +document_view key='guest_waiver'
+        .ui.inline.header Resident: 
         +user_card resident
         +text_edit key='first_name' label='First Name' direct=true
         +text_edit key='last_name' label='Last Name' direct=true
         +text_edit key='phone' label='Phone' direct=true
-        +text_edit key='text_edit' label='Emergency Contact Name' direct=true
-        +text_edit key='text_edit' label='Emergency Contact Phone' direct=true
+        +text_edit key='emergency_contact_name' label='Emergency Contact Name' direct=true
+        +text_edit key='emergency_contact_phone' label='Emergency Contact Phone' direct=true
         .ui.header I agree to the Guest Waiver Terms
             if agree
                 i.huge.checkmark.green.link.icon.agree
             else
                 i.huge.circle.outline.grey.icon.agree
         if agree
-            .ui.header Sign Below
+            .ui.header Please sign below
             if signature_saved
                 +signature_view key='signature' direct=true
                 i.pencil.circular.large.icon.edit_signature
             else
                 +signature_edit key='signature' direct=true
             if signature_saved
-                .ui.big.circular.blue.fluid.button.submit_guest
+                .ui.big.circular.green.fluid.button.submit_guest
                     | Submit
                     i.right.chevron.icon

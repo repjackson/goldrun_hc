@@ -25,7 +25,7 @@ template(name='user_segment')
                 small @#{username}
             .description
                 each three_tags
-                    .ui.basic.circular.label #{this}
+                    .ui.label #{this}
             +user_connect_button
             +user_status user
 
@@ -39,13 +39,13 @@ template(name='user_segment')
     //-             //- |#{username}
     //-         //- .ui.header Tags
     //-         each tags
-    //-             .ui.basic.circular.label #{this}
+    //-             .ui.label #{this}
     //-         .ui.header #{body}
 
 template(name='user_connect_button')
     if is_connected
-        .ui.blue.icon.circular.button.disconnect(title='connected')
+        .ui.blue.icon.button.disconnect(title='connected')
             i.handshake.icon
     else
-        .ui.basic.icon.circular.button.connect(title='not connected')
+        .ui.icon.button.connect(title='not connected')
             i.handshake.outline.icon

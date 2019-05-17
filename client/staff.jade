@@ -3,14 +3,13 @@ template(name='staff')
         //- +i name='user shield'
         i.shield.grey.icon
         |Staff
-    .ui.center.aligned.basic.segment
-        a.ui.big.circular.basic.button(href='/add_resident')
-            i.user.shield.large.icon
-            | Add Resident
+    a.ui.big.button(href='/add_resident')
+        i.user.shield.large.icon
+        | Add Resident
         
     .ui.inline.header
         |#{checkedin_members.count} checked in members
-    .ui.doubling.centered.cards
+    .ui.five.cards
         each checkedin_members
             +big_user_card username
         
@@ -51,7 +50,7 @@ template(name='task_widget')
             |todos
         //- .ui.fluid.styled.accordion.profile_block
         +goto_model slug='task'
-        .ui.icon.circular.basic.button.new_task
+        .ui.icon.button.new_task
             i.plus.icon
             //- input.assign_task(type='text' placeholder='assign task...')
         //- .ui.button.view_complete(class=view_complete_class)
@@ -151,7 +150,7 @@ template(name='shift_change_requests')
     .ui.grey.inline.header
         i.clock.icon
         |shift change requests
-    .ui.icon.circular.basic.button.add_shift_change_request
+    .ui.icon.button.add_shift_change_request
         i.large.icons
             i.clock.icon
             i.plus.corner.icon
@@ -188,12 +187,12 @@ template(name='request_row')
             //- else
             +username_info assigned_staff
         td(data-label='Actions')
-            .ui.basic.icon.circular.button.take_shift(title='take shift')
+            .ui.icon.button.take_shift(title='take shift')
                 i.checkmark.icon
-            .ui.basic.icon.circular.button.declare_unavailable(title='declare unavailable')
+            .ui.icon.button.declare_unavailable(title='declare unavailable')
                 i.ban.icon
             each unavailable
-                .ui.basic.circular.label(title='unavailable') #{this}
+                .ui.label(title='unavailable') #{this}
             if can_edit
                 +remove_button
 

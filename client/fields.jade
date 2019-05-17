@@ -496,7 +496,7 @@ template(name='array_edit')
     div
     if field_value
         each field_value
-            .ui.large.circular.basic.label
+            .ui.large.label
                 i.delete.icon.remove_element
                 |#{this}
                 
@@ -514,14 +514,14 @@ template(name='array_view')
             else
                 |#{this}
             each field_value
-                .ui.large.circular.basic.label #{this}
+                .ui.large.label #{this}
 
 
 template(name='children_edit')
     div
     .ui.inline.header 
         |#{title}
-    .ui.circular.icon.large.button.add_child(title="Add Child #{ref_model}")
+    .ui.icon.large.button.add_child(title="Add Child #{ref_model}")
         i.plus.icon
     //- .ui.styled.fluid.accordion
     each children
@@ -628,11 +628,11 @@ template(name='signature_edit')
         .ui.stackable.grid
             .middle.aligned.row
                 .fourteen.wide.column
-                    .ui.huge.fluid.circular.basic.button.save(title='Save')
+                    .ui.huge.fluid.button.save(title='Save')
                         i.checkmark.icon
                         |Save
                 .two.wide.column
-                    .ui.large.icon.circular.basic.button.clear(title='Clear')
+                    .ui.large.icon.button.clear(title='Clear')
                         i.remove.icon
 
 template(name='signature_view')
@@ -642,7 +642,7 @@ template(name='signature_view')
         | #{title}    
     img.ui.fluid.centered.rounded.image(src=field_value)
     if is_admin
-        .ui.circular.basic.button.print_rules
+        .ui.button.print_rules
             i.download.icon
             |download PDF
     //- .ui.icon.button.print_guest
@@ -664,8 +664,8 @@ template(name='boolean_edit')
             |#{key}
         else
             |#{this}
-    //- .ui.circular.icon.button.toggle_boolean
-    .ui.circular.button.toggle_boolean(class=boolean_toggle_class)
+    //- .ui.icon.button.toggle_boolean
+    .ui.button.toggle_boolean(class=boolean_toggle_class)
         if field_value
             if true_icon
                 i.large.green.icon(class=true_icon)
@@ -715,7 +715,7 @@ template(name='single_doc_edit')
             i.grey.icon(class=icon)
         |#{label} #{title}
     each choices
-        .ui.small.circular.button.select_choice(class=choice_class)
+        .ui.small.button.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{calculated_label}
@@ -729,7 +729,7 @@ template(name='multi_doc_edit')
             i.icon(class=icon)
         |#{title} #{label}    
     each choices
-        .ui.circular.compact.button.select_choice(class=choice_class)
+        .ui.compact.button.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{title}
@@ -776,7 +776,7 @@ template(name='single_user_edit')
             i.icon(class=icon)
         |#{title}
     if field_value
-        .pull_user.ui.circular.basic.button(title='remove user')
+        .pull_user.ui.button(title='remove user')
             i.user.remove.icon
             |clear #{field_value}
     unless field_value

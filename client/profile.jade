@@ -6,7 +6,7 @@ template(name='profile')
             .row
                 .four.wide.column.scrolling
                     if image_id
-                        img.ui.circular.centered.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                        img.ui.centered.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     .ui.large.center.aligned.header
                         | #{user.first_name}
@@ -19,27 +19,27 @@ template(name='profile')
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     if is_staff
-                        a.ui.circular.basic.icon.large.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                        a.ui.icon.large.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
                             //- +i name='settings'
                             i.cog.large.icon
                             //- | settings
                     else if is_current_user
-                        a.ui.circular.basic.icon.big.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                        a.ui.icon.big.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
                             //- +i name='settings'
                             i.cog.icon
                             //- | settings
                     if is_current_user
-                        .ui.circular.basic.icon.big.button.logout(title='log out')
+                        .ui.icon.big.button.logout(title='log out')
                             //- +i name='logout-rounded'
                             i.sign.out.icon
                             //- |log out
-                        .ui.small.basic.circular.button.logout_other_clients
+                        .ui.small.button.logout_other_clients
                             |logout other clients
                 
                     //- if user_is_resident
                     //-     if is_resident
                     //-         +gr_status                
-                    .ui.profile_block.segment
+                    .ui.segment
                         //- +text_view key='first_name' label='First Name' direct=true
                         //- +text_view key='last_name' label='Last Name' direct=true
                         if is_admin
@@ -56,21 +56,21 @@ template(name='profile')
                             +date_view key='expiration_date' label='expiration date' direct=true
                         +textarea_view key='notes' label='notes' icon='align-left' direct=true
                         each emails
-                            .ui.circular.basic.label #{address}
+                            .ui.label #{address}
                     if is_staff
-                        .ui.profile_block.segment
+                        .ui.segment
                             .ui.grey.header 
                                 +i name='user shield'
                                 |roles
                             each roles
-                                .ui.circular.basic.label #{this}                    
+                                .ui.label #{this}                    
                     if user_is_staff
                         +user_notes
                         
                         //- +user_tasks
 
                 .six.wide.column
-                    .ui.circular.basic.button.generate_barcode
+                    .ui.button.generate_barcode
                         i.barcode.icon
                         |Generate Barcode
                     svg#barcode
@@ -81,8 +81,8 @@ template(name='profile')
                             +user_messages
                             +user_transactions
                             //- +received_karma
-                    if user_is_resident
-                        if is_resident
+                    if user_is_user
+                        if is_user
                             +user_connections
                     if user_is_resident
                         if is_staff
@@ -92,7 +92,7 @@ template(name='profile')
                             //- +violations
                             //- +user_card_replacements
                             //- +user_signatures
-                        if is_resident
+                        if is_user
                             +user_following
                             +follow_user
     
@@ -101,10 +101,11 @@ template(name='profile')
                         if is_staff
                             +membership_status
                             +user_log
-                        if is_resident
+                    if user_is_user
+                        if is_user
                             +user_karma
                             +user_bookmarks    
-                            +user_feed
+                            //- +user_feed
                     if user_is_resident
                         //- if is_staff
                         +user_key
@@ -118,38 +119,38 @@ template(name='profile')
                 
             
 template(name='user_transactions')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.header sent karma
         each sent_karma
             .ui.segment
                 .ui.small.inline.header #{_author_username}
                 |#{description}
                 each tags
-                    .ui.basic.label #{this}
+                    .ui.label #{this}
                 .ui.small.inline.header #{karma_amount}
             
 template(name='received_karma')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.header received karma
         each received_karma
             .ui.segment
                 .ui.small.inline.header #{_author_username}
                 |#{description}
                 each tags
-                    .ui.basic.label #{this}
+                    .ui.label #{this}
                 .ui.small.inline.header #{karma_amount}
                 
             
             
 template(name='user_card_replacements')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             +i name='card-exchange'
             |card replacements
 
             
 template(name='user_garden')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             //- i.id.card.alternate.icon
             +i name='garden-gloves'
@@ -157,7 +158,7 @@ template(name='user_garden')
 
             
 template(name='user_signatures')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             +i name='signature'
             | signatures
@@ -172,7 +173,7 @@ template(name='user_signatures')
 template(name='user_notes')
     if user_is_resident
         if is_staff
-            .ui.segment.profile_block
+            .ui.segment
                 +textarea_edit key='staff_notes' title='staff notes' direct=true
 
             
@@ -186,7 +187,7 @@ template(name='gr_status')
             +array_edit key='gr_status' label='status' direct=true icon='clock'
         else
             each gr_status
-                .ui.circular.basic.label #{this}
+                .ui.label #{this}
         //- .ui.small.header
         //-     i.marker.icon
         //-     | Location 
@@ -194,12 +195,12 @@ template(name='gr_status')
             +array_edit key='gr_location' label='location' direct=true icon='marker'
         else 
             each gr_location
-                .ui.circular.basic.label #{this}
+                .ui.label #{this}
             
             
             
 template(name='user_checkins')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             +i name='internal'
             |Health Club Check In's
@@ -212,13 +213,13 @@ template(name='user_checkins')
             
             
 template(name='user_guests')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             +i name='badge'
             |Guests
         +goto_model slug='guest'
         +add_button model='guest'
-        //- .ui.circular.basic.button.add_guest
+        //- .ui.button.add_guest
         //-     |Add Guest
         .ui.link.large.list
             each guests
@@ -230,7 +231,7 @@ template(name='user_guests')
             
             
 template(name='user_key')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             i.key.icon
             //- +i name='key'
@@ -247,7 +248,7 @@ template(name='user_key')
                 +number_view key='tag_number' label='tag number' direct=true
             if is_staff
                 if viewing_code
-                    .ui.huge.basic.circular.label
+                    .ui.huge.label
                         +number_view key='tag_number' label='tag number' direct=true
                 else
                     +i name='enter-pin' classes='view_code pointer' title='view code'
@@ -266,7 +267,7 @@ template(name='user_key')
 
             
 template(name='user_unit')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             i.home.icon
             //- +i name='interior'
@@ -290,7 +291,7 @@ template(name='user_section')
 template(name='user_about')
     
 template(name='violations')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             +i name='foul'
             |violations
@@ -322,8 +323,8 @@ template(name='violations')
 
 
 template(name='user_log')
-    //- .ui.fluid.styled.accordion.profile_block
-    .ui.segment.profile_block
+    //- .ui.fluid.styled.accordion
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             +i name='overview-pages-4'
             |log
@@ -361,7 +362,7 @@ template(name='user_feed')
                 
                 
 template(name='user_bookmarks')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             +i name='bookmark'
             |bookmarks
@@ -375,19 +376,19 @@ template(name='user_bookmarks')
             
             
 template(name='user_karma')
-    .ui.fluid.styled.accordion.profile_block
+    .ui.fluid.styled.accordion
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.heartbeat.icon
                 | karma
         .active.content
-            .ui.circular.basic.button buy karma
+            .ui.button buy karma
             with user_from_username_param
                 |karma #{karma}
-        .ui.basic.circular.button.send_new
+        .ui.button.send_new
             |send karma
         if sending_karma
-            .ui.circular.basic.icon.button.cancel_sending
+            .ui.icon.button.cancel_sending
                 i.remove.icon
             with send_karma_transaction
                 +textarea_edit key='description' direct=true
@@ -408,8 +409,8 @@ template(name='user_unread')
                 
 
 template(name='user_tasks')
-    //- .ui.fluid.styled.accordion.profile_block
-    .ui.segment.profile_block
+    //- .ui.fluid.styled.accordion
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             +i name='tasks'
             |staff tasks
@@ -442,7 +443,7 @@ template(name='user_array_list')
             
             
 template(name='role_switcher')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
             //- +i name='user-shield'
             i.shield.icon(title='role switcher')
@@ -464,7 +465,7 @@ template(name='role_switcher')
 
             
 template(name='user_array_element_toggle')
-    .ui.circular.button.toggle_element(class=user_array_element_toggle_class)
+    .ui.button.toggle_element(class=user_array_element_toggle_class)
         |#{value}
 
 template(name='user_string_toggle')
@@ -472,14 +473,14 @@ template(name='user_string_toggle')
         |#{value}
         
 template(name='user_tags')
-    .ui.fluid.styled.accordion.profile_block
+    .ui.fluid.styled.accordion
         .active.title
             .ui.grey.inline.center.aligned.header 
                 +i name='tags'
                 |tags
         .active.content
             each tags
-                .ui.basic.label 
+                .ui.label 
                     if is_user
                         i.remove.link.icon.remove_tag
                     |#{this}
@@ -490,7 +491,7 @@ template(name='user_tags')
             
             
 template(name='membership_status')
-    .ui.segment.profile_block
+    .ui.segment
         .active.title
             .ui.grey.inline.center.aligned.header 
                 |membership status
@@ -522,7 +523,7 @@ template(name='follow_user')
                 
 
 template(name='user_wall')
-    .ui.fluid.styled.accordion.profile_block
+    .ui.fluid.styled.accordion
         .active.title
             .ui.grey.inline.center.aligned.header 
                 i.edit.icon

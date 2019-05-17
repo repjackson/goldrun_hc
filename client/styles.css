@@ -10,19 +10,19 @@ body {
 
 .red_flagged {
   border: 10px solid red !important;
-  border-radius: 5px !important;
+  /* border-radius: 5px !important; */
   box-shadow: 0 4px 8px 0 rgb(220,20,60, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 
 }
 
 .yellow_flagged {
   border: 10px solid orange !important;
-  border-radius: 5px !important;
+  /* border-radius: 5px !important; */
 }
 
 .green_flagged {
   border: 10px solid green;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 
@@ -54,16 +54,16 @@ body {
 
 
 input{
-    -webkit-border-radius: 50px !important;
-    -moz-border-radius: 50px !important;
-    border-radius: 50px !important;
+    /* -webkit-border-radius: 50px !important; */
+    /* -moz-border-radius: 50px !important; */
+    /* border-radius: 50px !important; */
 }
 
 .profile_block {
     margin-bottom: 20px !important;
-    -webkit-border-radius: 10px !important;
-    -moz-border-radius: 10px !important;
-    border-radius: 10px !important;
+    /* -webkit-border-radius: 10px !important; */
+    /* -moz-border-radius: 10px !important; */
+    /* border-radius: 10px !important; */
     box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1) !important;
     opacity: .9;
 }
@@ -71,16 +71,16 @@ input{
     box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.2) !important;
 }
 .smoothed{
-    -webkit-border-radius: 10px !important;
-    -moz-border-radius: 10px !important;
-    border-radius: 10px !important;
+    /* -webkit-border-radius: 10px !important; */
+    /* -moz-border-radius: 10px !important; */
+    /* border-radius: 10px !important; */
 }
 
 .cloud {
     opacity: 0.9;
-    -webkit-border-radius: 20px !important;
-    -moz-border-radius: 20px !important;
-    border-radius: 20px !important;
+    /* -webkit-border-radius: 20px !important; */
+    /* -moz-border-radius: 20px !important; */
+    /* border-radius: 20px !important; */
 }
 
 

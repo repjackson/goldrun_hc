@@ -6,9 +6,9 @@ template(name='model_doc_edit')
                     .ui.header(title="model: #{model}")
                         |edit #{model}
                     +creation_info
-                    a.ui.big.circular.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
+                    a.ui.big.icon.button(href="/m/#{current_model.slug}/#{_id}/view")
                         i.big.checkmark.icon
-                    #delete_doc.ui.icon.circular.large.basic.button
+                    #delete_doc.ui.icon.large.button
                         i.trash.icon
                     +boolean_edit key='private' direct=true
                 .ten.wide.column.scrolling
@@ -27,9 +27,10 @@ template(name='model_doc_view')
             .row
                 .six.wide.column
                     .ui.cloud.segment
-                        .ui.circular.large.basic.button.back_to_model
+                        .ui.large.button.back_to_model
                             i.left.chevron.icon
                             i.icon(class=current_model.icon)
+                            //- +i name=current_model.icon classes='ui mini inline image'
                             |#{current_model.title}
                             //- .divider
                             //-     i.chevron.right.icon
@@ -45,12 +46,13 @@ template(name='model_doc_view')
                         //     a.ui.icon.button(href="/m/#{model}" title=plural)
                         //         i.chevron.left.icon
                         //     |View #{model}
-                        if is_admin
-                            a.ui.big.circular.basic.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
+                        if can_edit
+                            a.ui.big.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
                                 i.pencil.icon
+                        if is_admin
                             .ui.small.header timestamp tags
                             each _timestamp_tags
-                                .ui.circular.basic.label #{this}
+                                .ui.label #{this}
                         //- each model.actions
                         //-     +Template.dynamic template=this data=current_doc
                         div
@@ -69,10 +71,10 @@ template(name='model_doc_view')
                             |#{points} points
                             .ui.header upvoters
                             each upvoters
-                                .ui.large.circular.label #{username}
+                                .ui.large.label #{username}
                             .ui.header downvoters
                             each downvoters
-                                .ui.large.circular.label #{username}
+                                .ui.large.label #{username}
                 .ten.wide.column
                     .ui.cloud.segment
                         .ui.header
@@ -97,7 +99,7 @@ template(name='karma_transaction')
     .ui.header offer karma
     .ui.input
         input.offer_karma_amount(type='number')
-    .ui.circular.basic.button.offer_karma
+    .ui.button.offer_karma
         i.right.chevron.icon
     each offers
         +offer
