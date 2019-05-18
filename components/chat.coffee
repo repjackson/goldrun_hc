@@ -30,15 +30,15 @@ if Meteor.isClient
                     duration: 1000
                     interval: 200
                     onComplete: ()=>
-                        $('.segment').transition(
-                            animation: 'zoom'
-                            duration: 1000
-                            interval: 200
-                            onComplete: ()=>
-                                Meteor.setTimeout =>
-                                    Meteor.call 'close_chat', self._id, ->
-                                , 1000
-                        )
+                        # $('.segment').transition(
+                        #     animation: 'zoom'
+                        #     duration: 1000
+                        #     interval: 200
+                        #     onComplete: ()=>
+                        #         Meteor.setTimeout =>
+                        #             Meteor.call 'close_chat', self._id, ->
+                        #         , 1000
+                        # )
                 )
                 # console.log self
 

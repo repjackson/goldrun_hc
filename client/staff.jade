@@ -3,13 +3,14 @@ template(name='staff')
         //- +i name='user shield'
         i.shield.grey.icon
         |Staff
+    //- i.massive.loading.brown.poo.icon
     a.ui.big.button(href='/add_resident')
         i.user.shield.large.icon
         | Add Resident
         
     .ui.inline.header
         |#{checkedin_members.count} checked in members
-    .ui.five.cards
+    .ui.stackable.cards
         each checkedin_members
             +big_user_card username
         
@@ -48,7 +49,7 @@ template(name='task_widget')
             //- +i name='task'
             i.task.icon
             |todos
-        //- .ui.fluid.styled.accordion.profile_block
+        //- .ui.fluid.styled.accordion
         +goto_model slug='task'
         .ui.icon.button.new_task
             i.plus.icon

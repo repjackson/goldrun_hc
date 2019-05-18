@@ -1,5 +1,8 @@
 {
 	"private": {
+        "reddit": {
+          "secret": "9y2nszPLr7kWN5Rj5nIcqCiLuUE"
+        },
 		"cloudinary_key": "754714459692734",
 		"cloudinary_secret": "rPPXD3rZM_GCjODvh0T70XeDCSw",
 		"tone": {

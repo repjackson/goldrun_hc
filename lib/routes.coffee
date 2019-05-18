@@ -35,6 +35,7 @@ Router.route '/verify-email/:token', ->
     )
 
 
+Router.route '/alpha', -> @render 'alpha'
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'
@@ -66,6 +67,7 @@ Router.route '/add_resident', (->
 Router.route '/user/:username', -> @render 'profile'
 Router.route '/forgot_password', -> @render 'forgot_password'
 
+Router.route '/reddit', -> @render 'reddit'
 Router.route '/checkin', -> @render 'healthclub'
 Router.route '/staff', -> @render 'staff'
 Router.route '/frontdesk', -> @render 'frontdesk'

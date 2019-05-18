@@ -34,9 +34,9 @@ if Meteor.isClient
         #             $('.dropdown').dropdown()
         #         , 3000
 
-        Meteor.setTimeout ->
-            $('.item').popup()
-        , 3000
+        # Meteor.setTimeout ->
+        #     $('.item').popup()
+        # , 3000
 
 
     # Template.sidebar.events
@@ -51,8 +51,8 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'me'
         @autorun -> Meteor.subscribe 'doc', Session.get 'checkin_document'
 
-        # @autorun -> Meteor.subscribe 'bookmarked_models'
-        # @autorun -> Meteor.subscribe 'unread_messages'
+        @autorun -> Meteor.subscribe 'bookmarked_models'
+        @autorun -> Meteor.subscribe 'unread_messages'
 
     Template.nav.helpers
         notifications: ->

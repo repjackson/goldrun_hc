@@ -60,7 +60,8 @@ template(name='profile')
                     if is_staff
                         .ui.segment
                             .ui.grey.header 
-                                +i name='user shield'
+                                //- +i name='user shield'
+                                i.shield.icon
                                 |roles
                             each roles
                                 .ui.label #{this}                    
@@ -72,7 +73,8 @@ template(name='profile')
                 .six.wide.column
                     .ui.button.generate_barcode
                         i.barcode.icon
-                        |Generate Barcode
+                        |Generate Health Club Checkin Barcode
+                    div
                     svg#barcode
                     if user_is_resident
                         if is_resident
@@ -160,7 +162,8 @@ template(name='user_garden')
 template(name='user_signatures')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            +i name='signature'
+            //- +i name='signature'
+            i.edit.icon
             | signatures
         .ui.link.large.list
             a.item(href='#') rules and regulations
@@ -202,7 +205,7 @@ template(name='gr_status')
 template(name='user_checkins')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            +i name='internal'
+            //- +i name='internal'
             |Health Club Check In's
         if is_staff
             +checkin_button
@@ -293,7 +296,8 @@ template(name='user_about')
 template(name='violations')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            +i name='foul'
+            //- +i name='foul'
+            i.esclamation.icon
             |violations
         +goto_model slug='violation'
 
@@ -326,7 +330,8 @@ template(name='user_log')
     //- .ui.fluid.styled.accordion
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            +i name='overview-pages-4'
+            //- +i name='overview-pages-4'
+            i.list.icon
             |log
         .smallscroll
             .ui.list
@@ -364,7 +369,8 @@ template(name='user_feed')
 template(name='user_bookmarks')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            +i name='bookmark'
+            //- +i name='bookmark'
+            i.bookmark.icon
             |bookmarks
         .ui.list.smallscroll
             each bookmarks
@@ -385,17 +391,17 @@ template(name='user_karma')
             .ui.button buy karma
             with user_from_username_param
                 |karma #{karma}
-        .ui.button.send_new
-            |send karma
-        if sending_karma
-            .ui.icon.button.cancel_sending
-                i.remove.icon
-            with send_karma_transaction
-                +textarea_edit key='description' direct=true
-                +array_edit key='tags' direct=true
-                +number_edit key='karma_amount' direct=true
-                .ui.green.button.complete_sending
-                    |complete
+            .ui.button.send_new
+                |send karma
+            if sending_karma
+                .ui.icon.button.cancel_sending
+                    i.remove.icon
+                with send_karma_transaction
+                    +textarea_edit key='description' direct=true
+                    +array_edit key='tags' direct=true
+                    +number_edit key='karma_amount' direct=true
+                    .ui.green.button.complete_sending
+                        |complete
 
 
             
@@ -412,7 +418,8 @@ template(name='user_tasks')
     //- .ui.fluid.styled.accordion
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            +i name='tasks'
+            //- +i name='tasks'
+            i.tasks.icon
             |staff tasks
         +goto_model slug='task'
         .ui.icon.input
@@ -476,7 +483,8 @@ template(name='user_tags')
     .ui.fluid.styled.accordion
         .active.title
             .ui.grey.inline.center.aligned.header 
-                +i name='tags'
+                //- +i name='tags'
+                i.tags.icon
                 |tags
         .active.content
             each tags

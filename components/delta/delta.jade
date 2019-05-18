@@ -2,39 +2,43 @@ template(name='delta')
     with current_model
         .ui.stackable.grid
             .row
-                .six.wide.column
+                .six.wide.column.scrolling
                     .ui.right.aligned.inline.header
                         i.icon(class=icon)
                         //- +i name=icon
                         | #{title}
                     unless is_loading
                         //- if is_admin
-                        .ui.icon.big.button.add_model_doc(title="Add #{title}")
+                        .ui.icon.large.circular.button.add_model_doc(title="Add #{title}")
                             i.plus.large.icon
                         //- if can_edit
-                            //- +edit_button
-                        if is_admin
-                            .ui.icon.big.button.edit_model
+                            //- +edit_circular.button
+                        +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+            
+                        if can_edit
+                            .ui.icon.large.circular.button.edit_model
                                 i.cog.icon
                                 //- | Configure #{plural}
                         // .ui.divider
                         // // each sessions
-                        // //     .ui.icon.button.select_session(class=session_selector_class title='select session')
+                        // //     .ui.icon.circular.button.select_session(class=session_selector_class title='select session')
                         // //         i.play.icon
                         if current_delta
                             if is_dev
-                                .ui.icon.large.button.print_delta(title='Print Session Doc')
+                                .ui.icon.large.circular.button.print_delta(title='Print Session Doc')
                                     i.code.icon
-                            .ui.reset.icon.large.button(title='Reload Session')
+                            .ui.reset.icon.large.circular.button(title='Reload Session')
                                 i.refresh.icon
-                            .ui.delete_delta.icon.big.button(title='Delete Session')
+                            .ui.delete_delta.icon.large.circular.button(title='Delete Session')
                                 i.trash.icon
                         else
-                            .create_delta.ui.big.button(title='new session')
+                            .create_delta.ui.large.circular.button(title='new session')
                                 i.plus.icon
                                 |session
                         .ui.segment
                             |#{description}
+                            .ui.input
+                                input.import_subreddit(type='text' placeholder='import_subreddit')
                     // |did: #{session_delta_id}
                             
                     each sorted_facets
@@ -51,7 +55,7 @@ template(name='facet')
         //- .ui.hidden.divider
         .ui.accordion
             .active.title
-                .ui.grey.small.inline.header 
+                .ui.grey.inline.header 
                     if icon
                         i.icon(class=icon)
                         //- +i name=icon            
@@ -68,22 +72,22 @@ template(name='facet')
                     //- div
                 each filtering_res
                     if name
-                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                        .selector.ui.compact.circular.button.toggle_selection(class=toggle_value_class title=count)
                             strong #{name}
                             if is_admin
                                 small #{cal_count} #{count}
                     else
-                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                        .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
                             strong [null]
                             //- small #{cal_count}
 
 template(name='toggle_delta_config')
     if boolean_true
-        .ui.grey.active.icon.button.disable_key(title=label)
+        .ui.grey.active.icon.circular.button.disable_key(title=label)
             i.icon(class=icon)
             // | #{label}
     else
-        .ui.icon.button.enable_key(title=label)
+        .ui.icon.circular.button.enable_key(title=label)
             i.icon(class=icon)
             // | #{label}
 
@@ -116,22 +120,22 @@ template(name='delta_result')
             //-         each tags
             //-             .ui.label
             //-                 |#{this}
-                //- +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+            +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
             .extra
                 if is_model
-                    a.ui.button.route_model(href="/m/#{slug}")
+                    a.ui.circular.button.route_model(href="/m/#{slug}")
                         i.sitemap.icon
                         |view model
                     if is_admin
-                        a.ui.button.route_model(href="/model/edit/#{_id}")
+                        a.ui.circular.button.route_model(href="/model/edit/#{_id}")
                             i.edit.icon
                             |edit model
                 else
                     if can_edit
-                        a.ui.big.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
+                        a.ui.large.icon.circular.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
                             i.pencil.large.icon
                             //- |edit
-                    a.ui.icon.big.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
+                    a.ui.icon.large.circular.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
                         i.right.chevron.large.icon
                         //- |view
                     //- if is_post

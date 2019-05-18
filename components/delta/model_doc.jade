@@ -76,22 +76,21 @@ template(name='model_doc_view')
                             each downvoters
                                 .ui.large.label #{username}
                 .ten.wide.column
-                    .ui.cloud.segment
-                        .ui.header
-                            each fields
-                                if header
-                                    +Template.dynamic template=view_template 
-                            // if icon
-                            //     i.icon(class=icon)
-                            // |#{title}
+                    .ui.header
                         each fields
-                            unless header
-                                .item
-                                    +Template.dynamic template=view_template 
-                        div
-                        +comments
-                        if watson
-                            +watson_view
+                            if header
+                                +Template.dynamic template=view_template 
+                        // if icon
+                        //     i.icon(class=icon)
+                        // |#{title}
+                    each fields
+                        unless header
+                            .item
+                                +Template.dynamic template=view_template 
+                    div
+                    +comments
+                    if watson
+                        +watson_view
 
 
 template(name='karma_transaction')

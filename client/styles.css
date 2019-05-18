@@ -4,7 +4,7 @@ body {
     font-size: 110% !important;
     /*line-height: 200% !important;*/
     /*background: #3d3d3d !important;*/
-    background: rgba(0, 0, 0, .02) !important
+    background: rgba(0, 0, 0, .01) !important
     /* background: #0e0e44 !important; */
 }
 
@@ -28,8 +28,8 @@ body {
 
 .pointer:hover{
     cursor: pointer !important;
-    -webkit-filter: drop-shadow(5px 5px 5px #222);
-    filter:         drop-shadow(5px 5px 5px #222);
+    /* -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter:         drop-shadow(5px 5px 5px #222); */
 }
 
 .profile_grid {
@@ -54,12 +54,12 @@ body {
 
 
 input{
-    /* -webkit-border-radius: 50px !important; */
+    -webkit-border-radius: 50px !important; */
     /* -moz-border-radius: 50px !important; */
-    /* border-radius: 50px !important; */
+    /* border-radius: 50px !important;
 }
 
-.profile_block {
+ {
     margin-bottom: 20px !important;
     /* -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 10px !important; */
@@ -344,7 +344,7 @@ a {
 .scrolling{
 	overflow-y:scroll;
 	overflow-x:hidden;
-	max-height:200vh;
+	max-height:100vh;
 	/*max-height:85vh;*/
 	/* padding-top: 1em; */
 	/*padding-left: 1em;*/

@@ -1,0 +1,72 @@
+template(name='reddit')
+    with result
+        #result.ui.card.grey_car
+            .content
+                .ui.header #{title}
+            // .content
+            //     |{{nl2br html}}
+            .content
+                .ui.list
+                    .item #{comment_count} comments
+                    a.item(href=url target='_window') #{permalink}
+                    .item sub: #{domain}
+                    .item #{doc_sentiment_label} #{to_percent doc_sentiment_score}%
+            if is_full
+                .content
+                    .ui.header keywords
+                    each watson.keywords
+                        +brick input=relevance text=text
+                .content
+                    .ui.header emotion
+                    with watson.emotion.document.emotion
+                        span.brick(class=calculated_size) 
+                        +brick input=sadness text='sadness'
+                        +brick input=joy text='joy'
+                        +brick input=fear text='fear'
+                        +brick input=disgust text='disgust'
+                        +brick input=anger text='anger'
+                .content
+                    .ui.header entities
+                    each watson.entities
+                        // .ui.label #{type}
+                        // |#{text}
+                        +brick input=relevance text=text type=type count=count
+                        // |#{to_percent relevance}%
+                        // .ui.circular.label #{count}
+                .content
+                    with personality
+                        .ui.small.header personality
+                        each personality
+                            .ui.basic.label
+                                | #{name}
+                                |#{to_percent percentile}%
+                            each children
+                                .ui.label
+                                    | #{name}
+                                    |#{to_percent percentile}%
+                            div
+                        .ui.small.header needs
+                        each needs
+                            .ui.basic.label
+                                | #{name}
+                                // .ui.label #{category}
+                                |#{to_percent percentile}%
+                                // .item Significant #{significant}
+                        .ui.small.header values
+                        each values
+                            .ui.basic.label
+                                | #{name}
+                                // .ui.label #{category}
+                                |#{to_percent percentile}%
+                                // .item Significant #{significant}
+                        // each consumption_preferences
+                .content
+                    .ui.header concepts
+                    each watson.concepts
+                        // a.ui.large.basic.label(href=dbpedia_resource target='_blank')
+                        +brick text=text input=relevance link=dbpedia_resource
+                            
+                            // strong #{text}
+                            // small #{ to_percent relevance }%
+                .content
+                    +edit_button

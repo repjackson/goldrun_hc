@@ -311,7 +311,7 @@ if Meteor.isServer
     Meteor.publish 'user_bookmarks', (username)->
         # console.log 'violation', username
         user = Meteor.users.findOne username:username
-        # console.log user
+        console.log user
         Docs.find
             bookmark_ids:$in:[user._id]
 

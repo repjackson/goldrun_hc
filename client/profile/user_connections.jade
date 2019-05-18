@@ -1,8 +1,9 @@
 template(name='user_connections')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.grey.inline.center.aligned.header 
-            +i name='omnichannel'
-            | connections
+            //- +i name='omnichannel'
+            i.users.icon
+            | Connections
         unless is_user
             with user_from_username_param
                 +user_connect_button

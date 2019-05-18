@@ -37,6 +37,13 @@ if Meteor.isClient
                 model:'delta'
                 model_filter: Router.current().params.model_slug
 
+        'keyup .import_subreddit': (e,t)->
+            if e.which is 13
+                val = t.$('.import_subreddit').val()
+                Meteor.call 'pull_subreddit', val, (err,res)->
+                    console.log res
+
+
         'click .print_delta': (e,t)->
             delta = Docs.findOne model:'delta'
             console.log delta

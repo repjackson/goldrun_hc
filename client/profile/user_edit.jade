@@ -4,11 +4,12 @@ template(name='user_edit')
         .ui.stackable.padded.grid
             .three.column.row
                 .column
-                    a.ui.large.circular.icon.button(href="/user/#{user_from_username_param.username}/" title='save') 
+                    a.ui.large.icon.button(href="/user/#{user_from_username_param.username}/" title='save') 
                         i.checkmark.large.green.icon
                     .ui.center.aligned.large.inline.grey.header
-                        | #{user_from_username_param.first_name} #{user_from_username_param.last_name} profile
-                    .ui.center.aligned.small.inline.header @#{user_from_username_param.username}
+                        i.pencil.icon
+                        | #{user_from_username_param.first_name} #{user_from_username_param.last_name}
+                    .ui.small.header @#{user_from_username_param.username}
                     //- i.cog.icon
                     +image_edit key='image_id' title='profile image' direct=true
                     +password_edit
@@ -73,8 +74,18 @@ template(name='user_edit')
                         +date_view key='id_checked_date' label='government id checked date' direct=true
                         //- with user_from_username_param
                     //- +text_edit key='spirit_animal' label='spirit animal' direct=true
-                    //- +boolean_edit key='published' label='profile published'
+                    +boolean_edit key='published' label='profile published'
                     //- +payment_methods
+                    +user_settings
+                    
+                    
+template(name='user_settings')
+    .ui.segment
+        .ui.header 
+            i.cog.icon
+            |Settings
+        with user_from_username_param
+            +boolean_edit key='show_bookmarked_model_bar' label='Show bookmarked model bar' direct=true
 
 
 template(name='user_model_editor')
@@ -127,7 +138,7 @@ template(name='phone_editor')
                 .ui.small.icon.button.remove_phone(title='remove phone')
                     i.remove.icon
     else
-        .ui.fluid.circular.button.update_phone add phone
+        .ui.fluid.button.update_phone add phone
 
 
 template(name='add_card_modal')
@@ -142,13 +153,13 @@ template(name='password_edit')
     //-     input#password(type='password', placeholder='old password')
     .ui.fluid.icon.input
         input#new_password(type='password', placeholder='new password')
-    //- .ui.fluid.circular.button.change_password
+    //- .ui.fluid.button.change_password
     //-     i.refresh.icon
     //-     |set password
     if is_dev
-        .ui.fluid.circular.button.send_enrollment_email
+        .ui.fluid.button.send_enrollment_email
             |send enrollment email
-    .ui.fluid.circular.button.set_password
+    .ui.fluid.button.set_password
         i.user.shield.icon
         | set password
             
@@ -180,12 +191,12 @@ template(name='emails_edit')
                     if verified
                         .ui.green.label verified
                     else
-                        .ui.circular.label unverified
-                        .send_verification_email.ui.circular.button 
+                        .ui.label unverified
+                        .send_verification_email.ui.button 
                             |verify
                             i.caret.right.icon
-                    .ui.small.icon.circular.button.remove_email
+                    .ui.small.icon.button.remove_email
                         i.remove.icon
     .ui.action.fluid.input
         input#new_email(type='email')
-        #add_email.ui.submit.circular.button + email
+        #add_email.ui.submit.button + email

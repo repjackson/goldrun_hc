@@ -9,8 +9,9 @@ template(name='healthclub')
 
             if is_admin
                 .ui.left.icon.massive.fluid.input
-                    input.barcode_entry(type='text' placeholder='Barcode lookup...' autofocus)
+                    input.barcode_entry(type='text' placeholder='Barcode input...' autofocus)
                     i.qrcode.icon
+            //- .ui.horizontal.divider or
             .ui.left.icon.massive.fluid.input
                 input.username_search(type='text' placeholder='Resident name lookup...')
                 if is_query
@@ -19,24 +20,23 @@ template(name='healthclub')
                     i.user.icon
             .ui.stackable.padded.grid
                 .row
-                    .sixteen.wide.column
+                    .sixteen.wide.center.aligned.column
                         if checkedout_members.length
                             //- h2.ui.center.aligned.header 
                             //-     |check in member
-                            .ui.centered.cards
-                                each checkedout_members
-                                    //- .card
-                                        //- .image
-                                        //-     if image_id
-                                        //-         img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                        .content
-                                            .header #{first_name} #{last_name}
-                                            if is_dev
-                                                .meta @#{username}
-                                                a.ui.basic.button(href="/user/#{username}/")
-                                                    |view profile
-                                                    +ismall name='chevron right'
-                                    +checkin_button
+                            each checkedout_members
+                                //- .card
+                                    //- .image
+                                    //-     if image_id
+                                    //-         img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                    .content
+                                        .header #{first_name} #{last_name}
+                                        if is_dev
+                                            .meta @#{username}
+                                            a.ui.basic.button(href="/user/#{username}/")
+                                                |view profile
+                                                +ismall name='chevron right'
+                                +checkin_button
                         else
                             if checking_in
                                 if is_query
@@ -165,14 +165,14 @@ template(name='sign_waiver')
 
 template(name='checkin_button')
     unless healthclub_checkedin
-        .ui.massive.button.checkin
+        .ui.massive.circular.button.checkin
             //- i.sign.in.icon
             //- +i name='internal' classes='ui avatar image'
             //- |check in
             //- i.green.small.sign.in.icon
             strong #{first_name} #{last_name}
     if healthclub_checkedin
-        .ui.big.button.checkout
+        .ui.big.circular.button.checkout
             i.sign.out.icon
             //- +i name='exit-sign' classes='ui avatar image'
             |Check Out
@@ -207,17 +207,17 @@ template(name='health_club_info')
                 .ui.header Upstairs Code
                 .ui.grey.header 4589
                 .ui.header Colorado Security Services
-                .ui.grey.header 303.443.3701
+                .ui.grey.header 303-443-3701
             .column
                 .ui.header Onsite Manager
                 .ui.big.list
                     .item Rick Hamp 
-                    .item 303.545.1787
+                    .item 303-545-1787
                     .item goldruncondos@gmail.com
                 .ui.header After Hours Emergency
-                .ui.grey.header 303.221.1117
+                .ui.grey.header 303-221-1117
                 .ui.header Boulder Valley Towing
-                .ui.grey.header 303.444.4868
+                .ui.grey.header 303-444-4868
             .column
                 .ui.header Hours
                 .ui.big.list
@@ -238,7 +238,7 @@ template(name='checkin_card')
             .centered.row
                 .column
                     if is_staff
-                        img.ui.medium.rounded.image(src="{{c.url user.image_id width=500 height=400 gravity='face' crop='fill'}}")
+                        img.ui.small.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
                     //- a.ui.header(href="/user/#{user.username}")
                     .ui.huge.header(href="/user/#{user.username}")
                          |#{user.first_name} #{user.last_name} 
@@ -260,12 +260,12 @@ template(name='checkin_card')
                     //-     +member_waiver_check
                     //- .ui.hidden.divider
                     //- //- .ui.input
-                    +multi_doc_input key='guests' ref_model='guest' title='Check In Previous Guest' direct=true
+                    //- +multi_doc_input key='guests' ref_model='guest' title='Check In Previous Guest' direct=true
                     //- //- .ui.hidden.divider
-                    .ui.big.button.add_guest
-                        //- +ismall name='plus' classes='ui avatar image'
+                    .ui.big.circular.button.add_guest
                         i.plus.icon
-                        | Add New Guest
+                        //- +ismall name='plus' classes='ui avatar image'
+                        | Guest
                     div
                     with checking_in_doc
                         each checkin_guest_docs
@@ -274,8 +274,8 @@ template(name='checkin_card')
                                 |#{first_name} #{last_name}
             .middle.aligned.row
                 .two.wide.column
-                    .ui.big.icon.button.cancel_checkin
-                        i.chevron.left.grey.big.icon
+                    .ui.large.icon.circular.button.cancel_checkin
+                        i.ban.big.icon
                         //- +i name='undo'
                 .twelve.wide.column
                     //- if red_flagged
@@ -283,11 +283,11 @@ template(name='checkin_card')
                     //-         |sign rules and regs to continue
                     //-         //- i.right.chevron.icon
                     //- else
-                    .ui.big.fluid.button.complete_checkin
+                    .ui.big.fluid.circular.button.complete_checkin
                         //- +i name='treadmill' classes='ui inline image'
                         .ui.inline.header 
-                            |Complete Check In
-                            i.right.chevron.icon
+                            |Check In
+                            i.right.chevron.green.icon
                         //- i.right.chevron.icon
                         //- .ui.basic.big.button.complete_checkin
                         //-     +i name='key' classes='ui inline image'

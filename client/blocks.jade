@@ -20,8 +20,8 @@ template(name='comments')
 template(name='goto_model')
     if is_admin
         a.ui.icon.button.goto_model(href="/m/#{slug}" title="goto #{slug}")
-            //- i.external.icon
-            +ismall name='external-link'
+            i.external.icon
+            //- +ismall name='external-link'
 
 template(name='events_column')
     .ui.accordion

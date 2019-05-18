@@ -1,6 +1,6 @@
 template(name='nav')
     unless is_frontdesk
-        .ui.borderless.attached.massive.inverted.menu
+        .ui.borderless.attached.large.inverted.menu.topnav
             //- a.toggle_sidebar.icon.item.sidebar_on
             //-     i.large.sidebar.icon
             if is_loading
@@ -23,12 +23,14 @@ template(name='nav')
                         i.users.large.icon
                         //- +i name='groups'
                         .mobile.hidden Users
+                if is_admin
+                    a.item(href='/alpha' class="{{isActivePath '/alpha'}}")
+                        //- +i name='employee-card'
+                        i.campground.large.icon
+                        .mobile.hidden Alpha
+                    
                 //- a.item.set_marketplace(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}")
                 //-     +i name='shop'
-                //- each bookmarked_models
-                //-     a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}" title=title)
-                //-         i.large.icon(class=icon)
-                //-         |#{title}
                 if is_staff
                     a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
                         i.clinic.medical.large.icon
@@ -41,7 +43,7 @@ template(name='nav')
                         i.tasks.large.icon
                     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
                         //- +i name='note'
-                        i.note.large.icon
+                        i.rss.large.icon
                 if currentUser
                     //- .item
                     //-     .ui.header(title='your karma') #{currentUser.karma}
@@ -50,7 +52,7 @@ template(name='nav')
                         //-     i.alarm.icon
                         //-     .menu
                         //-         each notifications
-                        //-             .ui.circular.button #{text}
+                        //-             .ui.button #{text}
                         //- if is_admin
                         //-     a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                         //-         +i name='new-post'
@@ -83,6 +85,13 @@ template(name='nav')
                 else
                     a.icon.item(href='/login' title='Login') 
                         i.sign.in.large.icon
+        if currentUser.show_bookmarked_model_bar
+            .ui.inverted.attached.borderless.menu.topnav
+                each bookmarked_models
+                    a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
+                        i.large.icon(class=icon)
+                        |#{title}
+
 
 
 template(name='sidebar')
@@ -156,18 +165,18 @@ template(name='footer')
         .ui.container.stackable.grid
             .eight.wide.column
                 //- +health_club_info
-                //- if is_user
-                //-     +ads
-                //-     form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                //-         input(type='hidden', name='cmd', value='_s-xclick')
-                //-         input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                //-         <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
-                //-         // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                //-         //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                //-         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                //-         button.ui.large.circular.icon.button(type='submit')
-                //-             //- i.pied.piper.alternate.large.icon
-                //-             |donate
+                if is_user
+                    +ads
+                    form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                        input(type='hidden', name='cmd', value='_s-xclick')
+                        input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                        <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
+                        // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                        //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                        button.ui.large.icon.button(type='submit')
+                            //- i.pied.piper.alternate.large.icon
+                            |donate
                 
                 //- +health_club_info
                 if is_eric    
@@ -175,7 +184,7 @@ template(name='footer')
                         +role_switcher
             .eight.wide.column
                 unless currentUser
-                    a.ui.circular.button(href='/login')
+                    a.ui.button(href='/login')
                         i.sign.in.icon
                         |Login
                 if is_eric
@@ -185,4 +194,4 @@ template(name='footer')
             .row
                 .ui.center.aligned.header
                     i.copyright.outline.icon
-                    |Gold Run Community
+                    |Gold Run Online

@@ -11,11 +11,11 @@ template(name='rules_signing')
             .ui.header Please Sign Below
             if signature_saved
                 +signature_view key='signature' direct=true
-                i.pencil.circular.large.icon.edit_signature
+                i.pencil.large.icon.edit_signature
             else
                 +signature_edit key='signature' direct=true
             if signature_saved
-                .ui.big.circular.blue.fluid.button.submit_rules
+                .ui.big.blue.fluid.button.submit_rules
                     | Submit
                     i.right.chevron.icon
 
@@ -23,7 +23,7 @@ template(name='rules_signing')
 
 template(name='add_guest')
     with new_guest_doc
-        .ui.circular.fluid.button.cancel_new_guest
+        .ui.fluid.button.cancel_new_guest
             i.left.chevron.icon
             |Back to Check In
         +document_view key='guest_waiver'
@@ -43,10 +43,10 @@ template(name='add_guest')
             .ui.header Please sign below
             if signature_saved
                 +signature_view key='signature' direct=true
-                i.pencil.circular.large.icon.edit_signature
+                i.pencil.large.icon.edit_signature
             else
                 +signature_edit key='signature' direct=true
             if signature_saved
-                .ui.big.circular.green.fluid.button.submit_guest
+                .ui.big.green.fluid.button.submit_guest
                     | Submit
                     i.right.chevron.icon

@@ -1,5 +1,5 @@
 template(name='user_messages')
-    .ui.segment.profile_block
+    .ui.segment
         .ui.inline.grey.header 
             i.mail.icon
             |mail
@@ -7,21 +7,22 @@ template(name='user_messages')
             .ui.icon.fluid.input
                 i.plus.icon
                 input#new_message(type='text' placeholder="send message to #{current_user.username}...")
-        each user_messages
-            .ui.smoothed.segment
-                .ui.small.header #{body}
-                //- each tags
-                //-     .ui.label #{this}
-                //- div
-                //- +notify_message
-                //- +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
-                div
-                |by
-                +author_info
-                +creation_info
-                if can_edit
-                    +remove_button
-                //- +watson_view
+        .ui.segments
+            each user_messages
+                .ui.segment
+                    .ui.small.header #{body}
+                    //- each tags
+                    //-     .ui.label #{this}
+                    //- div
+                    //- +notify_message
+                    //- +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
+                    div
+                    |by
+                    +author_info
+                    +creation_info
+                    if can_edit
+                        +remove_button
+                    //- +watson_view
         
 
 template(name='notify_message')

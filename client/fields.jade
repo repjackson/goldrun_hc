@@ -104,7 +104,7 @@ template(name='link_view')
                 i.grey.icon(class=icon)
             |#{title}
         a(href=field_value target='_window') #{field_value}
-
+        img.ui.fluid.image(src=field_value)
 
 template(name='image_view')
     if field_value

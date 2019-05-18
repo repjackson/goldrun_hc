@@ -12,9 +12,9 @@ Template.healthclub.onRendered ->
     #             $('.dropdown').dropdown()
     #         , 3000
 
-    Meteor.setTimeout ->
-        $('.item').popup()
-    , 3000
+    # Meteor.setTimeout ->
+    #     $('.item').popup()
+    # , 3000
     Meteor.setTimeout ->
         $('.accordion').accordion()
     , 3000
@@ -113,8 +113,8 @@ Template.healthclub.events
             else
                 Session.set 'username_query',username_query
         else
-            audio = new Audio('wargames.wav');
-            audio.play();
+            # audio = new Audio('wargames.wav');
+            # audio.play();
             console.log 'hi'
             Session.set 'username_query',username_query
 
@@ -124,8 +124,8 @@ Template.healthclub.events
         Meteor.call 'lookup_user_by_code', barcode_entry, (err,res)->
             console.log res
             Session.set 'displaying_profile',res[0]._id
-            audio = new Audio('cantdo.mp3');
-            audio.play();
+            # audio = new Audio('cantdo.mp3');
+            # audio.play();
     , 500)
 
     'click .clear_results': ->
@@ -224,7 +224,7 @@ Template.checkin_card.events
             Docs.remove checkin_doc._id
             checkin_doc = Session.set 'checkin_document',null
         , 100
-        document.reload()
+        # document.reload()
 
     'click .complete_checkin': (e,t)->
         # $(e.currentTarget).closest('.segment').transition('fade left',100)
@@ -245,7 +245,7 @@ Template.checkin_card.events
         Docs.insert
             model:'log_event'
             object_id:@_id
-            body: "#{@username} checked in."
+            body: "#{@first_name} #{@last_name} checked in."
         document.reload()
 
     'click .remove_guest': ->
