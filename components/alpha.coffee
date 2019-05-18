@@ -12,7 +12,6 @@ if Meteor.isClient
                 model:'alpha'
                 # _author_id:Meteor.userId()
 
-
         global_tags: ->
             doc_count = Docs.find().count()
             if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find()
@@ -27,8 +26,10 @@ if Meteor.isClient
 
     Template.alpha.events
         'click .create_alpha': (e,t)->
-            Docs.insert
+            new_alpha_id = Docs.insert
                 model:'alpha'
+            Meteor.call 'fa', new_alpha_id, (err,res)->
+
 
         'click .print_alpha': (e,t)->
             alpha = Docs.findOne model:'alpha'
@@ -80,10 +81,10 @@ if Meteor.isClient
 
             Session.set 'loading', true
             if facet.filters and @name in facet.filters
-                Meteor.call 'remove_facet_filter', alpha._id, facet.key, @name, ->
+                Meteor.call 'remove_alpha_facet_filter', alpha._id, facet.key, @name, ->
                     Session.set 'loading', false
             else
-                Meteor.call 'add_facet_filter', alpha._id, facet.key, @name, ->
+                Meteor.call 'add_alpha_facet_filter', alpha._id, facet.key, @name, ->
                     Session.set 'loading', false
 
         'keyup .add_filter': (e,t)->
@@ -92,7 +93,7 @@ if Meteor.isClient
                 facet = Template.currentData()
                 filter = t.$('.add_filter').val()
                 Session.set 'loading', true
-                Meteor.call 'add_facet_filter', alpha._id, facet.key, filter, ->
+                Meteor.call 'add_alpha_facet_filter', alpha._id, facet.key, filter, ->
                     Session.set 'loading', false
                 t.$('.add_filter').val('')
 
@@ -157,3 +158,15 @@ if Meteor.isClient
             #     $set:model_filter:@slug
             #
             # Meteor.call 'fum', alpha._id, (err,res)->
+
+
+if Meteor.isServer
+    Meteor.publish 'my_alpha', ->
+        if Meteor.userId()
+            Docs.find
+                _author_id:Meteor.userId()
+                model:'alpha'
+        else
+            Docs.find
+                _author_id:null
+                model:'alpha'

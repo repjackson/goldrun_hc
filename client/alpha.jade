@@ -7,24 +7,24 @@ template(name='alpha')
                     // // each sessions
                     // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
                     // //         i.play.icon
-                // |did: #{session_delta_id}
+                // |did: #{session_alpha_id}
                         
-                each current_delta.facets
-                    +facet_alpha
-                if current_delta
-                    .ui.icon.circular.button.print_delta(title='Print Session Doc')
+                each current_alpha.facets
+                    +alpha_facet
+                if current_alpha
+                    .ui.icon.circular.button.print_alpha(title='Print Session Doc')
                         i.code.icon
                     .ui.reset.icon.circular.button(title='Reload Session')
                         i.refresh.icon
-                    .ui.delete_delta.icon.circular.button(title='Delete Session')
+                    .ui.delete_alpha.icon.circular.button(title='Delete Session')
                         i.trash.icon
                 else
-                    .create_delta.ui.button.pointer(title='new session')
+                    .create_alpha.ui.circular.button.pointer(title='new session')
                         i.plus.icon
-                        |session
+                        |alpha session
             //- if single_doc
             .eight.wide.column
-                each current_delta.result_ids
+                each current_alpha.result_ids
                     +alpha_result
             
             

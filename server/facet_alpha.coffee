@@ -1,47 +1,28 @@
 Meteor.methods
-    set_alpha_facets: (model_slug)->
+    set_alpha_facets: ()->
         alpha = Docs.findOne
             model:'alpha'
             _author_id:Meteor.userId()
-        model = Docs.findOne
-            model:'model'
-            slug:model_slug
         # console.log 'model', model
-        fields =
-            Docs.find
-                model:'field'
-                parent_id:model._id
 
         Docs.update alpha._id,
-            $set:model_filter:model_slug
-
+            $set:facets:[
+                {
+                    key:'keys'
+                    filters:[]
+                    res:[]
+                }
+            ]
         # Docs.update alpha._id,
-        #     $set:facets:[
-        #         {
-        #             key:'_timestamp_tags'
+        #     $addToSet:
+        #         facets: {
+        #             title:field.title
+        #             icon:field.icon
+        #             key:field.key
+        #             rank:field.rank
         #             filters:[]
         #             res:[]
-        #         }
-        #     ]
-        Docs.update alpha._id,
-            $set:facets:[]
-        for field in fields.fetch()
-            # console.log 'field type', field.field_type
-            # console.log 'field key', field.key
-            unless field.field_type in ['textarea','image','youtube','html']
-                unless field.key in ['slug','icon']
-                # console.log 'adding field to alpha', field.key
-                    if field.faceted is true
-                        Docs.update alpha._id,
-                            $addToSet:
-                                facets: {
-                                    title:field.title
-                                    icon:field.icon
-                                    key:field.key
-                                    rank:field.rank
-                                    filters:[]
-                                    res:[]
-                                }
+                    # }
         Meteor.call 'fa', alpha._id
 
 
@@ -49,37 +30,25 @@ Meteor.methods
         # console.log 'running fa', alpha_id
         alpha = Docs.findOne alpha_id
         # console.log alpha
-        model = Docs.findOne
-            model:'model'
-            slug:alpha.model_filter
         # console.log model
         built_query = {}
-
-        fields =
-            Docs.find
-                model:'field'
-                parent_id:model._id
-        # console.log 'fields', fields.fetch()
-        # console.log 'alpha', alpha
-        if model.collection and model.collection is 'users'
-            built_query.roles = $in:[alpha.model_filter]
-        else
-            unless alpha.model_filter is 'post'
-                built_query.model = alpha.model_filter
-
-        if alpha.model_filter is 'model'
-            # unless 'dev' in Meteor.user().roles
-            built_query.view_roles = $in:Meteor.user().roles
+        unless alpha.facets
+            Docs.update alpha_id,
+            $set:
+                facets: [
+                    {
+                        key:'keys'
+                        filters:[]
+                        res:[]
+                    }
+                ]
 
         for facet in alpha.facets
             # console.log 'this facet', facet.key
             if facet.filters.length > 0
                 built_query["#{facet.key}"] = $all: facet.filters
 
-        if model.collection and model.collection is 'users'
-            total = Meteor.users.find(built_query).count()
-        else
-            total = Docs.find(built_query).count()
+        total = Docs.find(built_query).count()
         # console.log 'built query', built_query
 
         # response
@@ -87,7 +56,7 @@ Meteor.methods
             values = []
             local_return = []
 
-            agg_res = Meteor.call 'agg', built_query, facet.key, model.collection
+            agg_res = Meteor.call 'alpha_agg', built_query, facet.key
             # agg_res = Meteor.call 'agg', built_query, facet.key
 
             if agg_res
@@ -104,12 +73,7 @@ Meteor.methods
         # results_cursor =
         #     Docs.find( built_query, modifier )
 
-        if model and model.collection and model.collection is 'users'
-            results_cursor = Meteor.users.find(built_query, modifier)
-            # else
-            #     results_cursor = global["#{model.collection}"].find(built_query, modifier)
-        else
-            results_cursor = Docs.find built_query, modifier
+        results_cursor = Docs.find built_query, modifier
 
 
         # if total is 1
@@ -133,7 +97,7 @@ Meteor.methods
         # alpha = Docs.findOne alpha_id
         # console.log 'alpha', alpha
 
-    alpha_agg: (query, key, collection)->
+    alpha_agg: (query, key)->
         limit=100
         # console.log 'agg query', query
         # console.log 'agg key', key
@@ -149,10 +113,7 @@ Meteor.methods
             { $project: _id: 0, name: '$_id', count: 1 }
         ]
         if pipe
-            if collection and collection is 'users'
-                agg = Meteor.users.rawCollection().aggregate(pipe,options)
-            else
-                agg = global['Docs'].rawCollection().aggregate(pipe,options)
+            agg = global['Docs'].rawCollection().aggregate(pipe,options)
             # else
             res = {}
             # console.log 'res', res
