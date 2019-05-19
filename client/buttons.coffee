@@ -12,3 +12,9 @@ Template.session_edit_icon.events
 
 Template.session_edit_icon.helpers
     button_classes: -> Template.currentData().classes
+
+
+Template.detect.events
+    'click .detect_fields': ->
+        # console.log @
+        Meteor.call 'detect_fields', @_id

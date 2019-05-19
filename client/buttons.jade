@@ -10,6 +10,12 @@ template(name='session_edit_button')
                 |Save
 
 
+template(name='detect')
+    .ui.icon.big.circular.button.detect_fields(title='detect fields')
+        i.dna.icon
+        //- |Detect Fields
+
+
 template(name='session_edit_icon')
     if currentUser
         unless is_editing

@@ -1,7 +1,7 @@
 template(name='alpha')
     .ui.stackable.grid
         .row
-            .eight.wide.column
+            .eight.wide.column.scrolling
                 unless is_loading
                     // .ui.divider
                     // // each sessions
@@ -23,7 +23,7 @@ template(name='alpha')
                         i.plus.icon
                         |alpha session
             //- if single_doc
-            .eight.wide.column
+            .eight.wide.column.scrolling
                 each current_alpha.result_ids
                     +alpha_result
             
@@ -68,42 +68,51 @@ template(name='alpha_facet')
 template(name='alpha_result')
     with result 
         unless is_loading
-            .ui.result.basic.segment.two.column.stackable.grid
-                .column.scrolling
-                    each _keys
-                        +key_view
-                .column.scrolling
-                    if watson
-                        +watson_view
-                    if visual_classes
-                        +visual_classes
-                        if analyzed_text
-                            |#{nl2br analyzed_text}
-                    a.ui.header(href="/view#{_id}")
-                        each bricks
-                            if header
-                                +Template.dynamic template=view_template 
-                        // |#{title}
-                    .description
-                        each small_bricks
-                            unless header
-                                +Template.dynamic template=view_template 
-                    .description
-                        each big_bricks
-                            unless header
-                                +Template.dynamic template=view_template 
-                    .extra
-                        // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                        //- if is_dev
-                        //-     +remove_button
-                        if can_edit
-                            a.ui.icon.big.button(href="/edit/#{_id}")
-                                i.pencil.icon
-                        a.ui.icon.big.button(href="/view/#{_id}")
-                            i.eye.icon
-                        //- each schema.actions
-                        //-     +Template.dynamic template=this data=..
-                        +author_info
-                        +creation_info
-                        +clone_button
-                        +detect
+            .ui.result.basic.segment.stackable
+                each _keys
+                    .ui.large.label #{this}
+                    +key_view
+                    //- +Template.dynamic template=view_template 
+                //- if watson
+                //-     +watson_view
+                //- if visual_classes
+                //-     +visual_classes
+                //-     if analyzed_text
+                //-         |#{nl2br analyzed_text}
+                a.ui.header(href="/view#{_id}")
+                    each bricks
+                        if header
+                            +Template.dynamic template=view_template 
+                    // |#{title}
+                //- .description
+                //-     each small_bricks
+                //-         unless header
+                //-             +Template.dynamic template=view_template 
+                //- .description
+                //-     each big_bricks
+                //-         unless header
+                //-             +Template.dynamic template=view_template 
+                .extra
+                    // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    //- if is_dev
+                    //-     +remove_button
+                    if can_edit
+                        a.ui.icon.big.button(href="/edit/#{_id}")
+                            i.pencil.icon
+                    a.ui.icon.big.button(href="/view/#{_id}")
+                        i.eye.icon
+                    //- each schema.actions
+                    //-     +Template.dynamic template=this data=..
+                    +author_info
+                    +creation_info
+                    //- +clone_button
+                    +detect
+
+
+
+template(name='key_view')
+    //- div
+    //- .ui.inline.grey.header(title='name') #{key}
+    div
+    with context
+        +Template.dynamic template=field_view

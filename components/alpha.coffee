@@ -158,7 +158,29 @@ if Meteor.isClient
             #     $set:model_filter:@slug
             #
             # Meteor.call 'fum', alpha._id, (err,res)->
+    Template.key_view.helpers
+        key: -> @valueOf()
 
+        meta: ->
+            key_string = @valueOf()
+            parent = Template.parentData()
+            parent["_#{key_string}"]
+
+        context: ->
+            # console.log @
+            {key:@valueOf()}
+
+
+        field_view: ->
+            # console.log @
+            key_string = @valueOf()
+            meta = Template.parentData(2)["_#{@key}"]
+            # console.log meta
+            console.log "#{meta.field}_view"
+            "#{meta.field}_view"
+
+        data: ->
+            {direct:true}
 
 if Meteor.isServer
     Meteor.publish 'my_alpha', ->

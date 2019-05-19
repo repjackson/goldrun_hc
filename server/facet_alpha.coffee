@@ -8,7 +8,7 @@ Meteor.methods
         Docs.update alpha._id,
             $set:facets:[
                 {
-                    key:'keys'
+                    key:'_keys'
                     filters:[]
                     res:[]
                 }
@@ -37,7 +37,7 @@ Meteor.methods
             $set:
                 facets: [
                     {
-                        key:'keys'
+                        key:'_keys'
                         filters:[]
                         res:[]
                     }
