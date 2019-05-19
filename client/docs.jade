@@ -73,25 +73,84 @@ template(name='docs')
 
         
 
-
 template(name='view')
-    .ui.segment.container
-        .content
-            a(href="/view/#{_id}")
-                .image
-                    img.ui.large.centered.image(src="{{c.url image_id }}")
-                h1.ui.header #{title}
-            .meta
-                each tags
-                    .ui.button.tag(class=tag_class) #{this}
-            .description
-                |!{description}
-            if can_edit
-                .edit.ui.icon.button
-                    i.pencil.icon.icon
-            else
-                | by #{author.username} #{when}
-                
+    with doc
+        .ui.stackable.padded.grid
+            .three.column.row
+                .column.scrolling
+                    .ui.basic.segment.large150
+                        .ui.header
+                            if icon
+                                i.grey.icon(class=icon)
+                            |#{title}
+                        if is_dev
+                            //- +clone_button
+                            //- div
+                            //- +author_info
+                            //- div
+                            //- +creation_info
+                            div
+                            if is_author
+                                //- +edit_button
+                                a.ui.big.icon.button(href="/edit/#{_id}")
+                                    i.pencil.icon
+                            +detect
+                        //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
+                        //- +clone_button
+                        if watson
+                            +doc_sentiment
+                            +doc_emotion
+                            +concepts
+                            +categories
+                            +entities
+                            +semantic_roles
+                            +keyword_list
+                            +keywords
+                            +concept_list
+                            +relations
+                            +personality
+                            +consumption_preferences
+                .column.scrolling
+                    .ui.basic.segment.large150
+                        each _keys
+                            //- .ui.label #{this}
+                            +key_view
+                        //- .ui.hidden.divider
+                        if analyzed_text
+                            |#{nl2br analyzed_text}
+                            .ui.hidden.divider
+                        div
+                        +comments
+                        +voting
+                .column.scrolling
+                    .ui.basic.segment.large150
+                        if watson
+                            +tone
+                            +keywords
+                        //- +watson_view
+                        if visual_classes
+                            +visual_classes
+
+
+
+//- template(name='view')
+//-     .ui.segment.container
+//-         .content
+//-             a(href="/view/#{_id}")
+//-                 .image
+//-                     img.ui.large.centered.image(src="{{c.url image_id }}")
+//-                 h1.ui.header #{title}
+//-             .meta
+//-                 each tags
+//-                     .ui.button.tag(class=tag_class) #{this}
+//-             .description
+//-                 |!{description}
+//-             if can_edit
+//-                 .edit.ui.icon.button
+//-                     i.pencil.icon.icon
+//-             else
+//-                 | by #{author.username} #{when}
+//- 
                 
 template(name='edit')
     with current_doc

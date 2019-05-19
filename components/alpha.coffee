@@ -176,7 +176,7 @@ if Meteor.isClient
             key_string = @valueOf()
             meta = Template.parentData(2)["_#{@key}"]
             # console.log meta
-            console.log "#{meta.field}_view"
+            # console.log "#{meta.field}_view"
             "#{meta.field}_view"
 
         data: ->

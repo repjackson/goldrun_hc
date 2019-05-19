@@ -36,6 +36,7 @@ Router.route '/verify-email/:token', ->
 
 
 Router.route '/alpha', -> @render 'alpha'
+Router.route '/omega', -> @render 'omega'
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'

@@ -1,0 +1,11 @@
+template(name='omega')
+    +i name='omega' classes='ui inline image'
+    .ui.big.icon.input
+        i.search.icon
+        input.omega_in(type='text')
+    each sessions
+        .ui.label
+            i.remove.icon
+            |#{name}
+    with result
+        .ui.header result

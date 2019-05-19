@@ -155,7 +155,7 @@ Template.registerHelper 'user_from_username_param', () ->
     # console.log found
     found
 Template.registerHelper 'field_value', () ->
-    console.log @
+    # console.log @
     parent = Template.parentData()
     parent2 = Template.parentData(2)
     parent3 = Template.parentData(3)
