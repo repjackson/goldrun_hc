@@ -4,7 +4,7 @@ template(name='user_edit')
         .ui.stackable.padded.grid
             .three.column.row
                 .column
-                    a.ui.large.icon.button(href="/user/#{user_from_username_param.username}/" title='save') 
+                    a.ui.large.icon.circular.basic.button(href="/user/#{user_from_username_param.username}/" title='save') 
                         i.checkmark.large.green.icon
                     .ui.center.aligned.large.inline.grey.header
                         i.pencil.icon
@@ -19,7 +19,7 @@ template(name='user_edit')
                     +emails_edit
                     if is_dev
                         with user_from_username_param
-                            .ui.orange.button.remove_user 
+                            .ui.orange.circular.basic.button.remove_user 
                                 i.remove.icon
                                 |delete user
                 .column
@@ -35,25 +35,25 @@ template(name='user_edit')
                                 //- +text_edit key='building_code' label='Building Code' direct=true
                                 +date_edit key='start_date' label='start date' direct=true
                                 if user_is_owner
-                                    +image_edit key='ownership_paperwork' label='ownership paperwork' direct=true
+                                    +pdf_edit key='ownership_paperwork' label='Ownership Paperwork' direct=true
                                 else if user_is_resident
-                                    +date_edit key='expiration_date' label='expiration date' direct=true
-                                    +image_edit key='lease_agreement_image' label='lease agreement image' direct=true
-                                +image_edit key='member_guidelines_and_waiver' label='lease agreement image' direct=true
+                                    +date_edit key='expiration_date' label='Expiration Date' direct=true
+                                    +pdf_edit key='lease_agreement' label='Lease Agreement' direct=true
+                                +pdf_edit key='member_guidelines_and_waiver' label='Member Guidelines and Waiver' direct=true
                             else
-                                +text_view key='first_name' label='first name' direct=true
-                                +text_view key='last_name' label='last name' direct=true
-                                +text_view key='address' label='address' direct=true
-                                +number_view key='unit_number' label='unit #' direct=true
-                                +number_view key='building_number' label='building #' direct=true
-                                +text_view key='building_code' label='building code' direct=true
+                                +text_view key='first_name' label='First Name' direct=true
+                                +text_view key='last_name' label='Last Name' direct=true
+                                +text_view key='address' label='Address' direct=true
+                                +number_view key='unit_number' label='Unit #' direct=true
+                                +number_view key='building_number' label='Building #' direct=true
+                                +text_view key='building_code' label='Building Code' direct=true
                                 +date_view key='start_date' label='Start Date' direct=true
                                 if user_is_owner
                                     +image_view key='ownership_paperwork' label='Ownership Paperwork' direct=true
                                 if user_is_resident
                                     +date_view key='expiration_date' label='Expiration Date' direct=true
-                                    +image_view key='lease_agreement_image' label='Lease Agreement Image' direct=true
-                                +image_view key='member_guidelines_and_waiver' label='Lease Agreement Image' direct=true
+                                    +pdf_view key='lease_agreement' label='Lease Agreement' direct=true
+                                +pdf_view key='member_guidelines_and_waiver' label='Lease Agreement' direct=true
                         //- +text_edit key='email' label='Email' direct=true
                         +phone_edit key='phone' label='Phone' direct=true
                         //- +image_edit key='banner_image_id' label='Banner Image' direct=true
@@ -61,20 +61,20 @@ template(name='user_edit')
                         
                         if is_resident
                             if is_staff
-                                +array_edit key='tags' label='tags' direct=true
+                                +array_edit key='tags' label='Tags' direct=true
                 .column
                     if is_staff
                         //- with user_from_username_param
-                        +boolean_edit key='government_id_checked' label='government id checked' direct=true
-                        +single_user_edit key='id_checked_by_staff' label='government id checked by' role_filter='staff' direct=true
-                        +date_edit key='id_checked_date' label='government id checked date' direct=true
+                        +boolean_edit key='government_id_checked' label='Government Id Checked' direct=true
+                        +single_user_edit key='id_checked_by_staff' label='Government Id Checked by' role_filter='staff' direct=true
+                        +date_edit key='id_checked_date' label='Government Id Checked Date' direct=true
                     else
-                        +boolean_view key='government_id_checked' label='government id checked' direct=true
-                        +text_view key='id_checked_by_staff' label='government id checked by' role_filter='staff' direct=true
-                        +date_view key='id_checked_date' label='government id checked date' direct=true
+                        +boolean_view key='government_id_checked' label='Government Id Checked' direct=true
+                        +text_view key='id_checked_by_staff' label='Government Id Checked by' role_filter='staff' direct=true
+                        +date_view key='id_checked_date' label='Government Id Checked Date' direct=true
                         //- with user_from_username_param
                     //- +text_edit key='spirit_animal' label='spirit animal' direct=true
-                    +boolean_edit key='published' label='profile published'
+                    +boolean_edit key='published' label='Profile Published'
                     //- +payment_methods
                     +user_settings
                     
@@ -91,14 +91,14 @@ template(name='user_settings')
 template(name='user_model_editor')
     .ui.header Profile Sections
     each models
-        .ui.button.toggle_model(class=user_model_class title=title)
+        .ui.circular.basic.button.toggle_model(class=user_model_class title=title)
             i.icon(class=icon)
             |#{title}
             
 template(name='user_tribe_editor')
     .ui.header My Tribes
     each tribes
-        .ui.button.toggle_tribe(class=user_tribe_class title=title)
+        .ui.circular.basic.button.toggle_tribe(class=user_tribe_class title=title)
             i.icon(class=icon)
             |#{title}
             
@@ -106,7 +106,7 @@ template(name='user_tribe_editor')
 template(name='user_single_doc_ref_editor')
     .ui.header #{label}
     each choices
-        .ui.button.select_choice(class=choice_class title=title)
+        .ui.circular.basic.button.select_choice(class=choice_class title=title)
             i.icon(class=icon)
             |#{title}
 
@@ -135,10 +135,10 @@ template(name='phone_editor')
                 .ui.label not verified
                 a.resend_verification(href='#')
                     |resend code
-                .ui.small.icon.button.remove_phone(title='remove phone')
+                .ui.small.icon.circular.basic.button.remove_phone(title='remove phone')
                     i.remove.icon
     else
-        .ui.fluid.button.update_phone add phone
+        .ui.fluid.circular.basic.button.update_phone add phone
 
 
 template(name='add_card_modal')
@@ -153,13 +153,13 @@ template(name='password_edit')
     //-     input#password(type='password', placeholder='old password')
     .ui.fluid.icon.input
         input#new_password(type='password', placeholder='new password')
-    //- .ui.fluid.button.change_password
+    //- .ui.fluid.circular.basic.button.change_password
     //-     i.refresh.icon
     //-     |set password
     if is_dev
-        .ui.fluid.button.send_enrollment_email
+        .ui.fluid.circular.basic.button.send_enrollment_email
             |send enrollment email
-    .ui.fluid.button.set_password
+    .ui.fluid.circular.basic.button.set_password
         i.user.shield.icon
         | set password
             
@@ -179,24 +179,24 @@ template(name='emails_edit')
     .ui.small.grey.header 
         i.envelope.icon
         | email(s)
-    //- #test_email.ui.big.button test email
+    //- #test_email.ui.big.circular.basic.button test email
     .ui.divided.list
         each current_user.emails
             .item 
                 // unless verified
                 //     .right.floated.content
-                //         .ui.button Verify
+                //         .ui.circular.basic.button Verify
                 .content
                     |#{address}
                     if verified
                         .ui.green.label verified
                     else
                         .ui.label unverified
-                        .send_verification_email.ui.button 
+                        .send_verification_email.ui.circular.basic.button 
                             |verify
                             i.caret.right.icon
-                    .ui.small.icon.button.remove_email
+                    .ui.small.icon.circular.basic.button.remove_email
                         i.remove.icon
     .ui.action.fluid.input
         input#new_email(type='email')
-        #add_email.ui.submit.button + email
+        #add_email.ui.submit.circular.basic.button + email

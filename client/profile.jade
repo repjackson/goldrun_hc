@@ -19,21 +19,21 @@ template(name='profile')
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     if is_staff
-                        a.ui.icon.large.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                        a.ui.icon.large.circular.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
                             //- +i name='settings'
                             i.cog.large.icon
                             //- | settings
                     else if is_current_user
-                        a.ui.icon.big.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                        a.ui.icon.big.circular.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
                             //- +i name='settings'
                             i.cog.icon
                             //- | settings
                     if is_current_user
-                        .ui.icon.big.button.logout(title='log out')
+                        .ui.icon.big.circular.button.logout(title='log out')
                             //- +i name='logout-rounded'
                             i.sign.out.icon
                             //- |log out
-                        .ui.small.button.logout_other_clients
+                        .ui.small.circular.button.logout_other_clients
                             |logout other clients
                 
                     //- if user_is_resident
@@ -71,7 +71,7 @@ template(name='profile')
                         //- +user_tasks
 
                 .six.wide.column
-                    .ui.button.generate_barcode
+                    .ui.circular.button.generate_barcode
                         i.barcode.icon
                         |Generate Health Club Checkin Barcode
                     div
@@ -222,7 +222,7 @@ template(name='user_guests')
             |Guests
         +goto_model slug='guest'
         +add_button model='guest'
-        //- .ui.button.add_guest
+        //- .ui.circular.button.add_guest
         //-     |Add Guest
         .ui.link.large.list
             each guests
@@ -388,19 +388,19 @@ template(name='user_karma')
                 i.heartbeat.icon
                 | karma
         .active.content
-            .ui.button buy karma
+            .ui.circular.button buy karma
             with user_from_username_param
                 |karma #{karma}
-            .ui.button.send_new
+            .ui.circular.button.send_new
                 |send karma
             if sending_karma
-                .ui.icon.button.cancel_sending
+                .ui.icon.circular.button.cancel_sending
                     i.remove.icon
                 with send_karma_transaction
                     +textarea_edit key='description' direct=true
                     +array_edit key='tags' direct=true
                     +number_edit key='karma_amount' direct=true
-                    .ui.green.button.complete_sending
+                    .ui.green.circular.button.complete_sending
                         |complete
 
 
@@ -425,9 +425,9 @@ template(name='user_tasks')
         .ui.icon.input
             i.plus.icon
             input.assign_task(type='text' placeholder='assign task...')
-        //- .ui.button.view_complete(class=view_complete_class)
+        //- .ui.circular.button.view_complete(class=view_complete_class)
         //-     |View Completed
-        // .ui.button.view_incomplete(class=view_complete_class)
+        // .ui.circular.button.view_incomplete(class=view_complete_class)
         //     |View Incomplete
         each assigned_tasks
             .ui.smoothed.segment
@@ -472,11 +472,11 @@ template(name='role_switcher')
 
             
 template(name='user_array_element_toggle')
-    .ui.button.toggle_element(class=user_array_element_toggle_class)
+    .ui.circular.button.toggle_element(class=user_array_element_toggle_class)
         |#{value}
 
 template(name='user_string_toggle')
-    .ui.button.toggle_element(class=user_string_element_toggle_class)
+    .ui.circular.button.toggle_element(class=user_string_element_toggle_class)
         |#{value}
         
 template(name='user_tags')

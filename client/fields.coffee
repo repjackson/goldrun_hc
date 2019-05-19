@@ -230,6 +230,64 @@ Template.image_edit.events
 
 
 
+Template.pdf_edit.events
+    "change input[name='upload_pdf']": (e) ->
+        files = e.currentTarget.files
+        # console.log files
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        Cloudinary.upload files[0],
+            # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
+            # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
+            (err,res) => #optional callback, you can catch with the Cloudinary collection as well
+                # console.log "Upload Error: #{err}"
+                # console.dir res
+                if err
+                    console.error 'Error uploading', err
+                else
+                    doc = Docs.findOne parent._id
+                    user = Meteor.users.findOne parent._id
+                    if doc
+                        Docs.update parent._id,
+                            $set:"#{@key}":res.public_id
+                    else if user
+                        Meteor.users.update parent._id,
+                            $set:"#{@key}":res.public_id
+
+
+    'blur .cloudinary_id': (e,t)->
+        cloudinary_id = t.$('.cloudinary_id').val()
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        Docs.update parent._id,
+            $set:"#{@key}":cloudinary_id
+
+
+    'click #remove_photo': ->
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+
+        if confirm 'Remove PDF?'
+            # Docs.update parent._id,
+            #     $unset:"#{@key}":1
+            doc = Docs.findOne parent._id
+            user = Meteor.users.findOne parent._id
+            if doc
+                Docs.update parent._id,
+                    $unset:"#{@key}":1
+            else if user
+                Meteor.users.update parent._id,
+                    $unset:"#{@key}":1
+
+
+
+
 
 Template.array_edit.events
     'keyup .new_element': (e,t)->

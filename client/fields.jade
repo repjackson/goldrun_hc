@@ -117,6 +117,52 @@ template(name='image_view')
         //- else
         //-     |#{this}
         img.ui.centered.rounded.image(src="{{c.url field_value gravity='face' crop='fit'}}")
+        a(href="{{c.url field_value gravity='face' crop='fit'}}")
+            |download
+    //- +call_visual
+
+template(name='pdf_edit')
+    .ui.form
+        .ui.inline.small.header
+            if icon
+                i.grey.icon(class=icon)
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}            
+        .field
+            if field_value
+                label Uploaded PDF
+                a.ui.circular.button(href="{{c.url field_value gravity='face' crop='fit'}}")
+                    |Download PDF
+                #remove_photo.ui.icon.circular.button
+                    i.remove.red.icon
+            else
+                //- if icon
+                //-     i.grey.icon(class=icon)
+                //- |#{title}
+                //- if is_dev
+                //-     input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id' autocomplete="off")
+                // else
+                //     label Upload Image
+                input(type='file' name='upload_pdf' accept='application/pdf')
+
+template(name='pdf_view')
+    if field_value
+        if icon
+            i.grey.icon(class=icon)
+        if title
+            |#{title}
+        //- else if key
+        //-     |#{key}
+        //- else
+        //-     |#{this}
+        a(href="{{c.url field_value gravity='face' crop='fit'}}")
+            |Download PDF
     //- +call_visual
 
 template(name='image_edit')
@@ -146,7 +192,7 @@ template(name='image_edit')
                 //-     input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id' autocomplete="off")
                 // else
                 //     label Upload Image
-                input(type='file' name='upload_image' accept='image/*')
+                input(type='file' name='upload_image' accept='image/*,application/pdf')
 
 
 template(name='image_link_edit')
@@ -729,7 +775,7 @@ template(name='multi_doc_edit')
             i.icon(class=icon)
         |#{title} #{label}    
     each choices
-        .ui.compact.button.select_choice(class=choice_class)
+        .ui.compact.circular.button.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{title}
