@@ -54,7 +54,7 @@ body {
 
 
 input{
-    -webkit-border-radius: 50px !important; */
+    -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 50px !important; */
     /* border-radius: 50px !important;
 }
@@ -70,10 +70,10 @@ input{
 .shadowed{
     box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.2) !important;
 }
-.smoothed{
+.button, .segment{
     /* -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 10px !important; */
-    /* border-radius: 10px !important; */
+    border-radius: 10px !important;
 }
 
 .cloud {

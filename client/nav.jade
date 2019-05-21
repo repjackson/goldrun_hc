@@ -1,6 +1,6 @@
 template(name='nav')
     unless is_frontdesk
-        .ui.borderless.attached.large.inverted.menu.topnav
+        .ui.borderless.attached.large.inverted.menu.topnav.grblue
             //- a.toggle_sidebar.icon.item.sidebar_on
             //-     i.large.sidebar.icon
             if is_loading
@@ -13,7 +13,7 @@ template(name='nav')
                 if currentUser  
                     a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
                         //- i.th.large.large.icon
-                        +i name='squared-menu'    
+                        +i name='menu'    
                 if is_staff
                     a.icon.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                         +i name='employee-card'
@@ -42,7 +42,7 @@ template(name='nav')
             .right.menu
                 if is_admin
                     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                        +i name='task'
+                        +i name='tasks'
                         //- i.tasks.large.icon
                     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
                         +i name='note'
@@ -60,9 +60,9 @@ template(name='nav')
                         //-     a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                         //-         +i name='new-post'
                                 //- i.large.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
-                        if is_user
+                        if currentUser
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
-                                +i name='filled-topic'
+                                +i name='chat'
                                 //- i.chat.large.icon
                         //- if is_admin
                         //-     a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
@@ -165,7 +165,7 @@ template(name='sidebar')
 
 
 template(name='footer')
-    .ui.fluid.secondary.attached.segment.footer
+    .ui.fluid.inverted.grblue.attached.segment.footer
         .ui.container.stackable.grid
             .eight.wide.column
                 //- +health_club_info
@@ -183,7 +183,7 @@ template(name='footer')
                             |donate
                 
                 //- +health_club_info
-                if is_eric    
+                if is_dev    
                     with current_user
                         +role_switcher
             .eight.wide.column
@@ -192,6 +192,9 @@ template(name='footer')
                         i.sign.in.icon
                         |Login
                 if is_eric
+                    with currentUser
+                        +role_switcher
+                else if is_dev
                     with currentUser
                         +role_switcher
         if is_user

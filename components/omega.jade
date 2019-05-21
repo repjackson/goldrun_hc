@@ -4,8 +4,10 @@ template(name='omega')
         i.search.icon
         input.omega_in(type='text')
     each sessions
-        .ui.label
-            i.remove.icon.delete_session
+        .ui.button.select_omega(class=session_button_class)
             |#{name}
-    with result
+    with current_omega
+        +text_edit key='name' label='Name' direct=true
+        +text_edit key='query' label='Query' direct=true
+        +remove_button
         .ui.header result

@@ -71,7 +71,8 @@ template(name='icon_view')
 
 
 template(name='i')
-    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
     img(src="https://img.icons8.com/color/24/000000/#{name}.png" class=classes title=title)
@@ -567,7 +568,7 @@ template(name='children_edit')
     div
     .ui.inline.header 
         |#{title}
-    .ui.icon.large.button.add_child(title="Add Child #{ref_model}")
+    .ui.icon.large.circular.button.add_child(title="Add Child #{ref_model}")
         i.plus.icon
     //- .ui.styled.fluid.accordion
     each children
@@ -674,11 +675,11 @@ template(name='signature_edit')
         .ui.stackable.grid
             .middle.aligned.row
                 .fourteen.wide.column
-                    .ui.huge.fluid.button.save(title='Save')
+                    .ui.huge.fluid.circular.button.save(title='Save')
                         i.checkmark.icon
                         |Save
                 .two.wide.column
-                    .ui.large.icon.button.clear(title='Clear')
+                    .ui.large.icon.circular.button.clear(title='Clear')
                         i.remove.icon
 
 template(name='signature_view')
@@ -711,7 +712,7 @@ template(name='boolean_edit')
         else
             |#{this}
     //- .ui.icon.button.toggle_boolean
-    .ui.button.toggle_boolean(class=boolean_toggle_class)
+    .ui.circular.button.toggle_boolean(class=boolean_toggle_class)
         if field_value
             if true_icon
                 i.large.green.icon(class=true_icon)
@@ -761,7 +762,7 @@ template(name='single_doc_edit')
             i.grey.icon(class=icon)
         |#{label} #{title}
     each choices
-        .ui.small.button.select_choice(class=choice_class)
+        .ui.small.circular.button.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{calculated_label}
@@ -968,7 +969,8 @@ template(name='multi_doc_input')
         //-     else
         //-         |#{this}
     .ui.big.input
-        input#multi_doc_select_input(type='text' placeholder="Lookup #{ref_model}..." autocomplete="off")
+        input#multi_doc_select_input(type='text' placeholder=title autocomplete="off")
+        //- input#multi_doc_select_input(type='text' placeholder="Lookup #{ref_model}..." autocomplete="off")
     each selections
         .ui.large.label
             |#{first_name} #{last_name}

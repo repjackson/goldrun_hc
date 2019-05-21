@@ -6,7 +6,7 @@ template(name='profile')
             .row
                 .four.wide.column.scrolling
                     if image_id
-                        img.ui.centered.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                        img.ui.centered.rounded.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     .ui.large.center.aligned.header
                         | #{user.first_name}

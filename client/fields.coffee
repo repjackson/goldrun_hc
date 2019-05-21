@@ -847,10 +847,11 @@ Template.single_user_edit.events
 
     'keyup #single_user_select_input': (e,t)->
         search_value = $(e.currentTarget).closest('#single_user_select_input').val().trim()
-        Meteor.call 'lookup_user', search_value, @role_filter, (err,res)=>
-            if err then console.error err
-            else
-                t.user_results.set res
+        if search_value.length > 1
+            Meteor.call 'lookup_user', search_value, @role_filter, (err,res)=>
+                if err then console.error err
+                else
+                    t.user_results.set res
 
     'click .select_user': (e,t) ->
         # page_doc = Docs.findOne Router.current().params.id

@@ -12,9 +12,11 @@ if Meteor.isClient
 
         current_omega: ->
             Docs.findOne
-                model:'omega_session'
+                _id: Session.get('current_omega_id')
                 # _author_id:Meteor.userId()
 
+        session_button_class: ->
+            if Session.equals 'current_omega_id', @_id then 'blue' else 'basic'
 
         single_doc: ->
             omega = Docs.findOne model:'omega'
@@ -30,15 +32,21 @@ if Meteor.isClient
                 # parent = Docs.findOne Router.current().params.doc_id
                 query = t.$('.omega_in').val()
                 # console.log comment
-                Docs.insert
+                new_omega_id = Docs.insert
                     model:'omega_session'
-                    name:'session'
+                    name:query
+                    query:query
+                Session.set 'new_omega_id'
 
         'click .delete_omega': (e,t)->
             omega = Docs.findOne model:'omega'
             if omega
                 if confirm "delete  #{omega._id}?"
                     Docs.remove omega._id
+
+        'click .select_omega': ->
+            Session.set 'current_omega_id', @_id
+
 
         'click .select_tag': -> selected_tags.push @name
         'click .unselect_tag': -> selected_tags.remove @valueOf()

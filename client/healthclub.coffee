@@ -60,7 +60,7 @@ Template.checkin_button.events
             model:'healthclub_checkin'
             object_id:@_id
             resident_username:@username
-            body: "#{@username} checked in."
+            body: "#{@first_name} #{@last_name} checked in."
         Session.set 'username_query',null
         Session.set 'checkin_document',checkin_document
         # Session.set 'checking_in',false
@@ -77,9 +77,9 @@ Template.checkin_button.events
             model:'log_event'
             parent_id:@_id
             object_id:@_id
-            body: "#{@username} checked out."
+            body: "#{@first_name} #{@last_name} checked out."
         $('body').toast({
-            title: "#{@username} checked out."
+            title: "#{@first_name} #{@last_name} checked out."
             class: 'success'
             transition:
                 showMethod   : 'zoom',
@@ -158,15 +158,15 @@ Template.add_resident.events
                         first_name:first_name
                         last_name:last_name
                         roles:['resident']
-                        healthclub_checkedin:true
+                        # healthclub_checkedin:true
                 Docs.insert
                     model:'log_event'
                     object_id:res
                     body: "#{username} was created."
-                Docs.insert
-                    model:'log_event'
-                    object_id:res
-                    body: "#{username} checked in."
+                # Docs.insert
+                #     model:'log_event'
+                #     object_id:res
+                #     body: "#{username} checked in."
                 Session.set 'username_query',null
                 $('.username_search').val('')
 
@@ -231,7 +231,7 @@ Template.checkin_card.events
         # Meteor.setTimeout =>
         Session.set 'displaying_profile', null
         $('body').toast({
-            title: "#{@username} checked in."
+            title: "#{@first_name} #{@last_name} checked in."
             class: 'success'
             transition:
               showMethod   : 'zoom',
@@ -246,7 +246,7 @@ Template.checkin_card.events
             model:'log_event'
             object_id:@_id
             body: "#{@first_name} #{@last_name} checked in."
-        document.reload()
+        # document.reload()
 
     'click .remove_guest': ->
         console.log @

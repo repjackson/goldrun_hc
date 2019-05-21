@@ -2,7 +2,7 @@ template(name='healthclub')
     //- img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=500 crop='crop'}}")
     .ui.padded.stackable.grid
         .sixteen.wide.column
-            .ui.header 
+            h1.ui.header 
                 |Health Club Check In
             //- .ui.inline.header Technology provided by
             //- img.ui.small.inline.image(src="{{c.url 'skynet'}}")
@@ -143,7 +143,7 @@ template(name='add_resident')
                     //-     input#username(type='text')
                 if permission
                     .ui.fluid.green.big.button.create_and_checkin
-                        |Create and Check In
+                        |Create Resident
         
         
 template(name='sign_waiver')
@@ -234,7 +234,7 @@ template(name='checkin_card')
     with user
         //- .ui.card
         //- .ui.grid.cloud.segment(class=checkin_card_class)
-        .ui.grid.cloud.segment
+        .ui.grid
             .centered.row
                 .column
                     if is_staff
@@ -260,16 +260,16 @@ template(name='checkin_card')
                     //-     +member_waiver_check
                     //- .ui.hidden.divider
                     //- //- .ui.input
-                    //- +multi_doc_input key='guests' ref_model='guest' title='Check In Previous Guest' direct=true
+                    +multi_doc_input key='guests' ref_model='guest' title='Lookup previous guest...' direct=true
                     //- //- .ui.hidden.divider
                     .ui.big.circular.button.add_guest
-                        i.plus.icon
+                        //- i.plus.icon
                         //- +ismall name='plus' classes='ui avatar image'
-                        | Guest
+                        | New Guest
                     div
                     with checking_in_doc
                         each checkin_guest_docs
-                            .ui.big.basic.button.remove_guest 
+                            .ui.big.circular.button.remove_guest 
                                 i.remove.grey.icon
                                 |#{first_name} #{last_name}
             .middle.aligned.row

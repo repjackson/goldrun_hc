@@ -31,7 +31,8 @@ template(name='layout')
                 else 
                     +yield
         //- if is_eric
-        +footer 
+        unless is_frontdesk
+            +footer 
 
     //- .context
     //-     +nav
