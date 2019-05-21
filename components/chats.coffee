@@ -14,6 +14,7 @@ Meteor.methods
             group_id: chat_id
 
     join_chat: (chat_id)->
+        console.log 'joining', chat_id
         Docs.update chat_id,
             $addToSet:
                 participant_ids: Meteor.userId()

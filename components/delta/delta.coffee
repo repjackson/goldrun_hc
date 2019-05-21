@@ -188,7 +188,7 @@ if Meteor.isClient
                  'disabled'
             else if facet.filters.length > 0 and @name in facet.filters
                 'teal'
-            else 'basic'
+            else ''
 
     Template.delta_result.onRendered ->
         # Meteor.setTimeout ->

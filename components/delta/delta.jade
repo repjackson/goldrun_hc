@@ -37,6 +37,7 @@ template(name='delta')
                                 |session
                         .ui.segment
                             |#{description}
+                        if is_dev
                             .ui.input
                                 input.import_subreddit(type='text' placeholder='import_subreddit')
                     // |did: #{session_delta_id}

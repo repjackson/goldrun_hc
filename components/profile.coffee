@@ -264,14 +264,17 @@ if Meteor.isClient
                 model:'log_event'
             }, sort:_timestamp:-1
 
+
     Template.user_bookmarks.onCreated ->
         @autorun => Meteor.subscribe 'user_bookmarks', Router.current().params.username
     Template.user_bookmarks.helpers
         bookmarks: ->
-            current_user = Meteor.users.find username:Router.current().params.username
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            console.log current_user
             Docs.find {
                 bookmark_ids:$in:[current_user._id]
             }, sort:_timestamp:-1
+
 
 
 if Meteor.isServer

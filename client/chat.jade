@@ -86,15 +86,15 @@ template(name='view_chats')
                 +cloud filter='chat'
                 //- +participant_filter type='chat'
                 +chat_list
-                //- .ui.small.header viewing: 
-                //-     if viewing_published
-                //-         #view_private_chats.ui.button 
-                //-             i.unhide.icon
-                //-             |published
-                //-     if viewing_private
-                //-         #view_published_chats.ui.button 
-                //-             i.lock.icon
-                //-             |private
+                .ui.small.header viewing: 
+                    if viewing_published
+                        #view_private_chats.ui.button 
+                            i.unhide.icon
+                            |Published
+                    if viewing_private
+                        #view_published_chats.ui.button 
+                            i.lock.icon
+                            |Private
             .twelve.wide.column
                 with selected_chat
                     +view_chat
@@ -111,23 +111,25 @@ template(name='view_chat')
                 +chat_messages_pane this
             .four.wide.column
                 .ui.cloud.segment
-                    //- .ui.small.header 
-                    //-     i.line.chart.icon
-                    //-     |stats
-                    //- //- .ui.small.inline.header #{message_count} messages
-                    //- //- .ui.small.inline.header #{unread_message_count} unread
-                    //- .ui.small.header 
-                    //-     i.align.left.icon
-                    //-     |description
-                    //- |!{content}
+                    .ui.small.header 
+                        i.line.chart.icon
+                        |stats
+                    //- .ui.small.inline.header #{message_count} messages
+                    //- .ui.small.inline.header #{unread_message_count} unread
+                    .ui.small.header 
+                        i.align.left.icon
+                        |description
+                    |!{content}
                     .ui.small.inline.header
-                        |participants
+                        |Participants
                         if currentUser
                             if in_chat
                                 //- i.sign.in.link.icon.leave_chat(title='leave')
-                                +i name='leaving-queue' title='leave conversation' classes='leave_chat pointer'
+                                .ui.icon.button.leave_chat
+                                    +i name='leaving-queue' title='leave conversation'
                             else
-                                +i name='joining-queue' title='join conversation' classes='join_chat pointer'
+                                .ui.icon.button.join_chat
+                                    +i name='joining-queue' title='join conversation'
                                 //- i.sign.out.link.icon.join_chat(title='join')
                     .ui.relaxed.list
                         each participants
@@ -165,17 +167,17 @@ template(name='view_chat')
                     //-     +thanks_button
                     //- +resonates_list
 
-                    //- .ui.small.header 
-                    //-     i.eye.icon
-                    //-     |visibility
-                    //- if published
-                    //-     .ui.green.large.label 
-                    //-         i.unlock.icon
-                    //-         | public
-                    //- else
-                    //-     .ui.large.label 
-                    //-         i.lock.icon
-                    //-         | private
+                    .ui.small.header 
+                        i.eye.icon
+                        |visibility
+                    if published
+                        .ui.green.large.label 
+                            i.unlock.icon
+                            | public
+                    else
+                        .ui.large.label 
+                            i.lock.icon
+                            | private
                     .ui.small.header started by 
                         img.ui.avatar.image(src="{{c.url author.image_id width=400 height=400 gravity='face' crop='fill'}}")
                         |#{author.username} #{when}

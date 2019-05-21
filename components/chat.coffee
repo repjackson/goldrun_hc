@@ -3,7 +3,9 @@ if Meteor.isClient
     @selected_participant_ids = new ReactiveArray []
 
     Template.view_chat.events
-        'click .join_chat': (e,t)-> Meteor.call 'join_chat', @_id, ->
+        'click .join_chat': (e,t)->
+            console.log @
+            Meteor.call 'join_chat', @_id, ->
         'click .leave_chat': (e,t)->
             console.log @
             Meteor.call 'leave_chat', @_id, ->

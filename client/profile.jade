@@ -14,8 +14,8 @@ template(name='profile')
                         //- if current_user
                         //-     a(href="/user/#{user_from_username_param.username}/edit")
                         //-         i.cog.link.icon
-                    //- .ui.center.aligned.small.grey.header
-                    //-     | #{user.tagline}
+                    .ui.center.aligned.small.grey.header
+                        | #{user.tagline}
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     if is_staff
@@ -36,9 +36,9 @@ template(name='profile')
                         .ui.small.circular.button.logout_other_clients
                             |logout other clients
                 
-                    //- if user_is_resident
-                    //-     if is_resident
-                    //-         +gr_status                
+                    if user_is_resident
+                        if is_resident
+                            +gr_status                
                     .ui.segment
                         //- +text_view key='first_name' label='First Name' direct=true
                         //- +text_view key='last_name' label='Last Name' direct=true
@@ -67,22 +67,22 @@ template(name='profile')
                                 .ui.label #{this}                    
                     if user_is_staff
                         +user_notes
-                        
-                        //- +user_tasks
-
-                .six.wide.column
                     .ui.circular.button.generate_barcode
                         i.barcode.icon
-                        |Generate Health Club Checkin Barcode
+                        |generate health club checkin barcode
                     div
                     svg#barcode
+
+
+                .six.wide.column
+                    +user_tasks
                     if user_is_resident
                         if is_resident
-                            //- .ui.header karma
-                            //- .ui.header #{karma}
+                            .ui.header karma
+                            .ui.header #{karma}
+                            +received_karma
                             +user_messages
                             +user_transactions
-                            //- +received_karma
                     if user_is_user
                         if is_user
                             +user_connections
