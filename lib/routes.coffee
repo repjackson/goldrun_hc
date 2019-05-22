@@ -69,6 +69,7 @@ Router.route '/forgot_password', -> @render 'forgot_password'
 
 Router.route '/reddit', -> @render 'reddit'
 Router.route '/staff', -> @render 'staff'
+Router.route '/events', -> @render 'cal'
 Router.route '/frontdesk', -> @render 'frontdesk'
 Router.route '/user/:username/edit', -> @render 'user_edit'
 Router.route '/p/:slug', -> @render 'page'
@@ -92,6 +93,7 @@ Router.route '/checkin', (->
     @layout 'mlayout'
     @render 'healthclub'
     ), name:'healthclub'
+
 
 
 

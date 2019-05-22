@@ -2,7 +2,7 @@ template(name='login')
     .ui.padded.stackable.grid
         .centered.row
             .ten.wide.column
-                .ui.center.aligned.header Gold Run Login
+                .ui.center.aligned.header gold run login
                     //- i.massive.icons
                     //-     i.home.grey.icon
                     //-     i.corner.right.chevron.icon
@@ -24,17 +24,17 @@ template(name='login')
                         i.sign.in.alternate.icon
                         | #{username}
                         //- i.right.chevron.icon
-                else
-                    if username
-                        .ui.center.aligned.segment
-                            .ui.small.grey.header no '#{username}' user
-                            a.ui.grey.button(href='/register')
-                                i.user.plus.icon
-                                | Register
+                //- else
+                //-     if username
+                //-         .ui.center.aligned.segment
+                //-             .ui.small.grey.header no '#{username}' user
+                //-             a.ui.grey.button(href='/register')
+                //-                 i.user.plus.icon
+                //-                 | Register
                 .ui.center.aligned.basic.segment    
                     a.ui.large.button(href='/forgot_password')
                         i.refresh.icon
-                        |Forgot Password
-                    a.ui.large.button(href='/register') 
-                        i.user.plus.icon
-                        |Register
+                        |forgot password
+                    //- a.ui.large.button(href='/register') 
+                    //-     i.user.plus.icon
+                    //-     |Register

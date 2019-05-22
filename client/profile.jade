@@ -20,14 +20,14 @@ template(name='user_layout')
                     if is_staff
                         .ui.vertical.large.fluid.menu
                             a.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                                //- +i name='settings'
-                                i.cog.large.icon
+                                i.icon
+                                    +i name='settings' classes='ui image'
                                 | settings
                     else if is_current_user
                         .ui.vertical.large.fluid.menu
                             a.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                                //- +i name='settings'
-                                i.cog.icon
+                                i.icon
+                                    +i name='settings' classes='ui image'
                                 | settings
                     //- else
                         //- .ui.button.direct_message
@@ -35,37 +35,49 @@ template(name='user_layout')
                         //-     |direct message
                     .ui.vertical.large.fluid.menu
                         a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
-                            i.info.icon
+                            i.icon
+                                +i name='info' classes='ui image'
                             |about
                         a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                            i.book.icon
+                            i.icon
+                                +i name='handshake' classes='ui image'
+                            |social
+                        a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
+                            i.icon
+                                +i name='book' classes='ui image'
                             |documents
                         a.item(href="/user/#{username}/residency" class="{{isActiveRoute 'user_residency'}}")
-                            i.home.icon
+                            i.icon
+                                +i name='home' classes='ui image'
                             |residency
                         a.item(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
-                            i.barbell.icon
+                            i.icon
+                                +i name='barbell' classes='ui image'
                             |health club
                         a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
-                             i.phone.icon
+                             i.icon
+                                 +i name='phone' classes='ui image'
                              |contact
                         a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
-                            i.fork.icon
+                            i.icon
+                                +i name='fork' classes='ui image'
                             |comparison
                         a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
-                             i.heart.icon
+                             i.icon
+                                 +i name='heart' classes='ui image'
                              |karma
                         a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
-                             i.money.icon
+                             i.icon
+                                 +i name='money' classes='ui image'
                              |transactions                            
                             
                     if is_current_user
-                        .ui.icon.big.circular.button.logout(title='log out')
-                            //- +i name='logout-rounded'
-                            i.sign.out.icon
-                            //- |log out
-                        .ui.small.circular.button.logout_other_clients
-                            |logout other clients
+                        .ui.vertical.large.fluid.menu
+                            a.item.logout(href="#")
+                                i.sign.out.icon
+                                |log out
+                            a.item.logout_other_clients(href="#")
+                                |logout other clients
                 
                     if user_is_resident
                         if is_resident
@@ -96,13 +108,6 @@ template(name='user_layout')
                                 |roles
                             each roles
                                 .ui.label #{this}                    
-                    if user_is_staff
-                        +user_notes
-                    .ui.circular.button.generate_barcode
-                        i.barcode.icon
-                        |generate health club checkin barcode
-                    div
-                    svg#barcode
                 .twelve.wide.column.shadowed-box
                     +yield
 
@@ -110,10 +115,18 @@ template(name='user_residency')
     +user_key
     +user_unit
     
+template(name='user_healthclub')
+    if user_is_staff
+        +user_notes
+    .ui.circular.button.generate_barcode
+        i.barcode.icon
+        |generate health club checkin barcode
+    div
+    svg#barcode
+    
     
 template(name='user_about')
     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
-    +user_diagram
     .six.wide.column
         //- +user_tasks
         +user_messages

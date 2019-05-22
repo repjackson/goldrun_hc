@@ -47,17 +47,13 @@ if Meteor.isClient
             Meteor.logout()
             Router.go '/login'
 
+    Template.user_healthclub.events
         'click .generate_barcode': ->
             current_user = Meteor.users.findOne username:Router.current().params.username
             if current_user.healthclub_code
                 JsBarcode("#barcode", current_user.healthclub_code);
             else
                 alert 'No healthclub code'
-
-
-        'click .direct_message': ->
-            console.log @
-
 
 
 

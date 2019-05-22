@@ -201,12 +201,12 @@ template(name='user_list_toggle')
 template(name='voting')
     if points
         strong #{points}
-    .ui.icon.button.upvote(class=upvote_class title='upvote')
-        i.thumbs.up.large.icon
+    .ui.icon.basic.button.upvote(class=upvote_class title='upvote')
+        i.thumbs.up.icon
     //- each upvoter_ids
     //-     +user_info
-    .ui.icon.button.downvote(title='downvote' class=downvote_class)
-        i.thumbs.down.large.icon
+    .ui.icon.basic.button.downvote(title='downvote' class=downvote_class)
+        i.thumbs.down.icon
     //- each downvoter_ids
     //-     +user_info
 
