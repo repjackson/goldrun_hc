@@ -9,19 +9,19 @@ body {
 }
 
 .red_flagged {
-  border: 10px solid red !important;
+  border: 5px solid red !important;
   /* border-radius: 5px !important; */
   box-shadow: 0 4px 8px 0 rgb(220,20,60, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 
 }
 
 .yellow_flagged {
-  border: 10px solid orange !important;
+  border: 5px solid orange !important;
   /* border-radius: 5px !important; */
 }
 
 .green_flagged {
-  border: 10px solid green;
+  border: 5px solid green;
   /* border-radius: 5px; */
 }
 
@@ -43,7 +43,7 @@ body {
     width:100%;
 }
 .checkin_banner {
-    opacity: 0.5;
+    opacity: 0.4;
     -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 }
@@ -73,8 +73,14 @@ input{
 .button, .segment{
     /* -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 10px !important; */
-    border-radius: 10px !important;
+    border-radius: 15px !important;
 }
+
+
+.button {
+    /* background-color: rgba(200, 200, 200, 0.5) !important; */
+}
+
 
 .cloud {
     opacity: 0.9;
@@ -94,7 +100,7 @@ input{
 
 
 .button .selector .card{
-  animation: fadein .5s;
+  animation: fadein 1s;
 }
 @keyframes fadein {
   from { opacity: 0}
@@ -121,11 +127,11 @@ a {
   font-family: 'Ubuntu', sans-serif !important;
 }
 
-.button .label {
+.label {
   animation: fadein .5s;
 }
-.segment, .card {
-  animation: fadein .5s;
+.segment{
+  animation: fadein 1s;
 }
 
 .icon.item {
@@ -144,9 +150,6 @@ a {
   animation: fadein .5s;
 }
 
-.-autocomplete-container {
-  margin-top: 12px;
-}
 @media screen and (max-width: 1100px) {
   .overlay-text {
     top: 550px;
@@ -221,7 +224,9 @@ a {
   font-weight: 300 !important;
 }
 .header-wrapper {
-  position: relative /* important(so we can absolutely position the description div */;
+  position: absolute;
+  top:0px;
+  height:100%;
 }
 .middle-align {
   vertical-align: middle !important;

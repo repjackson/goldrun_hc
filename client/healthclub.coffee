@@ -83,9 +83,9 @@ Template.checkin_button.events
             class: 'success'
             transition:
                 showMethod   : 'zoom',
-                showDuration : 100,
+                showDuration : 250,
                 hideMethod   : 'fade',
-                hideDuration : 100
+                hideDuration : 250
         })
         Session.set 'username_query',null
         $('.username_search').val('')
@@ -115,7 +115,7 @@ Template.healthclub.events
         else
             # audio = new Audio('wargames.wav');
             # audio.play();
-            console.log 'hi'
+            # console.log 'hi'
             Session.set 'username_query',username_query
 
     'input .barcode_entry': _.debounce((e, t)->
@@ -217,13 +217,13 @@ Template.checkin_card.helpers
 
 Template.checkin_card.events
     'click .cancel_checkin': (e,t)->
-        $(e.currentTarget).closest('.segment').transition('fade right',100)
+        $(e.currentTarget).closest('.segment').transition('slide right',500)
         Meteor.setTimeout =>
             Session.set 'displaying_profile', null
             checkin_doc = Docs.findOne Session.get 'checkin_document'
             Docs.remove checkin_doc._id
             checkin_doc = Session.set 'checkin_document',null
-        , 100
+        , 500
         # document.reload()
 
     'click .complete_checkin': (e,t)->
@@ -235,9 +235,9 @@ Template.checkin_card.events
             class: 'success'
             transition:
               showMethod   : 'zoom',
-              showDuration : 100,
+              showDuration : 250,
               hideMethod   : 'fade',
-              hideDuration : 100
+              hideDuration : 250
             })
         # , 100
         Meteor.users.update @_id,

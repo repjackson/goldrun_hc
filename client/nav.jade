@@ -63,6 +63,12 @@ template(name='nav')
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
                                 +i name='chat'
                                 //- i.chat.large.icon
+                            a.icon.item(href="/events" class="{{isActivePath '/events'}}")
+                                +i name='calendar'
+                                //- i.chat.large.icon
+                            a.icon.item(href="/groups" class="{{isActivePath '/groups'}}")
+                                +i name='group'
+                                //- i.chat.large.icon
                         //- if is_admin
                         //-     a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
                         //-         +i name='user shield'

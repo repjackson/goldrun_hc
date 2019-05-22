@@ -78,11 +78,11 @@ template(name='profile')
                     +user_tasks
                     if user_is_resident
                         if is_resident
-                            .ui.header karma
-                            .ui.header #{karma}
-                            +received_karma
+                            //- .ui.header karma
+                            //- .ui.header #{karma}
+                            //- +received_karma
                             +user_messages
-                            +user_transactions
+                            //- +user_transactions
                     if user_is_user
                         if is_user
                             +user_connections
@@ -105,15 +105,15 @@ template(name='profile')
                             +user_log
                     if user_is_user
                         if is_user
-                            +user_karma
+                            //- +user_karma
                             +user_bookmarks    
                             //- +user_feed
                     if user_is_resident
-                        //- if is_staff
-                        +user_key
-                            //- +user_garden
-                        +user_unit
-                        +user_tags
+                        if is_staff
+                            +user_key
+                                //- +user_garden
+                            +user_unit
+                            //- +user_tags
                     //- +user_rules_widget
                     //- if is_eric
                     //-     +role_switcher
@@ -238,7 +238,7 @@ template(name='user_key')
         .ui.grey.inline.center.aligned.header 
             i.key.icon
             //- +i name='key'
-            |Key
+            |key
         if is_staff
             +goto_model slug='key'
         with key
@@ -274,7 +274,7 @@ template(name='user_unit')
         .ui.grey.inline.center.aligned.header 
             i.home.icon
             //- +i name='interior'
-            |Unit
+            |unit
         +goto_model slug='unit'
         with unit
             +number_view key='building_number' label='Building Number' direct=true
@@ -317,7 +317,7 @@ template(name='violations')
                     .content
                         a.header(href="/m/violation/#{_id}/view") !{description}
                         .meta #{when}
-                            |date:#{violation_date}
+                            |date: #{violation_date}
                             |time: #{violation_time}
                         //- .actions
                             //- i.thumbs.up.link.icon

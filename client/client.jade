@@ -1,5 +1,5 @@
 head
-    title Gold Run
+    title gold run online
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='apple-mobile-web-app-status-bar-style', content='black')
@@ -23,7 +23,7 @@ template(name='layout')
     //- img.ui.fluid.image(src="{{c.url 'stars_big' width=2000}}")
     +nav
     //- if currentUser
-    .ui.stackable.padded.grid
+    .ui.stackable.grid
         .centered.row
             .sixteen.wide.column
                 if displaying_profile
@@ -43,6 +43,13 @@ template(name='layout')
     //-                 //- .ui.basic.fluid.segment
     //-                 +yield
         //- +footer
+
+
+template(name='mlayout')
+    if displaying_profile
+        +checkin_card displaying_profile
+    else 
+        +yield
 
 
 

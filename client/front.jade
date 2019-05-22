@@ -25,30 +25,33 @@ template(name='front')
                     //- .ui.small.grey.header
                     //-     |Temp: 80.3
             .column
-                +model_scroller model='event' header='Events' icon='calendar'
+                .ui.header groups
+                .ui.header chat
+                //- +model_scroller model='event' header='Events' icon='calendar'
             .column
-                +model_scroller model='photo' header='Photos' icon='image'
-        .three.column.row    
-            .column
-                +model_scroller model='marketplace' header='Marketplace' icon='shop'
-            .column
-                +model_scroller model='free' header='Free' icon='handshake'
-            .column
-                +model_scroller model='gr_post' header='Posts' icon='post'
-        .three.column.row    
-            .column
-                +model_scroller model='group' header='Groups' icon='groups'
-            .column
-                +model_scroller model='company' header='Businesses' icon='business'
-            .column
-                +model_scroller model='free' header='Free' icon='handshake'
-        .three.column.row    
-            .column
-                +model_scroller model='library' header='Library' icon='library'
-            .column
-                +model_scroller model='ad' header='Resident Ads' icon='presentation'
-            .column
-                +model_scroller model='for_rent' header='For Rent' icon='business'
+                .ui.header event calendar
+                //- +model_scroller model='photo' header='Photos' icon='image'
+        //- .three.column.row    
+        //-     .column
+        //-         +model_scroller model='marketplace' header='Marketplace' icon='shop'
+        //-     .column
+        //-         +model_scroller model='free' header='Free' icon='handshake'
+        //-     .column
+        //-         +model_scroller model='gr_post' header='Posts' icon='post'
+        //- .three.column.row    
+        //-     .column
+        //-         +model_scroller model='group' header='Groups' icon='groups'
+        //-     .column
+        //-         +model_scroller model='company' header='Businesses' icon='business'
+        //-     .column
+        //-         +model_scroller model='free' header='Free' icon='handshake'
+        //- .three.column.row    
+        //-     .column
+        //-         +model_scroller model='library' header='Library' icon='library'
+        //-     .column
+        //-         +model_scroller model='ad' header='Resident Ads' icon='presentation'
+        //-     .column
+        //-         +model_scroller model='for_rent' header='For Rent' icon='business'
 
 
 template(name='gr_post_doc_view')

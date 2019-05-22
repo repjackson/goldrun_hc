@@ -69,7 +69,6 @@ Router.route '/user/:username', -> @render 'profile'
 Router.route '/forgot_password', -> @render 'forgot_password'
 
 Router.route '/reddit', -> @render 'reddit'
-Router.route '/checkin', -> @render 'healthclub'
 Router.route '/staff', -> @render 'staff'
 Router.route '/frontdesk', -> @render 'frontdesk'
 Router.route '/user/:username/edit', -> @render 'user_edit'
@@ -88,3 +87,9 @@ Router.route '/', (->
     @layout 'layout'
     @render 'front'
     ), name:'front'
+
+
+Router.route '/checkin', (->
+    @layout 'mlayout'
+    @render 'healthclub'
+    ), name:'healthclub'
