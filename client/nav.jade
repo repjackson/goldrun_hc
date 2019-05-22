@@ -57,9 +57,9 @@ template(name='nav')
                         //-         each notifications
                         //-             .ui.button #{text}
                         if currentUser
-                            a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
-                                //- +i name='new-post'
-                                i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
+                            //- a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
+                            //-     //- +i name='new-post'
+                            //-     i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
                                 +i name='chat'
                                 //- i.chat.large.icon
@@ -100,72 +100,6 @@ template(name='nav')
                         //- i.large.icon(class=icon)
                         +i name=icon
                         |#{title}
-
-
-
-template(name='sidebar')
-    .ui.left.inline.vertical.sidebar.grblue.fixed.menu
-        a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
-            i.home.icon
-            | Gold Run
-        a.toggle_sidebar.item(href='/readings' class="{{isActivePath '/readings'}}")
-            i.theme.icon
-            | Readings
-        a.toggle_sidebar.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
-            i.random.icon
-            | Lost and Found
-        a.toggle_sidebar.item(href='/bikes' class="{{isActivePath '/bikes'}}")
-            i.bicycle.icon
-            | Bikes
-        a.toggle_sidebar.item(href='/frontdesk' class="{{isActivePath '/frontdesk'}}")
-            i.circle.info.icon
-            | Desk Staff
-        a.toggle_sidebar.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-            i.building.icon
-            | Buildings
-        a.toggle_sidebar.item(href='/tasks' class="{{isActivePath '/tasks'}}")
-            i.edit.icon
-            | Tasks
-        a.toggle_sidebar.item(href='/keys' class="{{isActivePath '/keys'}}")
-            i.key.icon
-            | Keys
-        a.toggle_sidebar.item(href='/users' class="{{isActivePath '/users'}}")
-            i.users.icon
-            | People
-        if currentUser
-            unless logging_out
-                a.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                    i.dashboard.icon
-                    | Dashboard
-                .ui.simple.dropdown.icon.item
-                    i.alarm.icon
-                    | Alerts
-                a.item(href='/messages' class="{{isActivePath '/messages'}}")
-                    i.mail.icon
-                    | Mail
-                if is_admin
-                    a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
-                        i.configure.icon
-                        | Admin
-                a.item(href="/user/#{currentUser.username}/edit" class="{{isActiveRoute regex='user_edit'}}")
-                    if currentUser.image_id
-                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=50 height=50 gravity='face' crop='fill'}}")
-                    else
-                        i.user.icon
-                    | #{currentUser.username}
-            if logging_out
-                .item
-                    i.loading.refresh.icon
-                    |Logging Out...
-            else
-                a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
-                    i.sign.out.icon
-                    |Log Out
-        else
-            a.ui.item(href='/login') 
-                i.sign.in.icon
-                | Log In
-
 
 
 

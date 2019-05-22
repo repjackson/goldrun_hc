@@ -229,7 +229,8 @@ template(name='checkin_card')
     with user
         //- .ui.card
         //- .ui.grid
-        .ui.grid.cloud.segment(class=checkin_card_class)
+        //- .ui.grid.cloud.segment(class=checkin_card_class)
+        .ui.grid.cloud.segment
             .centered.row
                 .column
                     if is_staff

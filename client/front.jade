@@ -30,6 +30,7 @@ template(name='front')
                 //- +model_scroller model='event' header='Events' icon='calendar'
             .column
                 .ui.header event calendar
+                +cal
                 //- +model_scroller model='photo' header='Photos' icon='image'
         //- .three.column.row    
         //-     .column
@@ -52,6 +53,11 @@ template(name='front')
         //-         +model_scroller model='ad' header='Resident Ads' icon='presentation'
         //-     .column
         //-         +model_scroller model='for_rent' header='For Rent' icon='business'
+
+template(name='cal')
+    #calendar(style="height: 800px;")
+
+
 
 
 template(name='gr_post_doc_view')
