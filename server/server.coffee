@@ -48,8 +48,8 @@ SyncedCron.add({
 )
 
 
-if Meteor.isProduction
-    SyncedCron.start()
+# if Meteor.isProduction
+#     SyncedCron.start()
 
 Meteor.publish 'model_docs', (model)->
     Docs.find

@@ -5,29 +5,30 @@ template(name='front')
         //-         .ui.large.center.aligned.header 
         //-             +i name='apartment'
         //-             |Gold Run Community
-        .three.column.row
+        .two.column.row
             .column
                 .ui.smoothed.segment
                     .ui.header 
                         //- +i name='treadmill'
-                        |Health Club
+                        |health Club
                     .ui.small.header
                         i.ban.icon
-                        |Upper Hot Tub out for forseeable future due to crack in frame.
+                        |upper hot tub out for forseeable future due to crack in frame
                     .ui.small.header
                         i.green.checkmark.icon
-                        |Lower Hot Tub
+                        |lower Hot Tub
                     //- .ui.small.grey.header
                     //-     |Temp: 99.9
                     .ui.small.header
                         i.green.checkmark.icon
-                        |Pool
+                        |pool
                     //- .ui.small.grey.header
                     //-     |Temp: 80.3
             .column
                 .ui.header groups
                 .ui.header chat
                 //- +model_scroller model='event' header='Events' icon='calendar'
+        .one.column.row
             .column
                 .ui.header event calendar
                 +cal
@@ -53,10 +54,6 @@ template(name='front')
         //-         +model_scroller model='ad' header='Resident Ads' icon='presentation'
         //-     .column
         //-         +model_scroller model='for_rent' header='For Rent' icon='business'
-
-template(name='cal')
-    #calendar(style="height: 800px;")
-
 
 
 
