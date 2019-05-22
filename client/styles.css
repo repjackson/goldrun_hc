@@ -73,7 +73,7 @@ input{
 .button, .segment{
     /* -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 10px !important; */
-    border-radius: 15px !important;
+    border-radius: 10px !important;
 }
 
 

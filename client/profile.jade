@@ -1,7 +1,6 @@
-template(name='profile')
+template(name='user_layout')
+    +nav
     with user_from_username_param
-        //- if user_is_resident  
-        //-     img.ui.fluid.image(src="{{c.url banner_image_id width=1000 height=100 crop='crop'}}")
         .ui.padded.stackable.grid
             .row
                 .four.wide.column.scrolling
@@ -28,6 +27,30 @@ template(name='profile')
                             //- +i name='settings'
                             i.cog.icon
                             //- | settings
+                    else
+                        .ui.button.direct_message
+                            i.sent.icon
+                            |direct message
+                    .ui.vertical.large.fluid.menu
+                        a.item(href="/user/#{username}")
+                            i.info.icon
+                            |about
+                        a.item(href="/user/#{username}/documents")
+                            i.book.icon
+                            |documents
+                        a.item(href="/user/#{username}/contact")
+                             i.phone.icon
+                             |contact
+                        a.item(href="/user/#{username}/comparison")
+                            i.fork.icon
+                            |comparison
+                        a.item(href="/user/#{username}/info")
+                             i.heart.icon
+                             |karma
+                        a.item(href="/user/#{username}/transactions")
+                             i.money.icon
+                             |transactions                            
+                            
                     if is_current_user
                         .ui.icon.big.circular.button.logout(title='log out')
                             //- +i name='logout-rounded'
@@ -72,53 +95,56 @@ template(name='profile')
                         |generate health club checkin barcode
                     div
                     svg#barcode
+                .twelve.wide.column.shadowed-box
+                    +yield
 
-
-                .six.wide.column
-                    +user_tasks
-                    if user_is_resident
-                        if is_resident
-                            //- .ui.header karma
-                            //- .ui.header #{karma}
-                            //- +received_karma
-                            +user_messages
-                            //- +user_transactions
-                    if user_is_user
-                        if is_user
-                            +user_connections
-                    if user_is_resident
-                        if is_staff
-                            +user_checkins
-                            +user_guests
-                        //- if is   _staff
-                            //- +violations
-                            //- +user_card_replacements
-                            //- +user_signatures
-                        if is_user
-                            +user_following
-                            +follow_user
+template(name='user_info')
+    img.ui.fluid.image(src="{{c.url banner_image_id width=1000 height=100 crop='crop'}}")
     
-                .six.wide.column
-                    if user_is_resident
-                        if is_staff
-                            +membership_status
-                            +user_log
-                    if user_is_user
-                        if is_user
-                            //- +user_karma
-                            +user_bookmarks    
-                            //- +user_feed
-                    if user_is_resident
-                        if is_staff
-                            +user_key
-                                //- +user_garden
-                            +user_unit
-                            //- +user_tags
-                    //- +user_rules_widget
-                    //- if is_eric
-                    //-     +role_switcher
-                    //- if current_user
-                
+    .six.wide.column
+        //- +user_tasks
+        +user_messages
+        if user_is_resident
+            if is_resident
+                //- .ui.header karma
+                //- .ui.header #{karma}
+                //- +received_karma
+                //- +user_transactions
+        if user_is_user
+            if is_user
+                +user_connections
+        if user_is_resident
+            if is_staff
+                +user_checkins
+                +user_guests
+            //- if is   _staff
+                //- +violations
+                //- +user_card_replacements
+                //- +user_signatures
+            if is_user
+                +user_following
+                +follow_user
+    .six.wide.column
+        if user_is_resident
+            if is_staff
+                +membership_status
+                +user_log
+        if user_is_user
+            if is_user
+                //- +user_karma
+                +user_bookmarks    
+                //- +user_feed
+        if user_is_resident
+            if is_staff
+                +user_key
+                    //- +user_garden
+                +user_unit
+                //- +user_tags
+        //- +user_rules_widget
+        //- if is_eric
+        //-     +role_switcher
+        //- if current_user
+    
             
 template(name='user_transactions')
     .ui.segment

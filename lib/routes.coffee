@@ -65,7 +65,6 @@ Router.route '/add_resident', (->
     @layout 'layout'
     @render 'add_resident'
     ), name:'add_resident'
-Router.route '/user/:username', -> @render 'profile'
 Router.route '/forgot_password', -> @render 'forgot_password'
 
 Router.route '/reddit', -> @render 'reddit'
@@ -93,3 +92,9 @@ Router.route '/checkin', (->
     @layout 'mlayout'
     @render 'healthclub'
     ), name:'healthclub'
+
+
+Router.route '/user/:username', (->
+    @layout 'user_layout'
+    @render 'user_info'
+    ), name:'user_info'

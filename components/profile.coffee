@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Template.profile.onCreated ->
+    Template.user_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
         @autorun -> Meteor.subscribe 'user_models', Router.current().params.username
 
@@ -8,7 +8,7 @@ if Meteor.isClient
         user_section_template: ->
             "user_#{Router.current().params.group}"
 
-    Template.profile.helpers
+    Template.user_layout.helpers
         user: ->
             Meteor.users.findOne username:Router.current().params.username
 
@@ -35,7 +35,7 @@ if Meteor.isClient
 
 
 
-    Template.profile.events
+    Template.user_layout.events
         'click .set_delta_model': ->
             console.log @
             Meteor.call 'set_delta_facets', @slug, null, true
@@ -53,6 +53,10 @@ if Meteor.isClient
                 JsBarcode("#barcode", current_user.healthclub_code);
             else
                 alert 'No healthclub code'
+
+
+        'click .direct_message': ->
+            console.log @
 
 
 

@@ -22,26 +22,20 @@ if Meteor.isClient
                 confirmButtonText: 'close'
                 closeOnConfirm: true
             }, ->
-                # message_count =
-                #     Docs.find({
-                #         model: 'message'
-                #         group_id: self._id }).count()
+                message_count =
+                    Docs.find({
+                        model: 'message'
+                        group_id: self._id }).count()
                 # console.log message_count
-                $('.comment').transition(
-                    animation: 'fly right'
-                    duration: 1000
-                    interval: 200
-                    onComplete: ()=>
-                        # $('.segment').transition(
-                        #     animation: 'zoom'
-                        #     duration: 1000
-                        #     interval: 200
-                        #     onComplete: ()=>
-                        #         Meteor.setTimeout =>
-                        #             Meteor.call 'close_chat', self._id, ->
-                        #         , 1000
-                        # )
-                )
+                # $('.comment').transition(
+                #     animation: 'fly right'
+                #     duration: 1000
+                #     interval: 200
+                #     onComplete: ()=>
+                Meteor.setTimeout =>
+                    Meteor.call 'close_chat', self._id, ->
+                , 1000
+                # )
                 # console.log self
 
                 # swal "Submission Removed", "",'success'

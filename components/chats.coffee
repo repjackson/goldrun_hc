@@ -75,6 +75,10 @@ if Meteor.isClient
             Meteor.call 'create_chat', (err,id)->
                 Session.set 'current_chat_id', id
 
+        'click #create_dm': ->
+            Meteor.call 'create_', (err,id)->
+                Session.set 'current_chat_id', id
+
                 # Router.go "/view/#{id}"
 
 
