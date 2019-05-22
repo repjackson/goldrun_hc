@@ -94,11 +94,11 @@ template(name='nav')
                     a.icon.item(href='/login' title='Login') 
                         i.sign.in.large.icon
         if currentUser.show_bookmarked_model_bar
-            .ui.inverted.attached.borderless.menu.topnav
+            .ui.inverted.attached.borderless.menu.topnav.grblue
                 each bookmarked_models
                     a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
                         //- i.large.icon(class=icon)
-                        +i name=icon
+                        +i name=icon classes='ui avatar image'
                         |#{title}
 
 

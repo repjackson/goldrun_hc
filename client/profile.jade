@@ -18,36 +18,44 @@ template(name='user_layout')
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     if is_staff
-                        a.ui.icon.large.circular.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                            //- +i name='settings'
-                            i.cog.large.icon
-                            //- | settings
+                        .ui.vertical.large.fluid.menu
+                            a.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                                //- +i name='settings'
+                                i.cog.large.icon
+                                | settings
                     else if is_current_user
-                        a.ui.icon.big.circular.button(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                            //- +i name='settings'
-                            i.cog.icon
-                            //- | settings
-                    else
-                        .ui.button.direct_message
-                            i.sent.icon
-                            |direct message
+                        .ui.vertical.large.fluid.menu
+                            a.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                                //- +i name='settings'
+                                i.cog.icon
+                                | settings
+                    //- else
+                        //- .ui.button.direct_message
+                        //-     i.sent.icon
+                        //-     |direct message
                     .ui.vertical.large.fluid.menu
-                        a.item(href="/user/#{username}")
+                        a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
                             i.info.icon
                             |about
-                        a.item(href="/user/#{username}/documents")
+                        a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
                             i.book.icon
                             |documents
-                        a.item(href="/user/#{username}/contact")
+                        a.item(href="/user/#{username}/residency" class="{{isActiveRoute 'user_residency'}}")
+                            i.home.icon
+                            |residency
+                        a.item(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
+                            i.barbell.icon
+                            |health club
+                        a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
                              i.phone.icon
                              |contact
-                        a.item(href="/user/#{username}/comparison")
+                        a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
                             i.fork.icon
                             |comparison
-                        a.item(href="/user/#{username}/info")
+                        a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
                              i.heart.icon
                              |karma
-                        a.item(href="/user/#{username}/transactions")
+                        a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
                              i.money.icon
                              |transactions                            
                             
@@ -98,14 +106,19 @@ template(name='user_layout')
                 .twelve.wide.column.shadowed-box
                     +yield
 
-template(name='user_info')
-    img.ui.fluid.image(src="{{c.url banner_image_id width=1000 height=100 crop='crop'}}")
+template(name='user_residency')
+    +user_key
+    +user_unit
     
+    
+template(name='user_about')
+    img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
+    +user_diagram
     .six.wide.column
         //- +user_tasks
         +user_messages
-        if user_is_resident
-            if is_resident
+        //- if user_is_resident
+        //-     if is_resident
                 //- .ui.header karma
                 //- .ui.header #{karma}
                 //- +received_karma
@@ -134,12 +147,6 @@ template(name='user_info')
                 //- +user_karma
                 +user_bookmarks    
                 //- +user_feed
-        if user_is_resident
-            if is_staff
-                +user_key
-                    //- +user_garden
-                +user_unit
-                //- +user_tags
         //- +user_rules_widget
         //- if is_eric
         //-     +role_switcher
@@ -317,7 +324,6 @@ template(name='user_section')
     +user_delta
     // +Template.dynamic template=user_section_template
 
-template(name='user_about')
     
 template(name='violations')
     .ui.segment

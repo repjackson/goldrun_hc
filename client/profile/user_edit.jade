@@ -4,12 +4,12 @@ template(name='user_edit')
         .ui.stackable.padded.grid
             .three.column.row
                 .column
-                    a.ui.large.icon.circular.basic.button(href="/user/#{user_from_username_param.username}/" title='save') 
-                        i.checkmark.large.green.icon
                     .ui.center.aligned.large.inline.grey.header
                         i.pencil.icon
                         | #{user_from_username_param.first_name} #{user_from_username_param.last_name}
                     .ui.small.header @#{user_from_username_param.username}
+                    a.ui.large.fluid.icon.basic.button(href="/user/#{user_from_username_param.username}/" title='save') 
+                        i.checkmark.large.green.icon
                     //- i.cog.icon
                     +image_edit key='image_id' title='profile image' direct=true
                     //- +password_edit
@@ -19,7 +19,7 @@ template(name='user_edit')
                     +emails_edit
                     if is_dev
                         with user_from_username_param
-                            .ui.orange.circular.basic.button.remove_user 
+                            .ui.orange.basic.button.remove_user 
                                 i.remove.icon
                                 |delete user
                 .column
@@ -91,14 +91,14 @@ template(name='user_settings')
 template(name='user_model_editor')
     .ui.header Profile Sections
     each models
-        .ui.circular.basic.button.toggle_model(class=user_model_class title=title)
+        .ui.basic.button.toggle_model(class=user_model_class title=title)
             i.icon(class=icon)
             |#{title}
             
 template(name='user_tribe_editor')
     .ui.header My Tribes
     each tribes
-        .ui.circular.basic.button.toggle_tribe(class=user_tribe_class title=title)
+        .ui.basic.button.toggle_tribe(class=user_tribe_class title=title)
             i.icon(class=icon)
             |#{title}
             
@@ -106,7 +106,7 @@ template(name='user_tribe_editor')
 template(name='user_single_doc_ref_editor')
     .ui.header #{label}
     each choices
-        .ui.circular.basic.button.select_choice(class=choice_class title=title)
+        .ui.basic.button.select_choice(class=choice_class title=title)
             i.icon(class=icon)
             |#{title}
 
@@ -135,10 +135,10 @@ template(name='phone_editor')
                 .ui.label not verified
                 a.resend_verification(href='#')
                     |resend code
-                .ui.small.icon.circular.basic.button.remove_phone(title='remove phone')
+                .ui.small.icon.basic.button.remove_phone(title='remove phone')
                     i.remove.icon
     else
-        .ui.fluid.circular.basic.button.update_phone add phone
+        .ui.fluid.basic.button.update_phone add phone
 
 
 template(name='add_card_modal')
@@ -153,13 +153,13 @@ template(name='password_edit')
     //-     input#password(type='password', placeholder='old password')
     .ui.fluid.icon.input
         input#new_password(type='password', placeholder='new password')
-    //- .ui.fluid.circular.basic.button.change_password
+    //- .ui.fluid.basic.button.change_password
     //-     i.refresh.icon
     //-     |set password
     if is_dev
-        .ui.fluid.circular.basic.button.send_enrollment_email
+        .ui.fluid.basic.button.send_enrollment_email
             |send enrollment email
-    .ui.fluid.circular.basic.button.set_password
+    .ui.fluid.basic.button.set_password
         i.user.shield.icon
         | set password
             
@@ -179,24 +179,24 @@ template(name='emails_edit')
     .ui.small.grey.header 
         i.envelope.icon
         | email(s)
-    //- #test_email.ui.big.circular.basic.button test email
+    //- #test_email.ui.big.basic.button test email
     .ui.divided.list
         each current_user.emails
             .item 
                 // unless verified
                 //     .right.floated.content
-                //         .ui.circular.basic.button Verify
+                //         .ui.basic.button Verify
                 .content
                     |#{address}
                     if verified
                         .ui.green.label verified
                     else
                         .ui.label unverified
-                        .send_verification_email.ui.circular.basic.button 
+                        .send_verification_email.ui.basic.button 
                             |verify
                             i.caret.right.icon
-                    .ui.small.icon.circular.basic.button.remove_email
+                    .ui.small.icon.basic.button.remove_email
                         i.remove.icon
     .ui.action.fluid.input
         input#new_email(type='email')
-        #add_email.ui.submit.circular.basic.button + email
+        #add_email.ui.submit.basic.button + email

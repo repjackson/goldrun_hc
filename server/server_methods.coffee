@@ -80,14 +80,14 @@ Meteor.methods
             }).fetch()
 
     lookup_user_by_code: (healthclub_code)->
-        console.log healthclub_code
+        # console.log healthclub_code
         Meteor.users.find({
             healthclub_code:healthclub_code
             }).fetch()
 
     lookup_doc: (first_name, model_filter)->
-        console.log first_name
-        console.log model_filter
+        # console.log first_name
+        # console.log model_filter
         Docs.find({
             model:model_filter
             first_name: {$regex:"#{first_name}", $options: 'i'}

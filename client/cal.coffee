@@ -3,6 +3,9 @@ require 'dhtmlx-scheduler/codebase/dhtmlxscheduler.css';
 
 Template.cal.onCreated ->
     @autorun => Meteor.subscribe 'model_docs', 'event'
+Template.user_diagram.onRendered ->
+    myDiagram = new dhx.Diagram("diagram_container", {type:"org"});
+
 Template.cal.onRendered ->
     container = @$('.dhx_cal_container')[0]
     scheduler.init container, new Date(2017, 2, 16), 'week'

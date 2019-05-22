@@ -94,7 +94,52 @@ Router.route '/checkin', (->
     ), name:'healthclub'
 
 
+
+
+
+
 Router.route '/user/:username', (->
     @layout 'user_layout'
-    @render 'user_info'
-    ), name:'user_info'
+    @render 'user_about'
+    ), name:'user_about'
+
+
+Router.route '/user/:username/karma', (->
+    @layout 'user_layout'
+    @render 'user_karma'
+    ), name:'user_karma'
+
+Router.route '/user/:username/healthclub', (->
+    @layout 'user_layout'
+    @render 'user_healthclub'
+    ), name:'user_healthclub'
+
+
+Router.route '/user/:username/residency', (->
+    @layout 'user_layout'
+    @render 'user_residency'
+    ), name:'user_residency'
+
+
+Router.route '/user/:username/transactions', (->
+    @layout 'user_layout'
+    @render 'user_transactions'
+    ), name:'user_transactions'
+
+
+Router.route '/user/:username/documents', (->
+    @layout 'user_layout'
+    @render 'user_documents'
+    ), name:'user_documents'
+
+
+Router.route '/user/:username/contact', (->
+    @layout 'user_layout'
+    @render 'user_contact'
+    ), name:'user_contact'
+
+
+Router.route '/user/:username/comparison', (->
+    @layout 'user_layout'
+    @render 'user_comparison'
+    ), name:'user_comparison'

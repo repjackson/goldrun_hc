@@ -157,13 +157,13 @@ template(name='big_user_card')
                 
 
 
-//- template(name='user_info')
-//-     a.ui.small.compact.button(href="/user/#{user.username}/")
-//-         if user.image_id
-//-             img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100 gravity='face' crop='fill'}}")
-//-         |#{user.first_name} #{user.last_name}
-//-         |@#{user.username}
-//-         +user_status user
+template(name='user_info')
+    a.ui.small.compact.button(href="/user/#{user.username}/")
+        if user.image_id
+            img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100 gravity='face' crop='fill'}}")
+        |#{user.first_name} #{user.last_name}
+        |@#{user.username}
+        +user_status user
 
 template(name='username_info')
     a.ui.small.compact.button(href="/user/#{user.username}/")
