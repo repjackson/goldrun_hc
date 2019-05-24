@@ -7,9 +7,10 @@ template(name='nav')
                 .icon.item
                     i.large.loading.notched.circle.icon
             else
-                a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                    //- i.home.large.large.icon
-                    +i name='home-page'  
+                if is_resident_or_user
+                    a.header.icon.item(href='/' class="{{isActivePath '/'}}")
+                        //- i.home.large.large.icon
+                        +i name='home-page'  
                 if currentUser  
                     a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
                         //- i.th.large.large.icon

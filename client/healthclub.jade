@@ -162,7 +162,9 @@ template(name='checkin_card')
                     if is_staff
                         img.ui.small.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
                     //- a.ui.header(href="/user/#{user.username}")
-                    .ui.huge.header(href="/user/#{user.username}")
+                    .ui.large.icon.basic.button.cancel_checkin
+                        i.big.left.chevron.grey.icon
+                    .ui.huge.inline.header(href="/user/#{user.username}")
                          |#{user.first_name} #{user.last_name} 
                     //- .meta @#{user.username}
                     //- +array_view key='tags' label='Tags' direct=true
@@ -174,49 +176,50 @@ template(name='checkin_card')
                         strong #{user.start_date}
                         div expiration 
                             strong #{user.lease_expiration}
-                    //- with user
-                    //-     div
-                    //-     +email_validation_check
-                    //-     div
-                    //-     +resident_key_check
-                    //-     div
-                    //-     +lease_expiration_check
-                    //-     div
-                    //-     +rules_and_regs_check
-                    //-     div
-                    //-     +member_waiver_check
-                    //-     div
-                    //- .ui.hidden.divider
-                    //- //- .ui.input
-                    +multi_doc_input key='guests' ref_model='guest' title='previous guest...' direct=true
-                    //- //- .ui.hidden.divider
-                    .ui.big.basic.button.add_guest
-                        i.plus.icon
-                        //- +ismall name='plus' classes='ui avatar image'
-                        | guest
-                    div
-                    if checkin_guest_docs
-                        .ui.inline.header attached guests
-                    with checking_in_doc
-                        each checkin_guest_docs
-                            .ui.big.basic.button.remove_guest 
-                                i.remove.grey.icon
-                                |#{first_name} #{last_name}
+                    with user
+                        .ui.blue.segment
+                            .ui.grey.header 
+                                +i name='info'
+                                |account status
+                            +email_validation_check
+                            +resident_key_check
+                            +lease_expiration_check
+                            +rules_and_regs_check
+                            +member_waiver_check
+                    .ui.segment
+                        .ui.grey.header 
+                            +i name='groups'
+                            |guests
+                        +multi_doc_input key='guests' ref_model='guest' title='previous guest...' direct=true
+                        //- //- .ui.hidden.divider
+                        .ui.big.basic.button.add_guest
+                            i.plus.icon
+                            //- +ismall name='plus' classes='ui avatar image'
+                            | guest
+                        div
+                        if checkin_guest_docs
+                            .ui.inline.header attached guests
+                        with checking_in_doc
+                            each checkin_guest_docs
+                                .ui.big.basic.button.remove_guest 
+                                    i.remove.grey.icon
+                                    |#{first_name} #{last_name}
             .middle.aligned.row
-                .two.wide.column
-                    .ui.large.icon.basic.button.cancel_checkin
-                        i.big.left.chevron.grey.icon
-                        //- +i name='undo'
-                .twelve.wide.column
                     //- if red_flagged
                     //-     .ui.red.big.disabled.button
                     //-         |sign rules and regs to continue
                     //-         //- i.right.chevron.icon
                     //- else
+                    .ui.big.inverted.orange.fluid.button.complete_checkin
+                        //- +i name='treadmill' classes='ui inline image'
+                        .ui.inline.grey.header 
+                            +i name='basketball-field'
+                            |court/garden key check out
                     .ui.big.inverted.green.fluid.button.complete_checkin
                         //- +i name='treadmill' classes='ui inline image'
                         .ui.inline.grey.header 
-                            |check in
+                            +i name='treadmill'
+                            |health club check in
                             //- i.right.chevron.grey.icon
                         //- i.right.chevron.icon
                         //- .ui.basic.big.button.complete_checkin

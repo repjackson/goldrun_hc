@@ -38,7 +38,9 @@ template(name='chat_list_item')
                 //-             |#{username}
                 //-             +user_status
             .description
-                .ui.header #{title}
+                .ui.inline.header #{title}
+                if private
+                    i.lock.icon
                 //- each tags
                 //-     .ui.small.label #{this}
             //- .description
@@ -157,17 +159,19 @@ template(name='view_chat')
                         i.align.left.icon
                         |description
                     |!{content}
-                    .ui.small.inline.header
-                        |Participants
-                        if currentUser
-                            if in_chat
-                                //- i.sign.in.link.icon.leave_chat(title='leave')
-                                .ui.icon.button.leave_chat
-                                    +i name='leaving-queue' title='leave conversation'
-                            else
-                                .ui.icon.button.join_chat
-                                    +i name='joining-queue' title='join conversation'
-                                //- i.sign.out.link.icon.join_chat(title='join')
+                    .ui.small.header
+                        |participants
+                    if currentUser
+                        if in_chat
+                            //- i.sign.in.link.icon.leave_chat(title='leave')
+                            .ui.basic.button.leave_chat
+                                +i name='leaving-queue' title='leave' classes='ui mini inline image'
+                                |leave
+                        else
+                            .ui.basic.button.join_chat
+                                +i name='joining-queue' title='join' classes='ui mini inline image'
+                                |join
+                            //- i.sign.out.link.icon.join_chat(title='join')
                     .ui.relaxed.list
                         each participants
                             .item
@@ -183,38 +187,25 @@ template(name='view_chat')
                                         | @#{username}
                                         +user_status
                     if can_edit
-                        .ui.icon.button.close_chat(title='close chat')
+                        .ui.icon.basic.button.close_chat(title='close chat')
                             i.ban.icon
-                            //- |close chat
-                    .ui.small.inline.grey.header 
-                        i.tags.icon
-                        | tags
+                            |close chat
                     if can_edit
                         +array_edit key='tags' label='tags' direct=true
                     else     
                         +array_view key='tags' label='tags' direct=true
-                    if can_edit
-                        +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
-                    else     
-                        +multi_doc_view key='view_roles' label='view roles' ref_model='role' direct=true
+                    //- if can_edit
+                    //-     +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
+                    //- else     
+                    //-     +multi_doc_view key='view_roles' label='view roles' ref_model='role' direct=true
                     //- +subscribe_button
                     //- +bookmark_button
                     //- unless is_author
                     //-     +resonate_button
                     //-     +thanks_button
                     //- +resonates_list
-
-                    .ui.small.header 
-                        i.eye.icon
-                        |visibility
-                    if published
-                        .ui.green.large.label 
-                            i.unlock.icon
-                            | public
-                    else
-                        .ui.large.label 
-                            i.lock.icon
-                            | private
+                    if can_edit
+                        +boolean_edit key='private' label='private' direct=true
                     .ui.small.header started by 
                         img.ui.avatar.image(src="{{c.url author.image_id width=400 height=400 gravity='face' crop='fill'}}")
                         |#{author.username} #{when}

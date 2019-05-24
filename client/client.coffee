@@ -113,7 +113,8 @@ Template.registerHelper 'is_user', () ->
 
 Template.registerHelper 'is_resident_or_user', () ->
     if Meteor.user() and Meteor.user().roles
-        if _.intersection(Meteor.user().roles, ['resident','user']) then true else false
+        console.log _.intersection(Meteor.user().roles, ['resident','user']).length
+        if _.intersection(Meteor.user().roles, ['resident','user']).length then true else false
 
 Template.registerHelper 'user_is_resident', () -> if @roles and 'resident' in @roles then true else false
 Template.registerHelper 'user_is_owner', () -> if @roles and 'owner' in @roles then true else false
