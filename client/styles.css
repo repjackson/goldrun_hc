@@ -1,11 +1,17 @@
 body {
     font-family: 'Ubuntu', sans-serif !important;
-    /* filter: invert(90%) !important; */
     font-size: 110% !important;
     /*line-height: 200% !important;*/
     /*background: #3d3d3d !important;*/
     background: rgba(0, 0, 0, .01) !important
     /* background: #0e0e44 !important; */
+}
+
+
+.invert {
+    filter: invert(100%) !important;
+    background-color:white;
+    /* height: 100%; */
 }
 
 .red_flagged {
@@ -73,7 +79,7 @@ input{
 .button, .segment{
     /* -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 10px !important; */
-    border-radius: 10px !important;
+    border-radius: 12px !important;
 }
 
 
@@ -99,7 +105,7 @@ input{
 }
 
 
-.button .selector .card{
+.button, .selector, .card{
   animation: fadein 1s;
 }
 @keyframes fadein {
@@ -114,11 +120,17 @@ input{
 }
 
 
-.ui.header{
+/* .ui.header{
   font-family: 'Ubuntu', sans-serif !important;
-}
+} */
 a {
   font-family: 'Ubuntu', sans-serif !important;
+}
+.bat_black {
+  font-family: 'bat_black', sans-serif !important;
+}
+.bat_white {
+  font-family: 'bat_white', sans-serif !important;
 }
 /* .card a.header {
   color: #482d1b !important;
@@ -226,7 +238,8 @@ a {
 .header-wrapper {
   position: absolute;
   top:0px;
-  height:100%;
+  /* height:100%; */
+  /* background-color:white; */
 }
 .middle-align {
   vertical-align: middle !important;
@@ -258,6 +271,14 @@ a {
 @font-face {
   font-family: imogen_swash;
   src: url("/fonts/ImogenAgnesSwash.ttf");
+}
+@font-face {
+  font-family: bat_white;
+  src: url("/bat_white.ttf");
+}
+@font-face {
+  font-family: bat_black;
+  src: url("/bat_black.ttf");
 }
 .big-header {
   font-size: 800% !important;
@@ -418,3 +439,58 @@ a {
   font-size: 50%;
   line-height: 50%; }
 .f0 { display:none; }
+
+
+
+
+
+
+.scanning:after {
+  content: '';
+  /* make the element cover the whole thing */
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* and sit in front */
+  z-index: 1;
+  /* gradient with a radar like fade */
+  background:
+    linear-gradient(90deg,
+      rgba(0,0,0,.01),
+      rgba(0,0,0,.01) 50%,
+      rgba(0,0,255,.5) 55%,
+      rgba(0,0,255,1) 56%,
+      rgba(0,0,0,.01) 56%,
+      rgba(0,0,0,.01)
+    );
+  /* make it big enough so when we slide it around still covers whole image */
+  background-size:     300% 100%;
+  background-repeat:   no-repeat;
+  /* start with the scan bar just off the left side */
+  background-position: 84% center;
+  -webkit-animation:   scan 5s infinite ease;
+}
+
+@-webkit-keyframes scan {
+  /* finish with the scan bar just off the right side */
+  100% { background-position: 25% center; }
+}
+
+
+
+
+#vid-container {
+	margin: 0px auto;
+	width: 500px;
+	height: 375px;
+}
+#videoElement {
+	/* width: 500px; */
+	width: 100%;
+	/* height: 375px; */
+	height: 100%;
+	/* background-color: #666; */
+}

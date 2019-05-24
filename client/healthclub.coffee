@@ -6,6 +6,16 @@ Template.healthclub.onCreated ->
 
 
 Template.healthclub.onRendered ->
+    # video = document.querySelector('#videoElement')
+    # if navigator.mediaDevices.getUserMedia
+    #   navigator.mediaDevices.getUserMedia(video: true).then((stream) ->
+    #     video.srcObject = stream
+    #     return
+    #   ).catch (err0r) ->
+    #     console.log 'Something went wrong!'
+    #     return
+
+
     # @autorun =>
     #     if @subscriptionsReady()
     #         Meteor.setTimeout ->
@@ -21,6 +31,8 @@ Template.healthclub.onRendered ->
 
 
 Template.healthclub.helpers
+    dark_mode: -> Session.get 'dark_mode'
+
     selected_person: ->
         Meteor.users.findOne Session.get('selected_user_id')
 
@@ -38,9 +50,6 @@ Template.healthclub.helpers
 
     checking_in: -> Session.get('checking_in')
     is_query: -> Session.get('username_query')
-
-
-
 
     events: ->
         Docs.find {
@@ -93,13 +102,16 @@ Template.checkin_button.events
 
 
 Template.healthclub.events
-    'click .sign_waiver': (e,t)->
-        # console.log @
-        receipt_id = Docs.insert
-            model:'rules_and_regulations_acknowledgement'
-            resident_residence:@_id
-            is_resident:true
-        Router.go "/sign_waiver/#{receipt_id}"
+    'click .toggle_dark_mode': ->
+        Session.set('dark_mode',!Session.get('dark_mode'))
+
+    # 'click .sign_waiver': (e,t)->
+    #     # console.log @
+    #     receipt_id = Docs.insert
+    #         model:'rules_and_regulations_acknowledgement'
+    #         resident_residence:@_id
+    #         is_resident:true
+    #     Router.go "/sign_waiver/#{receipt_id}"
 
     'click .username_search': (e,t)->
         Session.set 'checking_in',true
@@ -282,18 +294,3 @@ Template.checkin_card.events
 
 Template.checkin_card.onCreated ->
     @autorun => Meteor.subscribe 'user_from_id', @data
-
-
-Template.checkin_guest.onCreated ->
-    @autorun => Meteor.subscribe 'guests'
-Template.checkin_guest.helpers
-    checking_in_guest: -> Docs.findOne Router.current().params.new_guest_id
-    guests: ->
-        Meteor.users.find
-            roles:$in:['guest']
-
-Template.checkin_guest.events
-    'click .checkin_guest': ->
-        new_guest_id = Docs.insert model:'guest'
-        Router.go "/add_guest/#{new_guest_id}"
-        # Session.set('checking_in_guest', !Session.get('checking_in_guest'))

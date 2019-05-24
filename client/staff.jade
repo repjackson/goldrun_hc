@@ -1,18 +1,19 @@
 template(name='staff')
-    h1.ui.center.aligned.grey.header 
-        //- +i name='user shield'
-        i.shield.grey.icon
-        |Staff
-    //- i.massive.loading.brown.poo.icon
-    a.ui.big.circular.button(href='/add_resident')
-        i.user.shield.large.icon
-        | Add Resident
-        
-    .ui.inline.header
-        |#{checkedin_members.count} checked in members
-    .ui.stackable.cards
-        each checkedin_members
-            +big_user_card username
+    .ui.stackable.padded.grid
+        .four.wide.column
+            h1.ui.center.aligned.grey.header 
+                +i name='employee-card'
+                |staff
+            i.massive.loading.brown.poo.icon
+            a.ui.big.basic.button(href='/add_resident')
+                i.user.shield.large.icon
+                | add resident
+            .ui.inline.header
+                |#{checkedin_members.count} checked in members
+        .twelve.wide.column
+            .ui.stackable.cards
+                each checkedin_members
+                    +big_user_card username
         
     //- .ui.stackable.padded.grid
     //-     .three.column.row
@@ -51,12 +52,12 @@ template(name='task_widget')
             |todos
         //- .ui.fluid.styled.accordion
         +goto_model slug='task'
-        .ui.icon.button.new_task
+        .ui.icon.basic.button.new_task
             i.plus.icon
             //- input.assign_task(type='text' placeholder='assign task...')
-        //- .ui.button.view_complete(class=view_complete_class)
+        //- .ui.basic.button.view_complete(class=view_complete_class)
         //-     |View Completed
-        // .ui.button.view_incomplete(class=view_complete_class)
+        // .ui.basic.button.view_incomplete(class=view_complete_class)
         //     |View Incomplete
         each tasks
             .ui.smoothed.segment
@@ -151,7 +152,7 @@ template(name='shift_change_requests')
     .ui.grey.inline.header
         i.clock.icon
         |shift change requests
-    .ui.icon.button.add_shift_change_request
+    .ui.icon.basic.button.add_shift_change_request
         i.large.icons
             i.clock.icon
             i.plus.corner.icon
@@ -188,9 +189,9 @@ template(name='request_row')
             //- else
             +username_info assigned_staff
         td(data-label='Actions')
-            .ui.icon.button.take_shift(title='take shift')
+            .ui.icon.basic.button.take_shift(title='take shift')
                 i.checkmark.icon
-            .ui.icon.button.declare_unavailable(title='declare unavailable')
+            .ui.icon.basic.button.declare_unavailable(title='declare unavailable')
                 i.ban.icon
             each unavailable
                 .ui.label(title='unavailable') #{this}
@@ -206,7 +207,7 @@ template(name='request_row')
 //                 +edit_image
 //                 +edit_tags
 //                 +edit_body
-//                 a.ui.green.large.button(href='/bikes') Save Impounded Bike
-//                 #delete_bike.ui.red.icon.button
+//                 a.ui.green.large.basic.button(href='/bikes') Save Impounded Bike
+//                 #delete_bike.ui.red.icon.basic.button
 //                     i.trash.icon
             

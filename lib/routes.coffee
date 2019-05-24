@@ -69,6 +69,7 @@ Router.route '/forgot_password', -> @render 'forgot_password'
 
 Router.route '/reddit', -> @render 'reddit'
 Router.route '/staff', -> @render 'staff'
+Router.route '/groups', -> @render 'groups'
 Router.route '/events', -> @render 'cal'
 Router.route '/frontdesk', -> @render 'frontdesk'
 Router.route '/user/:username/edit', -> @render 'user_edit'
@@ -115,6 +116,11 @@ Router.route '/user/:username/healthclub', (->
     @layout 'user_layout'
     @render 'user_healthclub'
     ), name:'user_healthclub'
+
+Router.route '/user/:username/tags', (->
+    @layout 'user_layout'
+    @render 'user_tags'
+    ), name:'user_tags'
 
 
 Router.route '/user/:username/residency', (->

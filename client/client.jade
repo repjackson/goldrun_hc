@@ -25,7 +25,7 @@ template(name='layout')
     //- img.ui.fluid.image(src="{{c.url 'stars_big' width=2000}}")
     +nav
     //- if currentUser
-    .ui.stackable.grid
+    .ui.stackable.grid(class=invert_class)
         .centered.row
             .sixteen.wide.column
                 if displaying_profile

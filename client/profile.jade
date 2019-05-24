@@ -3,7 +3,7 @@ template(name='user_layout')
     with user_from_username_param
         .ui.padded.stackable.grid
             .row
-                .four.wide.column.scrolling
+                .four.wide.column
                     if image_id
                         img.ui.centered.rounded.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
@@ -34,43 +34,49 @@ template(name='user_layout')
                         //-     i.sent.icon
                         //-     |direct message
                     .ui.vertical.large.fluid.menu
-                        a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
-                            i.icon
-                                +i name='info' classes='ui image'
-                            |about
-                        a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                            i.icon
-                                +i name='handshake' classes='ui image'
-                            |social
-                        a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                            i.icon
-                                +i name='book' classes='ui image'
-                            |documents
-                        a.item(href="/user/#{username}/residency" class="{{isActiveRoute 'user_residency'}}")
-                            i.icon
-                                +i name='home' classes='ui image'
-                            |residency
-                        a.item(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
-                            i.icon
-                                +i name='barbell' classes='ui image'
-                            |health club
-                        a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
-                             i.icon
-                                 +i name='phone' classes='ui image'
-                             |contact
-                        a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
-                            i.icon
-                                +i name='fork' classes='ui image'
-                            |comparison
-                        a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
-                             i.icon
-                                 +i name='heart' classes='ui image'
-                             |karma
-                        a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
-                             i.icon
-                                 +i name='money' classes='ui image'
-                             |transactions                            
-                            
+                        if is_staff
+                            a.item(href="/user/#{username}/residency" class="{{isActiveRoute 'user_residency'}}")
+                                i.icon
+                                    +i name='home' classes='ui image'
+                                |residency
+                            a.item(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
+                                i.icon
+                                    +i name='barbell' classes='ui image'
+                                |health club                        
+                        else
+                            a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
+                                i.icon
+                                    +i name='info' classes='ui image'
+                                |about
+                            a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
+                                i.icon
+                                    +i name='handshake' classes='ui image'
+                                |social
+                            a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
+                                i.icon
+                                    +i name='book' classes='ui image'
+                                |documents
+                            a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
+                                 i.icon
+                                     +i name='phone' classes='ui image'
+                                 |contact
+                            a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
+                                i.icon
+                                    +i name='fork' classes='ui image'
+                                |comparison
+                            a.item(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
+                                i.icon
+                                    +i name='tags' classes='ui image'
+                                |tags
+                            a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
+                                 i.icon
+                                     +i name='heart' classes='ui image'
+                                 |karma
+                            a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
+                                 i.icon
+                                     +i name='money' classes='ui image'
+                                 |transactions                            
+                                
                     if is_current_user
                         .ui.vertical.large.fluid.menu
                             a.item.logout(href="#")
@@ -79,28 +85,9 @@ template(name='user_layout')
                             a.item.logout_other_clients(href="#")
                                 |logout other clients
                 
-                    if user_is_resident
-                        if is_resident
-                            +gr_status                
-                    .ui.segment
-                        //- +text_view key='first_name' label='First Name' direct=true
-                        //- +text_view key='last_name' label='Last Name' direct=true
-                        if is_admin
-                            +text_view key='address' label='address' direct=true
-                        //- +text_view key='email' label='Email' direct=true
-                        +phone_view key='phone' label='phone' direct=true
-                        if user_is_resident
-                            //- if is_staff
-                            +number_view key='unit_number' label='unit #' direct=true
-                            +number_view key='building_number' label='building #' direct=true
-                            +number_view key='healthclub_code' label='healthclub_code' direct=true
-                            +text_view key='building_code' label='building code' direct=true
-                            +date_view key='start_date' label='start date' direct=true
-                            +date_view key='expiration_date' label='expiration date' direct=true
-                        +textarea_view key='notes' label='notes' icon='align-left' direct=true
-                        each emails
-                            .ui.label #{address}
-                    if is_staff
+                    unless is_staff
+                        +gr_status                
+                    if is_admin
                         .ui.segment
                             .ui.grey.header 
                                 //- +i name='user shield'
@@ -110,10 +97,31 @@ template(name='user_layout')
                                 .ui.label #{this}                    
                 .twelve.wide.column.shadowed-box
                     +yield
+    unless is_frontdesk
+        +footer 
 
 template(name='user_residency')
     +user_key
     +user_unit
+    .ui.segment
+        //- +text_view key='first_name' label='First Name' direct=true
+        //- +text_view key='last_name' label='Last Name' direct=true
+        if is_admin
+            +text_view key='address' label='address' direct=true
+        //- +text_view key='email' label='Email' direct=true
+        +phone_view key='phone' label='phone' direct=true
+        if user_is_resident
+            //- if is_staff
+            +number_view key='unit_number' label='unit #' direct=true
+            +number_view key='building_number' label='building #' direct=true
+            +number_view key='healthclub_code' label='healthclub_code' direct=true
+            +text_view key='building_code' label='building code' direct=true
+            +date_view key='start_date' label='start date' direct=true
+            +date_view key='expiration_date' label='expiration date' direct=true
+        +textarea_view key='notes' label='notes' icon='align-left' direct=true
+        each emails
+            .ui.label #{address}
+    
     
 template(name='user_healthclub')
     if user_is_staff
@@ -127,43 +135,43 @@ template(name='user_healthclub')
     
 template(name='user_about')
     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
-    .six.wide.column
-        //- +user_tasks
-        +user_messages
-        //- if user_is_resident
-        //-     if is_resident
-                //- .ui.header karma
-                //- .ui.header #{karma}
-                //- +received_karma
-                //- +user_transactions
-        if user_is_user
-            if is_user
-                +user_connections
-        if user_is_resident
-            if is_staff
-                +user_checkins
-                +user_guests
-            //- if is   _staff
-                //- +violations
-                //- +user_card_replacements
-                //- +user_signatures
-            if is_user
-                +user_following
-                +follow_user
-    .six.wide.column
-        if user_is_resident
-            if is_staff
-                +membership_status
-                +user_log
-        if user_is_user
-            if is_user
-                //- +user_karma
-                +user_bookmarks    
-                //- +user_feed
-        //- +user_rules_widget
-        //- if is_eric
-        //-     +role_switcher
-        //- if current_user
+    .ui.grid
+        .six.wide.column
+            //- +user_tasks
+            //- if user_is_resident
+            //-     if is_resident
+                    //- .ui.header karma
+                    //- .ui.header #{karma}
+                    //- +received_karma
+                    //- +user_transactions
+            if user_is_user
+                if is_user
+                    +user_connections
+            if user_is_resident
+                if is_staff
+                    +user_checkins
+                    +user_guests
+                //- if is   _staff
+                    //- +violations
+                    //- +user_card_replacements
+                    //- +user_signatures
+                if is_user
+                    +user_following
+                    +follow_user
+        .six.wide.column
+            if user_is_resident
+                if is_staff
+                    +membership_status
+                    +user_log
+            if user_is_user
+                if is_user
+                    //- +user_karma
+                    +user_bookmarks    
+                    //- +user_feed
+            //- +user_rules_widget
+            //- if is_eric
+            //-     +role_switcher
+            //- if current_user
     
             
 template(name='user_transactions')
@@ -524,23 +532,6 @@ template(name='user_string_toggle')
     .ui.circular.button.toggle_element(class=user_string_element_toggle_class)
         |#{value}
         
-template(name='user_tags')
-    .ui.fluid.styled.accordion
-        .active.title
-            .ui.grey.inline.center.aligned.header 
-                //- +i name='tags'
-                i.tags.icon
-                |tags
-        .active.content
-            each tags
-                .ui.label 
-                    if is_user
-                        i.remove.link.icon.remove_tag
-                    |#{this}
-            // .ui.fluid.input
-            //     input.tag_user(type='text' placeholder='Tag yourself...')
-            // .ui.fluid.input
-            //     input(type='text' placeholder="Tag #{user_from_username_param.name}")
             
             
 template(name='membership_status')

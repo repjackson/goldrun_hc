@@ -7,39 +7,23 @@ template(name='front')
         //-             |Gold Run Community
         .two.column.row
             .column
-                .ui.smoothed.segment
-                    .ui.header 
-                        //- +i name='treadmill'
-                        |health Club
-                    .ui.small.header
-                        i.ban.icon
-                        |upper hot tub out for forseeable future due to crack in frame
-                    .ui.small.header
-                        i.green.checkmark.icon
-                        |lower Hot Tub
-                    //- .ui.small.grey.header
-                    //-     |Temp: 99.9
-                    .ui.small.header
-                        i.green.checkmark.icon
-                        |pool
-                    //- .ui.small.grey.header
-                    //-     |Temp: 80.3
-            .column
+                +healthclub_status
                 .ui.header groups
                 .ui.header chat
                 //- +model_scroller model='event' header='Events' icon='calendar'
-        .one.column.row
             .column
                 .ui.header event calendar
                 +cal
                 //- +model_scroller model='photo' header='Photos' icon='image'
-        //- .three.column.row    
-        //-     .column
-        //-         +model_scroller model='marketplace' header='Marketplace' icon='shop'
-        //-     .column
-        //-         +model_scroller model='free' header='Free' icon='handshake'
-        //-     .column
-        //-         +model_scroller model='gr_post' header='Posts' icon='post'
+        .four.column.row    
+            .column
+                +model_scroller model='for_rent' header='For Rent' icon='business'
+            .column
+                +model_scroller model='marketplace' header='Marketplace' icon='shop'
+            .column
+                +model_scroller model='free' header='Free' icon='handshake'
+            .column
+                +model_scroller model='gr_post' header='Posts' icon='post'
         //- .three.column.row    
         //-     .column
         //-         +model_scroller model='group' header='Groups' icon='groups'
@@ -130,8 +114,8 @@ template(name='model_scroller')
     .ui.smoothed.segment
         a.ui.inline.header.go_to_model(href="/m/#{model}")
             if icon 
-                //- +i name=icon
-                i.icon(class=icon)
+                +i name=icon
+                //- i.icon(class=icon)
             |#{header}
         //- if can_go_left            
         .ui.icon.button.go_left(class="{{#unless can_go_left}}disabled{{/unless}}")
@@ -145,3 +129,19 @@ template(name='model_scroller')
             +view_button
                 
     
+
+template(name='healthclub_status')
+    .ui.header
+        |upper hot tub out indefinitely due to crack in frame
+    div
+    .ui.inline.header
+        i.green.checkmark.icon
+        |lower hot tub
+    .ui.grey.inline.header
+        |100.5°
+    div
+    .ui.inline.header
+        i.green.checkmark.icon
+        |pool
+    .ui.grey.inline.header
+        |80.3°

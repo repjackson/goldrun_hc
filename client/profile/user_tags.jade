@@ -1,0 +1,20 @@
+template(name='user_tags')
+    .ui.fluid.styled.accordion
+        .active.title
+            .ui.grey.inline.center.aligned.header 
+                //- +i name='tags'
+                i.tags.icon
+                |tags
+        .active.content
+            each tags
+                .ui.label 
+                    if is_user
+                        i.remove.link.icon.remove_tag
+                    |#{this}
+            if user_is_user
+                .ui.fluid.input
+                    input.tag_user(type='text' placeholder='Tag yourself...')
+            else
+                .ui.header tag #{user_from_username_param.first_name} #{user_from_username_param.last_name}
+                .ui.fluid.input
+                    input(type='text' placeholder="Tag #{user_from_username_param.name}")

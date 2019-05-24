@@ -82,14 +82,16 @@ template(name='user_events')
             
             
 template(name='user_contact')
-    .ui.center.aligned.white.header 
+    .ui.center.aligned.header 
         i.contact.icon
         | Contact
     .ui.form
         .field
-            label Message
+            label message
             textarea(rows='3')
     +user_contact_info
+    +user_messages
+    
             
             
 template(name='user_contact_info')
@@ -132,8 +134,8 @@ template(name='users')
         .row
             .sixteen.wide.column
                 h1.ui.center.aligned.grey.header 
-                    //- +i name='groups'
-                    i.users.grey.icon
+                    +i name='groups'
+                    //- i.users.grey.icon
                     |Users
                 .ui.left.icon.huge.fluid.input
                     i.search.icon

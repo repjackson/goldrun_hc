@@ -127,9 +127,9 @@ template(name='footer')
                         +role_switcher
             .eight.wide.column
                 unless currentUser
-                    a.ui.button(href='/login')
+                    a.ui.big.basic.button(href='/login')
                         i.sign.in.icon
-                        |Login
+                        |login
                 if is_eric
                     with currentUser
                         +role_switcher
@@ -138,6 +138,6 @@ template(name='footer')
                         +role_switcher
         if is_user
             .row
-                .ui.center.aligned.header
+                .ui.center.aligned.inverted.header
                     i.copyright.outline.icon
                     |GRO
