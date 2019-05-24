@@ -16,9 +16,9 @@ template(name='model_edit')
                         +text_edit key='collection' label='collection' direct=true
                         +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
                     .ui.center.aligned.basic.segment
-                        a.ui.huge.icon.circular.button(href="/m/#{slug}")
+                        a.ui.huge.icon.circular.basic.button(href="/m/#{slug}")
                             i.big.checkmark.icon
-                        #delete_model.ui.icon.circular.button
+                        #delete_model.ui.icon.circular.basic.button
                             i.trash.icon
                 .ten.wide.column
                     //- |#{model}
@@ -26,12 +26,13 @@ template(name='model_edit')
                     //-     +Template.dynamic template=edit_template 
                     //-     // .ui.header #{key} [#{field}] #{label}
                     .ui.inline.header fields
-                    .ui.icon.large.button.add_field
+                    .ui.icon.large.basic.button.add_field
                         i.plus.green.icon
                     .ui.styled.fluid.accordion
                         each fields
                             .title 
-                                |#{rank}:
+                                |#{rank}
+                                +ismall name=icon classes='ui avatar image'
                                 |#{title} 
                                 i.dropdown.icon
                             +field_edit
@@ -88,7 +89,7 @@ template(name='model_view')
         .ui.stackable.padded.grid
             .four.wide.column
                 h1.ui.header #{title}
-                .ui.icon.big.green.button.add_child(title="Add #{slug}")
+                .ui.icon.big.green.button.add_child(title="add #{slug}")
                     i.plus.icon
                 a.ui.icon.blue.big.button(href="/model/edit/#{_id}")
                     i.pencil.icon

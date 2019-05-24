@@ -41,7 +41,7 @@ template(name='color_icon_edit')
             |#{this}
     input.color_icon(type='url' value=field_value placeholder='icons8 class' autocomplete="off")
     if field_value
-        img.ui.inline.image(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
+        img.ui.inline.image(src="https://img.icons8.com/ultraviolet/48/000000/#{field_value}.png")
 
 template(name='icon_edit')
     .ui.right.icon.input
@@ -56,8 +56,8 @@ template(name='icon_edit')
                 |#{this}    
         if field_value
             //- i.large.icon(class=field_value)
-            img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
-        input.icon_val(type='text' value=field_value placeholder='font awesome class' autocomplete="off")
+            img(src="https://img.icons8.com/ultraviolet/48/000000/#{field_value}.png")
+        input.icon_val(type='text' value=field_value placeholder='icon8 ultraviolet class' autocomplete="off")
 
 
 template(name='color_icon_view')
@@ -72,10 +72,12 @@ template(name='icon_view')
 
 template(name='i')
     //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
-    img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
-    img(src="https://img.icons8.com/color/24/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/color/24/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/ultraviolet/24/000000/#{name}.png" class=classes title=title)
 
 template(name='iblue')
     img(src="https://img.icons8.com/ultraviolet/40/000000/#{name}.png" class=classes)
@@ -543,7 +545,7 @@ template(name='array_edit')
     div
     if field_value
         each field_value
-            .ui.large.label
+            .ui.large.basic.label
                 i.delete.icon.remove_element
                 |#{this}
                 
@@ -776,7 +778,7 @@ template(name='multi_doc_edit')
             i.icon(class=icon)
         |#{title} #{label}    
     each choices
-        .ui.compact.circular.button.select_choice(class=choice_class)
+        .ui.circular.button.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{title}
@@ -806,11 +808,12 @@ template(name='multi_doc_edit')
 
 template(name='multi_doc_view')
     if icon
-        i.grey.icon(class=icon)
-    .ui.header(title=key)
+        +ismall name=icon classes='ui avatar image'
+        //- i.grey.icon(class=icon)
+    .ui.inline.header(title=key)
         |#{title}
     each field_value
-        .ui.smoothed.label
+        .ui.basic.label
             |#{this}
     div
 

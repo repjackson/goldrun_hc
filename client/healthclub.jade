@@ -4,11 +4,12 @@ template(name='healthclub')
     .ui.padded.stackable.grid.header-wrapper(class=invert_class)
         .sixteen.wide.column
             if dark_mode    
-                h1.ui.center.aligned.header.bat_white.toggle_dark_mode
+                //- h1.ui.center.aligned.header.bat_white.toggle_dark_mode
+                h1.ui.center.aligned.header.bat_white
                     //- |abandon all hope ye who enter
                     |health club check in
             else    
-                h1.ui.center.aligned.header.toggle_dark_mode
+                h1.ui.center.aligned.header
                     |health club check in
             //- if is_admin
             //-     .ui.left.icon.massive.fluid.input
@@ -155,7 +156,7 @@ template(name='checkin_card')
         //- .ui.card
         //- .ui.grid
         //- .ui.grid.cloud.segment(class=checkin_card_class)
-        .ui.grid.cloud.segment
+        .ui.grid.basic.segment
             .centered.row
                 .column
                     if is_staff

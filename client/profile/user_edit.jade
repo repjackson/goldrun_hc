@@ -12,7 +12,7 @@ template(name='user_edit')
                         i.checkmark.large.green.icon
                     //- i.cog.icon
                     +image_edit key='image_id' title='profile image' direct=true
-                    //- +password_edit
+                    +password_edit
                     if is_dev
                         //- +phone_editor
                         +username_edit
@@ -34,12 +34,12 @@ template(name='user_edit')
                                 +number_edit key='building_number' label='building #' direct=true
                                 //- +text_edit key='building_code' label='Building Code' direct=true
                                 +date_edit key='start_date' label='start date' direct=true
-                                //- if user_is_owner
-                                //-     +pdf_edit key='ownership_paperwork' label='Ownership Paperwork' direct=true
+                                +pdf_edit key='lease_agreement' label='lease agreement' direct=true
+                                if user_is_owner
+                                    +pdf_edit key='ownership_paperwork' label='ownership paperwork' direct=true
                                 if user_is_resident
                                     +date_edit key='expiration_date' label='expiration date' direct=true
-                                //-     +pdf_edit key='lease_agreement' label='Lease Agreement' direct=true
-                                //- +pdf_edit key='member_guidelines_and_waiver' label='Member Guidelines and Waiver' direct=true
+                                +pdf_edit key='member_guidelines_and_waiver' label='member guidelines and waiver' direct=true
                             else
                                 +text_view key='first_name' label='first name' direct=true
                                 +text_view key='last_name' label='last name' direct=true
@@ -50,6 +50,7 @@ template(name='user_edit')
                                 +date_view key='start_date' label='start date' direct=true
                                 if user_is_owner
                                     +image_view key='ownership_paperwork' label='ownership paperwork' direct=true
+                                    +pdf_view key='lease_agreement' label='lease agreement' direct=true
                                 else if user_is_resident
                                     +date_view key='expiration_date' label='expiration date' direct=true
                                     +pdf_view key='lease_agreement' label='lease agreement' direct=true
@@ -75,7 +76,7 @@ template(name='user_edit')
                             +date_view key='id_checked_date' label='government id checked date' direct=true
                             //- with user_from_username_param
                         +text_edit key='spirit_animal' label='spirit animal' direct=true
-                        +boolean_edit key='published' label='Profile Published'
+                        +boolean_edit key='published' label='profile published'
                     //- +payment_methods
                     +user_settings
                     
@@ -83,10 +84,10 @@ template(name='user_edit')
 template(name='user_settings')
     .ui.segment
         .ui.header 
-            +i name='setting'
+            +i name='settings'
             |settings
         with user_from_username_param
-            +boolean_edit key='show_bookmarked_model_bar' label='Show bookmarked model bar' direct=true
+            +boolean_edit key='show_bookmarked_model_bar' label='show bookmarked model bar' direct=true
 
 
 template(name='user_model_editor')
