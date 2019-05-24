@@ -103,7 +103,7 @@ template(name='checkin_button')
             //- i.green.small.sign.in.icon
             h1 #{first_name} #{last_name}
     if healthclub_checkedin
-        .ui.big.button.checkout
+        .ui.big.basic.button.checkout
             i.sign.out.icon
             //- +i name='exit-sign' classes='ui avatar image'
             |check out
@@ -188,13 +188,15 @@ template(name='checkin_card')
                     //-     div
                     //- .ui.hidden.divider
                     //- //- .ui.input
-                    +multi_doc_input key='guests' ref_model='guest' title='lookup previous guest...' direct=true
+                    +multi_doc_input key='guests' ref_model='guest' title='previous guest...' direct=true
                     //- //- .ui.hidden.divider
                     .ui.big.basic.button.add_guest
-                        //- i.plus.icon
+                        i.plus.icon
                         //- +ismall name='plus' classes='ui avatar image'
-                        | register guest
+                        | guest
                     div
+                    if checkin_guest_docs
+                        .ui.inline.header attached guests
                     with checking_in_doc
                         each checkin_guest_docs
                             .ui.big.basic.button.remove_guest 
@@ -203,7 +205,7 @@ template(name='checkin_card')
             .middle.aligned.row
                 .two.wide.column
                     .ui.large.icon.basic.button.cancel_checkin
-                        i.big.left.chevron.icon
+                        i.big.left.chevron.grey.icon
                         //- +i name='undo'
                 .twelve.wide.column
                     //- if red_flagged
@@ -213,9 +215,9 @@ template(name='checkin_card')
                     //- else
                     .ui.big.inverted.green.fluid.button.complete_checkin
                         //- +i name='treadmill' classes='ui inline image'
-                        .ui.inline.header 
+                        .ui.inline.grey.header 
                             |check in
-                            i.right.chevron.icon
+                            //- i.right.chevron.grey.icon
                         //- i.right.chevron.icon
                         //- .ui.basic.big.button.complete_checkin
                         //-     +i name='key' classes='ui inline image'

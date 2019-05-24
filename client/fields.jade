@@ -165,7 +165,7 @@ template(name='pdf_view')
         //- else
         //-     |#{this}
         a(href="{{c.url field_value gravity='face' crop='fit'}}")
-            |Download PDF
+            |download pdf
     //- +call_visual
 
 template(name='image_edit')
@@ -766,7 +766,8 @@ template(name='single_doc_edit')
     each choices
         .ui.small.circular.button.select_choice(class=choice_class)
             if icon
-                i.grey.icon(class=icon)
+                //- i.grey.icon(class=icon)
+                +i name=icon classes='ui avatar image'
             |#{calculated_label}
             |#{slug}
 

@@ -205,6 +205,7 @@ Template.sign_waiver.helpers
 
 Template.checkin_card.onCreated ->
     @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
+    @autorun => Meteor.subscribe 'doc', Session.get('checkin_document')
     @autorun => Meteor.subscribe 'checkin_guests', Session.get('checkin_document')
 
 Template.checkin_card.helpers
@@ -229,7 +230,7 @@ Template.checkin_card.helpers
 
 Template.checkin_card.events
     'click .cancel_checkin': (e,t)->
-        $(e.currentTarget).closest('.segment').transition('slide right',500)
+        $(e.currentTarget).closest('.segment').transition('fade right',500)
         Meteor.setTimeout =>
             Session.set 'displaying_profile', null
             checkin_doc = Docs.findOne Session.get 'checkin_document'

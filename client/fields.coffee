@@ -1068,14 +1068,11 @@ Template.multi_doc_input.events
                     t.doc_results.set res
     'click .select_doc': (e,t) ->
         checkin_document = Docs.findOne Session.get('checkin_document')
+        console.log checkin_document
         Docs.update checkin_document._id,
             $addToSet:guest_ids:@_id
-
-
         t.doc_results.set null
         $('#multi_user_select_input').val ''
-        # Docs.update page_doc._id,
-        #     $set: assignment_timestamp:Date.now()
 
     'click .pull_user': ->
         if confirm "Remove #{@username}?"

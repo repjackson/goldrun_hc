@@ -6,11 +6,12 @@ template(name='model_doc_edit')
                     .ui.header(title="model: #{model}")
                         |edit #{model}
                     +creation_info
-                    a.ui.big.icon.circular.button(href="/m/#{current_model.slug}/#{_id}/view")
+                    a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
                         i.big.checkmark.icon
-                    #delete_doc.ui.icon.large.circular.button
+                    #delete_doc.ui.icon.large.basic.button
                         i.trash.icon
-                    +boolean_edit key='private' direct=true
+                    if is_user
+                        +boolean_edit key='private' direct=true
                 .ten.wide.column.scrolling
                     //- |#{model}
                     each edit_fields
@@ -27,7 +28,7 @@ template(name='model_doc_view')
             .row
                 .six.wide.column
                     .ui.cloud.segment
-                        .ui.large.circular.button.back_to_model
+                        .ui.large.basic.button.back_to_model
                             i.left.chevron.icon
                             i.icon(class=current_model.icon)
                             //- +i name=current_model.icon classes='ui mini inline image'
@@ -43,16 +44,16 @@ template(name='model_doc_view')
                             //-         | View #{model}
 
                         // .ui.header
-                        //     a.ui.icon.circular.button(href="/m/#{model}" title=plural)
+                        //     a.ui.icon.basic.button(href="/m/#{model}" title=plural)
                         //         i.chevron.left.icon
                         //     |View #{model}
                         if can_edit
-                            a.ui.big.icon.circular.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
+                            a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
                                 i.pencil.icon
                         if is_admin
                             .ui.small.header timestamp tags
                             each _timestamp_tags
-                                .ui.label #{this}
+                                .ui.basic.label #{this}
                         //- each model.actions
                         //-     +Template.dynamic template=this data=current_doc
                         div
@@ -98,7 +99,7 @@ template(name='karma_transaction')
     .ui.header offer karma
     .ui.input
         input.offer_karma_amount(type='number')
-    .ui.circular.button.offer_karma
+    .ui.basic.button.offer_karma
         i.right.chevron.icon
     each offers
         +offer
