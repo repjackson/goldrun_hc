@@ -114,8 +114,8 @@ template(name='model_scroller')
     .ui.smoothed.segment
         a.ui.inline.header.go_to_model(href="/m/#{model}")
             if icon 
-                +i name=icon
-                //- i.icon(class=icon)
+                //- +i name=icon
+                i.icon(class=icon)
             |#{header}
         //- if can_go_left            
         .ui.icon.button.go_left(class="{{#unless can_go_left}}disabled{{/unless}}")
@@ -132,16 +132,16 @@ template(name='model_scroller')
 
 template(name='healthclub_status')
     .ui.header
-        |upper hot tub out indefinitely due to crack in frame
+        |upper hot tub out of order
     div
     .ui.inline.header
         i.green.checkmark.icon
         |lower hot tub
-    .ui.grey.inline.header
-        |100.5°
+    //- .ui.grey.inline.header
+    //-     |100.5°
     div
     .ui.inline.header
         i.green.checkmark.icon
         |pool
-    .ui.grey.inline.header
-        |80.3°
+    //- .ui.grey.inline.header
+    //-     |80.3°

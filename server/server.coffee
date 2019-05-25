@@ -100,6 +100,12 @@ Meteor.publish 'checkin_guests', (checkin_document_id)->
         _id:$in:checkin_document.guest_ids
 
 
+Meteor.publish 'resident', (guest_id)->
+    guest = Docs.findOne guest_id
+    Meteor.users.find
+        _id:guest.resident_id
+
+
 
 
 Meteor.publish 'page_blocks', (slug)->

@@ -44,7 +44,7 @@ Template.healthclub.helpers
         username_query = Session.get('username_query')
         Meteor.users.find({
             username: {$regex:"#{username_query}", $options: 'i'}
-            healthclub_checkedin:$ne:true
+            # healthclub_checkedin:$ne:true
             roles:$in:['resident','owner']
             },{ limit:10 }).fetch()
 
@@ -138,7 +138,7 @@ Template.healthclub.events
             Session.set 'displaying_profile',res[0]._id
             # audio = new Audio('cantdo.mp3');
             # audio.play();
-    , 500)
+    , 250)
 
     'click .clear_results': ->
         Session.set 'username_query',null
@@ -230,13 +230,13 @@ Template.checkin_card.helpers
 
 Template.checkin_card.events
     'click .cancel_checkin': (e,t)->
-        $(e.currentTarget).closest('.segment').transition('fade right',500)
+        $(e.currentTarget).closest('.segment').transition('fade right',250)
         Meteor.setTimeout =>
             Session.set 'displaying_profile', null
             checkin_doc = Docs.findOne Session.get 'checkin_document'
             Docs.remove checkin_doc._id
             checkin_doc = Session.set 'checkin_document',null
-        , 500
+        , 250
         # document.reload()
 
     'click .complete_checkin': (e,t)->

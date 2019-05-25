@@ -52,6 +52,7 @@ if Meteor.isClient
 
     Template.add_guest.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.new_guest_id
+        @autorun => Meteor.subscribe 'resident', Router.current().params.new_guest_id
     Template.add_guest.helpers
         new_guest_doc: -> Docs.findOne Router.current().params.new_guest_id
 
@@ -67,7 +68,7 @@ if Meteor.isClient
 
             $('body').toast({
                 title: "Adding guest canceled."
-                class: 'success'
+                class: 'info'
                 transition:
                     showMethod   : 'zoom',
                     showDuration : 100,
@@ -96,13 +97,11 @@ if Meteor.isClient
             checking_in_doc = Docs.findOne Session.get('checkin_document')
 
             Docs.update checking_in_doc._id,
-                $addToSet: guest_ids: guest_doc._id 
+                $addToSet: guest_ids: guest_doc._id
 
             user = Meteor.users.findOne guest_doc.resident_id
             Meteor.users.update user._id,
                 $addToSet:guest_ids: guest_doc._id
-
-
 
             Session.set 'displaying_profile', guest_doc.resident_id
             Router.go "/checkin"

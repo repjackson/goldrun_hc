@@ -4,8 +4,8 @@ template(name='delta')
             .row
                 .six.wide.column.scrolling
                     .ui.right.aligned.inline.header
-                        //- i.icon(class=icon)
-                        +i name=icon
+                        i.icon(class=icon)
+                        //- +i name=icon
                         | #{title}
                     unless is_loading
                         //- if is_admin
@@ -13,9 +13,9 @@ template(name='delta')
                             i.plus.large.icon
                         //- if can_edit
                             //- +edit_circular.button
-                        //- +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
             
                         if can_edit
+                            +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                             .ui.icon.large.basic.button.edit_model
                                 i.cog.icon
                                 //- | Configure #{plural}
@@ -58,8 +58,8 @@ template(name='facet')
             .active.title
                 .ui.grey.inline.header 
                     if icon
-                        //- i.icon(class=icon)
-                        +i name=icon            
+                        i.icon(class=icon)
+                        //- +i name=icon            
                     if title
                         |#{title}
                     else 
@@ -121,9 +121,9 @@ template(name='delta_result')
             //-         each tags
             //-             .ui.label
             //-                 |#{this}
-            //- +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
             .extra
                 if is_model
+                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     a.ui.basic.button.route_model(href="/m/#{slug}")
                         i.sitemap.icon
                         |view model

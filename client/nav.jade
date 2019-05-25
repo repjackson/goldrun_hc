@@ -9,45 +9,45 @@ template(name='nav')
             else
                 if is_resident_or_user
                     a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                        //- i.home.large.large.icon
-                        +i name='home-page'  
+                        i.home.large.large.icon
+                        //- +i name='home-page'  
                 if currentUser  
                     a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
-                        //- i.th.large.large.icon
-                        +i name='menu'    
+                        i.th.large.large.icon
+                        //- +i name='menu'    
                 if is_staff
-                    a.icon.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
-                        +i name='employee-card'
-                        //- i.shield.large.icon
-                        //- .mobile.hidden Staff
-                    a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
-                        //- i.users.large.icon
-                        +i name='groups'
-                        //- .mobile.hidden Users
-                if is_admin
-                    a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
-                        +i name='alpha'
+                    a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
+                        //- +i name='employee-card'
+                        i.shield.large.icon
+                        .mobile.hidden staff
+                    a.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
+                        i.users.large.icon
+                        //- +i name='groups'
+                        .mobile.hidden users
+                //- if is_admin
+                //-     a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
+                //-         +i name='alpha'
                         //- i.campground.large.icon
                         //- .mobile.hidden Alpha
-                    a.icon.item(href='/omega' class="{{isActivePath '/omega'}}")
-                        +i name='omega'
+                    //- a.icon.item(href='/omega' class="{{isActivePath '/omega'}}")
+                    //-     +i name='omega'
                         //- .mobile.hidden Omega
                     
                 //- a.item.set_marketplace(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}")
                 //-     +i name='shop'
                 if is_staff
                     a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
-                        //- i.clinic.medical.large.icon
-                        +i name='treadmill'    
-                        //- .mobile.hidden Health Club
+                        //- +i name='treadmill'    
+                        i.clinic.medical.large.icon
+                        .mobile.hidden hc
             .right.menu
                 if is_admin
                     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                        +i name='tasks'
-                        //- i.tasks.large.icon
+                        //- +i name='tasks'
+                        i.tasks.large.icon
                     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
-                        +i name='note'
-                        //- i.rss.large.icon
+                        //- +i name='note'
+                        i.rss.large.icon
                 if currentUser
                     //- .item
                     //-     .ui.header(title='your karma') #{currentUser.karma}
@@ -62,21 +62,21 @@ template(name='nav')
                             //-     //- +i name='new-post'
                             //-     i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
-                                +i name='chat'
-                                //- i.chat.large.icon
-                            if is_user
-                                a.icon.item(href="/events" class="{{isActivePath '/events'}}")
-                                    +i name='calendar'
-                                a.icon.item(href="/groups" class="{{isActivePath '/groups'}}")
-                                    +i name='group'
-                                //- i.chat.large.icon
+                                //- +i name='chat'
+                                i.chat.large.icon
+                            //- if is_user
+                            //-     a.icon.item(href="/events" class="{{isActivePath '/events'}}")
+                            //-         +i name='calendar'
+                            //-     a.icon.item(href="/groups" class="{{isActivePath '/groups'}}")
+                            //-         +i name='group'
+                            //-     //- i.chat.large.icon
                         //- if is_admin
                         //-     a.icon.item(href='/admin' class="{{isActivePath '/admin'}}")
                         //-         +i name='user shield'
                         if is_dev
                             a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
-                                +i name='active directory'
-                                //- i.sitemap.large.icon
+                                //- +i name='active directory'
+                                i.sitemap.large.icon
                         unless is_frontdesk
                             a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                                 if currentUser.image_id
@@ -92,14 +92,15 @@ template(name='nav')
                         a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
                             i.sign.out.large.icon
                 else
-                    a.icon.item(href='/login' title='Login') 
+                    a.item(href='/login' title='Login') 
                         i.sign.in.large.icon
+                        |login
         if currentUser.show_bookmarked_model_bar
             .ui.inverted.attached.borderless.menu.topnav.grblue
                 each bookmarked_models
                     a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
-                        //- i.large.icon(class=icon)
-                        +i name=icon classes='ui avatar image'
+                        i.large.icon(class=icon)
+                        //- +i name=icon classes='ui avatar image'
                         |#{title}
 
 
@@ -109,18 +110,18 @@ template(name='footer')
         .ui.container.stackable.grid
             .eight.wide.column
                 //- +health_club_info
-                if is_user
-                    +ads
-                    form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                        input(type='hidden', name='cmd', value='_s-xclick')
-                        input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                        <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
-                        // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                        //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                        button.ui.large.icon.button(type='submit')
-                            //- i.pied.piper.alternate.large.icon
-                            |donate
+                //- if is_user
+                //-     +ads
+                //-     form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                //-         input(type='hidden', name='cmd', value='_s-xclick')
+                //-         input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                //-         <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
+                //-         // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                //-         //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                //-         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                //-         button.ui.large.icon.button(type='submit')
+                //-             //- i.pied.piper.alternate.large.icon
+                //-             |donate
                 
                 //- +health_club_info
                 if is_dev    
@@ -137,8 +138,8 @@ template(name='footer')
                 else if is_dev
                     with currentUser
                         +role_switcher
-        if is_user
-            .row
-                .ui.center.aligned.inverted.header
-                    i.copyright.outline.icon
-                    |GRO
+        //- if is_user
+        //-     .row
+        //-         .ui.center.aligned.inverted.header
+        //-             i.copyright.outline.icon
+        //-             |
