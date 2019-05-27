@@ -3,19 +3,21 @@ template(name='delta')
         .ui.stackable.grid
             .row
                 .six.wide.column
-                    .ui.right.aligned.inline.header
+                    .ui.hidden.divider
+                    h1.ui.inline.header
                         //- i.icon(class=icon)
                         +i name=icon
                         | #{title}
                     unless is_loading
                         //- if is_admin
                         .ui.icon.large.basic.button.add_model_doc(title="Add #{title}")
-                            i.plus.large.icon
+                            i.plus.green.large.icon
+                            //- +i name='plus'
                         //- if can_edit
                             //- +edit_circular.button
             
                         if can_edit
-                            +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                            //- +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                             .ui.icon.large.basic.button.edit_model
                                 i.cog.icon
                                 //- | Configure #{plural}
@@ -35,16 +37,18 @@ template(name='delta')
                             .create_delta.ui.large.blue.button(title='new session')
                                 i.plus.icon
                                 |session
-                        .ui.segment
-                            |#{description}
+                        if description
+                            .ui.segment
+                                |#{description}
                         if is_dev
                             .ui.input
                                 input.import_subreddit(type='text' placeholder='import_subreddit')
                     // |did: #{session_delta_id}
-                            
+                    div
                     each sorted_facets
                         +facet
                 .ten.wide.column.scrolling
+                    .ui.hidden.divider
                     each current_delta.result_ids
                         +delta_result
                 

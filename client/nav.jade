@@ -9,25 +9,25 @@ template(name='nav')
             else
                 if is_resident_or_user
                     a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                        i.home.large.large.icon
-                        //- +i name='home-page'  
+                        //- i.home.large.large.icon
+                        +i name='home-page'  
                 if currentUser  
                     a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
-                        i.th.large.large.icon
-                        //- +i name='menu'    
+                        //- i.th.large.large.icon
+                        +i name='menu'    
                 if is_staff
                     a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
-                        //- +i name='employee-card'
-                        i.shield.large.icon
+                        +i name='employee-card'
+                        //- i.shield.large.icon
                         .mobile.hidden staff
                     a.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
-                        i.users.large.icon
-                        //- +i name='groups'
+                        //- i.users.large.icon
+                        +i name='groups'
                         .mobile.hidden users
                 if is_resident_or_user        
-                    a.item(href='/meals' class="{{isActivePath '/meals'}}" title='Meal')
-                        i.food.large.icon
-                        //- +i name='groups'
+                    a.item.set_meal(href='/m/meals' class="{{isActivePath '/m/meal'}}" title='meals')
+                        //- i.food.large.icon
+                        +i name='food'
                         .mobile.hidden meals
                 //- if is_admin
                 //-     a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
@@ -42,17 +42,17 @@ template(name='nav')
                 //-     +i name='shop'
                 if is_staff
                     a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
-                        //- +i name='treadmill'    
-                        i.clinic.medical.large.icon
+                        +i name='treadmill'    
+                        //- i.clinic.medical.large.icon
                         .mobile.hidden hc
             .right.menu
                 if is_admin
                     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                        //- +i name='tasks'
-                        i.tasks.large.icon
+                        +i name='tasks'
+                        //- i.tasks.large.icon
                     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
-                        //- +i name='note'
-                        i.rss.large.icon
+                        +i name='note'
+                        //- i.rss.large.icon
                 if currentUser
                     //- .item
                     //-     .ui.header(title='your karma') #{currentUser.karma}
@@ -67,8 +67,8 @@ template(name='nav')
                             //-     //- +i name='new-post'
                             //-     i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
-                                //- +i name='chat'
-                                i.chat.large.icon
+                                +i name='chat'
+                                //- i.chat.large.icon
                             //- if is_user
                             //-     a.icon.item(href="/events" class="{{isActivePath '/events'}}")
                             //-         +i name='calendar'
@@ -80,8 +80,8 @@ template(name='nav')
                         //-         +i name='user shield'
                         if is_dev
                             a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
-                                //- +i name='active directory'
-                                i.sitemap.large.icon
+                                +i name='active directory'
+                                //- i.sitemap.large.icon
                         unless is_frontdesk
                             a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                                 if currentUser.image_id
@@ -104,8 +104,8 @@ template(name='nav')
             .ui.inverted.attached.borderless.menu.topnav.grblue
                 each bookmarked_models
                     a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
-                        i.large.icon(class=icon)
-                        //- +i name=icon classes='ui avatar image'
+                        //- i.large.icon(class=icon)
+                        +i name=icon classes='ui avatar image'
                         |#{title}
 
 

@@ -195,10 +195,11 @@ template(name='creation_info')
 template(name='user_list_toggle')
     if currentUser
         .ui.icon.basic.button.toggle(class=user_list_toggle_class title=label)
-            i.icon(class=icon)
+            //- i.icon(class=icon)
+            +i name=icon
             //- |#{label}
-        each list_users
-            +user_info
+        //- each list_users
+        //-     +user_info
 
 
 template(name='voting')
@@ -217,8 +218,8 @@ template(name='voting')
 
 template(name='view_button')
     a.ui.icon.large.basic.button.view(title='view' href="/m/#{model}/#{_id}/view")
-        i.right.chevron.large.icon
-        //- +ismall name='chevron right'
+        //- i.right.chevron.large.icon
+        +i name='chevron right'
 
 
 template(name='remove_button')
@@ -229,7 +230,8 @@ template(name='remove_button')
 template(name='add_button')
     a.ui.large.basic.button.add(title="Add #{model}")
         i.plus.icon
-        |#{model}
+        |#{label}
+        //- |#{model}
 
 
 

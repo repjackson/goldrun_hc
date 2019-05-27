@@ -16,6 +16,11 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'note', ->
                 Session.set 'loading', false
 
+        'click .set_meal': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'meal', ->
+                Session.set 'loading', false
+
         'click .set_task': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', 'task', ->

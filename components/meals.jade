@@ -48,13 +48,21 @@ template(name='marketplace_widget')
 
 
 template(name='meal_card')
-    .ui.card
-        img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
-        .content
+    .ui.stackable.grid.segment
+        .four.wide.column
+            //- img.ui.fluid.image(src="{{c.url image }}")
+            img.ui.fluid.rounded.image(src="{{c.url image width=200 height=300 crop='fill'}}")
+        .twelve.wide.column
             .ui.header #{title}
+            +ismall name='food'
+            .ui.inline.small.header ingredients
+            each ingredients
+                .ui.basic.label #{this}
+            .ui.header available #{date} at #{time_available}
+            .ui.header servings available #{servings_available}
             +edit_button
             +view_button
-        
+            
 
 
 template(name='meal_doc')

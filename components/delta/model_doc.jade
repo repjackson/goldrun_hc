@@ -7,12 +7,14 @@ template(name='model_doc_edit')
                         |edit #{model}
                     +creation_info
                     a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
-                        i.big.checkmark.icon
-                    #delete_doc.ui.icon.large.basic.button
-                        i.trash.icon
+                        //- i.big.checkmark.icon
+                        +i name='checkmark'
+                    #delete_doc.ui.icon.basic.button
+                        //- i.trash.icon
+                        +ismall name='trash'
                     if is_user
                         +boolean_edit key='private' direct=true
-                .ten.wide.column.scrolling
+                .ten.wide.column
                     //- |#{model}
                     each edit_fields
                         +Template.dynamic template=edit_template 
@@ -27,56 +29,43 @@ template(name='model_doc_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    .ui.cloud.segment
+                    .ui.segment
                         .ui.large.basic.button.back_to_model
                             +i name='chevron left' classes='ui mini inline image'
                             +i name=current_model.icon classes='ui mini inline image'
                             //- i.icon(class=current_model.icon)
                             //- +i name=current_model.icon classes='ui mini inline image'
                             |#{current_model.title}
-                            //- .divider
-                            //-     i.chevron.right.icon
-                            //- .active.section
-                            //-     if icon
-                            //-         i.icon(class=icon)
-                            //-     if title
-                            //-         |#{title}
-                            //-     else
-                            //-         | View #{model}
-
-                        // .ui.header
-                        //     a.ui.icon.basic.button(href="/m/#{model}" title=plural)
-                        //         i.chevron.left.icon
-                        //     |View #{model}
                         if can_edit
+                            div
                             a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
-                                i.pencil.icon
+                                +i name='edit'
                         if is_admin
-                            .ui.small.header timestamp tags
+                            .ui.header timestamp tags
                             each _timestamp_tags
                                 .ui.basic.label #{this}
                         //- each model.actions
                         //-     +Template.dynamic template=this data=current_doc
                         div
-                        +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                        +user_list_toggle key='bookmark_ids' icon='bookmark-ribbon' label='Bookmark' color='red'
                         div
+                        .ui.header
+                            |by
+                            +author_info
                         +creation_info
-                        div
-                        |by
-                        +author_info
-                    .ui.cloud.segment
-                        if is_marketplace
-                            +karma_transaction
-                        if is_post
-                            +voting
-                            .ui.header karma earned
-                            |#{points} points
-                            .ui.header upvoters
-                            each upvoters
-                                .ui.large.label #{username}
-                            .ui.header downvoters
-                            each downvoters
-                                .ui.large.label #{username}
+                    //- .ui.cloud.segment
+                    //-     if is_marketplace
+                    //-         +karma_transaction
+                    //-     if is_post
+                    //-         +voting
+                    //-         .ui.header karma earned
+                    //-         |#{points} points
+                    //-         .ui.header upvoters
+                    //-         each upvoters
+                    //-             .ui.large.label #{username}
+                    //-         .ui.header downvoters
+                    //-         each downvoters
+                    //-             .ui.large.label #{username}
                 .ten.wide.column
                     .ui.header
                         each fields

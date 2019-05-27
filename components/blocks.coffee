@@ -141,7 +141,7 @@ if Meteor.isClient
         user_list_toggle_class: ->
             if Meteor.user()
                 parent = Template.parentData()
-                'basic'
+                if parent["#{@key}"] and Meteor.userId() in parent["#{@key}"] then 'blue' else 'basic'
             else
                 'disabled'
 

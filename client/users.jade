@@ -70,7 +70,7 @@ template(name='user_Gallery')
 template(name='user_events')
     .ui.center.aligned.white.header 
         i.calendar.icon
-        |Events
+        |events
     .add_event.ui.button
         i.plus.icon
         |Event
@@ -97,8 +97,8 @@ template(name='user_contact')
 template(name='user_contact_info')
     .shadowed-box
         .ui.header
-            i.phone.icon
-            |Contact
+            +i name='phone'
+            |contact
         .ui.icon.circular.button.toggle_edit
             if is_editing
                 i.green.checkmark.icon
@@ -115,12 +115,12 @@ template(name='user_contact_info')
                     a(href=profile.website target='_blank') 
                         |#{profile.website}
                         i.external.icon
-            .item Created {{ from_now createdAt }}
+            .item created {{ from_now createdAt }}
         if is_editing
-            +user_field key='street' label='Street'
-            +user_field key='city' label='City'
-            +user_field key='state' label='State'
-            +user_field key='zip' label='Zip'
+            +user_field key='street' label='street'
+            +user_field key='city' label='city'
+            +user_field key='state' label='state'
+            +user_field key='zip' label='zip'
         else
             .ui.list
                 .item #{street}
@@ -134,8 +134,7 @@ template(name='users')
         .row
             .sixteen.wide.column
                 h1.ui.center.aligned.grey.header 
-                    //- +i name='groups'
-                    i.users.grey.icon
+                    +i name='groups'
                     |users
                 .ui.left.icon.huge.fluid.input
                     i.search.icon

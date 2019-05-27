@@ -16,10 +16,12 @@ template(name='model_edit')
                         +text_edit key='collection' label='collection' direct=true
                         +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
                     .ui.center.aligned.basic.segment
-                        a.ui.huge.icon.circular.basic.button(href="/m/#{slug}")
-                            i.big.checkmark.icon
-                        #delete_model.ui.icon.circular.basic.button
-                            i.trash.icon
+                        a.ui.huge.icon.basic.button(href="/m/#{slug}")
+                            //- i.big.checkmark.icon
+                            +i name='checkmark'
+                        #delete_model.ui.icon.basic.button
+                            //- i.trash.icon
+                            +ismall name='delete'
                 .ten.wide.column
                     //- |#{model}
                     //- each fields
