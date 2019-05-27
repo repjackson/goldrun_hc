@@ -8,22 +8,21 @@ template(name='front')
         .two.column.row
             .column
                 +healthclub_status
-                .ui.header groups
-                .ui.header chat
+                +meal_widget
+                +marketplace_widget
+                //- .ui.header chat
+                //- +model_scroller model='for_rent' header='For Rent' icon='business'
                 //- +model_scroller model='event' header='Events' icon='calendar'
             .column
-                .ui.header event calendar
                 +cal
                 //- +model_scroller model='photo' header='Photos' icon='image'
-        .four.column.row    
-            .column
-                +model_scroller model='for_rent' header='For Rent' icon='business'
-            .column
-                +model_scroller model='marketplace' header='Marketplace' icon='shop'
-            .column
-                +model_scroller model='free' header='Free' icon='handshake'
-            .column
-                +model_scroller model='gr_post' header='Posts' icon='post'
+        //- .three.column.row    
+        //-     .column
+        //-         +model_scroller model='marketplace' header='Marketplace' icon='shop'
+        //-     .column
+        //-         +model_scroller model='free' header='Free' icon='handshake'
+        //-     .column
+        //-         +model_scroller model='gr_post' header='Posts' icon='post'
         //- .three.column.row    
         //-     .column
         //-         +model_scroller model='group' header='Groups' icon='groups'
@@ -38,6 +37,8 @@ template(name='front')
         //-         +model_scroller model='ad' header='Resident Ads' icon='presentation'
         //-     .column
         //-         +model_scroller model='for_rent' header='For Rent' icon='business'
+
+
 
 
 
@@ -131,17 +132,18 @@ template(name='model_scroller')
     
 
 template(name='healthclub_status')
-    .ui.header
-        |upper hot tub out of order
-    div
-    .ui.inline.header
-        i.green.checkmark.icon
-        |lower hot tub
-    //- .ui.grey.inline.header
-    //-     |100.5°
-    div
-    .ui.inline.header
-        i.green.checkmark.icon
-        |pool
-    //- .ui.grey.inline.header
-    //-     |80.3°
+    .ui.segment
+        .ui.header
+            |upper hot tub out of order
+        div
+        .ui.inline.header
+            i.green.checkmark.icon
+            |lower hot tub
+        .ui.grey.inline.header
+            |100.5°
+        div
+        .ui.inline.header
+            i.green.checkmark.icon
+            |pool
+        .ui.grey.inline.header
+            |80.3°

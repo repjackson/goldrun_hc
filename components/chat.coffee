@@ -89,7 +89,7 @@ if Meteor.isClient
                 group_id: @_id },
                 sort: _timestamp: 1
 
-        chat_tag_class:-> if @valueOf() in selected_chat_tags.array() then 'blue' else ''
+        chat_tag_class:-> if @valueOf() in selected_chat_tags.array() then 'black' else ''
 
         chat: -> Docs.findOne @_id
 

@@ -42,7 +42,6 @@ if Meteor.isClient
                     model:'task'
                     assigned_user_id:current_user._id
                     assigned_username:current_user.username
-
                 t.$('.assign_task').val('')
 
 

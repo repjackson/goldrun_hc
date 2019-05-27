@@ -2,6 +2,10 @@ template(name='healthclub')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     .ui.padded.stackable.grid.header-wrapper(class=invert_class)
         .sixteen.wide.column
+            unless is_frontdesk
+                a.ui.button(href='/staff')
+                    i.left.chevron.icon
+                    |staff
             h1.ui.center.aligned.header
                 |health club check in
             //- if is_admin
@@ -25,30 +29,35 @@ template(name='healthclub')
                             .ui.center.aligned.header no members found
                             .ui.center.aligned.header please see staff to add
                             //- +add_resident
-            unless is_query   
-                .ui.padded.grid
-                    .two.column.row
-                        .column
-                            +document_view key='health_club_notices'
-                            +health_club_info
-                        .column
-                            unless dark_mode
-                                +healthclub_status
-                                .ui.header hours
-                                .ui.big.list
-                                    .item mon 7a-10p
-                                    .item tues 7a-10p
-                                    .item wed 7a-10p
-                                    .item thur 7a-10p
-                                    .item fri 7a-9p
-                                    .item sat 8a-9p
-                                    .item sun 8a-10p
-                            if dark_mode
-                                .ui.basic.segment
-                                    .scanning
-                                        video(autoplay="true" id="videoElement")
-                                img.ui.rounded.image.invert(src="http://labs.serkan.io/images/body.gif")
-                                img.ui.rounded.image.invert(src="https://media1.tenor.com/images/822b707dea3f13259a1dfd73ee92e6e3/tenor.gif?itemid=11511423")
+                //- unless is_query   
+                //-     h1.ui.center.aligned.header
+                //-         |#{checkedin_members.count} checked in members
+                //-     .ui.divided.items
+                //-         each checkedin_members
+                //-             .ui.item
+                //-                 //- img.ui.small.circular.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                //-                 .middle.aligned.content
+                //-                     .ui.header #{first_name} #{last_name}
+                //-                 .extra.middle.aligned.content
+                //-                     .right.floated
+                //-                         +checkin_button
+    
+            .ui.padded.grid
+                .two.column.row
+                    .column
+                        +document_view key='health_club_notices'
+                        +health_club_info
+                    .column
+                        +healthclub_status
+                        .ui.header hours
+                        .ui.big.list
+                            .item mon 7a-10p
+                            .item tues 7a-10p
+                            .item wed 7a-10p
+                            .item thur 7a-10p
+                            .item fri 7a-9p
+                            .item sat 8a-9p
+                            .item sun 8a-10p
                         
 template(name='add_resident')
     .ui.stackable.padded.grid
@@ -88,25 +97,15 @@ template(name='sign_waiver')
 
 
 template(name='checkin_button')
-    .ui.massive.basic.button.checkin
-        //- i.sign.in.icon
-        //- +i name='internal' classes='ui avatar image'
-        //- |check in
-        //- i.green.small.sign.in.icon
-        h1 #{first_name} #{last_name}
-    //- unless healthclub_checkedin
-    //-     .ui.massive.button.checkin
-    //-         //- i.sign.in.icon
-    //-         //- +i name='internal' classes='ui avatar image'
-    //-         //- |check in
-    //-         //- i.green.small.sign.in.icon
-    //-         h1 #{first_name} #{last_name}
+    unless healthclub_checkedin
+        .ui.massive.button.checkin
+            h1 #{first_name} #{last_name}
     if healthclub_checkedin
-        if is_staff
-            .ui.big.button.checkout
-                i.sign.out.icon
-                //- +i name='exit-sign' classes='ui avatar image'
-                |check out
+        //- if is_staff
+        .ui.big.button.checkout
+            i.sign.out.icon
+            //- +i name='exit-sign' classes='ui avatar image'
+            |check out
 
 
 
@@ -132,14 +131,10 @@ template(name='health_club_info')
 
 template(name='checkin_card')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
-    
     with user
-        //- .ui.card
-        //- .ui.grid
-        //- .ui.grid.cloud.segment(class=checkin_card_class)
-        //- .ui.grid.basic.segment
-        .ui.padded.stackable.grid.header-wrapper(class=invert_class)
-            .centered.row
+        //- .ui.padded.stackable.grid
+        .ui.padded.grid.header-wrapper
+            .centered.one.column.row
                 .column
                     if is_staff
                         img.ui.small.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
@@ -168,44 +163,56 @@ template(name='checkin_card')
                     //-         +lease_expiration_check
                     //-         +rules_and_regs_check
                     //-         +member_waiver_check
-                    .ui.basic.segment
-                        //- .ui.inline.header 
-                        //-     //- +i name='groups'
-                        //-     |guests
-                        +multi_doc_input key='guests' ref_model='guest' title='previous guest...' direct=true
-                        //- //- .ui.hidden.divider
-                        .ui.big.basic.button.add_guest
-                            i.plus.icon
-                            //- +ismall name='plus' classes='ui avatar image'
-                            | guest
-                        div
-                        if checkin_guest_docs
-                            .ui.inline.header attached guests
-                        with checking_in_doc
-                            each checkin_guest_docs
-                                .ui.big.button.remove_guest 
-                                    i.remove.icon
-                                    |#{first_name} #{last_name}
-            .middle.aligned.row
                     //- if red_flagged
                     //-     .ui.red.big.disabled.button
                     //-         |sign rules and regs to continue
                     //-         //- i.right.chevron.icon
                     //- else
-                    //- .ui.big.basic.fluid.button.complete_checkin
-                    //-     //- +i name='treadmill' classes='ui inline image'
-                    //-     .ui.inline.header 
-                    //-         //- +i name='basketball-field'
-                    //-         i.key.icon
-                    //-         |court/garden key check out
-                    .ui.big.fluid.basic.button.complete_checkin
+            .two.column.row    
+                .column
+                    .ui.big.basic.button.complete_checkin
                         //- +i name='treadmill' classes='ui inline image'
                         .ui.inline.header 
+                            //- +i name='basketball-field'
+                            i.seedling.green.icon
+                            |court/garden key check out
+                .column
+                    .ui.big.basic.button.complete_checkin
+                        //- +i name='treadmill' classes='ui inline image'
+                        .ui.inline.header 
+                            //- +i name='basketball-field'
+                            i.key.yellow.icon
+                            |unit key check out
+                            
+            .row
+                .sixteen.wide.column
+                    .ui.inline.header 
+                        //- +i name='groups'
+                        i.users.teal.icon
+                        |guests
+                    +multi_doc_input key='guests' ref_model='guest' title='lookup previous guest...' direct=true
+                    //- //- .ui.hidden.divider
+                    .ui.big.basic.button.add_guest
+                        strong new guest
+                    div
+                    with checking_in_doc
+                        if checkin_guest_docs
+                            .ui.inline.header attached guests
+                            each checkin_guest_docs
+                                .ui.big.button.remove_guest 
+                                    i.remove.icon
+                                    |#{first_name} #{last_name}
+                            
+            .one.column.row
+                .column
+                    .ui.big.fluid.green.button.complete_checkin
+                        //- +i name='treadmill' classes='ui inline image'
+                        .ui.inline.white.inverted.header 
                             //- +i name='treadmill'
-                            | check in
+                            | health club check in
+                            i.right.chevron.icon
                             //- i.right.chevron.icon
-                        //- i.right.chevron.icon
-                        //- .ui.basic.big.button.complete_checkin
-                        //-     +i name='key' classes='ui inline image'
-                        //-     .ui.inline.header court key check out
-                        //-     //- i.right.chevron.icon
+                            //- .ui.big.button.complete_checkin
+                            //-     +i name='key' classes='ui inline image'
+                            //-     .ui.inline.header court key check out
+                            //-     //- i.right.chevron.icon

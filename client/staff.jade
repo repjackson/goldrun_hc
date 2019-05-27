@@ -2,7 +2,7 @@ template(name='staff')
     .ui.stackable.padded.grid
         .four.wide.column
             h1.ui.center.aligned.grey.header 
-                +i name='employee-card'
+                i.user.shield.icon
                 |staff
             //- i.massive.loading.brown.poo.icon
             a.ui.big.basic.button(href='/add_resident')
@@ -10,6 +10,11 @@ template(name='staff')
                 | add resident
             .ui.inline.header
                 |#{checkedin_members.count} checked in members
+            .ui.header notes/work orders
+            +add_button model='work_order'
+            .ui.header communication log
+            +add_button model='communication'
+            
         .twelve.wide.column
             .ui.stackable.cards
                 each checkedin_members
@@ -32,16 +37,12 @@ template(name='staff')
     //- //- each court_key_sessions
     //- //-     .ui.header this
     //- 
-    //- .ui.header notes/work orders
-    //- +add_button model='work_order'
-    //- .ui.header communication log
-    //- +add_button model='communication'
     //- +model_docs_crud model='communication'
     
     
-    //- +schedule
-    //- +shift_change_requests
-    //- +view_chats
+    +schedule
+    +shift_change_requests
+    +view_chats
 
 
 template(name='task_widget')

@@ -20,63 +20,50 @@ template(name='user_layout')
                     if is_staff
                         .ui.vertical.large.fluid.menu
                             a.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                                i.icon
-                                    +i name='settings' classes='ui image'
+                                i.settings.icon
                                 | settings
                     else if is_current_user
                         .ui.vertical.large.fluid.menu
                             a.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                                i.icon
-                                    +i name='settings' classes='ui image'
+                                i.settings.icon
                                 | settings
                     //- else
                         //- .ui.button.direct_message
                         //-     i.sent.icon
                         //-     |direct message
-                    .ui.vertical.large.fluid.menu
+                    .ui.vertical.big.fluid.menu
                         if is_staff
                             a.item(href="/user/#{username}/residency" class="{{isActiveRoute 'user_residency'}}")
-                                i.icon
-                                    +i name='home' classes='ui image'
+                                i.home.icon
                                 |residency
                             a.item(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
-                                i.icon
-                                    +i name='barbell' classes='ui image'
+                                i.clinic.medical.icon
                                 |health club                        
                         else
                             a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
-                                i.icon
-                                    +i name='info' classes='ui image'
+                                i.info.icon
                                 |about
                             a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                                i.icon
-                                    +i name='handshake' classes='ui image'
+                                i.handshake.icon
                                 |social
                             a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                                i.icon
-                                    +i name='book' classes='ui image'
+                                i.book.icon
                                 |documents
                             a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
-                                 i.icon
-                                     +i name='phone' classes='ui image'
+                                 i.phone.icon
                                  |contact
                             a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
-                                i.icon
-                                    +i name='fork' classes='ui image'
+                                i.fork.icon
                                 |comparison
                             a.item(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
-                                i.icon
-                                    +i name='tags' classes='ui image'
+                                i.tags.icon
                                 |tags
                             a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
-                                 i.icon
-                                     +i name='heart' classes='ui image'
+                                 i.heart.icon
                                  |karma
                             a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
-                                 i.icon
-                                     +i name='money' classes='ui image'
+                                 i.money.icon
                                  |transactions                            
-                                
                     if is_current_user
                         .ui.vertical.large.fluid.menu
                             a.item.logout(href="#")
@@ -84,7 +71,6 @@ template(name='user_layout')
                                 |log out
                             a.item.logout_other_clients(href="#")
                                 |logout other clients
-                
                     unless is_staff
                         +gr_status                
                     if is_admin
@@ -260,7 +246,7 @@ template(name='user_checkins')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
             //- +i name='internal'
-            |Health Club Check In's
+            |health club check ins
         if is_staff
             +checkin_button
         .ui.list
@@ -272,8 +258,8 @@ template(name='user_checkins')
 template(name='user_guests')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            +i name='badge'
-            |Guests
+            i.users.icon
+            |guests
         +goto_model slug='guest'
         +add_button model='guest'
         //- .ui.circular.button.add_guest
@@ -308,7 +294,9 @@ template(name='user_key')
                     .ui.huge.label
                         +number_view key='tag_number' label='tag number' direct=true
                 else
-                    +i name='enter-pin' classes='view_code pointer' title='view code'
+                    .ui.icon.button.view_code
+                        i.lock.icon
+                    //- +i name='enter-pin' classes='view_code pointer' title='view code'
 
             if is_admin
                 div

@@ -27,19 +27,28 @@ template(name='user_edit')
                         if user_is_resident_or_owner
                             if is_staff
                                 +text_edit key='first_name' label='first name' direct=true
+                                .ui.hidden.divider
                                 +text_edit key='last_name' label='last name' direct=true
+                                .ui.hidden.divider
                                 //- +text_edit key='address' label='Address' direct=true
                                 //- +number_edit key='healthclub_code' label='Healthclub Code' direct=true
                                 +number_edit key='unit_number' label='unit #' direct=true
+                                .ui.hidden.divider
                                 +number_edit key='building_number' label='building #' direct=true
+                                .ui.hidden.divider
                                 //- +text_edit key='building_code' label='Building Code' direct=true
                                 +date_edit key='start_date' label='start date' direct=true
+                                .ui.hidden.divider
                                 +pdf_edit key='lease_agreement' label='lease agreement' direct=true
+                                .ui.hidden.divider
                                 if user_is_owner
                                     +pdf_edit key='ownership_paperwork' label='ownership paperwork' direct=true
+                                    .ui.hidden.divider
                                 if user_is_resident
                                     +date_edit key='expiration_date' label='expiration date' direct=true
+                                    .ui.hidden.divider
                                 +pdf_edit key='member_guidelines_and_waiver' label='member guidelines and waiver' direct=true
+                                .ui.hidden.divider
                             else
                                 +text_view key='first_name' label='first name' direct=true
                                 +text_view key='last_name' label='last name' direct=true
@@ -75,7 +84,6 @@ template(name='user_edit')
                             +text_view key='id_checked_by_staff' label='government id checked by' role_filter='staff' direct=true
                             +date_view key='id_checked_date' label='government id checked date' direct=true
                             //- with user_from_username_param
-                        +text_edit key='spirit_animal' label='spirit animal' direct=true
                         +boolean_edit key='published' label='profile published'
                     //- +payment_methods
                     +user_settings
@@ -84,7 +92,7 @@ template(name='user_edit')
 template(name='user_settings')
     .ui.segment
         .ui.header 
-            +i name='settings'
+            i.cog.icon
             |settings
         with user_from_username_param
             +boolean_edit key='show_bookmarked_model_bar' label='show bookmarked model bar' direct=true

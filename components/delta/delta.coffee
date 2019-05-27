@@ -187,7 +187,7 @@ if Meteor.isClient
             if Session.equals 'loading', true
                  'disabled basic'
             else if facet.filters.length > 0 and @name in facet.filters
-                'blue'
+                'black'
             else 'basic'
 
     Template.delta_result.onRendered ->
@@ -199,8 +199,20 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'user_from_id', @data._id
 
     Template.delta_result.helpers
-        result: ->
+        template_exists: ->
+            current_model = Router.current().params.model_slug
+            if Template["#{current_model}_card"]
+                return true
+            else
+                return false
+            # console.log @
 
+        model_template: ->
+            current_model = Router.current().params.model_slug
+            "#{current_model}_card"
+
+
+        result: ->
             if Docs.findOne @_id
                 result = Docs.findOne @_id
                 if result.private is true

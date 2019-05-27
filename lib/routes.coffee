@@ -70,6 +70,7 @@ Router.route '/forgot_password', -> @render 'forgot_password'
 Router.route '/reddit', -> @render 'reddit'
 Router.route '/staff', -> @render 'staff'
 Router.route '/groups', -> @render 'groups'
+Router.route '/meals', -> @render 'meals'
 Router.route '/events', -> @render 'cal'
 Router.route '/frontdesk', -> @render 'frontdesk'
 Router.route '/user/:username/edit', -> @render 'user_edit'
@@ -78,6 +79,13 @@ Router.route '/settings', -> @render 'settings'
 Router.route '/sign_rules/:doc_id', -> @render 'rules_signing'
 # Router.route '/users', -> @render 'people'
 Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
+# Router.route "/meal/:meal_id", -> @render 'meal_doc'
+
+Router.route "/meal/:doc_id", (->
+    @render 'meal_doc'
+    ), name:'meal_doc'
+
+
 
 Router.route '/login', -> @render 'login'
 
@@ -94,11 +102,6 @@ Router.route '/checkin', (->
     @layout 'mlayout'
     @render 'healthclub'
     ), name:'healthclub'
-
-
-
-
-
 
 
 Router.route '/user/:username', (->

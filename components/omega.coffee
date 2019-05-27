@@ -16,7 +16,7 @@ if Meteor.isClient
                 # _author_id:Meteor.userId()
 
         session_button_class: ->
-            if Session.equals 'current_omega_id', @_id then 'blue' else 'basic'
+            if Session.equals 'current_omega_id', @_id then 'black' else 'basic'
 
         single_doc: ->
             omega = Docs.findOne model:'omega'

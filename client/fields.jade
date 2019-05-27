@@ -55,8 +55,8 @@ template(name='icon_edit')
             else
                 |#{this}    
         if field_value
-            //- i.large.icon(class=field_value)
-            img(src="https://img.icons8.com/ultraviolet/48/000000/#{field_value}.png")
+            i.large.icon(class=field_value)
+            //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{field_value}.png")
         input.icon_val(type='text' value=field_value placeholder='icon8 ultraviolet class' autocomplete="off")
 
 
@@ -766,8 +766,8 @@ template(name='single_doc_edit')
     each choices
         .ui.small.circular.button.select_choice(class=choice_class)
             if icon
-                //- i.icon(class=icon)
-                +i name=icon classes='ui avatar image'
+                i.icon(class=icon)
+                //- +i name=icon classes='ui avatar image'
             |#{calculated_label}
             |#{slug}
 

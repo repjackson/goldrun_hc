@@ -29,6 +29,9 @@ Template.registerHelper 'checkin_guest_docs', () ->
         _id:$in:checkin_document.guest_ids
 
 
+Template.registerHelper 'available_servings', () ->
+    
+
 
 
 
@@ -113,7 +116,7 @@ Template.registerHelper 'is_user', () ->
 
 Template.registerHelper 'is_resident_or_user', () ->
     if Meteor.user() and Meteor.user().roles
-        console.log _.intersection(Meteor.user().roles, ['resident','user']).length
+        # console.log _.intersection(Meteor.user().roles, ['resident','user']).length
         if _.intersection(Meteor.user().roles, ['resident','user']).length then true else false
 
 Template.registerHelper 'user_is_resident', () -> if @roles and 'resident' in @roles then true else false

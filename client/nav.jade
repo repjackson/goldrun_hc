@@ -24,6 +24,11 @@ template(name='nav')
                         i.users.large.icon
                         //- +i name='groups'
                         .mobile.hidden users
+                if is_resident_or_user        
+                    a.item(href='/meals' class="{{isActivePath '/meals'}}" title='Meal')
+                        i.food.large.icon
+                        //- +i name='groups'
+                        .mobile.hidden meals
                 //- if is_admin
                 //-     a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
                 //-         +i name='alpha'

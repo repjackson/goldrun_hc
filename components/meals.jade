@@ -1,0 +1,63 @@
+template(name='meal_widget')
+    .ui.segment
+        a.ui.header(href='/meals')
+            i.glass.cheers.icon
+            |mealsharing
+        .ui.header upcoming meals
+        .ui.list
+            each meals
+                .item
+                    |#{title}
+                    each ingredients
+                        .ui.basic.label #{this}
+        .ui.button become a cook
+
+
+
+template(name='meals')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                .ui.header 
+                    |meals
+                +cloud filter='meal'
+            .twelve.wide.column
+                .ui.stackable.three.cards
+                    each meals
+                        .ui.card
+                            img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+                            .content
+                                a.ui.header(href="/meal/#{_id}") #{title}
+                                div created {{from_now _timestamp}}
+                                div available {{from_now date}}
+                                +edit_button
+                                +view_button
+                                |available servings: #{available_servings}
+                                
+                                if servings_available
+                                    .ui.button.meal_sign_up
+                                        |sign up
+
+
+template(name='marketplace_widget')
+    .ui.segment
+        .ui.header 
+            i.shop.icon
+            |marketplace
+
+
+
+template(name='meal_card')
+    .ui.card
+        img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+        .content
+            .ui.header #{title}
+            +edit_button
+            +view_button
+        
+
+
+template(name='meal_doc')
+    .ui.header hi
+    with current_doc
+        .ui.header #{title}

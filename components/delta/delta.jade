@@ -2,7 +2,7 @@ template(name='delta')
     with current_model
         .ui.stackable.grid
             .row
-                .six.wide.column.scrolling
+                .six.wide.column
                     .ui.right.aligned.inline.header
                         i.icon(class=icon)
                         //- +i name=icon
@@ -52,35 +52,35 @@ template(name='delta')
 
 template(name='facet')
     if filtering_res
-        div
         //- .ui.hidden.divider
-        .ui.accordion
-            .active.title
-                .ui.grey.inline.header 
-                    if icon
-                        i.icon(class=icon)
-                        //- +i name=icon            
-                    if title
-                        |#{title}
-                    else 
-                        |#{key}
-                i.dropdown.icon
-            .active.content
-                if is_admin
-                    .ui.icon.small.transparent.input
-                        i.search.icon
-                        input.add_filter(type='text')
-                    //- div
-                each filtering_res
-                    if name
-                        .selector.ui.compact.large.button.toggle_selection(class=toggle_value_class title=count)
-                            strong #{name}
-                            if is_admin
-                                small #{cal_count} #{count}
-                    else
-                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-                            strong [null]
-                            //- small #{cal_count}
+        //- .ui.accordion
+        //-     .active.title
+        .ui.grey.inline.header 
+            if icon
+                i.icon(class=icon)
+                //- +i name=icon            
+            if title
+                |#{title}
+            else 
+                |#{key}
+                //- i.dropdown.icon
+            //- .active.content
+        if is_admin
+            .ui.icon.small.transparent.input
+                i.search.icon
+                input.add_filter(type='text')
+            //- div
+        each filtering_res
+            if name
+                .selector.ui.compact.large.button.toggle_selection(class=toggle_value_class title=count)
+                    strong #{name}
+                    if is_admin
+                        small #{cal_count} #{count}
+            else
+                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    //- small #{cal_count}
+        .ui.hidden.divider
 
 template(name='toggle_delta_config')
     if boolean_true
@@ -96,64 +96,32 @@ template(name='toggle_delta_config')
 
 template(name='delta_result')
     with result 
-        .ui.result.cloud.segment(class=loading_class)
-            //- if title
-            //-     a.ui.header(href="/m/#{current_model.slug}/#{_id}/view")
-            //-         if icon
-            //-             //- i.icon(class=icon)
-            //-             +i name=icon
-            //- 
-            //-         |#{title}
-            //- .description
-            //-     if picture
-            //-         img.ui.medium.centered.rounded.image(src="{{c.url picture gravity='face' crop='crop'}}")
-            //-     if youtube_id
-            //-         +youtube_view key='youtube_id' direct=true
-            //- .description
-            //-     if description
-            //-         |!{description}
-            //-     if content
-            //-         |!{content}
-            each fields
-                +Template.dynamic template=view_template 
-            //- .extra
-            //-     if tags
-            //-         each tags
-            //-             .ui.label
-            //-                 |#{this}
-            .extra
-                if is_model
-                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                    a.ui.basic.button.route_model(href="/m/#{slug}")
-                        i.sitemap.icon
-                        |view model
-                    if is_admin
-                        a.ui.basic.button.route_model(href="/model/edit/#{_id}")
-                            i.edit.icon
-                            |edit model
-                else
-                    if can_edit
-                        a.ui.large.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
-                            i.pencil.large.icon
-                            //- |edit
-                    a.ui.icon.large.basic.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
-                        i.right.chevron.large.icon
-                        //- |view
-                    //- if is_post
-                    //-     unless is_author
-                //- +voting
-                    //- if is_marketplace
-                    //-     .ui.small.header karma price 
-                    //-     .ui.header #{karma_price}
-                //- each model.actions
-                //-     +Template.dynamic template=this data=..
-                if _author_id
-                    +author_info
-                +creation_info
-                //- if _timestamp_tags
-                //-     .ui.small.inline.grey.header timestamp tags
-                //-     each _timestamp_tags
-                //-         .ui.label #{this}
-                
-    
+        if template_exists
+            +Template.dynamic template=model_template
+        else
+            .ui.result.cloud.segment(class=loading_class)
+                each fields
+                    +Template.dynamic template=view_template 
+                .extra
+                    if is_model
+                        +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                        a.ui.basic.button.route_model(href="/m/#{slug}")
+                            i.sitemap.icon
+                            |view model
+                        if is_admin
+                            a.ui.basic.button.route_model(href="/model/edit/#{_id}")
+                                i.edit.icon
+                                |edit model
+                    else
+                        if can_edit
+                            a.ui.large.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
+                                i.pencil.large.icon
+                                //- |edit
+                        a.ui.icon.large.basic.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
+                            i.right.chevron.large.icon
+                    if _author_id
+                        +author_info
+                    +creation_info
+                    
+        
                     
