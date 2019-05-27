@@ -32,6 +32,7 @@ template(name='color_view')
             |#{field_value}
 
 template(name='color_icon_edit')
+    div
     .ui.small.inline.header
         if icon
             +i name=icon
@@ -47,6 +48,7 @@ template(name='color_icon_edit')
         img.ui.inline.image(src="https://img.icons8.com/ultraviolet/48/000000/#{field_value}.png")
 
 template(name='icon_edit')
+    div
     .ui.right.icon.input
         .ui.small.inline.header
             if icon
@@ -70,8 +72,9 @@ template(name='color_icon_view')
 
 template(name='icon_view')
     if field_value
-        i.icon(class=field_value)
-        //- img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+        div
+        //- i.icon(class=field_value)
+        img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
 
 
 template(name='i')
@@ -117,12 +120,12 @@ template(name='link_view')
 
 template(name='image_view')
     if field_value
-        .ui.inline.header
-            if icon
-                +i name=icon
-                //- i.icon(class=icon)
-            if title
-                |#{title}
+        //- .ui.inline.header
+        //-     if icon
+        //-         +i name=icon
+        //-         //- i.icon(class=icon)
+        //-     if title
+        //-         |#{title}
         //- else if key
         //-     |#{key}
         //- else
@@ -344,8 +347,8 @@ template(name='text_view')
         unless header
             div
             .ui.small.inline.header
-                // if icon
-                //     i.icon(class=icon)
+                if icon
+                    +i name=icon
                 if title
                     |#{title}
                 else if label
@@ -571,7 +574,7 @@ template(name='array_edit')
                 
 template(name='array_view')
     if field_value
-        .ui.inline.header
+        .ui.inline.small.header
             if icon
                 +i name=icon
             if title
@@ -794,7 +797,7 @@ template(name='single_doc_edit')
     each choices
         .ui.small.circular.button.select_choice(class=choice_class)
             if icon
-                +i name=icon
+                +i name=icon classes='ui avatar image'
                 //- i.icon(class=icon)
                 //- +i name=icon classes='ui avatar image'
             |#{calculated_label}

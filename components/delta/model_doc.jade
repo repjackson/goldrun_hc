@@ -53,6 +53,9 @@ template(name='model_doc_view')
                             |by
                             +author_info
                         +creation_info
+                    +comments
+                    if is_meal
+                        +meal_reviews
                     //- .ui.cloud.segment
                     //-     if is_marketplace
                     //-         +karma_transaction
@@ -79,7 +82,6 @@ template(name='model_doc_view')
                             .item
                                 +Template.dynamic template=view_template 
                     div
-                    +comments
                     if watson
                         +watson_view
 

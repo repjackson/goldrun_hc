@@ -5,7 +5,7 @@ template(name='nav')
             //-     i.large.sidebar.icon
             if is_loading
                 .icon.item
-                    i.large.loading.notched.circle.icon
+                    i.big.loading.notched.circle.icon
             else
                 if is_resident_or_user
                     a.header.icon.item(href='/' class="{{isActivePath '/'}}")
@@ -25,7 +25,7 @@ template(name='nav')
                         +i name='groups'
                         .mobile.hidden users
                 if is_resident_or_user        
-                    a.item.set_meal(href='/m/meals' class="{{isActivePath '/m/meal'}}" title='meals')
+                    a.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='meals')
                         //- i.food.large.icon
                         +i name='food'
                         .mobile.hidden meals

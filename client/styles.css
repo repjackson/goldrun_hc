@@ -372,7 +372,7 @@ input{
 .scrolling{
 	overflow-y:scroll;
 	overflow-x:hidden;
-	max-height:100vh;
+	max-height:200vh;
 	/*max-height:85vh;*/
 	/* padding-top: 1em; */
 	/*padding-left: 1em;*/

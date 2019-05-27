@@ -58,11 +58,26 @@ template(name='meal_card')
             .ui.inline.small.header ingredients
             each ingredients
                 .ui.basic.label #{this}
-            .ui.header available #{date} at #{time_available}
+            .ui.header available {{from_now date}} at #{time_available}
             .ui.header servings available #{servings_available}
             +edit_button
             +view_button
             
+
+
+
+template(name='meal_reviews')
+    .ui.segment
+        .ui.header reviews
+        if can_leave_review
+            .ui.basic.button.leave_review leave review
+        each reviews
+            .ui.header #{text}
+            each tags
+                .ui.basic.tag #{this}
+            .ui.header vote #{vote}
+
+
 
 
 template(name='meal_doc')

@@ -191,6 +191,7 @@ Template.registerHelper 'field_value', () ->
 
 Template.registerHelper 'is_marketplace', () -> @model is 'marketplace'
 Template.registerHelper 'is_post', () -> @model is 'post'
+Template.registerHelper 'is_meal', () -> @model is 'meal'
 
 
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
