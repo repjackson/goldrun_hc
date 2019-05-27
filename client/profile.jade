@@ -3,11 +3,11 @@ template(name='user_layout')
     with user_from_username_param
         .ui.padded.stackable.grid
             .row
-                .four.wide.column
+                .four.wide.center.aligned.column
                     if image_id
                         img.ui.centered.rounded.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
-                    .ui.large.center.aligned.header
+                    a.ui.large.center.aligned.header(href="/user/#{user.username}")
                         | #{user.first_name}
                         | #{user.last_name}
                         //- if current_user
@@ -31,15 +31,15 @@ template(name='user_layout')
                         //- .ui.button.direct_message
                         //-     i.sent.icon
                         //-     |direct message
-                    .ui.vertical.big.fluid.menu
-                        if is_staff
-                            a.item(href="/user/#{username}/residency" class="{{isActiveRoute 'user_residency'}}")
-                                i.home.icon
-                                |residency
-                            a.item(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
-                                i.clinic.medical.icon
-                                |health club                        
-                        else
+                    unless is_staff
+                        .ui.vertical.big.fluid.menu
+                            //- if is_staff
+                            //-     a.item(href="/user/#{username}/residency" class="{{isActiveRoute 'user_residency'}}")
+                            //-         i.home.icon
+                            //-         |residency
+                            //-     a.item(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
+                            //-         i.clinic.medical.icon
+                            //-         |health club                        
                             a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
                                 i.info.icon
                                 |about
@@ -122,42 +122,42 @@ template(name='user_healthclub')
 template(name='user_about')
     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
     .ui.grid
-        .six.wide.column
-            //- +user_tasks
-            //- if user_is_resident
-            //-     if is_resident
-                    //- .ui.header karma
-                    //- .ui.header #{karma}
-                    //- +received_karma
-                    //- +user_transactions
-            if user_is_user
-                if is_user
-                    +user_connections
-            if user_is_resident
-                if is_staff
-                    +user_checkins
-                    +user_guests
-                //- if is   _staff
-                    //- +violations
-                    //- +user_card_replacements
-                    //- +user_signatures
-                //- if is_user
-                //-     +user_following
-                //-     +follow_user
-        .six.wide.column
-            if user_is_resident
-                if is_staff
-                    +membership_status
-                    +user_log
-            if user_is_user
-                if is_user
-                    //- +user_karma
-                    +user_bookmarks    
-                    //- +user_feed
-            //- +user_rules_widget
-            //- if is_eric
-            //-     +role_switcher
-            //- if current_user
+        .three.column.row
+            .column
+                if user_is_resident
+                    if is_staff
+                        +user_checkins
+                        +user_guests
+                        +violations
+                        +user_signatures
+                        +user_card_replacements
+            .column
+                if user_is_resident
+                    if is_staff
+                        +membership_status
+                        +user_log
+            .column
+                +user_key
+                +user_unit
+                .ui.segment
+                    //- +text_view key='first_name' label='First Name' direct=true
+                    //- +text_view key='last_name' label='Last Name' direct=true
+                    if is_admin
+                        +text_view key='address' label='address' direct=true
+                    //- +text_view key='email' label='Email' direct=true
+                    +phone_view key='phone' label='phone' direct=true
+                    if user_is_resident
+                        //- if is_staff
+                        +number_view key='unit_number' label='unit #' direct=true
+                        +number_view key='building_number' label='building #' direct=true
+                        +number_view key='healthclub_code' label='healthclub_code' direct=true
+                        +text_view key='building_code' label='building code' direct=true
+                        +date_view key='start_date' label='start date' direct=true
+                        +date_view key='expiration_date' label='expiration date' direct=true
+                    +textarea_view key='notes' label='notes' icon='align-left' direct=true
+                    each emails
+                        .ui.label #{address}
+
     
             
 template(name='user_transactions')

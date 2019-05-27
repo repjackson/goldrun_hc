@@ -211,7 +211,7 @@ if Meteor.isClient
             access = prompt 'admin code'
             if access is '2959'
                 Session.set 'viewing_code', true
-                console.log access
+                # console.log access
                 Meteor.setTimeout ->
                     Session.set 'viewing_code', false
                 , 5000
@@ -220,7 +220,7 @@ if Meteor.isClient
                     key_id:Docs.findOne(model:'key')._id
                     owner_user_id:Meteor.users.findOne username:Router.current().params.username
                     owner_username:Router.current().params.username
-                console.log new_id
+                # console.log new_id
             else
                 alert 'wrong code'
 

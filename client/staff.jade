@@ -5,10 +5,10 @@ template(name='staff')
                 i.user.shield.icon
                 |staff
             //- i.massive.loading.brown.poo.icon
-            a.ui.big.basic.button(href='/add_resident')
-                i.user.shield.large.icon
-                | add resident
-            .ui.inline.header
+            a.ui.fluid.big.basic.button(href='/add_resident')
+                i.user.add.large.icon
+                strong add resident
+            .ui.header
                 |#{checkedin_members.count} checked in members
             .ui.header notes/work orders
             +add_button model='work_order'
@@ -20,13 +20,14 @@ template(name='staff')
                 each checkedin_members
                     +big_user_card username
         
-    //- .ui.stackable.padded.grid
-    //-     .three.column.row
-    //-         //- .column
-    //-         //-     +task_widget
-    //-         .column
-    //-             +wywo
-    //-         .column
+    .ui.stackable.padded.grid
+        .three.column.row
+            .column
+                +task_widget
+            .column
+                +wywo
+            .column
+                +unit_key_widget
     //- //- .ui.header current health club checked in
     //- //- each active_healthclub_sessions
     //- //-     .ui.header this
@@ -45,11 +46,24 @@ template(name='staff')
     +view_chats
 
 
+template(name='unit_key_widget')
+    .ui.segment 
+        .ui.header 
+            i.yellow.key.icon
+            |unit key lookup
+        .ui.icon.large.fluid.input
+            i.building.icon
+            input(type='number' placeholder='building number')
+        .ui.icon.large.fluid.input
+            i.home.icon
+            input(type='number' placeholder='unit number')
+
+
 template(name='task_widget')
     .ui.smoothed.segment
         .ui.header 
             //- +i name='task'
-            i.task.icon
+            i.tasks.teal.icon
             |todos
         //- .ui.fluid.styled.accordion
         +goto_model slug='task'
@@ -78,7 +92,8 @@ template(name='task_widget')
 template(name='wywo')
     .ui.smoothed.segment
         .ui.header 
-            +i name='note'
+            //- +i name='note'
+            i.orange.edit.icon
             |while you were out
         
 
@@ -198,17 +213,3 @@ template(name='request_row')
                 .ui.label(title='unavailable') #{this}
             if can_edit
                 +remove_button
-
-
-// template(name='edit_bike')
-//     with current_doc
-//         .ui.text.container.segment
-//             .ui.center.aligned.header Edit Impounded Bike 
-//             .ui.form
-//                 +edit_image
-//                 +edit_tags
-//                 +edit_body
-//                 a.ui.green.large.basic.button(href='/bikes') Save Impounded Bike
-//                 #delete_bike.ui.red.icon.basic.button
-//                     i.trash.icon
-            

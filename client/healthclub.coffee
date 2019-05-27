@@ -102,9 +102,6 @@ Template.checkin_button.events
 
 
 Template.healthclub.events
-    'click .toggle_dark_mode': ->
-        Session.set('dark_mode',!Session.get('dark_mode'))
-
     # 'click .sign_waiver': (e,t)->
     #     # console.log @
     #     receipt_id = Docs.insert
@@ -244,8 +241,41 @@ Template.checkin_card.events
         # Meteor.setTimeout =>
         Session.set 'displaying_profile', null
         $('body').toast({
-            title: "#{@first_name} #{@last_name} checked in."
+            title: "#{@first_name} #{@last_name} checked in to health club."
             class: 'success'
+            showIcon: false
+            position:'top center'
+            className:
+                toast: 'ui massive message'
+            transition:
+              showMethod   : 'zoom',
+              showDuration : 250,
+              hideMethod   : 'fade',
+              hideDuration : 250
+            })
+        # , 100
+
+        Meteor.users.update @_id,
+            $set:healthclub_checkedin:true
+        Docs.insert
+            model:'log_event'
+            log_type:'healthclub_checkin'
+            object_id:@_id
+            body: "#{@first_name} #{@last_name} checked in."
+        # document.reload()
+
+    'click .garden_key_checkout': (e,t)->
+        # $(e.currentTarget).closest('.segment').transition('fade left',100)
+        # Meteor.setTimeout =>
+        Session.set 'displaying_profile', null
+        $('body').toast({
+            title: "Garden key check out logged for #{@first_name} #{@last_name}."
+            message: 'Please see desk staff for key.'
+            class : 'blue'
+            position:'top center'
+            className:
+                toast: 'ui massive message'
+            displayTime: 7000
             transition:
               showMethod   : 'zoom',
               showDuration : 250,
@@ -257,8 +287,37 @@ Template.checkin_card.events
             $set:healthclub_checkedin:true
         Docs.insert
             model:'log_event'
+            log_type:'garden_key_checkout'
             object_id:@_id
-            body: "#{@first_name} #{@last_name} checked in."
+            body: "#{@first_name} #{@last_name} checked out the garden key."
+        # document.reload()
+
+    'click .unit_key_checkout': (e,t)->
+        # $(e.currentTarget).closest('.segment').transition('fade left',100)
+        # Meteor.setTimeout =>
+        Session.set 'displaying_profile', null
+        $('body').toast({
+            title: "Unit key check out logged for #{@first_name} #{@last_name}."
+            message: 'Please see desk staff for key.'
+            class : 'blue'
+            position:'top center'
+            className:
+                toast: 'ui massive message'
+            displayTime: 7000
+            transition:
+              showMethod   : 'zoom',
+              showDuration : 250,
+              hideMethod   : 'fade',
+              hideDuration : 250
+            })
+        # , 100
+        Meteor.users.update @_id,
+            $set:healthclub_checkedin:true
+        Docs.insert
+            model:'log_event'
+            log_type:'unit_key_checkout'
+            object_id:@_id
+            body: "#{@first_name} #{@last_name} checked out the unit key."
         # document.reload()
 
     'click .remove_guest': ->

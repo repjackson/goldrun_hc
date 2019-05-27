@@ -98,11 +98,11 @@ template(name='sign_waiver')
 
 template(name='checkin_button')
     unless healthclub_checkedin
-        .ui.massive.button.checkin
-            h1 #{first_name} #{last_name}
+        .ui.massive.basic.button.checkin
+            h1.ui.header #{first_name} #{last_name}
     if healthclub_checkedin
         //- if is_staff
-        .ui.big.button.checkout
+        .ui.big.basic.button.checkout
             i.sign.out.icon
             //- +i name='exit-sign' classes='ui avatar image'
             |check out
@@ -170,14 +170,14 @@ template(name='checkin_card')
                     //- else
             .two.column.row    
                 .column
-                    .ui.big.basic.button.complete_checkin
+                    .ui.big.basic.button.garden_key_checkout
                         //- +i name='treadmill' classes='ui inline image'
                         .ui.inline.header 
                             //- +i name='basketball-field'
                             i.seedling.green.icon
                             |court/garden key check out
                 .column
-                    .ui.big.basic.button.complete_checkin
+                    .ui.big.basic.button.unit_key_checkout
                         //- +i name='treadmill' classes='ui inline image'
                         .ui.inline.header 
                             //- +i name='basketball-field'
@@ -193,6 +193,7 @@ template(name='checkin_card')
                     +multi_doc_input key='guests' ref_model='guest' title='lookup previous guest...' direct=true
                     //- //- .ui.hidden.divider
                     .ui.big.basic.button.add_guest
+                        i.plus.icon
                         strong new guest
                     div
                     with checking_in_doc

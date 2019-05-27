@@ -86,13 +86,15 @@ template(name='user_status')
 template(name='user_card')
     with user
         .ui.grid.smoothed.segment
-            if is_admin
+            if is_staff
                 .four.wide.column
                     if image_id
                         img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .twelve.wide.column
-                .header #{first_name} #{last_name} 
-                if is_admin
+                unless is_staff
+                    .header #{first_name} #{last_name} 
+                if is_staff
+                    a.header(href="/user/#{username}") #{first_name} #{last_name} 
                     .meta @#{username}
                     +text_view key='address' direct=true label='Address'
                     +text_view key='building_code' direct=true label='Building Code'
