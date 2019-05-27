@@ -75,10 +75,10 @@ if Meteor.isClient
 
 
 
-if Meteor.isServer
-    Meteor.publish 'model_docs_with_skip', (model, skip)->
-        # console.log model
-        # console.log skip
-        Docs.find {
-            model:model
-        }
+# if Meteor.isServer
+    # Meteor.publish 'model_docs_with_skip', (model, skip)->
+    #     # console.log model
+    #     # console.log skip
+    #     Docs.find {
+    #         model:model
+    #     }

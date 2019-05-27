@@ -277,6 +277,13 @@ if Meteor.isClient
 
 
 
+    Template.membership_status.events
+        'click .email_rules_receipt': ->
+            console.log @
+            Meteor.call 'send_rules_regs_receipt_email', @_id
+
+
+
 if Meteor.isServer
     Meteor.publish 'wall_posts', (username)->
         # console.log username

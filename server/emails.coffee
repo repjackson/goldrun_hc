@@ -88,3 +88,19 @@ Meteor.methods
             data: {new_user:new_user}               # Optional. Render your email with a data object.
             attachments: []                         # Optional. Attach files using a mailcomposer format as an array of objects.
                                                     # Read more here: http://docs.meteor.com/#/full/email_send and here: https://github.com/nodemailer/mailcomposer/blob/7c0422b2de2dc61a60ba27cfa3353472f662aeb5/README.md#add-attachments
+
+    send_rules_regs_receipt_email: (user_id)->
+        # console.log new_user_id
+        user = Meteor.users.findOne user_id
+        # console.log new_user
+        Mailer.send
+            to: ['EJ <repjackson@gmail.com>']          # 'To: ' address. Required.
+            subject: 'Gold Run Rules and Regulations Signature'                     # Required.
+            template: 'rules_regs_receipt'               # Required.
+            replyTo: 'Gold Run Online <admin@goldrun.page>'      # Override global 'ReplyTo: ' option.
+            from: 'Gold Run Online <admin@goldrun.page>'         # Override global 'From: ' option.
+            # cc: 'Name <name@domain.com>'           # Optional.
+            # bcc: 'Name <name@domain.com>'          # Optional.
+            data: {user:user}               # Optional. Render your email with a data object.
+            attachments: []                         # Optional. Attach files using a mailcomposer format as an array of objects.
+                                                    # Read more here: http://docs.meteor.com/#/full/email_send and here: https://github.com/nodemailer/mailcomposer/blob/7c0422b2de2dc61a60ba27cfa3353472f662aeb5/README.md#add-attachments

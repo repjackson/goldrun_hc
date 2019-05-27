@@ -112,15 +112,19 @@ if Meteor.isClient
 
     Template.download_rules_pdf.onCreated ->
         @autorun => Meteor.subscribe 'user_by_username', Router.current().params.username
-        console.log Router.current().params.username
+        @autorun => Meteor.subscribe 'document_by_slug', 'rules_regs'
+
     Template.download_rules_pdf.helpers
         downloading_user: ->
             Meteor.users.findOne username:Router.current().params.username
 
 
     Template.download_rules_pdf.events
-        'click .submit_new_guest': ->
-            console.log @
+        'click .download_rules_pdf': ->
+            signing_doc = Docs.findOne model:'rules_and_regs_signing'
+            console.log signing_doc
+            Meteor.call 'generate_rules_pdf', signing_doc._id
+
 
 
 if Meteor.isServer

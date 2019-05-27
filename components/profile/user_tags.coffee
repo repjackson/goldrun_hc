@@ -17,11 +17,11 @@ if Meteor.isClient
 
 
 
-if Meteor.isServer
-    Meteor.publish 'connections', (username)->
-        current_user = Meteor.users.findOne username:username
-        Meteor.users.find
-            _id:$in: current_user.connected_ids
+# if Meteor.isServer
+    # Meteor.publish 'connections', (username)->
+    #     current_user = Meteor.users.findOne username:username
+    #     Meteor.users.find
+    #         _id:$in: current_user.connected_ids
     #
     # Meteor.publish 'people_connected', (username)->
     #     current_user = Meteor.users.findOne username:username

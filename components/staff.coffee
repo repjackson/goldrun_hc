@@ -12,7 +12,6 @@ if Meteor.isClient
             Meteor.users.find
                 healthclub_checkedin:true
 
-
     Template.shift_change_requests.helpers
         requests: ->
             Docs.find {model:'shift_change_request'},
@@ -28,7 +27,6 @@ if Meteor.isClient
         'click .declare_unavailable': (e,t)->
             Docs.update @_id,
                 $addToSet:unavailable:Meteor.user().username
-
         'click .take_shift': (e,t)->
             Docs.update @_id,
                 $set:assigned_staff:Meteor.user().username
@@ -36,15 +34,38 @@ if Meteor.isClient
 
     Template.task_widget.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'task'
-
     Template.task_widget.helpers
         tasks: ->
             Docs.find {model:'task'},
                 sort: date: -1
 
 
-# if Meteor.isServer
-    # Meteor.publish 'timecard', (user_id)->
-    #     Docs.find
-    #         author_id: user_id
-    #         model: 'timecard'
+
+    Template.unit_key_widget.onCreated ->
+    Template.unit_key_widget.events
+        'click .lookup_key': (e,t)->
+            building_number = t.$('.building_number').val()
+            unit_number = t.$('.unit_number').val()
+            console.log building_number
+            console.log unit_number
+            Meteor.call 'lookup_key',building_number, unit_number, (err,res)->
+                console.log res
+
+    Template.unit_key_widget.helpers
+        tasks: ->
+            Docs.find {model:'task'},
+                sort: date: -1
+
+
+
+
+
+
+if Meteor.isServer
+    Meteor.methods
+        lookup_key: (building_number, unit_number)->
+            console.log 'looking for key', building_number, unit_number
+            console.log Docs.findOne
+                model:'key'
+                building_number:building_number
+                unit_number:unit_number
