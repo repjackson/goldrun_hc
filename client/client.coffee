@@ -30,9 +30,6 @@ Template.registerHelper 'checkin_guest_docs', () ->
 
 
 Template.registerHelper 'available_servings', () ->
-    
-
-
 
 
 Template.registerHelper 'author', () -> Meteor.users.findOne @_author_id
@@ -188,8 +185,6 @@ Template.registerHelper 'is_marketplace', () -> @model is 'marketplace'
 Template.registerHelper 'is_post', () -> @model is 'post'
 
 
-Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
-Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
 
 Template.registerHelper 'calculated_size', (metric) ->
@@ -210,6 +205,5 @@ Template.registerHelper 'calculated_size', (metric) ->
     else if whole is 10 then 'f10'
 
 
-Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment

@@ -16,6 +16,7 @@ Router.onBeforeAction(force_loggedin, {
 });
 
 Router.route '/reset_password/:token', -> @render 'reset_password'
+Router.route '/download_rules_pdf/:username', -> @render 'download_rules_pdf'
 
 Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
 

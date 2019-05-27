@@ -25,6 +25,9 @@ Meteor.methods
             model:'document'
             slug:'rules_regs'
         rules = rule_doc.content
+        console.log moment(@_timestamp).format("dddd, MMMM Do h:mm:ss a")
+        human_timestamp = moment(@_timestamp).format("dddd, MMMM Do h:mm:ss a")
+
         # console.log rules
         user = Meteor.users.findOne username:signing_doc.resident
         # console.log signing_doc
@@ -211,10 +214,11 @@ Meteor.methods
         doc.font('Times-Roman').text("Associationonline.com User Name and Password: GRC88", {align:'left'})
 
 
-        doc.font('Times-Bold').text(" Username:#{user.username}", {align: 'left'})
-        doc.font('Times-Bold').text(" First Name:#{user.first_name}", {align: 'left'})
-        doc.font('Times-Bold').text(" Last Name:#{user.last_name}", {align: 'left'})
+        # doc.font('Times-Bold').text(" Username:#{user.username}", {align: 'left'})
+        doc.font('Times-Bold').text(" Name: #{user.first_name} #{user.last_name}", {align: 'left'})
+        doc.font('Times-Bold').text(" When: #{human_timestamp}", {align: 'left'})
+        # doc.font('Times-Bold').text(" Last Name:#{user.last_name}", {align: 'left'})
         doc.image(signing_doc.signature, 200, 600, {width: 300})
 
         # doc.moveDown();
-        doc.write("Gold_Run_Rules_Regs_Contract_#{doc.first_name}.pdf")
+        doc.write("Gold_Run_Rules_Regs_Contract_#{user.username}.pdf")

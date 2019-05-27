@@ -105,3 +105,26 @@ if Meteor.isClient
 
             Session.set 'displaying_profile', guest_doc.resident_id
             Router.go "/checkin"
+
+
+
+
+
+    Template.download_rules_pdf.onCreated ->
+        @autorun => Meteor.subscribe 'user_by_username', Router.current().params.username
+        console.log Router.current().params.username
+    Template.download_rules_pdf.helpers
+        downloading_user: ->
+            Meteor.users.findOne username:Router.current().params.username
+
+
+    Template.download_rules_pdf.events
+        'click .submit_new_guest': ->
+            console.log @
+
+
+if Meteor.isServer
+    Meteor.publish 'user_by_username', (username)->
+        console.log 'finding', username
+        Meteor.users.find
+            username:username
