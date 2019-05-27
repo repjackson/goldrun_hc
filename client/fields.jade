@@ -55,8 +55,8 @@ template(name='icon_edit')
             else
                 |#{this}    
         if field_value
-            i.large.icon(class=field_value)
-            //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{field_value}.png")
+            //- i.large.icon(class=field_value)
+            img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
         input.icon_val(type='text' value=field_value placeholder='icon8 ultraviolet class' autocomplete="off")
 
 
@@ -72,8 +72,8 @@ template(name='icon_view')
 
 template(name='i')
     //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
-    //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
-    img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
     //- img(src="https://img.icons8.com/color/24/000000/#{name}.png" class=classes title=title)
@@ -704,7 +704,8 @@ template(name='boolean_edit')
     div
     .ui.small.inline.header
         if icon
-            i.icon(class=icon)
+            //- i.icon(class=icon)
+            +i name=icon classes='ui inline mini image'
         if title
             |#{title}
         else if label
@@ -731,7 +732,8 @@ template(name='boolean_view')
     div
     .ui.small.inline.header
         if icon
-            i.icon(class=icon)
+            //- i.icon(class=icon)
+            +i name=icon classes='ui inline mini image'
         if title
             |#{title}
         else if label

@@ -29,6 +29,14 @@ Template.registerHelper 'checkin_guest_docs', () ->
         _id:$in:checkin_document.guest_ids
 
 
+Template.registerHelper 'resident_guests', () ->
+    Docs.find
+        _id:$in:@guest_ids
+
+
+
+
+
 Template.registerHelper 'available_servings', () ->
 
 

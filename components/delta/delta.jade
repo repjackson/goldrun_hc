@@ -4,8 +4,8 @@ template(name='delta')
             .row
                 .six.wide.column
                     .ui.right.aligned.inline.header
-                        i.icon(class=icon)
-                        //- +i name=icon
+                        //- i.icon(class=icon)
+                        +i name=icon
                         | #{title}
                     unless is_loading
                         //- if is_admin
@@ -57,8 +57,8 @@ template(name='facet')
         //-     .active.title
         .ui.grey.inline.header 
             if icon
-                i.icon(class=icon)
-                //- +i name=icon            
+                //- i.icon(class=icon)
+                +i name=icon            
             if title
                 |#{title}
             else 

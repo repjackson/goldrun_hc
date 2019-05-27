@@ -1,33 +1,35 @@
 template(name='staff')
     .ui.stackable.padded.grid
-        .three.wide.column
+        .four.wide.column
             h1.ui.center.aligned.grey.header 
-                i.user.shield.icon
+                //- i.user.shield.icon
+                +i name='manager'
                 |staff
             //- i.massive.loading.brown.poo.icon
-            a.ui.fluid.big.basic.button(href='/add_resident')
-                i.user.add.large.icon
+            a.ui.fluid.big.compact.basic.button(href='/add_resident')
+                //- i.user.add.large.icon
+                +i name='add-user-male' classes='ui inline image'
                 strong add resident
             .ui.header
                 |#{checkedin_members.count} checked in members
-            .ui.header notes/work orders
             +add_button model='work_order'
-            .ui.header communication log
             +add_button model='communication'
+            +add_button model='frontdesk_hourly_checklist'
+            +add_button model='front_desk_opening_closing_checklist'
+            +unit_key_widget
             
-        .thirteen.wide.column
+        .twelve.wide.column
             .ui.stackable.cards
                 each checkedin_members
                     +big_user_card username
         
-    .ui.stackable.padded.grid
-        .three.column.row
-            .column
-                +task_widget
-            .column
-                +wywo
-            .column
-                +unit_key_widget
+    //- .ui.stackable.padded.grid
+    //-     .three.column.row
+    //-         .column
+    //-             +task_widget
+    //-         .column
+    //-             +wywo
+    //-         .column
     //- //- .ui.header current health club checked in
     //- //- each active_healthclub_sessions
     //- //-     .ui.header this
@@ -168,7 +170,7 @@ template(name='schedule')
 
 template(name='shift_change_requests')
     .ui.grey.inline.header
-        i.clock.icon
+        +i name='clock'
         |shift change requests
     .ui.icon.basic.button.add_shift_change_request
         i.large.icons

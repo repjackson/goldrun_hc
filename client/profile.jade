@@ -3,16 +3,14 @@ template(name='user_layout')
     with user_from_username_param
         .ui.padded.stackable.grid
             .row
-                .four.wide.center.aligned.column
+                .four.wide.column
                     if image_id
                         img.ui.centered.rounded.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
-                    a.ui.large.center.aligned.header(href="/user/#{user.username}")
-                        | #{user.first_name}
-                        | #{user.last_name}
-                        //- if current_user
-                        //-     a(href="/user/#{user_from_username_param.username}/edit")
-                        //-         i.cog.link.icon
+                    .ui.center.aligned.basic.segment
+                        a.ui.large.center.aligned.header(href="/user/#{user.username}")
+                            | #{user.first_name}
+                            | #{user.last_name}
                     .ui.center.aligned.small.grey.header
                         | #{user.tagline}
                     .ui.center.aligned.small.grey.header
@@ -80,7 +78,9 @@ template(name='user_layout')
                                 i.shield.icon
                                 |roles
                             each roles
-                                .ui.label #{this}                    
+                                .ui.label #{this}           
+                    if user_is_resident
+                        +resident_info         
                 .twelve.wide.column.shadowed-box
                     +yield
     unless is_frontdesk
@@ -131,32 +131,30 @@ template(name='user_about')
                         +violations
                         +user_signatures
                         +user_card_replacements
-            .column
-                if user_is_resident
-                    if is_staff
-                        +membership_status
-                        +user_log
+                        +user_notes        
             .column
                 +user_key
                 +user_unit
-                .ui.segment
-                    //- +text_view key='first_name' label='First Name' direct=true
-                    //- +text_view key='last_name' label='Last Name' direct=true
-                    if is_admin
-                        +text_view key='address' label='address' direct=true
-                    //- +text_view key='email' label='Email' direct=true
-                    +phone_view key='phone' label='phone' direct=true
-                    if user_is_resident
-                        //- if is_staff
-                        +number_view key='unit_number' label='unit #' direct=true
-                        +number_view key='building_number' label='building #' direct=true
-                        +number_view key='healthclub_code' label='healthclub_code' direct=true
-                        +text_view key='building_code' label='building code' direct=true
-                        +date_view key='start_date' label='start date' direct=true
-                        +date_view key='expiration_date' label='expiration date' direct=true
-                    +textarea_view key='notes' label='notes' icon='align-left' direct=true
-                    each emails
-                        .ui.label #{address}
+                
+template(name='resident_info')
+    .ui.segment
+        //- +text_view key='first_name' label='First Name' direct=true
+        //- +text_view key='last_name' label='Last Name' direct=true
+        if is_admin
+            +text_view key='address' label='address' direct=true
+        //- +text_view key='email' label='Email' direct=true
+        +phone_view key='phone' label='phone' direct=true
+        if user_is_resident
+            //- if is_staff
+            +number_view key='unit_number' label='unit #' direct=true
+            +number_view key='building_number' label='building #' direct=true
+            +number_view key='healthclub_code' label='healthclub_code' direct=true
+            +text_view key='building_code' label='building code' direct=true
+            +date_view key='start_date' label='start date' direct=true
+            +date_view key='expiration_date' label='expiration date' direct=true
+        +textarea_view key='notes' label='notes' icon='align-left' direct=true
+        each emails
+            .ui.label #{address}
 
     
             
@@ -202,8 +200,7 @@ template(name='user_garden')
 template(name='user_signatures')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            //- +i name='signature'
-            i.edit.icon
+            +i name='signature'
             | signatures
         .ui.link.large.list
             a.item(href='#') rules and regulations
@@ -245,7 +242,7 @@ template(name='gr_status')
 template(name='user_checkins')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            //- +i name='internal'
+            +i name='internal'
             |health club check ins
         if is_staff
             +checkin_button
@@ -258,26 +255,26 @@ template(name='user_checkins')
 template(name='user_guests')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            i.users.icon
+            +i name='groups'
             |guests
         +goto_model slug='guest'
         +add_button model='guest'
         //- .ui.circular.button.add_guest
         //-     |Add Guest
         .ui.link.large.list
-            each guests
+            each resident_guests
                 a.item(href="/m/guest/#{_id}/view")
                     img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
                     .content
-                        |#{first_name} #{last_name} #{username}
+                        |#{guest_name} #{first_name} #{last_name} #{username}
 
             
             
 template(name='user_key')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            i.key.icon
-            //- +i name='key'
+            //- i.key.icon
+            +i name='key'
             |key
         if is_staff
             +goto_model slug='key'
@@ -314,8 +311,8 @@ template(name='user_key')
 template(name='user_unit')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            i.home.icon
-            //- +i name='interior'
+            //- i.home.icon
+            +i name='interior'
             |unit
         +goto_model slug='unit'
         with unit
@@ -337,8 +334,7 @@ template(name='user_section')
 template(name='violations')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            //- +i name='foul'
-            i.esclamation.icon
+            +i name='foul'
             |violations
         +goto_model slug='violation'
 

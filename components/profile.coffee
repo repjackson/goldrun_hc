@@ -238,9 +238,10 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'user_guests', Router.current().params.username
     Template.user_guests.helpers
         guests: ->
-            Meteor.users.find
-                roles:$in:['guest']
-                resident_connection:Router.current().params.username
+            user = Meteor.users.findOne username:Router.current().params.username
+            Docs.find
+                model:'guest'
+                _id:$in:user.guest_ids
 
 
 
@@ -342,9 +343,10 @@ if Meteor.isServer
 
     Meteor.publish 'user_guests', (username)->
         # console.log 'violation', username
-        Meteor.users.find
-            roles:$in:['guest']
-            resident_connection:username
+        user = Meteor.users.findOne username:username
+        Docs.find
+            model:'guest'
+            _id:$in:user.guest_ids
 
 
     Meteor.publish 'user_log', (username)->
