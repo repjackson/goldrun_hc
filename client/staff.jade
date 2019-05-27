@@ -1,6 +1,6 @@
 template(name='staff')
     .ui.stackable.padded.grid
-        .four.wide.column
+        .three.wide.column
             h1.ui.center.aligned.grey.header 
                 i.user.shield.icon
                 |staff
@@ -15,7 +15,7 @@ template(name='staff')
             .ui.header communication log
             +add_button model='communication'
             
-        .twelve.wide.column
+        .thirteen.wide.column
             .ui.stackable.cards
                 each checkedin_members
                     +big_user_card username
@@ -53,10 +53,10 @@ template(name='unit_key_widget')
             |unit key lookup
         .ui.icon.large.fluid.input
             i.building.icon
-            input(type='number' placeholder='building number')
+            input.building_number(type='number' placeholder='building number')
         .ui.icon.large.fluid.input
             i.home.icon
-            input(type='number' placeholder='unit number')
+            input.unit_number(type='number' placeholder='unit number')
         .ui.fluid.teal.button.lookup_key
             |lookup key
 

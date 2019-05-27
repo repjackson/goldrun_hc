@@ -44,12 +44,12 @@ if Meteor.isClient
     Template.unit_key_widget.onCreated ->
     Template.unit_key_widget.events
         'click .lookup_key': (e,t)->
-            building_number = t.$('.building_number').val()
-            unit_number = t.$('.unit_number').val()
+            building_number = parseInt t.$('.building_number').val()
+            unit_number = parseInt t.$('.unit_number').val()
             console.log building_number
             console.log unit_number
             Meteor.call 'lookup_key',building_number, unit_number, (err,res)->
-                console.log res
+                alert "key tag number", res.tag_number
 
     Template.unit_key_widget.helpers
         tasks: ->
@@ -65,7 +65,7 @@ if Meteor.isServer
     Meteor.methods
         lookup_key: (building_number, unit_number)->
             console.log 'looking for key', building_number, unit_number
-            console.log Docs.findOne
+            found_key = Docs.findOne
                 model:'key'
                 building_number:building_number
                 unit_number:unit_number
