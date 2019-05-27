@@ -133,8 +133,11 @@ template(name='user_about')
                         +user_card_replacements
                         +user_notes        
             .column
-                +user_key
-                +user_unit
+                if user_is_resident
+                    if is_staff
+                        +user_key
+                        +user_unit
+                        +membership_status
                 
 template(name='resident_info')
     .ui.segment

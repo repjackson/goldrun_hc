@@ -192,6 +192,8 @@ template(name='checkin_card')
                         |guests
                     +multi_doc_input key='guests' ref_model='guest' title='lookup previous guest...' direct=true
                     //- //- .ui.hidden.divider
+                    each resident_guests
+                        .ui.big.label #{guest_name} #{first_name} #{last_name}
                     .ui.big.basic.button.add_guest
                         i.plus.icon
                         strong new guest
@@ -202,7 +204,7 @@ template(name='checkin_card')
                             each checkin_guest_docs
                                 .ui.big.button.remove_guest 
                                     i.remove.icon
-                                    |#{guest_name}
+                                    |#{guest_name} #{first_name} #{last_name}
                             
             .one.column.row
                 .column
