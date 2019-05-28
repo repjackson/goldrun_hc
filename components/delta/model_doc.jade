@@ -44,19 +44,14 @@ template(name='model_doc_view')
                             .ui.header timestamp tags
                             each _timestamp_tags
                                 .ui.basic.label #{this}
-                        //- each model.actions
-                        //-     +Template.dynamic template=this data=current_doc
                         +user_list_toggle key='bookmark_ids' icon='bookmark-ribbon' label='Bookmark' color='red'
                         div
                         .ui.header
                             |by
                             +author_info
                             +creation_info
-                    if is_meal
-                        +reservations
-                        +meal_reviews
-                    .ui.segment
-                        +comments
+                    each current_model.actions
+                        +Template.dynamic template=this data=current_doc
                     //- .ui.cloud.segment
                     //-     if is_marketplace
                     //-         +karma_transaction

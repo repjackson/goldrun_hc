@@ -15,6 +15,7 @@ template(name='model_edit')
                         +array_edit key='tags' label='tags' direct=true
                         +text_edit key='collection' label='collection' direct=true
                         +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
+                        +multi_doc_edit key='actions' label='actions' ref_model='action' direct=true
                     .ui.center.aligned.basic.segment
                         a.ui.huge.icon.basic.button(href="/m/#{slug}")
                             //- i.big.checkmark.icon
