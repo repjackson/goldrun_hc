@@ -87,21 +87,28 @@ template(name='reservations')
         .ui.header 
             +i name='ticket'
             |reservations
+        .ui.small.statistic
+            .value #{taken_slots}     
+            .label slots taken
+        .ui.small.statistic
+            .value #{available_slots}     
+            .label slots available
+        .ui.small.statistic
+            .value 
+                i.dollar.icon
+                |#{money_earned}     
+            .label money earned
+        
         if can_reserve
             .ui.basic.button.new_reservation 
                 i.green.plus.icon
                 |new reservation
-        else if existing_reservation
-            .ui.basic.button.edit_review edit reservation
-        .ui.icon.button.toggle_editing
-            i.pencil.icon
+        .ui.icon.basic.button.toggle_editing
+            i.blue.pencil.icon
         with my_reservation
             if is_editing
                 +text_edit key='notes' direct=true 
-                +array_edit key='tags' direct=true 
-            else
-                +text_view key='notes' direct=true 
-                +array_view key='tags' direct=true 
+                +remove_button
         each reservations
             .ui.divider
             .ui.header #{notes}

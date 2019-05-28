@@ -46,17 +46,17 @@ template(name='model_doc_view')
                                 .ui.basic.label #{this}
                         //- each model.actions
                         //-     +Template.dynamic template=this data=current_doc
-                        div
                         +user_list_toggle key='bookmark_ids' icon='bookmark-ribbon' label='Bookmark' color='red'
                         div
                         .ui.header
                             |by
                             +author_info
-                        +creation_info
-                    +comments
+                            +creation_info
                     if is_meal
-                        +meal_reviews
                         +reservations
+                        +meal_reviews
+                    .ui.segment
+                        +comments
                     //- .ui.cloud.segment
                     //-     if is_marketplace
                     //-         +karma_transaction

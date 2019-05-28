@@ -47,7 +47,7 @@ if Meteor.isClient
 
 
     Template.reservations.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'reservation'
+        @autorun => Meteor.subscribe 'asset_reservations', Router.current().params.doc_id
         @editing = new ReactiveVar false
     Template.reservations.events
         'click .new_reservation': ->
@@ -59,6 +59,18 @@ if Meteor.isClient
             t.editing.set !t.editing.get()
 
     Template.reservations.helpers
+        taken_slots: ->
+            asset = Docs.findOne Router.current().params.doc_id
+            reservation_count = Docs.find(model:'reservation').count()
+        money_earned: ->
+            asset = Docs.findOne Router.current().params.doc_id
+            reservation_count = Docs.find(model:'reservation').count()
+            asset.slot_price*reservation_count
+        available_slots: ->
+            asset = Docs.findOne Router.current().params.doc_id
+            reservation_count = Docs.find(model:'reservation').count()
+            asset.slots_available - reservation_count
+            # console.log asset.slots_available
         is_editing: -> Template.instance().editing.get()
         my_reservation: ->
             Docs.findOne
@@ -129,8 +141,12 @@ if Meteor.isClient
 
 
 
-# if Meteor.isServer
-    # Meteor.publish 'model_docs_with_skip', (model, skip)->
+if Meteor.isServer
+    Meteor.publish 'asset_reservations', (asset_id)->
+        asset = Docs.findOne asset_id
+        Docs.find
+            model:'reservation'
+            parent_id:asset_id
     #     # console.log model
     #     # console.log skip
     #     Docs.find {
