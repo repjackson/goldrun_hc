@@ -68,14 +68,46 @@ template(name='meal_card')
 
 template(name='meal_reviews')
     .ui.segment
-        .ui.header reviews
+        .ui.header 
+            +i name='popular-topic'
+            |reviews
         if can_leave_review
             .ui.basic.button.leave_review leave review
+        else
+            .ui.basic.button.edit_review leave review
         each reviews
             .ui.header #{text}
             each tags
                 .ui.basic.tag #{this}
             .ui.header vote #{vote}
+
+
+template(name='reservations')
+    .ui.segment
+        .ui.header 
+            +i name='ticket'
+            |reservations
+        if can_reserve
+            .ui.basic.button.new_reservation 
+                i.green.plus.icon
+                |new reservation
+        else if existing_reservation
+            .ui.basic.button.edit_review edit reservation
+        .ui.icon.button.toggle_editing
+            i.pencil.icon
+        with my_reservation
+            if is_editing
+                +text_edit key='notes' direct=true 
+                +array_edit key='tags' direct=true 
+            else
+                +text_view key='notes' direct=true 
+                +array_view key='tags' direct=true 
+        each reservations
+            .ui.divider
+            .ui.header #{notes}
+            each author.tags
+                .ui.basic.label #{this}
+            +author_info
 
 
 

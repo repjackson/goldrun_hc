@@ -33,10 +33,55 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'review'
     Template.meal_reviews.helpers
         can_leave_review: ->
-            console.log @
+            found_review =
+                Docs.findOne
+                    _author_id:Meteor.userId()
+                    model:'review'
+                    parent_id:Router.current().params.doc_id
+            if found_review then false else true
         reviews: ->
             Docs.find
                 model: 'review'
+                parent_id:Router.current().params.doc_id
+
+
+
+    Template.reservations.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'reservation'
+        @editing = new ReactiveVar false
+    Template.reservations.events
+        'click .new_reservation': ->
+            Docs.insert
+                model:'reservation'
+                parent_id:Router.current().params.doc_id
+
+        'click .toggle_editing': (e,t)->
+            t.editing.set !t.editing.get()
+
+    Template.reservations.helpers
+        is_editing: -> Template.instance().editing.get()
+        my_reservation: ->
+            Docs.findOne
+                _author_id:Meteor.userId()
+                model:'reservation'
+                parent_id:Router.current().params.doc_id
+
+        can_reserve: ->
+            found_reservation =
+                Docs.findOne
+                    _author_id:Meteor.userId()
+                    model:'reservation'
+                    parent_id:Router.current().params.doc_id
+            if found_reservation then false else true
+        existing_reservation: ->
+            found_reservation =
+                Docs.findOne
+                    _author_id:Meteor.userId()
+                    model:'reservation'
+                    parent_id:Router.current().params.doc_id
+        reservations: ->
+            Docs.find
+                model: 'reservation'
                 parent_id:Router.current().params.doc_id
 
 
