@@ -82,9 +82,14 @@ Router.route '/sign_rules/:doc_id', -> @render 'rules_signing'
 Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 # Router.route "/meal/:meal_id", -> @render 'meal_doc'
 
-Router.route "/meal/:doc_id", (->
-    @render 'meal_doc'
-    ), name:'meal_doc'
+Router.route "/meal/:doc_id/view", (->
+    @render 'meal_view'
+    ), name:'meal_view'
+
+
+Router.route "/meal/:doc_id/edit", (->
+    @render 'meal_edit'
+    ), name:'meal_edit'
 
 
 

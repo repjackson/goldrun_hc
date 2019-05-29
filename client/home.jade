@@ -1,13 +1,13 @@
 template(name='home')
-    h1.ui.center.aligned.grey.header 
-        each currentUser.roles
-            strong #{this} &nbsp;
-        |portal
-    .ui.stackable.four.column.grid
+    //- h1.ui.center.aligned.grey.header 
+    //-     each currentUser.roles
+    //-         strong #{this} &nbsp;
+    //-     |portal
+    .ui.stackable.four.column.padded.grid
         each role_models
             .column
-                .ui.segment.set_model
-                    a(href="/m/#{slug}")
+                a(href="/m/#{slug}")
+                    .ui.segment.home_segment.set_model
                         .ui.grey.header 
                             //- i.icon(class=icon)
                             +i name=icon

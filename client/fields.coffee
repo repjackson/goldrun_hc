@@ -402,7 +402,7 @@ Template.boolean_edit.helpers
             parent = Template.parentData(5)
         # console.log parent
         # console.log @
-        if parent["#{@key}"] then 'black' else 'basic'
+        if parent["#{@key}"] then 'blue' else 'basic'
 
 
 Template.boolean_edit.events
@@ -691,12 +691,12 @@ Template.single_doc_edit.helpers
         if @direct
             if target["#{ref_field.key}"]
                 # console.log parent["#{ref_field.key}"]
-                if @ref_field is target["#{ref_field.key}"] then 'black' else 'basic'
+                if @ref_field is target["#{ref_field.key}"] then 'blue' else 'basic'
             else 'basic'
         else
             if parent["#{ref_field.key}"]
                 # console.log parent["#{ref_field.key}"]
-                if @slug is parent["#{ref_field.key}"] then 'black' else 'basic'
+                if @slug is parent["#{ref_field.key}"] then 'blue' else 'basic'
             else 'basic'
 
 
@@ -785,9 +785,11 @@ Template.multi_doc_edit.helpers
 
         if target["#{ref_field.key}"]
             # console.log target["#{ref_field.key}"]
-            if @slug in target["#{ref_field.key}"] then 'black' else 'basic'
+            if @slug in target["#{ref_field.key}"] then 'blue' else 'basic'
         else
             'basic'
+
+
 Template.multi_doc_edit.events
     'click .select_choice': ->
         selection = @
@@ -997,10 +999,13 @@ Template.multi_user_edit.events
         t.user_results.set null
     'keyup #multi_user_select_input': (e,t)->
         search_value = $(e.currentTarget).closest('#multi_user_select_input').val().trim()
-        Meteor.call 'lookup_user', search_value, @role_filter, (err,res)=>
-            if err then console.error err
-            else
-                t.user_results.set res
+        if e.which is 8
+            t.user_results.set null
+        else if search_value and search_value.length > 1
+            Meteor.call 'lookup_user', search_value, @role_filter, (err,res)=>
+                if err then console.error err
+                else
+                    t.user_results.set res
     'click .select_user': (e,t) ->
         page_doc = Docs.findOne Router.current().params.id
         # console.log @

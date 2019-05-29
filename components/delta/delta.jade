@@ -4,7 +4,7 @@ template(name='delta')
             .row
                 .six.wide.column
                     .ui.hidden.divider
-                    h1.ui.inline.header
+                    .ui.inline.header
                         //- i.icon(class=icon)
                         +i name=icon
                         | #{title}
@@ -19,7 +19,8 @@ template(name='delta')
                         if can_edit
                             //- +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                             .ui.icon.large.basic.button.edit_model
-                                i.cog.icon
+                                i.large.cog.icon
+                                //- +i name='settings'
                                 //- | Configure #{plural}
                         // .ui.divider
                         // // each sessions

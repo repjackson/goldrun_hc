@@ -14,21 +14,25 @@ template(name='nav')
                 if currentUser  
                     a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
                         //- i.th.large.large.icon
-                        +i name='menu'    
+                        +i name='activity-grid-2'    
                 if is_staff
                     a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                         +i name='employee-card'
                         //- i.shield.large.icon
-                        .mobile.hidden staff
+                        .mobile.hidden &nbsp; staff
                     a.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
                         //- i.users.large.icon
                         +i name='groups'
-                        .mobile.hidden users
+                        .mobile.hidden &nbsp; users
                 if is_resident_or_user        
-                    a.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='meals')
+                    a.item(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
                         //- i.food.large.icon
                         +i name='food'
-                        .mobile.hidden meals
+                        .mobile.hidden &nbsp; meals
+                    //- a.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='meals')
+                    //-     //- i.food.large.icon
+                    //-     +i name='food'
+                    //-     .mobile.hidden &nbsp; meals
                 //- if is_admin
                 //-     a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
                 //-         +i name='alpha'
@@ -44,7 +48,7 @@ template(name='nav')
                     a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
                         +i name='treadmill'    
                         //- i.clinic.medical.large.icon
-                        .mobile.hidden hc
+                        .mobile.hidden &nbsp; health club
             .right.menu
                 if is_admin
                     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")

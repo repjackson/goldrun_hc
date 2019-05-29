@@ -54,7 +54,7 @@ Template.registerHelper 'fields', () ->
         Docs.find {
             model:'field'
             parent_id:model._id
-            # view_roles:$in:Meteor.user().roles
+            view_roles:$in:Meteor.user().roles
         }, sort:rank:1
 
 Template.registerHelper 'edit_fields', () ->

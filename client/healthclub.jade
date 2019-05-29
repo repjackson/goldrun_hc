@@ -117,16 +117,16 @@ template(name='health_club_info')
                 .ui.header Gold Run Health Club / goldrun1
                 .ui.header upstairs code: 4589
                 .ui.header colorado security services
-                .ui.sub.header 303-443-3701
+                .ui.grey.header 303-443-3701
             .column
                 .ui.header onsite manager
-                .ui.sub.header Rick Hamp 
-                .ui.sub.header 303-545-1787
-                .ui.sub.header goldruncondos@gmail.com
+                .ui.grey.header Rick Hamp 
+                .ui.grey.header 303-545-1787
+                .ui.grey.header goldruncondos@gmail.com
                 .ui.header after hours emergency
-                .ui.sub.header 303-221-1117
+                .ui.grey.header 303-221-1117
                 .ui.header boulder valley towing
-                .ui.sub.header 303-444-4868
+                .ui.grey.header 303-444-4868
 
 
 template(name='checkin_card')
@@ -136,13 +136,13 @@ template(name='checkin_card')
         .ui.padded.grid.header-wrapper
             .centered.one.column.row
                 .column
-                    if is_staff
-                        img.ui.small.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
+                    //- if is_staff
                     //- a.ui.header(href="/user/#{user.username}")
                     .ui.large.icon.basic.button.cancel_checkin
                         i.big.left.chevron.icon
                     .ui.huge.inline.header(href="/user/#{user.username}")
-                         |#{user.first_name} #{user.last_name} 
+                        img.ui.small.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
+                        |#{user.first_name} #{user.last_name} 
                     //- .meta @#{user.username}
                     //- +array_view key='tags' label='Tags' direct=true
                     if is_admin

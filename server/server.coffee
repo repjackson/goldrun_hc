@@ -78,6 +78,11 @@ Meteor.publish 'user_from_id', (user_id)->
     # console.log user_id
     Meteor.users.find user_id
 
+Meteor.publish 'author_from_doc_id', (doc_id)->
+    # console.log user_id
+    doc = Docs.findOne doc_id
+    Meteor.users.find user_id
+
 Meteor.publish 'page', (slug)->
     Docs.find
         model:'page'

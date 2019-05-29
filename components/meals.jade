@@ -60,8 +60,12 @@ template(name='meal_card')
                 .ui.basic.label #{this}
             .ui.header available {{from_now date}} at #{time_available}
             .ui.header servings available #{servings_available}
-            +edit_button
-            +view_button
+            a.ui.button(href="/meal/#{_id}/edit")
+                i.pencil.icon
+            a.ui.button(href="/meal/#{_id}/view")
+                i.right.chevron.icon        
+            //- +edit_button
+            //- +view_button
             
 
 
@@ -119,7 +123,52 @@ template(name='reservations')
 
 
 
-template(name='meal_doc')
-    .ui.header hi
+template(name='meal_view')
     with current_doc
-        .ui.header #{title}
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.header #{title}
+                +array_view key='tags' direct=true
+                +array_view key='ingredients' direct=true
+                +array_view key='location_tags' direct=true
+                .ui.small.header
+                    |date available
+                    |#{available_date}
+                .ui.small.header
+                    |time available
+                    |#{time_available}
+            .eight.wide.column
+                img.ui.large.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
+                +html_view key='description' direct=true
+            .four.wide.column
+                a.ui.large.basic.button(href="/meal/#{_id}/edit")
+                    i.pencil.icon
+                a.ui.large.basic.button(href="/meal/#{_id}/view")
+                    i.right.chevron.icon        
+                +reservations
+
+
+
+template(name='meal_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.header #{title}
+                +array_edit key='tags' direct=true
+                +array_edit key='ingredients' direct=true
+                +array_edit key='location_tags' direct=true
+                .ui.small.header
+                    |date available
+                    |#{available_date}
+                .ui.small.header
+                    |time available
+                    |#{time_available}
+            .eight.wide.column
+                img.ui.large.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
+                +html_edit key='description' direct=true
+            .four.wide.column
+                a.ui.large.basic.button(href="/meal/#{_id}/edit")
+                    i.pencil.icon
+                a.ui.large.basic.button(href="/meal/#{_id}/view")
+                    i.right.chevron.icon        
+                +reservations

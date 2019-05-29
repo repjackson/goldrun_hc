@@ -1,12 +1,20 @@
 body {
-    /* font-family: 'Ubuntu', sans-serif !important; */
+    font-family: 'Ubuntu', sans-serif !important;
     font-size: 110% !important;
     /*line-height: 200% !important;*/
     /*background: #3d3d3d !important;*/
-    background: rgba(0, 0, 0, .01) !important
+    background: rgba(0, 0, 0, .03) !important
     /* background: #0e0e44 !important; */
 }
 
+.home_segment{
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    border-radius: 15px !important;
+
+}
 
 .invert {
     filter: invert(100%) !important;
@@ -76,10 +84,10 @@ input{
 .shadowed{
     box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.2) !important;
 }
-.button{
+.button, .segment, .label{
     /* -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 10px !important; */
-    border-radius: 15px !important;
+    border-radius: 10px !important;
 }
 
 
@@ -120,10 +128,10 @@ input{
 }
 
 
-/* .ui.header{
+.ui.header{
   font-family: 'Ubuntu', sans-serif !important;
-} */
-/* a {
+}
+a {
   font-family: 'Ubuntu', sans-serif !important;
 }
 .bat_black {
@@ -172,7 +180,7 @@ input{
 }
 
 
- .ui.button, .ui.input .ui.large.label {
+.ui.button, .ui.input .ui.large.label {
 	 margin: 0.2em !important;
 }
 
@@ -443,10 +451,6 @@ input{
 .f0 { display:none; }
 
 
-
-
-
-
 .scanning:after {
   content: '';
   /* make the element cover the whole thing */
@@ -480,9 +484,6 @@ input{
   /* finish with the scan bar just off the right side */
   100% { background-position: 25% center; }
 }
-
-
-
 
 #vid-container {
 	margin: 0px auto;

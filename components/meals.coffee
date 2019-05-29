@@ -2,10 +2,14 @@ if Meteor.isClient
     Template.meal_widget.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'meal'
     Template.meals.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'meal'
+        @autorun => Meteor.subscribe 'docs', 'meal'
 
-    Template.meal_doc.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.meal_doc
+        # @autorun => Meteor.subscribe 'model_docs', 'meal'
+
+    Template.meal_view.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.meal_edit.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
 
     Template.meal_widget.events
         'click .set_model': ->

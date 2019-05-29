@@ -12,6 +12,11 @@ if Meteor.isClient
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
 
+        'mouseenter .home_segment': (e,t)->
+            t.$(e.currentTarget).closest('.home_segment').addClass('raised')
+        'mouseleave .home_segment': (e,t)->
+            t.$(e.currentTarget).closest('.home_segment').removeClass('raised')
+
     Template.home.helpers
         role_models: ->
             # console.log Meteor.user().roles
