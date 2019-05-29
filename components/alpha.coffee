@@ -1,4 +1,3 @@
-
 if Meteor.isClient
     Template.alpha.onCreated ->
         @autorun -> Meteor.subscribe 'my_alpha'

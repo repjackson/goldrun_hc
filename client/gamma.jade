@@ -1,4 +1,4 @@
-template(name='delta')
+template(name='gamma')
     with current_model
         .ui.stackable.grid
             .row
@@ -26,16 +26,16 @@ template(name='delta')
                         // // each sessions
                         // //     .ui.icon.basic.button.select_session(class=session_selector_class title='select session')
                         // //         i.play.icon
-                        if current_delta
+                        if current_gamma
                             if is_dev
-                                .ui.icon.large.basic.button.print_delta(title='Print Session Doc')
+                                .ui.icon.large.basic.button.print_gamma(title='Print Session Doc')
                                     i.code.icon
                                 .ui.reset.icon.basic.button(title='Reload Session')
                                     i.refresh.icon
-                                .ui.delete_delta.icon.basic.button(title='Delete Session')
+                                .ui.delete_gamma.icon.basic.button(title='Delete Session')
                                     i.trash.icon
                         else
-                            .create_delta.ui.large.blue.button(title='new session')
+                            .create_gamma.ui.large.blue.button(title='new session')
                                 i.plus.icon
                                 |session
                         if description
@@ -44,18 +44,18 @@ template(name='delta')
                         if is_dev
                             .ui.input
                                 input.import_subreddit(type='text' placeholder='import_subreddit')
-                    // |did: #{session_delta_id}
+                    // |did: #{session_gamma_id}
                     div
                     each sorted_facets
                         +facet
                 .twelve.wide.column.scrolling
                     .ui.hidden.divider
-                    each current_delta.result_ids
-                        +delta_result
+                    each current_gamma.result_ids
+                        +gamma_result
                 
 
 
-template(name='facet')
+template(name='gfacet')
     if filtering_res
         //- .ui.hidden.divider
         //- .ui.accordion
@@ -87,7 +87,7 @@ template(name='facet')
                     //- small #{cal_count}
         .ui.hidden.divider
 
-template(name='toggle_delta_config')
+template(name='toggle_gamma_config')
     if boolean_true
         .ui.grey.active.icon.button.disable_key(title=label)
             i.icon(class=icon)
@@ -99,7 +99,7 @@ template(name='toggle_delta_config')
 
 
 
-template(name='delta_result')
+template(name='gamma_result')
     with result 
         if template_exists
             +Template.dynamic template=model_template

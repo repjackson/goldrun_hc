@@ -58,11 +58,17 @@ template(name='meal_card')
             .ui.inline.small.header ingredients
             each ingredients
                 .ui.basic.label #{this}
+            .ui.inline.small.header tags
+            each tags
+                .ui.basic.label #{this}
+            .ui.inline.small.header location_tags
+            each location_tags
+                .ui.basic.label #{this}
             .ui.header available {{from_now date}} at #{time_available}
             .ui.header servings available #{servings_available}
-            a.ui.button(href="/meal/#{_id}/edit")
+            a.ui.large.basic.icon.button(href="/meal/#{_id}/edit")
                 i.pencil.icon
-            a.ui.button(href="/meal/#{_id}/view")
+            a.ui.large.basic.icon.button(href="/meal/#{_id}/view")
                 i.right.chevron.icon        
             //- +edit_button
             //- +view_button
@@ -91,13 +97,13 @@ template(name='reservations')
         .ui.header 
             +i name='ticket'
             |reservations
-        .ui.small.statistic
+        .ui.tiny.statistic
             .value #{taken_slots}     
             .label slots taken
-        .ui.small.statistic
+        .ui.tiny.statistic
             .value #{available_slots}     
             .label slots available
-        .ui.small.statistic
+        .ui.tiny.statistic
             .value 
                 i.dollar.grey.icon
                 |#{money_earned}     
@@ -137,15 +143,28 @@ template(name='meal_view')
                 .ui.small.header
                     |time available
                     |#{time_available}
-            .eight.wide.column
-                img.ui.large.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
+                .ui.dividing.header
+                    |rules
+                .ui.header
+                    |signup before 24 hours
+                .ui.header
+                    |payment before 24 hours
+            .four.wide.column
+                img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                 +html_view key='description' direct=true
+                +comments
             .four.wide.column
                 a.ui.large.basic.button(href="/meal/#{_id}/edit")
                     i.pencil.icon
                 a.ui.large.basic.button(href="/meal/#{_id}/view")
                     i.right.chevron.icon        
                 +reservations
+                .ui.header cook #{_author_username}
+                with _author_id
+                    +user_card
+            .four.wide.column
+                with current_doc
+                    +voting
 
 
 
@@ -164,7 +183,7 @@ template(name='meal_edit')
                     |time available
                     |#{time_available}
             .eight.wide.column
-                img.ui.large.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
+                img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
                 +html_edit key='description' direct=true
             .four.wide.column
                 a.ui.large.basic.button(href="/meal/#{_id}/edit")
