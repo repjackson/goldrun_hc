@@ -16,7 +16,7 @@ template(name='delta')
                         //- if can_edit
                             //- +edit_circular.button
             
-                        if can_edit
+                        if is_dev
                             //- +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                             .ui.icon.large.basic.button.edit_model
                                 i.large.cog.icon
@@ -70,7 +70,7 @@ template(name='facet')
                 |#{key}
                 //- i.dropdown.icon
             //- .active.content
-        if is_admin
+        if is_dev
             .ui.icon.small.transparent.input
                 i.search.icon
                 input.add_filter(type='text')
