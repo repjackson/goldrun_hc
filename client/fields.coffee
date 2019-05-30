@@ -1066,6 +1066,7 @@ Template.multi_doc_input.events
         if search_value.length is 0
             t.doc_results.set null
         else if search_value
+            console.log 'hi'
             Meteor.call 'lookup_doc', search_value, 'guest', (err,res)=>
                 if err then console.error err
                 else

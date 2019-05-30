@@ -97,15 +97,23 @@ template(name='sign_waiver')
 
 
 template(name='checkin_button')
-    unless healthclub_checkedin
-        .ui.massive.basic.button.checkin
-            h1.ui.header #{first_name} #{last_name}
+    //- unless healthclub_checkedin
+    //-     .ui.massive.basic.button.checkin
+    //-         h1.ui.header #{first_name} #{last_name}
+    //- if healthclub_checkedin
+    //-     //- if is_staff
+    //-     .ui.big.basic.button.checkout
+    //-         i.sign.out.icon
+    //-         //- +i name='exit-sign' classes='ui avatar image'
+    //-         |check out
+    .ui.massive.basic.button.checkin
+        h1.ui.header #{first_name} #{last_name}
     if healthclub_checkedin
-        //- if is_staff
-        .ui.big.basic.button.checkout
-            i.sign.out.icon
-            //- +i name='exit-sign' classes='ui avatar image'
-            |check out
+        if is_staff
+            .ui.basic.button.checkout
+                i.sign.out.icon
+                //- +i name='exit-sign' classes='ui avatar image'
+                |check out
 
 
 
@@ -172,37 +180,39 @@ template(name='checkin_card')
                 .column
                     .ui.big.basic.button.garden_key_checkout
                         //- +i name='treadmill' classes='ui inline image'
-                        .ui.inline.header 
+                        .ui.inline.grey.header 
                             //- +i name='basketball-field'
                             i.seedling.green.icon
                             |court/garden key check out
                 .column
                     .ui.big.basic.button.unit_key_checkout
                         //- +i name='treadmill' classes='ui inline image'
-                        .ui.inline.header 
+                        .ui.inline.grey.header 
                             //- +i name='basketball-field'
                             i.key.yellow.icon
                             |unit key check out
                             
             .row
                 .sixteen.wide.column
-                    .ui.inline.header 
+                    .ui.header 
                         //- +i name='groups'
                         i.users.teal.icon
                         |guests
-                    +multi_doc_input key='guests' ref_model='guest' title='lookup previous guest...' direct=true
                     //- //- .ui.hidden.divider
+                    .ui.small.inline.header recent guests
                     each resident_guests
-                        .ui.big.label #{guest_name} #{first_name} #{last_name}
+                        .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
+                    div
                     .ui.big.basic.button.add_guest
                         i.plus.icon
                         strong new guest
+                    +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
                     div
                     with checking_in_doc
                         if checkin_guest_docs
-                            .ui.inline.header attached guests
+                            .ui.inline.header guests for this session
                             each checkin_guest_docs
-                                .ui.big.button.remove_guest 
+                                .ui.big.teal.button.remove_guest 
                                     i.remove.icon
                                     |#{guest_name} #{first_name} #{last_name}
                             

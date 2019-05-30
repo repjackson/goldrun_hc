@@ -24,7 +24,7 @@ Template.registerHelper 'checking_in_doc', () -> Docs.findOne Session.get('check
 Template.registerHelper 'checkin_guest_docs', () ->
     Docs.findOne Session.get('checkin_document')
     checkin_document = Docs.findOne Session.get('checkin_document')
-    console.log checkin_document.guest_ids
+    # console.log checkin_document.guest_ids
     Docs.find
         _id:$in:checkin_document.guest_ids
 

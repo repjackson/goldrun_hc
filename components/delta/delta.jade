@@ -2,7 +2,7 @@ template(name='delta')
     with current_model
         .ui.stackable.grid
             .row
-                .four.wide.column
+                .six.wide.column
                     .ui.hidden.divider
                     .ui.inline.header
                         //- i.icon(class=icon)
@@ -48,7 +48,7 @@ template(name='delta')
                     div
                     each sorted_facets
                         +facet
-                .twelve.wide.column.scrolling
+                .ten.wide.column.scrolling
                     .ui.hidden.divider
                     each current_delta.result_ids
                         +delta_result

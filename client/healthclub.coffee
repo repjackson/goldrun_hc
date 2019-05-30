@@ -31,8 +31,6 @@ Template.healthclub.onRendered ->
 
 
 Template.healthclub.helpers
-    dark_mode: -> Session.get 'dark_mode'
-
     selected_person: ->
         Meteor.users.findOne Session.get('selected_user_id')
 
@@ -44,7 +42,7 @@ Template.healthclub.helpers
         username_query = Session.get('username_query')
         Meteor.users.find({
             username: {$regex:"#{username_query}", $options: 'i'}
-            healthclub_checkedin:$ne:true
+            # healthclub_checkedin:$ne:true
             roles:$in:['resident','owner']
             },{ limit:10 }).fetch()
 
@@ -320,8 +318,14 @@ Template.checkin_card.events
             body: "#{@first_name} #{@last_name} checked out the unit key."
         # document.reload()
 
+    'click .add_recent_guest': ->
+        # console.log @
+        checkin_doc = Docs.findOne Session.get('checkin_document')
+        Docs.update checkin_doc._id,
+            $addToSet:guest_ids:@_id
+
     'click .remove_guest': ->
-        console.log @
+        # console.log @
         checkin_doc = Docs.findOne Session.get('checkin_document')
         Docs.update checkin_doc._id,
             $pull:guest_ids:@_id
