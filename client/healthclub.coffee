@@ -241,7 +241,9 @@ Template.checkin_card.events
 
     'click .complete_checkin': (e,t)->
         # $(e.currentTarget).closest('.segment').transition('fade left',100)
-        # Meteor.setTimeout =>
+        if @username is 'greg_sherwin'
+            audio = new Audio('siren.mp3')
+            audio.play()
         Session.set 'adding_guest', false
         Session.set 'displaying_profile', null
         $('body').toast({

@@ -1,5 +1,5 @@
-stripe = Stripe('pk_test_CqHTNF8uRfEHz8tB8JyJmSNs')
-elements = stripe.elements()
+# stripe = Stripe('pk_test_CqHTNF8uRfEHz8tB8JyJmSNs')
+# elements = stripe.elements()
 
 
 Template.give.onCreated ->
@@ -18,8 +18,8 @@ Template.give.onCreated ->
                 currency: 'usd'
                 source: token.id
                 description: token.description
-                receipt_email: token.email
-            Meteor.call 'processPayment', charge, (error, response) ->
+                # receipt_email: token.email
+            Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
                 if error then alert error.reason, 'danger'
                 else alert 'Thanks for your payment.', 'success'
 	)

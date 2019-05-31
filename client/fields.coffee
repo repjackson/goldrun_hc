@@ -456,12 +456,12 @@ Template.price_view.onCreated ->
             product = Docs.findOne Router.current().params.doc_id
             console.log product
             charge =
-                amount: product.price*100
+                amount: product.dollar_price*100
                 currency: 'usd'
                 source: token.id
                 description: token.description
-                receipt_email: token.email
-            Meteor.call 'processPayment', charge, (error, response) ->
+                # receipt_email: token.email
+            Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
                 if error then alert error.reason, 'danger'
                 else alert 'Thanks for your payment.', 'success'
 	)
@@ -503,7 +503,7 @@ Template.price_view.events
 
             Template.instance().checkout.open
                 name: parent.title
-                email:Meteor.user().emails[0].address
+                # email:Meteor.user().emails[0].address
                 description: 'gro marketplace'
                 amount: value*100
 

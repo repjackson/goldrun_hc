@@ -141,14 +141,19 @@ template(name='checkin_card')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     with user
         //- .ui.padded.stackable.grid
-        .ui.padded.grid.header-wrapper
-            .two.column.middle.aligned.row
+        .ui.padded.middle.aligned.grid.header-wrapper
+            .two.column.row
                 .column
                     //- if is_staff
                     //- a.ui.header(href="/user/#{user.username}")
                     .ui.large.icon.basic.button.cancel_checkin
                         i.big.left.chevron.icon
-                    img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
+                    //- if kiosk_photo
+                    //-     +image_view key='kiosk_photo' label='Photo' direct=true
+                    //-     +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
+                    //- else
+                    //-     +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
+                    //- img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
                     //- .meta @#{user.username}
                     //- +array_view key='tags' label='Tags' direct=true
                 .column
@@ -177,9 +182,11 @@ template(name='checkin_card')
                                         i.remove.icon
                                         |#{guest_name} #{first_name} #{last_name}
                     else
-                        .ui.big.basic.button.toggle_adding_guest 
-                            i.plus.icon
-                            |add guest        
+                        .ui.big.basic.fluid.button.toggle_adding_guest 
+                            i.plus.large.icon
+                            |guest
+                    +rules_and_regs_check  
+                    .ui.hidden.divider      
                     .ui.big.fluid.green.button.complete_checkin
                         //- +i name='treadmill' classes='ui inline image'
                         .ui.inline.white.inverted.header 
