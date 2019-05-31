@@ -3,7 +3,7 @@ body {
     font-size: 110% !important;
     /*line-height: 200% !important;*/
     /*background: #3d3d3d !important;*/
-    background: rgba(0, 0, 0, .03) !important
+    background: rgba(0, 0, 0, .01) !important
     /* background: #0e0e44 !important; */
 }
 
@@ -79,10 +79,11 @@ input{
     opacity: .9;
 }
 
-input:focus {
-    background: rgba(100, 100, 100, 0.1) !important;
+input:focus, textarea:focus {
+    font-size:120% !important;
+    background: rgba(0, 0, 100, 0.1) !important;
     border-width: medium !important;
-    box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 2px 5px 2px rgba(50, 50, 100, 0.1) !important;
 }
 
 
@@ -92,13 +93,33 @@ input:focus {
 .button, .segment, .label{
     /* -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 10px !important; */
-    border-radius: 15px !important;
+    border-radius: 25px !important;
 }
 
 
 .button {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
+    box-shadow: 0 2px 2px 2px rgba(50, 50, 100, 0.1) !important;
+    /* transform: translate(0, 4px); */
 }
+
+
+/* .button:active {
+    -webkit-box-shadow:
+        0px 3px rgba(128,128,128,1),
+        0px 4px rgba(118,118,118,1),
+        0px 5px rgba(108,108,108,1),
+        0px 6px rgba(98,98,98,1),
+        0px 7px rgba(88,88,88,1),
+        0px 8px rgba(78,78,78,1),
+        0px 10px 2px 0px rgba(128,128,128,.6); /* shadow */
+} */
+
+.button:active{
+    -webkit-transform: translate(0, 5px) !important; /* depth of button press */
+}
+
+
 
 
 .cloud {

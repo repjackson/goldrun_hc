@@ -442,6 +442,44 @@ Template.number_edit.events
 
 
 
+Template.price_edit.events
+    'blur .edit_price': (e,t)->
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        val = parseInt t.$('.edit_price').val()
+        doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:"#{@key}":val
+        else if user
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
+
+
+Template.price_view.events
+    'click .buy_now': ->
+        console.log @
+    # 'blur .edit_price': (e,t)->
+    #     if @direct
+    #         parent = Template.parentData()
+    #     else
+    #         parent = Template.parentData(5)
+    #     val = parseInt t.$('.edit_price').val()
+    #     doc = Docs.findOne parent._id
+    #     user = Meteor.users.findOne parent._id
+    #     if doc
+    #         Docs.update parent._id,
+    #             $set:"#{@key}":val
+    #     else if user
+    #         Meteor.users.update parent._id,
+    #             $set:"#{@key}":val
+
+
+
+
 Template.date_edit.events
     'blur .edit_date': (e,t)->
         if @direct

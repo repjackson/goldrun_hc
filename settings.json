@@ -1,5 +1,12 @@
 {
+    "public": {
+      "stripe_publishable": "pk_test_CqHTNF8uRfEHz8tB8JyJmSNs",
+      "stripe_client_id": "ca_6xrceWlIdjoZ0ebtxSUDBMG1yazAn5et"
+    },
 	"private": {
+		"stripeSecret": "sk_test_jgKYu346r3iQoJBXDtrbzJh2",
+		"makeAdminPW": "987DRS20!5",
+		"makeAdminCODE": "0089",
         "reddit": {
           "secret": "9y2nszPLr7kWN5Rj5nIcqCiLuUE"
         },

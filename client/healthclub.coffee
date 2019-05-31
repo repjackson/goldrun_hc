@@ -211,6 +211,10 @@ Template.checkin_card.helpers
         else if @email_verified then 'yellow_flagged'
         else "green_flagged"
 
+    adding_guests: -> Session.get 'adding_guest'
+
+
+
     red_flagged: ->
         rule_doc = Docs.findOne(
             model:'rules_and_regs_signing'
@@ -228,6 +232,7 @@ Template.checkin_card.events
         $(e.currentTarget).closest('.segment').transition('fade right',250)
         Meteor.setTimeout =>
             Session.set 'displaying_profile', null
+            Session.set 'adding_guest', false
             checkin_doc = Docs.findOne Session.get 'checkin_document'
             Docs.remove checkin_doc._id
             checkin_doc = Session.set 'checkin_document',null
@@ -237,9 +242,10 @@ Template.checkin_card.events
     'click .complete_checkin': (e,t)->
         # $(e.currentTarget).closest('.segment').transition('fade left',100)
         # Meteor.setTimeout =>
+        Session.set 'adding_guest', false
         Session.set 'displaying_profile', null
         $('body').toast({
-            title: "#{@first_name} #{@last_name} checked in to health club."
+            title: "Thank you, #{@first_name}. You're checked in."
             class: 'success'
             showIcon: false
             position:'top center'
@@ -329,6 +335,10 @@ Template.checkin_card.events
         checkin_doc = Docs.findOne Session.get('checkin_document')
         Docs.update checkin_doc._id,
             $pull:guest_ids:@_id
+
+    'click .toggle_adding_guest': ->
+        Session.set 'adding_guest', true
+
 
     'click .add_guest': ->
         console.log @

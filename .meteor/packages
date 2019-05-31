@@ -44,3 +44,4 @@ percolate:synced-cron
 http
 modules
 runisland:static-assets
+mrgalaxy:stripe

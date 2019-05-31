@@ -475,6 +475,41 @@ template(name='number_view')
         strong &nbsp; #{field_value}
 
 
+template(name='price_edit')
+    div
+    .ui.fluid.input
+        .ui.small.inline.header
+            if icon
+                +i name=icon
+                //- i.icon(class=icon)
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else
+                |#{key}
+        //- +clear_value                
+        input.edit_price(type='number' value=field_value placeholder=placeholder autocomplete="off")
+            
+            
+template(name='price_view')
+    if field_value
+        div
+        .ui.small.inline.header
+            if icon
+                +i name=icon
+                //- i.icon(class=icon)
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
+        strong &nbsp; #{field_value}
+
+
 template(name='date_edit')
     .ui.fluid.input
         .ui.small.inline.header

@@ -16,15 +16,13 @@ template(name='user_layout')
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     if is_staff
-                        .ui.vertical.large.fluid.menu
-                            a.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                                i.settings.icon
-                                | settings
+                        a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                            i.settings.large.violet.icon
+                            | settings
                     else if is_current_user
-                        .ui.vertical.large.fluid.menu
-                            a.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                                i.settings.icon
-                                | settings
+                        a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                            i.settings.large.violet.icon
+                            | settings
                     //- else
                         //- .ui.button.direct_message
                         //-     i.sent.icon

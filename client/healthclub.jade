@@ -142,82 +142,44 @@ template(name='checkin_card')
     with user
         //- .ui.padded.stackable.grid
         .ui.padded.grid.header-wrapper
-            .centered.one.column.row
+            .two.column.middle.aligned.row
                 .column
                     //- if is_staff
                     //- a.ui.header(href="/user/#{user.username}")
                     .ui.large.icon.basic.button.cancel_checkin
                         i.big.left.chevron.icon
-                    .ui.huge.inline.header(href="/user/#{user.username}")
-                        img.ui.small.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
-                        |#{user.first_name} #{user.last_name} 
+                    img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
                     //- .meta @#{user.username}
                     //- +array_view key='tags' label='Tags' direct=true
-                    if is_admin
-                        div #{user.address}
-                        strong #{user.building_number}
-                        strong ##{user.apt_number}
-                        div membership start 
-                        strong #{user.start_date}
-                        div expiration 
-                            strong #{user.lease_expiration}
-                    //- with user
-                    //-     .ui.segment
-                    //-         .ui.header 
-                    //-             +i name='info'
-                    //-             |account status
-                    //-         +email_validation_check
-                    //-         +resident_key_check
-                    //-         +lease_expiration_check
-                    //-         +rules_and_regs_check
-                    //-         +member_waiver_check
-                    //- if red_flagged
-                    //-     .ui.red.big.disabled.button
-                    //-         |sign rules and regs to continue
-                    //-         //- i.right.chevron.icon
-                    //- else
-            .two.column.row    
                 .column
-                    .ui.big.basic.button.garden_key_checkout
-                        //- +i name='treadmill' classes='ui inline image'
-                        .ui.inline.grey.header 
-                            //- +i name='basketball-field'
-                            i.seedling.green.icon
-                            |court/garden key check out
-                .column
-                    .ui.big.basic.button.unit_key_checkout
-                        //- +i name='treadmill' classes='ui inline image'
-                        .ui.inline.grey.header 
-                            //- +i name='basketball-field'
-                            i.key.yellow.icon
-                            |unit key check out
-                            
-            .row
-                .sixteen.wide.column
-                    .ui.header 
-                        //- +i name='groups'
-                        i.users.teal.icon
-                        |guests
-                    //- //- .ui.hidden.divider
-                    .ui.small.inline.header recent guests
-                    each resident_guests
-                        .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
-                    div
-                    .ui.big.basic.button.add_guest
-                        i.plus.icon
-                        strong new guest
-                    +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
-                    div
-                    with checking_in_doc
-                        if checkin_guest_docs
-                            .ui.inline.header guests for this session
-                            each checkin_guest_docs
-                                .ui.big.teal.button.remove_guest 
-                                    i.remove.icon
-                                    |#{guest_name} #{first_name} #{last_name}
-                            
-            .one.column.row
-                .column
+                    .ui.huge.inline.header(href="/user/#{user.username}")
+                        |#{user.first_name} #{user.last_name} 
+                    if adding_guests
+                        .ui.header 
+                            //- +i name='groups'
+                            i.users.teal.icon
+                            |guests
+                        //- //- .ui.hidden.divider
+                        .ui.small.inline.header recent guests
+                        each resident_guests
+                            .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
+                        div
+                        .ui.big.basic.button.add_guest
+                            i.plus.icon
+                            strong new guest
+                        +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
+                        div
+                        with checking_in_doc
+                            if checkin_guest_docs
+                                .ui.inline.header guests for this session
+                                each checkin_guest_docs
+                                    .ui.big.teal.button.remove_guest 
+                                        i.remove.icon
+                                        |#{guest_name} #{first_name} #{last_name}
+                    else
+                        .ui.big.basic.button.toggle_adding_guest 
+                            i.plus.icon
+                            |add guest        
                     .ui.big.fluid.green.button.complete_checkin
                         //- +i name='treadmill' classes='ui inline image'
                         .ui.inline.white.inverted.header 

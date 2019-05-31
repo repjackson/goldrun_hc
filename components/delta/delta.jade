@@ -1,9 +1,8 @@
 template(name='delta')
     with current_model
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    .ui.hidden.divider
                     .ui.inline.header
                         //- i.icon(class=icon)
                         +i name=icon
@@ -41,15 +40,14 @@ template(name='delta')
                         if description
                             .ui.segment
                                 |#{description}
-                        if is_dev
-                            .ui.input
-                                input.import_subreddit(type='text' placeholder='import_subreddit')
+                        //- if is_dev
+                        //-     .ui.input
+                        //-         input.import_subreddit(type='text' placeholder='import_subreddit')
                     // |did: #{session_delta_id}
                     div
                     each sorted_facets
                         +facet
                 .ten.wide.column.scrolling
-                    .ui.hidden.divider
                     each current_delta.result_ids
                         +delta_result
                 
