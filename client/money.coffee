@@ -5,8 +5,8 @@ elements = stripe.elements()
 Template.give.onCreated ->
 	# Session.set 'giveAmount', ''
     Template.instance().checkout = StripeCheckout.configure(
-        key: Meteor.settings.public.stripePublishable
-        # image: 'https://tmc-post-content.s3.amazonaws.com/ghostbusters-logo.png'
+        key: Meteor.settings.public.stripe_publishable
+        image: 'http://res.cloudinary.com/facet/image/upload/c_fill,g_face,h_300,w_300/k2zt563boyiahhjb0run'
         locale: 'auto'
         # zipCode: true
         token: (token) ->
@@ -220,8 +220,8 @@ Template.give.events
 
 	'click .add_card': ->
         Template.instance().checkout.open
-            name: 'donate'
-            # description: @description
+            name: 'buy'
+            description: @description
             amount: 100
 	'click .print': ->
 		console.log Template.instance()

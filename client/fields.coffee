@@ -440,6 +440,32 @@ Template.number_edit.events
                 $set:"#{@key}":val
 
 
+Template.price_view.onCreated ->
+	# Session.set 'giveAmount', ''
+    if Meteor.isDevelopment
+        pub_key = Meteor.settings.public.stripe_test_publishable
+    else if Meteor.isProduction
+        pub_key = Meteor.settings.public.stripe_live_publishable
+    Template.instance().checkout = StripeCheckout.configure(
+        key: pub_key
+        image: 'http://res.cloudinary.com/facet/image/upload/c_fill,g_face,h_300,w_300/k2zt563boyiahhjb0run'
+        locale: 'auto'
+        # zipCode: true
+        token: (token) ->
+            console.log token
+            product = Docs.findOne Router.current().params.doc_id
+            console.log product
+            charge =
+                amount: product.price*100
+                currency: 'usd'
+                source: token.id
+                description: token.description
+                receipt_email: token.email
+            Meteor.call 'processPayment', charge, (error, response) ->
+                if error then alert error.reason, 'danger'
+                else alert 'Thanks for your payment.', 'success'
+	)
+
 
 
 Template.price_edit.events
@@ -461,7 +487,26 @@ Template.price_edit.events
 
 Template.price_view.events
     'click .buy_now': ->
-        console.log @
+        parent = Template.parentData()
+        parent5 = Template.parentData(5)
+        parent6 = Template.parentData(6)
+        if @direct
+            parent = Template.parentData()
+        else if parent5._id
+            parent = Template.parentData(5)
+        else if parent6._id
+            parent = Template.parentData(6)
+        if parent
+            console.log parent
+            value = parent["#{@key}"]
+            console.log Meteor.user().emails[0].address
+
+            Template.instance().checkout.open
+                name: parent.title
+                email:Meteor.user().emails[0].address
+                description: 'gro marketplace'
+                amount: value*100
+
     # 'blur .edit_price': (e,t)->
     #     if @direct
     #         parent = Template.parentData()

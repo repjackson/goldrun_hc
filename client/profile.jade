@@ -45,12 +45,15 @@ template(name='user_layout')
                             a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
                                 i.book.icon
                                 |documents
+                            a.item(href="/user/#{username}/payment" class="{{isActiveRoute 'user_payment'}}")
+                                 i.money.icon
+                                 |payment
                             a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
                                  i.phone.icon
                                  |contact
-                            a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
-                                i.fork.icon
-                                |comparison
+                            //- a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
+                            //-     i.fork.icon
+                            //-     |comparison
                             a.item(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
                                 i.tags.icon
                                 |tags

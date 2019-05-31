@@ -5,7 +5,7 @@ template(name='nav')
             //-     i.large.sidebar.icon
             if is_loading
                 .icon.item
-                    i.big.loading.notched.circle.icon
+                    i.big.loading.dharmachakra.icon
             else
                 if is_resident_or_user
                     a.header.icon.item(href='/' class="{{isActivePath '/'}}")
@@ -29,10 +29,14 @@ template(name='nav')
                     //-     //- i.food.large.icon
                     //-     +i name='food'
                     //-     .mobile.hidden &nbsp; meals
-                    a.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='meals')
+                a.item.set_shop(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}" title='shop')
                         //- i.food.large.icon
-                        +i name='food'
-                        .mobile.hidden &nbsp; meals
+                        +i name='shop'
+                        .mobile.hidden &nbsp; shop
+                    //- a.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='meals')
+                    //-     //- i.food.large.icon
+                    //-     +i name='food'
+                    //-     .mobile.hidden &nbsp; meals
                 //- if is_admin
                 //-     a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
                 //-         +i name='alpha'

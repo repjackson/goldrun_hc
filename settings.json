@@ -1,10 +1,12 @@
 {
     "public": {
-      "stripe_publishable": "pk_test_CqHTNF8uRfEHz8tB8JyJmSNs",
+      "stripe_test_publishable": "pk_test_CqHTNF8uRfEHz8tB8JyJmSNs",
+      "stripe_live_publishable": "pk_live_ctL1EvE2OudaGtgkLCCGTzZh",
       "stripe_client_id": "ca_6xrceWlIdjoZ0ebtxSUDBMG1yazAn5et"
     },
 	"private": {
-		"stripeSecret": "sk_test_jgKYu346r3iQoJBXDtrbzJh2",
+		"stripe_test_secret": "sk_test_jgKYu346r3iQoJBXDtrbzJh2",
+		"stripe_live_secret": "sk_live_wMzDBzdwNkLKqDcVkBo0waEg",
 		"makeAdminPW": "987DRS20!5",
 		"makeAdminCODE": "0089",
         "reddit": {

@@ -169,18 +169,9 @@ Template.registerHelper 'user_from_username_param', () ->
 Template.registerHelper 'field_value', () ->
     # console.log @
     parent = Template.parentData()
-    parent2 = Template.parentData(2)
-    parent3 = Template.parentData(3)
-    parent4 = Template.parentData(4)
     parent5 = Template.parentData(5)
     parent6 = Template.parentData(6)
 
-    # console.log parent
-    # console.log parent2
-    # console.log parent3
-    # console.log parent4
-    # console.log parent5
-    # console.log parent6
 
     if @direct
         parent = Template.parentData()

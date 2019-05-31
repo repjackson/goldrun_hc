@@ -29,7 +29,7 @@ Meteor.methods
             # console.log 'field type', field.field_type
             # console.log 'field key', field.key
             unless field.field_type in ['textarea','image','youtube','html']
-                unless field.key in ['slug','icon']
+                # unless field.key in ['slug','icon']
                 # console.log 'adding field to delta', field.key
                     if field.faceted is true
                         Docs.update delta._id,
@@ -39,6 +39,7 @@ Meteor.methods
                                     icon:field.icon
                                     key:field.key
                                     rank:field.rank
+                                    field_type:field.field_type
                                     filters:[]
                                     res:[]
                                 }

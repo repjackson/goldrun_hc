@@ -21,6 +21,11 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'meal', ->
                 Session.set 'loading', false
 
+        'click .set_shop': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'marketplace', ->
+                Session.set 'loading', false
+
         'click .set_task': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', 'task', ->

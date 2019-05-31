@@ -153,10 +153,14 @@ if Meteor.isClient
                     Session.set 'loading', false
 
         'keyup .add_filter': (e,t)->
+            # console.log @
             if e.which is 13
                 delta = Docs.findOne model:'delta'
                 facet = Template.currentData()
-                filter = t.$('.add_filter').val()
+                if @field_type is 'number'
+                    filter = parseInt t.$('.add_filter').val()
+                else
+                    filter = t.$('.add_filter').val()
                 Session.set 'loading', true
                 Meteor.call 'add_facet_filter', delta._id, facet.key, filter, ->
                     Session.set 'loading', false
