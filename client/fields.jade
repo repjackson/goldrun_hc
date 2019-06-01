@@ -284,8 +284,9 @@ template(name='html_edit')
         
 template(name='html_view')
     if field_value
+        div
         if icon
-            +i name=icon
+            +i name=icon classes='ui avatar image'
             //- i.icon(class=icon)
         if title
             |#{title}
@@ -859,7 +860,7 @@ template(name='multi_doc_edit')
             //- i.icon(class=icon)
         |#{title} #{label}    
     each choices
-        .ui.circular.button.select_choice(class=choice_class)
+        .ui.circular.compact.button.select_choice(class=choice_class)
             if icon
                 +i name=icon classes='ui avatar image'
                 //- i.icon(class=icon)

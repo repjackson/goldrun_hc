@@ -1,6 +1,6 @@
 template(name='nav')
     unless is_frontdesk
-        .ui.borderless.attached.large.inverted.menu.topnav.grblue
+        .ui.borderless.attached.big.inverted.menu.topnav.grblue
             //- a.toggle_sidebar.icon.item.sidebar_on
             //-     i.large.sidebar.icon
             if is_loading
@@ -76,6 +76,8 @@ template(name='nav')
                             //-     i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
                                 +i name='chat'
+                            a.icon.item(href="/cart" class="{{isActivePath '/cart'}}")
+                                +i name='shopping-cart'
                                 //- i.chat.large.icon
                             //- if is_user
                             //-     a.icon.item(href="/events" class="{{isActivePath '/events'}}")

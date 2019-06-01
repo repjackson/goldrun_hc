@@ -43,6 +43,7 @@ Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/fuckery', -> @render 'fuckery'
 Router.route '/register', -> @render 'register'
+Router.route '/cart', -> @render 'cart'
 Router.route '/admin', -> @render 'admin'
 
 Router.route('enroll', {

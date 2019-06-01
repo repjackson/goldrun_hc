@@ -453,17 +453,23 @@ Template.price_view.onCreated ->
         # zipCode: true
         token: (token) ->
             console.log token
-            product = Docs.findOne Router.current().params.doc_id
-            console.log product
-            charge =
-                amount: product.dollar_price*100
-                currency: 'usd'
-                source: token.id
-                description: token.description
-                # receipt_email: token.email
-            Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
-                if error then alert error.reason, 'danger'
-                else alert 'Thanks for your payment.', 'success'
+            console.log @
+            console.log Template.currentData()
+            console.log Template.parentData()
+            console.log Template.parentData(1)
+            console.log Template.parentData(2)
+            console.log Template.parentData(3)
+            # product = Docs.findOne Router.current().params.doc_id
+            # console.log product
+            # charge =
+            #     amount: product.dollar_price*100
+            #     currency: 'usd'
+            #     source: token.id
+            #     description: token.description
+            #     # receipt_email: token.email
+            # Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
+            #     if error then alert error.reason, 'danger'
+            #     else alert 'Thanks for your payment.', 'success'
 	)
 
 

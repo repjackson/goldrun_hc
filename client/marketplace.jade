@@ -1,0 +1,13 @@
+template(name='marketplace_card')
+    .ui.segment.stackable.grid
+        .four.wide.column
+            img.ui.rounded.image(src="{{c.url picture width=1000 height=1000 gravity='face' crop='crop'}}")
+        .twelve.wide.column
+            .ui.header #{title}
+            each tags
+                .ui.basic.label #{this}
+            .ui.button
+                +i name='add-shopping-cart'
+            +view_button
+            if can_edit
+                +edit_button

@@ -139,10 +139,8 @@ template(name='big_user_card')
                     +text_view key='building_code' label='building code' direct=true
                     //- +array_view key='tags' label='Tags'
                     if user_is_resident
-                        div membership start 
-                            strong #{start_date}
-                        div expiration 
-                            strong #{lease_expiration}
+                        +date_view key='start_date' label='start date' direct=true
+                        +date_view key='expiration_date' label='expiration date' direct=true
                     if is_staff
                         +checkin_button
                     +email_validation_check
