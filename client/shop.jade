@@ -3,11 +3,11 @@ template(name='shop_card')
         .four.wide.column
             img.ui.rounded.image(src="{{c.url picture width=1000 height=1000 gravity='face' crop='crop'}}")
         .twelve.wide.column
-            .ui.right.floated.basic.animated.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
+            .ui.right.floated.basic.animated.fade.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
                 .visible.content
                     strong #{karma_price}k
                 .hidden.content
-                    i.cart.plus.icon
+                    i.cart.plus.green.large.icon
             .ui.header #{title}
             +i name='tags' classes='ui mini inline image'
             each tags
@@ -17,7 +17,20 @@ template(name='shop_card')
             each location_tags
                 .ui.basic.label #{this}
             .ui.basic.button
-                +i name='add-shopping-cart'
+                +i name='add-shopping-cart' classes='ui mini image'
             +view_button
             if can_edit
                 +edit_button
+
+
+template(name='add_karma')
+    .ui.stackable.grid
+        .four.wide.column
+            .ui.header add karma
+        .twelve.wide.column
+            .ui.segment.pointer
+                .ui.header 1000 karma for $10
+            .ui.segment.pointer
+                .ui.header 5500 karma for $50
+            .ui.segment.pointer
+                .ui.header 11000 karma for $100

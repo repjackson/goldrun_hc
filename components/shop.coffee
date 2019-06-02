@@ -14,6 +14,20 @@ if Meteor.isClient
             Docs.insert
                 model:'cart_item'
                 product_id:@_id
+            $('body').toast({
+                title: "#{@title} added to cart."
+                # message: 'Please see desk staff for key.'
+                class : 'green'
+                # position:'top center'
+                # className:
+                #     toast: 'ui massive message'
+                displayTime: 5000
+                transition:
+                  showMethod   : 'zoom',
+                  showDuration : 250,
+                  hideMethod   : 'fade',
+                  hideDuration : 250
+                })
 
 
     Template.shop_card.helpers

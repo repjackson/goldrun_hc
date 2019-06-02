@@ -4,9 +4,27 @@ template(name='cart')
             .ui.header 
                 +i name='shopping-cart'
                 |cart
+            .ui.statistic
+                .value #{total_cart_cost}k
+                .label cart cost
+            .ui.statistic
+                .value #{currentUser.karma}k
+                .label your karma
+            +topup_karma
         .twelve.wide.column
             each cart_items
-                .ui.segment
-                    with referenced_product
-                        .ui.header #{title}
-                    +remove_button
+                .ui.segment.grid
+                    .four.wide.column
+                        img.ui.rounded.image(src="{{c.url referenced_product.picture width=1000 height=1000 gravity='face' crop='crop'}}")
+                    .twelve.wide.column
+                        with referenced_product
+                            .ui.header #{title}
+                            .ui.header #{karma_price}k
+                        +remove_button
+
+
+
+template(name='topup_karma')
+    a.ui.basic.large.button(href='/add_karma')
+        i.plus.icon
+        |add karma

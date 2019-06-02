@@ -44,9 +44,9 @@ if Meteor.isClient
         #             $('.dropdown').dropdown()
         #         , 3000
 
-        # Meteor.setTimeout ->
-        #     $('.item').popup()
-        # , 3000
+        Meteor.setTimeout ->
+            $('.item').popup()
+        , 3000
 
 
     # Template.sidebar.events

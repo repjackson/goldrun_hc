@@ -37,6 +37,8 @@ Router.route '/verify-email/:token', ->
 
 
 Router.route '/give', -> @render 'give'
+Router.route '/add_karma', -> @render 'add_karma'
+Router.route '/karma', -> @render 'karma'
 Router.route '/alpha', -> @render 'alpha'
 Router.route '/omega', -> @render 'omega'
 Router.route '/chat', -> @render 'view_chats'

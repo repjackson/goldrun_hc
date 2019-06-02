@@ -73,9 +73,12 @@ template(name='nav')
                             //- a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                             //-     //- +i name='new-post'
                             //-     i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
-                            a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
+                            a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
                                 +i name='chat'
-                            a.icon.item(href="/cart" class="{{isActivePath '/cart'}}")
+                            a.icon.item(href="/karma" class="{{isActivePath '/karma'}}" title='karma')
+                                +i name='wallet'
+                                |#{currentUser.karma}
+                            a.icon.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
                                 +i name='shopping-cart'
                                 |#{cart_amount}
                                 //- i.chat.large.icon

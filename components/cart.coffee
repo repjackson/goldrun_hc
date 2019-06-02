@@ -20,10 +20,20 @@ if Meteor.isClient
         cart_items: ->
             Docs.find
                 model:'cart_item'
-
         referenced_product: ->
             Docs.findOne
                 _id:@product_id
+
+        total_cart_cost: ->
+            total_cart_cost = 0
+            cart_items = Docs.find(model:'cart_item').fetch()
+            for cart_item in cart_items
+                referenced_product =
+                    Docs.findOne
+                        _id:cart_item.product_id
+                total_cart_cost += referenced_product.karma_price
+            total_cart_cost
+
 
 
 # if Meteor.isServer

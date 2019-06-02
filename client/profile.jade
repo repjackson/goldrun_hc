@@ -493,8 +493,8 @@ template(name='user_array_list')
 template(name='role_switcher')
     .ui.segment
         .ui.grey.inline.center.aligned.header 
-            //- +i name='user-shield'
-            i.shield.icon(title='role switcher')
+            +i name='anonymous-mask'
+            //- i.shield.icon(title='role switcher')
             |#{username} role switcher
         //- if is_eric
         //-     +user_array_element_toggle key='roles' value='dev' user=currentUser

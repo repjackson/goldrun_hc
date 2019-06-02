@@ -1,0 +1,9 @@
+template(name='karma')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.header 
+                +i name='wallet'
+                |karma
+            .ui.header my karma #{currentUser.karma}
+        .twelve.wide.column
+            +add_karma
