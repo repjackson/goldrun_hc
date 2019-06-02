@@ -61,6 +61,77 @@ if Meteor.isClient
 
 
 
+
+
+    Template.add_karma.onRendered ->
+        if Meteor.isDevelopment
+            pub_key = Meteor.settings.public.stripe_test_publishable
+        else if Meteor.isProduction
+            pub_key = Meteor.settings.public.stripe_live_publishable
+        Template.instance().checkout = StripeCheckout.configure(
+            key: pub_key
+            image: 'http://res.cloudinary.com/facet/image/upload/c_fill,g_face,h_300,w_300/k2zt563boyiahhjb0run'
+            locale: 'auto'
+            # zipCode: true
+            token: (token) ->
+                console.log token
+                console.log @
+                console.log Template.currentData()
+                console.log Template.parentData()
+                console.log Template.parentData(1)
+                console.log Template.parentData(2)
+                console.log Template.parentData(3)
+                # product = Docs.findOne Router.current().params.doc_id
+                # console.log product
+                # charge =
+                #     amount: product.dollar_price*100
+                #     currency: 'usd'
+                #     source: token.id
+                #     description: token.description
+                #     # receipt_email: token.email
+                # Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
+                #     if error then alert error.reason, 'danger'
+                #     else alert 'Thanks for your payment.', 'success'
+    	)
+
+
+
+    Template.add_karma.events
+        'click .buy_10': ->
+            Template.instance().checkout.open
+                name: "1000 karma"
+                # email:Meteor.user().emails[0].address
+                description: 'gro shop'
+                amount: 10*100
+
+        'click .buy_20': ->
+            Template.instance().checkout.open
+                name: "2250 karma"
+                # email:Meteor.user().emails[0].address
+                description: 'gro shop'
+                amount: 20*100
+
+        'click .buy_50': ->
+            Template.instance().checkout.open
+                name: "5500 karma"
+                # email:Meteor.user().emails[0].address
+                description: 'gro shop'
+                amount: 50*100
+
+        'click .buy_100': ->
+            Template.instance().checkout.open
+                name: "11000 karma"
+                # email:Meteor.user().emails[0].address
+                description: 'gro shop'
+                amount: 100*100
+
+
+
+
+
+
+
+
 if Meteor.isServer
     Meteor.publish 'offers', (marketplace_id)->
         Docs.find

@@ -45,7 +45,10 @@ if Meteor.isClient
         #         , 3000
 
         Meteor.setTimeout ->
-            $('.item').popup()
+            $('.item').popup(
+                preserve:true;
+                hoverable:true;
+            )
         , 3000
 
 

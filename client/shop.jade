@@ -1,36 +1,42 @@
 template(name='shop_card')
     .ui.clearing.segment.stackable.grid
-        .four.wide.column
-            img.ui.rounded.image(src="{{c.url picture width=1000 height=1000 gravity='face' crop='crop'}}")
-        .twelve.wide.column
-            .ui.right.floated.basic.animated.fade.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
-                .visible.content
-                    strong #{karma_price}k
-                .hidden.content
-                    i.cart.plus.green.large.icon
-            .ui.header #{title}
-            +i name='tags' classes='ui mini inline image'
-            each tags
-                .ui.basic.label #{this}
-            div
-            +i name='marker' classes='ui mini inline image'
-            each location_tags
-                .ui.basic.label #{this}
-            .ui.basic.button
-                +i name='add-shopping-cart' classes='ui mini image'
-            +view_button
-            if can_edit
-                +edit_button
+        .centered.row
+            .sixteen.wide.column
+                a.pointer(href="/m/shop/#{_id}/view")
+                    img.ui.rounded.centered.fluid.image(src="{{c.url picture width=1000 height=1000 gravity='face' crop='crop'}}")
+        .row
+            .sixteen.wide.column
+                .ui.header #{title}
+        .row
+            .eight.wide.column
+                +i name='tags' classes='ui mini inline image'
+                each tags
+                    .ui.basic.label #{this}
+                div
+                +i name='marker' classes='ui mini inline image'
+                each location_tags
+                    .ui.basic.label #{this}
+            .eight.wide.column
+                .ui.basic.animated.fade.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
+                    .visible.content
+                        .ui.header #{karma_price}k
+                    .hidden.content
+                        i.cart.plus.green.large.icon
+                +view_button
+                if can_edit
+                    +edit_button
 
 
 template(name='add_karma')
-    .ui.stackable.grid
+    .ui.stackable.padded.grid
         .four.wide.column
             .ui.header add karma
         .twelve.wide.column
-            .ui.segment.pointer
+            .ui.segment.pointer.buy_10
                 .ui.header 1000 karma for $10
-            .ui.segment.pointer
+            .ui.segment.pointer.buy_20
+                .ui.header 2250 karma for $20
+            .ui.segment.pointer.buy_50
                 .ui.header 5500 karma for $50
-            .ui.segment.pointer
+            .ui.segment.pointer.buy_100
                 .ui.header 11000 karma for $100

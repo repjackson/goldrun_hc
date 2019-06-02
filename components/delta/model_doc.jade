@@ -2,7 +2,7 @@ template(name='model_doc_edit')
     with current_doc
         .ui.stackable.padded.grid
             .centered.row
-                .four.wide.column
+                .six.wide.column
                     .ui.header(title="model: #{model}")
                         |edit #{model}
                     +creation_info
@@ -14,21 +14,21 @@ template(name='model_doc_edit')
                         +ismall name='trash'
                     if is_user
                         +boolean_edit key='private' direct=true
-                .twelve.wide.column
+                .ten.wide.column
                     //- |#{model}
                     each edit_fields
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}
-            if watson 
-                .row
-                    .sixteen.wide.column
-                        +watson_view
+            //- if watson 
+            //-     .row
+            //-         .sixteen.wide.column
+            //-             +watson_view
 
 template(name='model_doc_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
+                .six.wide.column
                     .ui.large.basic.button.back_to_model
                         +i name='chevron left' classes='ui mini inline image'
                         +i name=current_model.icon classes='ui mini inline image'
@@ -64,7 +64,7 @@ template(name='model_doc_view')
                     //-         .ui.header downvoters
                     //-         each downvoters
                     //-             .ui.large.label #{username}
-                .twelve.wide.column
+                .ten.wide.column
                     .ui.header
                         each fields
                             if header
@@ -76,9 +76,9 @@ template(name='model_doc_view')
                         unless header
                             .item
                                 +Template.dynamic template=view_template 
-                    div
-                    if watson
-                        +watson_view
+                    //- div
+                    //- if watson
+                    //-     +watson_view
 
 
 template(name='karma_transaction')

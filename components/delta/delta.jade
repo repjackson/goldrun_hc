@@ -2,15 +2,15 @@ template(name='delta')
     with current_model
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
+                .eight.wide.right.aligned.column.scrolling
                     .ui.inline.header
                         //- i.icon(class=icon)
                         +i name=icon
                         | #{title}
                     unless is_loading
-                        //- if is_admin
-                        .ui.icon.large.basic.button.add_model_doc(title="Add #{title}")
-                            i.plus.green.large.icon
+                        if currentUser
+                            .ui.icon.large.basic.button.add_model_doc(title="Add #{title}")
+                                i.plus.green.large.icon
                             //- +i name='plus'
                         //- if can_edit
                             //- +edit_circular.button
@@ -47,7 +47,7 @@ template(name='delta')
                     div
                     each sorted_facets
                         +facet
-                .twelve.wide.column.scrolling
+                .eight.wide.column.scrolling
                     //- .ui.inline.header
                     //-     |sort by
                     //- .ui.button
@@ -78,12 +78,12 @@ template(name='facet')
             //- div
         each filtering_res
             if name
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.button.toggle_selection(class=toggle_value_class)
                     strong #{name}
                     if is_admin
                         small #{cal_count} #{count}
             else
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.button.toggle_selection(class=toggle_value_class)
                     strong [null]
                     //- small #{cal_count}
         .ui.hidden.divider

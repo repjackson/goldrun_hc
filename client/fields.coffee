@@ -874,7 +874,7 @@ Template.multi_doc_edit.helpers
 
         if target["#{ref_field.key}"]
             # console.log target["#{ref_field.key}"]
-            if @slug in target["#{ref_field.key}"] then 'blue' else 'basic'
+            if @slug in target["#{ref_field.key}"] then 'active' else 'basic'
         else
             'basic'
 

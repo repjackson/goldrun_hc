@@ -12,7 +12,7 @@ force_loggedin =  ()->
 
 Router.onBeforeAction(force_loggedin, {
   # only: ['admin']
-  except: ['register', 'forgot_password','reset_password','front']
+  except: ['register', 'forgot_password','reset_password','front','delta','doc_view']
 });
 
 Router.route '/reset_password/:token', -> @render 'reset_password'
@@ -56,9 +56,13 @@ Router.route('enroll', {
         Session.set('_resetPasswordToken', this.params.token)
         @subscribe('enrolledUser', this.params.token).wait()
 })
-Router.route '/m/:model_slug', -> @render 'delta'
+Router.route '/m/:model_slug', (->
+    @render 'delta'
+    ), name:'delta'
 Router.route '/m/:model_slug/:doc_id/edit', -> @render 'model_doc_edit'
-Router.route '/m/:model_slug/:doc_id/view', -> @render 'model_doc_view'
+Router.route '/m/:model_slug/:doc_id/view', (->
+    @render 'model_doc_view'
+    ), name:'doc_view'
 Router.route '/model/edit/:doc_id', -> @render 'model_edit'
 
 # Router.route '/user/:username', -> @render 'user'

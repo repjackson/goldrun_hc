@@ -5,10 +5,10 @@ template(name='cart')
                 +i name='shopping-cart'
                 |cart
             .ui.statistic
-                .value #{total_cart_cost}k
+                .value #{total_cart_cost}
                 .label cart cost
             .ui.statistic
-                .value #{currentUser.karma}k
+                .value #{currentUser.karma}
                 .label your karma
             +topup_karma
         .twelve.wide.column
@@ -18,8 +18,8 @@ template(name='cart')
                         img.ui.rounded.image(src="{{c.url referenced_product.picture width=1000 height=1000 gravity='face' crop='crop'}}")
                     .twelve.wide.column
                         with referenced_product
-                            .ui.header #{title}
-                            .ui.header #{karma_price}k
+                            a.ui.header(href="/m/shop/#{_id}/view") #{title}
+                            .ui.header #{karma_price} karma
                         +remove_button
 
 

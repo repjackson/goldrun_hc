@@ -69,7 +69,7 @@ template(name='nav')
                         //-     .menu
                         //-         each notifications
                         //-             .ui.button #{text}
-                        if currentUser
+                        if is_user
                             //- a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                             //-     //- +i name='new-post'
                             //-     i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
@@ -111,7 +111,7 @@ template(name='nav')
                             i.sign.out.large.icon
                 else
                     a.item(href='/login' title='Login') 
-                        i.sign.in.large.icon
+                        +i name='enter-2' classes='ui mini inline image'
                         |login
         if currentUser.show_bookmarked_model_bar
             .ui.inverted.attached.borderless.menu.topnav.grblue
@@ -124,7 +124,7 @@ template(name='nav')
 
 
 template(name='footer')
-    .ui.fluid.inverted.grblue.attached.segment.footer
+    .ui.fluid.basic.attached.segment.footer
         .ui.container.stackable.grid
             .eight.wide.column
                 //- +health_club_info
