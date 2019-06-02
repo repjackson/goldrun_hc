@@ -90,9 +90,12 @@ if Meteor.isClient
                     source: token.id
                     description: token.description
                     # receipt_email: token.email
-                Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
+                Meteor.call 'STRIPE_single_charge', charge, (error, response) =>
                     if error then alert error.reason, 'danger'
-                    else alert 'Thanks for your payment.', 'success'
+                    else
+                        alert 'payment received', 'success'
+                        Meteor.users.update Meteor.userId(),
+                            $inc: karma: @data.amount
     	)
 
 

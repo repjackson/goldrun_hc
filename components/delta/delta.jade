@@ -2,7 +2,7 @@ template(name='delta')
     with current_model
         .ui.stackable.padded.grid
             .row
-                .eight.wide.right.aligned.column.scrolling
+                .four.wide.column.scrolling
                     .ui.inline.header
                         //- i.icon(class=icon)
                         +i name=icon
@@ -27,11 +27,11 @@ template(name='delta')
                         // //         i.play.icon
                         if current_delta
                             if is_dev
-                                .ui.icon.large.basic.button.print_delta(title='Print Session Doc')
+                                .ui.icon.large.basic.button.print_delta(title='print session doc')
                                     i.code.icon
-                                .ui.reset.icon.basic.button(title='Reload Session')
+                                .ui.reset.icon.basic.button(title='reload session')
                                     i.refresh.icon
-                                .ui.delete_delta.icon.basic.button(title='Delete Session')
+                                .ui.delete_delta.icon.basic.button(title='delete session')
                                     i.trash.icon
                         else
                             .create_delta.ui.large.blue.button(title='new session')
@@ -47,12 +47,14 @@ template(name='delta')
                     div
                     each sorted_facets
                         +facet
-                .eight.wide.column.scrolling
+                .twelve.wide.column
                     //- .ui.inline.header
                     //-     |sort by
                     //- .ui.button
-                    each current_delta.result_ids
-                        +delta_result
+                    .ui.stackable.padded.three.column.grid
+                        each current_delta.result_ids
+                            .column
+                                +delta_result
                 
 
 

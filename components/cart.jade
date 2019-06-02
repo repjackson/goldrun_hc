@@ -10,8 +10,12 @@ template(name='cart')
             .ui.statistic
                 .value #{currentUser.karma}
                 .label your karma
-            +topup_karma
-        .twelve.wide.column
+            if can_buy
+                .ui.fluid.button.checkout_cart
+                    |complete checkout
+            else
+                +topup_karma
+        .twelve.wide.column.scrolling
             each cart_items
                 .ui.segment.grid
                     .four.wide.column
@@ -22,6 +26,26 @@ template(name='cart')
                             .ui.header #{karma_price} karma
                         +remove_button
 
+
+template(name='transactions')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.header 
+                +i name='cashbook'
+                |transactions
+            .ui.statistic
+                .value #{total_cart_cost}
+                .label cart cost
+            .ui.statistic
+                .value #{currentUser.karma}
+                .label your karma
+        .twelve.wide.column.scrolling
+            each transactions
+                .ui.segment.grid
+                    .four.wide.column
+                        img.ui.rounded.image(src="{{c.url referenced_product.picture width=1000 height=1000 gravity='face' crop='crop'}}")
+                    .twelve.wide.column
+                        
 
 
 template(name='topup_karma')
