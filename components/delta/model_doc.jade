@@ -2,7 +2,7 @@ template(name='model_doc_edit')
     with current_doc
         .ui.stackable.padded.grid
             .centered.row
-                .six.wide.column
+                .four.wide.column
                     .ui.header(title="model: #{model}")
                         |edit #{model}
                     +creation_info
@@ -14,7 +14,7 @@ template(name='model_doc_edit')
                         +ismall name='trash'
                     if is_user
                         +boolean_edit key='private' direct=true
-                .ten.wide.column
+                .twelve.wide.column
                     //- |#{model}
                     each edit_fields
                         +Template.dynamic template=edit_template 
@@ -28,28 +28,27 @@ template(name='model_doc_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
-                    .ui.segment
-                        .ui.large.basic.button.back_to_model
-                            +i name='chevron left' classes='ui mini inline image'
-                            +i name=current_model.icon classes='ui mini inline image'
-                            //- i.icon(class=current_model.icon)
-                            //- +i name=current_model.icon classes='ui mini inline image'
-                            |#{current_model.title}
-                        if can_edit
-                            div
-                            a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
-                                +i name='edit'
-                        if is_admin
-                            .ui.header timestamp tags
-                            each _timestamp_tags
-                                .ui.basic.label #{this}
-                        +user_list_toggle key='bookmark_ids' icon='bookmark-ribbon' label='Bookmark' color='red'
+                .four.wide.column
+                    .ui.large.basic.button.back_to_model
+                        +i name='chevron left' classes='ui mini inline image'
+                        +i name=current_model.icon classes='ui mini inline image'
+                        //- i.icon(class=current_model.icon)
+                        //- +i name=current_model.icon classes='ui mini inline image'
+                        |#{current_model.title}
+                    if can_edit
                         div
-                        .ui.header
-                            |by
-                            +author_info
-                            +creation_info
+                        a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
+                            +i name='edit'
+                    if is_admin
+                        .ui.header timestamp tags
+                        each _timestamp_tags
+                            .ui.basic.label #{this}
+                    +user_list_toggle key='bookmark_ids' icon='bookmark-ribbon' label='Bookmark' color='red'
+                    div
+                    .ui.header
+                        |by
+                        +author_info
+                        +creation_info
                     each current_model.actions
                         +Template.dynamic template=this data=current_doc
                     //- .ui.cloud.segment
@@ -65,7 +64,7 @@ template(name='model_doc_view')
                     //-         .ui.header downvoters
                     //-         each downvoters
                     //-             .ui.large.label #{username}
-                .ten.wide.column
+                .twelve.wide.column
                     .ui.header
                         each fields
                             if header

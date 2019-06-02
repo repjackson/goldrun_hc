@@ -1,5 +1,12 @@
 template(name='cart')
-    .ui.header cart
-    each cart_items
-        .item
-            .ui.title
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.header 
+                +i name='shopping-cart'
+                |cart
+        .twelve.wide.column
+            each cart_items
+                .ui.segment
+                    with referenced_product
+                        .ui.header #{title}
+                    +remove_button

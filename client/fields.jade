@@ -45,7 +45,7 @@ template(name='color_icon_edit')
             |#{this}
     input.color_icon(type='url' value=field_value placeholder='icons8 class' autocomplete="off")
     if field_value
-        img.ui.inline.image(src="https://img.icons8.com/ultraviolet/48/000000/#{field_value}.png")
+        img.ui.inline.image(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
 template(name='icon_edit')
     div
@@ -62,8 +62,8 @@ template(name='icon_edit')
                 |#{this}    
         if field_value
             //- i.large.icon(class=field_value)
-            img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
-        input.icon_val(type='text' value=field_value placeholder='icon8 ultraviolet class' autocomplete="off")
+            img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+        input.icon_val(type='text' value=field_value placeholder='icon8 class' autocomplete="off")
 
 
 template(name='color_icon_view')
@@ -78,8 +78,8 @@ template(name='icon_view')
 
 
 template(name='i')
-    //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
-    img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
@@ -264,7 +264,7 @@ template(name='html_edit')
         .field
             label 
                 if icon
-                    +i name=icon
+                    +i name=icon classes='ui avatar image'
                     //- i.icon(class=icon)
                 if title
                     |#{title}

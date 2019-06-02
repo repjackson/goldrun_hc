@@ -48,9 +48,9 @@ template(name='doc_emotion')
             
             
 template(name='call_watson')
-    #call_watson.ui.button 
+    #call_watson.ui.basic.big.button 
         i.chess.knight.icon
-        |Call Watson
+        |call watson
 
 
 
@@ -291,12 +291,12 @@ template(name='watson_view')
     +concepts
     +categories
     +entities
-    +semantic_roles
+    //- +semantic_roles
     +keyword_list
     +keywords
     +concept_list
     //- .ui.hidden.divider
-    +relations
+    //- +relations
     //- if dev
     //-     .ui.styled.accordion
     //-         .title 

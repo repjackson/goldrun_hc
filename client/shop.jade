@@ -1,0 +1,23 @@
+template(name='shop_card')
+    .ui.clearing.segment.stackable.grid
+        .four.wide.column
+            img.ui.rounded.image(src="{{c.url picture width=1000 height=1000 gravity='face' crop='crop'}}")
+        .twelve.wide.column
+            .ui.right.floated.basic.animated.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
+                .visible.content
+                    strong #{karma_price}k
+                .hidden.content
+                    i.cart.plus.icon
+            .ui.header #{title}
+            +i name='tags' classes='ui mini inline image'
+            each tags
+                .ui.basic.label #{this}
+            div
+            +i name='marker' classes='ui mini inline image'
+            each location_tags
+                .ui.basic.label #{this}
+            .ui.basic.button
+                +i name='add-shopping-cart'
+            +view_button
+            if can_edit
+                +edit_button
