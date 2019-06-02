@@ -32,11 +32,12 @@ template(name='add_karma')
         .four.wide.column
             .ui.header add karma
         .twelve.wide.column
-            .ui.segment.pointer.buy_10
-                .ui.header 1000 karma for $10
-            .ui.segment.pointer.buy_20
-                .ui.header 2250 karma for $20
-            .ui.segment.pointer.buy_50
-                .ui.header 5500 karma for $50
-            .ui.segment.pointer.buy_100
-                .ui.header 11000 karma for $100
+            +add_karma_amount amount=10 price=10
+            +add_karma_amount amount=2250 price=20
+            +add_karma_amount amount=5500 price=50
+            +add_karma_amount amount=1100 price=100
+            
+            
+template(name='add_karma_amount')            
+    .ui.segment.pointer.add_karma_amount
+        .ui.header #{amount } karma for $#{price}
