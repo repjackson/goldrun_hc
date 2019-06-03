@@ -291,8 +291,8 @@ if Meteor.isServer
 
 
     Meteor.publish 'children', (model, parent_id)->
-        console.log model
-        console.log parent_id
+        # console.log model
+        # console.log parent_id
         Docs.find {
             model:model
             parent_id:parent_id

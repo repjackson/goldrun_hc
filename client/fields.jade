@@ -620,6 +620,8 @@ template(name='datetime_edit')
                     +i name=icon
                 if title
                     |#{title}
+                else if label
+                    |#{label}
                 else
                     |#{key}
             //- +clear_value                
@@ -630,6 +632,8 @@ template(name='datetime_view')
         i.icon(class=icon)
     if title
         |#{title}
+    else if label
+        |#{label}        
     else if key
         |#{key}
     else

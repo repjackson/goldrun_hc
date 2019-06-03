@@ -28,11 +28,10 @@ Meteor.methods
             amount: data.amount
             currency: 'usd'
             source: data.source
-            # metadata:
-            #     church: data.church
-            #     givingCODE: data.givingCODE
-            #     user: data.userID
-            #     plan: data.plan
+            receipt_email:Meteor.user().emails[0].address
+            metadata:
+                product_id: product._id
+                product_title: product.title
         #     description: account.profile.churchName
         #     application_fee: fee_addition
         #     destination: account.stripe.stripeId

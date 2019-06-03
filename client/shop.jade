@@ -115,4 +115,20 @@ template(name='product_transactions')
         |transactions
     each product_transactions
         .ui.segment
-            |#{title} #{when}
+            +creation_info
+            +author_info
+            if is_author
+                +textarea_edit key='dropoff_instructions' label='dropoff instructions (private)' direct=true
+                .ui.divider
+                +image_view key='dropoff_photo' label='drop off photo' direct=true
+                +datetime_view key='dropoff_datetime' label='drop off datetime' direct=true
+                .ui.divider
+                +array_edit key='review_tags' label='review tags' icon='tags' direct=true
+                +voting
+            else
+                +array_view key='tags' label='tags' icon='tags' direct=true
+            .ui.divider
+            if is_admin
+                +image_edit key='dropoff_photo' label='drop off photo' direct=true
+                +datetime_edit key='dropoff_datetime' label='drop off datetime' direct=true
+                
