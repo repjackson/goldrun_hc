@@ -31,11 +31,12 @@ template(name='shop_card')
                 //-                 |free
                     .hidden.content
                         i.cart.plus.green.large.icon
-                //- a.ui.basic.icon.button(href="/shop/#{_id}/view")
-                //-     +i name='chevron right' classes='ui mini image'
-                //- if can_edit
-                //-     a.ui.basic.button(href="/shop/#{_id}/edit")
-                //-         +i name='pencil' classes='ui mini image'
+                a.ui.basic.icon.button(href="/shop/#{_id}/view")
+                    +i name='chevron right' classes='ui mini image'
+                if can_edit
+                    a.ui.basic.button(href="/shop/#{_id}/edit")
+                        +i name='pencil' classes='ui mini image'
+                    //- +edit_button
 
 
 template(name='add_karma')
@@ -71,9 +72,14 @@ template(name='shop_edit')
                 +dollar_price_edit key='dollar_price' icon='money' label='dollar price' direct=true
                 //- +date_edit key='date_available' icon='calendar' label='date available' direct=true
                 //- +time_edit key='time_available' icon='clock' label='time available' direct=true
+                +omega_edit
             .eight.wide.column
                 +image_edit key='picture' direct=true
                 +html_edit key='description' direct=true
+
+
+template(name='omega_edit')
+    +single_doc_edit key='shop_type' ref_model='shop_type' label='shop type' direct=true
 
 
 

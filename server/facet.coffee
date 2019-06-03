@@ -98,7 +98,7 @@ Meteor.methods
         modifier =
             {
                 fields:_id:1
-                limit:20
+                limit:7
                 sort:_timestamp:-1
             }
 
@@ -135,7 +135,7 @@ Meteor.methods
         # console.log 'delta', delta
 
     agg: (query, key, collection)->
-        limit=42
+        limit=20
         # console.log 'agg query', query
         # console.log 'agg key', key
         # console.log 'agg collection', collection

@@ -138,6 +138,7 @@ Template.registerHelper 'user_is_resident_or_owner', () -> if @roles and _.inter
 
 
 Template.registerHelper 'is_eric', () -> if Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId() then true else false
+Template.registerHelper 'is_alpha', () -> if Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId() then true else false
 
 
 Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username

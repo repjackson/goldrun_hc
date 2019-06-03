@@ -779,19 +779,23 @@ Template.single_doc_edit.helpers
             parent = Template.parentData(5)
         target = Template.parentData(2)
         # console.log @
-        # console.log parent
+        # console.log Template.parentData(1)
+        # console.log Template.parentData(2)
+        # console.log Template.parentData(3)
+        # console.log Template.parentData(4)
+        # console.log Template.parentData(5)
         # console.log ref_field
         # console.log target
         if @direct
             if target["#{ref_field.key}"]
                 # console.log parent["#{ref_field.key}"]
-                if @ref_field is target["#{ref_field.key}"] then 'active' else 'basic'
-            else 'basic'
+                if @ref_field is target["#{ref_field.key}"] then 'active' else ''
+            else ''
         else
             if parent["#{ref_field.key}"]
                 # console.log parent["#{ref_field.key}"]
-                if @slug is parent["#{ref_field.key}"] then 'active' else 'basic'
-            else 'basic'
+                if @slug is parent["#{ref_field.key}"] then 'active' else ''
+            else ''
 
 
 Template.single_doc_edit.events

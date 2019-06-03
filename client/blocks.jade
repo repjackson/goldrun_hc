@@ -311,14 +311,14 @@ template(name='rules_and_regs_check')
             i.signature.icon
             |click to sign rules and regulations
     else
-        if is_admin
+        if is_staff
             a.ui.large.basic.button(href="/m/rules_regs_signing/#{rules_signed._id}/view")
                 i.signature.icon
                 |rules and regs signed 
-        else if is_staff
-            .ui.large.basic.button
-                i.signature.icon
-                |rules and regs signed 
+        //- else if is_staff
+        //-     .ui.large.basic.button
+        //-         i.signature.icon
+        //-         |rules and regs signed 
                 
 template(name='member_waiver_check')
     //- unless waiver_signed
