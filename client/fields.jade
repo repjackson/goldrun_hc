@@ -251,6 +251,8 @@ template(name='textarea_edit')
                 //-     i.icon(class=icon)
                 if title
                     |#{title}
+                else if label
+                    |#{label}
                 else if key
                     |#{key}
                 else
@@ -516,6 +518,8 @@ template(name='price_view')
 template(name='date_edit')
     .ui.fluid.input
         .ui.small.inline.header
+            if icon
+                +i name=icon            
             if title
                 |#{title}
             else if label
@@ -550,6 +554,8 @@ template(name='date_view')
 template(name='time_edit')
     .ui.fluid.input
         .ui.small.inline.header
+            if icon
+                +i name=icon            
             if title
                 |#{title}
             else if label
@@ -577,6 +583,8 @@ template(name='datetime_edit')
     .ui.form
         .field
             label 
+                if icon
+                    +i name=icon
                 if title
                     |#{title}
                 else

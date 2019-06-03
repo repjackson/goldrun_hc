@@ -1,5 +1,15 @@
 template(name='cart')
     .ui.stackable.padded.grid
+        .twelve.wide.column.scrolling
+            each cart_items
+                .ui.segment.cart_item.grid
+                    .four.wide.column
+                        img.ui.rounded.image(src="{{c.url referenced_product.picture width=1000 height=1000 gravity='face' crop='crop'}}")
+                    .twelve.wide.column
+                        with referenced_product
+                            a.ui.header(href="/m/shop/#{_id}/view") #{title}
+                            .ui.header #{karma_price} karma
+                        +remove_button
         .four.wide.column
             .ui.header 
                 +i name='shopping-cart'
@@ -11,21 +21,21 @@ template(name='cart')
                 .value #{currentUser.karma}
                 .label your karma
             if can_buy
-                .ui.fluid.button.checkout_cart
+                .ui.fluid.inverted.green.button.checkout_cart
                     |complete checkout
             else
                 +topup_karma
-        .twelve.wide.column.scrolling
-            each cart_items
-                .ui.segment.grid
-                    .four.wide.column
-                        img.ui.rounded.image(src="{{c.url referenced_product.picture width=1000 height=1000 gravity='face' crop='crop'}}")
-                    .twelve.wide.column
-                        with referenced_product
-                            a.ui.header(href="/m/shop/#{_id}/view") #{title}
-                            .ui.header #{karma_price} karma
-                        +remove_button
 
+
+template(name='my_transactions')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.header 
+                +i name='cashbook'
+                |my transactions
+        .twelve.wide.column.scrolling
+            each transactions
+                +transaction
 
 template(name='transactions')
     .ui.stackable.padded.grid
@@ -41,11 +51,30 @@ template(name='transactions')
                 .label your karma
         .twelve.wide.column.scrolling
             each transactions
-                .ui.segment.grid
+                +transaction
+                
+                
+template(name='transaction')
+    .ui.segment
+        .ui.accordion
+            .title
+                img.ui.avatar.image(src="{{c.url referenced_product.picture width=200 height=200 crop='fit'}}")
+                .ui.inline.header #{referenced_product.title}
+                .ui.inline.greyheader #{when}
+            .content
+                .ui.stackable.grid
                     .four.wide.column
                         img.ui.rounded.image(src="{{c.url referenced_product.picture width=1000 height=1000 gravity='face' crop='crop'}}")
                     .twelve.wide.column
-                        
+                        +date_edit key='pickup_date' label='pickup date' direct=true
+                        +time_edit key='pickup_time' label='pickup time' direct=true
+                        +textarea_edit key='transaction_notes' label='notes' direct=true
+                        +creation_info
+                        if is_admin
+                            +boolean_edit key='delivered' direct=true
+                        if is_dev
+                            +remove_button
+            
 
 
 template(name='topup_karma')

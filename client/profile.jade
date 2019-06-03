@@ -39,12 +39,12 @@ template(name='user_layout')
                             a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
                                 i.info.icon
                                 |about
-                            a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                                i.handshake.icon
-                                |social
-                            a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                                i.book.icon
-                                |documents
+                            //- a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
+                            //-     i.handshake.icon
+                            //-     |social
+                            //- a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
+                            //-     i.book.icon
+                            //-     |documents
                             a.item(href="/user/#{username}/payment" class="{{isActiveRoute 'user_payment'}}")
                                  i.money.icon
                                  |payment
@@ -172,6 +172,7 @@ template(name='user_transactions')
                 each tags
                     .ui.label #{this}
                 .ui.small.inline.header #{karma_amount}
+    +transactions
             
 template(name='received_karma')
     .ui.segment

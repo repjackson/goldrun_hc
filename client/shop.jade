@@ -2,13 +2,13 @@ template(name='shop_card')
     .ui.clearing.segment.stackable.grid
         .centered.row
             .sixteen.wide.column
-                a.pointer(href="/m/shop/#{_id}/view")
+                a.pointer(href="/shop/#{_id}/view")
                     img.ui.rounded.centered.fluid.image(src="{{c.url picture width=1000 height=1000 gravity='face' crop='crop'}}")
         .row
             .sixteen.wide.column
                 .ui.header #{title}
         .row
-            .eight.wide.column
+            .sixteen.wide.column
                 +i name='tags' classes='ui mini inline image'
                 each tags
                     .ui.basic.label #{this}
@@ -16,13 +16,16 @@ template(name='shop_card')
                 +i name='marker' classes='ui mini inline image'
                 each location_tags
                     .ui.basic.label #{this}
-            .eight.wide.column
                 .ui.basic.animated.fade.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
                     .visible.content
                         .ui.header #{karma_price}k
                     .hidden.content
                         i.cart.plus.green.large.icon
-                +view_button
+                a.ui.basic.button(href="/shop/#{_id}/view")
+                    +i name='chevron right' classes='ui mini image'
+                if can_edit
+                    a.ui.basic.button(href="/shop/#{_id}/edit")
+                        +i name='pencil' classes='ui mini image'
                 if can_edit
                     +edit_button
 
@@ -41,3 +44,63 @@ template(name='add_karma')
 template(name='add_karma_amount')            
     .ui.segment.pointer.add_karma_amount
         .ui.header #{amount } karma for $#{price}
+
+
+
+
+
+template(name='shop_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.header #{title}
+                +array_edit key='tags' icon='tags' direct=true
+                +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                +price_edit key='karma_price' icon='money' label='karma price' direct=true
+                +date_edit key='date_available' icon='calendar' label='date available' direct=true
+                +time_edit key='time_available' icon='clock' label='time available' direct=true
+            .eight.wide.column
+                +image_edit key='picture' direct=true
+                +html_edit key='description' direct=true
+            .four.wide.column
+                a.ui.large.basic.button(href="/shop/#{_id}/view")
+                    i.large.green.checkmark.icon        
+                +reservations
+
+
+
+template(name='shop_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
+            .four.wide.column
+                .ui.header #{title}
+                +array_view key='tags' icon='tags' direct=true
+                +array_view key='location_tags' label='location tags' icon='marker' direct=true
+                +date_view key='date_available' label='date available' icon='calendar' direct=true
+                +time_view key='time_available' label='time available' icon='clock' direct=true
+                .ui.dividing.header
+                    |rules
+                .ui.header
+                    |signup before 24 hours
+                .ui.header
+                    |payment before 24 hours
+            .eight.wide.column
+                img.ui.large.rounded.image(src="{{c.url picture width=500 height=500 gravity='face' crop='fill'}}")
+                +html_view key='description' direct=true
+                .ui.header author #{_author_username}
+                with _author_id
+                    +user_card
+            .four.wide.column
+                a.ui.large.icon.basic.button(href="/shop/#{_id}/edit")
+                    i.pencil.icon
+                a.ui.large.icon.basic.button(href="/shop/#{_id}/view")
+                    i.right.chevron.icon        
+                +reservations
+                +comments
+                with current_doc
+                    +voting
+                    .ui.header similar shops
+                    .ui.header alerts
+                    |alergen alert
+                    |#{alergen_alert}

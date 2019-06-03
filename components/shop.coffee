@@ -39,6 +39,16 @@ if Meteor.isClient
                 model:'ad'
 
 
+
+    Template.shop_view.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.shop_edit.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+
+
+
+
+
 # if Meteor.isServer
     # Meteor.publish 'shop', ->
     #     Docs.find

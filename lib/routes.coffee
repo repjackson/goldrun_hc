@@ -42,6 +42,7 @@ Router.route '/karma', -> @render 'karma'
 Router.route '/alpha', -> @render 'alpha'
 Router.route '/omega', -> @render 'omega'
 Router.route '/transactions', -> @render 'transactions'
+Router.route '/my_transactions', -> @render 'my_transactions'
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/fuckery', -> @render 'fuckery'
@@ -95,11 +96,17 @@ Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 Router.route "/meal/:doc_id/view", (->
     @render 'meal_view'
     ), name:'meal_view'
-
-
 Router.route "/meal/:doc_id/edit", (->
     @render 'meal_edit'
     ), name:'meal_edit'
+
+
+Router.route "/shop/:doc_id/view", (->
+    @render 'shop_view'
+    ), name:'shop_view'
+Router.route "/shop/:doc_id/edit", (->
+    @render 'shop_edit'
+    ), name:'shop_edit'
 
 
 

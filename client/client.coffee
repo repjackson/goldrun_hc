@@ -37,6 +37,9 @@ Template.registerHelper 'resident_guests', () ->
         _id:$in:@guest_ids
 
 
+Template.registerHelper 'referenced_product', () ->
+    Docs.findOne
+        _id:@product_id
 
 
 
