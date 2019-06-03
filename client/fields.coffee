@@ -440,7 +440,7 @@ Template.number_edit.events
                 $set:"#{@key}":val
 
 
-Template.price_view.onCreated ->
+Template.dollar_price_view.onCreated ->
 	# Session.set 'giveAmount', ''
     if Meteor.isDevelopment
         pub_key = Meteor.settings.public.stripe_test_publishable
@@ -452,29 +452,29 @@ Template.price_view.onCreated ->
         locale: 'auto'
         # zipCode: true
         token: (token) ->
-            console.log token
-            console.log @
-            console.log Template.currentData()
-            console.log Template.parentData()
-            console.log Template.parentData(1)
-            console.log Template.parentData(2)
-            console.log Template.parentData(3)
-            # product = Docs.findOne Router.current().params.doc_id
-            # console.log product
-            # charge =
-            #     amount: product.dollar_price*100
-            #     currency: 'usd'
-            #     source: token.id
-            #     description: token.description
-            #     # receipt_email: token.email
-            # Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
-            #     if error then alert error.reason, 'danger'
-            #     else alert 'Thanks for your payment.', 'success'
+            # console.log token
+            # console.log @
+            # console.log Template.currentData()
+            # console.log Template.parentData()
+            # console.log Template.parentData(1)
+            # console.log Template.parentData(2)
+            # console.log Template.parentData(3)
+            product = Docs.findOne Router.current().params.doc_id
+            console.log product
+            charge =
+                amount: product.dollar_price*100
+                currency: 'usd'
+                source: token.id
+                description: token.description
+                # receipt_email: token.email
+            Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
+                if error then alert error.reason, 'danger'
+                else alert 'Thanks for your payment.', 'success'
 	)
 
 
 
-Template.price_edit.events
+Template.dollar_price_edit.events
     'blur .edit_price': (e,t)->
         if @direct
             parent = Template.parentData()
@@ -491,7 +491,7 @@ Template.price_edit.events
                 $set:"#{@key}":val
 
 
-Template.price_view.events
+Template.dollar_price_view.events
     'click .buy_now': ->
         parent = Template.parentData()
         parent5 = Template.parentData(5)
@@ -510,7 +510,7 @@ Template.price_view.events
             Template.instance().checkout.open
                 name: parent.title
                 # email:Meteor.user().emails[0].address
-                description: 'gro marketplace'
+                description: 'gold run market'
                 amount: value*100
 
     # 'blur .edit_price': (e,t)->

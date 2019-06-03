@@ -215,6 +215,20 @@ template(name='voting')
 
 
 
+template(name='voting_full')
+    if points
+        strong #{points}
+    .ui.icon.basic.basic.button.upvote(class=upvote_class title='upvote')
+        i.thumbs.up.icon
+    each upvoter_ids
+        +user_info
+    .ui.icon.basic.basic.button.downvote(title='downvote' class=downvote_class)
+        i.thumbs.down.icon
+    each downvoter_ids
+        +user_info
+
+
+
 template(name='view_button')
     a.ui.icon.large.basic.button.view(title='view' href="/m/#{model}/#{_id}/view")
         //- i.right.chevron.large.icon

@@ -290,12 +290,12 @@ template(name='html_view')
         if icon
             +i name=icon classes='ui avatar image'
             //- i.icon(class=icon)
-        if title
-            |#{title}
-        else if key
-            |#{key}
-        else
-            |#{this}
+        //- if title
+        //-     |#{title}
+        //- else if key
+        //-     |#{key}
+        //- else
+        //-     |#{this}
     |!{field_value}
     //- +call_watson mode='html'
     //- if watson
@@ -478,7 +478,7 @@ template(name='number_view')
         strong &nbsp; #{field_value}
 
 
-template(name='price_edit')
+template(name='karma_price_edit')
     div
     .ui.fluid.input
         .ui.small.inline.header
@@ -493,9 +493,42 @@ template(name='price_edit')
                 |#{key}
         //- +clear_value                
         input.edit_price(type='number' value=field_value placeholder=placeholder autocomplete="off")
-            
-            
-template(name='price_view')
+template(name='karma_price_view')
+    if field_value
+        div
+        .ui.small.inline.header
+            if icon
+                +i name=icon
+                //- i.icon(class=icon)
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
+        strong &nbsp; #{field_value}
+        .ui.big.green.button.buy_now
+            |buy now
+
+
+template(name='dollar_price_edit')
+    div
+    .ui.fluid.input
+        .ui.small.inline.header
+            if icon
+                +i name=icon
+                //- i.icon(class=icon)
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else
+                |#{key}
+        //- +clear_value                
+        input.edit_price(type='number' value=field_value placeholder=placeholder autocomplete="off")
+template(name='dollar_price_view')
     if field_value
         div
         .ui.small.inline.header
