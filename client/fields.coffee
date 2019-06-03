@@ -467,9 +467,14 @@ Template.dollar_price_view.onCreated ->
                 source: token.id
                 description: token.description
                 # receipt_email: token.email
-            Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
+            Meteor.call 'STRIPE_single_charge', charge, product, (error, response) =>
                 if error then alert error.reason, 'danger'
-                else alert 'Thanks for your payment.', 'success'
+                else
+                    alert 'Payment received.', 'success'
+                    Docs.insert
+                        model:'transaction'
+                        product_id:product._id
+
 	)
 
 

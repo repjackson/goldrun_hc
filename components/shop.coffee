@@ -33,12 +33,6 @@ if Meteor.isClient
                 Router.go '/login'
 
 
-    Template.shop_card.helpers
-        current_ad: ->
-            Docs.findOne
-                model:'ad'
-
-
 
     Template.shop_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
@@ -46,10 +40,19 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
 
 
+    Template.product_transactions.onCreated ->
+        @autorun => Meteor.subscribe 'product_transactions', Router.current().params.doc_id
+
+    Template.product_transactions.helpers
+        product_transactions: ->
+            Docs.find
+                model:'transaction'
+                product_id: Router.current().params.doc_id
 
 
 
-# if Meteor.isServer
-    # Meteor.publish 'shop', ->
-    #     Docs.find
-    #         model:'ad'
+if Meteor.isServer
+    Meteor.publish 'product_transactions', (product_id)->
+        Docs.find
+            model:'transaction'
+            product_id:product_id

@@ -1,7 +1,7 @@
 Future = Npm.require('fibers/future')
 
 Meteor.methods
-    STRIPE_single_charge: (data) ->
+    STRIPE_single_charge: (data, product) ->
         console.log data
         if Meteor.isDevelopment
             Stripe = StripeAPI(Meteor.settings.private.stripe_test_secret)
@@ -40,7 +40,7 @@ Meteor.methods
         #     chargeData.customer = data.customer
         # else
         #     chargeData.metadata.givername = data.givername
-        Stripe.charges.create chargeData, (error, result) ->
+        Stripe.charges.create chargeData, (error, result) =>
             if error
                 chargeCard.return error: error
             else

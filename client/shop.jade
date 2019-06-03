@@ -113,3 +113,6 @@ template(name='product_transactions')
     .ui.header 
         +i name='cashbook'
         |transactions
+    each product_transactions
+        .ui.segment
+            |#{title} #{when}
