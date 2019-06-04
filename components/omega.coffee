@@ -21,7 +21,7 @@ if Meteor.isClient
             page_doc = Docs.findOne Router.current().params.doc_id
             Docs.update page_doc._id,
                 $set: "#{@model}":"#{@slug}"
-
+            location.reload()
 
 
 
@@ -29,12 +29,21 @@ if Meteor.isClient
 
 
     Template.subomega_edit.onCreated ->
+        console.log @data.submodel
         @autorun => Meteor.subscribe 'model_docs', @data.submodel
     Template.subomega_edit.helpers
         submodel_docs: ->
             # console.log "#{@submodel}_type"
             Docs.find
                 model:"#{@submodel}"
+        parent_model: ->
+            page_doc = Docs.findOne Router.current().params.doc_id
+            # console.log page_doc["#{Template.parentData().model}"]
+            model_doc = Docs.findOne
+                model:Template.parentData().model
+                slug:page_doc["#{Template.parentData().model}"]
+            model_doc
+
         # submodel: ->
         #     console.log @
             # @submodel
@@ -54,7 +63,15 @@ if Meteor.isClient
             new_id = Docs.insert
                 model:@submodel
             Router.go "/omega_doc_edit/#{new_id}"
+        'click .edit_parent_model_doc': ->
+            page_doc = Docs.findOne Router.current().params.doc_id
+            console.log page_doc["#{Template.parentData().model}"]
+            model_doc = Docs.findOne
+                model:Template.parentData().model
+                slug:page_doc["#{Template.parentData().model}"]
+            console.log model_doc
 
+            Router.go "/omega_doc_edit/#{model_doc._id}"
 
 
     Template.omega_doc_edit.onCreated ->

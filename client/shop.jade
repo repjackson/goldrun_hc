@@ -79,14 +79,15 @@ template(name='shop_edit')
 
 
 template(name='omega_edit')
-    .ui.header #{model}
+    .ui.header 1: #{model}
     each model_docs
         .ui.button.select_child(class=child_selector_class)
             if icon 
                 +i name=icon
             |#{slug}
-    div
-    +subomega_edit submodel=submodel
+    .ui.divider
+    if submodel
+        +subomega_edit submodel=submodel
     //- +single_doc_edit key=model ref_model=model label=model direct=true
 
 template(name='subomega_edit')
@@ -98,7 +99,12 @@ template(name='subomega_edit')
     .add_new_submodel_doc.ui.button
         i.plus.icon
         |new #{submodel} doc
+    .edit_parent_model_doc.ui.button
+        i.plus.icon
+        |edit #{parent_model.slug} doc
         //- |#{submodel}
+    //- +subomega_edit submodel=sub_submodel
+        
 
 
 template(name='shop_view')
