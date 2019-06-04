@@ -85,10 +85,20 @@ template(name='omega_edit')
             if icon 
                 +i name=icon
             |#{slug}
+    div
     +subomega_edit submodel=submodel
     //- +single_doc_edit key=model ref_model=model label=model direct=true
 
 template(name='subomega_edit')
+    each submodel_docs
+        .ui.button.select_child(class=child_selector_class)
+            if icon 
+                +i name=icon
+            |#{slug}
+    .add_new_submodel_doc.ui.button
+        i.plus.icon
+        |new #{submodel} doc
+        //- |#{submodel}
 
 
 template(name='shop_view')

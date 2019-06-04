@@ -1,7 +1,6 @@
 if Meteor.isClient
     Template.omega_edit.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', @data.model
-
     Template.omega_edit.helpers
         model_docs: ->
             Docs.find
@@ -16,14 +15,50 @@ if Meteor.isClient
             page_model_value = page_doc["#{@model}"]
             # console.log 'child selector class', page_model_value
             if page_doc["#{@model}"] is @slug then 'active' else ''
-
-
     Template.omega_edit.events
         'click .select_child': ->
-            console.log @
+            # console.log @
             page_doc = Docs.findOne Router.current().params.doc_id
             Docs.update page_doc._id,
                 $set: "#{@model}":"#{@slug}"
+
+
+
+
+
+
+
+    Template.subomega_edit.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', @data.submodel
+    Template.subomega_edit.helpers
+        submodel_docs: ->
+            # console.log "#{@submodel}_type"
+            Docs.find
+                model:"#{@submodel}"
+        # submodel: ->
+        #     console.log @
+            # @submodel
+            # page_doc = Docs.findOne Router.current().params.doc_id
+            # page_model_value = page_doc["#{@model}"]
+            # # console.log page_model_value
+            # page_model_value
+        child_selector_class: ->
+            page_doc = Docs.findOne Router.current().params.doc_id
+            page_model_value = page_doc["#{@model}"]
+            # console.log 'child selector class', page_model_value
+            if page_doc["#{@model}"] is @slug then 'active' else ''
+    Template.subomega_edit.events
+        'click .add_new_submodel_doc': ->
+            # console.log @
+            page_doc = Docs.findOne Router.current().params.doc_id
+            new_id = Docs.insert
+                model:@submodel
+            Router.go "/omega_doc_edit/#{new_id}"
+
+
+
+    Template.omega_doc_edit.onCreated ->
+        @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
 
 
 

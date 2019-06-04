@@ -68,6 +68,7 @@ Router.route '/m/:model_slug/:doc_id/view', (->
 Router.route '/model/edit/:doc_id', -> @render 'model_edit'
 
 # Router.route '/user/:username', -> @render 'user'
+Router.route '/omega_doc_edit/:doc_id', -> @render 'omega_doc_edit'
 Router.route '/edit/:doc_id', -> @render 'edit'
 Router.route '/view/:doc_id', -> @render 'view'
 Router.route '*', -> @render 'not_found'

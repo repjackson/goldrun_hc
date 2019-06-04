@@ -11,3 +11,15 @@ template(name='omega')
         +text_edit key='query' label='Query' direct=true
         +remove_button
         .ui.header result
+
+
+
+template(name='omega_doc_edit')
+    .ui.hidden.divider
+    .ui.container
+        with current_doc
+            .ui.header omega doc edit
+            +text_edit key='title' direct=true
+            +text_edit key='slug' direct=true
+            +text_edit key='model' direct=true
+            +array_edit key='child_models' direct=true
