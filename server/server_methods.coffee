@@ -66,11 +66,16 @@ Meteor.methods
                     "<br><h4>View your messages here:<a href=#{message_link}>#{message_link}</a>.</h4>"
             })
 
-    auto_checkout_members: ()->
+    checkout_members: ()->
         now = Date.now()
         checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
+        console.log 'previous checked in members', checkedin_members
         for member in checkedin_members
             console.log member
+        Meteor.users.update({healthclub_checkedin:true},{$set:healthclub_checkedin:false},{multi:true})
+        checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
+        console.log 'now checked in members', checkedin_members
+
 
     lookup_user: (username_query, role_filter)->
         # console.log role_filter

@@ -1,30 +1,49 @@
-
 if Meteor.isClient
+    Template.omega_edit.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', @data.model
+
+    Template.omega_edit.helpers
+        model_docs: ->
+            Docs.find
+                model:@model
+        submodel: ->
+            page_doc = Docs.findOne Router.current().params.doc_id
+            page_model_value = page_doc["#{@model}"]
+            # console.log page_model_value
+            page_model_value
+        child_selector_class: ->
+            page_doc = Docs.findOne Router.current().params.doc_id
+            page_model_value = page_doc["#{@model}"]
+            # console.log 'child selector class', page_model_value
+            if page_doc["#{@model}"] is @slug then 'active' else ''
+
+
+    Template.omega_edit.events
+        'click .select_child': ->
+            console.log @
+            page_doc = Docs.findOne Router.current().params.doc_id
+            Docs.update page_doc._id,
+                $set: "#{@model}":"#{@slug}"
+
+
+
     Template.omega.onCreated ->
         @autorun -> Meteor.subscribe 'my_omega'
         @autorun -> Meteor.subscribe 'model_docs','omega_session'
-
-
     Template.omega.helpers
         sessions: ->
             Docs.find
                 model:'omega_session'
-
         current_omega: ->
             Docs.findOne
                 _id: Session.get('current_omega_id')
                 # _author_id:Meteor.userId()
-
         session_button_class: ->
             if Session.equals 'current_omega_id', @_id then 'black' else 'basic'
-
         single_doc: ->
             omega = Docs.findOne model:'omega'
             count = omega.result_ids.length
             if count is 1 then true else false
-
-
-
 
     Template.omega.events
         'keyup .omega_in': (e,t)->

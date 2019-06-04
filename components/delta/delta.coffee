@@ -81,10 +81,14 @@ if Meteor.isClient
                                 first_name:first_name
                                 last_name:last_name
                         Router.go "/m/#{model.slug}/#{res}/edit"
-
-            new_doc_id = Docs.insert
-                model:model.slug
-            Router.go "/m/#{model.slug}/#{new_doc_id}/edit"
+            else if model.slug is 'shop'
+                new_doc_id = Docs.insert
+                    model:model.slug
+                Router.go "/shop/#{new_doc_id}/edit"
+            else
+                new_doc_id = Docs.insert
+                    model:model.slug
+                Router.go "/m/#{model.slug}/#{new_doc_id}/edit"
 
 
         'click .edit_model': ->
