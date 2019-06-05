@@ -63,7 +63,10 @@ template(name='shop_edit')
         .ui.stackable.padded.grid
             .eight.wide.column
                 a.ui.massive.basic.icon.button(href="/shop/#{_id}/view")
-                    i.big.green.checkmark.icon        
+                    i.big.green.checkmark.icon   
+                a.ui.massive.basic.icon.button(href="/m")
+                    i.big.red.remove.icon   
+                     
                 .ui.header #{title}
                 +text_edit key='title' icon='header' direct=true
                 +array_edit key='tags' icon='tags' direct=true
@@ -72,21 +75,30 @@ template(name='shop_edit')
                 +dollar_price_edit key='dollar_price' icon='money' label='dollar price' direct=true
                 //- +date_edit key='date_available' icon='calendar' label='date available' direct=true
                 //- +time_edit key='time_available' icon='clock' label='time available' direct=true
+                +single_doc_edit key='shop_type' label='shop type'
                 +omega_edit model='shop_type'
+                
             .eight.wide.column
                 +image_edit key='picture' direct=true
                 +html_edit key='description' direct=true
 
 
 template(name='omega_edit')
-    .ui.header #{model}
+    .ui.header 1: #{model}
     each model_docs
         .ui.button.select_child(class=child_selector_class)
             if icon 
                 +i name=icon
             |#{slug}
-    div
-    +subomega_edit submodel=submodel
+    .ui.divider
+    if omega_selection_doc
+        |#{omega_selection_doc.slug}
+        .ui.button.edit_selection_doc
+            |edit selection doc
+        div
+        each omega_selection_doc.child_models
+            .ui.label #{this}
+            +subomega_edit submodel=this
     //- +single_doc_edit key=model ref_model=model label=model direct=true
 
 template(name='subomega_edit')
@@ -98,7 +110,12 @@ template(name='subomega_edit')
     .add_new_submodel_doc.ui.button
         i.plus.icon
         |new #{submodel} doc
+    .edit_parent_model_doc.ui.button
+        i.plus.icon
+        |edit #{parent_model.slug} doc
         //- |#{submodel}
+    //- +subomega_edit submodel=sub_submodel
+        
 
 
 template(name='shop_view')

@@ -7,19 +7,19 @@ template(name='nav')
                 .icon.item
                     i.big.loading.dharmachakra.icon
             else
-                if is_admin
-                    a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                        //- i.home.large.large.icon
-                        +i name='home-page'  
-                    a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
-                        //- i.th.large.large.icon
-                        +i name='activity-grid-2'    
+                //- if is_admin
+                a.header.icon.item(href='/' class="{{isActivePath '/'}}")
+                    //- i.home.large.large.icon
+                    +i name='home-page'  
+                a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
+                    //- i.th.large.large.icon
+                    +i name='activity-grid-2'    
                 if is_staff
                     a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                         +i name='employee-card'
                         //- i.shield.large.icon
                         .mobile.hidden &nbsp; staff
-                    a.item(href='/users' class="{{isActivePath '/users'}}" title='Users')
+                    a.item(href='/users' class="{{isActivePath '/users'}}" title='users')
                         //- i.users.large.icon
                         +i name='groups'
                         .mobile.hidden &nbsp; users

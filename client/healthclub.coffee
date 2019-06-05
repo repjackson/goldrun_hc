@@ -65,7 +65,8 @@ Template.checkin_button.events
         #     body: "#{@username} checked in."
         checkin_document = Docs.insert
             model:'healthclub_checkin'
-            object_id:@_id
+            active:true
+            user_id:@_id
             resident_username:@username
             body: "#{@first_name} #{@last_name} checked in."
         Session.set 'username_query',null
@@ -78,25 +79,19 @@ Template.checkin_button.events
     'click .checkout': (e,t)->
         # $(e.currentTarget).closest('.card').transition('fade up')
         # Meteor.setTimeout =>
-        Meteor.users.update @_id,
-            $set:healthclub_checkedin:false
-        Docs.insert
-            model:'log_event'
-            parent_id:@_id
-            object_id:@_id
-            body: "#{@first_name} #{@last_name} checked out."
-        $('body').toast({
-            title: "#{@first_name} #{@last_name} checked out."
-            class: 'success'
-            transition:
-                showMethod   : 'zoom',
-                showDuration : 250,
-                hideMethod   : 'fade',
-                hideDuration : 250
-        })
-        Session.set 'username_query',null
-        $('.username_search').val('')
-        # , 100
+        Meteor.call 'checkout_user', @_id, =>
+            $('body').toast({
+                title: "#{@first_name} #{@last_name} checked out."
+                class: 'success'
+                transition:
+                    showMethod   : 'zoom',
+                    showDuration : 250,
+                    hideMethod   : 'fade',
+                    hideDuration : 250
+            })
+            Session.set 'username_query',null
+            $('.username_search').val('')
+            # , 100
 
 
 Template.healthclub.events
@@ -241,13 +236,13 @@ Template.checkin_card.events
 
     'click .complete_checkin': (e,t)->
         # $(e.currentTarget).closest('.segment').transition('fade left',100)
-        if @username is 'greg_sherwin'
-            audio = new Audio('siren.mp3')
-            audio.play()
+        # if @username is 'greg_sherwin'
+        #     audio = new Audio('siren.mp3')
+        #     audio.play()
         Session.set 'adding_guest', false
         Session.set 'displaying_profile', null
         $('body').toast({
-            title: "Thank you, #{@first_name}. You're checked in."
+            title: "#{@first_name} #{@last_name} checked in."
             class: 'success'
             showIcon: false
             position:'top center'
@@ -275,8 +270,8 @@ Template.checkin_card.events
         # Meteor.setTimeout =>
         Session.set 'displaying_profile', null
         $('body').toast({
-            title: "Garden key check out logged for #{@first_name} #{@last_name}."
-            message: 'Please see desk staff for key.'
+            title: "Garden key checked out for #{@first_name} #{@last_name}."
+            message: 'See desk staff for key.'
             class : 'blue'
             position:'top center'
             className:
@@ -303,8 +298,8 @@ Template.checkin_card.events
         # Meteor.setTimeout =>
         Session.set 'displaying_profile', null
         $('body').toast({
-            title: "Unit key check out logged for #{@first_name} #{@last_name}."
-            message: 'Please see desk staff for key.'
+            title: "Unit key checked out #{@first_name} #{@last_name}."
+            message: 'See desk staff for key.'
             class : 'blue'
             position:'top center'
             className:

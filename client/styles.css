@@ -13,7 +13,6 @@ body {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     border-radius: 15px !important;
-
 }
 
 .invert {
@@ -26,7 +25,6 @@ body {
   border: 5px solid red !important;
   /* border-radius: 5px !important; */
   box-shadow: 0 4px 8px 0 rgb(220,20,60, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
-
 }
 
 .yellow_flagged {
@@ -80,8 +78,8 @@ input{
 }
 
 input:focus, textarea:focus {
+    background: rgba(100, 100, 100, 0.1) !important;
     font-size:120% !important;
-    background: rgba(0, 0, 100, 0.1) !important;
     border-width: medium !important;
     box-shadow: 0 2px 5px 2px rgba(50, 50, 100, 0.1) !important;
 }
@@ -93,7 +91,7 @@ input:focus, textarea:focus {
 .button, .segment, .label{
     /* -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 10px !important; */
-    border-radius: 25px !important;
+    border-radius: 20px !important;
 }
 
 

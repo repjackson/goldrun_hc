@@ -19,7 +19,7 @@ template(name='comments')
 
 
 template(name='goto_model')
-    if is_admin
+    if is_staff
         a.ui.icon.basic.button.goto_model(href="/m/#{slug}" title="goto #{slug}")
             i.external.icon
             //- +ismall name='external-link'
@@ -75,11 +75,11 @@ template(name='view_full_button')
 template(name='user_status')
     if online 
         // .ui.label(class='{{labelClass}}') 
-        .ui.empty.green.label(title='Online')
+        .ui.empty.green.label(title='online')
         // img.ui.avatar.image(src="https://img.icons8.com/connection-user_status-on/color/48" title='Online' width="48" height="48")
         // |Online
     else if idle
-        .ui.empty.yellow.label(title='Idle')
+        .ui.empty.yellow.label(title='idle')
         // .ui.label(class='{{labelClass}}') Idle
         // else 
         //     |Offline
@@ -141,8 +141,9 @@ template(name='big_user_card')
                     if user_is_resident
                         +date_view key='start_date' label='start date' direct=true
                         +date_view key='expiration_date' label='expiration date' direct=true
-                    if is_staff
-                        +checkin_button
+                    +checkin_button
+                    +garden_key_checkout
+                    +unit_key_checkout
                     +email_validation_check
                     +lease_expiration_check
                     +rules_and_regs_check
@@ -156,7 +157,15 @@ template(name='big_user_card')
                     //- +i name='water-steam' classes='ui avatar image'
 
 
-                
+template(name='garden_key_checkout')
+    .ui.basic.button.garden_key_checkout
+        +i name='plant' classes='ui mini inline image'
+        |checkout garden key
+
+template(name='unit_key_checkout')
+    .ui.basic.button.unit_key_checkout
+        +i name='key' classes='ui mini inline image'
+        |checkout unit key
 
 
 template(name='user_info')
@@ -288,7 +297,7 @@ template(name='email_validation_check')
             i.checkmark.icon
             |email validated
     else
-        .ui.large.basic.button.send_verification
+        .ui.orange.basic.button.send_verification
             //- i.ban.icon
             |email unvalidated
         if times
@@ -306,15 +315,20 @@ template(name='lease_expiration_check')
         
         
 template(name='rules_and_regs_check')
-    unless rules_signed
-        .ui.large.red.basic.button.sign_rules
-            i.signature.icon
-            |click to sign rules and regulations
-    else
-        if is_staff
-            a.ui.large.basic.button(href="/m/rules_regs_signing/#{rules_signed._id}/view")
+    if is_staff
+        if rules_signed
+            a.ui.basic.button(href="/m/rules_regs_signing/#{rules_signed._id}/view" title='click to view/edit signing document')
                 i.signature.icon
                 |rules and regs signed 
+        else
+            .ui.red.basic.button.sign_rules
+                i.signature.icon
+                |set kiosk to rules+regs signing
+    else
+        unless rules_signed
+            .ui.large.red.basic.button.sign_rules
+                i.signature.icon
+                |click to sign rules and regulations
         //- else if is_staff
         //-     .ui.large.basic.button
         //-         i.signature.icon

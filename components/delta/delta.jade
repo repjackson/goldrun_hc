@@ -51,10 +51,10 @@ template(name='delta')
                     //- .ui.inline.header
                     //-     |sort by
                     //- .ui.button
-                    .ui.stackable.four.column.grid
-                        each current_delta.result_ids
-                            .column
-                                +delta_result
+                    //- .ui.stackable.four.column.grid
+                    each current_delta.result_ids
+                        //- .column
+                        +delta_result
                 
 
 
@@ -104,32 +104,32 @@ template(name='toggle_delta_config')
 
 template(name='delta_result')
     with result 
-        if template_exists
-            +Template.dynamic template=model_template
-        else
-            .ui.result.cloud.segment(class=loading_class)
-                each fields
-                    +Template.dynamic template=view_template 
-                .extra
-                    if is_model
-                        +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                        a.ui.basic.button.route_model(href="/m/#{slug}")
-                            i.sitemap.icon
-                            |view model
-                        if is_admin
-                            a.ui.basic.button.route_model(href="/model/edit/#{_id}")
-                                i.edit.icon
-                                |edit model
-                    else
-                        if can_edit
-                            a.ui.large.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
-                                i.pencil.large.icon
-                                //- |edit
-                        a.ui.icon.large.basic.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
-                            i.right.chevron.large.icon
-                    if _author_id
-                        +author_info
-                    +creation_info
+        //- if template_exists
+        //-     +Template.dynamic template=model_template
+        //- else
+        .ui.result.cloud.segment(class=loading_class)
+            each fields
+                +Template.dynamic template=view_template 
+            .extra
+                if is_model
+                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    a.ui.basic.button.route_model(href="/m/#{slug}")
+                        i.sitemap.icon
+                        |view model
+                    if is_admin
+                        a.ui.basic.button.route_model(href="/model/edit/#{_id}")
+                            i.edit.icon
+                            |edit model
+                else
+                    if can_edit
+                        a.ui.large.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
+                            i.pencil.large.icon
+                            //- |edit
+                    a.ui.icon.large.basic.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
+                        i.right.chevron.large.icon
+                if _author_id
+                    +author_info
+                +creation_info
                     
         
                     

@@ -52,6 +52,10 @@ Template.registerHelper 'is_text', () ->
     console.log @field_type
     @field_type is 'text'
 
+Template.registerHelper 'template_parent', () ->
+    console.log Template.parentData()
+    Template.parentData()
+
 Template.registerHelper 'fields', () ->
     model = Docs.findOne
         model:'model'

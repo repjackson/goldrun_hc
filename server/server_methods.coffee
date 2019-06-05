@@ -42,7 +42,18 @@ Meteor.methods
         Accounts.removeEmail user_id, email
 
 
-    verify_email: (user_id)-> Accounts.sendVerificationEmail(user_id)
+    check_lease_status: ->
+        residents =
+            Meteor.users.find(
+                roles:$in:['resident']
+            ).fetch()
+        console.log residents.expiration_date
+
+
+
+    verify_email: (user_id)->
+        console.log 'verifying_email', user_id
+        # Accounts.sendVerificationEmail(user_id)
 
     validateEmail: (email) ->
         re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -69,12 +80,53 @@ Meteor.methods
     checkout_members: ()->
         now = Date.now()
         checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
-        console.log 'previous checked in members', checkedin_members
+        console.log 'current checked in members', checkedin_members
+
         for member in checkedin_members
             console.log member
-        Meteor.users.update({healthclub_checkedin:true},{$set:healthclub_checkedin:false},{multi:true})
-        checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
-        console.log 'now checked in members', checkedin_members
+            checkedin_doc =
+                Docs.findOne
+                    user_id:member._id
+                    model:'healthclub_checkin'
+                    active:true
+            console.log 'now', now
+            console.log 'checked in doc', checkedin_doc
+            console.log 'checked in time', checkedin_doc._timestamp
+            diff = now-checkedin_doc._timestamp
+            minute_difference = diff/1000/60
+            if minute_difference>60
+                Meteor.users.update(member._id,{$set:healthclub_checkedin:false})
+                Docs.update checkedin_doc._id,
+                    $set:
+                        active:false
+                        logout_timestamp:Date.now()
+                # checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
+                # console.log 'now checked in members', checkedin_members
+
+
+    checkout_user: (user_id)->
+        console.log 'checking out user', user_id
+        Meteor.users.update user_id,
+            $set:
+                healthclub_checkedin:false
+        checkedin_doc =
+            Docs.findOne
+                user_id:user_id
+                model:'healthclub_checkin'
+                active:true
+        if checkedin_doc
+            Docs.update checkedin_doc._id,
+                $set:
+                    active:false
+                    logout_timestamp:Date.now()
+
+        Docs.insert
+            model:'log_event'
+            parent_id:user_id
+            object_id:user_id
+            user_id:user_id
+            body: "#{@first_name} #{@last_name} checked out."
+
 
 
     lookup_user: (username_query, role_filter)->

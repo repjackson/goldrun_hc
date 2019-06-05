@@ -19,7 +19,7 @@ template(name='healthclub')
                     i.remove.link.icon.clear_results
                 else 
                     i.user.icon
-            .ui.center.aligned.basic.segment
+            .ui.center.aligned.basic.segment.test
                 if checkedout_members.length
                     each checkedout_members
                         +checkin_button
@@ -97,23 +97,29 @@ template(name='sign_waiver')
 
 
 template(name='checkin_button')
-    //- unless healthclub_checkedin
-    //-     .ui.massive.basic.button.checkin
-    //-         h1.ui.header #{first_name} #{last_name}
-    //- if healthclub_checkedin
-    //-     //- if is_staff
-    //-     .ui.big.basic.button.checkout
-    //-         i.sign.out.icon
-    //-         //- +i name='exit-sign' classes='ui avatar image'
-    //-         |check out
-    .ui.massive.basic.button.checkin
-        h1.ui.header #{first_name} #{last_name}
-    if healthclub_checkedin
-        if is_staff
+    unless is_staff
+        unless healthclub_checkedin
+            .ui.massive.basic.button.checkin
+                h1.ui.header #{first_name} #{last_name}
+        //- if healthclub_checkedin
+        //- if is_staff
+        //- else
+        //-     .ui.big.basic.button.checkout
+        //-         i.sign.out.icon
+        //-             //- +i name='exit-sign' classes='ui avatar image'
+        //-             |check out
+    if is_staff
+        if healthclub_checkedin
             .ui.basic.button.checkout
                 i.sign.out.icon
                 //- +i name='exit-sign' classes='ui avatar image'
-                |check out
+                |health club check out
+        else
+            .ui.large.basic.button.checkin
+                .ui.header
+                    |check in
+                .ui.header
+                    |#{first_name} #{last_name}
 
 
 
@@ -122,7 +128,7 @@ template(name='health_club_info')
         .two.column.inverted.row
             .column
                 .ui.header wifi
-                .ui.header Gold Run Health Club / goldrun1
+                .ui.grey.header Gold Run Health Club / goldrun1
                 .ui.header upstairs code: 4589
                 .ui.header colorado security services
                 .ui.grey.header 303-443-3701
@@ -185,6 +191,8 @@ template(name='checkin_card')
                         .ui.big.basic.fluid.button.toggle_adding_guest 
                             i.plus.large.icon
                             |guest
+                    +email_validation_check
+                    +lease_expiration_check
                     +rules_and_regs_check  
                     .ui.hidden.divider      
                     .ui.big.fluid.green.button.complete_checkin

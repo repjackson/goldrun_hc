@@ -59,6 +59,67 @@ if Meteor.isClient
 
 
 
+    Template.garden_key_checkout.events
+        'click .garden_key_checkout': (e,t)->
+            # $(e.currentTarget).closest('.segment').transition('fade left',100)
+            # Meteor.setTimeout =>
+            $('body').toast({
+                title: "garden key checked out for #{@first_name} #{@last_name}."
+                # message: 'See desk staff for key.'
+                class : 'green'
+                position:'top right'
+                # className:
+                #     toast: 'ui massive message'
+                displayTime: 5000
+                transition:
+                  showMethod   : 'zoom',
+                  showDuration : 250,
+                  hideMethod   : 'fade',
+                  hideDuration : 250
+                })
+            # , 100
+            Meteor.users.update @_id,
+                $set:healthclub_checkedin:true
+            Docs.insert
+                model:'log_event'
+                log_type:'garden_key_checkout'
+                active:true
+                object_id:@_id
+                body: "#{@first_name} #{@last_name} checked out the garden key."
+            # document.reload()
+
+    Template.unit_key_checkout.events
+        'click .unit_key_checkout': (e,t)->
+            # $(e.currentTarget).closest('.segment').transition('fade left',100)
+            # Meteor.setTimeout =>
+            $('body').toast({
+                title: "unit key checked out #{@first_name} #{@last_name}."
+                # message: 'See desk staff for key.'
+                class : 'blue'
+                position:'top right'
+                # className:
+                #     toast: 'ui massive message'
+                displayTime: 5000
+                transition:
+                  showMethod   : 'zoom',
+                  showDuration : 250,
+                  hideMethod   : 'fade',
+                  hideDuration : 250
+                })
+            # , 100
+            Meteor.users.update @_id,
+                $set:healthclub_checkedin:true
+            Docs.insert
+                model:'log_event'
+                log_type:'unit_key_checkout'
+                active:true
+                object_id:@_id
+                body: "#{@first_name} #{@last_name} checked out the unit key."
+            # document.reload()
+
+
+
+
 
 
 if Meteor.isServer

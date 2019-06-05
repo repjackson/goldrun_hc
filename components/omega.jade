@@ -19,7 +19,9 @@ template(name='omega_doc_edit')
     .ui.container
         with current_doc
             .ui.header omega doc edit
-            +text_edit key='title' direct=true
-            +text_edit key='slug' direct=true
             +text_edit key='model' direct=true
+            .ui.divider
+            //- +text_edit key='title' direct=true
+            +text_edit key='slug' direct=true
+            .ui.divider
             +array_edit key='child_models' direct=true
