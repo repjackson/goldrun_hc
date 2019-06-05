@@ -24,7 +24,6 @@ if Meteor.isClient
             page_doc = Docs.findOne Router.current().params.doc_id
             Docs.update page_doc._id,
                 $set: "#{@model}":"#{@slug}"
-<<<<<<< HEAD
             # location.reload()
         'click .edit_selection_doc': ->
             page_doc = Docs.findOne Router.current().params.doc_id
@@ -35,9 +34,6 @@ if Meteor.isClient
                 slug:page_doc["#{@model}"]
 
             Router.go "/omega_doc_edit/#{selection_doc._id}"
-=======
-            location.reload()
->>>>>>> b6a5e29c603dd1e62a6d7fc4ba924a566b126f65
 
 
 

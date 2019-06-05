@@ -123,7 +123,7 @@ template(name='user_email')
 template(name='big_user_card')
     with user
         //- .ui.card
-        .ui.card
+        .ui.card(class=resident_status_class)
             .image
                 img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .content
@@ -158,14 +158,14 @@ template(name='big_user_card')
 
 
 template(name='garden_key_checkout')
-    .ui.basic.button.garden_key_checkout
+    .ui.basic.compact.button.garden_key_checkout
         +i name='plant' classes='ui mini inline image'
-        |checkout garden key
+        strong checkout garden key
 
 template(name='unit_key_checkout')
-    .ui.basic.button.unit_key_checkout
+    .ui.basic.compact.button.unit_key_checkout
         +i name='key' classes='ui mini inline image'
-        |checkout unit key
+        strong checkout unit key
 
 
 template(name='user_info')
@@ -292,11 +292,11 @@ template(name='add_model_button')
 
             
 template(name='email_validation_check')
-    if email_verified
-        .ui.large.green.basic.button
-            i.checkmark.icon
-            |email validated
-    else
+    //- if email_verified
+    //-     .ui.large.green.basic.button
+    //-         i.checkmark.icon
+    //-         |email validated
+    unless email_verified
         .ui.orange.basic.button.send_verification
             //- i.ban.icon
             |email unvalidated

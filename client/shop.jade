@@ -91,7 +91,6 @@ template(name='omega_edit')
                 +i name=icon
             |#{slug}
     .ui.divider
-<<<<<<< HEAD
     if omega_selection_doc
         |#{omega_selection_doc.slug}
         .ui.button.edit_selection_doc
@@ -100,10 +99,6 @@ template(name='omega_edit')
         each omega_selection_doc.child_models
             .ui.label #{this}
             +subomega_edit submodel=this
-=======
-    if submodel
-        +subomega_edit submodel=submodel
->>>>>>> b6a5e29c603dd1e62a6d7fc4ba924a566b126f65
     //- +single_doc_edit key=model ref_model=model label=model direct=true
 
 template(name='subomega_edit')

@@ -69,6 +69,7 @@ Template.checkin_button.events
             user_id:@_id
             resident_username:@username
             body: "#{@first_name} #{@last_name} checked in."
+        Meteor.call 'check_resident_status', @_id
         Session.set 'username_query',null
         Session.set 'checkin_document',checkin_document
         # Session.set 'checking_in',false
@@ -203,12 +204,11 @@ Template.checkin_card.helpers
     user: -> Meteor.users.findOne @valueOf()
     checkin_card_class: ->
         unless @rules_signed then 'red_flagged'
-        else if @email_verified then 'yellow_flagged'
-        else "green_flagged"
+        else unless @email_verified then 'yellow_flagged'
+        else ""
+        # else "green_flagged"
 
     adding_guests: -> Session.get 'adding_guest'
-
-
 
     red_flagged: ->
         rule_doc = Docs.findOne(

@@ -7,8 +7,6 @@ $.cloudinary.config
 
 Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
 
-
-
 Session.setDefault 'invert', false
 Template.registerHelper 'dark_mode', () -> Session.equals('dark_mode',true)
 Template.registerHelper 'invert_class', () -> if Session.equals('dark_mode',true) then 'invert' else ''
@@ -42,6 +40,13 @@ Template.registerHelper 'referenced_product', () ->
         _id:@product_id
 
 
+Template.registerHelper 'resident_status_class', ()->
+    console.log @
+    unless @rules_and_regs_signed
+        'red_flagged'
+    else unless @email_validated
+        'orange_flagged'
+    else ''
 
 Template.registerHelper 'available_servings', () ->
 

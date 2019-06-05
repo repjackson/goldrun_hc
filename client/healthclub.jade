@@ -147,7 +147,7 @@ template(name='checkin_card')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     with user
         //- .ui.padded.stackable.grid
-        .ui.padded.middle.aligned.grid.header-wrapper
+        .ui.padded.middle.aligned.grid.header-wrapper(class=resident_status_class)
             .two.column.row
                 .column
                     //- if is_staff

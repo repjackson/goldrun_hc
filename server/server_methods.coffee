@@ -103,6 +103,9 @@ Meteor.methods
                 # checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
                 # console.log 'now checked in members', checkedin_members
 
+    check_resident_status: (user_id)->
+        user = Meteor.users.findOne user_id
+
 
     checkout_user: (user_id)->
         console.log 'checking out user', user_id
