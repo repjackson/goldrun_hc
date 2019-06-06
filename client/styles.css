@@ -105,7 +105,7 @@ input:focus, textarea:focus {
 .button.active {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
-    background-color: grey !important;
+    background-color: black !important;
     color: white !important;
     /* transform: translate(0, 4px); */
 }

@@ -202,6 +202,15 @@ template(name='user_garden')
             |garden
 
             
+template(name='user_permits')
+    if user_permits
+        .ui.segment
+            .ui.grey.inline.center.aligned.header 
+                //- i.id.card.alternate.icon
+                +i name='badge'
+                |permits
+
+            
 template(name='user_signatures')
     .ui.segment
         .ui.grey.inline.center.aligned.header 

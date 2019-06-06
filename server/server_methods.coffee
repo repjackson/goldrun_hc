@@ -107,6 +107,7 @@ Meteor.methods
         user = Meteor.users.findOne user_id
 
 
+
     checkout_user: (user_id)->
         console.log 'checking out user', user_id
         Meteor.users.update user_id,
@@ -241,7 +242,8 @@ Meteor.methods
 
 
 
-    slugify: (title)->
+    slugify: (doc_id)->
+        doc = Docs.findOne doc_id
         slug = title.toString().toLowerCase().replace(/\s+/g, '_').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '_').replace(/^-+/, '').replace(/-+$/,'')
         console.log 'title', title
         console.log 'slug', slug

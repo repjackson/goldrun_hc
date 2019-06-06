@@ -376,6 +376,20 @@ Template.text_edit.events
             Meteor.users.update parent._id,
                 $set:"#{@key}":val
 
+
+Template.slug_edit.events
+    'click .slugify_title': (e,t)->
+        page_doc = Docs.findOne Router.current().params.doc_id
+        # val = t.$('.edit_text').val()
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        doc = Docs.findOne parent._id
+        Meteor.call 'slugify', page_doc._id, (err,res)=>
+            Docs.update parent._id,
+                $set:slug:res
+
 Template.phone_edit.events
     'blur .edit_phone': (e,t)->
         val = t.$('.edit_phone').val()

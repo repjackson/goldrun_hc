@@ -347,6 +347,23 @@ template(name='text_edit')
         input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
         
 
+template(name='slug_edit')
+    .ui.fluid.icon.input
+        .ui.small.inline.header
+            if icon
+                +i name=icon
+                //- i.icon(class=icon)
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
+        //- +clear_value
+        input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
+        .ui.button.slugify_title
+            +i name='slug'
+
 
 template(name='clear_value')
     if field_value
@@ -888,7 +905,7 @@ template(name='single_doc_edit')
             //- i.icon(class=icon)
         |#{label} #{title}
     each choices
-        .ui.small.circular.button.select_choice(class=choice_class)
+        .ui.small.circular.compact.button.select_choice(class=choice_class)
             if icon
                 +i name=icon classes='ui avatar image'
                 //- i.icon(class=icon)
