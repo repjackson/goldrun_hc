@@ -1,7 +1,19 @@
 if Meteor.isClient
     Template.user_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
+        @autorun -> Meteor.subscribe 'user_referenced_docs', Router.current().params.username
         @autorun -> Meteor.subscribe 'user_models', Router.current().params.username
+
+    Template.user_layout.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'staff_resident_widget'
+
+    Template.user_about.helpers
+        staff_resident_widgets: ->
+            Docs.find
+                model:'staff_resident_widget'
+
+        widget_template: ->
+            console.log @
 
 
     Template.user_section.helpers
@@ -47,6 +59,8 @@ if Meteor.isClient
             Meteor.logout()
             Router.go '/login'
 
+
+
     Template.user_healthclub.events
         'click .generate_barcode': ->
             current_user = Meteor.users.findOne username:Router.current().params.username
@@ -61,8 +75,6 @@ if Meteor.isClient
         user_array_element_toggle_class: ->
             # user = Meteor.users.findOne Router.current().params.username
             if @user["#{@key}"] and @value in @user["#{@key}"] then 'black' else 'basic'
-
-
     Template.user_array_element_toggle.events
         'click .toggle_element': (e,t)->
             # console.log @
@@ -92,7 +104,6 @@ if Meteor.isClient
 
     Template.user_array_list.onCreated ->
         @autorun => Meteor.subscribe 'user_array_list', @data.user, @data.array
-
     Template.user_array_list.helpers
         users: ->
             users = []
@@ -143,7 +154,7 @@ if Meteor.isClient
                     model:'wall_post'
                 t.$('.new_post').val('')
         'click .remove_comment': ->
-            if confirm 'Remove Comment?'
+            if confirm 'remove comment?'
                 Docs.remove @_id
         'click .vote_up_comment': ->
             if @upvoters and Meteor.userId() in @upvoters
@@ -232,6 +243,14 @@ if Meteor.isClient
         unit: ->
             Docs.findOne
                 model:'unit'
+
+
+    # Template.user_unit.onCreated ->
+    #     @autorun => Meteor.subscribe 'user_unit', Router.current().params.username
+    Template.user_permit.helpers
+        permit_doc: ->
+            Docs.findOne
+                model:'parking_permit'
 
 
     Template.user_guests.onCreated ->
@@ -355,3 +374,8 @@ if Meteor.isServer
         Docs.find
             model:'log_event'
             object_id:user._id
+
+
+    Meteor.publish 'user_referenced_docs', (username)->
+        Docs.find
+            resident:username

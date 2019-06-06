@@ -251,8 +251,9 @@ template(name='remove_button')
 
 template(name='add_button')
     a.ui.large.basic.button.add(title="Add #{model}")
-        i.plus.icon
-        |#{label}
+        i.green.plus.icon
+        if label
+            |#{label}
         //- |#{model}
 
 

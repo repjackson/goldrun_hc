@@ -123,22 +123,32 @@ template(name='user_healthclub')
 template(name='user_about')
     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
     .ui.stackable.grid
-        .three.column.row
-            .column
-                if user_is_resident
-                    if is_staff
+        .row
+            if user_is_resident
+                if is_staff
+                    each staff_resident_widgets
+                        .four.wide.column
+                            +Template.dynamic template=widget_template
+                    .four.wide.column
                         +user_checkins
+                    .four.wide.column
                         +user_guests
+                    .four.wide.column
                         +violations
+                    .four.wide.column
                         +user_signatures
+                    .four.wide.column
                         +user_card_replacements
+                    .four.wide.column
                         +user_notes        
-            .column
-                if user_is_resident
-                    if is_staff
+                    .four.wide.column
                         +user_key
+                    .four.wide.column
                         +user_unit
+                    .four.wide.column
                         +membership_status
+                    .four.wide.column
+                        +user_permit
                 
 template(name='resident_info')
     .ui.segment
@@ -193,6 +203,17 @@ template(name='user_card_replacements')
             +i name='card-exchange'
             |card replacements
 
+
+
+template(name='user_permit')
+    .ui.segment
+        .ui.grey.inline.center.aligned.header 
+            +i name='badge'
+            |permit
+        with permit_doc
+            .ui.small.header permit #{permit}
+
+
             
 template(name='user_garden')
     .ui.segment
@@ -207,6 +228,8 @@ template(name='user_permits')
         .ui.segment
             .ui.grey.inline.center.aligned.header 
                 //- i.id.card.alternate.icon
+                +goto_model slug='parking_permit'
+            
                 +i name='badge'
                 |permits
 

@@ -5,13 +5,14 @@ template(name='user_edit')
             .three.column.row
                 .column
                     .ui.center.aligned.large.inline.grey.header
-                        i.pencil.icon
+                        +i name='pencil'
                         | #{user_from_username_param.first_name} #{user_from_username_param.last_name}
                     .ui.small.header @#{user_from_username_param.username}
                     a.ui.large.fluid.icon.basic.button(href="/user/#{user_from_username_param.username}/" title='save') 
                         i.checkmark.large.green.icon
-                    //- i.cog.icon
-                    +image_edit key='image_id' title='profile image' direct=true
+                        |save
+                    .ui.hidden.divider
+                    +image_edit key='image_id' icon='picture' title='profile image' direct=true
                     +password_edit
                     if is_dev
                         //- +phone_editor
@@ -26,29 +27,23 @@ template(name='user_edit')
                     .ui.form
                         if user_is_resident_or_owner
                             if is_staff
-                                +text_edit key='first_name' label='first name' direct=true
-                                .ui.hidden.divider
-                                +text_edit key='last_name' label='last name' direct=true
-                                .ui.hidden.divider
-                                +text_edit key='address' label='address' direct=true
+                                +text_edit key='first_name' label='first name' icon='header' direct=true
+                                +text_edit key='last_name' label='last name' icon='text' direct=true
+                                +text_edit key='address' label='address' icon='marker' direct=true
                                 //- +number_edit key='healthclub_code' label='Healthclub Code' direct=true
-                                +number_edit key='unit_number' label='unit #' direct=true
-                                .ui.hidden.divider
-                                +number_edit key='building_number' label='building #' direct=true
-                                .ui.hidden.divider
-                                +text_edit key='building_code' label='building code' direct=true
-                                +date_edit key='start_date' label='start date' direct=true
-                                .ui.hidden.divider
-                                +pdf_edit key='lease_agreement' label='lease agreement' direct=true
-                                +pdf_edit key='lease_addendum' label='lease addendum' direct=true
-                                .ui.hidden.divider
+                                +number_edit key='unit_number' label='unit #' icon='home' direct=true
+                                +number_edit key='building_number' label='building #' icon='building' direct=true
+                                +text_edit key='building_code' label='building code' icon='building' direct=true
+                                +date_edit key='start_date' label='start date' icon='calendar' direct=true
+                                +pdf_edit key='lease_agreement' label='lease agreement' icon='clipboard' direct=true
+                                +pdf_edit key='lease_addendum' label='lease addendum' icon='clipboard' direct=true
                                 if user_is_owner
-                                    +pdf_edit key='ownership_paperwork' label='ownership paperwork' direct=true
+                                    +pdf_edit key='ownership_paperwork' label='ownership paperwork' icon='pdf' direct=true
                                     .ui.hidden.divider
                                 if user_is_resident
-                                    +date_edit key='expiration_date' label='expiration date' direct=true
+                                    +date_edit key='expiration_date' label='expiration date' icon='calendar minus' direct=true
                                     .ui.hidden.divider
-                                +pdf_edit key='member_guidelines_and_waiver' label='member guidelines and waiver' direct=true
+                                +pdf_edit key='member_guidelines_and_waiver' icon='signature' label='member guidelines and waiver' direct=true
                                 .ui.hidden.divider
                             else
                                 +text_view key='first_name' label='first name' direct=true
@@ -78,15 +73,15 @@ template(name='user_edit')
                     if user_is_resident_or_owner
                         if is_staff
                             //- with user_from_username_param
-                            +boolean_edit key='government_id_checked' label='government id checked' direct=true
-                            +single_user_edit key='id_checked_by_staff' label='government id checked by' role_filter='staff' direct=true
-                            +date_edit key='id_checked_date' label='government id checked date' direct=true
+                            +boolean_edit key='government_id_checked' label='government id checked' icon='id-verified' direct=true
+                            +single_user_edit key='id_checked_by_staff' label='government id checked by' role_filter='staff' icon='user shield' direct=true
+                            +date_edit key='id_checked_date' label='government id checked date' icon='today' direct=true
                         else
-                            +boolean_view key='government_id_checked' label='government id checked' direct=true
-                            +text_view key='id_checked_by_staff' label='government id checked by' role_filter='staff' direct=true
-                            +date_view key='id_checked_date' label='government id checked date' direct=true
+                            +boolean_view key='government_id_checked' label='government id checked' icon='id-verified' direct=true
+                            +text_view key='id_checked_by_staff' label='government id checked by' role_filter='staff' icon='user shield' direct=true
+                            +date_view key='id_checked_date' label='government id checked date' icon='today' direct=true
                             //- with user_from_username_param
-                        +boolean_edit key='published' label='profile published'
+                        +boolean_edit key='published' icon='eye' label='profile published'
                     //- +payment_methods
                     +user_settings
                     
@@ -94,7 +89,7 @@ template(name='user_edit')
 template(name='user_settings')
     .ui.segment
         .ui.header 
-            i.cog.icon
+            +i name='settings'
             |settings
         with user_from_username_param
             +boolean_edit key='show_bookmarked_model_bar' label='show bookmarked model bar' direct=true
@@ -159,7 +154,7 @@ template(name='add_card_modal')
 
 template(name='password_edit')
     .ui.small.grey.header
-        i.lock.icon
+        +i name='password'
         |change password
     //- .ui.fluid.input
     //-     input#password(type='password', placeholder='old password')

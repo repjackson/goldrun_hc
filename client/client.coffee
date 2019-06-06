@@ -41,7 +41,7 @@ Template.registerHelper 'referenced_product', () ->
 
 
 Template.registerHelper 'resident_status_class', ()->
-    console.log @
+    # console.log @
     unless @rules_and_regs_signed
         'red_flagged'
     else unless @email_validated
