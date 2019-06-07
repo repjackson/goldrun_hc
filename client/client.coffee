@@ -5,7 +5,7 @@ $.cloudinary.config
 # Router.notFound =
     # action: 'not_found'
 
-Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
+# Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
 
 Session.setDefault 'invert', false
 Template.registerHelper 'dark_mode', () -> Session.equals('dark_mode',true)

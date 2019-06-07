@@ -1,6 +1,7 @@
 template(name='healthclub')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
-    .ui.padded.stackable.grid.header-wrapper(class=invert_class)
+    //- .ui.padded.stackable.grid.header-wrapper(class=invert_class)
+    .ui.padded.stackable.grid.header-wrapper
         .sixteen.wide.column
             unless is_frontdesk
                 a.ui.button(href='/staff')

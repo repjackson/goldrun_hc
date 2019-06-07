@@ -50,6 +50,11 @@ Router.route '/fuckery', -> @render 'fuckery'
 Router.route '/register', -> @render 'register'
 Router.route '/cart', -> @render 'cart'
 Router.route '/admin', -> @render 'admin'
+Router.route '/buildings', -> @render 'buildings'
+
+Router.route '/unit/:unit_id', -> @render 'admin'
+Router.route '/building/:building_code', -> @render 'building'
+
 
 Router.route('enroll', {
     path: '/enroll-account/:token'

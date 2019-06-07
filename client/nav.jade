@@ -11,12 +11,15 @@ template(name='nav')
                 a.header.icon.item(href='/' class="{{isActivePath '/'}}")
                     //- i.home.large.large.icon
                     +i name='home-page'  
-                a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
+                a.header.icon.item(href='/home' class="{{isActivePath '/home'}}")
                     //- i.th.large.large.icon
                     +i name='activity-grid-2'    
-                a.header.icon.set_model.item(href='/units' class="{{isActivePath '/units'}}")
+                a.header.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
                     //- i.th.large.large.icon
-                    +i name='room'    
+                    +i name='apartment'    
+                //- a.header.icon.set_units.item(href='/m/unit' class="{{isActivePath '/m/unit'}}")
+                //-     //- i.th.large.large.icon
+                //-     +i name='room'    
                 if is_staff
                     a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                         +i name='employee-card'

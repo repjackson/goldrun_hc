@@ -1,3 +1,21 @@
+template(name='buildings')
+    .ui.stackable.padded.grid
+        each buildings
+            .four.wide.column
+                a(href="/building/#{building_code}")
+                    .ui.segment
+                        .ui.header #{building_code}
+                        each building_numbers
+                            .ui.basic.label #{this}
+                        .ui.header #{building_street}
+                
+                
 template(name='building')
     with building
-        .ui.header unit
+        .ui.padded.stackable.grid
+            .ui.four.wide.column
+                .ui.header #{building_code}
+                .ui.header unit
+            .ui.twelve.wide.column
+                each building_numbers
+                    .ui.basic.label #{this}

@@ -884,13 +884,14 @@ template(name='boolean_view')
         i.large.cancel.icon
 
 template(name='single_doc_view')
+    div
     if field_value
         if icon
             +i name=icon
             //- i.icon(class=icon)
-        .ui.header(title=key)
+        .ui.small.inline.header(title=key)
             |#{title}
-        .ui.label
+        .ui.basic.label
             if icon
                 +i name=icon
                 //- i.icon(class=icon)

@@ -21,6 +21,11 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'meal', ->
                 Session.set 'loading', false
 
+        'click .set_units': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'unit', ->
+                Session.set 'loading', false
+
         'click .set_shop': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', 'shop', ->
