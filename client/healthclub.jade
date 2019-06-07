@@ -64,7 +64,7 @@ template(name='add_resident')
         .centered.row
             .eight.wide.column
                 h1.ui.center.aligned.header
-                    i.user.plus.icon
+                    +i name='add user male'
                     | resident
                 .ui.big.form
                     .field
@@ -117,9 +117,8 @@ template(name='checkin_button')
         else
             .ui.large.basic.button.checkin
                 .ui.header
-                    |check in
-                .ui.header
-                    |#{first_name} #{last_name}
+                    small check in
+                    strong #{first_name} #{last_name}
 
 
 

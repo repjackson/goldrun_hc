@@ -199,7 +199,7 @@ template(name='received_karma')
             
 template(name='user_card_replacements')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             +i name='card-exchange'
             |card replacements
 
@@ -207,17 +207,30 @@ template(name='user_card_replacements')
 
 template(name='user_permit')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             +i name='badge'
             |permit
+        +goto_model slug='parking_permit'
+        
         with permit_doc
-            .ui.small.header permit #{permit}
+            .ui.small.inline.header permit
+            .ui.grey.inline.header #{permit}
+            div
+            .ui.small.inline.header date issued
+            .ui.grey.inline.header #{date_issued}
+            div
+            .ui.small.inline.header expiration date
+            .ui.grey.inline.header #{expiration_date}
+            div
+            .ui.small.inline.header license plate 
+            .ui.grey.inline.header #{license_plate}
+            div
 
 
             
 template(name='user_garden')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             //- i.id.card.alternate.icon
             +i name='garden-gloves'
             |garden
@@ -226,7 +239,7 @@ template(name='user_garden')
 template(name='user_permits')
     if user_permits
         .ui.segment
-            .ui.grey.inline.center.aligned.header 
+            .ui.grey.inline.center.aligned.small.header 
                 //- i.id.card.alternate.icon
                 +goto_model slug='parking_permit'
             
@@ -236,7 +249,7 @@ template(name='user_permits')
             
 template(name='user_signatures')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             +i name='signature'
             | signatures
         .ui.link.large.list
@@ -251,7 +264,7 @@ template(name='user_notes')
     if user_is_resident
         if is_staff
             .ui.segment
-                +textarea_edit key='staff_notes' title='staff notes' direct=true
+                +textarea_edit key='staff_notes' title='staff notes' icon='note' direct=true
 
             
             
@@ -278,8 +291,8 @@ template(name='gr_status')
             
 template(name='user_checkins')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
-            +i name='internal'
+        .ui.grey.inline.center.aligned.small.header 
+            //- +i name='internal'
             |health club check ins
         if is_staff
             +checkin_button
@@ -291,7 +304,7 @@ template(name='user_checkins')
             
 template(name='user_guests')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             +i name='groups'
             |guests
         +goto_model slug='guest'
@@ -309,7 +322,7 @@ template(name='user_guests')
             
 template(name='user_key')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             //- i.key.icon
             +i name='key'
             |key
@@ -347,7 +360,7 @@ template(name='user_key')
             
 template(name='user_unit')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             //- i.home.icon
             +i name='interior'
             |unit
@@ -370,7 +383,7 @@ template(name='user_section')
     
 template(name='violations')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             +i name='foul'
             |violations
         +goto_model slug='violation'
@@ -403,7 +416,7 @@ template(name='violations')
 template(name='user_log')
     //- .ui.fluid.styled.accordion
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             //- +i name='overview-pages-4'
             i.list.icon
             |log
@@ -442,7 +455,7 @@ template(name='user_feed')
                 
 template(name='user_bookmarks')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             //- +i name='bookmark'
             i.bookmark.icon
             |bookmarks
@@ -458,7 +471,7 @@ template(name='user_bookmarks')
 template(name='user_karma')
     .ui.fluid.styled.accordion
         .active.title
-            .ui.grey.inline.center.aligned.header 
+            .ui.grey.inline.center.aligned.small.header 
                 i.heartbeat.icon
                 | karma
         .active.content
@@ -491,7 +504,7 @@ template(name='user_unread')
 template(name='user_tasks')
     //- .ui.fluid.styled.accordion
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             //- +i name='tasks'
             i.tasks.icon
             |staff tasks
@@ -525,7 +538,7 @@ template(name='user_array_list')
             
 template(name='role_switcher')
     .ui.segment
-        .ui.grey.inline.center.aligned.header 
+        .ui.grey.inline.center.aligned.small.header 
             +i name='anonymous-mask'
             //- i.shield.icon(title='role switcher')
             |#{username} role switcher
@@ -558,7 +571,7 @@ template(name='user_string_toggle')
 template(name='membership_status')
     .ui.segment
         .active.title
-            .ui.grey.inline.center.aligned.header 
+            .ui.grey.inline.center.aligned.small.header 
                 |membership status
         +email_validation_check
         +lease_expiration_check
@@ -593,7 +606,7 @@ template(name='follow_user')
 template(name='user_wall')
     .ui.fluid.styled.accordion
         .active.title
-            .ui.grey.inline.center.aligned.header 
+            .ui.grey.inline.center.aligned.small.header 
                 i.edit.icon
                 |wall
         .active.content

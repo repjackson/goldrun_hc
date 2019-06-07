@@ -35,7 +35,8 @@ template(name='user_edit')
                                 +number_edit key='building_number' label='building #' icon='building' direct=true
                                 +text_edit key='building_code' label='building code' icon='building' direct=true
                                 +date_edit key='start_date' label='start date' icon='calendar' direct=true
-                                +pdf_edit key='lease_agreement' label='lease agreement' icon='clipboard' direct=true
+                                unless user_is_owner
+                                    +pdf_edit key='lease_agreement' label='lease agreement' icon='clipboard' direct=true
                                 +pdf_edit key='lease_addendum' label='lease addendum' icon='clipboard' direct=true
                                 if user_is_owner
                                     +pdf_edit key='ownership_paperwork' label='ownership paperwork' icon='pdf' direct=true
@@ -62,7 +63,7 @@ template(name='user_edit')
                                     +pdf_edit key='lease_addendum' label='lease addendum' direct=true
                                 +pdf_view key='member_guidelines_and_waiver' label='lease agreement' direct=true
                         //- +text_edit key='email' label='email' direct=true
-                        +phone_edit key='phone' label='phone' direct=true
+                        +phone_edit key='phone' label='phone' icon='telephone' direct=true
                         //- +image_edit key='banner_image_id' label='banner image' direct=true
                         //- +text_edit key='tagline' label='tag line' direct=true
                         

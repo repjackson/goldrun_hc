@@ -247,8 +247,8 @@ template(name='textarea_edit')
     .ui.form
         .field
             label 
-                //- if icon
-                //-     i.icon(class=icon)
+                if icon
+                    +i name=icon classes='ui avatar image'
                 if title
                     |#{title}
                 else if label
@@ -392,7 +392,7 @@ template(name='text_view')
 template(name='parent_edit')
     .ui.fluid.icon.input
         .ui.small.inline.header
-            |Parent Edit
+            |parent edit
             if icon
                 +i name=icon
                 //- i.icon(class=icon)
@@ -427,9 +427,9 @@ template(name='parent_view')
 
 template(name='phone_edit')
     .ui.fluid.input
-        // if icon
-        //     i.icon(class=icon)
         .ui.inline.small.header 
+            if icon
+                +i name=icon
             if title
                 |#{title}
             else if label
@@ -438,7 +438,7 @@ template(name='phone_edit')
                 |#{key}
             else
                 |#{this}
-        +clear_value                
+        //- +clear_value                
         input.edit_phone(type='tel' value=field_value placeholder=placeholder autocomplete="off")
 
 template(name='phone_view')
@@ -446,8 +446,8 @@ template(name='phone_view')
         unless header
             div
             .ui.small.inline.header
-                // if icon
-                //     i.icon(class=icon)
+                if icon
+                    +i name=icon
                 if title
                     |#{title}
                 else if label

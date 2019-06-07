@@ -14,6 +14,9 @@ template(name='nav')
                 a.header.icon.set_model.item(href='/home' class="{{isActivePath '/home'}}")
                     //- i.th.large.large.icon
                     +i name='activity-grid-2'    
+                a.header.icon.set_model.item(href='/units' class="{{isActivePath '/units'}}")
+                    //- i.th.large.large.icon
+                    +i name='room'    
                 if is_staff
                     a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                         +i name='employee-card'

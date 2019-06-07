@@ -29,10 +29,10 @@ template(name='delta')
                             if is_dev
                                 .ui.icon.large.basic.button.print_delta(title='print session doc')
                                     i.code.icon
-                                .ui.reset.icon.basic.button(title='reload session')
-                                    i.refresh.icon
-                                .ui.delete_delta.icon.basic.button(title='delete session')
-                                    i.trash.icon
+                            .ui.reset.icon.basic.button(title='reload session')
+                                i.refresh.icon
+                            .ui.delete_delta.icon.basic.button(title='delete session')
+                                i.trash.icon
                         else
                             .create_delta.ui.large.blue.button(title='new session')
                                 i.plus.icon
@@ -73,11 +73,10 @@ template(name='facet')
                 |#{key}
                 //- i.dropdown.icon
             //- .active.content
-        if is_dev
-            .ui.icon.small.transparent.input
-                i.search.icon
-                input.add_filter(type='text')
-            //- div
+        .ui.icon.small.transparent.input
+            i.search.icon
+            input.add_filter(type='text')
+        //- div
         each filtering_res
             if name
                 .selector.ui.button.toggle_selection(class=toggle_value_class)

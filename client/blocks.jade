@@ -239,9 +239,9 @@ template(name='voting_full')
 
 
 template(name='view_button')
-    a.ui.icon.large.basic.button.view(title='view' href="/m/#{model}/#{_id}/view")
+    a.ui.icon.compact.basic.button.view(title='view' href="/m/#{model}/#{_id}/view")
         //- i.right.chevron.large.icon
-        +i name='chevron right'
+        +i name='chevron right' classes='ui mini inline image'
 
 
 template(name='remove_button')
