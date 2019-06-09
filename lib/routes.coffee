@@ -52,7 +52,7 @@ Router.route '/cart', -> @render 'cart'
 Router.route '/admin', -> @render 'admin'
 Router.route '/buildings', -> @render 'buildings'
 
-Router.route '/unit/:unit_id', -> @render 'admin'
+Router.route '/unit/:unit_id', -> @render 'unit'
 Router.route '/building/:building_code', -> @render 'building'
 
 

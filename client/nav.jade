@@ -1,6 +1,7 @@
 template(name='nav')
     unless is_frontdesk
-        .ui.borderless.attached.big.inverted.menu.topnav.grblue
+        //- .ui.borderless.attached.big.inverted.menu.topnav.grblue
+        .ui.borderless.attached.big.inverted.menu.topnav
             //- a.toggle_sidebar.icon.item.sidebar_on
             //-     i.large.sidebar.icon
             if is_loading
@@ -10,7 +11,7 @@ template(name='nav')
                 //- if is_admin
                 a.header.icon.item(href='/' class="{{isActivePath '/'}}")
                     //- i.home.large.large.icon
-                    +i name='home-page'  
+                    +i name='home-page' classes='ui mini inline image'
                 a.header.icon.item(href='/home' class="{{isActivePath '/home'}}")
                     //- i.th.large.large.icon
                     +i name='activity-grid-2'    
@@ -54,7 +55,7 @@ template(name='nav')
                 //- a.item.set_marketplace(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}")
                 //-     +i name='shop'
                 if is_staff
-                    a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='Health Club')
+                    a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='health club')
                         +i name='treadmill'    
                         //- i.clinic.medical.large.icon
                         .mobile.hidden &nbsp; health club

@@ -2,8 +2,9 @@ template(name='buildings')
     .ui.stackable.padded.grid
         each buildings
             .four.wide.column
-                a(href="/building/#{building_code}")
-                    .ui.segment
+                a(href="/building/#{slug}")
+                    .ui.segment.home_segment
+                        img.ui.rounded.image(src="{{c.url image width=400 height=200 crop='fill'}}")
                         .ui.header #{building_code}
                         each building_numbers
                             .ui.basic.label #{this}
@@ -11,11 +12,36 @@ template(name='buildings')
                 
                 
 template(name='building')
-    with building
-        .ui.padded.stackable.grid
-            .ui.four.wide.column
-                .ui.header #{building_code}
-                .ui.header unit
-            .ui.twelve.wide.column
-                each building_numbers
-                    .ui.basic.label #{this}
+    input.unit_number(type='number' placeholder='unit number')
+    input.building_number(type='number' placeholder='unit building number')
+    input.building_label(type='text' placeholder='unit building label')
+    a.ui.large.button(href="/buildings")
+        i.chevron.left.icon
+        +i name='apartment' classes='ui inline mini image'
+        |buildings
+    .ui.padded.stackable.grid
+        .ui.four.wide.column
+            .ui.header #{building.building_code}
+            each building.building_numbers
+                .ui.basic.label #{this}
+        .ui.twelve.wide.column
+            .ui.grid
+                .three.column.row
+                    each units
+                        .column
+                            +unit_card
+    
+    
+template(name='unit_card')
+    //- a(href="/unit/#{_id}")    
+    .ui.segment
+        .ui.header unit number #{unit_number}
+        .ui.header building code #{building_code}
+        a.ui.large.button(href="/unit/#{_id}")
+            i.yellow.right.chevron.icon
+        if is_dev
+            +number_edit key='building_number' direct=true
+            +number_edit key='unit_number' direct=true
+            each resident
+                .ui.basic.label #{this}
+                    

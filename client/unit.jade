@@ -1,13 +1,11 @@
-template(name='units')
+template(name='unit')
     .ui.stackable.padded.grid
         .four.wide.column
             .ui.header 
-                +i name='wallet'
+                +i name='apartment'
                 |unit
         .twelve.wide.column
-            |unit content
-            .ui.header hi
-            with unit 
-                |#{title}
+            |unit number
+            |#{unit.unit_number}
             with permits
                 +unit_permits

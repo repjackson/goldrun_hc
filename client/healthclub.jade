@@ -147,7 +147,8 @@ template(name='checkin_card')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     with user
         //- .ui.padded.stackable.grid
-        .ui.padded.middle.aligned.grid.header-wrapper(class=resident_status_class)
+        //- .ui.padded.middle.aligned.grid.header-wrapper(class=resident_status_class)
+        .ui.padded.middle.aligned.grid.header-wrapper
             .two.column.row
                 .column
                     //- if is_staff
@@ -191,8 +192,8 @@ template(name='checkin_card')
                         .ui.big.basic.fluid.button.toggle_adding_guest 
                             i.plus.large.icon
                             |guest
-                    +email_validation_check
-                    +lease_expiration_check
+                    //- +email_validation_check
+                    //- +lease_expiration_check
                     +rules_and_regs_check  
                     .ui.hidden.divider      
                     .ui.big.fluid.green.button.complete_checkin

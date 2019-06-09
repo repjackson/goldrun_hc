@@ -5,7 +5,7 @@ template(name='user_layout')
             .row
                 .four.wide.column
                     if image_id
-                        img.ui.centered.rounded.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                        img.ui.centered.circular.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     .ui.center.aligned.basic.segment
                         a.ui.large.center.aligned.header(href="/user/#{user.username}")

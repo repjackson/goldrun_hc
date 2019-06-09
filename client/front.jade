@@ -16,11 +16,15 @@ template(name='front')
         //-     .column
         //-         +cal
         //-         //- +model_scroller model='photo' header='Photos' icon='image'
-        .two.column.row    
+        .three.column.row    
             .column
                 +model_scroller model='shop' header='marketplace' icon='shop'
             .column
                 +model_scroller model='gr_post' header='posts' icon='post'
+            .column
+        .one.column.row    
+            .column
+                iframe(src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.41414983186405!2d-105.2554393150354!3d40.00847065387155!2m3!1f357.8823529411765!2f37.27633198895564!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x0%3A0x710555f334428f65!2sGold+Run+Health+Club!5e1!3m2!1sen!2sus!4v1559922280502!5m2!1sen!2sus" width="1200" height="450" frameborder="0" style="border:0" allowfullscreen)
         .three.column.row    
             .column
                 +model_scroller model='group' header='groups' icon='groups'
