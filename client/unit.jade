@@ -4,8 +4,50 @@ template(name='unit')
             .ui.header 
                 +i name='apartment'
                 |unit
+                |#{unit.unit_number}
+            .ui.header 
+                |building #{unit.building_number}
+            .ui.header 
+                |building #{unit.building_code}
         .twelve.wide.column
-            |unit number
-            |#{unit.unit_number}
-            with permits
-                +unit_permits
+            +unit_permits
+            +unit_owners
+            +unit_residents
+            
+template(name='unit_permits')            
+    .ui.segment
+        .ui.header 
+            +i name='badge'
+            |unit permits
+
+
+template(name='unit_owners')            
+    .ui.segment
+        .ui.header 
+            +i name='rent'
+            |unit owners
+        each owners
+            .ui.card
+                .image
+                    img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                .content
+                    a.header(href="/user/#{username}")
+                         |#{first_name} #{last_name} 
+                        .meta @#{username}
+                        //- +array_view key='tags' label='Tags' direct=true
+
+
+template(name='unit_residents')            
+    .ui.segment
+        .ui.header
+            +i name='group'
+            |unit residents
+        each residents
+            .ui.card
+                .image
+                    img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                .content
+                    a.header(href="/user/#{username}")
+                         |#{first_name} #{last_name} 
+                        .meta @#{username}
+                        //- +array_view key='tags' label='Tags' direct=true

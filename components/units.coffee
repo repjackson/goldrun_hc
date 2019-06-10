@@ -1,7 +1,23 @@
 if Meteor.isClient
     Template.unit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.unit_id
+    Template.unit_residents.onCreated ->
+        @autorun => Meteor.subscribe 'unit_residents', Router.current().params.unit_id
+    Template.unit_owners.onCreated ->
+        @autorun => Meteor.subscribe 'unit_owners', Router.current().params.unit_id
         # @autorun => Meteor.subscribe 'unit_units', Router.current().params.unit_code
+
+    Template.unit_owners.helpers
+        owners: ->
+            unit =
+                Docs.findOne
+                    _id: Router.current().params.unit_id
+            if unit
+                Meteor.users.find
+                    roles:$in:['owner']
+                    building_number:unit.building_number
+                    unit_number:unit.unit_number
+
 
     Template.unit.helpers
         unit: ->
@@ -43,3 +59,15 @@ if Meteor.isServer
         Docs.find
             model:'unit'
             unit_code:unit_code
+
+
+    Meteor.publish 'unit_owners', (unit_id)->
+        # console.log 'finding units', unit_code
+        unit =
+            Docs.findOne
+                _id:unit_id
+        if unit
+            Meteor.users.find
+                roles:$in:['owner']
+                building_number:unit.building_number
+                unit_number:unit.unit_number
