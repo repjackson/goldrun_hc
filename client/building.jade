@@ -12,13 +12,13 @@ template(name='buildings')
                 
                 
 template(name='building')
-    input.unit_number(type='number' placeholder='unit number')
-    input.building_number(type='number' placeholder='unit building number')
-    input.building_label(type='text' placeholder='unit building label')
     a.ui.large.button(href="/buildings")
         i.chevron.left.icon
         +i name='apartment' classes='ui inline mini image'
         |buildings
+    input.unit_number(type='number' placeholder='unit number')
+    input.building_number(type='number' placeholder='unit building number')
+    input.building_label(type='text' placeholder='unit building label')
     .ui.padded.stackable.grid
         .ui.four.wide.column
             .ui.header #{building.building_code}

@@ -18,6 +18,17 @@ if Meteor.isClient
                     building_number:unit.building_number
                     unit_number:unit.unit_number
 
+    Template.unit_residents.helpers
+        residents: ->
+            unit =
+                Docs.findOne
+                    _id: Router.current().params.unit_id
+            if unit
+                Meteor.users.find
+                    roles:$in:['resident']
+                    building_number:unit.building_number
+                    unit_number:unit.unit_number
+
 
     Template.unit.helpers
         unit: ->
@@ -69,5 +80,16 @@ if Meteor.isServer
         if unit
             Meteor.users.find
                 roles:$in:['owner']
+                building_number:unit.building_number
+                unit_number:unit.unit_number
+
+    Meteor.publish 'unit_residents', (unit_id)->
+        # console.log 'finding units', unit_code
+        unit =
+            Docs.findOne
+                _id:unit_id
+        if unit
+            Meteor.users.find
+                roles:$in:['resident']
                 building_number:unit.building_number
                 unit_number:unit.unit_number
