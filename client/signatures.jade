@@ -1,23 +1,29 @@
 template(name='rules_signing')
     with signing_doc
-        +document_view key='rules_regs'
-        +user_card resident
-        .ui.header I agree to the rules and regulations
+        .ui.container
+            +document_view key='rules_regs'
+            +user_card resident
+            .ui.small.header
+                +i name='reading-confirmation'
+                |valid email address for receipt
+            .ui.fluid.input
+                input(type='email')
+            .ui.header I agree to the rules and regulations
+                if agree
+                    i.huge.checkmark.green.link.icon.agree
+                else
+                    i.huge.circle.outline.grey.icon.agree
             if agree
-                i.huge.checkmark.green.link.icon.agree
-            else
-                i.huge.circle.outline.grey.icon.agree
-        if agree
-            .ui.header please sign below
-            if signature_saved
-                +signature_view key='signature' direct=true
-                i.pencil.large.icon.edit_signature
-            else
-                +signature_edit key='signature' direct=true
-            if signature_saved
-                .ui.big.green.fluid.button.submit_rules
-                    | submit signing
-                    i.right.chevron.icon
+                .ui.small.header by signing below you agree to the rules and regulations and acknolwedge receipt via a valid email address
+                if signature_saved
+                    +signature_view key='signature' direct=true
+                    i.pencil.large.icon.edit_signature
+                else
+                    +signature_edit key='signature' direct=true
+                if signature_saved
+                    .ui.big.green.fluid.button.submit_rules
+                        | submit signing
+                        i.right.chevron.icon
 
 
 

@@ -192,7 +192,7 @@ template(name='checkin_card')
                         .ui.big.basic.fluid.button.toggle_adding_guest 
                             i.plus.large.icon
                             |guest
-                    //- +email_validation_check
+                    +email_validation_check
                     //- +lease_expiration_check
                     +rules_and_regs_check  
                     .ui.hidden.divider      
@@ -203,7 +203,7 @@ template(name='checkin_card')
                             | complete check in
                             i.right.chevron.icon
                             //- i.right.chevron.icon
-                            //- .ui.big.button.complete_checkin
-                            //-     +i name='key' classes='ui inline image'
-                            //-     .ui.inline.header court key check out
-                            //-     //- i.right.chevron.icon
+                            .ui.big.button.complete_checkin
+                                +i name='key' classes='ui inline image'
+                                .ui.inline.header court key check out
+                                //- i.right.chevron.icon

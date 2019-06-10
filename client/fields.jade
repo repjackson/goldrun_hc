@@ -1018,13 +1018,13 @@ template(name='single_user_edit')
 
 
 template(name='single_user_view')
-    .ui.small.header 
+    .ui.small.inline.header 
         if icon
             +i name=icon    
         |#{title}
         |#{label}
     with field_value
-        .ui.header #{field_value}
+        .ui.inline.header #{field_value}
         +username_info
             
 

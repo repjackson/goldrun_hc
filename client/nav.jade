@@ -1,34 +1,35 @@
 template(name='nav')
     unless is_frontdesk
         //- .ui.borderless.attached.big.inverted.menu.topnav.grblue
-        .ui.borderless.attached.big.inverted.menu.topnav
+        .ui.borderless.attached.large.inverted.menu.topnav
             //- a.toggle_sidebar.icon.item.sidebar_on
             //-     i.large.sidebar.icon
             if is_loading
                 .icon.item
                     i.big.loading.dharmachakra.icon
             else
-                //- if is_admin
-                a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                    //- i.home.large.large.icon
-                    +i name='home-page' classes='ui mini inline image'
-                a.header.icon.item(href='/home' class="{{isActivePath '/home'}}")
+                if is_admin
+                    a.header.icon.item(href='/' class="{{isActivePath '/'}}")
+                        //- i.home.large.large.icon
+                        +i name='home-page' classes='ui mini inline image'
+                    a.icon.item(href='/home' class="{{isActivePath '/home'}}")
+                        //- i.th.large.large.icon
+                        +i name='activity-grid-2' classes='ui mini inline image'
+                a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
                     //- i.th.large.large.icon
-                    +i name='activity-grid-2'    
-                a.header.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                    //- i.th.large.large.icon
-                    +i name='apartment'    
+                    +i name='apartment' classes='ui mini inline image'
+                    |buildings
                 //- a.header.icon.set_units.item(href='/m/unit' class="{{isActivePath '/m/unit'}}")
                 //-     //- i.th.large.large.icon
                 //-     +i name='room'    
                 if is_staff
                     a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
-                        +i name='employee-card'
+                        +i name='employee-card' classes='ui mini inline image'
                         //- i.shield.large.icon
                         .mobile.hidden &nbsp; staff
                     a.item(href='/users' class="{{isActivePath '/users'}}" title='users')
                         //- i.users.large.icon
-                        +i name='groups'
+                        +i name='groups' classes='ui mini inline image'
                         .mobile.hidden &nbsp; users
                 if is_resident_or_user        
                     //- a.item(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
@@ -56,9 +57,9 @@ template(name='nav')
                 //-     +i name='shop'
                 if is_staff
                     a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='health club')
-                        +i name='treadmill'    
+                        +i name='treadmill' classes='ui mini inline image'
                         //- i.clinic.medical.large.icon
-                        .mobile.hidden &nbsp; health club
+                        .mobile.hidden &nbsp; hc check in
             .right.menu
                 //- if is_admin
                 //-     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")

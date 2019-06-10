@@ -4,11 +4,11 @@ template(name='buildings')
             .four.wide.column
                 a(href="/building/#{slug}")
                     .ui.segment.home_segment
-                        img.ui.rounded.image(src="{{c.url image width=400 height=200 crop='fill'}}")
-                        .ui.header #{building_code}
-                        each building_numbers
-                            .ui.basic.label #{this}
-                        .ui.header #{building_street}
+                        //- img.ui.rounded.image(src="{{c.url image width=400 height=200 crop='fill'}}")
+                        .ui.large.header #{building_code}
+                            each building_numbers
+                                .ui.basic.label #{this}
+                        .ui.grey.small.header #{building_street}
                 
                 
 template(name='building')
@@ -16,32 +16,32 @@ template(name='building')
         i.chevron.left.icon
         +i name='apartment' classes='ui inline mini image'
         |buildings
-    input.unit_number(type='number' placeholder='unit number')
-    input.building_number(type='number' placeholder='unit building number')
-    input.building_label(type='text' placeholder='unit building label')
+    if is_dev
+        input.unit_number(type='number' placeholder='unit number')
+        input.building_number(type='number' placeholder='unit building number')
+        input.building_label(type='text' placeholder='unit building label')
     .ui.padded.stackable.grid
         .ui.four.wide.column
             .ui.header #{building.building_code}
             each building.building_numbers
                 .ui.basic.label #{this}
         .ui.twelve.wide.column
-            .ui.grid
-                .three.column.row
-                    each units
-                        .column
-                            +unit_card
-    
+            .ui.cards
+                each units
+                    +unit_card
+
     
 template(name='unit_card')
     //- a(href="/unit/#{_id}")    
-    .ui.segment
-        .ui.header unit number #{unit_number}
-        .ui.header building code #{building_code}
-        a.ui.large.button(href="/unit/#{_id}")
-            i.yellow.right.chevron.icon
-        if is_dev
-            +number_edit key='building_number' direct=true
-            +number_edit key='unit_number' direct=true
-            each resident
-                .ui.basic.label #{this}
+    a.ui.card(href="/unit/#{_id}")
+        .content
+            .ui.large.header #{unit_number}
+        //- .ui.small.header building #{building_code}
+        //- a.ui.large.button(href="/unit/#{_id}")
+        //-     i.yellow.right.chevron.icon
+        //- each resident
+        //-     .ui.basic.label #{this}
+    if is_dev
+        +number_edit key='building_number' direct=true
+        +number_edit key='unit_number' direct=true
                     

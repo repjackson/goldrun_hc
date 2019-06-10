@@ -1,7 +1,7 @@
 template(name='unit')
     .ui.stackable.padded.grid
         .four.wide.column
-            a.ui.button(href="/building/#{unit.building_code}")
+            a.ui.big.button(href="/building/#{unit.building_code}")
                 i.yellow.left.chevron.icon
                 |#{unit.building_code}
             .ui.header 
@@ -22,7 +22,15 @@ template(name='unit_permits')
         .ui.header 
             +i name='badge'
             |unit permits
-
+        .ui.cards
+            each permits
+                .ui.card
+                    .content
+                        with resident 
+                            +username_info
+                        +date_view key='expiration_date' icon='calendar delete' direct=true
+                        +text_view key='permit' icon='badge' direct=true
+                        +text_view key='license_plate' icon='driver-license-card' direct=true
 
 template(name='unit_owners')            
     .ui.segment
