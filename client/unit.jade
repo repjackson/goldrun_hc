@@ -13,9 +13,9 @@ template(name='unit')
             .ui.header 
                 |building #{unit.building_code}
         .twelve.wide.column
-            +unit_permits
-            +unit_owners
             +unit_residents
+            +unit_owners
+            +unit_permits
             
 template(name='unit_permits')            
     .ui.segment

@@ -1,9 +1,14 @@
 if Meteor.isClient
     Template.rules_signing.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'user_by_username', Router.current().params.doc_id
     Template.rules_signing.helpers
         signing_doc: -> Docs.findOne Router.current().params.doc_id
         agree_class: -> if @agree then 'green' else 'basic'
+        resident: ->
+            console.log @resident
+            # Meteor.users.findOne
+            #     username:@resident
     Template.rules_signing.events
         'click .agree':->
             signing_doc = Docs.findOne Router.current().params.doc_id

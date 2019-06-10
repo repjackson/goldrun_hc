@@ -6,8 +6,9 @@ template(name='rules_signing')
             .ui.small.header
                 +i name='reading-confirmation'
                 |valid email address for receipt
+            .ui.header #{resident.username}
             .ui.fluid.input
-                input(type='email')
+                input(type='email' value=resident.emails[0].address)
             .ui.header I agree to the rules and regulations
                 if agree
                     i.huge.checkmark.green.link.icon.agree
