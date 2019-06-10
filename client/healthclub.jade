@@ -195,13 +195,22 @@ template(name='checkin_card')
                     +email_validation_check
                     //- +lease_expiration_check
                     +rules_and_regs_check  
-                    .ui.hidden.divider      
-                    .ui.big.fluid.green.button.complete_checkin
-                        //- +i name='treadmill' classes='ui inline image'
-                        .ui.inline.white.inverted.header 
+                    .ui.hidden.divider    
+                    if rules_signed  
+                        .ui.big.fluid.green.button.complete_checkin
+                            //- +i name='treadmill' classes='ui inline image'
+                            .ui.inline.white.inverted.header 
+                                //- +i name='treadmill'
+                                | complete check in
+                                i.right.chevron.icon
+                    else 
+                        .ui.big.fluid.red.basic.button.sign_rules
+                            //- +i name='treadmill' classes='ui inline image'
+                            .ui.inline.header 
                             //- +i name='treadmill'
-                            | complete check in
+                            | sign rules and regs
                             i.right.chevron.icon
+                        
                             //- i.right.chevron.icon
                             //- .ui.big.button.complete_checkin
                             //-     +i name='key' classes='ui inline image'

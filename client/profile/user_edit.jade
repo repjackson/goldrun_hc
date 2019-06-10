@@ -17,6 +17,9 @@ template(name='user_edit')
                     if is_dev
                         //- +phone_editor
                         +username_edit
+                    .ui.header 
+                        |email(s)
+                        i.blue.envelope.icon
                     +emails_edit
                     if is_dev
                         with user_from_username_param
@@ -184,9 +187,9 @@ template(name='user_field')
                         
             
 template(name='emails_edit')
-    .ui.small.grey.header 
-        i.envelope.icon
-        | email(s)
+    //- .ui.small.grey.header 
+    //-     i.envelope.icon
+    //-     | email(s)
     //- #test_email.ui.big.basic.button test email
     .ui.divided.list
         each current_user.emails
@@ -205,6 +208,6 @@ template(name='emails_edit')
                             i.caret.right.icon
                     .ui.small.icon.basic.button.remove_email
                         i.remove.icon
-    .ui.action.fluid.input
-        input#new_email(type='email')
-        #add_email.ui.submit.basic.button + email
+    .ui.action.input
+        input#new_email(type='email' placeholder='add new email address here')
+        #add_email.ui.submit.basic.button add email

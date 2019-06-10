@@ -5,11 +5,23 @@ if Meteor.isClient
     Template.rules_signing.helpers
         signing_doc: -> Docs.findOne Router.current().params.doc_id
         agree_class: -> if @agree then 'green' else 'basic'
-        resident: ->
+        resident_email: ->
             console.log @resident
-            # Meteor.users.findOne
-            #     username:@resident
+            res = Meteor.users.findOne
+                username:@resident
+            res.emails[0].address
     Template.rules_signing.events
+        'click .confirm_email':->
+            signing_doc = Docs.findOne Router.current().params.doc_id
+            email_value = $('.email_value').val('')
+
+            if signing_doc.agree
+                Docs.update signing_doc._id,
+                    $set:email_confirmed:false
+            else
+                Docs.update signing_doc._id,
+                    $set:email_confirmed:true
+
         'click .agree':->
             signing_doc = Docs.findOne Router.current().params.doc_id
             if signing_doc.agree
@@ -30,6 +42,8 @@ if Meteor.isClient
             user = Meteor.users.findOne username:signing_doc.resident
             Meteor.users.update user._id,
                 $set:rules_signed:true
+            Meteor.call 'send_rules_regs_receipt_email', user._id
+
             Session.set 'displaying_profile', user._id
             Router.go "/checkin"
 
@@ -49,7 +63,7 @@ if Meteor.isClient
                 model:'rules_and_regs_signing'
                 resident: @username
 
-            Router.go "/sign_rules/#{new_id}"
+            Router.go "/sign_rules/#{new_id}/#{@username}"
             Session.set 'displaying_profile',null
 
 

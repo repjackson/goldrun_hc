@@ -323,9 +323,9 @@ template(name='rules_and_regs_check')
                 i.signature.icon
                 |rules and regs signed 
         else
-            .ui.red.basic.button.sign_rules
+            .ui.red.basic.button
                 i.signature.icon
-                |set kiosk to rules+regs signing
+                | rules+regs unsigned, notify resident
     else
         unless rules_signed
             .ui.large.red.basic.button.sign_rules

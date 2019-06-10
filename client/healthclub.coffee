@@ -198,6 +198,22 @@ Template.checkin_card.onCreated ->
     @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
     @autorun => Meteor.subscribe 'doc', Session.get('checkin_document')
     @autorun => Meteor.subscribe 'checkin_guests', Session.get('checkin_document')
+    @autorun => Meteor.subscribe 'rules_signed_username', @data.username
+
+Template.checkin_card.helpers
+    rules_signed: ->
+        Docs.findOne
+            model:'rules_and_regs_signing'
+            resident:@username
+
+Template.checkin_card.events
+    'click .sign_rules': ->
+        new_id = Docs.insert
+            model:'rules_and_regs_signing'
+            resident: @username
+        Router.go "/sign_rules/#{new_id}/#{@username}"
+        Session.set 'displaying_profile',null
+
 
 Template.checkin_card.helpers
     new_guest_doc: -> Docs.findOne Session.get('new_guest_id')
