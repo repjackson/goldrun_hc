@@ -39,9 +39,9 @@ template(name='unit_card')
         //- .ui.small.header building #{building_code}
         //- a.ui.large.button(href="/unit/#{_id}")
         //-     i.yellow.right.chevron.icon
-        //- each resident
-        //-     .ui.basic.label #{this}
-    if is_dev
-        +number_edit key='building_number' direct=true
-        +number_edit key='unit_number' direct=true
+        each resident
+            .ui.basic.label #{this}
+        if is_dev
+            +number_edit key='building_number' direct=true
+            +number_edit key='unit_number' direct=true
                     

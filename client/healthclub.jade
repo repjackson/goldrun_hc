@@ -3,7 +3,7 @@ template(name='healthclub')
     //- .ui.padded.stackable.grid.header-wrapper(class=invert_class)
     .ui.padded.stackable.grid.header-wrapper
         .sixteen.wide.column
-            unless is_frontdesk
+            if is_staff
                 a.ui.button(href='/staff')
                     i.left.chevron.icon
                     |staff
@@ -185,7 +185,7 @@ template(name='checkin_card')
                             if checkin_guest_docs
                                 .ui.inline.header guests for this session
                                 each checkin_guest_docs
-                                    .ui.big.teal.button.remove_guest 
+                                    .ui.big.teal.basic.button.remove_guest 
                                         i.remove.icon
                                         |#{guest_name} #{first_name} #{last_name}
                     else

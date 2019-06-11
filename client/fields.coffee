@@ -1178,11 +1178,11 @@ Template.multi_doc_input.events
         if search_value.length is 0
             t.doc_results.set null
         else if search_value
-            console.log 'hi'
+            # console.log 'hi'
             Meteor.call 'lookup_doc', search_value, 'guest', (err,res)=>
                 if err then console.error err
                 else
-                    console.log res
+                    # console.log res
                     t.doc_results.set res
     'click .select_doc': (e,t) ->
         checkin_document = Docs.findOne Session.get('checkin_document')

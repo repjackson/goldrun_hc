@@ -311,6 +311,9 @@ template(name='user_guests')
         +add_button model='guest'
         //- .ui.circular.button.add_guest
         //-     |Add Guest
+        with user_from_username_param
+            .ui.header total guests #{total_guests}
+            .ui.header guests this month #{current_month_guests}
         .ui.link.large.list
             each resident_guests
                 a.item(href="/m/guest/#{_id}/view")

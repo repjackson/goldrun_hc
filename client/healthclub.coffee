@@ -67,6 +67,7 @@ Template.checkin_button.events
             model:'healthclub_checkin'
             active:true
             user_id:@_id
+            guest_ids:[]
             resident_username:@username
             body: "#{@first_name} #{@last_name} checked in."
         Meteor.call 'check_resident_status', @_id
@@ -116,10 +117,12 @@ Template.healthclub.events
             else
                 Session.set 'username_query',username_query
         else
-            # audio = new Audio('wargames.wav');
-            # audio.play();
-            # console.log 'hi'
-            Session.set 'username_query',username_query
+            if username_query.length > 1
+                # audio = new Audio('wargames.wav');
+                # audio.play();
+                # console.log 'hi'
+                Session.set 'username_query',username_query
+
 
     'input .barcode_entry': _.debounce((e, t)->
         barcode_entry = parseInt $('.barcode_entry').val()
@@ -251,10 +254,11 @@ Template.checkin_card.events
         # document.reload()
 
     'click .complete_checkin': (e,t)->
-        # $(e.currentTarget).closest('.segment').transition('fade left',100)
+        $(e.currentTarget).closest('.segment').transition('fade left',100)
         # if @username is 'greg_sherwin'
         #     audio = new Audio('siren.mp3')
         #     audio.play()
+
         Session.set 'adding_guest', false
         Session.set 'displaying_profile', null
         $('body').toast({
@@ -271,9 +275,23 @@ Template.checkin_card.events
               hideDuration : 250
             })
         # , 100
+        checkin_doc = Docs.findOne
+            model:'healthclub_checkin'
+
+        console.log checkin_doc.guest_ids.length
+        if checkin_doc.guest_ids.length > 0
+            # now = Date.now()
+            current_month = moment().format("MMM")
+
+            Meteor.users.update @_id,
+                $addToSet:
+                    total_guests:checkin_doc.guest_ids.length
+                    "#{current_month}_guests":checkin_doc.guest_ids.length
+
 
         Meteor.users.update @_id,
             $set:healthclub_checkedin:true
+
         Docs.insert
             model:'log_event'
             log_type:'healthclub_checkin'

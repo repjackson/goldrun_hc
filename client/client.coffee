@@ -35,6 +35,11 @@ Template.registerHelper 'resident_guests', () ->
         _id:$in:@guest_ids
 
 
+Template.registerHelper 'current_month_guests', () ->
+    # console.log @
+    current_month = moment().format("MMM")
+    @["#{current_month}_guests"]
+
 Template.registerHelper 'referenced_product', () ->
     Docs.findOne
         _id:@product_id

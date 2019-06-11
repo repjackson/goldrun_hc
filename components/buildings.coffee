@@ -33,6 +33,10 @@ if Meteor.isClient
         'mouseleave .home_segment': (e,t)->
             t.$(e.currentTarget).closest('.home_segment').removeClass('raised')
 
+
+
+
+
     Template.building.events
         'keyup .unit_number': (e,t)->
             if e.which is 13
@@ -45,8 +49,26 @@ if Meteor.isClient
                     model:'unit'
                     unit_number:unit_number
                     building_number:building_number
-                    building_number:building.building_number
-                    building_code:building.slug
+                    building_number:building_number
+                    building_code:building_label
+
+        'keyup .building_search': (e,t)->
+            username_query = $('.username_search').val()
+            if e.which is 8
+                if username_query.length is 0
+                    Session.set 'username_query',null
+                    Session.set 'checking_in',false
+                else
+                    Session.set 'username_query',username_query
+            else
+                if username_query.length > 1
+                    # audio = new Audio('wargames.wav');
+                    # audio.play();
+                    # console.log 'hi'
+                    Session.set 'username_query',username_query
+
+
+
 
 if Meteor.isServer
     Meteor.publish 'building', (building_code)->

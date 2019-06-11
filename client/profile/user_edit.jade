@@ -14,7 +14,7 @@ template(name='user_edit')
                     .ui.hidden.divider
                     +image_edit key='image_id' icon='picture' title='profile image' direct=true
                     +password_edit
-                    if is_dev
+                    if is_staff
                         //- +phone_editor
                         +username_edit
                     .ui.header 
@@ -39,10 +39,14 @@ template(name='user_edit')
                                 +text_edit key='building_code' label='building code' icon='building' direct=true
                                 +date_edit key='start_date' label='start date' icon='calendar' direct=true
                                 unless user_is_owner
-                                    +pdf_edit key='lease_agreement' label='lease agreement' icon='clipboard' direct=true
+                                    +pdf_edit key='lease_agreement' label='lease agreement (pdf)' icon='clipboard' direct=true
+                                    .ui.small.header or
+                                    +image_edit key='lease_agreement' label='lease agreement (image)' icon='picture' direct=true
                                 +pdf_edit key='lease_addendum' label='lease addendum' icon='clipboard' direct=true
                                 if user_is_owner
-                                    +pdf_edit key='ownership_paperwork' label='ownership paperwork' icon='pdf' direct=true
+                                    +pdf_edit key='ownership_paperwork' label='ownership paperwork (image)' icon='pdf' direct=true
+                                    .ui.small.header or
+                                    +image_edit key='ownership_paperwork' label='ownership paperwork (image)' icon='picture' direct=true
                                     .ui.hidden.divider
                                 if user_is_resident
                                     +date_edit key='expiration_date' label='expiration date' icon='calendar minus' direct=true

@@ -82,7 +82,7 @@ Docs.helpers
             downvoters
 Meteor.users.helpers
     email_address: -> if @emails then @emails[0].address
-    email_verified: -> if @emails then @emails[0].verified
+    email_verified: -> if @emails and @emails[0] then @emails[0].verified
     five_tags: -> if @tags then @tags[..4]
     three_tags: -> if @tags then @tags[..2]
     last_name_initial: -> if @last_name then @last_name.charAt 0

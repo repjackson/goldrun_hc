@@ -10,8 +10,14 @@ template(name='unit')
                 |#{unit.unit_number}
             .ui.header 
                 |building #{unit.building_number}
+            if is_dev
+                with unit
+                    +number_edit key='building_number' direct=true
             .ui.header 
                 |building #{unit.building_code}
+            if is_dev
+                with unit
+                    +text_edit key='building_code' direct=true
         .twelve.wide.column
             +unit_residents
             +unit_owners

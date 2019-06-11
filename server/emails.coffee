@@ -92,9 +92,10 @@ Meteor.methods
     send_rules_regs_receipt_email: (user_id)->
         # console.log new_user_id
         user = Meteor.users.findOne user_id
-        # console.log new_user
+        console.log user
+        if user.emails and user.emails[0] then console.log user.emails[0]
         Mailer.send
-            to: ['EJ <repjackson@gmail.com>']          # 'To: ' address. Required.
+            to: ['GRO Admin <admin@goldrun.page>',"#{user.username} <#{user.emails[0].address}>"]          # 'To: ' address. Required.
             subject: 'Gold Run Rules and Regulations Signature'                     # Required.
             template: 'rules_regs_receipt'               # Required.
             replyTo: 'Gold Run Online <admin@goldrun.page>'      # Override global 'ReplyTo: ' option.
