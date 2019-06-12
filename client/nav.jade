@@ -8,13 +8,13 @@ template(name='nav')
                 .icon.item
                     i.big.loading.dharmachakra.icon
             else
-                if is_admin
-                    a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                        //- i.home.large.large.icon
-                        +i name='home-page' classes='ui mini inline image'
-                    a.icon.item(href='/home' class="{{isActivePath '/home'}}")
-                        //- i.th.large.large.icon
-                        +i name='activity-grid-2' classes='ui mini inline image'
+                //- if is_admin
+                a.header.icon.item(href='/' class="{{isActivePath '/'}}")
+                    //- i.home.large.large.icon
+                    +i name='home-page' classes='ui mini inline image'
+                a.icon.item(href='/home' class="{{isActivePath '/home'}}")
+                    //- i.th.large.large.icon
+                    +i name='activity-grid-2' classes='ui mini inline image'
                 a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
                     //- i.th.large.large.icon
                     +i name='apartment' classes='ui mini inline image'

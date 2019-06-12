@@ -526,7 +526,7 @@ Template.emails_edit.events
                     # console.log 'updateUsername', error
                     alert "Error adding email: #{error.reason}"
                 else
-                    alert result
+                    # alert result
                     $('#new_email').val('')
                 return
 
@@ -539,9 +539,6 @@ Template.emails_edit.events
                 if error
                     # console.log 'updateUsername', error
                     alert "Error removing email: #{error.reason}"
-                else
-                    alert result
-                return
 
 
     'click .send_verification_email': (e,t)->

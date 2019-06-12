@@ -99,9 +99,9 @@ template(name='sign_waiver')
 
 template(name='checkin_button')
     unless is_staff
-        unless healthclub_checkedin
-            .ui.massive.basic.button.checkin
-                h1.ui.header #{first_name} #{last_name}
+        //- unless healthclub_checkedin
+        .ui.massive.basic.button.checkin
+            h1.ui.header #{first_name} #{last_name}
         //- if healthclub_checkedin
         //- if is_staff
         //- else
@@ -193,7 +193,7 @@ template(name='checkin_card')
                             i.plus.large.icon
                             |guest
                     +email_validation_check
-                    //- +lease_expiration_check
+                    +lease_expiration_check
                     +rules_and_regs_check  
                     .ui.hidden.divider    
                     if rules_signed  

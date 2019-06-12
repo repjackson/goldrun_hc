@@ -326,7 +326,7 @@ template(name='document_view')
     //-             |#{title}
     //-             i.dropdown.icon
     //-     .content 
-    if can_edit
+    if is_staff
         with referenced_document
             +edit_button
     |!{referenced_document.content}
@@ -814,7 +814,7 @@ template(name='signature_edit')
                 .fourteen.wide.column
                     .ui.huge.basic.fluid.button.save(title='Save')
                         i.checkmark.icon
-                        |save
+                        |save signature
                 .one.wide.column
                     .ui.large.icon.basic.button.clear(title='Clear')
                         i.remove.icon
