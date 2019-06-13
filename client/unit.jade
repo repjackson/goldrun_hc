@@ -43,15 +43,16 @@ template(name='unit_owners')
         .ui.header 
             +i name='rent'
             |unit owners
-        each owners
-            .ui.card
-                .image
-                    img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
-                .content
-                    a.header(href="/user/#{username}")
-                         |#{first_name} #{last_name} 
-                        .meta @#{username}
-                        //- +array_view key='tags' label='Tags' direct=true
+        .ui.cards
+            each owners
+                .ui.card
+                    .image
+                        img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                    .content
+                        a.header(href="/user/#{username}")
+                             |#{first_name} #{last_name} 
+                            .meta @#{username}
+                            //- +array_view key='tags' label='Tags' direct=true
 
 
 template(name='unit_residents')            

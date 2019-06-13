@@ -4,13 +4,33 @@ if Meteor.isClient
 
     Template.staff.onCreated ->
         # @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
-        @autorun => Meteor.subscribe 'users'
+        # @autorun => Meteor.subscribe 'users'
+        @autorun => Meteor.subscribe 'sessions'
 
 
     Template.staff.helpers
         checkedin_members: ->
             Meteor.users.find
                 healthclub_checkedin:true
+
+        sessions: ->
+            Docs.find
+                model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
+
+    Template.hc_session.onCreated ->
+        @autorun => Meteor.subscribe 'user_by_username', @data.resident_username
+
+    Template.hc_session.helpers
+        icon_class: ->
+            switch @model
+                when 'healthclub_checkin' then 'treadmill'
+                when 'garden_key_checkout' then 'basketball'
+                when 'unit_key_checkout' then 'key'
+
+        session_resident: ->
+            Meteor.users.findOne
+                username:@resident_username
+
 
     Template.shift_change_requests.helpers
         requests: ->
@@ -59,34 +79,6 @@ if Meteor.isClient
 
 
 
-    Template.garden_key_checkout.events
-        'click .garden_key_checkout': (e,t)->
-            # $(e.currentTarget).closest('.segment').transition('fade left',100)
-            # Meteor.setTimeout =>
-            $('body').toast({
-                title: "garden key checked out for #{@first_name} #{@last_name}."
-                # message: 'See desk staff for key.'
-                class : 'green'
-                position:'top right'
-                # className:
-                #     toast: 'ui massive message'
-                displayTime: 5000
-                transition:
-                  showMethod   : 'zoom',
-                  showDuration : 250,
-                  hideMethod   : 'fade',
-                  hideDuration : 250
-                })
-            # , 100
-            Meteor.users.update @_id,
-                $set:healthclub_checkedin:true
-            Docs.insert
-                model:'log_event'
-                log_type:'garden_key_checkout'
-                active:true
-                object_id:@_id
-                body: "#{@first_name} #{@last_name} checked out the garden key."
-            # document.reload()
 
     Template.unit_key_checkout.events
         'click .unit_key_checkout': (e,t)->
@@ -130,3 +122,8 @@ if Meteor.isServer
                 model:'key'
                 building_number:building_number
                 unit_number:unit_number
+
+    Meteor.publish 'sessions', ->
+        Docs.find
+            model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
+            active:true

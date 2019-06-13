@@ -1185,9 +1185,9 @@ Template.multi_doc_input.events
                     # console.log res
                     t.doc_results.set res
     'click .select_doc': (e,t) ->
-        checkin_document = Docs.findOne Session.get('checkin_document')
-        console.log checkin_document
-        Docs.update checkin_document._id,
+        session_document = Docs.findOne Session.get('session_document')
+        console.log session_document
+        Docs.update session_document._id,
             $addToSet:guest_ids:@_id
         t.doc_results.set null
         $('#multi_user_select_input').val ''

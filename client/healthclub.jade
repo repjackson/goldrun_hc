@@ -10,10 +10,10 @@ template(name='healthclub')
             h1.ui.center.aligned.header
                 |health club check in
             //- if is_admin
-            .ui.left.icon.massive.fluid.input
-                input.barcode_entry(type='text' placeholder='barcode input...' autofocus)
-                i.qrcode.icon
-            .ui.horizontal.divider or
+            //- .ui.left.icon.massive.fluid.input
+            //-     input.barcode_entry(type='text' placeholder='barcode input...' autofocus)
+            //-     i.qrcode.icon
+            //- .ui.horizontal.divider or
             .ui.left.icon.massive.fluid.input
                 input.username_search(type='text' placeholder='lookup resident...' autofocus)
                 if is_query
@@ -76,7 +76,7 @@ template(name='add_resident')
                     //-     |Username
                     //-     input#username(type='text')
                 if permission
-                    .ui.fluid.green.big.button.create_and_checkin
+                    .ui.fluid.green.big.button.create_resident
                         |create resident
         
         
@@ -149,78 +149,80 @@ template(name='checkin_card')
         //- .ui.padded.stackable.grid
         //- .ui.padded.middle.aligned.grid.header-wrapper(class=resident_status_class)
         .ui.padded.middle.aligned.grid.header-wrapper
-            .two.column.row
-                .column
-                    //- if is_staff
-                    //- a.ui.header(href="/user/#{user.username}")
-                    .ui.large.icon.basic.button.cancel_checkin
-                        i.big.left.chevron.icon
-                    //- if kiosk_photo
-                    //-     +image_view key='kiosk_photo' label='Photo' direct=true
-                    //-     +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
-                    //- else
-                    //-     +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
-                    //- img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
-                    //- .meta @#{user.username}
-                    //- +array_view key='tags' label='Tags' direct=true
-                .column
-                    .ui.huge.inline.header(href="/user/#{user.username}")
-                        |#{user.first_name} #{user.last_name} 
-                    if adding_guests
-                        .ui.header 
-                            //- +i name='groups'
-                            i.users.teal.icon
-                            |guests
-                        //- //- .ui.hidden.divider
-                        .ui.small.inline.header recent guests
-                        each resident_guests
-                            .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
-                        div
-                        .ui.big.basic.button.add_guest
-                            i.plus.icon
-                            strong new guest
-                        +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
-                        div
-                        with checking_in_doc
-                            if checkin_guest_docs
-                                .ui.inline.header guests for this session
-                                each checkin_guest_docs
-                                    .ui.big.teal.basic.button.remove_guest 
-                                        i.remove.icon
-                                        |#{guest_name} #{first_name} #{last_name}
-                    else
-                        .ui.big.basic.fluid.button.toggle_adding_guest 
-                            i.plus.large.icon
-                            |guest
-                    +email_validation_check
-                    +lease_expiration_check
-                    +rules_and_regs_check  
-            .row
-                .sixteen.wide.column
-                    if rules_signed
-                        .ui.big.fluid.basic.button.complete_checkin
-                            //- +i name='treadmill' classes='ui inline image'
-                            .ui.inline.header 
-                                +i name='treadmill'
-                                | health club check in
+            unless submitted
+                .two.column.row
+                    .column
+                        //- if is_staff
+                        //- a.ui.header(href="/user/#{user.username}")
+                        .ui.large.icon.basic.button.cancel_checkin
+                            i.big.left.chevron.icon
+                        //- if kiosk_photo
+                        //-     +image_view key='kiosk_photo' label='Photo' direct=true
+                        //-     +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
+                        //- else
+                        //-     +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
+                        //- img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
+                        //- .meta @#{user.username}
+                        //- +array_view key='tags' label='Tags' direct=true
+                    .column
+                        .ui.huge.inline.header(href="/user/#{user.username}")
+                            |#{user.first_name} #{user.last_name} 
+                        if adding_guests
+                            .ui.header 
+                                //- +i name='groups'
+                                i.users.teal.icon
+                                |guests
+                            //- //- .ui.hidden.divider
+                            .ui.small.inline.header recent guests
+                            each resident_guests
+                                .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
+                            div
+                            .ui.big.basic.button.add_guest
+                                i.plus.icon
+                                strong new guest
+                            +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
+                            div
+                            with checking_in_doc
+                                if checkin_guest_docs
+                                    .ui.inline.header guests for this session
+                                    each checkin_guest_docs
+                                        .ui.big.teal.basic.button.remove_guest 
+                                            i.remove.icon
+                                            |#{guest_name} #{first_name} #{last_name}
+                        else
+                            .ui.big.basic.fluid.button.toggle_adding_guest 
+                                i.plus.large.icon
+                                |guest
+                        +email_validation_check
+                        +lease_expiration_check
+                        +rules_and_regs_check  
+                .row
+                    .sixteen.wide.column
+                        if rules_signed
+                            .ui.big.fluid.basic.button.healthclub_checkin
+                                //- +i name='treadmill' classes='ui inline image'
+                                .ui.inline.header 
+                                    +i name='treadmill'
+                                    | health club check in
+                                    //- i.right.chevron.icon
+                            .ui.big.fluid.basic.button.garden_key_checkout
+                                +i name='basketball' classes='ui inline image'
+                                .ui.inline.header court key check out
                                 //- i.right.chevron.icon
-                        .ui.big.fluid.basic.button.garden_key_checkout
-                            +i name='basketball' classes='ui inline image'
-                            .ui.inline.header court key check out
-                            //- i.right.chevron.icon
-                        .ui.big.fluid.basic.button.unit_key_checkout
-                            +i name='key' classes='ui inline image'
-                            .ui.inline.header unit key check out
-                            //- i.right.chevron.icon
-                        //- .ui.big.fluid.basic.button.unit_key_checkout
-                        //-     +i name='calendar' classes='ui inline image'
-                        //-     .ui.inline.header event signup
-                        //-     //- i.right.chevron.icon
-                    else 
-                        .ui.big.fluid.red.basic.button.sign_rules
-                            //- +i name='treadmill' classes='ui inline image'
-                            .ui.inline.header 
-                            //- +i name='treadmill'
-                            | please sign rules and regs
-                            i.right.chevron.icon
-                        
+                            .ui.big.fluid.basic.button.unit_key_checkout
+                                +i name='key' classes='ui inline image'
+                                .ui.inline.header unit key check out
+                                //- i.right.chevron.icon
+                            //- .ui.big.fluid.basic.button.unit_key_checkout
+                            //-     +i name='calendar' classes='ui inline image'
+                            //-     .ui.inline.header event signup
+                            //-     //- i.right.chevron.icon
+                        else 
+                            .ui.big.fluid.red.basic.button.sign_rules
+                                //- +i name='treadmill' classes='ui inline image'
+                                .ui.inline.header 
+                                //- +i name='treadmill'
+                                | please sign rules and regs
+                                i.right.chevron.icon
+            if submitted
+                .ui.header request submitted, awaiting staff approval        

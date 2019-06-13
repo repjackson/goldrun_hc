@@ -22,7 +22,7 @@ template(name='building')
         input.building_label(type='text' placeholder='unit building label')
     .ui.padded.stackable.grid
         .ui.four.wide.column
-            .ui.header #{building.building_code}
+            h1.ui.header building #{building.building_code}
             each building.building_numbers
                 .ui.basic.label #{this}
         .ui.twelve.wide.column

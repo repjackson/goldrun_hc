@@ -20,14 +20,14 @@ Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
 Template.registerHelper 'displaying_profile', () -> Session.get 'displaying_profile'
 
-Template.registerHelper 'checking_in_doc', () -> Docs.findOne Session.get('checkin_document')
+Template.registerHelper 'checking_in_doc', () -> Docs.findOne Session.get('session_document')
 
 Template.registerHelper 'checkin_guest_docs', () ->
-    Docs.findOne Session.get('checkin_document')
-    checkin_document = Docs.findOne Session.get('checkin_document')
-    # console.log checkin_document.guest_ids
+    Docs.findOne Session.get('session_document')
+    session_document = Docs.findOne Session.get('session_document')
+    # console.log session_document.guest_ids
     Docs.find
-        _id:$in:checkin_document.guest_ids
+        _id:$in:session_document.guest_ids
 
 
 Template.registerHelper 'resident_guests', () ->

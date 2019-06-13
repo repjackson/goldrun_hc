@@ -34,9 +34,6 @@ if Meteor.isClient
             t.$(e.currentTarget).closest('.home_segment').removeClass('raised')
 
 
-
-
-
     Template.building.events
         'keyup .unit_number': (e,t)->
             if e.which is 13

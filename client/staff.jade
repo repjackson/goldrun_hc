@@ -20,9 +20,11 @@ template(name='staff')
             
         .twelve.wide.column
             .ui.stackable.cards
-                each checkedin_members
-                    +big_user_card username
-        
+                each sessions
+                    +hc_session
+            //- .ui.header checked in members
+            //- each checkedin_members
+            //-     +big_user_card username
     //- .ui.stackable.padded.grid
     //-     .three.column.row
     //-         .column
@@ -45,6 +47,23 @@ template(name='staff')
     +schedule
     //- +shift_change_requests
     //- +view_chats
+
+
+template(name='hc_session')
+    .ui.segment
+        .ui.inline.header
+            +i name=icon_class
+            |#{session_resident.first_name} #{session_resident.last_name}
+        with session_resident
+            img.ui.circular.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                
+        .ui.small.grey.header #{when}
+        +boolean_edit key='active' direct=true
+        
+        //- unless confirmed
+        .ui.fluid.green.button
+            |confirm check in
+
 
 
 template(name='unit_key_widget')

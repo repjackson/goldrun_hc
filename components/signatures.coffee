@@ -115,7 +115,7 @@ if Meteor.isClient
         'click .submit_guest':->
             guest_doc = Docs.findOne Router.current().params.new_guest_id
             # console.log guest_doc
-            checking_in_doc = Docs.findOne Session.get('checkin_document')
+            checking_in_doc = Docs.findOne Session.get('session_document')
 
             Docs.update checking_in_doc._id,
                 $addToSet: guest_ids: guest_doc._id
