@@ -10,10 +10,10 @@ template(name='healthclub')
             h1.ui.center.aligned.header
                 |health club check in
             //- if is_admin
-            //-     .ui.left.icon.massive.fluid.input
-            //-         input.barcode_entry(type='text' placeholder='barcode input...' autofocus)
-            //-         i.qrcode.icon
-            //- .ui.horizontal.divider or
+            .ui.left.icon.massive.fluid.input
+                input.barcode_entry(type='text' placeholder='barcode input...' autofocus)
+                i.qrcode.icon
+            .ui.horizontal.divider or
             .ui.left.icon.massive.fluid.input
                 input.username_search(type='text' placeholder='lookup resident...' autofocus)
                 if is_query
@@ -197,12 +197,24 @@ template(name='checkin_card')
                     +rules_and_regs_check  
                     .ui.hidden.divider    
                     if rules_signed  
-                        .ui.big.fluid.green.button.complete_checkin
+                        .ui.big.fluid.basic.button.complete_checkin
                             //- +i name='treadmill' classes='ui inline image'
-                            .ui.inline.white.inverted.header 
-                                //- +i name='treadmill'
-                                | complete check in
-                                i.right.chevron.icon
+                            .ui.inline.header 
+                                +i name='treadmill'
+                                | health club check in
+                                //- i.right.chevron.icon
+                        .ui.big.fluid.basic.button.garden_key_checkout
+                            +i name='basketball' classes='ui inline image'
+                            .ui.inline.header court key check out
+                            //- i.right.chevron.icon
+                        .ui.big.fluid.basic.button.unit_key_checkout
+                            +i name='key' classes='ui inline image'
+                            .ui.inline.header unit key check out
+                            //- i.right.chevron.icon
+                        //- .ui.big.fluid.basic.button.unit_key_checkout
+                        //-     +i name='calendar' classes='ui inline image'
+                        //-     .ui.inline.header event signup
+                        //-     //- i.right.chevron.icon
                     else 
                         .ui.big.fluid.red.basic.button.sign_rules
                             //- +i name='treadmill' classes='ui inline image'
@@ -211,8 +223,3 @@ template(name='checkin_card')
                             | sign rules and regs
                             i.right.chevron.icon
                         
-                            //- i.right.chevron.icon
-                            //- .ui.big.button.complete_checkin
-                            //-     +i name='key' classes='ui inline image'
-                                //- .ui.inline.header court key check out
-                                //- i.right.chevron.icon
