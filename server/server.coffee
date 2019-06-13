@@ -71,6 +71,12 @@ Meteor.publish 'facet_doc', (tags)->
         tags: split_array
 
 
+Meteor.publish 'current_session_doc', ->
+    Docs.find
+        model: 'session_document'
+        current:true
+
+
 Meteor.publish 'user_from_username', (username)->
     Meteor.users.find username:username
 

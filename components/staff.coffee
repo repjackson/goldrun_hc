@@ -15,14 +15,15 @@ if Meteor.isClient
 
         sessions: ->
             Docs.find
-                model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
+                model:'healthclub_session'
+                # model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
 
     Template.hc_session.onCreated ->
         @autorun => Meteor.subscribe 'user_by_username', @data.resident_username
 
     Template.hc_session.helpers
         icon_class: ->
-            switch @model
+            switch @session_type
                 when 'healthclub_checkin' then 'treadmill'
                 when 'garden_key_checkout' then 'basketball'
                 when 'unit_key_checkout' then 'key'
@@ -125,5 +126,6 @@ if Meteor.isServer
 
     Meteor.publish 'sessions', ->
         Docs.find
-            model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
+            model:'healthclub_session'
+            # model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
             active:true

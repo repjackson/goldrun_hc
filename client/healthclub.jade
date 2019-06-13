@@ -116,7 +116,7 @@ template(name='checkin_button')
                 //- +i name='exit-sign' classes='ui avatar image'
                 |health club check out
         else
-            .ui.large.basic.button.checkin
+            .ui.large.basic.button.new_hc_session
                 .ui.header
                     small check in
                     strong #{first_name} #{last_name}
@@ -145,11 +145,11 @@ template(name='health_club_info')
 
 template(name='checkin_card')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
-    with user
+    with session_document
         //- .ui.padded.stackable.grid
         //- .ui.padded.middle.aligned.grid.header-wrapper(class=resident_status_class)
         .ui.padded.middle.aligned.grid.header-wrapper
-            unless submitted
+            unless session_document.submitted
                 .two.column.row
                     .column
                         //- if is_staff
@@ -224,5 +224,15 @@ template(name='checkin_card')
                                 //- +i name='treadmill'
                                 | please sign rules and regs
                                 i.right.chevron.icon
-            if submitted
-                .ui.header request submitted, awaiting staff approval        
+            if session_document.submitted
+                unless session_document.approved
+                    .centered.row
+                        .twelve.wide.column
+                            .ui.header request submitted, awaiting staff approval        
+                if session_document.approved
+                    .centered.row
+                        .twelve.wide.column
+                            .ui.header 
+                                i.green.checkmark.icon
+                                |request approved        
+                    

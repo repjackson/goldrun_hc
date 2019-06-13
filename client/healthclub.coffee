@@ -1,6 +1,6 @@
 Template.healthclub.onCreated ->
     @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
-    # @autorun => Meteor.subscribe 'type', 'field'
+    @autorun => Meteor.subscribe 'current_session_doc'
     # @autorun => Meteor.subscribe 'model_docs', 'log_event'
     @autorun => Meteor.subscribe 'users'
 
@@ -14,8 +14,6 @@ Template.healthclub.onRendered ->
     #   ).catch (err0r) ->
     #     console.log 'Something went wrong!'
     #     return
-
-
     # @autorun =>
     #     if @subscriptionsReady()
     #         Meteor.setTimeout ->
@@ -57,7 +55,7 @@ Template.healthclub.helpers
 
 
 Template.checkin_button.events
-    'click .checkin': (e,t)->
+    'click .new_hc_session': (e,t)->
         # $(e.currentTarget).closest('.button').transition('fade up')
         # Meteor.setTimeout =>
         # Docs.insert
@@ -67,13 +65,15 @@ Template.checkin_button.events
         session_document = Docs.insert
             model:'healthclub_session'
             active:true
+            submitted:false
+            approved:false
             user_id:@_id
             guest_ids:[]
             resident_username:@username
-            body: "#{@first_name} #{@last_name} checked in"
+            current:true
         Meteor.call 'check_resident_status', @_id
         Session.set 'username_query',null
-        Session.set 'session_document',session_document
+        # Session.set 'session_document',session_document
         # Session.set 'checking_in',false
         $('.username_search').val('')
         Session.set 'displaying_profile',@_id
@@ -98,14 +98,6 @@ Template.checkin_button.events
 
 
 Template.healthclub.events
-    # 'click .sign_waiver': (e,t)->
-    #     # console.log @
-    #     receipt_id = Docs.insert
-    #         model:'rules_and_regulations_acknowledgement'
-    #         resident_residence:@_id
-    #         is_resident:true
-    #     Router.go "/sign_waiver/#{receipt_id}"
-
     'click .username_search': (e,t)->
         Session.set 'checking_in',true
 
@@ -204,22 +196,15 @@ Template.checkin_card.onCreated ->
     @autorun => Meteor.subscribe 'checkin_guests', Session.get('session_document')
     @autorun => Meteor.subscribe 'rules_signed_username', @data.username
 
+
 Template.checkin_card.helpers
     rules_signed: ->
         Docs.findOne
             model:'rules_and_regs_signing'
             resident:@username
+    session_document: ->
+        healthclub_session_document = Docs.findOne Session.get 'session_document'
 
-Template.checkin_card.events
-    'click .sign_rules': ->
-        new_id = Docs.insert
-            model:'rules_and_regs_signing'
-            resident: @username
-        Router.go "/sign_rules/#{new_id}/#{@username}"
-        Session.set 'displaying_profile',null
-
-
-Template.checkin_card.helpers
     new_guest_doc: -> Docs.findOne Session.get('new_guest_id')
     user: -> Meteor.users.findOne @valueOf()
     checkin_card_class: ->
@@ -243,132 +228,63 @@ Template.checkin_card.helpers
         # unless @rules_signed then true else false
 
 Template.checkin_card.events
+    'click .sign_rules': ->
+        new_id = Docs.insert
+            model:'rules_and_regs_signing'
+            resident: @username
+        Router.go "/sign_rules/#{new_id}/#{@username}"
+        Session.set 'displaying_profile',null
+
     'click .cancel_checkin': (e,t)->
         $(e.currentTarget).closest('.segment').transition('fade right',250)
         Meteor.setTimeout =>
             Session.set 'displaying_profile', null
             Session.set 'adding_guest', false
-            checkin_doc = Docs.findOne Session.get 'session_document'
-            Docs.remove checkin_doc._id
+            healthclub_session_document = Docs.findOne Session.get 'session_document'
+            Docs.remove healthclub_session_document._id
             checkin_doc = Session.set 'session_document',null
         , 250
         # document.reload()
 
     'click .healthclub_checkin': (e,t)->
-        # $(e.currentTarget).closest('.segment').transition('fade left',100)
-        # if @username is 'greg_sherwin'
-        #     audio = new Audio('siren.mp3')
-        #     audio.play()
-
         Session.set 'adding_guest', false
         # Session.set 'displaying_profile', null
-        $('body').toast({
-            title: "#{@first_name} #{@last_name} checked in"
-            class: 'success'
-            showIcon: false
-            position:'top center'
-            className:
-                toast: 'ui massive message'
-            transition:
-              showMethod   : 'zoom',
-              showDuration : 250,
-              hideMethod   : 'fade',
-              hideDuration : 250
-            })
-        # , 100
-        checkin_doc = Docs.findOne
-            model:'healthclub_checkin'
-
-        # console.log checkin_doc.guest_ids.length
-        if checkin_doc.guest_ids.length > 0
+        healthclub_session_document = Docs.findOne
+            model:'healthclub_session'
+        if healthclub_session_document.guest_ids.length > 0
             # now = Date.now()
             current_month = moment().format("MMM")
-
             Meteor.users.update @_id,
                 $addToSet:
                     total_guests:checkin_doc.guest_ids.length
                     "#{current_month}_guests":checkin_doc.guest_ids.length
-        # Meteor.users.update @_id,
-        #     $set:healthclub_checkedin:true
-
-        Docs.insert
-            model:'log_event'
-            log_type:'healthclub_checkin'
-            object_id:@_id
-            body: "#{@first_name} #{@last_name} checked in"
-        # document.reload()
+        Docs.update healthclub_session_document._id,
+            $set:
+                session_type:'healthclub_checkin'
+                submitted:true
 
     'click .garden_key_checkout': (e,t)->
-        # $(e.currentTarget).closest('.segment').transition('fade left',100)
-        # Meteor.setTimeout =>
-        Session.set 'displaying_profile', null
-        $('body').toast({
-            title: "Garden key checked out for #{@first_name} #{@last_name}"
-            message: 'See desk staff for key'
-            class : 'blue'
-            position:'top center'
-            className:
-                toast: 'ui massive message'
-            displayTime: 7000
-            transition:
-              showMethod   : 'zoom',
-              showDuration : 250,
-              hideMethod   : 'fade',
-              hideDuration : 250
-            })
-        # , 100
-        # Meteor.users.update @_id,
-        #     $set:healthclub_checkedin:true
-        garden_key_checkout_doc = Docs.insert
-            session_type:'garden_key_checkout'
-            active:true
-            user_id:@_id
-            resident_username:@username
-            body: "#{@first_name} #{@last_name} checked out the court key"
-
-        # Docs.insert
-        #     model:'log_event'
-        #     log_type:'garden_key_checkout'
-        #     object_id:@_id
-        #     body: "#{@first_name} #{@last_name} checked out the court key"
-        # document.reload()
+        healthclub_session_document = Docs.findOne
+            model:'healthclub_session'
+        Docs.update healthclub_session_document._id,
+            $set:
+                session_type:'garden_key_checkout'
+                submitted:true
 
     'click .unit_key_checkout': (e,t)->
-        # $(e.currentTarget).closest('.segment').transition('fade left',100)
-        # Meteor.setTimeout =>
-        Session.set 'displaying_profile', null
-        $('body').toast({
-            title: "Unit key checked out #{@first_name} #{@last_name}"
-            message: 'See desk staff for key'
-            class : 'blue'
-            position:'top center'
-            className:
-                toast: 'ui massive message'
-            displayTime: 7000
-            transition:
-              showMethod   : 'zoom',
-              showDuration : 250,
-              hideMethod   : 'fade',
-              hideDuration : 250
-            })
-        # , 100
-        # Meteor.users.update @_id,
-        #     $set:healthclub_checkedin:true
-        Docs.insert
-            model:'log_event'
-            log_type:'unit_key_checkout'
-            object_id:@_id
-            body: "#{@first_name} #{@last_name} checked out the unit key"
-        # document.reload()
+        healthclub_session_document = Docs.findOne
+            model:'healthclub_session'
+        Docs.update healthclub_session_document._id,
+            $set:
+                session_type:'unit_key_checkout'
+                submitted:true
 
     'click .add_recent_guest': ->
-        # console.log @
         checkin_doc = Docs.findOne Session.get('session_document')
         Docs.update checkin_doc._id,
             $addToSet:guest_ids:@_id
 
     'click .remove_guest': ->
-        # console.log @
         checkin_doc = Docs.findOne Session.get('session_document')
         Docs.update checkin_doc._id,
             $pull:guest_ids:@_id

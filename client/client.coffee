@@ -18,9 +18,18 @@ Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
-Template.registerHelper 'displaying_profile', () -> Session.get 'displaying_profile'
+Template.registerHelper 'current_session', ()->
+    Docs.findOne
+        model:'healthclub_session'
+        current:true
 
-Template.registerHelper 'checking_in_doc', () -> Docs.findOne Session.get('session_document')
+    # Session.get 'displaying_profile'
+
+Template.registerHelper 'checking_in_doc', () ->
+    Docs.findOne
+        model:'healthclub_session'
+        current:true
+     # Session.get('session_document')
 
 Template.registerHelper 'checkin_guest_docs', () ->
     Docs.findOne Session.get('session_document')
