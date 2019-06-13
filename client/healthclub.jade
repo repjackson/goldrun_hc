@@ -195,8 +195,9 @@ template(name='checkin_card')
                     +email_validation_check
                     +lease_expiration_check
                     +rules_and_regs_check  
-                    .ui.hidden.divider    
-                    if rules_signed  
+            .row
+                .sixteen.wide.column
+                    if rules_signed
                         .ui.big.fluid.basic.button.complete_checkin
                             //- +i name='treadmill' classes='ui inline image'
                             .ui.inline.header 
@@ -220,6 +221,6 @@ template(name='checkin_card')
                             //- +i name='treadmill' classes='ui inline image'
                             .ui.inline.header 
                             //- +i name='treadmill'
-                            | sign rules and regs
+                            | please sign rules and regs
                             i.right.chevron.icon
                         

@@ -8,17 +8,17 @@ template(name='nav')
                 .icon.item
                     i.big.loading.dharmachakra.icon
             else
-                //- if is_admin
-                a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                    //- i.home.large.large.icon
-                    +i name='home-page' classes='ui mini inline image'
-                a.icon.item(href='/home' class="{{isActivePath '/home'}}")
-                    //- i.th.large.large.icon
-                    +i name='activity-grid-2' classes='ui mini inline image'
-                a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                    //- i.th.large.large.icon
-                    +i name='apartment' classes='ui mini inline image'
-                    |buildings
+                if is_staff
+                    a.header.icon.item(href='/' class="{{isActivePath '/'}}")
+                        //- i.home.large.large.icon
+                        +i name='home-page' classes='ui mini inline image'
+                    a.icon.item(href='/home' class="{{isActivePath '/home'}}")
+                        //- i.th.large.large.icon
+                        +i name='activity-grid-2' classes='ui mini inline image'
+                    a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+                        //- i.th.large.large.icon
+                        +i name='apartment' classes='ui mini inline image'
+                        |buildings
                 //- a.header.icon.set_units.item(href='/m/unit' class="{{isActivePath '/m/unit'}}")
                 //-     //- i.th.large.large.icon
                 //-     +i name='room'    
@@ -156,10 +156,10 @@ template(name='footer')
                     with current_user
                         +role_switcher
             .eight.wide.column
-                unless currentUser
-                    a.ui.big.basic.button(href='/login')
-                        i.sign.in.icon
-                        |login
+                //- unless currentUser
+                //-     a.ui.big.basic.button(href='/login')
+                //-         i.sign.in.icon
+                //-         |login
                 if is_eric
                     with currentUser
                         +role_switcher

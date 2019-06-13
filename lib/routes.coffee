@@ -12,7 +12,8 @@ force_loggedin =  ()->
 
 Router.onBeforeAction(force_loggedin, {
   # only: ['admin']
-  except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
+  # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
+  except: ['register', 'forgot_password','reset_password','delta','doc_view','verify-email']
 });
 
 Router.route '/reset_password/:token', -> @render 'reset_password'
