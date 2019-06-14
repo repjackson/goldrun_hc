@@ -12,21 +12,28 @@ template(name='buildings')
                 
                 
 template(name='building')
-    a.ui.large.button(href="/buildings")
-        i.chevron.left.icon
-        +i name='apartment' classes='ui inline mini image'
-        |buildings
-    if is_dev
-        input.unit_number(type='number' placeholder='unit number')
-        input.building_number(type='number' placeholder='unit building number')
-        input.building_label(type='text' placeholder='unit building label')
     .ui.padded.stackable.grid
-        .ui.four.wide.column
+        .ui.three.wide.column
+            a.ui.compact.button(href="/buildings")
+                i.chevron.left.icon
+                +i name='apartment' classes='ui inline mini image'
+                |buildings
+            if is_dev
+                .ui.icon.input
+                    i.home.icon
+                    input.unit_number(type='number' placeholder='unit number')
+                .ui.icon.input
+                    i.building.icon
+                    input.building_number(type='number' placeholder='unit building number')
+                .ui.icon.input
+                    i.header.icon
+                    input.building_label(type='text' placeholder='unit building label')
+
             h1.ui.header building #{building.building_code}
             each building.building_numbers
                 .ui.basic.label #{this}
-        .ui.twelve.wide.column
-            .ui.cards
+        .ui.thirteen.wide.column
+            .ui.four.cards
                 each units
                     +unit_card
 
@@ -36,12 +43,28 @@ template(name='unit_card')
     a.ui.card(href="/unit/#{_id}")
         .content
             .ui.large.header #{unit_number}
-        //- .ui.small.header building #{building_code}
-        //- a.ui.large.button(href="/unit/#{_id}")
-        //-     i.yellow.right.chevron.icon
-        each resident
-            .ui.basic.label #{this}
-        if is_dev
-            +number_edit key='building_number' direct=true
-            +number_edit key='unit_number' direct=true
+            //- .ui.small.header building #{building_code}
+            //- a.ui.large.button(href="/unit/#{_id}")
+            //-     i.yellow.right.chevron.icon
+            div
+            +i name='rent'
+            each owners
+                .ui.basic.label
+                    if image_id
+                        img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                    |#{first_name} #{last_name}
+            div
+            +i name='home'
+            each residents
+                .ui.basic.label
+                    if image_id
+                        img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                    |#{first_name} #{last_name}
+            div
+            +i name='badge'
+            each permits
+                .ui.basic.label #{license_plate}
+            if is_dev
+                +number_edit key='building_number' direct=true
+                +number_edit key='unit_number' direct=true
                     

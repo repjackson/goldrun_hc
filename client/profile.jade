@@ -79,7 +79,7 @@ template(name='user_layout')
                                 i.shield.icon
                                 |roles
                             each roles
-                                .ui.label #{this}           
+                                .ui.basic.label #{this}           
                     if user_is_resident
                         +resident_info         
                 .twelve.wide.column.shadowed-box
@@ -167,8 +167,12 @@ template(name='resident_info')
             +date_view key='start_date' label='start date' direct=true
             +date_view key='expiration_date' label='expiration date' direct=true
         +textarea_view key='notes' label='notes' icon='align-left' direct=true
+        div
         each emails
-            .ui.label #{address}
+            if verified
+                .ui.green.label(title='verified') #{address}
+            else
+                .ui.orange.label(title='unverified') #{address}
 
     
             

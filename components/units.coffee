@@ -9,6 +9,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'unit_permits', Router.current().params.unit_id
         # @autorun => Meteor.subscribe 'unit_units', Router.current().params.unit_code
 
+
     Template.unit_owners.helpers
         owners: ->
             unit =
@@ -69,6 +70,38 @@ if Meteor.isClient
                     unit_number:unit_number
                     unit_number:unit.unit_number
                     unit_code:unit.slug
+
+
+
+    Template.unit_card.onCreated ->
+        @autorun => Meteor.subscribe 'unit_residents', @data._id
+        @autorun => Meteor.subscribe 'unit_owners', @data._id
+        @autorun => Meteor.subscribe 'unit_permits', @data._id
+        # @autorun => Meteor.subscribe 'unit_units', Router.current().params.unit_code
+
+    Template.unit_card.helpers
+        owners: ->
+            Meteor.users.find
+                roles:$in:['owner']
+                building_number:@building_number
+                unit_number:@unit_number
+
+        residents: ->
+            Meteor.users.find
+                roles:$in:['resident']
+                building_number:@building_number
+                unit_number:@unit_number
+
+        permits: ->
+            Docs.find
+                model: 'parking_permit'
+                address_number:@building_number
+
+
+
+
+
+
 
 if Meteor.isServer
     Meteor.publish 'unit', (unit_code)->

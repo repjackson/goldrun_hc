@@ -38,6 +38,7 @@ template(name='user_edit')
                                 +number_edit key='building_number' label='building #' icon='building' direct=true
                                 +text_edit key='building_code' label='building code' icon='building' direct=true
                                 +date_edit key='start_date' label='start date' icon='calendar' direct=true
+                                +boolean_edit key='owner' label='owner' direct=true
                                 unless user_is_owner
                                     +pdf_edit key='lease_agreement' label='lease agreement (pdf)' icon='clipboard' direct=true
                                     .ui.small.header or
@@ -61,6 +62,7 @@ template(name='user_edit')
                                 +number_view key='building_number' label='building #' direct=true
                                 +text_view key='building_code' label='building code' direct=true
                                 +date_view key='start_date' label='start date' direct=true
+                                +boolean_view key='owner' label='owner' direct=true
                                 if user_is_owner
                                     +image_view key='ownership_paperwork' label='ownership paperwork' direct=true
                                     +pdf_view key='lease_agreement' label='lease agreement' direct=true

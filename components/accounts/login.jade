@@ -2,18 +2,18 @@ template(name='login')
     .ui.padded.stackable.grid
         .centered.row
             .ten.wide.column
-                h1.ui.center.aligned.header gold run online
+                h1.ui.center.aligned.grey.header gold run online
                     //- i.massive.icons
                     //-     i.home.icon
                     //-     i.corner.right.chevron.icon
                 if message
                     h4.ui.center.aligned.header #{message}
-                .ui.fluid.big.input(class=login_class)
+                .ui.fluid.large.input(class=login_class)
                     .ui.inline.small.grey.header 
                         +i name='user'
                         |username
                     input.username(type='text')
-                .ui.fluid.big.input(class=login_class)
+                .ui.fluid.large.input(class=login_class)
                     .ui.inline.small.grey.header 
                         +i name='lock'
                         | password
