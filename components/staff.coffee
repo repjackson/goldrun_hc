@@ -16,10 +16,11 @@ if Meteor.isClient
         sessions: ->
             Docs.find
                 model:'healthclub_session'
+                active:true
                 # model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
 
     Template.hc_session.onCreated ->
-        @autorun => Meteor.subscribe 'user_by_username', @data.resident_username
+        # @autorun => Meteor.subscribe 'user_by_username', @data.resident_username
 
     Template.hc_session.helpers
         icon_class: ->
@@ -67,8 +68,8 @@ if Meteor.isClient
         'click .lookup_key': (e,t)->
             building_number = parseInt t.$('.building_number').val()
             unit_number = parseInt t.$('.unit_number').val()
-            console.log building_number
-            console.log unit_number
+            # console.log building_number
+            # console.log unit_number
             Meteor.call 'lookup_key',building_number, unit_number, (err,res)->
                 alert "key tag number", res.tag_number
 
@@ -78,15 +79,12 @@ if Meteor.isClient
                 sort: date: -1
 
 
-
-
-
     Template.unit_key_checkout.events
         'click .unit_key_checkout': (e,t)->
             # $(e.currentTarget).closest('.segment').transition('fade left',100)
             # Meteor.setTimeout =>
             $('body').toast({
-                title: "unit key checked out #{@first_name} #{@last_name}."
+                title: "unit key checked out #{@first_name} #{@last_name}"
                 # message: 'See desk staff for key.'
                 class : 'blue'
                 position:'top right'
@@ -107,9 +105,7 @@ if Meteor.isClient
                 log_type:'unit_key_checkout'
                 active:true
                 object_id:@_id
-                body: "#{@first_name} #{@last_name} checked out the unit key."
-            # document.reload()
-
+                body: "#{@first_name} #{@last_name} checked out the unit key"
 
 
 

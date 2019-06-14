@@ -71,9 +71,9 @@ Meteor.publish 'facet_doc', (tags)->
         tags: split_array
 
 
-Meteor.publish 'current_session_doc', ->
+Meteor.publish 'current_session', ->
     Docs.find
-        model: 'session_document'
+        model: 'healthclub_session'
         current:true
 
 
@@ -104,8 +104,10 @@ Meteor.publish 'page_children', (slug)->
 
 
 
-Meteor.publish 'checkin_guests', (session_document_id)->
-    session_document = Docs.findOne session_document_id
+Meteor.publish 'checkin_guests', ()->
+    session_document = Docs.findOne
+        model:'healthclub_session'
+        current:true
     console.log session_document.guest_ids
     Docs.find
         _id:$in:session_document.guest_ids

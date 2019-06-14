@@ -18,7 +18,7 @@ template(name='staff')
             +add_button model='front_desk_opening_closing_checklist' label='opening/closing checklist'
             +unit_key_widget
             
-        .twelve.wide.column
+        .eight.wide.column
             .ui.stackable.cards
                 each sessions
                     +hc_session
@@ -43,11 +43,12 @@ template(name='staff')
     //- //-     .ui.header this
     //- 
     //- +model_docs_crud model='communication'
-    
+    +kiosk_settings
     +schedule
     //- +shift_change_requests
     //- +view_chats
-
+    
+    
 
 template(name='hc_session')
     .ui.segment
@@ -78,7 +79,7 @@ template(name='unit_key_widget')
         .ui.icon.large.fluid.input
             i.home.icon
             input.unit_number(type='number' placeholder='unit number')
-        .ui.fluid.teal.button.lookup_key
+        .ui.fluid.button.lookup_key
             |lookup key
 
 

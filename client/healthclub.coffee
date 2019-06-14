@@ -1,6 +1,6 @@
 Template.healthclub.onCreated ->
     @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
-    @autorun => Meteor.subscribe 'current_session_doc'
+    @autorun => Meteor.subscribe 'current_session'
     # @autorun => Meteor.subscribe 'model_docs', 'log_event'
     @autorun => Meteor.subscribe 'users'
 
@@ -29,6 +29,11 @@ Template.healthclub.onRendered ->
 
 
 Template.healthclub.helpers
+    current_session_doc: ()->
+        Docs.findOne
+            model:'healthclub_session'
+            current:true
+
     selected_person: ->
         Meteor.users.findOne Session.get('selected_user_id')
 
@@ -192,8 +197,7 @@ Template.sign_waiver.helpers
 
 Template.checkin_card.onCreated ->
     @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
-    @autorun => Meteor.subscribe 'doc', Session.get('session_document')
-    @autorun => Meteor.subscribe 'checkin_guests', Session.get('session_document')
+    @autorun => Meteor.subscribe 'checkin_guests'
     @autorun => Meteor.subscribe 'rules_signed_username', @data.username
 
 
@@ -280,13 +284,17 @@ Template.checkin_card.events
                 submitted:true
 
     'click .add_recent_guest': ->
-        checkin_doc = Docs.findOne Session.get('session_document')
-        Docs.update checkin_doc._id,
+        current_session = Docs.findOne
+            model:'healthclub_session'
+            current:true
+        Docs.update current_session._id,
             $addToSet:guest_ids:@_id
 
     'click .remove_guest': ->
-        checkin_doc = Docs.findOne Session.get('session_document')
-        Docs.update checkin_doc._id,
+        current_session = Docs.findOne
+            model:'healthclub_session'
+            current:true
+        Docs.update current_session._id,
             $pull:guest_ids:@_id
 
     'click .toggle_adding_guest': ->

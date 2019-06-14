@@ -1,0 +1,31 @@
+template(name='kiosk_settings')
+    .ui.segment
+        .ui.header 
+            +i name='self-service-kiosk' classes='ui mini image'
+            |kiosk view
+        .ui.padded.grid
+            .four.wide.column
+                if kiosk_doc
+                    if is_dev
+                        .ui.icon.large.basic.button.print_kiosk_doc(title='print session doc')
+                            i.code.icon
+                    .ui.reset.icon.basic.button(title='reload session')
+                        i.refresh.icon
+                    .ui.delete_kiosk_doc.icon.basic.button(title='delete session')
+                        i.trash.icon
+                else
+                    .ui.button.create_kiosk
+                        |create kiosk doc
+                +set_kiosk_template value='kiosk_away' label='set away template'
+                +set_kiosk_template value='healthclub' label='check in'
+            .twelve.wide.column
+                with kiosk_doc
+                    +Template.dynamic template=kiosk_view
+
+template(name='set_kiosk_template')            
+    .ui.button.set_kiosk_template #{label}
+
+
+
+template(name='kiosk_away')
+    .ui.header We're away from the desk for 5 minutes

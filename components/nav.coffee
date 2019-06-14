@@ -67,8 +67,8 @@ if Meteor.isClient
 
     Template.nav.onCreated ->
         @autorun -> Meteor.subscribe 'me'
-        @autorun -> Meteor.subscribe 'doc', Session.get 'session_document'
-        @autorun -> Meteor.subscribe 'my_cart'
+        @autorun -> Meteor.subscribe 'current_session'
+        # @autorun -> Meteor.subscribe 'my_cart'
 
         # @autorun -> Meteor.subscribe 'bookmarked_models'
         # @autorun -> Meteor.subscribe 'unread_messages'

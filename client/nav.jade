@@ -56,10 +56,10 @@ template(name='nav')
                 //- a.item.set_marketplace(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}")
                 //-     +i name='shop'
                 if is_staff
-                    a.item(href='/checkin' class="{{isActivePath '/checkin'}}" title='health club')
+                    a.item(href='/healthclub' class="{{isActivePath '/healthclub'}}" title='health club')
                         +i name='treadmill' classes='ui mini inline image'
                         //- i.clinic.medical.large.icon
-                        .mobile.hidden &nbsp; hc check in
+                        .mobile.hidden &nbsp; kiosk
             .right.menu
                 //- if is_admin
                 //-     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")

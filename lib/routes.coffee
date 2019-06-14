@@ -47,7 +47,6 @@ Router.route '/transactions', -> @render 'transactions'
 Router.route '/my_transactions', -> @render 'my_transactions'
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
-Router.route '/fuckery', -> @render 'fuckery'
 Router.route '/register', -> @render 'register'
 Router.route '/cart', -> @render 'cart'
 Router.route '/admin', -> @render 'admin'
@@ -129,7 +128,7 @@ Router.route '/', (->
     ), name:'front'
 
 
-Router.route '/checkin', (->
+Router.route '/healthclub', (->
     @layout 'mlayout'
     @render 'healthclub'
     ), name:'healthclub'
