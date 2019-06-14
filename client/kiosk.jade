@@ -85,23 +85,24 @@ template(name='healthclub_session')
                                 |guest
                         +email_validation_check
                         +lease_expiration_check
-                        +rules_and_regs_check  
+                        with user
+                            +rules_and_regs_check
                 .row
                     .sixteen.wide.column
                         if rules_signed
-                            .ui.big.fluid.basic.button.healthclub_checkin
+                            .ui.big.fluid.basic.green.button.healthclub_checkin
                                 //- +i name='treadmill' classes='ui inline image'
-                                .ui.inline.header 
-                                    +i name='treadmill'
-                                    | health club check in
+                                .ui.inline.inverted.header 
+                                    //- +i name='treadmill'
+                                    | check in
                                     //- i.right.chevron.icon
-                            .ui.big.fluid.basic.button.garden_key_checkout
-                                +i name='basketball' classes='ui inline image'
-                                .ui.inline.header court key check out
-                                //- i.right.chevron.icon
-                            .ui.big.fluid.basic.button.unit_key_checkout
-                                +i name='key' classes='ui inline image'
-                                .ui.inline.header unit key check out
+                            //- .ui.big.fluid.basic.button.garden_key_checkout
+                            //-     +i name='basketball' classes='ui inline image'
+                            //-     .ui.inline.header court key check out
+                            //-     //- i.right.chevron.icon
+                            //- .ui.big.fluid.basic.button.unit_key_checkout
+                            //-     +i name='key' classes='ui inline image'
+                            //-     .ui.inline.header unit key check out
                                 //- i.right.chevron.icon
                             //- .ui.big.fluid.basic.button.unit_key_checkout
                             //-     +i name='calendar' classes='ui inline image'

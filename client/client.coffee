@@ -71,11 +71,11 @@ Template.registerHelper 'available_servings', () ->
 Template.registerHelper 'author', () -> Meteor.users.findOne @_author_id
 
 Template.registerHelper 'is_text', () ->
-    console.log @field_type
+    # console.log @field_type
     @field_type is 'text'
 
 Template.registerHelper 'template_parent', () ->
-    console.log Template.parentData()
+    # console.log Template.parentData()
     Template.parentData()
 
 Template.registerHelper 'fields', () ->

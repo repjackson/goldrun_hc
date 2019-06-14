@@ -51,16 +51,23 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
 
 
+    Template.healthclub_session.events
+        'click .cancel_checkin': ->
+            Docs.remove @_id
+            Router.go "/healthclub"
+
+
     Template.healthclub_session.helpers
         rules_signed: ->
+            # console.log @
             Docs.findOne
                 model:'rules_and_regs_signing'
-                resident:@username
+                resident:@resident_username
         session_document: ->
             healthclub_session_document = Docs.findOne Session.get 'session_document'
 
         user: ->
-            console.log @
+            # console.log @
             Meteor.users.findOne @user_id
 
 
