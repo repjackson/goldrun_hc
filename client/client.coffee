@@ -27,6 +27,13 @@ Template.registerHelper 'checking_in_doc', () ->
         current:true
      # Session.get('session_document')
 
+ Template.registerHelper 'current_session_doc', () ->
+        Docs.findOne
+            model:'healthclub_session'
+            current:true
+
+
+
 Template.registerHelper 'checkin_guest_docs', () ->
     Docs.findOne Session.get('session_document')
     session_document = Docs.findOne Session.get('session_document')

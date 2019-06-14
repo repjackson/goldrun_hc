@@ -13,31 +13,12 @@ force_loggedin =  ()->
 Router.onBeforeAction(force_loggedin, {
   # only: ['admin']
   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
-  except: ['register', 'forgot_password','reset_password','delta','doc_view','verify-email']
+  except: ['register', 'forgot_password','reset_password','delta','doc_view','verify-email','download_rules_pdf']
 });
 
-Router.route '/reset_password/:token', -> @render 'reset_password'
-Router.route '/download_rules_pdf/:username', -> @render 'download_rules_pdf'
 
 Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
 
-Router.route '/verify-email/:token', ->
-    # onBeforeAction: ->
-    console.log @
-    # Session.set('_resetPasswordToken', this.params.token)
-    # @subscribe('enrolledUser', this.params.token).wait()
-    console.log @params
-    Accounts.verifyEmail(@params.token, (err) =>
-        if err
-            console.log err
-            alert err
-        else
-            alert 'Email Verified'
-            Router.go "/user/#{Meteor.user().username}"
-    )
-
-
-Router.route '/give', -> @render 'give'
 Router.route '/units', -> @render 'units'
 Router.route '/add_karma', -> @render 'add_karma'
 Router.route '/karma', -> @render 'karma'
@@ -64,6 +45,28 @@ Router.route('enroll', {
         Session.set('_resetPasswordToken', this.params.token)
         @subscribe('enrolledUser', this.params.token).wait()
 })
+
+
+Router.route('verify-email', {
+    path:'/verify-email/:token',
+    onBeforeAction: ->
+        console.log @
+        # Session.set('_resetPasswordToken', this.params.token)
+        # @subscribe('enrolledUser', this.params.token).wait()
+        console.log @params
+        Accounts.verifyEmail(@params.token, (err) =>
+            if err
+                console.log err
+                alert err
+                @next()
+            else
+                alert 'email verified'
+                @next()
+                # Router.go "/user/#{Meteor.user().username}"
+        )
+})
+
+
 Router.route '/m/:model_slug', (->
     @render 'delta'
     ), name:'delta'
@@ -103,6 +106,16 @@ Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 Router.route "/meal/:doc_id/view", (->
     @render 'meal_view'
     ), name:'meal_view'
+
+Router.route '/reset_password/:token', (->
+    @render 'reset_password'
+    ), name:'reset_password'
+
+Router.route '/download_rules_pdf/:username', (->
+    @render 'download_rules_pdf'
+    ), name: 'download_rules_pdf'
+
+
 Router.route "/meal/:doc_id/edit", (->
     @render 'meal_edit'
     ), name:'meal_edit'
@@ -132,6 +145,12 @@ Router.route '/healthclub', (->
     @layout 'mlayout'
     @render 'healthclub'
     ), name:'healthclub'
+
+
+Router.route '/healthclub_session/:doc_id', (->
+    @layout 'mlayout'
+    @render 'healthclub_session'
+    ), name:'healthclub_session'
 
 
 Router.route '/user/:username', (->

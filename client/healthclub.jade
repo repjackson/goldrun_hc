@@ -156,12 +156,12 @@ template(name='checkin_card')
                         //- a.ui.header(href="/user/#{user.username}")
                         .ui.large.icon.basic.button.cancel_checkin
                             i.big.left.chevron.icon
-                        //- if kiosk_photo
-                        //-     +image_view key='kiosk_photo' label='Photo' direct=true
-                        //-     +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
-                        //- else
-                        //-     +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
-                        //- img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
+                        if kiosk_photo
+                            +image_view key='kiosk_photo' label='Photo' direct=true
+                            +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
+                        else
+                            +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
+                        img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
                         //- .meta @#{user.username}
                         //- +array_view key='tags' label='Tags' direct=true
                     .column

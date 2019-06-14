@@ -41,20 +41,28 @@ if Meteor.isClient
                 model:'kiosk'
             kiosk_doc.kiosk_view
 
-    Template.shop_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.shop_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+
+    Template.healthclub_session.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
+        @autorun => Meteor.subscribe 'checkin_guests'
+        @autorun -> Meteor.subscribe 'current_session'
+        @autorun -> Meteor.subscribe 'healthclub_session', Router.current().params.doc_id
+
+        # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
 
 
-    Template.product_transactions.onCreated ->
-        @autorun => Meteor.subscribe 'product_transactions', Router.current().params.doc_id
+    Template.healthclub_session.helpers
+        rules_signed: ->
+            Docs.findOne
+                model:'rules_and_regs_signing'
+                resident:@username
+        session_document: ->
+            healthclub_session_document = Docs.findOne Session.get 'session_document'
 
-    Template.product_transactions.helpers
-        product_transactions: ->
-            Docs.find
-                model:'transaction'
-                product_id: Router.current().params.doc_id
+        user: ->
+            console.log @
+            Meteor.users.findOne @user_id
+
 
 
 
@@ -62,3 +70,18 @@ if Meteor.isServer
     Meteor.publish 'kiosk_document', ()->
         Docs.find
             model:'kiosk'
+
+
+
+    publishComposite 'healthclub_session', (doc_id)->
+        {
+            find: ->
+                Docs.find doc_id
+            children: [
+                { find: (doc) ->
+                    console.log doc
+                    Meteor.users.find
+                        _id: doc.user_id
+                    }
+                ]
+        }

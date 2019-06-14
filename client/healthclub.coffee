@@ -81,6 +81,7 @@ Template.checkin_button.events
         # Session.set 'session_document',session_document
         # Session.set 'checking_in',false
         $('.username_search').val('')
+        Router.go "/healthclub_session/#{session_document}"
         Session.set 'displaying_profile',@_id
         # , 750
 
@@ -164,9 +165,9 @@ Template.add_resident.events
                         roles:['resident']
                         # healthclub_checkedin:true
                 Docs.insert
-                    model:'log_event'
-                    object_id:res
-                    body: "#{username} was created."
+                    model: 'log_event'
+                    object_id: res
+                    body: "#{username} was created"
                 # Docs.insert
                 #     model:'log_event'
                 #     object_id:res
@@ -193,12 +194,10 @@ Template.sign_waiver.helpers
             slug:'rules_regs'
 
 
-
-
 Template.checkin_card.onCreated ->
     @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
     @autorun => Meteor.subscribe 'checkin_guests'
-    @autorun => Meteor.subscribe 'rules_signed_username', @data.username
+    # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
 
 
 Template.checkin_card.helpers

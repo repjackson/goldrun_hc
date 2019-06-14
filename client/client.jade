@@ -29,10 +29,10 @@ template(name='layout')
     .ui.stackable.grid(class=invert_class)
         .centered.row
             .sixteen.wide.column
-                if current_session_doc
-                    +checkin_card current_session_doc
-                else 
-                    +yield
+                //- if current_session_doc
+                //-     +checkin_card current_session_doc
+                //- else 
+                +yield
         //- if is_eric
         unless is_frontdesk
             +footer 
@@ -49,10 +49,7 @@ template(name='layout')
 
 
 template(name='mlayout')
-    if current_session_doc
-        +checkin_card current_session_doc
-    else 
-        +yield
+    +yield
 
 
 
