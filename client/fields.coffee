@@ -1185,9 +1185,15 @@ Template.multi_doc_input.events
                     # console.log res
                     t.doc_results.set res
     'click .select_doc': (e,t) ->
-        session_document = Docs.findOne Session.get('session_document')
-        console.log session_document
-        Docs.update session_document._id,
+        # session_document = Docs.findOne Session.get('session_document')
+        # console.log session_document
+        console.log @
+        # if @direct
+        #     parent = Template.parentData(1)
+        # else
+        #     parent = Template.parentData(5)
+        parent = Docs.findOne _id: Router.current().params.doc_id
+        Docs.update parent._id,
             $addToSet:guest_ids:@_id
         t.doc_results.set null
         $('#multi_user_select_input').val ''
