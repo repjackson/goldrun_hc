@@ -20,7 +20,7 @@ if Meteor.isClient
                 # model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
 
     Template.hc_session.onCreated ->
-        # @autorun => Meteor.subscribe 'user_by_username', @data.resident_username
+        @autorun => Meteor.subscribe 'user_by_username', @data.resident_username
 
     Template.hc_session.helpers
         icon_class: ->

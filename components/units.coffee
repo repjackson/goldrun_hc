@@ -145,7 +145,7 @@ if Meteor.isServer
         unit =
             Docs.findOne
                 _id:unit_id
-        if unit
+        if unit and unit.building_code is 'sp'
             Docs.find
                 model: 'parking_permit'
                 address_number:unit.building_number

@@ -46,6 +46,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
         @autorun => Meteor.subscribe 'checkin_guests'
         @autorun -> Meteor.subscribe 'current_session'
+        @autorun -> Meteor.subscribe 'resident_from_healthclub_session', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'healthclub_session', Router.current().params.doc_id
 
         # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
@@ -80,8 +81,8 @@ if Meteor.isClient
             #     model:'healthclub_session'
             user = Meteor.users.findOne
                 username:@resident_username
-            console.log @
-            if @guest_ids.length > 0
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+            if healthclub_session_document.guest_ids.length > 0
                 # now = Date.now()
                 current_month = moment().format("MMM")
                 Meteor.users.update user._id,
@@ -103,7 +104,7 @@ if Meteor.isClient
                 model:'rules_and_regs_signing'
                 resident:@resident_username
         session_document: ->
-            healthclub_session_document = Docs.findOne Session.get 'session_document'
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
 
         adding_guests: -> Session.get 'adding_guest'
 
@@ -111,10 +112,9 @@ if Meteor.isClient
             Docs.find
                 _id:$in:@guest_ids
 
-
         user: ->
-            # console.log @
-            Meteor.users.findOne @user_id
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+            Meteor.users.findOne healthclub_session_document.user_id
 
 
 

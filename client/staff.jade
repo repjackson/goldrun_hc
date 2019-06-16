@@ -17,54 +17,52 @@ template(name='staff')
             +add_button model='frontdesk_hourly_checklist' label='hourly checklist'
             +add_button model='front_desk_opening_closing_checklist' label='opening/closing checklist'
             +unit_key_widget
-            
-        .eight.wide.column
-            .ui.stackable.cards
+        .twelve.wide.column
+            .ui.stackable.four.cards
                 each sessions
                     +hc_session
-            //- .ui.header checked in members
-            //- each checkedin_members
-            //-     +big_user_card username
-    //- .ui.stackable.padded.grid
-    //-     .three.column.row
-    //-         .column
-    //-             +task_widget
-    //-         .column
-    //-             +wywo
-    //-         .column
-    //- //- .ui.header current health club checked in
-    //- //- each active_healthclub_sessions
-    //- //-     .ui.header this
-    //- //- .ui.header current court keys checked out
-    //- //- each court_key_sessions
-    //- //-     .ui.header this
-    //- //- .ui.header checklist reminders
-    //- //- each court_key_sessions
-    //- //-     .ui.header this
-    //- 
     //- +model_docs_crud model='communication'
     +kiosk_settings
-    +schedule
+    //- +schedule
     //- +shift_change_requests
     //- +view_chats
     
     
 
 template(name='hc_session')
-    .ui.segment
-        .ui.inline.header
-            +i name=icon_class
-            |#{session_resident.first_name} #{session_resident.last_name}
-        with session_resident
-            img.ui.circular.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+    .ui.card
+        |kiosk photo
+        img.ui.image(src="{{c.url session_resident.kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
+        |old photo
+        img.ui.image(src="{{c.url session_resident.image_id width=300 height=300 gravity='face' crop='fill'}}")
+        .content
+            .ui.inline.header
+                //- +i name=icon_class
+                |#{session_resident.first_name} #{session_resident.last_name}
+            .ui.small.grey.header #{when}
+            +text_view key='address' label='address' direct=true
+            +number_view key='building_number' label='building #' direct=true
+            +number_view key='unit_number' label='apartment #' direct=true
+            +text_view key='building_code' label='building code' direct=true
+            //- +array_view key='tags' label='Tags'
+            if user_is_resident
+                +date_view key='start_date' label='start date' direct=true
+                +date_view key='expiration_date' label='expiration date' direct=true
+            //- +checkin_button
+            +garden_key_checkout
+            +unit_key_checkout
+            +email_validation_check
+            +lease_expiration_check
+            +rules_and_regs_check
+            +array_view key='roles' direct=true
+
+            +boolean_edit key='active' direct=true
+            +boolean_edit key='submitted' direct=true
+            +boolean_edit key='approved' direct=true
                 
-        .ui.small.grey.header #{when}
-        +boolean_edit key='active' direct=true
-        +boolean_edit key='approved' direct=true
-        
-        //- unless confirmed
-        .ui.fluid.green.button
-            |confirm check in
+                //- unless confirmed
+                //- .ui.fluid.green.button
+                //-     |confirm check in
 
 
 

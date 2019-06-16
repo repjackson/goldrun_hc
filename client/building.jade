@@ -33,13 +33,13 @@ template(name='building')
             each building.building_numbers
                 .ui.basic.label #{this}
         .ui.thirteen.wide.column
-            .ui.four.cards
+            .ui.three.cards
                 each units
                     +unit_card
 
     
 template(name='unit_card')
-    //- a(href="/unit/#{_id}")    
+    //- .ui.card    
     a.ui.card(href="/unit/#{_id}")
         .content
             .ui.large.header #{unit_number}
