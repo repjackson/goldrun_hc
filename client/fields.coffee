@@ -1162,11 +1162,7 @@ Template.multi_user_edit.events
 
 
 Template.multi_doc_input.onCreated ->
-    @autorun => Meteor.subscribe 'model_docs', 'guest'
-
-
-
-Template.multi_doc_input.onCreated ->
+    # @autorun => Meteor.subscribe 'model_docs', 'guest'
     @doc_results = new ReactiveVar
 Template.multi_doc_input.helpers
     doc_results: -> Template.instance().doc_results.get()

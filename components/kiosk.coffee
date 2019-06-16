@@ -44,8 +44,8 @@ if Meteor.isClient
 
     Template.healthclub_session.onCreated ->
         @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
-        @autorun => Meteor.subscribe 'checkin_guests'
-        @autorun -> Meteor.subscribe 'current_session'
+        @autorun => Meteor.subscribe 'checkin_guests',Router.current().params.doc_id
+        # @autorun -> Meteor.subscribe 'current_session'
         @autorun -> Meteor.subscribe 'resident_from_healthclub_session', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'healthclub_session', Router.current().params.doc_id
 
@@ -68,6 +68,7 @@ if Meteor.isClient
             current_session = Docs.findOne
                 model:'healthclub_session'
                 current:true
+            console.log current_session
             Docs.update current_session._id,
                 $pull:guest_ids:@_id
 
@@ -107,10 +108,13 @@ if Meteor.isClient
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
 
         adding_guests: -> Session.get 'adding_guest'
-
+        checking_in_doc: ->
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
         checkin_guest_docs: () ->
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+            console.log @
             Docs.find
-                _id:$in:@guest_ids
+                _id:$in:healthclub_session_document.guest_ids
 
         user: ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id

@@ -104,10 +104,10 @@ Meteor.publish 'page_children', (slug)->
 
 
 
-Meteor.publish 'checkin_guests', ()->
-    session_document = Docs.findOne
-        model:'healthclub_session'
-        current:true
+Meteor.publish 'checkin_guests', (doc_id)->
+    session_document = Docs.findOne doc_id
+        # model:'healthclub_session'
+        # current:true
     console.log session_document.guest_ids
     Docs.find
         _id:$in:session_document.guest_ids

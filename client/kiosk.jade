@@ -19,8 +19,9 @@ template(name='kiosk_settings')
                 +set_kiosk_template value='kiosk_away' label='set away template'
                 +set_kiosk_template value='healthclub' label='check in'
             .thirteen.wide.column
-                with kiosk_doc
-                    +Template.dynamic template=kiosk_view
+                +healthclub
+                //- with kiosk_doc
+                //-     +Template.dynamic template=kiosk_view
 
 template(name='set_kiosk_template')            
     .ui.button.set_kiosk_template #{label}

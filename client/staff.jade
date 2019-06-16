@@ -17,7 +17,7 @@ template(name='staff')
             +add_button model='frontdesk_hourly_checklist' label='hourly checklist'
             +add_button model='front_desk_opening_closing_checklist' label='opening/closing checklist'
             +unit_key_widget
-        .twelve.wide.column
+        .twelve.wide.column.scrolling
             .ui.stackable.four.cards
                 each sessions
                     +hc_session
@@ -107,10 +107,6 @@ template(name='task_widget')
                     +remove_button
     
     
-    
-    
-    
-    
 template(name='wywo')
     .ui.smoothed.segment
         .ui.header 
@@ -118,8 +114,6 @@ template(name='wywo')
             i.orange.edit.icon
             |while you were out
         
-
-
 template(name='schedule')
     //- .ui.center.aligned.header 
     //-     i.calendar.icon

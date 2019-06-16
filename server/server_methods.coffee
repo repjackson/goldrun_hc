@@ -80,10 +80,12 @@ Meteor.methods
     checkout_members: ()->
         now = Date.now()
         checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
-        console.log 'current checked in members', checkedin_members
+        checkedin_members = Docs.find(model:'healthclub_session',active:true).fetch()
+
+        # console.log 'current checked in members', checkedin_members
 
         for member in checkedin_members
-            console.log member
+            # console.log member
             checkedin_doc =
                 Docs.findOne
                     user_id:member._id

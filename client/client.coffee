@@ -21,25 +21,25 @@ Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
 
     # Session.get 'displaying_profile'
 
-Template.registerHelper 'checking_in_doc', () ->
-    Docs.findOne
-        model:'healthclub_session'
-        current:true
-     # Session.get('session_document')
+# Template.registerHelper 'checking_in_doc', () ->
+#     Docs.findOne
+#         model:'healthclub_session'
+#         current:true
+#      # Session.get('session_document')
 
- Template.registerHelper 'current_session_doc', () ->
-        Docs.findOne
-            model:'healthclub_session'
-            current:true
+# Template.registerHelper 'current_session_doc', () ->
+#         Docs.findOne
+#             model:'healthclub_session'
+#             current:true
 
 
 
-Template.registerHelper 'checkin_guest_docs', () ->
-    Docs.findOne Session.get('session_document')
-    session_document = Docs.findOne Session.get('session_document')
-    # console.log session_document.guest_ids
-    Docs.find
-        _id:$in:session_document.guest_ids
+# Template.registerHelper 'checkin_guest_docs', () ->
+#     Docs.findOne Router.current().params.doc_id
+#     session_document = Docs.findOne Router.current().params.doc_id
+#     # console.log session_document.guest_ids
+#     Docs.find
+#         _id:$in:session_document.guest_ids
 
 
 Template.registerHelper 'resident_guests', () ->

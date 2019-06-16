@@ -2,6 +2,8 @@ template(name='healthclub')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     //- .ui.padded.stackable.grid.header-wrapper(class=invert_class)
     .ui.padded.stackable.grid.header-wrapper
+        //- +Template.dynamic template=kiosk_view
+
         .sixteen.wide.column
             if is_staff
                 a.ui.button(href='/staff')

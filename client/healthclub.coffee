@@ -1,6 +1,6 @@
 Template.healthclub.onCreated ->
     @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
-    @autorun => Meteor.subscribe 'current_session'
+    # @autorun => Meteor.subscribe 'current_session'
     # @autorun => Meteor.subscribe 'model_docs', 'log_event'
     @autorun => Meteor.subscribe 'users'
 
