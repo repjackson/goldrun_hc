@@ -47,7 +47,7 @@ if Meteor.isClient
             Meteor.call 'send_rules_regs_receipt_email', user._id
 
             Session.set 'displaying_profile', user._id
-            Router.go "/checkin"
+            Router.go "/healthclub_session/#{signing_doc.session_id}"
 
 
 
@@ -85,7 +85,7 @@ if Meteor.isClient
             guest_doc = Docs.findOne Router.current().params.new_guest_id
             Docs.remove guest_doc._id
             Session.set 'displaying_profile', guest_doc.resident_id
-            Router.go "/checkin"
+            Router.go "/healthclub_session/#{guest_doc.session_id}"
 
             $('body').toast({
                 title: "Adding guest canceled."
@@ -115,7 +115,7 @@ if Meteor.isClient
         'click .submit_guest':->
             guest_doc = Docs.findOne Router.current().params.new_guest_id
             # console.log guest_doc
-            checking_in_doc = Docs.findOne Session.get('session_document')
+            checking_in_doc = Docs.findOne guest_doc.session_id
 
             Docs.update checking_in_doc._id,
                 $addToSet: guest_ids: guest_doc._id
@@ -124,8 +124,8 @@ if Meteor.isClient
             Meteor.users.update user._id,
                 $addToSet:guest_ids: guest_doc._id
 
-            Session.set 'displaying_profile', guest_doc.resident_id
-            Router.go "/checkin"
+            # Session.set 'displaying_profile', guest_doc.resident_id
+            Router.go "/healthclub_session/#{guest_doc.session_id}"
 
 
 

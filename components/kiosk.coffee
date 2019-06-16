@@ -57,6 +57,22 @@ if Meteor.isClient
             Docs.remove @_id
             Router.go "/healthclub"
 
+        'click .add_guest': ->
+            # console.log @
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+
+            new_guest_id =
+                Docs.insert
+                    model:'guest'
+                    session_id: healthclub_session_document._id
+                    resident_id: healthclub_session_document.user_id
+                    resident: healthclub_session_document.resident_username
+            # Session.set 'displaying_profile', null
+            #
+            Router.go "/add_guest/#{new_guest_id}"
+
+
+
         'click .add_recent_guest': ->
             current_session = Docs.findOne
                 model:'healthclub_session'
@@ -112,7 +128,7 @@ if Meteor.isClient
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
         checkin_guest_docs: () ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
-            console.log @
+            # console.log @
             Docs.find
                 _id:$in:healthclub_session_document.guest_ids
 
