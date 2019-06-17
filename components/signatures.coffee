@@ -7,7 +7,7 @@ if Meteor.isClient
         signing_doc: -> Docs.findOne Router.current().params.doc_id
         agree_class: -> if @agree then 'green' else 'basic'
         resident_email: ->
-            console.log @resident
+            # console.log @resident
             res = Meteor.users.findOne
                 username:@resident
             res.emails[0].address
@@ -46,7 +46,7 @@ if Meteor.isClient
                 $set:rules_signed:true
             Meteor.call 'send_rules_regs_receipt_email', user._id
 
-            Session.set 'displaying_profile', user._id
+            # Session.set 'displaying_profile', user._id
             Router.go "/healthclub_session/#{signing_doc.session_id}"
 
 

@@ -9,9 +9,9 @@ template(name='nav')
                     i.big.loading.dharmachakra.icon
             else
                 if is_staff
-                    a.header.icon.item(href='/' class="{{isActivePath '/'}}")
-                        //- i.home.large.large.icon
-                        +i name='home-page' classes='ui mini inline image'
+                    //- a.header.icon.item(href='/' class="{{isActivePath '/'}}")
+                    //-     //- i.home.large.large.icon
+                    //-     +i name='home-page' classes='ui mini inline image'
                     a.icon.item(href='/home' class="{{isActivePath '/home'}}")
                         //- i.th.large.large.icon
                         +i name='activity-grid-2' classes='ui mini inline image'
@@ -23,11 +23,11 @@ template(name='nav')
                 //-     //- i.th.large.large.icon
                 //-     +i name='room'    
                 if is_staff
-                    a.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
+                    a.item(href='/staff' class="{{isActivePath '/staff'}}")
                         +i name='employee-card' classes='ui mini inline image'
                         //- i.shield.large.icon
                         .mobile.hidden &nbsp; staff
-                    a.item(href='/users' class="{{isActivePath '/users'}}" title='users')
+                    a.item(href='/users' class="{{isActivePath '/users'}}")
                         //- i.users.large.icon
                         +i name='groups' classes='ui mini inline image'
                         .mobile.hidden &nbsp; users
@@ -36,7 +36,7 @@ template(name='nav')
                     //-     //- i.food.large.icon
                     //-     +i name='food'
                     //-     .mobile.hidden &nbsp; meals
-                    a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='shop')
+                    a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                         //- i.food.large.icon
                         +i name='shop'
                         .mobile.hidden &nbsp; shop
@@ -56,7 +56,7 @@ template(name='nav')
                 //- a.item.set_marketplace(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}")
                 //-     +i name='shop'
                 if is_staff
-                    a.item(href='/healthclub' class="{{isActivePath '/healthclub'}}" title='health club')
+                    a.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
                         +i name='treadmill' classes='ui mini inline image'
                         //- i.clinic.medical.large.icon
                         .mobile.hidden &nbsp; kiosk

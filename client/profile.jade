@@ -45,24 +45,24 @@ template(name='user_layout')
                             //- a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
                             //-     i.book.icon
                             //-     |documents
-                            a.item(href="/user/#{username}/payment" class="{{isActiveRoute 'user_payment'}}")
-                                 i.money.icon
-                                 |payment
-                            a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
-                                 i.phone.icon
-                                 |contact
+                            //- a.item(href="/user/#{username}/payment" class="{{isActiveRoute 'user_payment'}}")
+                            //-      i.money.icon
+                            //-      |payment
+                            //- a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
+                            //-      i.phone.icon
+                            //-      |contact
                             //- a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
                             //-     i.fork.icon
                             //-     |comparison
-                            a.item(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
-                                i.tags.icon
-                                |tags
-                            a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
-                                 i.heart.icon
-                                 |karma
-                            a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
-                                 i.money.icon
-                                 |transactions                            
+                            //- a.item(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
+                            //-     i.tags.icon
+                            //-     |tags
+                            //- a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
+                            //-      i.heart.icon
+                            //-      |karma
+                            //- a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
+                            //-      i.money.icon
+                            //-      |transactions                            
                     if is_current_user
                         .ui.vertical.large.fluid.menu
                             a.item.logout(href="#")
@@ -124,6 +124,8 @@ template(name='user_about')
     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
     .ui.stackable.grid
         .row
+            .four.wide.column
+                +user_healthclub                        
             if user_is_resident
                 if is_staff
                     each staff_resident_widgets
@@ -359,8 +361,8 @@ template(name='user_key')
             if is_staff
                 .ui.tiny.grey.header
                     i.grey.shield.icon
-                    |access log
-                .ui.list
+                    |access log            
+                .ui.list.smallscroll
                     each access_log
                         .item #{when} by #{_author_username}
 

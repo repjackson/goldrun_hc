@@ -1,6 +1,8 @@
 template(name='rules_signing')
     with signing_doc
         .ui.container
+            .ui.hidden.divider
+            .ui.grey.center.aligned.header please read and scroll down to sign
             +document_view key='rules_regs'
             +user_card resident
             .ui.small.header

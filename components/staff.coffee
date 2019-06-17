@@ -10,8 +10,9 @@ if Meteor.isClient
 
     Template.staff.helpers
         checkedin_members: ->
-            Meteor.users.find
-                healthclub_checkedin:true
+            Docs.find
+                model:'healthclub_session'
+                active:true
 
         sessions: ->
             Docs.find
@@ -21,6 +22,8 @@ if Meteor.isClient
 
     Template.hc_session.onCreated ->
         @autorun => Meteor.subscribe 'user_by_username', @data.resident_username
+        @autorun => Meteor.subscribe 'model_docs', 'guest'
+
 
     Template.hc_session.helpers
         icon_class: ->
@@ -33,6 +36,9 @@ if Meteor.isClient
             Meteor.users.findOne
                 username:@resident_username
 
+        checkin_guest_docs: () ->
+            Docs.find
+                _id:$in:@guest_ids
 
     Template.shift_change_requests.helpers
         requests: ->

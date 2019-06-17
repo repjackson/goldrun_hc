@@ -79,26 +79,26 @@ Meteor.methods
 
     checkout_members: ()->
         now = Date.now()
-        checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
-        checkedin_members = Docs.find(model:'healthclub_session',active:true).fetch()
+        # checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
+        checkedin_sessions = Docs.find(model:'healthclub_session',active:true).fetch()
 
-        # console.log 'current checked in members', checkedin_members
+        # console.log 'current checked in members', checkedin_sessions
 
-        for member in checkedin_members
+        for session in checkedin_sessions
             # console.log member
-            checkedin_doc =
-                Docs.findOne
-                    user_id:member._id
-                    model:'healthclub_checkin'
-                    active:true
+            # checkedin_doc =
+            #     Docs.findOne
+            #         user_id:member._id
+            #         model:'healthclub_checkin'
+            #         active:true
             console.log 'now', now
-            console.log 'checked in doc', checkedin_doc
-            console.log 'checked in time', checkedin_doc._timestamp
-            diff = now-checkedin_doc._timestamp
+            console.log 'checked in doc', session
+            console.log 'checked in time', session._timestamp
+            diff = now-session._timestamp
             minute_difference = diff/1000/60
             if minute_difference>60
-                Meteor.users.update(member._id,{$set:healthclub_checkedin:false})
-                Docs.update checkedin_doc._id,
+                # Meteor.users.update(member._id,{$set:healthclub_checkedin:false})
+                Docs.update session._id,
                     $set:
                         active:false
                         logout_timestamp:Date.now()
@@ -143,10 +143,11 @@ Meteor.methods
             }).fetch()
 
     lookup_user_by_code: (healthclub_code)->
-        # console.log healthclub_code
-        Meteor.users.find({
-            healthclub_code:healthclub_code
-            }).fetch()
+        console.log healthclub_code
+        unless isNaN(healthclub_code)
+            Meteor.users.findOne({
+                healthclub_code:healthclub_code
+                })
 
     lookup_doc: (first_name, model_filter)->
         # console.log first_name

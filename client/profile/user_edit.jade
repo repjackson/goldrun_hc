@@ -33,7 +33,7 @@ template(name='user_edit')
                                 +text_edit key='first_name' label='first name' icon='header' direct=true
                                 +text_edit key='last_name' label='last name' icon='text' direct=true
                                 +text_edit key='address' label='address' icon='marker' direct=true
-                                //- +number_edit key='healthclub_code' label='Healthclub Code' direct=true
+                                +number_edit key='healthclub_code' label='healthclub code' icon='barcode' direct=true
                                 +number_edit key='unit_number' label='unit #' icon='home' direct=true
                                 +number_edit key='building_number' label='building #' icon='building' direct=true
                                 +text_edit key='building_code' label='building code' icon='building' direct=true
@@ -214,6 +214,6 @@ template(name='emails_edit')
                             i.caret.right.icon
                     .ui.small.icon.basic.button.remove_email
                         i.remove.icon
-    .ui.action.input
-        input#new_email(type='email' placeholder='add new email address here')
+    .ui.action.big.input
+        input#new_email(type='email' placeholder='add new email address')
         #add_email.ui.submit.basic.button add email

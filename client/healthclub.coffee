@@ -107,31 +107,45 @@ Template.healthclub.events
     'click .username_search': (e,t)->
         Session.set 'checking_in',true
 
-    'keyup .username_search': (e,t)->
+    'input .barcode_entry': (e, t)->
+
+    'keyup .username_search': _.debounce((e,t)->
         username_query = $('.username_search').val()
         if e.which is 8
             if username_query.length is 0
                 Session.set 'username_query',null
                 Session.set 'checking_in',false
-            else
-                Session.set 'username_query',username_query
         else
             if username_query.length > 1
-                # audio = new Audio('wargames.wav');
-                # audio.play();
-                # console.log 'hi'
-                Session.set 'username_query',username_query
+                if isNaN(username_query)
+                    console.log 'not a number'
+                    Session.set 'username_query',username_query
+                else
+                    console.log 'number'
+                    barcode_entry = parseInt username_query
+                    # alert barcode_entry
+                    Meteor.call 'lookup_user_by_code', barcode_entry, (err,res)->
+                        console.log res
+                        Session.set 'displaying_profile',res._id
+                        session_document = Docs.insert
+                            model:'healthclub_session'
+                            active:true
+                            submitted:false
+                            approved:false
+                            user_id:res._id
+                            guest_ids:[]
+                            resident_username:res.username
+                            current:true
+                        Meteor.call 'check_resident_status', res._id
+                        Session.set 'username_query',null
+                        # Session.set 'session_document',session_document
+                        # Session.set 'checking_in',false
+                        $('.username_search').val('')
+                        Router.go "/healthclub_session/#{session_document}"
+                        Session.set 'displaying_profile',res._id
 
-
-    'input .barcode_entry': _.debounce((e, t)->
-        barcode_entry = parseInt $('.barcode_entry').val()
-        # alert barcode_entry
-        Meteor.call 'lookup_user_by_code', barcode_entry, (err,res)->
-            console.log res
-            Session.set 'displaying_profile',res[0]._id
-            # audio = new Audio('cantdo.mp3');
-            # audio.play();
     , 250)
+
 
     'click .clear_results': ->
         Session.set 'username_query',null

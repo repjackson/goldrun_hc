@@ -22,7 +22,7 @@ template(name='staff')
                 each sessions
                     +hc_session
     //- +model_docs_crud model='communication'
-    +kiosk_settings
+    //- +kiosk_settings
     //- +schedule
     //- +shift_change_requests
     //- +view_chats
@@ -44,21 +44,24 @@ template(name='hc_session')
             +number_view key='building_number' label='building #' direct=true
             +number_view key='unit_number' label='apartment #' direct=true
             +text_view key='building_code' label='building code' direct=true
-            //- +array_view key='tags' label='Tags'
+            .ui.small.grey.header guests
+            each checkin_guest_docs
+                .ui.large.basic.label 
+                    |#{first_name} #{last_name}
             if user_is_resident
                 +date_view key='start_date' label='start date' direct=true
                 +date_view key='expiration_date' label='expiration date' direct=true
             //- +checkin_button
             +garden_key_checkout
             +unit_key_checkout
-            +email_validation_check
-            +lease_expiration_check
-            +rules_and_regs_check
+            //- +email_validation_check
+            //- +lease_expiration_check
+            //- +rules_and_regs_check
             +array_view key='roles' direct=true
 
             +boolean_edit key='active' direct=true
-            +boolean_edit key='submitted' direct=true
-            +boolean_edit key='approved' direct=true
+            //- +boolean_edit key='submitted' direct=true
+            //- +boolean_edit key='approved' direct=true
                 
                 //- unless confirmed
                 //- .ui.fluid.green.button

@@ -49,7 +49,7 @@ template(name='healthclub_session')
                         i.big.left.chevron.icon
                     if user.kiosk_photo
                         with user
-                            +image_view key='kiosk_photo' label='Photo' direct=true
+                            +image_view key='kiosk_photo' label='photo' direct=true
                     else
                         with user
                             +image_edit key='kiosk_photo' label='click below to take photo' direct=true
@@ -91,19 +91,15 @@ template(name='healthclub_session')
                         +rules_and_regs_check
             .row
                 .sixteen.wide.column
-                    //- if rules_signed
-                    .ui.big.fluid.basic.green.button.submit_checkin
-                        //- +i name='treadmill' classes='ui inline image'
-                        .ui.inline.inverted.header 
-                            //- +i name='treadmill'
-                            | check in
-                    //- else 
-                    //-     .ui.big.fluid.red.basic.button.sign_rules
-                    //-         //- +i name='treadmill' classes='ui inline image'
-                    //-         .ui.inline.header 
-                    //-         //- +i name='treadmill'
-                    //-         | please sign rules and regs
-                    //-         i.right.chevron.icon
+                    if rules_signed
+                        .ui.big.fluid.basic.green.button.submit_checkin
+                            .ui.inline.inverted.header 
+                                | check in
+                    else 
+                        .ui.big.fluid.red.basic.button.sign_rules
+                            .ui.inline.header 
+                                i.right.chevron.icon
+                                | please sign rules and regs
         if submitted
             unless approved
                 .centered.row
