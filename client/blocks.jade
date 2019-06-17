@@ -310,10 +310,11 @@ template(name='email_validation_check')
         
         
 template(name='lease_expiration_check')
-    if lease_expiring
-        .ui.large.yellow.label
+    if expiration_date
+        .ui.large.basic.label
             i.clock.icon
             |lease expiring 
+            |#{lease_expiring}
         
         
 template(name='rules_and_regs_check')

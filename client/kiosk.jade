@@ -85,8 +85,8 @@ template(name='healthclub_session')
                         .ui.big.basic.fluid.button.toggle_adding_guest 
                             i.plus.large.icon
                             |guest
-                    +email_validation_check
-                    +lease_expiration_check
+                    +email_validation_check user
+                    +lease_expiration_check user
                     with user
                         +rules_and_regs_check
             .row
