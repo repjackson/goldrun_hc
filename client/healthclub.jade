@@ -3,14 +3,12 @@ template(name='healthclub')
     //- .ui.padded.stackable.grid.header-wrapper(class=invert_class)
     .ui.padded.stackable.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
-
         .sixteen.wide.column
             if is_staff
                 a.ui.button(href='/staff')
                     i.left.chevron.icon
                     |staff
-            img.ui.circular.centered.image(src="{{c.url 'gold_run_logo' }}")
-                
+            img.ui.circular.centered.image.shadowed(src="{{c.url 'gold_run_logo' }}")
             h1.ui.center.aligned.header.checkin_header
                 |health club check in
             //- if is_admin
@@ -36,7 +34,7 @@ template(name='healthclub')
             .ui.padded.grid
                 .two.column.row
                     .column
-                        +document_view key='health_club_notices'
+                        +facet_doc_edit key='health_club_notices' edit_role='staff'
                         +health_club_info
                     .column
                         +healthclub_status
@@ -49,6 +47,16 @@ template(name='healthclub')
                             .item fri 7a-9p
                             .item sat 8a-9p
                             .item sun 8a-10p
+                        
+                        
+template(name='facet_doc_edit')
+    with facet_doc
+        if is_staff
+            +textarea_edit key='body'
+        else 
+            h3 
+                +textarea_view key='body'
+                        
                         
 template(name='add_resident')
     .ui.stackable.padded.grid

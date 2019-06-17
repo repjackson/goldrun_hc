@@ -65,8 +65,8 @@ body {
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
-.grblue {
-    background-color: #0e0e44 !important;
+.grgold {
+    background-color: #5a4400 !important;
 }
 
 
@@ -123,7 +123,7 @@ input.username_search{
 .button.active {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
-    background-color: black !important;
+    background-color: #5a4400 !important;
     color: white !important;
     /* transform: translate(0, 4px); */
 }
@@ -200,6 +200,8 @@ h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */
     font-family: 'Abril Fatface', serif !important;
     /* font-size: 300% !important; */
+    color: #5a4400 !important;
+
     font-weight: lighter !important;
 }
 a {

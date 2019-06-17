@@ -34,7 +34,7 @@ template(name='hc_session')
         if session_resident.kiosk_photo
             img.ui.image(src="{{c.url session_resident.kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
         else
-            |old photo (ask resident to take new photo)
+            |old photo
             img.ui.image(src="{{c.url session_resident.image_id width=300 height=300 gravity='face' crop='fill'}}")
         .content
             .ui.inline.header

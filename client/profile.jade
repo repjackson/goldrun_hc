@@ -8,9 +8,10 @@ template(name='user_layout')
                         img.ui.centered.circular.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     .ui.center.aligned.basic.segment
-                        a.ui.large.center.aligned.header(href="/user/#{user.username}")
-                            | #{user.first_name}
-                            | #{user.last_name}
+                        a(href="/user/#{user.username}")
+                            h1.ui.large.center.aligned.header
+                                | #{user.first_name}
+                                | #{user.last_name}
                     .ui.center.aligned.small.grey.header
                         | #{user.tagline}
                     .ui.center.aligned.small.grey.header
