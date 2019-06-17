@@ -9,7 +9,9 @@ template(name='healthclub')
                 a.ui.button(href='/staff')
                     i.left.chevron.icon
                     |staff
-            h1.ui.center.aligned.header
+            img.ui.circular.centered.image(src="{{c.url 'gold_run_logo' }}")
+                
+            h1.ui.center.aligned.header.checkin_header
                 |health club check in
             //- if is_admin
             //- .ui.left.icon.massive.fluid.input

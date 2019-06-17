@@ -7,6 +7,11 @@ body {
     /* background: #0e0e44 !important; */
 }
 
+.checkin_header {
+    font-size: 4em !important;
+}
+
+
 .home_segment{
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -78,12 +83,24 @@ input{
     opacity: 1;
 }
 
-input:focus, textarea:focus {
+input.username_search{
+    -webkit-border-radius: 25px !important; */
+    border-radius: 25px !important;
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+    background: rgba(250, 250, 250, 0.9) !important;
+    opacity: 1;
+    border-width: 5px !important;
+    border-color: #a67c00 !important;
+    box-shadow: 0 2px 5px 2px rgba(50, 50, 100, 0.1) !important;
+}
+
+/* input:focus, textarea:focus {
     background: rgba(250, 250, 250, 0.8) !important;
     font-size:110% !important;
     border-width: medium !important;
     box-shadow: 0 2px 5px 2px rgba(50, 50, 100, 0.1) !important;
-}
+} */
 
 
 .shadowed{
@@ -173,12 +190,17 @@ input:focus, textarea:focus {
 
 .inline {
   display:inline !important;
-  margin: .5em !important;
+  margin: .5em !important;2
 }
 
-
 .ui.header{
-  font-family: 'Ubuntu', sans-serif !important;
+    font-family: 'Ubuntu', sans-serif !important;
+}
+h1.ui.header{
+    /* font-family: 'Ubuntu', sans-serif !important; */
+    font-family: 'Abril Fatface', serif !important;
+    /* font-size: 300% !important; */
+    font-weight: lighter !important;
 }
 a {
   font-family: 'Ubuntu', sans-serif !important;

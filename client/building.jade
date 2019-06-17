@@ -61,10 +61,12 @@ template(name='unit_card')
                         img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
                     |#{first_name} #{last_name}
             div
-            +i name='badge'
-            each permits
-                .ui.basic.label #{license_plate}
+            if is_springdale
+                +unit_permits
+                +i name='badge'
+                each permits
+                    .ui.basic.label #{license_plate}
             if is_dev
-                +number_edit key='building_number' direct=true
-                +number_edit key='unit_number' direct=true
+                +number_view key='building_number' direct=true
+                +number_view key='unit_number' direct=true
                     

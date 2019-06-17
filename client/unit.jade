@@ -18,10 +18,13 @@ template(name='unit')
             if is_dev
                 with unit
                     +text_edit key='building_code' direct=true
+            +user_key
         .twelve.wide.column
             +unit_residents
             +unit_owners
-            +unit_permits
+            if is_springdale
+                +unit_permits
+
             
 template(name='unit_permits')            
     .ui.segment
@@ -43,7 +46,7 @@ template(name='unit_owners')
         .ui.header 
             +i name='rent'
             |unit owners
-        .ui.cards
+        .ui.four.cards
             each owners
                 .ui.card
                     .image

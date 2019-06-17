@@ -13,7 +13,8 @@ template(name='user_edit')
                         |save
                     .ui.hidden.divider
                     +image_edit key='image_id' icon='picture' title='profile image' direct=true
-                    +password_edit
+                    if is_admin
+                        +password_edit
                     if is_staff
                         //- +phone_editor
                         +username_edit
@@ -41,7 +42,6 @@ template(name='user_edit')
                                 +boolean_edit key='owner' label='owner' direct=true
                                 unless user_is_owner
                                     +pdf_edit key='lease_agreement' label='lease agreement (pdf)' icon='clipboard' direct=true
-                                    .ui.small.header or
                                     +image_edit key='lease_agreement' label='lease agreement (image)' icon='picture' direct=true
                                 +pdf_edit key='lease_addendum' label='lease addendum' icon='clipboard' direct=true
                                 if user_is_owner
@@ -158,9 +158,6 @@ template(name='phone_editor')
         .ui.fluid.basic.button.update_phone add phone
 
 
-template(name='add_card_modal')
-
-
 
 template(name='password_edit')
     .ui.small.grey.header
@@ -215,5 +212,5 @@ template(name='emails_edit')
                     .ui.small.icon.basic.button.remove_email
                         i.remove.icon
     .ui.action.big.input
-        input#new_email(type='email' placeholder='add new email address')
+        input#new_email(type='email' placeholder='add new email address' autocomplete="off")
         #add_email.ui.submit.basic.button add email

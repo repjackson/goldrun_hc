@@ -36,10 +36,10 @@ template(name='nav')
                     //-     //- i.food.large.icon
                     //-     +i name='food'
                     //-     .mobile.hidden &nbsp; meals
-                    a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
-                        //- i.food.large.icon
-                        +i name='shop'
-                        .mobile.hidden &nbsp; shop
+                    //- a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
+                    //-     //- i.food.large.icon
+                    //-     +i name='shop'
+                    //-     .mobile.hidden &nbsp; shop
                     //- a.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='meals')
                     //-     //- i.food.large.icon
                     //-     +i name='food'
@@ -61,10 +61,10 @@ template(name='nav')
                         //- i.clinic.medical.large.icon
                         .mobile.hidden &nbsp; kiosk
             .right.menu
-                //- if is_admin
-                //-     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                //-         +i name='tasks'
-                //-         //- i.tasks.large.icon
+                if is_admin
+                    a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
+                        +i name='tasks'
+                        //- i.tasks.large.icon
                 //-     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
                 //-         +i name='note'
                 //-         //- i.rss.large.icon

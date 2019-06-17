@@ -46,6 +46,8 @@ Template.registerHelper 'resident_guests', () ->
     Docs.find
         _id:$in:@guest_ids
 
+Template.registerHelper 'is_springdale', () ->
+    console.log @
 
 Template.registerHelper 'current_month_guests', () ->
     # console.log @

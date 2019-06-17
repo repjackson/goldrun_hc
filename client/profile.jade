@@ -64,14 +64,13 @@ template(name='user_layout')
                             //-      i.money.icon
                             //-      |transactions                            
                     if is_current_user
-                        .ui.vertical.large.fluid.menu
-                            a.item.logout(href="#")
-                                i.sign.out.icon
-                                |log out
-                            a.item.logout_other_clients(href="#")
-                                |logout other clients
-                    unless is_staff
-                        +gr_status                
+                        a.ui.fluid.button.logout(href="#")
+                            i.sign.out.icon
+                            |log out
+                        a.ui.fluid.button.logout_other_clients(href="#")
+                            |logout other clients
+                    //- unless is_staff
+                    //-     +gr_status                
                     if is_admin
                         .ui.segment
                             .ui.grey.header 
@@ -111,13 +110,15 @@ template(name='user_residency')
     
     
 template(name='user_healthclub')
-    if user_is_staff
-        +user_notes
-    .ui.circular.button.generate_barcode
-        i.barcode.icon
-        |generate health club checkin barcode
-    div
-    svg#barcode
+    .ui.segment
+        .ui.header 
+            +i name='token-card-code'
+            |hc card
+        .ui.circular.button.generate_barcode
+            i.barcode.icon
+            |generate health club checkin barcode
+        div
+        svg#barcode
     
     
 template(name='user_about')
@@ -140,11 +141,7 @@ template(name='user_about')
                     .four.wide.column
                         +user_signatures
                     .four.wide.column
-                        +user_card_replacements
-                    .four.wide.column
                         +user_notes        
-                    .four.wide.column
-                        +user_key
                     .four.wide.column
                         +user_unit
                     .four.wide.column
@@ -203,13 +200,6 @@ template(name='received_karma')
                 
             
             
-template(name='user_card_replacements')
-    .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            +i name='card-exchange'
-            |card replacements
-
-
 
 template(name='user_permit')
     .ui.segment
@@ -232,14 +222,6 @@ template(name='user_permit')
             .ui.grey.inline.header #{license_plate}
             div
 
-
-            
-template(name='user_garden')
-    .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            //- i.id.card.alternate.icon
-            +i name='garden-gloves'
-            |garden
 
             
 template(name='user_permits')
@@ -314,12 +296,12 @@ template(name='user_guests')
             +i name='groups'
             |guests
         +goto_model slug='guest'
-        +add_button model='guest'
+        //- +add_button model='guest'
         //- .ui.circular.button.add_guest
         //-     |Add Guest
         with user_from_username_param
             .ui.header total guests #{total_guests}
-            .ui.header guests this month #{current_month_guests}
+            //- .ui.header guests this month #{current_month_guests}
         .ui.link.large.list
             each resident_guests
                 a.item(href="/m/guest/#{_id}/view")
@@ -589,6 +571,14 @@ template(name='membership_status')
             i.envelope.teal.icon
             |email rules and regs receipt
         //- +rules_and_regs_
+        if user_is_owner
+            +image_view key='ownership_paperwork' label='ownership paperwork' direct=true
+            +pdf_view key='lease_agreement' label='lease agreement' direct=true
+        else if user_is_resident
+            +date_view key='expiration_date' label='expiration date' direct=true
+            +pdf_view key='lease_agreement' label='lease agreement' direct=true
+            +pdf_view key='lease_addendum' label='lease addendum' direct=true
+        
         
         
         

@@ -208,7 +208,7 @@ if Meteor.isClient
 
     Template.user_key.onCreated ->
         @autorun => Meteor.subscribe 'user_key', Router.current().params.username
-        @autorun => Meteor.subscribe 'model_docs', 'unit_key_access'
+        # @autorun => Meteor.subscribe 'model_docs', 'unit_key_access'
     Template.user_key.helpers
         key: -> Docs.findOne model:'key'
         viewing_code: -> Session.get 'viewing_code'

@@ -31,19 +31,23 @@ template(name='staff')
 
 template(name='hc_session')
     .ui.card
-        |kiosk photo
-        img.ui.image(src="{{c.url session_resident.kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
-        |old photo
-        img.ui.image(src="{{c.url session_resident.image_id width=300 height=300 gravity='face' crop='fill'}}")
+        if session_resident.kiosk_photo
+            img.ui.image(src="{{c.url session_resident.kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
+        else
+            |old photo (ask resident to take new photo)
+            img.ui.image(src="{{c.url session_resident.image_id width=300 height=300 gravity='face' crop='fill'}}")
         .content
             .ui.inline.header
                 //- +i name=icon_class
                 |#{session_resident.first_name} #{session_resident.last_name}
             .ui.small.grey.header #{when}
-            +text_view key='address' label='address' direct=true
-            +number_view key='building_number' label='building #' direct=true
-            +number_view key='unit_number' label='apartment #' direct=true
-            +text_view key='building_code' label='building code' direct=true
+            with session_resident
+                +text_view key='address' label='address' direct=true
+                +number_view key='building_number' label='building #' direct=true
+                +number_view key='unit_number' label='apartment #' direct=true
+                +text_view key='building_code' label='building code' direct=true
+                +lease_expiration_check
+                +rules_and_regs_check
             .ui.small.grey.header guests
             each checkin_guest_docs
                 .ui.large.basic.label 
