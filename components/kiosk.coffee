@@ -47,7 +47,6 @@ if Meteor.isClient
     Template.healthclub_session.onCreated ->
         @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
         @autorun => Meteor.subscribe 'checkin_guests',Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'model_docs', 'guest'
         @autorun -> Meteor.subscribe 'resident_from_healthclub_session', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'healthclub_session', Router.current().params.doc_id
 
@@ -56,7 +55,8 @@ if Meteor.isClient
 
     Template.healthclub_session.events
         'click .cancel_checkin': ->
-            Docs.remove @_id
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+            Docs.remove healthclub_session_document._id
             Router.go "/healthclub"
 
         'click .add_guest': ->
