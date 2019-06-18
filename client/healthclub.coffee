@@ -176,6 +176,8 @@ Template.add_resident.events
                     $set:
                         first_name:first_name
                         last_name:last_name
+                        added_by_username:Meteor.user().username
+                        added_by_user_id:Meteor.userId()
                         roles:['resident']
                         # healthclub_checkedin:true
                 Docs.insert

@@ -21,7 +21,7 @@ if Meteor.isClient
 
     Template.hc_session.onCreated ->
         @autorun => Meteor.subscribe 'user_by_username', @data.resident_username
-        @autorun => Meteor.subscribe 'model_docs', 'guest'
+        @autorun => Meteor.subscribe 'session_guests', @data
     Template.hc_session.helpers
         icon_class: ->
             switch @session_type
@@ -155,3 +155,10 @@ if Meteor.isServer
             model:'healthclub_session'
             # model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
             active:true
+
+
+    Meteor.publish 'session_guests', (session_data)->
+        console.log session_data
+        if session_data
+            Docs.find
+                _id:$in:session_data.guest_ids

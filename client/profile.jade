@@ -4,7 +4,9 @@ template(name='user_layout')
         .ui.padded.stackable.grid
             .row
                 .four.wide.column
-                    if image_id
+                    if kiosk_photo
+                        img.ui.centered.circular.shadowed.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
+                    else if image_id
                         img.ui.centered.circular.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     .ui.center.aligned.basic.segment
@@ -79,13 +81,33 @@ template(name='user_layout')
                                 i.shield.icon
                                 |roles
                             each roles
-                                .ui.basic.label #{this}           
+                                .ui.basic.label #{this}
+                    +staff_verification
                     if user_is_resident
                         +resident_info         
                 .twelve.wide.column.shadowed-box
                     +yield
     unless is_frontdesk
         +footer 
+
+template(name='staff_verification')
+    if is_staff
+        .ui.segment
+            .ui.header 
+                if staff_verifier
+                    +i name='id-verified' classes='ui mini inline image'
+                else
+                    i.red.ban.icon
+                |verified by staff
+            if staff_verifier
+                .ui.list
+                    .item verified by staff: #{staff_verifier}            
+                    .item verification date: {{long_date verification_timestamp}}
+            else
+                  .ui.button.verify verify gov id as #{currentUser.username}
+            .ui.header #{user_from_username_param.username} created by #{user_from_username_param.added_by_username}
+
+
 
 template(name='user_residency')
     +user_key

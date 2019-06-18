@@ -303,6 +303,18 @@ if Meteor.isClient
             Meteor.call 'send_rules_regs_receipt_email', @_id
 
 
+    Template.staff_verification.events
+        'click .verify': ->
+            if confirm 'verify user government id?'
+                current_user = Meteor.users.findOne username:Router.current().params.username
+                Meteor.users.update current_user._id,
+                    $set:
+                        staff_verifier:Meteor.user().username
+                        verification_timestamp:Date.now()
+
+
+
+
 
 if Meteor.isServer
     Meteor.publish 'wall_posts', (username)->
