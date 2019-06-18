@@ -106,6 +106,7 @@ template(name='staff_verification')
             else
                   .ui.button.verify verify gov id as #{currentUser.username}
             .ui.header #{user_from_username_param.username} created by #{user_from_username_param.added_by_username}
+            .ui.header created on {{long_date user_from_username_param.createdAt}}
 
 
 

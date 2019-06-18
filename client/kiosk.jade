@@ -56,6 +56,7 @@ template(name='healthclub_session')
                     //- img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
                     //- .meta @#{user.username}
                     //- +array_view key='tags' label='Tags' direct=true
+                    //- +camera
                 .column
                     .checkin_button.f10(href="/user/#{user.username}")
                         |#{user.first_name} #{user.last_name} 
