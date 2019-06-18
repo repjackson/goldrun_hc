@@ -42,30 +42,31 @@ template(name='hc_session')
                     |#{session_resident.first_name} #{session_resident.last_name}
             .ui.small.grey.header #{when}
             with session_resident
-                div
-                +i name='marker' classes='ui avatar image'
-                |#{address}
+                if address
+                    div
+                    +i name='marker' classes='ui avatar image'
+                    |#{address}
                 div
                 +i name='apartment' classes='ui avatar image'
                 |#{building_number}
                 //- +number_view key='building_number' label='building #' direct=true
-                div
                 +i name='home' classes='ui avatar image'
                 strong #{unit_number}
                 //- +number_view key='unit_number' label='unit #' direct=true
                 //- +text_view key='building_code' label='building code' direct=true
                 +lease_expiration_check
                 +rules_and_regs_check
-            .ui.small.grey.header guests
-            each checkin_guest_docs
-                .ui.large.basic.label 
-                    |#{first_name} #{last_name}
+            if checkin_guest_docs.length
+                .ui.small.grey.header guests
+                each checkin_guest_docs
+                    .ui.large.basic.label 
+                        |#{first_name} #{last_name}
             if user_is_resident
                 +date_view key='start_date' label='start date' direct=true
                 +date_view key='expiration_date' label='expiration date' direct=true
             //- +checkin_button
             +garden_key_checkout
-            +unit_key_checkout
+            //- +unit_key_checkout
             //- +email_validation_check
             //- +lease_expiration_check
             //- +rules_and_regs_check
@@ -81,6 +82,19 @@ template(name='hc_session')
                 //- unless confirmed
                 //- .ui.fluid.green.button
                 //-     |confirm check in
+
+
+
+template(name='garden_key_checkout')
+    if garden_key
+        .ui.compact.green.button.garden_key_checkout
+            +i name='plant' classes='ui mini inline image'
+            strong garden key
+    else
+        .ui.compact.button.garden_key_checkout
+            +i name='plant' classes='ui mini inline image'
+            strong garden key
+
 
 
 

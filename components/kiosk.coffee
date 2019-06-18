@@ -17,6 +17,8 @@ if Meteor.isClient
 
 
 
+
+
     Template.kiosk_settings.events
         'click .create_kiosk': (e,t)->
             Docs.insert

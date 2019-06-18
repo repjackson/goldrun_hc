@@ -280,13 +280,6 @@ Template.checkin_card.events
                 session_type:'healthclub_checkin'
                 submitted:true
 
-    'click .garden_key_checkout': (e,t)->
-        healthclub_session_document = Docs.findOne
-            model:'healthclub_session'
-        Docs.update healthclub_session_document._id,
-            $set:
-                session_type:'garden_key_checkout'
-                submitted:true
 
     'click .unit_key_checkout': (e,t)->
         healthclub_session_document = Docs.findOne

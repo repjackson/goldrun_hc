@@ -40,20 +40,6 @@ template(name='user_edit')
                                 +text_edit key='building_code' label='building code' icon='building' direct=true
                                 +date_edit key='start_date' label='start date' icon='calendar' direct=true
                                 +boolean_edit key='owner' label='owner' direct=true
-                                unless user_is_owner
-                                    +pdf_edit key='lease_agreement' label='lease agreement (pdf)' icon='clipboard' direct=true
-                                    +image_edit key='lease_agreement' label='lease agreement (image)' icon='picture' direct=true
-                                +pdf_edit key='lease_addendum' label='lease addendum' icon='clipboard' direct=true
-                                if user_is_owner
-                                    +pdf_edit key='ownership_paperwork' label='ownership paperwork (image)' icon='pdf' direct=true
-                                    .ui.small.header or
-                                    +image_edit key='ownership_paperwork' label='ownership paperwork (image)' icon='picture' direct=true
-                                    .ui.hidden.divider
-                                if user_is_resident
-                                    +date_edit key='expiration_date' label='expiration date' icon='calendar minus' direct=true
-                                    .ui.hidden.divider
-                                +pdf_edit key='member_guidelines_and_waiver' icon='signature' label='member guidelines and waiver' direct=true
-                                .ui.hidden.divider
                             else
                                 +text_view key='first_name' label='first name' direct=true
                                 +text_view key='last_name' label='last name' direct=true
@@ -81,15 +67,30 @@ template(name='user_edit')
                         //-         +array_edit key='tags' label='tags' direct=true
                 .column
                     if user_is_resident_or_owner
-                        if is_staff
-                            //- with user_from_username_param
-                            +boolean_edit key='government_id_checked' label='government id checked' icon='id-verified' direct=true
-                            +single_user_edit key='id_checked_by_staff' label='government id checked by' role_filter='staff' icon='user shield' direct=true
-                            +date_edit key='id_checked_date' label='government id checked date' icon='today' direct=true
-                        else
-                            +boolean_view key='government_id_checked' label='government id checked' icon='id-verified' direct=true
-                            +text_view key='id_checked_by_staff' label='government id checked by' role_filter='staff' icon='user shield' direct=true
-                            +date_view key='id_checked_date' label='government id checked date' icon='today' direct=true
+                        unless user_is_owner
+                            +pdf_edit key='lease_agreement' label='lease agreement (pdf)' icon='clipboard' direct=true
+                            +image_edit key='lease_agreement' label='lease agreement (image)' icon='picture' direct=true
+                        +pdf_edit key='lease_addendum' label='lease addendum' icon='clipboard' direct=true
+                        if user_is_owner
+                            .ui.segment
+                                +pdf_edit key='ownership_paperwork' label='ownership paperwork (image)' icon='pdf' direct=true
+                                .ui.small.header or
+                                +image_edit key='ownership_paperwork' label='ownership paperwork (image)' icon='picture' direct=true
+                        if user_is_resident
+                            +date_edit key='expiration_date' label='expiration date' icon='calendar minus' direct=true
+                            .ui.hidden.divider
+                        +pdf_edit key='member_guidelines_and_waiver' icon='signature' label='member guidelines and waiver' direct=true
+                        .ui.hidden.divider
+                
+                        //- if is_staff
+                        //-     //- with user_from_username_param
+                        //-     +boolean_edit key='government_id_checked' label='government id checked' icon='id-verified' direct=true
+                        //-     +single_user_edit key='id_checked_by_staff' label='government id checked by' role_filter='staff' icon='user shield' direct=true
+                        //-     +date_edit key='id_checked_date' label='government id checked date' icon='today' direct=true
+                        //- else
+                        //-     +boolean_view key='government_id_checked' label='government id checked' icon='id-verified' direct=true
+                        //-     +text_view key='id_checked_by_staff' label='government id checked by' role_filter='staff' icon='user shield' direct=true
+                        //-     +date_view key='id_checked_date' label='government id checked date' icon='today' direct=true
                             //- with user_from_username_param
                         //- +boolean_edit key='published' icon='eye' label='profile published'
                     //- +payment_methods

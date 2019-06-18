@@ -13,7 +13,6 @@ if Meteor.isClient
             Docs.find
                 model:'healthclub_session'
                 active:true
-
         sessions: ->
             Docs.find
                 model:'healthclub_session'
@@ -47,6 +46,21 @@ if Meteor.isClient
                     Docs.update @_id,
                         $set: active: false
                 , 500
+
+
+
+    Template.garden_key_checkout.events
+        'click .garden_key_checkout': (e,t)->
+            # healthclub_session_document = Docs.findOne
+            #     model:'healthclub_session'
+            console.log @
+            Docs.update @_id,
+                $set:
+                    garden_key:true
+                    submitted:true
+
+
+
 
 
 
