@@ -57,7 +57,7 @@ template(name='healthclub_session')
                     //- .meta @#{user.username}
                     //- +array_view key='tags' label='Tags' direct=true
                 .column
-                    .ui.huge.inline.header(href="/user/#{user.username}")
+                    .checkin_button.f10(href="/user/#{user.username}")
                         |#{user.first_name} #{user.last_name} 
                     if adding_guests
                         .ui.header 
@@ -98,8 +98,8 @@ template(name='healthclub_session')
                     else 
                         .ui.big.fluid.red.basic.button.sign_rules
                             .ui.inline.header 
-                                i.right.chevron.icon
-                                | please sign rules and regs
+                                i.edit.icon
+                                | sign rules and regs
         if submitted
             unless approved
                 .centered.row

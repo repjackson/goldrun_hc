@@ -120,6 +120,16 @@ Meteor.publish 'resident', (guest_id)->
 
 
 
+Meteor.publish 'health_club_members', (username_query)->
+    console.log username_query
+    Meteor.users.find({
+        username: {$regex:"#{username_query}", $options: 'i'}
+        # healthclub_checkedin:$ne:true
+        roles:$in:['resident','owner']
+        },{ limit:10 })
+
+
+
 
 Meteor.publish 'page_blocks', (slug)->
     # console.log slug

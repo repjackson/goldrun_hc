@@ -73,6 +73,7 @@ if Meteor.isClient
 
     Template.add_guest.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.new_guest_id
+        @autorun => Meteor.subscribe 'session_from_guest_id', Router.current().params.new_guest_id
         @autorun => Meteor.subscribe 'resident', Router.current().params.new_guest_id
     Template.add_guest.helpers
         new_guest_doc: -> Docs.findOne Router.current().params.new_guest_id
@@ -114,7 +115,7 @@ if Meteor.isClient
 
         'click .submit_guest':->
             guest_doc = Docs.findOne Router.current().params.new_guest_id
-            # console.log guest_doc
+            console.log guest_doc
             checking_in_doc = Docs.findOne guest_doc.session_id
 
             Docs.update checking_in_doc._id,
@@ -153,3 +154,11 @@ if Meteor.isServer
         console.log 'finding', username
         Meteor.users.find
             username:username
+
+
+    Meteor.publish 'session_from_guest_id', (guest_id)->
+        # console.log 'finding', username
+        guest_doc = Docs.findOne guest_id
+        console.log guest_doc
+        Docs.find
+            _id:guest_doc.session_id

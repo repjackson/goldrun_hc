@@ -50,28 +50,33 @@ template(name='add_guest')
         .ui.fluid.big.basic.button.cancel_new_guest
             i.left.chevron.basic.icon
             |back to check in
-        +document_view key='guest_waiver'
-        //- .ui.inline.header guest of
-        //-     +user_card resident
-        +text_edit key='guest_name' label='guest name' direct=true
-        //- +text_edit key='first_name' label='First Name' direct=true
-        //- +text_edit key='last_name' label='Last Name' direct=true
-        +text_edit key='guest_phone' label='guest phone' direct=true
-        +text_edit key='emergency_contact_name' label='emergency contact name' direct=true
-        +text_edit key='emergency_contact_phone' label='emergency contact phone' direct=true
-        .ui.header I agree to the guest waiver terms
-            if agree
-                i.huge.checkmark.green.link.icon.agree
-            else
-                i.huge.circle.outline.grey.icon.agree
-        if agree
-            .ui.header please sign below
-            if signature_saved
-                +signature_view key='signature' direct=true
-                i.pencil.large.icon.edit_signature
-            else
-                +signature_edit key='signature' direct=true
-            if signature_saved
-                .ui.big.green.fluid.button.submit_guest
-                    | submit
-                    i.right.chevron.icon
+        .ui.container
+            +document_view key='guest_waiver'
+            //- .ui.inline.header guest of
+            //-     +user_card resident
+            +text_edit key='guest_name' label='guest name' direct=true
+            //- +text_edit key='first_name' label='First Name' direct=true
+            //- +text_edit key='last_name' label='Last Name' direct=true
+            +number_edit key='guest_phone' label='guest phone' direct=true
+            +text_edit key='emergency_contact_name' label='emergency contact name' direct=true
+            +number_edit key='emergency_contact_phone' label='emergency contact phone' direct=true
+            if guest_name
+                if guest_phone
+                    if emergency_contact_name
+                        if emergency_contact_phone
+                            .ui.header I agree to the guest waiver terms
+                                if agree
+                                    i.huge.checkmark.green.link.icon.agree
+                                else
+                                    i.huge.circle.outline.grey.link.icon.agree
+                            if agree
+                                .ui.header please sign below
+                                if signature_saved
+                                    +signature_view key='signature' direct=true
+                                    i.pencil.large.icon.edit_signature
+                                else
+                                    +signature_edit key='signature' direct=true
+                                if signature_saved
+                                    .ui.big.green.fluid.button.submit_guest
+                                        | submit
+                                        i.right.chevron.icon

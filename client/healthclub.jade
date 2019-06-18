@@ -30,7 +30,7 @@ template(name='healthclub')
                     if checking_in
                         if is_query
                             .ui.center.aligned.header no members found
-                            .ui.center.aligned.header please see staff to add
+                            .ui.center.aligned.header see staff to add
             .ui.padded.grid
                 .two.column.row
                     .column
@@ -99,7 +99,7 @@ template(name='checkin_button')
     unless is_staff
         //- unless healthclub_checkedin
         .ui.massive.basic.button.checkin.new_hc_session
-            h1.ui.header #{first_name} #{last_name}
+            h2 #{first_name} #{last_name}
         //- if healthclub_checkedin
         //- if is_staff
         //- else
@@ -115,9 +115,7 @@ template(name='checkin_button')
                 |health club check out
         else
             .ui.large.basic.button.new_hc_session
-                .ui.header
-                    //- small check in
-                    strong #{first_name} #{last_name}
+                strong #{first_name} #{last_name}
 
 
 

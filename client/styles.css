@@ -11,6 +11,10 @@ body {
     font-size: 4em !important;
 }
 
+/* .menu .item {
+    font-family: 'Abril Fatface', serif !important;
+    font-size: 130% !important;
+} */
 
 .home_segment{
     -webkit-transition: all 0.5s ease;
@@ -42,6 +46,10 @@ body {
   /* border-radius: 5px; */
 }
 
+.abril{
+    font-family: 'Abril Fatface', serif !important;
+}
+
 
 .pointer:hover{
     cursor: pointer !important;
@@ -66,7 +74,7 @@ body {
 }
 
 .grgold {
-    background-color: #5a4400 !important;
+    background-color: #423200 !important;
 }
 
 
@@ -203,6 +211,13 @@ h1.ui.header{
     color: #5a4400 !important;
 
     font-weight: lighter !important;
+}
+.checkin_button{
+    /* font-family: 'Ubuntu', sans-serif !important; */
+    font-family: 'Abril Fatface', serif !important;
+    font-size: 300% !important;
+    color: #5a4400 !important;
+    font-weight: 200px !important;
 }
 a {
   font-family: 'Ubuntu', sans-serif !important;
@@ -461,7 +476,7 @@ a {
 .smallscroll{
 	overflow-y:scroll;
 	overflow-x:hidden;
-	max-height:400px;
+	max-height:300px;
 	/*max-height:85vh;*/
 	/* padding-top: 1em; */
 	/*padding-left: 1em;*/

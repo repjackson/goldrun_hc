@@ -23,8 +23,6 @@ if Meteor.isClient
     Template.hc_session.onCreated ->
         @autorun => Meteor.subscribe 'user_by_username', @data.resident_username
         @autorun => Meteor.subscribe 'model_docs', 'guest'
-
-
     Template.hc_session.helpers
         icon_class: ->
             switch @session_type
@@ -39,6 +37,18 @@ if Meteor.isClient
         checkin_guest_docs: () ->
             Docs.find
                 _id:$in:@guest_ids
+
+    Template.hc_session.events
+        'click .sign_out': (e,t)->
+            if confirm "check out #{@resident_username}?"
+                console.log @
+                $(e.currentTarget).closest('.card').transition('fade up',500)
+                Meteor.setTimeout =>
+                    Docs.update @_id,
+                        $set: active: false
+                , 500
+
+
 
     Template.shift_change_requests.helpers
         requests: ->

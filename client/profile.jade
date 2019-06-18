@@ -5,7 +5,7 @@ template(name='user_layout')
             .row
                 .four.wide.column
                     if image_id
-                        img.ui.centered.circular.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                        img.ui.centered.circular.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     .ui.center.aligned.basic.segment
                         a(href="/user/#{user.username}")
@@ -285,7 +285,7 @@ template(name='user_checkins')
             |health club check ins
         if is_staff
             +checkin_button
-        .ui.list
+        .ui.list.smallscroll
             each healthclub_checkins
                 .item #{when}
             
