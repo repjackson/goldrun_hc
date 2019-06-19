@@ -1,3 +1,9 @@
+template(name='kiosk_container')
+    with kiosk_doc
+        +Template.dynamic template=kiosk_view
+
+
+
 template(name='healthclub')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     //- .ui.padded.stackable.grid.header-wrapper(class=invert_class)
@@ -34,7 +40,7 @@ template(name='healthclub')
             .ui.padded.grid
                 .two.column.row
                     .column
-                        +facet_doc_edit key='health_club_notices' edit_role='staff'
+                        +inline_doc slug='health_club_notices' classes='ui large header'
                         +health_club_info
                     .column
                         +healthclub_status

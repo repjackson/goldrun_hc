@@ -159,7 +159,7 @@ if Meteor.isClient
     Template.lease_expiration_check.helpers
         lease_expiring: ->
             if @expiration_date
-                console.log @expiration_date
+                # console.log @expiration_date
                 today = moment(Date.now())
                 expiration_moment = moment(@expiration_date)
                 # diff = today-@expiration_date

@@ -1,4 +1,11 @@
 if Meteor.isClient
+    Template.staff.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 1000
+
+
+
     Template.shift_change_requests.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'shift_change_request'
 

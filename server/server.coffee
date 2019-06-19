@@ -71,6 +71,12 @@ Meteor.publish 'facet_doc', (tags)->
         tags: split_array
 
 
+Meteor.publish 'inline_doc', (slug)->
+    Docs.find
+        model:'inline_doc'
+        slug:slug
+
+
 Meteor.publish 'current_session', ->
     Docs.find
         model: 'healthclub_session'

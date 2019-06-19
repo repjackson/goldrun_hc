@@ -72,4 +72,45 @@ template(name='unit_residents')
                         a.header(href="/user/#{username}")
                              |#{first_name} #{last_name} 
                             .meta @#{username}
+                            .meta 
+                                i.calendar.icon(title='expiration date')
+                                |#{expiration_date}
                             //- +array_view key='tags' label='Tags' direct=true
+
+
+template(name='user_key')
+    .ui.segment
+        .ui.grey.inline.center.aligned.small.header 
+            //- i.key.icon
+            +i name='key'
+            |key
+        if is_admin
+            +goto_model slug='key'
+        with key
+            +boolean_view key='key_exists' label='key exists' direct=true
+            //- +number_view key='building_number' label='building number' direct=true
+            //- +number_view key='unit_number' label='unit #' direct=true
+            div
+            if is_admin
+                +number_view key='tag_number' label='tag number' direct=true
+            if is_staff
+                if viewing_code
+                    .ui.big.orange.basic.label
+                        +number_view key='tag_number' label='tag number' direct=true
+                        +boolean_view key='fowler' label='fowler' direct=true
+                else
+                    .ui.icon.button.view_code
+                        i.lock.icon
+                    //- +i name='enter-pin' classes='view_code pointer' title='view code'
+
+            if is_admin
+                div
+                +edit_button
+                +view_button
+            if is_staff
+                .ui.tiny.grey.header
+                    i.grey.shield.icon
+                    |access log            
+                .ui.list.smallscroll
+                    each access_log
+                        .item #{when} by #{_author_username}

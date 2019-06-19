@@ -26,3 +26,34 @@ if Meteor.isClient
             staff = $('#staff').val()
             Docs.update @_id,
                 $set: staff: staff
+
+
+
+
+
+    Template.inline_doc.onCreated ->
+        @autorun => Meteor.subscribe 'inline_doc', @data.slug
+
+    Template.inline_doc.helpers
+        inline_doc: ->
+            slug = Template.instance().slug
+            console.log slug
+            Docs.findOne
+                model:'inline_doc'
+                slug:slug
+
+        doc_classes: ->
+            Template.instance().classes
+
+    Template.inline_doc.events
+        'click .create_doc': (e,t)->
+            slug = t.data.slug
+            new_id = Docs.insert
+                model:'inline_doc'
+                slug:slug
+            Session.set 'editing_id', new_id
+
+        'blur #body': ->
+            body = $('#body').val()
+            Docs.update @_id,
+                $set: body: body

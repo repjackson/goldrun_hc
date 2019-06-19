@@ -143,7 +143,7 @@ Router.route '/', (->
 
 Router.route '/healthclub', (->
     @layout 'mlayout'
-    @render 'healthclub'
+    @render 'kiosk_container'
     ), name:'healthclub'
 
 

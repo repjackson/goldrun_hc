@@ -206,34 +206,6 @@ if Meteor.isClient
 
 
 
-    Template.user_key.onCreated ->
-        @autorun => Meteor.subscribe 'user_key', Router.current().params.username
-        # @autorun => Meteor.subscribe 'model_docs', 'unit_key_access'
-    Template.user_key.helpers
-        key: -> Docs.findOne model:'key'
-        viewing_code: -> Session.get 'viewing_code'
-        access_log: ->
-            Docs.find {
-                model:'unit_key_access'
-                key_id:Docs.findOne(model:'key')._id
-            }, sort:_timestamp:-1
-    Template.user_key.events
-        'click .view_code': ->
-            access = prompt 'admin code'
-            if access is '2959'
-                Session.set 'viewing_code', true
-                # console.log access
-                Meteor.setTimeout ->
-                    Session.set 'viewing_code', false
-                , 5000
-                new_id = Docs.insert
-                    model:'unit_key_access'
-                    key_id:Docs.findOne(model:'key')._id
-                    owner_user_id:Meteor.users.findOne username:Router.current().params.username
-                    owner_username:Router.current().params.username
-                # console.log new_id
-            else
-                alert 'wrong code'
 
 
 
@@ -328,16 +300,6 @@ if Meteor.isServer
         Docs.find
             model:'healthclub_checkin'
             resident_username:username
-
-    Meteor.publish 'user_key', (username)->
-        # console.log 'violation', username
-        user = Meteor.users.findOne username:username
-        # console.log user
-        Docs.find
-            model:'key'
-            building_number:user.building_number
-            unit_number:user.unit_number
-
 
 
     Meteor.publish 'user_unit', (username)->

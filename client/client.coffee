@@ -47,7 +47,8 @@ Template.registerHelper 'resident_guests', () ->
         _id:$in:@guest_ids
 
 Template.registerHelper 'is_springdale', () ->
-    console.log @
+    # console.log @
+    if @building_code is 'sp' then true else false
 
 Template.registerHelper 'current_month_guests', () ->
     # console.log @

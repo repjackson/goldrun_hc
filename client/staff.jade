@@ -18,14 +18,33 @@ template(name='staff')
             +add_button model='front_desk_opening_closing_checklist' label='opening/closing checklist'
             +unit_key_widget
         .twelve.wide.column
-            .ui.stackable.four.cards
-                each sessions
-                    +hc_session
-    //- +model_docs_crud model='communication'
-    //- +kiosk_settings
-    +schedule
-    //- +shift_change_requests
-    +view_chats
+            .ui.styled.fluid.accordion
+                .title
+                    i.users.icon
+                    |checked in members
+                    i.dropdown.icon
+                .content
+                    .ui.stackable.four.cards
+                        each sessions
+                            +hc_session
+                .active.title 
+                    i.tablet.icon
+                    |kiosk management
+                    i.dropdown.icon
+                .active.content
+                    +kiosk_settings
+                .title 
+                    i.calendar.icon
+                    |staff schedule
+                    i.dropdown.icon
+                .content
+                    +schedule
+                .title
+                    i.chat.icon
+                    |chat
+                    i.dropdown.icon
+                .content
+                    +view_chats
     
     
 

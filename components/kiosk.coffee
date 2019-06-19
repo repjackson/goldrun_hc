@@ -1,6 +1,8 @@
 if Meteor.isClient
     Template.kiosk_settings.onCreated ->
-        # @autorun -> Meteor.subscribe 'me'
+        @autorun -> Meteor.subscribe 'kiosk_document'
+
+    Template.kiosk_container.onCreated ->
         @autorun -> Meteor.subscribe 'kiosk_document'
 
     Template.kiosk_settings.onRendered ->
@@ -35,6 +37,15 @@ if Meteor.isClient
                     Docs.remove kiosk._id
 
     Template.kiosk_settings.helpers
+        kiosk_doc: ->
+            Docs.findOne
+                model:'kiosk'
+        kiosk_view: ->
+            kiosk_doc = Docs.findOne
+                model:'kiosk'
+            kiosk_doc.kiosk_view
+
+    Template.kiosk_container.helpers
         kiosk_doc: ->
             Docs.findOne
                 model:'kiosk'

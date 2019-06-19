@@ -73,6 +73,44 @@ if Meteor.isClient
 
 
 
+    Template.user_key.onCreated ->
+        @autorun => Meteor.subscribe 'user_key', Router.current().params.unit_id
+        @autorun => Meteor.subscribe 'model_docs', 'unit_key_access'
+    Template.user_key.helpers
+        key: -> Docs.findOne model:'key'
+        viewing_code: -> Session.get 'viewing_code'
+        access_log: ->
+            Docs.find {
+                model:'unit_key_access'
+                key_id:Docs.findOne(model:'key')._id
+            }, sort:_timestamp:-1
+    Template.user_key.events
+        'click .view_code': ->
+            access = prompt 'admin code'
+            if access is '2959'
+                Session.set 'viewing_code', true
+                # console.log access
+                Meteor.setTimeout ->
+                    Session.set 'viewing_code', false
+                , 5000
+                new_id = Docs.insert
+                    model:'unit_key_access'
+                    key_id:Docs.findOne(model:'key')._id
+                    owner_user_id:Meteor.users.findOne username:Router.current().params.username
+                    owner_username:Router.current().params.username
+                # console.log new_id
+            else
+                alert 'wrong code'
+
+
+
+
+
+
+
+
+
+
     Template.unit_card.onCreated ->
         @autorun => Meteor.subscribe 'unit_residents', @data._id
         @autorun => Meteor.subscribe 'unit_owners', @data._id
@@ -149,3 +187,11 @@ if Meteor.isServer
             Docs.find
                 model: 'parking_permit'
                 address_number:unit.building_number
+    Meteor.publish 'user_key', (unit_id)->
+        console.log  unit_id
+        unit = Docs.findOne unit_id
+        # console.log user
+        Docs.find
+            model:'key'
+            building_number:unit.building_number
+            unit_number:unit.unit_number
