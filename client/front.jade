@@ -133,17 +133,17 @@ template(name='model_scroller')
 
 template(name='healthclub_status')
     .ui.basic.segment
-        .ui.inline.header
+        .ui.inline.large.header
             +water_status slug='upper_hot_tub'
             |upper hot tub
         div
-        .ui.inline.header
+        .ui.inline.large.header
             +water_status slug='lower_hot_tub'
             |lower hot tub
-        //- .ui.grey.inline.header
+        //- .ui.grey.inline.large.header
         //-     |100.2°
         div
-        .ui.inline.header
+        .ui.inline.large.header
             +water_status slug='pool'
             |pool
         //- .ui.grey.inline.header

@@ -3,11 +3,27 @@ template(name='kiosk_container')
         +Template.dynamic template=kiosk_view
 
 
-
 template(name='healthclub')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     //- .ui.padded.stackable.grid.header-wrapper(class=invert_class)
+    //- .bcontainer
+    //- .bird-container.bird-container--one
+    //-     .bird.bird--one
+    //- .bird-container.bird-container--two
+    //-     .bird.bird--two
+    //- .bird-container.bird-container--three
+    //-     .bird.bird--three
+    //- .bird-container.bird-container--four
+    //-     .bird.bird--four
+    //- 
+    
     .ui.padded.stackable.grid.header-wrapper
+        //- img.ani(src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png")
+        //- .background-container
+        //- .stars
+        //- .twinkling
+        //- .clouds
+        
         //- +Template.dynamic template=kiosk_view
         .sixteen.wide.column
             if is_staff
@@ -41,6 +57,7 @@ template(name='healthclub')
                 .two.column.row
                     .column
                         +inline_doc slug='health_club_notices' classes='ui large header'
+                        .ui.divider
                         +health_club_info
                     .column
                         +healthclub_status
@@ -54,7 +71,7 @@ template(name='healthclub')
                             .item sat 8a-9p
                             .item sun 8a-10p
                         
-                        
+
 template(name='facet_doc_edit')
     with facet_doc
         if is_staff

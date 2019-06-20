@@ -1,5 +1,7 @@
 Template.healthclub.onCreated ->
     @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
+    @autorun -> Meteor.subscribe 'me'
+
     # @autorun => Meteor.subscribe 'current_session'
     # @autorun => Meteor.subscribe 'model_docs', 'log_event'
     # @autorun => Meteor.subscribe 'users'
@@ -118,10 +120,10 @@ Template.healthclub.events
         else
             if username_query.length > 1
                 if isNaN(username_query)
-                    console.log 'not a number'
+                    # console.log 'not a number'
                     Session.set 'username_query',username_query
                 else
-                    console.log 'number'
+                    # console.log 'number'
                     barcode_entry = parseInt username_query
                     # alert barcode_entry
                     Meteor.call 'lookup_user_by_code', barcode_entry, (err,res)->

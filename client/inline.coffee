@@ -36,14 +36,13 @@ if Meteor.isClient
 
     Template.inline_doc.helpers
         inline_doc: ->
-            slug = Template.instance().slug
-            console.log slug
+            slug = Template.instance().data.slug
             Docs.findOne
                 model:'inline_doc'
                 slug:slug
 
         doc_classes: ->
-            Template.instance().classes
+            Template.instance().data.classes
 
     Template.inline_doc.events
         'click .create_doc': (e,t)->

@@ -334,6 +334,7 @@ a {
   font-weight: 300 !important;
 }
 .header-wrapper {
+    /* z-index: 0 !important; */
   /* position: absolute;
   top:0px;
   width: 100%;

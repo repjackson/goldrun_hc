@@ -21,12 +21,13 @@ template(name='inline_doc')
     if inline_doc
         with inline_doc
             if is_editing
-                .ui.labeled.fluid.input
-                    .ui.basic.label edit
-                    input#body(type='text' value=body)
+                .ui.form
+                    .field
+                        label edit
+                        textarea#body(rows='3') #{body}
             else
                 div(class=doc_classes)
-                    |#{body}
+                    |{{nl2br body}}
             if is_staff
                 +session_edit_icon
     else

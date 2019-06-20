@@ -179,14 +179,13 @@ if Meteor.isServer
                 unit_number:unit.unit_number
 
     Meteor.publish 'unit_permits', (unit_id)->
-        # console.log 'finding units', unit_code
+        console.log 'finding units', unit_id
         unit =
             Docs.findOne
                 _id:unit_id
-        if unit and unit.building_code is 'sp'
-            Docs.find
-                model: 'parking_permit'
-                address_number:unit.building_number
+        Docs.find
+            model: 'parking_permit'
+            address_number:unit.building_number
     Meteor.publish 'user_key', (unit_id)->
         console.log  unit_id
         unit = Docs.findOne unit_id

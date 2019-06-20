@@ -8,13 +8,13 @@ template(name='nav')
                 .icon.item
                     i.big.loading.dharmachakra.icon
             else
+                a.icon.item(href='/home' class="{{isActivePath '/home'}}")
+                    //- i.th.large.large.icon
+                    +i name='activity-grid-2' classes='ui mini inline image'
                 if is_staff
                     //- a.header.icon.item(href='/' class="{{isActivePath '/'}}")
                     //-     //- i.home.large.large.icon
                     //-     +i name='home-page' classes='ui mini inline image'
-                    a.icon.item(href='/home' class="{{isActivePath '/home'}}")
-                        //- i.th.large.large.icon
-                        +i name='activity-grid-2' classes='ui mini inline image'
                     a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
                         //- i.th.large.large.icon
                         +i name='apartment' classes='ui mini inline image'
@@ -117,10 +117,10 @@ template(name='nav')
                         .item
                             i.large.loading.circle.notch.icon
                     else
-                        a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
+                        a#logout.ui.mobile.hidden.icon.item(href='#' title='log out')
                             i.sign.out.large.icon
                 else
-                    a.item(href='/login' title='Login') 
+                    a.item(href='/login' title='login') 
                         +i name='enter-2' classes='ui mini inline image'
                         |login
         if currentUser.show_bookmarked_model_bar

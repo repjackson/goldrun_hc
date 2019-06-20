@@ -18,20 +18,21 @@ template(name='staff')
             +add_button model='front_desk_opening_closing_checklist' label='opening/closing checklist'
             +unit_key_widget
         .twelve.wide.column
+            +inline_doc slug='staff_notices' classes='ui small grey header'
             .ui.styled.fluid.accordion
-                .title
+                .active.title
                     i.users.icon
                     |checked in members
                     i.dropdown.icon
-                .content
+                .active.content
                     .ui.stackable.four.cards
                         each sessions
                             +hc_session
-                .active.title 
+                .title 
                     i.tablet.icon
                     |kiosk management
                     i.dropdown.icon
-                .active.content
+                .content
                     +kiosk_settings
                 .title 
                     i.calendar.icon
@@ -169,7 +170,7 @@ template(name='schedule')
     //- .ui.center.aligned.header 
     //-     i.calendar.icon
     //-     |schedule
-    table.ui.definition.celled.striped.selectable.table
+    table.ui.definition.celled.striped.unstackable.selectable.table
         thead
             tr
                 th

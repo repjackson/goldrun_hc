@@ -48,7 +48,7 @@ template(name='healthclub_session')
                         i.big.left.chevron.icon
                     if user.kiosk_photo
                         with user
-                            +image_view key='kiosk_photo' label='photo' direct=true
+                            +image_view key='kiosk_photo' label='photo' direct=true classes='medium circular shadowed'
                     else
                         with user
                             +image_edit key='kiosk_photo' label='click below to take photo' direct=true
@@ -100,6 +100,8 @@ template(name='healthclub_session')
                             .ui.inline.header 
                                 i.edit.icon
                                 | sign rules and regs
+        //- .ui.header #{timer} seconds
+        //- .ui.button.start start
         if submitted
             unless approved
                 .centered.row

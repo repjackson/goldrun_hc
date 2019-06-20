@@ -130,7 +130,7 @@ template(name='image_view')
         //-     |#{key}
         //- else
         //-     |#{this}
-        img.ui.centered.large.rounded.image(src="{{c.url field_value gravity='face' crop='fit'}}")
+        img.ui.centered.rounded.image(src="{{c.url field_value gravity='face' crop='fit'}}" class=classes)
         //- a(href="{{c.url field_value gravity='face' crop='fit'}}")
         //-     |download
     //- +call_visual

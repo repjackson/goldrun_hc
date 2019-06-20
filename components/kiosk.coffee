@@ -60,8 +60,34 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'checkin_guests',Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'resident_from_healthclub_session', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'healthclub_session', Router.current().params.doc_id
+        # @autorun -> Meteor.subscribe 'model_docs', 'guest'
 
         # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
+    Template.healthclub_session.onRendered ->
+        # @timer = new ReactiveVar 5
+        Session.set 'timer',5
+        Session.set 'timer_engaged', false
+        Meteor.setTimeout ->
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+            # console.log @
+            if healthclub_session_document.user_id
+                resident = Meteor.users.findOne healthclub_session_document.user_id
+                # if resident.user_id
+                rules_found = Docs.findOne
+                    model:'rules_and_regs_signing'
+                    resident:resident.username
+                if rules_found
+                    Session.set 'timer_engaged', true
+                    interval_id = Meteor.setInterval( ->
+                        if Session.equals 'timer_engaged', true
+                            if Session.equals 'timer', 0
+                                Meteor.call 'submit_checkin'
+                                Meteor.clearInterval interval_id
+                            else
+                                Session.set('timer', Session.get('timer')-1)
+                        # t.timer.set(t.timer.get()-1)
+                    ,1000)
+        , 4000
 
 
     Template.healthclub_session.events
@@ -112,57 +138,34 @@ if Meteor.isClient
 
         'click .toggle_adding_guest': ->
             Session.set 'adding_guest', true
+            Session.set 'timer_engaged', false
 
         'click .submit_checkin': (e,t)->
-            Session.set 'adding_guest', false
-            healthclub_session_document = Docs.findOne Router.current().params.doc_id
-            # console.log @
-            resident = Meteor.users.findOne healthclub_session_document.user_id
-
-            # healthclub_session_document = Docs.findOne
-            #     model:'healthclub_session'
-            user = Meteor.users.findOne
-                username:resident.username
-            healthclub_session_document = Docs.findOne Router.current().params.doc_id
-            if healthclub_session_document.guest_ids.length > 0
-                # now = Date.now()
-                current_month = moment().format("MMM")
-                Meteor.users.update user._id,
-                    $addToSet:
-                        total_guests:healthclub_session_document.guest_ids.length
-                        "#{current_month}_guests":healthclub_session_document.guest_ids.length
-            Docs.update healthclub_session_document._id,
-                $set:
-                    # session_type:'healthclub_checkin'
-                    submitted:true
-            Router.go "/healthclub"
-            $('body').toast({
-                title: "#{resident.first_name} #{resident.last_name} checked in"
-                class: 'success'
-                transition:
-                    showMethod   : 'zoom',
-                    showDuration : 250,
-                    hideMethod   : 'fade',
-                    hideDuration : 250
-            })
-
-
-
+            Meteor.call 'submit_checkin'
 
     Template.healthclub_session.helpers
+        timer: ->
+            Session.get 'timer'
+            # console.log Template.instance()
+            # Template.instance().timer.get()
+
         rules_signed: ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
             # console.log @
-            resident = Meteor.users.findOne healthclub_session_document.user_id
-            Docs.findOne
-                model:'rules_and_regs_signing'
-                resident:resident.username
+            if healthclub_session_document.user_id
+                resident = Meteor.users.findOne healthclub_session_document.user_id
+                # if resident.user_id
+                Docs.findOne
+                    model:'rules_and_regs_signing'
+                    resident:resident.username
         session_document: ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
 
         adding_guests: -> Session.get 'adding_guest'
         checking_in_doc: ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
+            # console.log healthclub_session_document
+            healthclub_session_document
         checkin_guest_docs: () ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
             # console.log @
@@ -171,7 +174,8 @@ if Meteor.isClient
 
         user: ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
-            Meteor.users.findOne healthclub_session_document.user_id
+            if healthclub_session_document.user_id
+                Meteor.users.findOne healthclub_session_document.user_id
 
 
 
@@ -192,6 +196,12 @@ if Meteor.isServer
                     console.log doc
                     Meteor.users.find
                         _id: doc.user_id
+                    }
+                { find: (doc) ->
+                    console.log doc
+                    Docs.find
+                        model: 'guest'
+                        _id:doc.guest_ids
                     }
                 ]
         }
