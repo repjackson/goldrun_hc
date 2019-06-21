@@ -107,8 +107,6 @@ template(name='user_layout')
                               .content
                                   .title staff gov verification
                                   .description choose options
-                    .ui.steps
-                        
                     +yield
     unless is_frontdesk
         +footer 
@@ -390,11 +388,13 @@ template(name='user_violations')
         .ui.button.add_inline_violation
             i.plus.icon
             |add violation
-        if adding_violation
-            with adding_violation_doc
-                +textarea_edit key='body' label='description' direct=true
-                +date_edit key='violation_date' label='date' direct=true
-                +time_edit key='violation_time' label='time' direct=true
+        if editing_violation
+            .ui.segment
+                with editing_violation_doc
+                    +textarea_edit key='body' label='description' direct=true
+                    +date_edit key='violation_date' label='date' direct=true
+                    +time_edit key='violation_time' label='time' direct=true
+                    i.checkmark.link.circular.icon.save_violation
         //- .ui.list
         //-     each violations
         //-         .item
@@ -411,12 +411,11 @@ template(name='user_violations')
                     .content
                         a.header(href="/m/violation/#{_id}/view") !{description}
                         .meta #{when}
-                            |date: #{violation_date}
-                            |time: #{violation_time}
-                        //- .actions
-                            //- i.thumbs.up.link.icon
-                            //- i.remove.link.remove_comment.icon
-
+                            +textarea_view key='body' label='description' direct=true
+                            div date: #{violation_date}
+                            div time: #{violation_time}
+                        .actions
+                            i.pencil.link.circular.icon.edit_violation
 
 
 
