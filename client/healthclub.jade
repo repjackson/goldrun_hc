@@ -39,11 +39,11 @@ template(name='healthclub')
             //-     i.qrcode.icon
             //- .ui.horizontal.divider or
             .ui.left.icon.massive.fluid.input
-                input.username_search(type='text' placeholder='lookup resident...' autofocus)
+                input.username_search(type='text' placeholder='lookup resident' autofocus)
                 if is_query
                     i.remove.link.icon.clear_results
                 else 
-                    i.user.icon
+                    i.user.grey.icon
             .ui.center.aligned.basic.segment.test
                 if checkedout_members.length
                     each checkedout_members
@@ -62,7 +62,7 @@ template(name='healthclub')
                     .column
                         +healthclub_status
                         .ui.header hours
-                        .ui.big.list
+                        .ui.big.relaxed.list
                             .item mon 7a-10p
                             .item tues 7a-10p
                             .item wed 7a-10p
@@ -146,20 +146,35 @@ template(name='health_club_info')
     .ui.stackable.grid.f5
         .two.column.inverted.row
             .column
-                .ui.header wifi
-                .ui.grey.header Gold Run Health Club / goldrun1
-                .ui.header upstairs code: 4589
-                .ui.header colorado security services
-                .ui.grey.header 303-443-3701
+                .ui.big.relaxed.list
+                    .item
+                        .content
+                            .header wifi
+                            .description Gold Run Health Club / goldrun1
+                    .item
+                        .content
+                            .header header upstairs code: 4589
+                    .item
+                        .content
+                            .header colorado security services
+                            .description 303-443-3701
             .column
-                .ui.header onsite manager
-                .ui.grey.header Rick Hamp 
-                .ui.grey.header 303-545-1787
-                .ui.grey.header goldruncondos@gmail.com
-                .ui.header after hours emergency
-                .ui.grey.header 303-221-1117
-                .ui.header boulder valley towing
-                .ui.grey.header 303-444-4868
+                .ui.big.relaxed.list
+                    .item
+                        .content
+                            .header onsite manager
+                            .description 
+                                div Rick Hamp 
+                                div 303-545-1787
+                                div goldruncondos@gmail.com
+                    .item
+                        .content
+                            .header after hours emergency
+                            .description 303-221-1117
+                    .item
+                        .content
+                            .header boulder valley towing
+                            .description 303-444-4868
 
 
 template(name='checkin_card')

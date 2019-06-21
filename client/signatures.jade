@@ -131,3 +131,77 @@ template(name='add_guest')
                             .ui.hidden.divider
                             .ui.hidden.divider
                             .ui.hidden.divider
+
+
+
+
+
+template(name='guidelines_signing')
+    with signing_doc
+        .ui.container
+            .ui.hidden.divider
+            .ui.grey.center.aligned.header read and scroll down to sign
+            h1.ui.center.aligned.header member guidelines and waiver
+            +document_view key='member_guidelines'
+            +user_card resident
+            .ui.small.header
+                +i name='reading-confirmation'
+                |valid email address for receipt
+            .ui.header #{resident_doc.username}
+            +emails_edit    
+            unless resident_email        
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+            //- .ui.fluid.action.input
+            //-     input.email_value(type='text' value=resident_email)
+            //- div
+            //- .ui.green.big.button.confirm_email confirm email
+            if resident_email
+                //- .ui.header I agree to the rules and regulations
+                //-     if agree
+                //-         i.huge.checkmark.green.link.icon.agree
+                //-     else
+                //-         i.huge.circle.outline.grey.link.icon.agree
+                //- if agree
+                .ui.small.header by signing below you agree to the member guidelines and acknolwedge receipt via a valid email address
+                if signature_saved
+                    +signature_view key='signature' direct=true
+                    if is_admin
+                        i.pencil.large.icon.edit_signature
+                else
+                    +signature_edit key='signature' direct=true
+                if signature_saved
+                    .ui.big.green.fluid.button.submit_guidelines
+                        | submit signing
+                        i.right.chevron.icon
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider
+                .ui.hidden.divider

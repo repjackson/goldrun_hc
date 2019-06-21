@@ -65,7 +65,7 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
     Template.healthclub_session.onRendered ->
         # @timer = new ReactiveVar 5
-        Session.set 'timer',5
+        Session.set 'timer',3
         Session.set 'timer_engaged', false
         Meteor.setTimeout ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
@@ -118,6 +118,18 @@ if Meteor.isClient
                 resident_id: healthclub_session_document.user_id
                 resident: healthclub_session_document.resident_username
             Router.go "/sign_rules/#{new_id}/#{healthclub_session_document.resident_username}"
+            # Session.set 'displaying_profile',null
+
+
+        'click .sign_guidelines': ->
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+
+            new_id = Docs.insert
+                model:'member_guidelines_signing'
+                session_id: healthclub_session_document._id
+                resident_id: healthclub_session_document.user_id
+                resident: healthclub_session_document.resident_username
+            Router.go "/sign_guidelines/#{new_id}/#{healthclub_session_document.resident_username}"
             # Session.set 'displaying_profile',null
 
 

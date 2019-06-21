@@ -17,7 +17,8 @@ if Meteor.isClient
                     _id: Router.current().params.unit_id
             if unit
                 Meteor.users.find
-                    roles:$in:['owner']
+                    owner:true
+                    # roles:$in:['owner']
                     building_number:unit.building_number
                     unit_number:unit.unit_number
 
@@ -28,7 +29,7 @@ if Meteor.isClient
                     _id: Router.current().params.unit_id
             if unit
                 Meteor.users.find
-                    roles:$in:['resident']
+                    roles:$in:['resident','owner']
                     building_number:unit.building_number
                     unit_number:unit.unit_number
 

@@ -317,6 +317,12 @@ if Meteor.isServer
             resident:username
             # agree:true
 
+    Meteor.publish 'member_guidelines_username', (username)->
+        Docs.find
+            model:'member_guidelines_signing'
+            # resident:username
+            # agree:true
+
     Meteor.publish 'guests', ()->
         Meteor.users.find
             roles:$in:['guest']

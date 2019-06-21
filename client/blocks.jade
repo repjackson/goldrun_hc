@@ -331,16 +331,29 @@ template(name='rules_and_regs_check')
         //-     .ui.large.basic.button
         //-         i.signature.icon
         //-         |rules and regs signed 
+        
+        
+        
+template(name='member_guidelines_check')
+    if is_staff
+        if guidelines_signed
+            a.ui.basic.button(href="/m/sign_guidelines/#{guidelines_signed._id}/view" title='click to view/edit signing document')
+                i.signature.icon
+                |member guidelines signed 
+        else
+            .ui.red.basic.fluid.button
+                i.signature.icon
+                | member guidelines not signed
+    else
+        unless guidelines_signed
+            .ui.large.red.basic.fluid.button.sign_guidelines
+                i.signature.icon
+                |click to sign member guidelines
+    //-     else if is_staff
+    //-         .ui.large.basic.button
+    //-             i.signature.icon
+    //-             |rules and regs signed 
                 
-template(name='member_waiver_check')
-    //- unless waiver_signed
-    //-     .ui.large.red.basic.button.sign_rules
-    //-         i.signature.icon
-    //-         |member waiver not signed 
-    //- else
-    .ui.large.basic.button
-        i.signature.icon
-        |member waiver signed 
         
 template(name='resident_key_check')
     //- unless key_on_file

@@ -11,6 +11,10 @@ body {
     font-size: 4em !important;
 }
 
+.midgard {
+    vertical-align: middle !important;
+}
+
 /* .menu .item {
     font-family: 'Abril Fatface', serif !important;
     font-size: 130% !important;
@@ -76,7 +80,7 @@ body {
 }
 
 .grgold {
-    background-color: #423200 !important;
+    background-color: #2b2100 !important;
 }
 
 
@@ -204,11 +208,12 @@ input.username_search{
 }
 
 .ui.header{
+    /* font-family: 'Lusitana', sans-serif !important; */
     font-family: 'Ubuntu', sans-serif !important;
 }
 h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */
-    font-family: 'Abril Fatface', serif !important;
+    font-family: 'Lusitana', serif !important;
     /* font-size: 300% !important; */
     color: #5a4400 !important;
 

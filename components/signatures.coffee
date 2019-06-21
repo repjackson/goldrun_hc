@@ -49,6 +49,56 @@ if Meteor.isClient
             # Session.set 'displaying_profile', user._id
             Router.go "/healthclub_session/#{signing_doc.session_id}"
 
+    Template.guidelines_signing.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'user_by_username', Router.current().params.doc_id
+
+    Template.guidelines_signing.helpers
+        signing_doc: -> Docs.findOne Router.current().params.doc_id
+        agree_class: -> if @agree then 'green' else 'basic'
+        resident_email: ->
+            # console.log @resident
+            res = Meteor.users.findOne
+                username:@resident
+            res.emails[0].address
+
+    Template.guidelines_signing.events
+        'click .confirm_email':->
+            signing_doc = Docs.findOne Router.current().params.doc_id
+            email_value = $('.email_value').val('')
+
+            if signing_doc.agree
+                Docs.update signing_doc._id,
+                    $set:email_confirmed:false
+            else
+                Docs.update signing_doc._id,
+                    $set:email_confirmed:true
+
+        'click .agree':->
+            signing_doc = Docs.findOne Router.current().params.doc_id
+            if signing_doc.agree
+                Docs.update signing_doc._id,
+                    $set:agree:false
+            else
+                Docs.update signing_doc._id,
+                    $set:agree:true
+
+        'click .edit_signature':->
+            signing_doc = Docs.findOne Router.current().params.doc_id
+            Docs.update signing_doc._id,
+                $set:signature_saved:false
+
+
+        'click .submit_guidelines':->
+            signing_doc = Docs.findOne Router.current().params.doc_id
+            user = Meteor.users.findOne username:signing_doc.resident
+            Meteor.users.update user._id,
+                $set:guidelines_signed:true
+            # Meteor.call 'send_rules_regs_receipt_email', user._id
+
+            # Session.set 'displaying_profile', user._id
+            Router.go "/healthclub_session/#{signing_doc.session_id}"
+
 
 
 
@@ -64,9 +114,25 @@ if Meteor.isClient
             new_id = Docs.insert
                 model:'rules_and_regs_signing'
                 resident: @username
-
             Router.go "/sign_rules/#{new_id}/#{@username}"
             Session.set 'displaying_profile',null
+
+
+
+    Template.member_guidelines_check.onCreated ->
+        @autorun => Meteor.subscribe 'member_guidelines_username', @data.username
+    Template.member_guidelines_check.helpers
+        guidelines_signed: ->
+            Docs.findOne
+                model:'member_guidelines_signing'
+                resident:@username
+    Template.member_guidelines_check.events
+        # 'click .sign_guidelines': ->
+        #     new_id = Docs.insert
+        #         model:'member_guidelines_signing'
+        #         resident: @username
+        #     Router.go "/sign_guidelines/#{new_id}/#{@username}"
+            # Session.set 'displaying_profile',null
 
 
 

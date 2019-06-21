@@ -86,6 +86,29 @@ template(name='user_layout')
                     if user_is_resident
                         +resident_info         
                 .twelve.wide.column.shadowed-box
+                    .ui.steps
+                          .active.step
+                              i.edit.icon
+                              .content
+                                  .title rules and regs
+                                  .description sign
+                          .step
+                              i.edit.icon
+                              .content
+                                  .title waiver
+                                  .description choose options
+                          .step
+                              i.marker.icon
+                              .content
+                                  .title address info
+                                  .description choose options
+                          .step
+                              i.credit.card.icon
+                              .content
+                                  .title staff gov verification
+                                  .description choose options
+                    .ui.steps
+                        
                     +yield
     unless is_frontdesk
         +footer 
@@ -161,7 +184,7 @@ template(name='user_about')
                     .four.wide.column
                         +user_guests
                     .four.wide.column
-                        +violations
+                        +user_violations
                     .four.wide.column
                         +user_signatures
                     .four.wide.column
@@ -358,13 +381,20 @@ template(name='user_section')
     // +Template.dynamic template=user_section_template
 
     
-template(name='violations')
+template(name='user_violations')
     .ui.segment
         .ui.grey.inline.center.aligned.small.header 
             +i name='foul'
             |violations
         +goto_model slug='violation'
-
+        .ui.button.add_inline_violation
+            i.plus.icon
+            |add violation
+        if adding_violation
+            with violation_adding
+                +textarea_edit key='body' label='description' direct=true
+                +date_edit key='violation_date' label='date' direct=true
+                +time_edit key='violation_time' label='time' direct=true
         //- .ui.list
         //-     each violations
         //-         .item

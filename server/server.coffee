@@ -28,7 +28,7 @@ Cloudinary.config
 SyncedCron.add({
         name: 'check out members'
         schedule: (parser) ->
-            parser.text 'every 1 hours'
+            parser.text 'every 2 hours'
         job: ->
             Meteor.call 'checkout_members', (err, res)->
                 if err then console.log err

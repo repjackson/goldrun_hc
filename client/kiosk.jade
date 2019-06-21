@@ -28,7 +28,25 @@ template(name='set_kiosk_template')
 
 
 template(name='kiosk_away')
-    +document_view key='frontdesk_status' 
+    .ui.text.container.midgard
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        .ui.hidden.divider
+        //- +inline_doc slug='frontdesk_status' classes='ui large header'
+        +document_view key='frontdesk_status' 
     //- .ui.header We're away from the desk for 5 minutes
 
 
@@ -88,6 +106,7 @@ template(name='healthclub_session')
                     +email_validation_check user
                     +lease_expiration_check user
                     with user
+                        +member_guidelines_check
                         +rules_and_regs_check
             .row
                 .sixteen.wide.column

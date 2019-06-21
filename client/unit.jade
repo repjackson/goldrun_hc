@@ -95,9 +95,11 @@ template(name='user_key')
                 +number_view key='tag_number' label='tag number' direct=true
             if is_staff
                 if viewing_code
-                    .ui.big.orange.basic.label
-                        +number_view key='tag_number' label='tag number' direct=true
-                        +boolean_view key='fowler' label='fowler' direct=true
+                    .ui.massive.yellow.basic.label
+                        if fowler
+                            +boolean_view key='fowler' label='fowler' direct=true
+                        else
+                            +number_view key='tag_number' label='tag number' direct=true
                 else
                     .ui.icon.button.view_code
                         i.lock.icon
