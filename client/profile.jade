@@ -18,6 +18,7 @@ template(name='user_layout')
                         | #{user.tagline}
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
+                    +user_check_steps
                     if is_staff
                         a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
                             i.settings.large.violet.icon
@@ -86,30 +87,50 @@ template(name='user_layout')
                     if user_is_resident
                         +resident_info         
                 .twelve.wide.column.shadowed-box
-                    .ui.steps
-                          .active.step
-                              i.edit.icon
-                              .content
-                                  .title rules and regs
-                                  .description sign
-                          .step
-                              i.edit.icon
-                              .content
-                                  .title waiver
-                                  .description choose options
-                          .step
-                              i.marker.icon
-                              .content
-                                  .title address info
-                                  .description choose options
-                          .step
-                              i.credit.card.icon
-                              .content
-                                  .title staff gov verification
-                                  .description choose options
                     +yield
     unless is_frontdesk
         +footer 
+
+
+template(name='user_check_steps')
+    .ui.vertical.fluid.small.menu
+        each user_check
+            .item
+                if completed
+                    i.large.green.checkmark.icon
+                else 
+                    i.large.circle.outline.icon 
+                +i name=icon classes='ui avatar image'
+                |#{title}
+        //- .item
+        //-     if completed
+        //-         i.large.green.checkmark.icon
+        //-     else 
+        //-         i.large.circle.outline.icon 
+        //-     +i name='signature' classes='ui avatar image'
+        //-     |rules and regs
+        //- .item
+        //-     if completed
+        //-         i.large.green.checkmark.icon
+        //-     else 
+        //-         i.large.circle.outline.icon 
+        //-     |address info
+        //- .item
+        //-     if completed
+        //-         i.large.green.checkmark.icon
+        //-     else 
+        //-         i.large.circle.outline.icon 
+        //-     |email verification
+        //- .item
+        //-     if completed
+        //-         i.large.green.checkmark.icon
+        //-     else 
+        //-         i.large.circle.outline.icon 
+        //-     .title staff gov verification
+
+
+
+
 
 template(name='staff_verification')
     if is_staff

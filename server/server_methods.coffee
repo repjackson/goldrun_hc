@@ -246,9 +246,10 @@ Meteor.methods
 
 
     slugify: (doc_id)->
+        console.log doc_id
         doc = Docs.findOne doc_id
-        slug = title.toString().toLowerCase().replace(/\s+/g, '_').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '_').replace(/^-+/, '').replace(/-+$/,'')
-        console.log 'title', title
+        slug = doc.title.toString().toLowerCase().replace(/\s+/g, '_').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '_').replace(/^-+/, '').replace(/-+$/,'')
+        console.log 'title', doc.title
         console.log 'slug', slug
         return slug
         # # Docs.update { _id:doc_id, fields:field_object },

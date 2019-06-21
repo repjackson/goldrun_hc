@@ -103,6 +103,7 @@ template(name='healthclub_session')
                         .ui.big.basic.fluid.button.toggle_adding_guest 
                             i.plus.large.icon
                             |guest
+                    +user_check_steps                
                     +email_validation_check user
                     +lease_expiration_check user
                     with user

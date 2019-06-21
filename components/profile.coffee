@@ -258,6 +258,14 @@ if Meteor.isClient
 
 
 
+    Template.user_check_steps.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'user_check'
+    Template.user_check_steps.helpers
+        user_check: ->
+            Docs.find
+                model:'user_check'
+
+
 
     Template.user_checkins.onCreated ->
         @autorun => Meteor.subscribe 'healthclub_checkins', Router.current().params.username
