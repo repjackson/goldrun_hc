@@ -391,7 +391,7 @@ template(name='user_violations')
             i.plus.icon
             |add violation
         if adding_violation
-            with violation_adding
+            with adding_violation_doc
                 +textarea_edit key='body' label='description' direct=true
                 +date_edit key='violation_date' label='date' direct=true
                 +time_edit key='violation_time' label='time' direct=true

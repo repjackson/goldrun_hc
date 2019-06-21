@@ -178,18 +178,24 @@ if Meteor.isClient
 
     Template.user_violations.onCreated ->
         @autorun => Meteor.subscribe 'violations', Router.current().params.username
-        @adding_violation = new ReactiveVar false
-        @adding_violation = new ReactiveVar false
+        @adding_violation = new ReactiveVar null
     Template.user_violations.helpers
         violations: ->
             Docs.find
                 model:'violation'
+
+        adding_violation: ->
+            Template.instance().adding_violation.get()
+
+        adding_violation_doc: ->
+            Docs.findOne Template.instance().adding_violation.get()
+
     Template.user_violations.events
         'click .add_inline_violation': ->
-            Docs.insert
+            new_violation_id = Docs.insert
                 model:'violation'
                 username: Router.current().params.username
-            Template.instance().adding_violation.set true
+            Template.instance().adding_violation.set new_violation_id
 
 
 
@@ -334,7 +340,7 @@ if Meteor.isServer
         # console.log 'violation', username
         Docs.find
             model:'violation'
-            parent_username:username
+            username:username
 
     Meteor.publish 'user_confirmed_transactions', (username)->
         # console.log 'violation', username
