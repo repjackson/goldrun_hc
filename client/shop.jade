@@ -1,3 +1,21 @@
+template(name='shop')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.header 
+                +i name='shop'
+                |shop
+        .twelve.wide.column
+            .ui.four.cards
+                each products
+                    .ui.card
+                        img.ui.centered.rounded.image(src="{{c.url picture width=300 height=200 crop='fit'}}")
+                        .content 
+                            .header #{title}
+                            .smallscroll
+                                |!{description}
+                
+
+
 template(name='shop_card')
     .ui.stackable.divided.grid
         .centered.row

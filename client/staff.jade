@@ -76,6 +76,7 @@ template(name='hc_session')
                 //- +text_view key='building_code' label='building code' direct=true
                 +lease_expiration_check
                 +rules_and_regs_check
+                +user_check_steps                
             if checkin_guest_docs.length
                 .ui.small.grey.header guests
                 each checkin_guest_docs

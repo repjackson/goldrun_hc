@@ -3,6 +3,24 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'me'
         @autorun -> Meteor.subscribe 'shop'
 
+    Template.shop.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'shop'
+    Template.shop.helpers
+        products: ->
+            Docs.find
+                model:'shop'
+
+
+
+
+
+
+
+
+
+
+
+
     Template.shop_card.onRendered ->
         Meteor.setTimeout ->
             $('.button').popup()

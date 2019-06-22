@@ -31,19 +31,16 @@ template(name='nav')
                         //- i.users.large.icon
                         +i name='groups' classes='ui mini inline image'
                         .mobile.hidden &nbsp; users
-                if is_resident_or_user        
+                if is_user        
                     //- a.item(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
-                    //-     //- i.food.large.icon
                     //-     +i name='food'
                     //-     .mobile.hidden &nbsp; meals
-                    //- a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
-                    //-     //- i.food.large.icon
-                    //-     +i name='shop'
-                    //-     .mobile.hidden &nbsp; shop
-                    //- a.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='meals')
-                    //-     //- i.food.large.icon
-                    //-     +i name='food'
-                    //-     .mobile.hidden &nbsp; meals
+                    a.item(href='/shop' class="{{isActivePath '/shop'}}")
+                        +i name='shop'
+                        .mobile.hidden &nbsp; shop
+                    a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='meals')
+                        +i name='shop'
+                        .mobile.hidden &nbsp; shop m
                 //- if is_admin
                 //-     a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
                 //-         +i name='alpha'
@@ -61,9 +58,9 @@ template(name='nav')
                         //- i.clinic.medical.large.icon
                         .mobile.hidden &nbsp; kiosk
             .right.menu
-                if is_admin
-                    a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                        +i name='tasks'
+                //- if is_admin
+                //-     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
+                //-         +i name='tasks'
                         //- i.tasks.large.icon
                 //-     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
                 //-         +i name='note'
@@ -81,16 +78,16 @@ template(name='nav')
                             //- a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                             //-     //- +i name='new-post'
                             //-     i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
-                            a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
-                                +i name='cashbook'
+                            //- a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
+                            //-     +i name='cashbook'
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
                                 +i name='chat'
-                            a.icon.item(href="/karma" class="{{isActivePath '/karma'}}" title='karma')
-                                +i name='wallet'
+                            //- a.icon.item(href="/karma" class="{{isActivePath '/karma'}}" title='karma')
+                            //-     +i name='wallet'
                                 |#{currentUser.karma}
-                            a.icon.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
-                                +i name='shopping-cart'
-                                |#{cart_amount}
+                            //- a.icon.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
+                            //-     +i name='shopping-cart'
+                            //-     |#{cart_amount}
                                 //- i.chat.large.icon
                             //- if is_user
                             //-     a.icon.item(href="/events" class="{{isActivePath '/events'}}")

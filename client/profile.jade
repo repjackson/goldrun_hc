@@ -18,8 +18,8 @@ template(name='user_layout')
                         | #{user.tagline}
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
-                    +user_check_steps
                     if is_staff
+                        +user_check_steps
                         a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
                             i.settings.large.violet.icon
                             | settings

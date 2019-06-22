@@ -122,6 +122,9 @@ Router.route "/meal/:doc_id/edit", (->
     ), name:'meal_edit'
 
 
+Router.route "/shop", (->
+    @render 'shop'
+    ), name:'shop'
 Router.route "/shop/:doc_id/view", (->
     @render 'shop_view'
     ), name:'shop_view'
