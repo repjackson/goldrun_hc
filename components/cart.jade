@@ -37,21 +37,6 @@ template(name='my_transactions')
             each transactions
                 +transaction
 
-template(name='transactions')
-    .ui.stackable.padded.grid
-        .four.wide.column
-            .ui.header 
-                +i name='cashbook'
-                |transactions
-            .ui.statistic
-                .value #{total_cart_cost}
-                .label cart cost
-            .ui.statistic
-                .value #{currentUser.karma}
-                .label your karma
-        .twelve.wide.column.scrolling
-            each transactions
-                +transaction
                 
                 
 template(name='transaction')

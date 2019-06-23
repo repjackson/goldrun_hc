@@ -545,6 +545,7 @@ template(name='dollar_price_edit')
                 |#{key}
         //- +clear_value                
         input.edit_price(type='number' value=field_value placeholder=placeholder autocomplete="off")
+
 template(name='dollar_price_view')
     if field_value
         div
@@ -561,8 +562,10 @@ template(name='dollar_price_view')
             else
                 |#{this}
         strong &nbsp; #{field_value}
-        .ui.big.green.button.buy_now
-            |buy now
+        with parent
+            +add_to_tab
+        //- .ui.big.green.button.buy_now
+        //-     |buy now
 
 
 template(name='date_edit')

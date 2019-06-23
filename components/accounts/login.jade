@@ -26,20 +26,20 @@ template(name='login')
                         |login
                         | #{username}
                         //- i.right.chevron.icon
-                //- else
-                //-     if username
-                //-         .ui.center.aligned.segment
-                //-             .ui.small.header no '#{username}' user
-                //-             a.ui.basic.button(href='/register')
-                //-                 //- i.user.plus.icon
-                //-                 +i name='enter-2' classes='ui mini inline image'                    
-                //-                 | register
-                //- .ui.center.aligned.basic.segment    
-                //-     a.ui.large.basic.button(href='/forgot_password')
-                //-         +i name='forgot-password' classes='ui mini inline image'                    
-                //-         //- i.refresh.icon
-                //-         |forgot password
-                //-     a.ui.large.basic.button(href='/register') 
-                //-         +i name='add-user-male' classes='ui mini inline image'                    
-                //-         //- i.user.plus.icon
-                //-         |register
+                else
+                    if username
+                        .ui.center.aligned.segment
+                            .ui.small.header no '#{username}' user
+                            a.ui.basic.button(href='/register')
+                                //- i.user.plus.icon
+                                +i name='enter-2' classes='ui mini inline image'                    
+                                | register
+                .ui.center.aligned.basic.segment    
+                    a.ui.large.basic.button(href='/forgot_password')
+                        +i name='forgot-password' classes='ui mini inline image'                    
+                        //- i.refresh.icon
+                        |forgot password
+                    a.ui.large.basic.button(href='/register') 
+                        +i name='add-user-male' classes='ui mini inline image'                    
+                        //- i.user.plus.icon
+                        |register

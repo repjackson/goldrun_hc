@@ -30,6 +30,7 @@ Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'
 Router.route '/cart', -> @render 'cart'
+Router.route '/tab', -> @render 'tab'
 Router.route '/admin', -> @render 'admin'
 Router.route '/buildings', -> @render 'buildings'
 

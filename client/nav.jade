@@ -1,26 +1,24 @@
 template(name='nav')
     unless is_frontdesk
         //- .ui.borderless.attached.big.inverted.menu.topnav
-        .ui.borderless.attached.inverted.big.menu.topnav.grgold
+        .ui.attached.inverted.big.menu.topnav.grgold
             //- a.toggle_sidebar.icon.item.sidebar_on
             //-     i.large.sidebar.icon
             if is_loading
                 .icon.item
                     i.big.loading.dharmachakra.icon
             else
-                a.icon.item(href='/home' class="{{isActivePath '/home'}}")
-                    //- i.th.large.large.icon
-                    +i name='activity-grid-2' classes='ui mini inline image'
                 if is_staff
+                    a.icon.item(href='/home' class="{{isActivePath '/home'}}")
+                        //- i.th.large.large.icon
+                        +i name='activity-grid-2' classes='ui mini inline image'
                     //- a.header.icon.item(href='/' class="{{isActivePath '/'}}")
                     //-     //- i.home.large.large.icon
                     //-     +i name='home-page' classes='ui mini inline image'
                     a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                        //- i.th.large.large.icon
                         +i name='apartment' classes='ui mini inline image'
                         .mobile.hidden &nbsp; buildings
                 //- a.header.icon.set_units.item(href='/m/unit' class="{{isActivePath '/m/unit'}}")
-                //-     //- i.th.large.large.icon
                 //-     +i name='room'    
                 if is_staff
                     a.item(href='/staff' class="{{isActivePath '/staff'}}")
@@ -38,6 +36,7 @@ template(name='nav')
                     a.item(href='/shop' class="{{isActivePath '/shop'}}")
                         +i name='shop'
                         .mobile.hidden &nbsp; shop
+                if is_dev
                     a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='meals')
                         +i name='shop'
                         .mobile.hidden &nbsp; shop m
@@ -80,6 +79,10 @@ template(name='nav')
                             //-     i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
                             //- a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
                             //-     +i name='cashbook'
+                            a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
+                                +i name='ledger'
+                            a.icon.item(href="/transactions" class="{{isActivePath '/transactions'}}" title='transactions')
+                                +i name='cashbook'
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
                                 +i name='chat'
                             //- a.icon.item(href="/karma" class="{{isActivePath '/karma'}}" title='karma')
@@ -88,6 +91,9 @@ template(name='nav')
                             //- a.icon.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
                             //-     +i name='shopping-cart'
                             //-     |#{cart_amount}
+                            a.icon.item(href="/tab" class="{{isActivePath '/tab'}}" title='tab')
+                                +i name='shopping-cart'
+                                |#{cart_amount}
                                 //- i.chat.large.icon
                             //- if is_user
                             //-     a.icon.item(href="/events" class="{{isActivePath '/events'}}")

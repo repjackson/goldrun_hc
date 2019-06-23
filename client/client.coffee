@@ -9,6 +9,7 @@ $.cloudinary.config
 
 Session.setDefault 'invert', false
 Template.registerHelper 'dark_mode', () -> Session.equals('dark_mode',true)
+Template.registerHelper 'parent', () -> Template.parentData()
 Template.registerHelper 'invert_class', () -> if Session.equals('dark_mode',true) then 'invert' else ''
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment

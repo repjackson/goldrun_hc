@@ -25,7 +25,7 @@ body {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    border-radius: 15px !important;
+    border-radius: 10px !important;
 }
 
 .invert {
@@ -85,8 +85,8 @@ body {
 
 
 input{
-    -webkit-border-radius: 15px !important; */
-    border-radius: 15px !important;
+    -webkit-border-radius: 10px !important; */
+    border-radius: 10px !important;
     margin-bottom: 3px !important;
     margin-top: 3px !important;
     /* -moz-border-radius: 50px !important; */
@@ -123,7 +123,7 @@ input.username_search{
 .button, .segment, .label{
     /* -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 10px !important; */
-    border-radius: 20px !important;
+    border-radius: 10px !important;
 }
 
 
@@ -491,6 +491,10 @@ a {
 }
 
 .scrolling::-webkit-scrollbar {
+    display: none;
+}
+
+.smallscroll::-webkit-scrollbar {
     display: none;
 }
 

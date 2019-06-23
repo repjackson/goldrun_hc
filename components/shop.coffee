@@ -1,19 +1,34 @@
 if Meteor.isClient
     Template.shop_card.onCreated ->
-        # @autorun -> Meteor.subscribe 'me'
-        @autorun -> Meteor.subscribe 'shop'
+
+    Template.shop.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 1000
 
     Template.shop.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'shop'
+        @autorun -> Meteor.subscribe 'shop'
     Template.shop.helpers
         products: ->
             Docs.find
                 model:'shop'
 
 
+    Template.add_to_tab.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'transaction'
+    Template.add_to_tab.events
+        'click .add_to_tab': ->
+            Meteor.call 'create_transaction', @
 
+        'click .remove_tab_item': ->
+            Docs.remove @_id
 
-
+    Template.add_to_tab.helpers
+        current_tab_additions: ->
+            console.log @
+            Docs.find
+                model:'transaction'
+                product_id:@_id
 
 
 
@@ -70,7 +85,24 @@ if Meteor.isClient
 
 
 if Meteor.isServer
+    Meteor.methods
+        create_transaction: (product)->
+            console.log product
+            Docs.insert
+                model:'transaction'
+                product_id:product._id
+                delivered:false
+
+
+
+
     Meteor.publish 'product_transactions', (product_id)->
         Docs.find
             model:'transaction'
             product_id:product_id
+
+
+    Meteor.publish 'shop', ->
+        Docs.find
+            model:'shop'
+            active:true

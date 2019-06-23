@@ -1,4 +1,9 @@
 if Meteor.isClient
+    Template.comments.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 1000
+
     Template.comments.onCreated ->
         @autorun => Meteor.subscribe 'children', 'comment', Router.current().params.doc_id
 
