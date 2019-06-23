@@ -81,8 +81,9 @@ template(name='nav')
                             //-     +i name='cashbook'
                             a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
                                 +i name='ledger'
-                            a.icon.item(href="/transactions" class="{{isActivePath '/transactions'}}" title='transactions')
-                                +i name='cashbook'
+                            if is_admin
+                                a.icon.item(href="/transactions" class="{{isActivePath '/transactions'}}" title='transactions')
+                                    +i name='cashbook'
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
                                 +i name='chat'
                             //- a.icon.item(href="/karma" class="{{isActivePath '/karma'}}" title='karma')

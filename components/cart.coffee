@@ -63,39 +63,3 @@ if Meteor.isClient
                         _id:cart_item.product_id
                 total_cart_cost += referenced_product.karma_price
             total_cart_cost < Meteor.user().karma
-
-
-    Template.transactions.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'transaction'
-        @autorun -> Meteor.subscribe 'model_docs', 'shop'
-        # @autorun -> Meteor.subscribe 'shop'
-    Template.transactions.onRendered ->
-        Meteor.setTimeout ->
-            $('.button').popup()
-        , 3000
-    Template.transactions.events
-    Template.transactions.helpers
-        transactions: ->
-            Docs.find
-                model:'transaction'
-
-
-    Template.my_transactions.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'transaction'
-        @autorun -> Meteor.subscribe 'model_docs', 'shop'
-        # @autorun -> Meteor.subscribe 'shop'
-    Template.my_transactions.onRendered ->
-        Meteor.setTimeout ->
-            $('.button').popup()
-        , 3000
-        Meteor.setTimeout ->
-            $('.accordion').accordion()
-        , 1000
-
-
-    Template.my_transactions.events
-    Template.my_transactions.helpers
-        transactions: ->
-            Docs.find
-                model:'transaction'
-                _author_id:Meteor.userId()

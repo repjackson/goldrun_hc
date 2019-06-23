@@ -19,8 +19,8 @@ Meteor.methods
             # console.log typeof key.building_code
             # new_building_number = parseInt key.building_number
             new_unit_number = parseInt key.unit_number
-            console.log typeof new_building_code
-            console.log typeof new_building_number
+            # console.log typeof new_building_code
+            # console.log typeof new_building_number
             Docs.update key._id,
                 $set:
                     unit_number:new_unit_number
@@ -38,7 +38,7 @@ Meteor.methods
 
     remove_email: (user_id, email)->
         # user = Meteor.users.findOne username:username
-        console.log 'removing email', email, 'from', user_id
+        # console.log 'removing email', email, 'from', user_id
         Accounts.removeEmail user_id, email
 
 

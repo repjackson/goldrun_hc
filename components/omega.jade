@@ -1,3 +1,40 @@
+template(name='omega_edit')
+    .ui.header 1: #{model}
+    each model_docs
+        .ui.button.select_child(class=child_selector_class)
+            if icon 
+                +i name=icon
+            |#{slug}
+    .ui.divider
+    if omega_selection_doc
+        |#{omega_selection_doc.slug}
+        .ui.button.edit_selection_doc
+            |edit selection doc
+        div
+        each omega_selection_doc.child_models
+            .ui.label #{this}
+            +subomega_edit submodel=this
+    //- +single_doc_edit key=model ref_model=model label=model direct=true
+
+template(name='subomega_edit')
+    each submodel_docs
+        .ui.button.select_child(class=child_selector_class)
+            if icon 
+                +i name=icon
+            |#{slug}
+    .add_new_submodel_doc.ui.button
+        i.plus.icon
+        |new #{submodel} doc
+    .edit_parent_model_doc.ui.button
+        i.plus.icon
+        |edit #{parent_model.slug} doc
+        //- |#{submodel}
+    //- +subomega_edit submodel=sub_submodel
+
+
+
+
+
 template(name='omega')
     +i name='omega' classes='ui inline image'
     .ui.big.icon.input

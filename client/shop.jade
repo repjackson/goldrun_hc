@@ -4,6 +4,8 @@ template(name='shop')
             .ui.header 
                 +i name='shop'
                 |shop
+            +cloud filter='shop'
+                
         .thirteen.wide.column
             .ui.three.cards
                 each products
@@ -69,31 +71,13 @@ template(name='shop_card')
                 //-                 |free
                     .hidden.content
                         i.cart.plus.green.large.icon
+                +number_view key='inventory' label='inventory' direct=true
                 a.ui.basic.icon.button(href="/shop/#{_id}/view")
                     +i name='chevron right' classes='ui mini image'
                 if can_edit
                     a.ui.basic.button(href="/shop/#{_id}/edit")
                         +i name='pencil' classes='ui mini image'
                     //- +edit_button
-
-
-template(name='add_karma')
-    .ui.stackable.padded.grid
-        .four.wide.column
-            .ui.header add karma
-        .twelve.wide.column
-            +add_karma_amount amount=1000 price=10
-            +add_karma_amount amount=2250 price=20
-            +add_karma_amount amount=5500 price=50
-            +add_karma_amount amount=1100 price=100
-            
-            
-template(name='add_karma_amount')            
-    .ui.segment.pointer.add_karma_amount
-        .ui.header #{amount } karma for $#{price}
-
-
-
 
 
 template(name='shop_edit')
@@ -123,38 +107,6 @@ template(name='shop_edit')
                 +html_edit key='description' direct=true
 
 
-template(name='omega_edit')
-    .ui.header 1: #{model}
-    each model_docs
-        .ui.button.select_child(class=child_selector_class)
-            if icon 
-                +i name=icon
-            |#{slug}
-    .ui.divider
-    if omega_selection_doc
-        |#{omega_selection_doc.slug}
-        .ui.button.edit_selection_doc
-            |edit selection doc
-        div
-        each omega_selection_doc.child_models
-            .ui.label #{this}
-            +subomega_edit submodel=this
-    //- +single_doc_edit key=model ref_model=model label=model direct=true
-
-template(name='subomega_edit')
-    each submodel_docs
-        .ui.button.select_child(class=child_selector_class)
-            if icon 
-                +i name=icon
-            |#{slug}
-    .add_new_submodel_doc.ui.button
-        i.plus.icon
-        |new #{submodel} doc
-    .edit_parent_model_doc.ui.button
-        i.plus.icon
-        |edit #{parent_model.slug} doc
-        //- |#{submodel}
-    //- +subomega_edit submodel=sub_submodel
         
 
 
@@ -163,24 +115,27 @@ template(name='shop_view')
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .six.wide.column
-                .ui.header #{title}
+                .ui.center.aligend.large.header #{title}
                 img.ui.large.centered.rounded.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                 +html_view key='description' direct=true
                 .ui.fluid.accordion
-                    .active.title
-                        .ui.header description analysis
-                    .active.content
+                    .title
+                        .ui.header 
+                            +i name='development-skill'
+                            |description analysis
+                            i.dropdown.icon
+                    .content
                         +watson_view
             .six.wide.column
-                .ui.header author #{_author_username}
+                .ui.header added by #{_author_username}
                 with _author_id
                     +user_card
                 +array_view key='tags' icon='tags' direct=true
                 //- +array_view key='location_tags' label='location tags' icon='marker' direct=true
+                +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
                 +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
                 //- +karma_price_view key='karma_price' icon='yin-yang' label='karma price' direct=true
                 +date_view key='date_available' label='date available' icon='calendar' direct=true
-                +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
                 +time_view key='time_available' label='time available' icon='clock' direct=true
                 +product_transactions
             .four.wide.column
@@ -201,21 +156,30 @@ template(name='product_transactions')
         +i name='cashbook'
         |transactions
     each product_transactions
-        .ui.segment
-            +creation_info
-            +author_info
-            if is_author
+        +public_transaction
+        
+template(name='public_transaction')
+    .ui.segment
+        +creation_info
+        +author_info
+        if dev
+            +boolean_edit key='delivered' label='delivered' direct=true
+        if is_admin
+            unless delivered
+                +image_edit key='dropoff_photo' label='drop off photo' direct=true
+                +datetime_edit key='dropoff_datetime' label='drop off datetime' direct=true
+        if is_author
+            unless delivered
+                +datetime_edit key='delivery_datetime' label='delivery datetime' direct=true
                 +textarea_edit key='dropoff_instructions' label='dropoff instructions (private)' direct=true
-                .ui.divider
+            else
+                +textarea_view key='dropoff_instructions' label='dropoff instructions (private)' direct=true
                 +image_view key='dropoff_photo' label='drop off photo' direct=true
+                div
                 +datetime_view key='dropoff_datetime' label='drop off datetime' direct=true
                 .ui.divider
                 +array_edit key='review_tags' label='review tags' icon='tags' direct=true
                 +voting
-            else
-                +array_view key='tags' label='tags' icon='tags' direct=true
-            .ui.divider
-            if is_admin
-                +image_edit key='dropoff_photo' label='drop off photo' direct=true
-                +datetime_edit key='dropoff_datetime' label='drop off datetime' direct=true
+        else
+            +array_view key='tags' label='tags' icon='tags' direct=true
                 

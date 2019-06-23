@@ -92,7 +92,7 @@ Meteor.methods
     send_rules_regs_receipt_email: (user_id)->
         # console.log new_user_id
         user = Meteor.users.findOne user_id
-        console.log user
+        # console.log user
         if user.emails and user.emails[0] then console.log user.emails[0]
         Mailer.send
             to: ['Gold Run Rec Center <goldrunreccenter@gmail.com>',"#{user.username} <#{user.emails[0].address}>"]          # 'To: ' address. Required.

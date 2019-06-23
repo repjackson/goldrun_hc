@@ -100,10 +100,10 @@ Meteor.methods
         )
 
     call_watson: (doc_id, key, mode) ->
-        console.log 'calling watson'
-        console.log doc_id
-        console.log key
-        console.log mode
+        # console.log 'calling watson'
+        # console.log doc_id
+        # console.log key
+        # console.log mode
         self = @
         doc = Docs.findOne doc_id
         parameters =

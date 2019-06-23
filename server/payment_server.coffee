@@ -2,7 +2,7 @@ Future = Npm.require('fibers/future')
 
 Meteor.methods
     STRIPE_single_charge: (data, product) ->
-        console.log data
+        # console.log data
         if Meteor.isDevelopment
             Stripe = StripeAPI(Meteor.settings.private.stripe_test_secret)
         else if Meteor.isProduction

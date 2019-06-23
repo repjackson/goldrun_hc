@@ -95,10 +95,17 @@ if Meteor.isClient
 
     Template.my_transactions.events
     Template.my_transactions.helpers
-        transactions: ->
+        undelivered_transactions: ->
             Docs.find
                 model:'transaction'
                 _author_id:Meteor.userId()
+                delivered:false
+
+        delivered_transactions: ->
+            Docs.find
+                model:'transaction'
+                _author_id:Meteor.userId()
+                delivered:true
 
 
 if Meteor.isServer

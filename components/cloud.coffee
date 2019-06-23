@@ -74,6 +74,8 @@ if Meteor.isServer
 
         if selected_tags.length > 0 then match.tags = $all: selected_tags
         if filter then match.model = filter
+        if filter and filter is 'shop'
+            match.active = true
         # console.log filter
         # console.log match
         # console.log 'hi'

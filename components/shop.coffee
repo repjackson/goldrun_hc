@@ -7,7 +7,8 @@ if Meteor.isClient
         , 1000
 
     Template.shop.onCreated ->
-        @autorun -> Meteor.subscribe 'shop'
+        # @autorun -> Meteor.subscribe 'shop'
+        @autorun -> Meteor.subscribe 'docs', selected_tags.array(), 'shop'
     Template.shop.helpers
         products: ->
             Docs.find
