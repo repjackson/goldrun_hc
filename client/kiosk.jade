@@ -72,7 +72,6 @@ template(name='healthclub_session')
                             +image_edit key='kiosk_photo' label='click below to take photo' direct=true
                     //- img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
                     //- .meta @#{user.username}
-                    //- +array_view key='tags' label='Tags' direct=true
                     //- +camera
                 .column
                     .checkin_button.f10(href="/user/#{user.username}")
@@ -103,25 +102,31 @@ template(name='healthclub_session')
                         .ui.big.basic.fluid.button.toggle_adding_guest 
                             i.plus.large.icon
                             |guest
-                    if is_admin 
-                        +user_check_steps                
-                    +email_validation_check user
-                    +lease_expiration_check user
+                    //- if is_admin 
+                    //- +email_validation_check user
+                    //- +lease_expiration_check user
                     with user
+                        +user_check_steps                
                         +member_guidelines_check
                         +rules_and_regs_check
             .row
                 .sixteen.wide.column
-                    if rules_signed
-                        .ui.big.fluid.basic.green.button.submit_checkin
-                            .ui.inline.inverted.header 
-                                | check in
-                    else 
+                    unless user.member_waiver_signed
+                        .ui.big.fluid.red.basic.button.sign_guidelines
+                            .ui.inline.header 
+                                i.edit.icon
+                                | sign member waiver            
+                    unless user.rules_and_regulations_signed
                         .ui.big.fluid.red.basic.button.sign_rules
                             .ui.inline.header 
                                 i.edit.icon
                                 | sign rules and regs
-        //- .ui.header #{timer} seconds
+                    else
+                        .ui.big.fluid.basic.green.button.submit_checkin
+                            .ui.inline.inverted.header 
+                            | check in
+        if timer
+            .ui.header auto check in #{timer} seconds
         //- .ui.button.start start
         if submitted
             unless approved

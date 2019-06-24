@@ -60,7 +60,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'checkin_guests',Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'resident_from_healthclub_session', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'healthclub_session', Router.current().params.doc_id
-        # @autorun -> Meteor.subscribe 'model_docs', 'guest'
+        @autorun -> Meteor.subscribe 'model_docs', 'guest'
 
         # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
     Template.healthclub_session.onRendered ->
@@ -76,7 +76,7 @@ if Meteor.isClient
                 rules_found = Docs.findOne
                     model:'rules_and_regs_signing'
                     resident:resident.username
-                if rules_found
+                if resident.rules_and_regulations_signed and resident.member_waiver_signed
                     Session.set 'timer_engaged', true
                     interval_id = Meteor.setInterval( ->
                         if Session.equals 'timer_engaged', true
@@ -111,7 +111,6 @@ if Meteor.isClient
 
         'click .sign_rules': ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
-
             new_id = Docs.insert
                 model:'rules_and_regs_signing'
                 session_id: healthclub_session_document._id

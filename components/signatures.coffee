@@ -127,11 +127,11 @@ if Meteor.isClient
                 model:'member_guidelines_signing'
                 resident:@username
     Template.member_guidelines_check.events
-        # 'click .sign_guidelines': ->
-        #     new_id = Docs.insert
-        #         model:'member_guidelines_signing'
-        #         resident: @username
-        #     Router.go "/sign_guidelines/#{new_id}/#{@username}"
+        'click .sign_guidelines': ->
+            new_id = Docs.insert
+                model:'member_guidelines_signing'
+                resident: @username
+            Router.go "/sign_guidelines/#{new_id}/#{@username}"
             # Session.set 'displaying_profile',null
 
 

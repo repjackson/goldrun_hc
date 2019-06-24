@@ -145,7 +145,6 @@ Template.healthclub.events
                         $('.username_search').val('')
                         Router.go "/healthclub_session/#{session_document}"
                         Session.set 'displaying_profile',res._id
-
     , 250)
 
 
@@ -212,130 +211,130 @@ Template.sign_waiver.helpers
             slug:'rules_regs'
 
 
-Template.checkin_card.onCreated ->
-    @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
-    @autorun => Meteor.subscribe 'checkin_guests'
-    # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
-
-
-Template.checkin_card.helpers
-    rules_signed: ->
-        Docs.findOne
-            model:'rules_and_regs_signing'
-            resident:@username
-    session_document: ->
-        healthclub_session_document = Docs.findOne Session.get 'session_document'
-
-    new_guest_doc: -> Docs.findOne Session.get('new_guest_id')
-    user: -> Meteor.users.findOne @valueOf()
-    checkin_card_class: ->
-        unless @rules_signed then 'red_flagged'
-        else unless @email_verified then 'yellow_flagged'
-        else ""
-        # else "green_flagged"
-
-    adding_guests: -> Session.get 'adding_guest'
-
-    red_flagged: ->
-        rule_doc = Docs.findOne(
-            model:'rules_and_regs_signing'
-            resident:@username)
-        if rule_doc
-            # console.log 'true'
-            false
-        else
-            # console.log 'false'
-            true
-        # unless @rules_signed then true else false
-
-Template.checkin_card.events
-    'click .sign_rules': ->
-        new_id = Docs.insert
-            model:'rules_and_regs_signing'
-            resident: @username
-        Router.go "/sign_rules/#{new_id}/#{@username}"
-        Session.set 'displaying_profile',null
-
-    'click .cancel_checkin': (e,t)->
-        $(e.currentTarget).closest('.segment').transition('fade right',250)
-        Meteor.setTimeout =>
-            Session.set 'displaying_profile', null
-            Session.set 'adding_guest', false
-            healthclub_session_document = Docs.findOne Session.get 'session_document'
-            Docs.remove healthclub_session_document._id
-            checkin_doc = Session.set 'session_document',null
-        , 250
-        # document.reload()
-
-    'click .healthclub_checkin': (e,t)->
-        Session.set 'adding_guest', false
-        # Session.set 'displaying_profile', null
-        healthclub_session_document = Docs.findOne
-            model:'healthclub_session'
-        if healthclub_session_document.guest_ids.length > 0
-            # now = Date.now()
-            current_month = moment().format("MMM")
-            Meteor.users.update @_id,
-                $addToSet:
-                    total_guests:checkin_doc.guest_ids.length
-                    "#{current_month}_guests":checkin_doc.guest_ids.length
-        Docs.update healthclub_session_document._id,
-            $set:
-                session_type:'healthclub_checkin'
-                submitted:true
-
-
-    'click .unit_key_checkout': (e,t)->
-        healthclub_session_document = Docs.findOne
-            model:'healthclub_session'
-        Docs.update healthclub_session_document._id,
-            $set:
-                session_type:'unit_key_checkout'
-                submitted:true
-
-    'click .add_recent_guest': ->
-        current_session = Docs.findOne
-            model:'healthclub_session'
-            current:true
-        Docs.update current_session._id,
-            $addToSet:guest_ids:@_id
-
-    'click .remove_guest': ->
-        current_session = Docs.findOne
-            model:'healthclub_session'
-            current:true
-        Docs.update current_session._id,
-            $pull:guest_ids:@_id
-
-    'click .toggle_adding_guest': ->
-        Session.set 'adding_guest', true
-
-
-    'click .add_guest': ->
-        console.log @
-        new_guest_id =
-            Docs.insert
-                model:'guest'
-                resident_id: @_id
-                resident: @username
-        Session.set 'displaying_profile', null
-        #
-        Router.go "/add_guest/#{new_guest_id}"
-        #
-        # Session.set 'new_guest_id', new_guest_id
-        # $('.ui.fullscreen.modal').modal({
-        #     closable: false
-        #     onDeny: ->
-        #         # window.alert('Wait not yet!')
-        #         # return false;
-        #         Docs.remove new_guest_id
-        #     onApprove: ->
-        #         # window.alert('Approved!')
-        #   })
-        #   .modal('show')
-
-
-
-
-Template.checkin_card.onCreated ->
-    @autorun => Meteor.subscribe 'user_from_id', @data
+# Template.checkin_card.onCreated ->
+#     @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
+#     @autorun => Meteor.subscribe 'checkin_guests'
+#     # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
+#
+#
+# Template.checkin_card.helpers
+#     rules_signed: ->
+#         Docs.findOne
+#             model:'rules_and_regs_signing'
+#             resident:@username
+#     session_document: ->
+#         healthclub_session_document = Docs.findOne Session.get 'session_document'
+#
+#     new_guest_doc: -> Docs.findOne Session.get('new_guest_id')
+#     user: -> Meteor.users.findOne @valueOf()
+#     checkin_card_class: ->
+#         unless @rules_signed then 'red_flagged'
+#         else unless @email_verified then 'yellow_flagged'
+#         else ""
+#         # else "green_flagged"
+#
+#     adding_guests: -> Session.get 'adding_guest'
+#
+#     red_flagged: ->
+#         rule_doc = Docs.findOne(
+#             model:'rules_and_regs_signing'
+#             resident:@username)
+#         if rule_doc
+#             # console.log 'true'
+#             false
+#         else
+#             # console.log 'false'
+#             true
+#         # unless @rules_signed then true else false
+#
+# Template.checkin_card.events
+#     'click .sign_rules': ->
+#         new_id = Docs.insert
+#             model:'rules_and_regs_signing'
+#             resident: @username
+#         Router.go "/sign_rules/#{new_id}/#{@username}"
+#         Session.set 'displaying_profile',null
+#
+#     'click .cancel_checkin': (e,t)->
+#         $(e.currentTarget).closest('.segment').transition('fade right',250)
+#         Meteor.setTimeout =>
+#             Session.set 'displaying_profile', null
+#             Session.set 'adding_guest', false
+#             healthclub_session_document = Docs.findOne Session.get 'session_document'
+#             Docs.remove healthclub_session_document._id
+#             checkin_doc = Session.set 'session_document',null
+#         , 250
+#         # document.reload()
+#
+#     'click .healthclub_checkin': (e,t)->
+#         Session.set 'adding_guest', false
+#         # Session.set 'displaying_profile', null
+#         healthclub_session_document = Docs.findOne
+#             model:'healthclub_session'
+#         if healthclub_session_document.guest_ids.length > 0
+#             # now = Date.now()
+#             current_month = moment().format("MMM")
+#             Meteor.users.update @_id,
+#                 $addToSet:
+#                     total_guests:checkin_doc.guest_ids.length
+#                     "#{current_month}_guests":checkin_doc.guest_ids.length
+#         Docs.update healthclub_session_document._id,
+#             $set:
+#                 session_type:'healthclub_checkin'
+#                 submitted:true
+#
+#
+#     'click .unit_key_checkout': (e,t)->
+#         healthclub_session_document = Docs.findOne
+#             model:'healthclub_session'
+#         Docs.update healthclub_session_document._id,
+#             $set:
+#                 session_type:'unit_key_checkout'
+#                 submitted:true
+#
+#     'click .add_recent_guest': ->
+#         current_session = Docs.findOne
+#             model:'healthclub_session'
+#             current:true
+#         Docs.update current_session._id,
+#             $addToSet:guest_ids:@_id
+#
+#     'click .remove_guest': ->
+#         current_session = Docs.findOne
+#             model:'healthclub_session'
+#             current:true
+#         Docs.update current_session._id,
+#             $pull:guest_ids:@_id
+#
+#     'click .toggle_adding_guest': ->
+#         Session.set 'adding_guest', true
+#
+#
+#     'click .add_guest': ->
+#         console.log @
+#         new_guest_id =
+#             Docs.insert
+#                 model:'guest'
+#                 resident_id: @_id
+#                 resident: @username
+#         Session.set 'displaying_profile', null
+#         #
+#         Router.go "/add_guest/#{new_guest_id}"
+#         #
+#         # Session.set 'new_guest_id', new_guest_id
+#         # $('.ui.fullscreen.modal').modal({
+#         #     closable: false
+#         #     onDeny: ->
+#         #         # window.alert('Wait not yet!')
+#         #         # return false;
+#         #         Docs.remove new_guest_id
+#         #     onApprove: ->
+#         #         # window.alert('Approved!')
+#         #   })
+#         #   .modal('show')
+#
+#
+#
+#
+# Template.checkin_card.onCreated ->
+#     @autorun => Meteor.subscribe 'user_from_id', @data
