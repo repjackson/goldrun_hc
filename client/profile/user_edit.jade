@@ -49,13 +49,13 @@ template(name='user_edit')
                                 +number_view key='healthclub_code' label='keycard code' icon='barcode' direct=true
                                 +date_view key='start_date' label='start date' direct=true
                                 +boolean_view key='owner' label='owner' direct=true
-                                if user_is_owner
-                                    +image_view key='ownership_paperwork' label='ownership paperwork' direct=true
-                                    +pdf_view key='lease_agreement' label='lease agreement' direct=true
-                                else if user_is_resident
-                                    +date_view key='expiration_date' label='expiration date' direct=true
-                                    +pdf_view key='lease_agreement' label='lease agreement' direct=true
-                                    +pdf_edit key='lease_addendum' label='lease addendum' direct=true
+                                //- if user_is_owner
+                                //-     +image_view key='ownership_paperwork' label='ownership paperwork' direct=true
+                                //-     +pdf_view key='lease_agreement' label='lease agreement' direct=true
+                                //- else if user_is_resident
+                                //-     +date_view key='expiration_date' label='expiration date' direct=true
+                                //-     +pdf_view key='lease_agreement' label='lease agreement' direct=true
+                                //-     +pdf_edit key='lease_addendum' label='lease addendum' direct=true
                                 //- +pdf_view key='member_guidelines_and_waiver' label='lease agreement' direct=true
                         //- +text_edit key='email' label='email' direct=true
                         +phone_edit key='phone' label='phone' icon='telephone' direct=true
@@ -68,24 +68,26 @@ template(name='user_edit')
                 .column
                     if user_is_resident_or_owner
                         unless owner
-                            .ui.segment
-                                +i name='home' classes='ui inline mini image'
-                                .ui.inline.header residency
-                                .ui.divider
-                                +pdf_edit key='lease_agreement' label='lease agreement (pdf)' icon='clipboard' direct=true
-                                .ui.horizontal.divider or
-                                +image_edit key='lease_agreement' label='lease agreement (image)' icon='picture' direct=true
-                                +pdf_edit key='lease_addendum' label='lease addendum' icon='clipboard' direct=true
-                                +date_edit key='start_date' label='start date' icon='calendar' direct=true
-                                +date_edit key='expiration_date' label='expiration date' icon='calendar minus' direct=true
+                            if is_staff
+                                .ui.segment
+                                    +i name='home' classes='ui inline mini image'
+                                    .ui.inline.header residency
+                                    .ui.divider
+                                    +pdf_edit key='lease_agreement' label='lease agreement (pdf)' icon='clipboard' direct=true
+                                    .ui.horizontal.divider or
+                                    +image_edit key='lease_agreement' label='lease agreement (image)' icon='picture' direct=true
+                                    +pdf_edit key='lease_addendum' label='lease addendum' icon='clipboard' direct=true
+                                    +date_edit key='start_date' label='start date' icon='calendar' direct=true
+                                    +date_edit key='expiration_date' label='expiration date' icon='calendar minus' direct=true
                         if owner
-                            .ui.segment
-                                +i name='rent' classes='ui inline mini image'
-                                .ui.inline.header owner
-                                .ui.divider
-                                +pdf_edit key='ownership_paperwork' label='ownership paperwork (pdf)' icon='pdf' direct=true
-                                .ui.horizontal.divider or
-                                +image_edit key='ownership_paperwork' label='ownership paperwork (image)' icon='picture' direct=true
+                            if is_staff
+                                .ui.segment
+                                    +i name='rent' classes='ui inline mini image'
+                                    .ui.inline.header owner
+                                    .ui.divider
+                                    +pdf_edit key='ownership_paperwork' label='ownership paperwork (pdf)' icon='pdf' direct=true
+                                    .ui.horizontal.divider or
+                                    +image_edit key='ownership_paperwork' label='ownership paperwork (image)' icon='picture' direct=true
                             //- .ui.hidden.divider
                         //- +pdf_edit key='member_guidelines_and_waiver' icon='signature' label='member guidelines and waiver' direct=true
                         .ui.hidden.divider

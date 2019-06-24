@@ -1,7 +1,7 @@
 template(name='nav')
     unless is_frontdesk
         //- .ui.borderless.attached.big.inverted.menu.topnav
-        .ui.attached.inverted.big.menu.topnav.grgold
+        .ui.attached.borderless.inverted.big.menu.topnav.grgold
             //- a.toggle_sidebar.icon.item.sidebar_on
             //-     i.large.sidebar.icon
             if is_loading
@@ -11,35 +11,35 @@ template(name='nav')
                 if is_staff
                     a.icon.item(href='/home' class="{{isActivePath '/home'}}")
                         //- i.th.large.large.icon
-                        +i name='activity-grid-2' classes='ui mini inline image'
+                        +i name='activity-grid-2' classes='ui avatar image'
                     //- a.header.icon.item(href='/' class="{{isActivePath '/'}}")
                     //-     //- i.home.large.large.icon
-                    //-     +i name='home-page' classes='ui mini inline image'
+                    //-     +i name='home-page' classes='ui avatar image'
                     a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                        +i name='apartment' classes='ui mini inline image'
+                        +i name='apartment' classes='ui avatar image'
                         .mobile.hidden &nbsp; buildings
                 //- a.header.icon.set_units.item(href='/m/unit' class="{{isActivePath '/m/unit'}}")
                 //-     +i name='room'    
                 if is_staff
                     a.item(href='/staff' class="{{isActivePath '/staff'}}")
-                        +i name='employee-card' classes='ui mini inline image'
+                        +i name='employee-card' classes='ui avatar image'
                         //- i.shield.large.icon
                         .mobile.hidden &nbsp; staff
                     a.item(href='/users' class="{{isActivePath '/users'}}")
                         //- i.users.large.icon
-                        +i name='groups' classes='ui mini inline image'
+                        +i name='groups' classes='ui avatar image'
                         .mobile.hidden &nbsp; users
-                if is_user        
-                    //- a.item(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
-                    //-     +i name='food'
-                    //-     .mobile.hidden &nbsp; meals
-                    a.item(href='/shop' class="{{isActivePath '/shop'}}")
-                        +i name='shop'
-                        .mobile.hidden &nbsp; shop
-                if is_dev
+                //- if is_user        
+                //-     //- a.item(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
+                //-     //-     +i name='food'
+                //-     //-     .mobile.hidden &nbsp; meals
+                //-     a.item(href='/shop' class="{{isActivePath '/shop'}}")
+                //-         +i name='shop'
+                //-         .mobile.hidden &nbsp; shop
+                if is_resident
                     a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='meals')
                         +i name='shop'
-                        .mobile.hidden &nbsp; shop m
+                        .mobile.hidden &nbsp; shop
                 //- if is_admin
                 //-     a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
                 //-         +i name='alpha'
@@ -53,7 +53,7 @@ template(name='nav')
                 //-     +i name='shop'
                 if is_staff
                     a.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
-                        +i name='treadmill' classes='ui mini inline image'
+                        +i name='treadmill' classes='ui avatar image'
                         //- i.clinic.medical.large.icon
                         .mobile.hidden &nbsp; kiosk
             .right.menu
@@ -92,6 +92,9 @@ template(name='nav')
                             //- a.icon.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
                             //-     +i name='shopping-cart'
                             //-     |#{cart_amount}
+                            a.icon.item(href="/deliveries" class="{{isActivePath '/deliveries'}}" title='deliveries')
+                                +i name='in-transit'
+                                //- |deliveries
                             a.icon.item(href="/tab" class="{{isActivePath '/tab'}}" title='tab')
                                 +i name='shopping-cart'
                                 |#{cart_amount}

@@ -226,11 +226,6 @@ if Meteor.isClient
 
 
 
-
-
-
-
-
     Template.user_unit.onCreated ->
         @autorun => Meteor.subscribe 'user_unit', Router.current().params.username
     Template.user_unit.helpers
@@ -257,13 +252,6 @@ if Meteor.isClient
                 _id:$in:user.guest_ids
 
 
-
-    Template.user_check_steps.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'user_check'
-    Template.user_check_steps.helpers
-        user_check: ->
-            Docs.find
-                model:'user_check'
 
 
 

@@ -33,6 +33,7 @@ Router.route '/cart', -> @render 'cart'
 Router.route '/tab', -> @render 'tab'
 Router.route '/admin', -> @render 'admin'
 Router.route '/buildings', -> @render 'buildings'
+Router.route '/deliveries', -> @render 'deliveries'
 
 Router.route '/unit/:unit_id', -> @render 'unit'
 Router.route '/building/:building_code', -> @render 'building'
@@ -142,7 +143,7 @@ Router.route '/login', -> @render 'login'
 Router.route '/home', -> @render 'home'
 Router.route '/', (->
     @layout 'layout'
-    @render 'front'
+    @render 'shop'
     ), name:'front'
 
 

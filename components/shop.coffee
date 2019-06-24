@@ -14,6 +14,19 @@ if Meteor.isClient
             Docs.find
                 model:'shop'
 
+    Template.shop.events
+        'click .add_item': ->
+            new_id = Docs.insert
+                model:'shop'
+            Router.go "/shop/#{new_id}/edit"
+
+
+    Template.shop_edit.events
+        'click .delete_shop_item': ->
+            if confirm 'delete shop item?'
+                Docs.remove @_id
+                Router.go "/m/shop"
+
 
     Template.add_to_tab.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'transaction'
@@ -26,7 +39,7 @@ if Meteor.isClient
 
     Template.add_to_tab.helpers
         current_tab_additions: ->
-            console.log @
+            # console.log @
             Docs.find
                 model:'transaction'
                 product_id:@_id

@@ -96,7 +96,8 @@ template(name='user_check_steps')
     .ui.vertical.fluid.small.menu
         each user_check
             .item
-                if completed
+                i.refresh.link.icon.recheck
+                if user_check_completed
                     i.large.green.checkmark.icon
                 else 
                     i.large.circle.outline.icon 
