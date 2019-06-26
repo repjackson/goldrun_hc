@@ -168,6 +168,7 @@ template(name='shop_view_layout')
                         a.item(href="/shop/#{_id}/stats")
                             |stats
                             i.line.chart.icon
+                    +voting_full            
                 .ten.wide.column
                     +yield
                     
@@ -194,7 +195,6 @@ template(name='shop_info')
     +time_view key='time_available' label='time available' icon='clock' direct=true
     if food
         +reservations
-    +voting_full
     .row
         .twelve.wide.column
             if watson

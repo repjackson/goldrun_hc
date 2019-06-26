@@ -60,7 +60,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'checkin_guests',Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'resident_from_healthclub_session', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'healthclub_session', Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'model_docs', 'guest'
+        # @autorun -> Meteor.subscribe 'model_docs', 'guest'
 
         # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
     Template.healthclub_session.onRendered ->
@@ -198,6 +198,13 @@ if Meteor.isClient
             if healthclub_session_document.user_id
                 Meteor.users.findOne healthclub_session_document.user_id
 
+
+    Template.resident_guest.onCreated ->
+        # console.log @
+        @autorun => Meteor.subscribe 'doc', @data
+    Template.resident_guest.helpers
+        guest_doc: ->
+            Docs.findOne Template.currentData()
 
 
 

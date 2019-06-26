@@ -276,8 +276,8 @@ template(name='html_edit')
                     |#{this}
     .froala-container
         +froalaReactive getFEContext
-    if is_dev
-        +call_watson mode='html'
+    //- if is_dev
+    +call_watson mode='html'
     div
     //- +tone mode='html'
     if watson

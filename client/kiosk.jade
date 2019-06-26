@@ -87,12 +87,10 @@ template(name='healthclub_session')
                         +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
                         div
                         with checking_in_doc
-                            if checkin_guest_docs
+                            if checking_in_doc.guest_ids
                                 .ui.inline.header guests for this session
-                                each checkin_guest_docs
-                                    .ui.big.teal.basic.button.remove_guest 
-                                        i.remove.icon
-                                        |#{guest_name} #{first_name} #{last_name}
+                                each checking_in_doc.guest_ids
+                                    +resident_guest
                     else
                         .ui.big.basic.fluid.button.toggle_adding_guest 
                             i.plus.large.icon
@@ -143,3 +141,8 @@ template(name='healthclub_session')
         //-                     i.green.checkmark.icon
         //-                     |request approved        
                 
+template(name='resident_guest')
+    with guest_doc
+        .ui.big.teal.basic.button.remove_guest 
+            i.remove.icon
+            |#{guest_name} #{first_name} #{last_name}

@@ -87,7 +87,7 @@ template(name='hc_session')
                 .ui.small.grey.header guests
                 each checkin_guest_docs
                     .ui.large.basic.label 
-                        |#{guest_name}
+                        |#{guest_name} #{first_name} #{last_name}
             if user_is_resident
                 +date_view key='start_date' label='start date' direct=true
                 +date_view key='expiration_date' label='expiration date' direct=true
@@ -114,11 +114,11 @@ template(name='hc_session')
 
 template(name='garden_key_checkout')
     if garden_key
-        .ui.compact.green.button.garden_key_checkout
+        .ui.compact.green.fluid.button.garden_key_checkout
             +i name='plant' classes='ui mini inline image'
             strong garden key
     else
-        .ui.compact.button.garden_key_checkout
+        .ui.compact.fluid.button.garden_key_checkout
             +i name='plant' classes='ui mini inline image'
             strong garden key
 

@@ -215,6 +215,9 @@ if Meteor.isServer
         Meteor.users.find
             username:username
 
+    Meteor.publish 'user_by_user_id', (user_id)->
+        Meteor.users.find user_id
+
 
     Meteor.publish 'session_from_guest_id', (guest_id)->
         guest_doc = Docs.findOne guest_id
