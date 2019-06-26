@@ -10,5 +10,13 @@ template(name='rental')
     .ui.segment
         +datetime_edit key='start_time'
         +datetime_edit key='end_time'
+        +range_edit
+        .ui.header selected start time #{start_datetime}
+        .ui.header selected end time #{end_datetime}
+        .ui.button.calculate_diff diff
+        .ui.header hours #{rental_hours}
+        .ui.header hourly rental price $#{hourly_rental_price}
+        .ui.header days #{rental_days}
+        .ui.header daily rental price $#{daily_rental_price}
         .ui.icon.button.delete_rental
             i.remove.icon

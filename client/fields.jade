@@ -1204,3 +1204,20 @@ template(name='multi_user_view')
 
     
     
+template(name='range_edit')
+    .ui.form
+        .two.fields
+            .field
+                label start date
+                #rangestart.ui.calendar
+                    .ui.input.left.icon
+                        i.calendar.icon
+                        input(type='text', placeholder='start' value=start_time)
+            .field
+                label end date
+                #rangeend.ui.calendar
+                    .ui.input.left.icon
+                        i.calendar.icon
+                        input(type='text', placeholder='end' value=end_time)
+        .ui.button.get_start save start
+        .ui.button.get_end save end

@@ -1217,3 +1217,26 @@ Template.multi_doc_input.events
             # signaturePad.off()
             # # Rebinds all event handlers
             # signaturePad.on()
+
+
+
+Template.range_edit.onRendered ->
+    # rental = Template.currentData()
+    $('#rangestart').calendar({
+      type: 'datetime',
+      endCalendar: $('#rangeend')
+    });
+    $('#rangeend').calendar({
+      type: 'datetime',
+      startCalendar: $('#rangestart')
+    });
+Template.range_edit.events
+    'click .get_start': ->
+        val = $('.ui.calendar').calendar('get startDate')[2]
+        Docs.update @_id,
+            $set:start_datetime:val
+        # console.log $('.ui.calendar').calendar('get startDate')[2].getDate()
+    'click .get_end': ->
+        val = $('.ui.calendar').calendar('get endDate')[0]
+        Docs.update @_id,
+            $set:end_datetime:val

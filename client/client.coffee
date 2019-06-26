@@ -22,6 +22,7 @@ Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
 Template.registerHelper 'is_event', () -> @shop_type is 'event'
 Template.registerHelper 'is_service', () -> @shop_type is 'service'
 Template.registerHelper 'is_product', () -> @shop_type is 'product'
+# Template.registerHelper 'parent_template', () -> Template.parentData()
 
 
     # Session.get 'displaying_profile'

@@ -36,7 +36,7 @@ template(name='nav')
                 //-     a.item(href='/shop' class="{{isActivePath '/shop'}}")
                 //-         +i name='shop'
                 //-         .mobile.hidden &nbsp; shop
-                if is_resident
+                if is_user
                     a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='meals')
                         +i name='shop'
                         .mobile.hidden &nbsp; shop
