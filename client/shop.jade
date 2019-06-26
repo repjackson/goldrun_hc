@@ -138,52 +138,75 @@ template(name='shop_edit')
         
 
 
-template(name='shop_view')
+template(name='shop_view_layout')
+    +nav
     with current_doc
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
                 .six.wide.column
                     .ui.center.aligend.large.header #{title}
-                    .scrolling
-                        img.ui.centered.rounded.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
-                        +html_view key='description' direct=true
-                .six.wide.column
-                    .ui.header added by #{_author_username}
-                    |#{when}
-                    with _author_id
-                        +user_card
-                    +array_view key='tags' icon='tags' direct=true
-                    //- +array_view key='location_tags' label='location tags' icon='marker' direct=true
-                    +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
-                    +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
-                    +date_view key='date_available' label='date available' icon='calendar' direct=true
-                    +time_view key='time_available' label='time available' icon='clock' direct=true
-                    +product_transactions
-                .four.wide.column
-                    a.ui.large.icon.basic.button(href="/shop/#{_id}/edit")
-                        +i name='pencil'
-                    if food
-                        +reservations
-                    +comments
-                    with current_doc
-                        +voting_full
-            if hourly_rate
-                .row
-                    .twelve.wide.column
-                        +rentals
-            .row
-                .twelve.wide.column
-                    if watson
-                        .ui.fluid.accordion
-                            .title
-                                .ui.header 
-                                    +i name='development-skill'
-                                    |description analysis
-                                    i.dropdown.icon
-                            .content
-                                +watson_view
+                    img.ui.centered.small.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
+                    if can_edit
+                        a.ui.fluid.button(href="/shop/#{_id}/edit")
+                            i.pencil.icon
+                            |edit
+                    .ui.large.vertical.fluid.menu
+                        a.item(href="/shop/#{_id}/info")
+                            |info
+                            i.info.icon
+                        if hourly_rate
+                            a.item(href="/shop/#{_id}/rentals")
+                                |rentals
+                                i.clock.icon
+                        a.item(href="/shop/#{_id}/chat")
+                            |chat
+                            i.chat.icon
+                        a.item(href="/shop/#{_id}/earnings")
+                            |earnings
+                            i.money.icon
+                        a.item(href="/shop/#{_id}/stats")
+                            |stats
+                            i.line.chart.icon
+                .ten.wide.column
+                    +yield
                     
+template(name='shop_stats')
+    +product_transactions
+
+template(name='shop_rentals')
+    +rentals
+                        
+template(name='shop_chat')                        
+    +comments
+                    
+template(name='shop_info')                        
+    +html_view key='description' direct=true
+    .ui.header added by #{_author_username}
+    |#{when}
+    with _author_id
+        +user_card
+    +array_view key='tags' icon='tags' direct=true
+    //- +array_view key='location_tags' label='location tags' icon='marker' direct=true
+    +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
+    +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
+    +date_view key='date_available' label='date available' icon='calendar' direct=true
+    +time_view key='time_available' label='time available' icon='clock' direct=true
+    if food
+        +reservations
+    +voting_full
+    .row
+        .twelve.wide.column
+            if watson
+                .ui.fluid.accordion
+                    .title
+                        .ui.header 
+                            +i name='development-skill'
+                            |description analysis
+                            i.dropdown.icon
+                    .content
+                        +watson_view
+            
 
 
 template(name='product_transactions')

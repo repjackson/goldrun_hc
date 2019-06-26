@@ -37,9 +37,18 @@ template(name='nav')
                 //-         +i name='shop'
                 //-         .mobile.hidden &nbsp; shop
                 if is_user
-                    a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='meals')
+                    a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='shop')
                         +i name='shop'
                         .mobile.hidden &nbsp; shop
+                    a.item.set_library(href='/m/library' class="{{isActivePath '/m/library'}}" title='library')
+                        +i name='library'
+                        .mobile.hidden &nbsp; library
+                    a.item.set_event(href='/m/event' class="{{isActivePath '/m/event'}}" title='events')
+                        +i name='calendar'
+                        .mobile.hidden &nbsp; events
+                    a.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
+                        +i name='food'
+                        .mobile.hidden &nbsp; food
                 //- if is_admin
                 //-     a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
                 //-         +i name='alpha'

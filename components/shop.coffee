@@ -81,7 +81,7 @@ if Meteor.isClient
 
 
 
-    Template.shop_view.onCreated ->
+    Template.shop_view_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.shop_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
