@@ -2,8 +2,8 @@ template(name='facet_staff_select')
     if facet_doc
         with facet_doc
             if is_editing
+                .ui.basic.label select staff
                 .ui.labeled.fluid.input
-                    .ui.basic.label select staff
                     input#staff(type='text' value=staff)
             else
                 div(class=doc_classes)

@@ -181,16 +181,16 @@ template(name='schedule')
         thead
             tr
                 th
-                th sunday
-                th monday
-                th tuesday
-                th wednesday
-                th thursday
-                th friday
-                th saturday
+                th sun
+                th mon
+                th tues
+                th wed
+                th thurs
+                th fri
+                th sat
         tbody
             tr
-                td morning 7am-12pm
+                td 7/8am-4pm
                 td 
                     +facet_staff_select tags='shift,sunday,morning'
                 td 
@@ -205,24 +205,24 @@ template(name='schedule')
                     +facet_staff_select tags='shift,friday,morning'
                 td 
                     +facet_staff_select tags='shift,saturday,morning'
+            //- tr
+            //-     td afternoon 12pm-4pm
+            //-     td 
+            //-         +facet_staff_select tags='shift,sunday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='shift,monday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='shift,tuesday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='shift,wednesday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='shift,thursday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='shift,friday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='shift,saturday,afternoon'
             tr
-                td afternoon 12pm-4pm
-                td 
-                    +facet_staff_select tags='shift,sunday,afternoon'
-                td 
-                    +facet_staff_select tags='shift,monday,afternoon'
-                td 
-                    +facet_staff_select tags='shift,tuesday,afternoon'
-                td 
-                    +facet_staff_select tags='shift,wednesday,afternoon'
-                td 
-                    +facet_staff_select tags='shift,thursday,afternoon'
-                td 
-                    +facet_staff_select tags='shift,friday,afternoon'
-                td 
-                    +facet_staff_select tags='shift,saturday,afternoon'
-            tr
-                td evening 4pm-9pm
+                td 4pm-9/10pm
                 td 
                     +facet_staff_select tags='shift,sunday,evening'
                 td 
@@ -237,6 +237,68 @@ template(name='schedule')
                     +facet_staff_select tags='shift,friday,evening'
                 td 
                     +facet_staff_select tags='shift,saturday,evening'
+    .ui.header upcoming week
+    +inline_doc slug='staff_schedule_notes' classes='ui small grey header'    
+    table.ui.definition.celled.striped.unstackable.selectable.table
+        thead
+            tr
+                th
+                th sun
+                th mon
+                th tues
+                th wed
+                th thurs
+                th fri
+                th sat
+        tbody
+            tr
+                td 7/8am-4pm
+                td 
+                    +facet_staff_select tags='upcoming,shift,sunday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,monday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,tuesday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,wednesday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,thursday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,friday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,saturday,morning'
+            //- tr
+            //-     td afternoon 12pm-4pm
+            //-     td 
+            //-         +facet_staff_select tags='upcoming,shift,sunday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='upcoming,shift,monday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='upcoming,shift,tuesday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='upcoming,shift,wednesday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='upcoming,shift,thursday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='upcoming,shift,friday,afternoon'
+            //-     td 
+            //-         +facet_staff_select tags='upcoming,shift,saturday,afternoon'
+            tr
+                td 4pm-9/10pm
+                td 
+                    +facet_staff_select tags='upcoming,shift,sunday,evening'
+                td 
+                    +facet_staff_select tags='upcoming,shift,monday,evening'
+                td 
+                    +facet_staff_select tags='upcoming,shift,tuesday,evening'
+                td 
+                    +facet_staff_select tags='upcoming,shift,wednesday,evening'
+                td 
+                    +facet_staff_select tags='upcoming,shift,thursday,evening'
+                td 
+                    +facet_staff_select tags='upcoming,shift,friday,evening'
+                td 
+                    +facet_staff_select tags='upcoming,shift,saturday,evening'
 
 
 template(name='shift_change_requests')

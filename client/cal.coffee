@@ -8,11 +8,12 @@ Template.user_diagram.onRendered ->
 
 Template.cal.onRendered ->
     container = @$('.dhx_cal_container')[0]
-    scheduler.init container, new Date(2017, 2, 16), 'week'
+    scheduler.init container, new Date(), 'week'
 
     parseEventData = (data) ->
         event = {}
         for property of data
+            # console.log property
             if property == '_id'
                 event['id'] = data[property]
             else
@@ -43,6 +44,8 @@ Template.cal.onRendered ->
         changed: (data) ->
             event = parseEventData(data)
             originalEvent = scheduler.getEvent(event.id)
+            console.log event
+            console.log data
             if !originalEvent
                 for key of event
                     originalEvent[key] = event[key]
@@ -53,7 +56,8 @@ Template.cal.onRendered ->
                 scheduler.deleteEvent event.id
     scheduler.attachEvent 'onEventAdded', (eventId, event) ->
         data = serializeEvent(event)
-        newId = Docs.insert(data)
+        # newId = Docs.insert(data)
+        console.log data
         scheduler.changeEventId eventId, newId
     scheduler.attachEvent 'onEventChanged', (eventId, event) ->
         data = serializeEvent(event)
