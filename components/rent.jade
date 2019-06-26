@@ -1,0 +1,14 @@
+template(name='rentals')
+    .ui.secondary.segment
+        .ui.header rentals
+        .ui.green.button.rent rent
+        each rentals
+            +rental
+            
+            
+template(name='rental')
+    .ui.segment
+        +datetime_edit key='start_time'
+        +datetime_edit key='end_time'
+        .ui.icon.button.delete_rental
+            i.remove.icon

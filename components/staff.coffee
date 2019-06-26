@@ -47,7 +47,6 @@ if Meteor.isClient
     Template.hc_session.events
         'click .sign_out': (e,t)->
             if confirm "check out #{@resident_username}?"
-                # console.log @
                 $(e.currentTarget).closest('.card').transition('fade up',500)
                 Meteor.setTimeout =>
                     Docs.update @_id,
@@ -60,7 +59,6 @@ if Meteor.isClient
         'click .garden_key_checkout': (e,t)->
             # healthclub_session_document = Docs.findOne
             #     model:'healthclub_session'
-            console.log @
             Docs.update @_id,
                 $set:
                     garden_key:true
@@ -105,8 +103,6 @@ if Meteor.isClient
         'click .lookup_key': (e,t)->
             building_number = parseInt t.$('.building_number').val()
             unit_number = parseInt t.$('.unit_number').val()
-            # console.log building_number
-            # console.log unit_number
             Meteor.call 'lookup_key',building_number, unit_number, (err,res)->
                 alert "key tag number", res.tag_number
 
@@ -151,7 +147,6 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.methods
         lookup_key: (building_number, unit_number)->
-            console.log 'looking for key', building_number, unit_number
             found_key = Docs.findOne
                 model:'key'
                 building_number:building_number
@@ -165,7 +160,6 @@ if Meteor.isServer
 
 
     Meteor.publish 'session_guests', (session_data)->
-        console.log session_data
         if session_data
             Docs.find
                 _id:$in:session_data.guest_ids

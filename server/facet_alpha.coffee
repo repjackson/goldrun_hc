@@ -3,7 +3,6 @@ Meteor.methods
         alpha = Docs.findOne
             model:'alpha'
             _author_id:Meteor.userId()
-        # console.log 'model', model
 
         Docs.update alpha._id,
             $set:facets:[
@@ -27,10 +26,7 @@ Meteor.methods
 
 
     fa: (alpha_id)->
-        # console.log 'running fa', alpha_id
         alpha = Docs.findOne alpha_id
-        # console.log alpha
-        # console.log model
         built_query = {}
         unless alpha.facets
             Docs.update alpha_id,
@@ -44,12 +40,10 @@ Meteor.methods
                 ]
 
         for facet in alpha.facets
-            # console.log 'this facet', facet.key
             if facet.filters.length > 0
                 built_query["#{facet.key}"] = $all: facet.filters
 
         total = Docs.find(built_query).count()
-        # console.log 'built query', built_query
 
         # response
         for facet in alpha.facets
@@ -82,9 +76,6 @@ Meteor.methods
         #     result_ids = []
         result_ids = results_cursor.fetch()
 
-        # console.log 'result ids', result_ids
-        # console.log 'alpha', alpha
-        # console.log Meteor.userId()
 
         Docs.update {_id:alpha._id},
             {$set:
@@ -95,13 +86,9 @@ Meteor.methods
 
 
         # alpha = Docs.findOne alpha_id
-        # console.log 'alpha', alpha
 
     alpha_agg: (query, key)->
         limit=100
-        # console.log 'agg query', query
-        # console.log 'agg key', key
-        # console.log 'agg collection', collection
         options = { explain:false }
         pipe =  [
             { $match: query }
@@ -116,7 +103,6 @@ Meteor.methods
             agg = global['Docs'].rawCollection().aggregate(pipe,options)
             # else
             res = {}
-            # console.log 'res', res
             if agg
                 agg.toArray()
         else

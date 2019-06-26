@@ -53,9 +53,6 @@ template(name='kiosk_away')
 
 template(name='healthclub_session')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
-    //- with current_doc
-        //- .ui.padded.stackable.grid
-        //- .ui.padded.middle.aligned.grid.header-wrapper(class=resident_status_class)
     .ui.padded.middle.aligned.grid.header-wrapper
         unless current_doc.submitted
             .two.column.row
@@ -74,14 +71,12 @@ template(name='healthclub_session')
                     //- .meta @#{user.username}
                     //- +camera
                 .column
-                    .checkin_button.f10(href="/user/#{user.username}")
+                    h1.ui.huge.header.f11
                         |#{user.first_name} #{user.last_name} 
                     if adding_guests
                         .ui.header 
-                            //- +i name='groups'
                             i.users.teal.icon
                             |guests
-                        //- //- .ui.hidden.divider
                         .ui.small.inline.header recent guests
                         each resident_guests
                             .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
@@ -105,10 +100,12 @@ template(name='healthclub_session')
                     //- if is_admin 
                     //- +email_validation_check user
                     //- +lease_expiration_check user
+                    //- with user
+                    //-     .ui.button.recheck recheck
                     with user
                         +user_check_steps                
-                        +member_guidelines_check
-                        +rules_and_regs_check
+                        //- +member_guidelines_check
+                        //- +rules_and_regs_check
             .row
                 .sixteen.wide.column
                     unless user.member_waiver_signed
@@ -121,22 +118,28 @@ template(name='healthclub_session')
                             .ui.inline.header 
                                 i.edit.icon
                                 | sign rules and regs
-                    else
-                        .ui.big.fluid.basic.green.button.submit_checkin
-                            .ui.inline.inverted.header 
-                            | check in
-        if timer
-            .ui.header auto check in #{timer} seconds
+                    if user.member_waiver_signed
+                        if user.rules_and_regulations_signed
+                            .ui.big.fluid.basic.green.button.submit_checkin
+                                .ui.inline.inverted.header 
+                                    | check in
+            .row
+                .sixteen.wide.column
+                    if timer_engaged
+                        .ui.small.grey.header auto check in #{timer} seconds
+                        .ui.button.cancel_auto_checkin
+                            i.ban.icon
+                            | cancel auto check in
         //- .ui.button.start start
-        if submitted
-            unless approved
-                .centered.row
-                    .twelve.wide.column
-                        .ui.header request submitted, awaiting staff approval        
-            if approved
-                .centered.row
-                    .twelve.wide.column
-                        .ui.header 
-                            i.green.checkmark.icon
-                            |request approved        
+        //- if submitted
+        //-     unless approved
+        //-         .centered.row
+        //-             .twelve.wide.column
+        //-                 .ui.header request submitted, awaiting staff approval        
+        //-     if approved
+        //-         .centered.row
+        //-             .twelve.wide.column
+        //-                 .ui.header 
+        //-                     i.green.checkmark.icon
+        //-                     |request approved        
                 

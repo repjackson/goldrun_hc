@@ -60,7 +60,10 @@ template(name='shop_card')
             //-         .ui.header #{karma_price}k
             //-     .hidden.content
             //-         i.cart.plus.green.large.icon
-            .ui.inline.header $#{dollar_price}
+            if hourly_rate
+                .ui.header $#{hourly_rate}/hour
+            if dollar_price
+                .ui.header $#{dollar_price}
             //- .ui.basic.animated.fade.button.add_to_cart(title="click to add to cart")
             //-     .visible.content
             //-         .ui.header 
@@ -143,7 +146,7 @@ template(name='shop_view')
                 .six.wide.column
                     .ui.center.aligend.large.header #{title}
                     .scrolling
-                        img.ui.large.centered.rounded.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
+                        img.ui.centered.rounded.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                         +html_view key='description' direct=true
                 .six.wide.column
                     .ui.header added by #{_author_username}
@@ -160,10 +163,15 @@ template(name='shop_view')
                 .four.wide.column
                     a.ui.large.icon.basic.button(href="/shop/#{_id}/edit")
                         +i name='pencil'
-                    //- +reservations
+                    if food
+                        +reservations
                     +comments
                     with current_doc
                         +voting_full
+            if hourly_rate
+                .row
+                    .twelve.wide.column
+                        +rentals
             .row
                 .twelve.wide.column
                     if watson
@@ -175,6 +183,7 @@ template(name='shop_view')
                                     i.dropdown.icon
                             .content
                                 +watson_view
+                    
 
 
 template(name='product_transactions')

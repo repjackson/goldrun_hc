@@ -41,7 +41,6 @@ if Meteor.isClient
                 building_number = parseInt $('.building_number').val()
                 building_label = $('.building_label').val().trim()
                 building = Docs.findOne model:'building'
-                console.log building
                 Docs.insert
                     model:'unit'
                     unit_number:unit_number
@@ -61,7 +60,6 @@ if Meteor.isClient
                 if username_query.length > 1
                     # audio = new Audio('wargames.wav');
                     # audio.play();
-                    # console.log 'hi'
                     Session.set 'username_query',username_query
 
 
@@ -69,14 +67,12 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'building', (building_code)->
-        # console.log 'finding building', building_code
         Docs.find
             model:'building'
             slug:building_code
 
 
     Meteor.publish 'building_units', (building_code)->
-        # console.log 'finding units', building_code
         Docs.find
             model:'unit'
             building_code:building_code

@@ -4,10 +4,8 @@ if Meteor.isClient
 
     Template.view_chat.events
         'click .join_chat': (e,t)->
-            console.log @
             Meteor.call 'join_chat', @_id, ->
         'click .leave_chat': (e,t)->
-            console.log @
             Meteor.call 'leave_chat', @_id, ->
 
         'click .close_chat': (e,t)->
@@ -26,7 +24,6 @@ if Meteor.isClient
                     Docs.find({
                         model: 'message'
                         group_id: self._id }).count()
-                # console.log message_count
                 # $('.comment').transition(
                 #     animation: 'fly right'
                 #     duration: 1000
@@ -36,7 +33,6 @@ if Meteor.isClient
                     Meteor.call 'close_chat', self._id, ->
                 , 1000
                 # )
-                # console.log self
 
                 # swal "Submission Removed", "",'success'
                 return
@@ -99,14 +95,11 @@ if Meteor.isClient
             e.preventDefault
             if e.which is 13
                 group_id = @_id
-                # console.log group_id
                 body = t.find('.add_message').value.trim()
                 if body.length > 0
-                    # console.log body
                     Meteor.call 'add_message', body, group_id, (err,res)=>
                         if err then console.error err
                         else
-                            # console.log res
                     $('.add_message').transition('bounce')
                     t.find('.add_message').value = ''
 
@@ -131,24 +124,18 @@ if Meteor.isServer
             message_author = Meteor.users.findOne message_doc.author_id
 
             # message_link = "https://www.joyful-giver.com/chat"
-            # console.log 'message author', message_author
-            # console.log 'message_doc', message_doc
 
             # this.unblock()
 
             # offline_ids = []
             # for participant_id in chat_doc.participant_ids
             #     user = Meteor.users.findOne participant_id
-            #     console.log participant_id
             #     if user.status.online is true
-            #         console.log 'user online:', user.profile.first_name
             #     else
             #         offline_ids.push user._id
-            #         console.log 'user offline:', user.profile.first_name
 
 
             # for offline_id in offline_ids
-            #     console.log 'offline id', offline_id
             #     offline_user = Meteor.users.findOne offline_id
 
             #     Email.send
@@ -211,7 +198,6 @@ if Meteor.isClient
     Template.chat_list.events
         'click .chat_list_item': (e,t)->
             Session.set 'current_chat_id', @_id
-            # console.log Session.get 'current_chat_id'
 
         'click .mark_unread': (e,t)->
             Meteor.call 'mark_unread', @_id, ->
@@ -241,7 +227,6 @@ if Meteor.isClient
     Template.chat_message.events
         'click .delete_message': (e,t)->
             if confirm 'Delete message?'
-                console.log @
                 $(e.currentTarget).closest('.comment').transition('fly right')
                 Meteor.setTimeout =>
                     Docs.remove @_id

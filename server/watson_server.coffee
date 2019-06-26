@@ -39,7 +39,6 @@ Meteor.methods
             raw_scores: false
         personality_insights.profile params, Meteor.bindEnvironment((err, response)->
             if err
-                # console.log err
                 Docs.update { _id: doc_id},
                     $set:
                         personality: false
@@ -48,15 +47,12 @@ Meteor.methods
                 Docs.update { _id: doc_id},
                     $set:
                         personality: response
-                # console.log(JSON.stringify(response, null, 2))
         )
 
 
     call_tone: (doc_id, key, mode)->
         self = @
         doc = Docs.findOne doc_id
-        # console.log key
-        # console.log mode
         # if doc.html or doc.body
         #     # stringed = JSON.stringify(doc.html, null, 2)
         if mode is 'html'
@@ -69,13 +65,11 @@ Meteor.methods
                 content_type:'text/plain'
         tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
             if err
-                console.log err
             else
                 # console.dir response
                 Docs.update { _id: doc_id},
                     $set:
                         tone: response
-                # console.log(JSON.stringify(response, null, 2))
             )
         # else return
 
@@ -91,19 +85,13 @@ Meteor.methods
             # classifier_ids: classifier_ids
         visual_recognition.classify params, Meteor.bindEnvironment((err, response)->
             if err
-                console.log err
             else
-                console.log(JSON.stringify(response, null, 2))
                 Docs.update { _id: doc_id},
                     $set:
                         visual_classes: response.images[0].classifiers[0].classes
         )
 
     call_watson: (doc_id, key, mode) ->
-        # console.log 'calling watson'
-        # console.log doc_id
-        # console.log key
-        # console.log mode
         self = @
         doc = Docs.findOne doc_id
         parameters =
@@ -134,16 +122,12 @@ Meteor.methods
                 parameters.return_analyzed_text = true
 
         natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
-            if err
-                console.log 'error:', err
+            if err then console.log err
             else
-                # console.log(JSON.stringify(response, null, 2))
                 keyword_array = _.pluck(response.keywords, 'text')
                 lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
 
                 for entity in response.entities
-                    # console.log 'type', entity.type
-                    # console.log 'text', entity.text
                     Docs.update { _id: doc_id },
                         $addToSet: "#{entity.type}":entity.text
 
@@ -165,7 +149,6 @@ Meteor.methods
     pull_site: (doc_id, url)->
         this_id = doc_id
         doc = Docs.findOne doc_id
-        # console.log url
         parameters =
             url: url
             features:
@@ -188,9 +171,8 @@ Meteor.methods
 
         natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) =>
             if err
-                console.log 'error:', err
+                console.error err
             else
-                # console.log response
                 keyword_array = _.pluck(response.keywords, 'text')
                 lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
 

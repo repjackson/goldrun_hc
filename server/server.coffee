@@ -2,9 +2,7 @@
 Meteor.users.allow
     update: (userId, doc, fields, modifier) ->
         true
-        # # console.log 'user ' + userId + 'wants to modify doc' + doc._id
         # if userId and doc._id == userId
-        #     # console.log 'user allowed to modify own account'
         #     true
 
 Cloudinary.config
@@ -20,9 +18,7 @@ Cloudinary.config
 #         parser.text 'every 1 hour'
 #     job: ->
 #         Meteor.call 'update_escalation_statuses', (err,res)->
-#             if err then console.log err
 #             # else
-                # console.log 'res:',res
 
 
 SyncedCron.add({
@@ -31,9 +27,6 @@ SyncedCron.add({
             parser.text 'every 2 hours'
         job: ->
             Meteor.call 'checkout_members', (err, res)->
-                if err then console.log err
-                else
-                    console.log 'check out members',res
     },{
         name: 'check leases'
         schedule: (parser) ->
@@ -41,9 +34,6 @@ SyncedCron.add({
             parser.text 'every 24 hours'
         job: ->
             Meteor.call 'check_lease_status', (err, res)->
-                if err then console.log err
-                else
-                    console.log 'user sync res:',res
     }
 )
 
@@ -87,11 +77,9 @@ Meteor.publish 'user_from_username', (username)->
     Meteor.users.find username:username
 
 Meteor.publish 'user_from_id', (user_id)->
-    # console.log user_id
     Meteor.users.find user_id
 
 Meteor.publish 'author_from_doc_id', (doc_id)->
-    # console.log user_id
     doc = Docs.findOne doc_id
     Meteor.users.find user_id
 
@@ -104,7 +92,6 @@ Meteor.publish 'page_children', (slug)->
     page = Docs.findOne
         model:'page'
         slug:slug
-    # console.log page
     Docs.find
         parent_id:page._id
 
@@ -114,7 +101,6 @@ Meteor.publish 'checkin_guests', (doc_id)->
     session_document = Docs.findOne doc_id
         # model:'healthclub_session'
         # current:true
-    console.log session_document.guest_ids
     Docs.find
         _id:$in:session_document.guest_ids
 
@@ -127,18 +113,14 @@ Meteor.publish 'resident', (guest_id)->
 
 
 Meteor.publish 'health_club_members', (username_query)->
-    # console.log username_query
     existing_sessions =
         Docs.find(
             model:'healthclub_session'
             active:true
         ).fetch()
-    # console.log existing_sessions
     active_session_ids = []
     for active_session in existing_sessions
         active_session_ids.push active_session.user_id
-        console.log active_session.resident_username
-    console.log active_session_ids
     Meteor.users.find({
         _id:$nin:active_session_ids
         username: {$regex:"#{username_query}", $options: 'i'}
@@ -150,11 +132,9 @@ Meteor.publish 'health_club_members', (username_query)->
 
 
 Meteor.publish 'page_blocks', (slug)->
-    # console.log slug
     page = Docs.findOne
         model:'page'
         slug:slug
-    # console.log page
     if page
         Docs.find
             parent_id:page._id
@@ -165,7 +145,6 @@ Meteor.publish 'doc_tags', (selected_tags)->
     user = Meteor.users.findOne @userId
     # current_herd = user.profile.current_herd
 
-    # console.log selected_tags
     self = @
     match = {}
 
@@ -182,7 +161,6 @@ Meteor.publish 'doc_tags', (selected_tags)->
         { $limit: 50 }
         { $project: _id: 0, name: '$_id', count: 1 }
         ]
-    # console.log 'cloud, ', cloud
     cloud.forEach (tag, i) ->
 
         self.added 'tags', Random.id(),

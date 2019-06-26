@@ -7,47 +7,49 @@ template(name='healthclub')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     .ui.padded.stackable.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
-        .sixteen.wide.column
-            if is_staff
-                a.ui.button(href='/staff')
-                    i.left.chevron.icon
-                    |staff
-            img.ui.circular.centered.small.image.shadowed(src="{{c.url 'gold_run_logo' }}")
-            h1.ui.center.aligned.header.checkin_header
-                |health club check in
-            .ui.left.icon.massive.fluid.input
-                input.username_search(type='text' placeholder='lookup resident' autofocus)
-                if is_query
-                    i.remove.link.icon.clear_results
-                else 
-                    i.user.grey.icon
-            .ui.center.aligned.basic.segment.test
-                if checkedout_members.length
-                    each checkedout_members
-                        +checkin_button
-                else
-                    if checking_in
-                        if is_query
-                            .ui.center.aligned.header no members found
-                            .ui.center.aligned.header see staff to add
-            .ui.padded.grid
-                .two.column.row
-                    .column
-                        +inline_doc slug='health_club_notices' classes='ui large header'
-                        .ui.divider
-                        +health_club_info
-                    .column
-                        +healthclub_status
-                        .ui.header hours
-                        .ui.big.relaxed.list
-                            .item mon 7a-10p
-                            .item tues 7a-10p
-                            .item wed 7a-10p
-                            .item thur 7a-10p
-                            .item fri 7a-9p
-                            .item sat 8a-9p
-                            .item sun 8a-10p
-                        
+        .row
+            .sixteen.wide.center.aligned.column
+                if is_staff
+                    a.ui.button(href='/staff')
+                        i.left.chevron.icon
+                        |staff
+                img.ui.circular.centered.small.inline.image.shadowed(src="{{c.url 'gold_run_logo' }}")
+                h1.ui.center.aligned.inline.header.checkin_header
+                    |health club check in
+        .row
+            .sixteen.wide.column
+                .ui.left.icon.massive.fluid.input
+                    input.username_search(type='text' placeholder='lookup resident' autofocus)
+                    if is_query
+                        i.remove.link.icon.clear_results
+                    else 
+                        i.user.grey.icon
+                .ui.center.aligned.basic.segment.test
+                    if checkedout_members.length
+                        each checkedout_members
+                            +checkin_button
+                    else
+                        if checking_in
+                            if is_query
+                                .ui.center.aligned.header no members found
+                                .ui.center.aligned.header see staff to add
+                .ui.padded.grid
+                    .two.column.row
+                        .column
+                            +inline_doc slug='health_club_notices' classes='ui large header'
+                            +health_club_info
+                        .column
+                            +healthclub_status
+                            .ui.header hours
+                            .ui.big.list
+                                .item mon 7a-10p
+                                .item tues 7a-10p
+                                .item wed 7a-10p
+                                .item thur 7a-10p
+                                .item fri 7a-9p
+                                .item sat 8a-9p
+                                .item sun 8a-10p
+                            
 
 template(name='facet_doc_edit')
     with facet_doc

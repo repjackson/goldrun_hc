@@ -96,7 +96,8 @@ template(name='user_check_steps')
     .ui.vertical.fluid.small.menu
         each user_check
             .item
-                i.refresh.link.icon.recheck
+                if is_admin
+                    i.refresh.link.icon.recheck
                 if user_check_completed
                     i.large.green.checkmark.icon
                 else 
@@ -414,6 +415,7 @@ template(name='user_violations')
             .ui.segment
                 with editing_violation_doc
                     +textarea_edit key='body' label='description' direct=true
+                    +boolean_edit key='active' label='active' direct=true
                     +date_edit key='violation_date' label='date' direct=true
                     +time_edit key='violation_time' label='time' direct=true
                     i.checkmark.link.circular.icon.save_violation
@@ -436,6 +438,8 @@ template(name='user_violations')
                             +textarea_view key='body' label='description' direct=true
                             div date: #{violation_date}
                             div time: #{violation_time}
+                            if active
+                                .ui.red.label active
                         .actions
                             i.pencil.link.circular.icon.edit_violation
 

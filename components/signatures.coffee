@@ -7,7 +7,6 @@ if Meteor.isClient
         signing_doc: -> Docs.findOne Router.current().params.doc_id
         agree_class: -> if @agree then 'green' else 'basic'
         resident_email: ->
-            # console.log @resident
             res = Meteor.users.findOne
                 username:@resident
             res.emails[0].address
@@ -45,7 +44,7 @@ if Meteor.isClient
             Meteor.users.update user._id,
                 $set:rules_signed:true
             Meteor.call 'send_rules_regs_receipt_email', user._id
-
+            Meteor.call 'run_user_checks', user
             # Session.set 'displaying_profile', user._id
             Router.go "/healthclub_session/#{signing_doc.session_id}"
 
@@ -57,7 +56,6 @@ if Meteor.isClient
         signing_doc: -> Docs.findOne Router.current().params.doc_id
         agree_class: -> if @agree then 'green' else 'basic'
         resident_email: ->
-            # console.log @resident
             res = Meteor.users.findOne
                 username:@resident
             res.emails[0].address
@@ -93,9 +91,9 @@ if Meteor.isClient
             signing_doc = Docs.findOne Router.current().params.doc_id
             user = Meteor.users.findOne username:signing_doc.resident
             Meteor.users.update user._id,
-                $set:guidelines_signed:true
+                $set:member_waiver_signed:true
             # Meteor.call 'send_rules_regs_receipt_email', user._id
-
+            Meteor.call 'run_user_checks', user
             # Session.set 'displaying_profile', user._id
             Router.go "/healthclub_session/#{signing_doc.session_id}"
 
@@ -146,7 +144,6 @@ if Meteor.isClient
 
     Template.add_guest.events
         'click .submit_new_guest': ->
-            console.log @
 
         'click .cancel_new_guest': ->
             guest_doc = Docs.findOne Router.current().params.new_guest_id
@@ -181,7 +178,6 @@ if Meteor.isClient
 
         'click .submit_guest':->
             guest_doc = Docs.findOne Router.current().params.new_guest_id
-            console.log guest_doc
             checking_in_doc = Docs.findOne guest_doc.session_id
 
             Docs.update checking_in_doc._id,
@@ -210,21 +206,17 @@ if Meteor.isClient
     Template.download_rules_pdf.events
         'click .download_rules_pdf': ->
             signing_doc = Docs.findOne model:'rules_and_regs_signing'
-            console.log signing_doc
             Meteor.call 'generate_rules_pdf', signing_doc._id
 
 
 
 if Meteor.isServer
     Meteor.publish 'user_by_username', (username)->
-        console.log 'finding', username
         Meteor.users.find
             username:username
 
 
     Meteor.publish 'session_from_guest_id', (guest_id)->
-        # console.log 'finding', username
         guest_doc = Docs.findOne guest_id
-        console.log guest_doc
         Docs.find
             _id:guest_doc.session_id

@@ -8,7 +8,6 @@ if Meteor.isClient
         omega_selection_doc: ->
             page_doc = Docs.findOne Router.current().params.doc_id
             page_model_value = page_doc["#{@model}"]
-            # console.log page_model_value
             Docs.findOne
                 model:@model
                 slug:page_doc["#{@model}"]
@@ -16,11 +15,9 @@ if Meteor.isClient
         child_selector_class: ->
             page_doc = Docs.findOne Router.current().params.doc_id
             page_model_value = page_doc["#{@model}"]
-            # console.log 'child selector class', page_model_value
             if page_doc["#{@model}"] is @slug then 'active' else ''
     Template.omega_edit.events
         'click .select_child': ->
-            # console.log @
             page_doc = Docs.findOne Router.current().params.doc_id
             Docs.update page_doc._id,
                 $set: "#{@model}":"#{@slug}"
@@ -28,7 +25,6 @@ if Meteor.isClient
         'click .edit_selection_doc': ->
             page_doc = Docs.findOne Router.current().params.doc_id
             page_model_value = page_doc["#{@model}"]
-            # console.log page_model_value
             selection_doc = Docs.findOne
                 model:@model
                 slug:page_doc["#{@model}"]
@@ -41,47 +37,38 @@ if Meteor.isClient
 
 
     Template.subomega_edit.onCreated ->
-        console.log @data.submodel
         @autorun => Meteor.subscribe 'model_docs', @data.submodel
     Template.subomega_edit.helpers
         submodel_docs: ->
-            # console.log "#{@submodel}_type"
             Docs.find
                 model:"#{@submodel}"
         parent_model: ->
             page_doc = Docs.findOne Router.current().params.doc_id
-            # console.log page_doc["#{Template.parentData().model}"]
             model_doc = Docs.findOne
                 model:Template.parentData().model
                 slug:page_doc["#{Template.parentData().model}"]
             model_doc
 
         # submodel: ->
-        #     console.log @
             # @submodel
             # page_doc = Docs.findOne Router.current().params.doc_id
             # page_model_value = page_doc["#{@model}"]
-            # # console.log page_model_value
             # page_model_value
         child_selector_class: ->
             page_doc = Docs.findOne Router.current().params.doc_id
             page_model_value = page_doc["#{@model}"]
-            # console.log 'child selector class', page_model_value
             if page_doc["#{@model}"] is @slug then 'active' else ''
     Template.subomega_edit.events
         'click .add_new_submodel_doc': ->
-            # console.log @
             page_doc = Docs.findOne Router.current().params.doc_id
             new_id = Docs.insert
                 model:@submodel
             Router.go "/omega_doc_edit/#{new_id}"
         'click .edit_parent_model_doc': ->
             page_doc = Docs.findOne Router.current().params.doc_id
-            console.log page_doc["#{Template.parentData().model}"]
             model_doc = Docs.findOne
                 model:Template.parentData().model
                 slug:page_doc["#{Template.parentData().model}"]
-            console.log model_doc
 
             Router.go "/omega_doc_edit/#{model_doc._id}"
 
@@ -114,7 +101,6 @@ if Meteor.isClient
             if e.which is 13
                 # parent = Docs.findOne Router.current().params.doc_id
                 query = t.$('.omega_in').val()
-                # console.log comment
                 new_omega_id = Docs.insert
                     model:'omega_session'
                     name:query
@@ -251,16 +237,12 @@ if Meteor.isClient
 #             parent["_#{key_string}"]
 #
 #         context: ->
-#             # console.log @
 #             {key:@valueOf()}
 #
 #
 #         field_view: ->
-#             # console.log @
 #             key_string = @valueOf()
 #             meta = Template.parentData(2)["_#{@key}"]
-#             # console.log meta
-#             # console.log "#{meta.field}_view"
 #             "#{meta.field}_view"
 #
 #         data: ->

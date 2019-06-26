@@ -57,7 +57,6 @@ if Meteor.isClient
                         selected_tags.pop()
 
         'autocompleteselect #search': (event, template, doc) ->
-            # console.log 'selected ', doc
             selected_tags.push doc.name
             $('#search').val ''
 
@@ -76,10 +75,6 @@ if Meteor.isServer
         if filter then match.model = filter
         if filter and filter is 'shop'
             match.active = true
-        # console.log filter
-        # console.log match
-        # console.log 'hi'
-        # console.log Docs.find(match).fetch()
         cloud = Docs.aggregate [
             { $match: match }
             { $project: tags: 1 }
@@ -92,7 +87,6 @@ if Meteor.isServer
             ]
 
         cloud.forEach (tag, i) ->
-            # console.log 'hi', tag
             self.added 'tags', Random.id(),
                 name: tag.name
                 count: tag.count

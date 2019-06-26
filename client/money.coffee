@@ -10,9 +10,7 @@ Template.give.onCreated ->
         locale: 'auto'
         # zipCode: true
         token: (token) ->
-            # console.log token
             # product = Docs.findOne FlowRouter.getParam('doc_id')
-            # console.log product
             charge =
                 amount: product.price*100
                 currency: 'usd'
@@ -64,8 +62,6 @@ Template.give.onRendered ->
     			errorElement.textContent = result.error.message
     		else
     			# Send the token to your server.
-    			console.log result.token
-    			console.log result
     			process(result.token)
 		)
 
@@ -165,12 +161,10 @@ Template.give.events
 	# 		'hideLogo': true
 	# 		'usePaypalIcon': false
 	# 	}, ((response) ->
-	# 		console.log 'card.io scan complete'
 	# 		i = 0
 	# 		len = cardIOResponseFields.length
 	# 		while i < len
 	# 			field = cardIOResponseFields[i]
-	# 			console.log field + ': ' + response[field]
 	# 			i++
 	# 		$('#card').val response['card_number']
 	# 		$('[name="month"]').val response['expiry_month']
@@ -179,7 +173,6 @@ Template.give.events
 	# 		$('#cvc').val response['cvv']
 	# 		return
 	# 	), ->
-	# 		console.log 'card.io scan cancelled'
 	# 		return
 	# 	return
 	'click #repeat': ->
@@ -224,9 +217,7 @@ Template.give.events
             description: @description
             amount: 100
 	'click .print': ->
-		console.log Template.instance()
 		# Meteor.call 'STRIPE_store_card', result.token, Meteor.userId(), (error, res) ->
-		# 	console.log res
 
 
 
@@ -289,7 +280,6 @@ Template.give.events
 		#IF THE FORM IS VALID CONTINUE ON
 		if next == true
 			showLoadingMask()
-			#console.log(template.data);
 			chargeData.church = template.data.church._id
 			chargeData.amount = parseFloat(Session.get('giveAmount'))
 			if Meteor.userId()
@@ -322,7 +312,6 @@ Template.give.events
 			else
 				chargeData.plan = null
 			if $('#card_select').val() == 'NEW'
-				#console.log('new test')
 				next = false
 				Stripe.card.createToken {
 					number: chargeData.card
@@ -331,7 +320,6 @@ Template.give.events
 					cvc: chargeData.cvc
 				}, (status, response) ->
 					#IF A USER IS PRESENT STORE THE NEWLY TOKENIZED CARD FIRST
-					#console.log(status); //console.log(response)
 					if status == 200
 						if Meteor.userId()
 							Meteor.call 'STRIPE_store_card', response.id, chargeData.userID, (error, result) ->
@@ -354,7 +342,6 @@ Template.give.events
 														Meteor.call 'sendGiveReciept', $('#email').val(), id
 													Router.go '/thanks/' + id
 						else
-							#console.log("response.id = ", response.id);
 							chargeData.source = response.id
 							Meteor.call 'STRIPE_single_charge', chargeData, (error, result) ->
 								`var result`
@@ -374,7 +361,6 @@ Template.give.events
 											Router.go '/thanks/' + id
 								return
 					else
-						#console.log(response.error)
 						# $('#giveError').html(response.error.message).fadeIn();
 						$(event.currentTarget).attr 'disabled', false
 						FlashMessages.sendError response.error.message
@@ -383,7 +369,6 @@ Template.give.events
 			else if chargeData.source and Meteor.userId()
 				Meteor.call 'STRIPE_single_charge', chargeData, (error, result) ->
 					`var result`
-					#console.log("result = ", result);
 					if result.error
 						# $('#giveError').html('<p>'+result.error.message+'</p>').fadeIn();
 						$(event.currentTarget).attr 'disabled', false
@@ -412,7 +397,6 @@ Template.give.events
 					cvc: chargeData.cvc
 				}, (status, response) ->
 					#IF A USER IS PRESENT STORE THE NEWLY TOKENIZED CARD FIRST
-					#console.log(status); //console.log(response)
 					if status == 200
 						if Meteor.userId()
 							Meteor.call 'STRIPE_store_card', response.id, chargeData.userID, (error, result) ->
@@ -437,11 +421,9 @@ Template.give.events
 										return
 								return
 						else
-							#console.log("response.id = ", response.id);
 							chargeData.source = response.id
 							Meteor.call 'STRIPE_single_charge', chargeData, (error, result) ->
 								`var result`
-								#console.log("result = ", result);
 								if result.error
 									# $('#giveError').html('<p>'+result.error.message+'</p>').fadeIn();
 									$(event.currentTarget).attr 'disabled', false
@@ -458,7 +440,6 @@ Template.give.events
 											Router.go '/thanks/' + id
 								return
 					else
-						#console.log(response.error)
 						# $('#giveError').html(response.error.message).fadeIn();
 						$(event.currentTarget).attr 'disabled', false
 						FlashMessages.sendError response.error.message
@@ -467,7 +448,6 @@ Template.give.events
 
 				###
 											 Meteor.call('STRIPE_single_charge',chargeData,function(error,result){
-													 console.log(error); console.log(result)
 												 if(error){
 
 															 FlashMessages.sendError(error.message);

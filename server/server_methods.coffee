@@ -8,19 +8,13 @@ Meteor.methods
             return res
         else
             Throw.new Meteor.Error 'err creating user'
-        # console.log 'created user', res
 
     parse_keys: ->
         cursor = Docs.find
             model:'key'
         for key in cursor.fetch()
-            # console.log typeof key.building_number
-            # console.log typeof key.building_code
-            # console.log typeof key.building_code
             # new_building_number = parseInt key.building_number
             new_unit_number = parseInt key.unit_number
-            # console.log typeof new_building_code
-            # console.log typeof new_building_number
             Docs.update key._id,
                 $set:
                     unit_number:new_unit_number
@@ -38,7 +32,6 @@ Meteor.methods
 
     remove_email: (user_id, email)->
         # user = Meteor.users.findOne username:username
-        # console.log 'removing email', email, 'from', user_id
         Accounts.removeEmail user_id, email
 
 
@@ -47,12 +40,10 @@ Meteor.methods
             Meteor.users.find(
                 roles:$in:['resident']
             ).fetch()
-        console.log residents.expiration_date
 
 
 
     verify_email: (user_id)->
-        console.log 'verifying_email', user_id
         Accounts.sendVerificationEmail(user_id)
 
     validate_email: (email) ->
@@ -63,9 +54,7 @@ Meteor.methods
     notify_message: (message_id)->
         message = Docs.findOne message_id
         if message
-            console.log message
             to_user = Meteor.users.findOne message.to_user_id
-            console.log to_user.emails[0].address
 
             message_link = "https://www.goldrun.online/user/#{to_user.username}/messages"
 
@@ -82,18 +71,13 @@ Meteor.methods
         # checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
         checkedin_sessions = Docs.find(model:'healthclub_session',active:true).fetch()
 
-        # console.log 'current checked in members', checkedin_sessions
 
         for session in checkedin_sessions
-            # console.log member
             # checkedin_doc =
             #     Docs.findOne
             #         user_id:member._id
             #         model:'healthclub_checkin'
             #         active:true
-            console.log 'now', now
-            console.log 'checked in doc', session
-            console.log 'checked in time', session._timestamp
             diff = now-session._timestamp
             minute_difference = diff/1000/60
             if minute_difference>60
@@ -103,7 +87,6 @@ Meteor.methods
                         active:false
                         logout_timestamp:Date.now()
                 # checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
-                # console.log 'now checked in members', checkedin_members
 
     check_resident_status: (user_id)->
         user = Meteor.users.findOne user_id
@@ -111,7 +94,6 @@ Meteor.methods
 
 
     checkout_user: (user_id)->
-        console.log 'checking out user', user_id
         Meteor.users.update user_id,
             $set:
                 healthclub_checkedin:false
@@ -136,22 +118,18 @@ Meteor.methods
 
 
     lookup_user: (username_query, role_filter)->
-        # console.log role_filter
         Meteor.users.find({
             username: {$regex:"#{username_query}", $options: 'i'}
             roles:$in:[role_filter]
             }).fetch()
 
     lookup_user_by_code: (healthclub_code)->
-        console.log healthclub_code
         unless isNaN(healthclub_code)
             Meteor.users.findOne({
                 healthclub_code:healthclub_code
                 })
 
     lookup_doc: (first_name, model_filter)->
-        # console.log first_name
-        # console.log model_filter
         Docs.find({
             model:model_filter
             first_name: {$regex:"#{first_name}", $options: 'i'}
@@ -191,7 +169,6 @@ Meteor.methods
         start = Date.now()
 
         if specific_key
-            console.log 're-keying docs with', specific_key
             cursor = Docs.find({
                 "#{specific_key}":$exists:true
                 _keys:$exists:false
@@ -202,7 +179,6 @@ Meteor.methods
             }, { fields:{_id:1} })
 
         found = cursor.count()
-        console.log 'found', found, 'docs with', specific_key
 
         for doc in cursor.fetch()
             Meteor.call 'key', doc._id
@@ -210,47 +186,35 @@ Meteor.methods
         stop = Date.now()
 
         diff = stop - start
-        # console.log diff
-        console.log 'duration', moment(diff).format("HH:mm:ss:SS")
 
     key: (doc_id)->
         doc = Docs.findOne doc_id
         keys = _.keys doc
-        # console.log doc
 
         light_fields = _.reject( keys, (key)-> key.startsWith '_' )
-        # console.log light_fields
 
         Docs.update doc._id,
             $set:_keys:light_fields
 
-        console.log "keyed #{doc._id}"
 
     global_remove: (keyname)->
-        console.log 'removing', keyname, 'globally'
         result = Docs.update({"#{keyname}":$exists:true}, {
             $unset:
                 "#{keyname}": 1
                 "_#{keyname}": 1
             $pull:_keys:keyname
             }, {multi:true})
-        console.log result
-        console.log 'removed', keyname, 'globally'
 
 
     count_key: (key)->
         count = Docs.find({"#{key}":$exists:true}).count()
-        console.log 'key count', count
 
 
 
 
     slugify: (doc_id)->
-        console.log doc_id
         doc = Docs.findOne doc_id
         slug = doc.title.toString().toLowerCase().replace(/\s+/g, '_').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '_').replace(/^-+/, '').replace(/-+$/,'')
-        console.log 'title', doc.title
-        console.log 'slug', slug
         return slug
         # # Docs.update { _id:doc_id, fields:field_object },
         # Docs.update { _id:doc_id, fields:field_object },
@@ -258,13 +222,10 @@ Meteor.methods
 
 
     rename: (old, newk)->
-        console.log 'start renaming', old, 'to', newk
 
         old_count = Docs.find({"#{old}":$exists:true}).count()
-        console.log 'found',old_count,'of',old
 
         new_count = Docs.find({"#{newk}":$exists:true}).count()
-        console.log 'found',new_count,'of',newk
 
 
         result = Docs.update({"#{old}":$exists:true}, {$rename:"#{old}":"#{newk}"}, {multi:true})
@@ -272,17 +233,13 @@ Meteor.methods
 
         # > Docs.update({doc_sentiment_score:{$exists:true}},{$rename:{doc_sentiment_score:"sentiment_score"}},{multi:true})
 
-        console.log 'mongo update call finished:',result
 
         cursor = Docs.find({newk:$exists:true}, { fields:_id:1 })
 
         for doc in cursor.fetch()
             Meteor.call 'key', doc._id
 
-        console.log 'done renaming', old, 'to', newk
 
-        console.log 'result1', result
-        console.log 'result2', result2
 
 
 
@@ -292,7 +249,6 @@ Meteor.methods
         doc = Docs.findOne doc_id
         keys = _.keys doc
         light_fields = _.reject( keys, (key)-> key.startsWith '_' )
-        console.log light_fields
 
         Docs.update doc._id,
             $set:_keys:light_fields
@@ -304,7 +260,6 @@ Meteor.methods
 
             js_type = typeof value
 
-            console.log 'key type', key, js_type
 
             if js_type is 'object'
                 meta.object = true
@@ -352,7 +307,6 @@ Meteor.methods
 
                 youtube_check = /((\w|-){11})(?:\S+)?$/
                 youtube_result = youtube_check.test value
-                console.log youtube_result
 
                 if key is 'html'
                     meta.html = true
@@ -392,6 +346,5 @@ Meteor.methods
 
         # Docs.update doc_id,
         #     $set:_detected:1
-        # console.log 'detected fields', doc_id
 
         return doc_id

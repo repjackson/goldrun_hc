@@ -6,7 +6,6 @@ Meteor.methods
         model = Docs.findOne
             model:'model'
             slug:model_slug
-        # console.log 'model', model
         fields =
             Docs.find
                 model:'field'
@@ -26,11 +25,8 @@ Meteor.methods
         Docs.update delta._id,
             $set:facets:[]
         for field in fields.fetch()
-            # console.log 'field type', field.field_type
-            # console.log 'field key', field.key
             unless field.field_type in ['textarea','image','youtube','html']
                 # unless field.key in ['slug','icon']
-                # console.log 'adding field to delta', field.key
                     if field.faceted is true
                         Docs.update delta._id,
                             $addToSet:
@@ -47,21 +43,16 @@ Meteor.methods
 
 
     fum: (delta_id)->
-        # console.log 'running fum', delta_id
         delta = Docs.findOne delta_id
-        # console.log delta
         model = Docs.findOne
             model:'model'
             slug:delta.model_filter
-        # console.log model
         built_query = {}
 
         fields =
             Docs.find
                 model:'field'
                 parent_id:model._id
-        # console.log 'fields', fields.fetch()
-        # console.log 'delta', delta
         if model.collection and model.collection is 'users'
             built_query.roles = $in:[delta.model_filter]
         else
@@ -73,7 +64,6 @@ Meteor.methods
             built_query.view_roles = $in:Meteor.user().roles
 
         for facet in delta.facets
-            # console.log 'this facet', facet.key
             if facet.filters.length > 0
                 built_query["#{facet.key}"] = $all: facet.filters
 
@@ -81,7 +71,6 @@ Meteor.methods
             total = Meteor.users.find(built_query).count()
         else
             total = Docs.find(built_query).count()
-        # console.log 'built query', built_query
 
         # response
         for facet in delta.facets
@@ -119,9 +108,6 @@ Meteor.methods
         #     result_ids = []
         result_ids = results_cursor.fetch()
 
-        # console.log 'result ids', result_ids
-        # console.log 'delta', delta
-        # console.log Meteor.userId()
 
         Docs.update {_id:delta._id},
             {$set:
@@ -132,13 +118,9 @@ Meteor.methods
 
 
         # delta = Docs.findOne delta_id
-        # console.log 'delta', delta
 
     agg: (query, key, collection)->
         limit=20
-        # console.log 'agg query', query
-        # console.log 'agg key', key
-        # console.log 'agg collection', collection
         options = { explain:false }
         pipe =  [
             { $match: query }
@@ -156,7 +138,6 @@ Meteor.methods
                 agg = global['Docs'].rawCollection().aggregate(pipe,options)
             # else
             res = {}
-            # console.log 'res', res
             if agg
                 agg.toArray()
         else

@@ -54,7 +54,6 @@ if Meteor.isClient
                         selected_tags.pop()
 
         # 'autocompleteselect #search': (event, template, doc) ->
-        #     # console.log 'selected ', doc
         #     selected_tags.push doc.name
         #     $('#search').val ''
 
@@ -86,7 +85,6 @@ if Meteor.isClient
     #         { $limit: 20 }
     #         { $project: _id: 0, name: '$_id', count: 1 }
     #         ]
-    #     # console.log 'cloud, ', cloud
     #     cloud.forEach (tag, i) ->
     #         self.added 'tags', Random.id(),
     #             name: tag.name

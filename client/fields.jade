@@ -364,6 +364,29 @@ template(name='slug_edit')
         .ui.button.slugify_title
             +i name='slug'
 
+template(name='slug_view')
+    if field_value
+        unless header
+            div
+            .ui.small.inline.header
+                if icon
+                    +i name=icon
+                if title
+                    |#{title}
+                else if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
+        .ui.inline.small.header #{field_value}
+
+
+
+
+
+
+
 
 template(name='clear_value')
     if field_value

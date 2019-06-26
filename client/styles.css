@@ -516,6 +516,10 @@ a {
     margin:0px !important;
 }
 
+.f11 {
+  font-size: 400% !important;
+  line-height: 120% !important;
+  margin-bottom: 10px !important; }
 .f10 {
   font-size: 200%;
   line-height: 120%;

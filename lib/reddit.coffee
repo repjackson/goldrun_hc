@@ -17,7 +17,6 @@ if Meteor.isServer
             _.each(response.data.data.children, (item)->
                 data = item.data
                 len = 200
-                # console.log item.data
                 reddit_post =
                     reddit_id: data.id
                     url: data.url
@@ -29,15 +28,12 @@ if Meteor.isServer
                     # thumbnail: false
                     model:'reddit'
 
-                # console.log reddit_post
                 existing_doc = Docs.findOne reddit_id:data.id
                 if existing_doc
-                    console.log 'existing do'
                     Meteor.call 'get_reddit_post', existing_doc._id, data.id, (err,res)->
                 else
                     new_reddit_post_id = Docs.insert reddit_post
                     Meteor.call 'get_reddit_post', new_reddit_post_id, data.id, (err,res)->
-                        console.log 'get post res', res
             )
 
         get_reddit_post: (doc_id, reddit_id)->
@@ -45,12 +41,10 @@ if Meteor.isServer
                 if err then console.error err
                 else
                     if res.data.data.children[0].data.selftext
-                        console.log res.data.data.children[0].data.selftext
                         Docs.update doc_id, {
                             $set: html: res.data.data.children[0].data.selftext
                         }, ->
                         #     Meteor.call 'pull_site', doc_id, url
-                            # console.log 'hi'
                     # if res.data.data.children[0].data.url
                     #     url = res.data.data.children[0].data.url
                     #     Docs.update doc_id, {
@@ -64,11 +58,7 @@ if Meteor.isServer
 
 
         get_listing_comments: (doc_id, subreddit, reddit_id)->
-            console.log doc_id
-            console.log subreddit
-            console.log reddit_id
             # HTTP.get "https://www.reddit.com/r/t5_#{subreddit}/comments/t3_#{reddit_id}/irrelevant_string.json", (err,res)->
             HTTP.get "https://www.reddit.com/r/0xProject/comments/t3_#{reddit_id}/irrelevant_string.json", (err,res)->
                 if err then console.error err
                 else
-                    console.log 'res', res

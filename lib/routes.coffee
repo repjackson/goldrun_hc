@@ -143,7 +143,7 @@ Router.route '/login', -> @render 'login'
 Router.route '/home', -> @render 'home'
 Router.route '/', (->
     @layout 'layout'
-    @render 'shop'
+    @render 'front'
     ), name:'front'
 
 

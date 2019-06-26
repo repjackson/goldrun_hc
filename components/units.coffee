@@ -30,6 +30,7 @@ if Meteor.isClient
             if unit
                 Meteor.users.find
                     roles:$in:['resident','owner']
+                    owner:$ne:true
                     building_number:unit.building_number
                     unit_number:unit.unit_number
 
@@ -64,7 +65,6 @@ if Meteor.isClient
                 unit_number = parseInt $('.unit_number').val()
                 unit_label = $('.unit_label').val().trim()
                 unit = Docs.findOne model:'unit'
-                console.log unit
                 Docs.insert
                     model:'unit'
                     unit_number:unit_number
@@ -90,7 +90,6 @@ if Meteor.isClient
             access = prompt 'admin code'
             if access is '2959'
                 Session.set 'viewing_code', true
-                # console.log access
                 Meteor.setTimeout ->
                     Session.set 'viewing_code', false
                 , 5000
@@ -99,7 +98,6 @@ if Meteor.isClient
                     key_id:Docs.findOne(model:'key')._id
                     owner_user_id:Meteor.users.findOne username:Router.current().params.username
                     owner_username:Router.current().params.username
-                # console.log new_id
             else
                 alert 'wrong code'
 
@@ -127,7 +125,8 @@ if Meteor.isClient
 
         residents: ->
             Meteor.users.find
-                roles:$in:['resident']
+                roles:$in:['resident','owner']
+                owner:$ne:true
                 building_number:@building_number
                 unit_number:@unit_number
 
@@ -141,35 +140,31 @@ if Meteor.isClient
 
 
 
-
 if Meteor.isServer
     Meteor.publish 'unit', (unit_code)->
-        # console.log 'finding unit', unit_code
         Docs.find
             model:'unit'
             slug:unit_code
 
 
     Meteor.publish 'unit_units', (unit_code)->
-        # console.log 'finding units', unit_code
         Docs.find
             model:'unit'
             unit_code:unit_code
 
 
     Meteor.publish 'unit_owners', (unit_id)->
-        # console.log 'finding units', unit_code
         unit =
             Docs.findOne
                 _id:unit_id
         if unit
             Meteor.users.find
-                roles:$in:['owner']
+                # roles:$in:['owner']
+                owner:true
                 building_number:unit.building_number
                 unit_number:unit.unit_number
 
     Meteor.publish 'unit_residents', (unit_id)->
-        # console.log 'finding units', unit_code
         unit =
             Docs.findOne
                 _id:unit_id
@@ -180,7 +175,6 @@ if Meteor.isServer
                 unit_number:unit.unit_number
 
     Meteor.publish 'unit_permits', (unit_id)->
-        console.log 'finding units', unit_id
         unit =
             Docs.findOne
                 _id:unit_id
@@ -188,9 +182,7 @@ if Meteor.isServer
             model: 'parking_permit'
             address_number:unit.building_number
     Meteor.publish 'user_key', (unit_id)->
-        console.log  unit_id
         unit = Docs.findOne unit_id
-        # console.log user
         Docs.find
             model:'key'
             building_number:unit.building_number

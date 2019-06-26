@@ -175,7 +175,6 @@ Template.html_edit.helpers
 Template.image_edit.events
     "change input[name='upload_image']": (e) ->
         files = e.currentTarget.files
-        # console.log files
         if @direct
             parent = Template.parentData()
         else
@@ -184,7 +183,6 @@ Template.image_edit.events
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
             (err,res) => #optional callback, you can catch with the Cloudinary collection as well
-                # console.log "Upload Error: #{err}"
                 # console.dir res
                 if err
                     console.error 'Error uploading', err
@@ -233,7 +231,6 @@ Template.image_edit.events
 Template.pdf_edit.events
     "change input[name='upload_pdf']": (e) ->
         files = e.currentTarget.files
-        # console.log files
         if @direct
             parent = Template.parentData()
         else
@@ -242,7 +239,6 @@ Template.pdf_edit.events
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
             (err,res) => #optional callback, you can catch with the Cloudinary collection as well
-                # console.log "Upload Error: #{err}"
                 # console.dir res
                 if err
                     console.error 'Error uploading', err
@@ -314,8 +310,6 @@ Template.array_edit.events
             parent = Template.parentData()
         else
             parent = Template.parentData(5)
-        console.log element
-        console.log parent
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
@@ -404,7 +398,6 @@ Template.slug_edit.events
             parent = Template.parentData(5)
         doc = Docs.findOne parent._id
         Meteor.call 'slugify', page_doc._id, (err,res)=>
-            # console.log res
             Docs.update page_doc._id,
                 $set:slug:res
 
@@ -432,8 +425,6 @@ Template.boolean_edit.helpers
             parent = Template.parentData()
         else
             parent = Template.parentData(5)
-        # console.log parent
-        # console.log @
         if parent["#{@key}"] then 'active' else 'basic'
 
 
@@ -484,15 +475,7 @@ Template.number_edit.events
 #         locale: 'auto'
 #         # zipCode: true
 #         token: (token) ->
-#             # console.log token
-#             # console.log @
-#             # console.log Template.currentData()
-#             # console.log Template.parentData()
-#             # console.log Template.parentData(1)
-#             # console.log Template.parentData(2)
-#             # console.log Template.parentData(3)
 #             product = Docs.findOne Router.current().params.doc_id
-#             console.log product
 #             charge =
 #                 amount: product.dollar_price*100
 #                 currency: 'usd'
@@ -539,9 +522,7 @@ Template.dollar_price_view.events
         else if parent6._id
             parent = Template.parentData(6)
         if parent
-            console.log parent
             value = parent["#{@key}"]
-            console.log Meteor.user().emails[0].address
 
             Template.instance().checkout.open
                 name: parent.title
@@ -550,7 +531,6 @@ Template.dollar_price_view.events
                 amount: value*100
 
     'click .add_to_tab': ->
-        console.log @
     # 'blur .edit_price': (e,t)->
     #     if @direct
     #         parent = Template.parentData()
@@ -596,7 +576,6 @@ Template.datetime_edit.events
         else
             parent = Template.parentData(5)
         val = t.$('.edit_datetime').val()
-        console.log val
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc
@@ -670,7 +649,6 @@ Template.children_view.onRendered ->
 Template.children_view.helpers
     children: ->
         field = @
-        # console.log @
         # if Template.parentData(5)
         # else
         parent = Template.parentData(5)
@@ -682,13 +660,11 @@ Template.children_view.helpers
 
 
 Template.children_edit.onCreated ->
-    # console.log @data
     @autorun => Meteor.subscribe 'children', @data.ref_model, Template.parentData(5)._id
     # @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
     @autorun => Meteor.subscribe 'model_from_slug', @data.ref_model
     @autorun => Meteor.subscribe 'model_fields', @data.ref_model
 Template.children_view.onCreated ->
-    # console.log @data
     @autorun => Meteor.subscribe 'children', @data.ref_model, Template.parentData(5)._id
     # @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
     @autorun => Meteor.subscribe 'model_from_slug', @data.ref_model
@@ -700,7 +676,6 @@ Template.children_edit.onRendered ->
     , 1000
 Template.child_edit.helpers
     child_fields: ->
-        # console.log @
         model = Docs.findOne
             model:'model'
             slug:@model
@@ -710,7 +685,6 @@ Template.child_edit.helpers
 
 Template.child_view.helpers
     child_fields: ->
-        # console.log @
         model = Docs.findOne
             model:'model'
             slug:@model
@@ -742,19 +716,11 @@ Template.children_edit.events
         parent5 = Template.parentData(5)
         parent6 = Template.parentData(6)
 
-        # console.log parent
-        # console.log parent2
-        # console.log parent3
-        # console.log parent4
-        # console.log parent5
-        # console.log parent6
 
-        console.log @
         new_id = Docs.insert
             model: @ref_model
             parent_id: parent5._id
             parent_model:Router.current().params.model_slug
-        console.log new_id
 
 
 
@@ -779,7 +745,6 @@ Template.single_doc_view.onCreated ->
 
 Template.single_doc_view.helpers
     choices: ->
-        console.log @ref_model
         Docs.find
             model:@ref_model
 
@@ -791,13 +756,11 @@ Template.single_doc_edit.onCreated ->
 
 Template.single_doc_edit.helpers
     choices: ->
-        # console.log @ref_model
         if @ref_model
             Docs.find {
                 model:@ref_model
             }, sort:slug:1
     calculated_label: ->
-        # console.log @
         ref_doc = Template.currentData()
         key = Template.parentData().button_label
         ref_doc["#{key}"]
@@ -811,22 +774,12 @@ Template.single_doc_edit.helpers
         else
             parent = Template.parentData(5)
         target = Template.parentData(2)
-        # console.log @
-        # console.log Template.parentData(1)
-        # console.log Template.parentData(2)
-        # console.log Template.parentData(3)
-        # console.log Template.parentData(4)
-        # console.log Template.parentData(5)
-        # console.log ref_field
-        # console.log target
         if @direct
             if target["#{ref_field.key}"]
-                # console.log parent["#{ref_field.key}"]
                 if @ref_field is target["#{ref_field.key}"] then 'active' else ''
             else ''
         else
             if parent["#{ref_field.key}"]
-                # console.log parent["#{ref_field.key}"]
                 if @slug is parent["#{ref_field.key}"] then 'active' else ''
             else ''
 
@@ -841,12 +794,8 @@ Template.single_doc_edit.events
             parent = Template.parentData(5)
         # parent = Template.parentData(1)
 
-        # console.log parent
         # key = ref_field.button_key
         key = ref_field.key
-        # console.log ref_field
-        # console.log @
-        # console.log parent["#{key}"]
 
 
         # if parent["#{key}"] and @["#{ref_field.button_key}"] in parent["#{key}"]
@@ -876,7 +825,6 @@ Template.multi_doc_view.onCreated ->
 
 Template.multi_doc_view.helpers
     choices: ->
-        console.log @ref_model
         Docs.find {
             model:@ref_model
         }, sort:slug:-1
@@ -886,9 +834,6 @@ Template.multi_doc_view.helpers
 #         clearable:true
 #         action: 'activate'
 #         onChange: (text,value,$selectedItem)->
-#             console.log text
-#             console.log value
-#             console.log $selectedItem
 #         )
 
 
@@ -897,7 +842,6 @@ Template.multi_doc_edit.onCreated ->
     @autorun => Meteor.subscribe 'model_docs', @data.ref_model
 Template.multi_doc_edit.helpers
     choices: ->
-        # console.log @ref_model
         Docs.find model:@ref_model
 
     choice_class: ->
@@ -909,13 +853,8 @@ Template.multi_doc_edit.helpers
             parent = Template.parentData(5)
         ref_field = Template.parentData(1)
         target = Template.parentData(2)
-        # console.log @
-        # console.log parent
-        # console.log ref_field
-        # console.log target
 
         if target["#{ref_field.key}"]
-            # console.log target["#{ref_field.key}"]
             if @slug in target["#{ref_field.key}"] then 'active' else 'basic'
         else
             'basic'
@@ -937,18 +876,7 @@ Template.multi_doc_edit.events
         parent6 = Template.parentData(6)
         parent7 = Template.parentData(7)
 
-        # console.log parent
-        # console.log parent2
-        # console.log parent3
-        # console.log parent4
-        # console.log parent5
-        # console.log parent6
-        # console.log parent7
         #
-        # console.log parent
-        # console.log ref_field
-        # console.log @
-        # console.log parent["#{@key}"]
 
         if parent["#{ref_field.key}"] and @slug in parent["#{ref_field.key}"]
             doc = Docs.findOne parent._id
@@ -988,9 +916,7 @@ Template.single_user_edit.events
 
     'click .select_user': (e,t) ->
         # page_doc = Docs.findOne Router.current().params.id
-        # console.log @
         field = Template.currentData()
-        # console.log Template.parentData()
 
         val = t.$('.edit_text').val()
         if field.direct
@@ -998,7 +924,6 @@ Template.single_user_edit.events
         else
             parent = Template.parentData(5)
 
-        console.log parent
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
@@ -1139,10 +1064,8 @@ Template.multi_user_edit.events
                     t.user_results.set res
     'click .select_user': (e,t) ->
         page_doc = Docs.findOne Router.current().params.id
-        # console.log @
         val = t.$('.edit_text').val()
         field = Template.currentData()
-        # console.log Template.parentData()
 
         if field.direct
             parent = Template.parentData()
@@ -1193,16 +1116,12 @@ Template.multi_doc_input.events
         if search_value.length is 0
             t.doc_results.set null
         else if search_value
-            # console.log 'hi'
             Meteor.call 'lookup_doc', search_value, 'guest', (err,res)=>
                 if err then console.error err
                 else
-                    # console.log res
                     t.doc_results.set res
     'click .select_doc': (e,t) ->
         # session_document = Docs.findOne Session.get('session_document')
-        # console.log session_document
-        console.log @
         # if @direct
         #     parent = Template.parentData(1)
         # else
@@ -1254,10 +1173,8 @@ Template.multi_doc_input.events
         # 'click .save': ->
         #     image_data = Template.instance().signaturePad.toDataURL()
         #     # save image as PNG
-        #     console.log image_data
         'click .save': ->
             jpeg = Template.instance().signaturePad.toDataURL 'image/jpeg'
-            # console.log jpeg
             page_doc = Docs.findOne Router.current().params.id
             if @direct
                 parent = Template.parentData()
@@ -1290,7 +1207,6 @@ Template.multi_doc_input.events
             signaturePad.fromData data
         'click .clear': (e,t)->
             # Clears the canvas
-            # console.log t
             $(e.currentTarget).closest('.segment').transition('shake', 200)
 
             Template.instance().signaturePad.clear()

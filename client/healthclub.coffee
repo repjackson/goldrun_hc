@@ -14,7 +14,6 @@ Template.healthclub.onRendered ->
     #     video.srcObject = stream
     #     return
     #   ).catch (err0r) ->
-    #     console.log 'Something went wrong!'
     #     return
     # @autorun =>
     #     if @subscriptionsReady()
@@ -25,6 +24,9 @@ Template.healthclub.onRendered ->
     # Meteor.setTimeout ->
     #     $('.item').popup()
     # , 3000
+    Meteor.setInterval ->
+          $('.username_search').focus();
+    , 5000
     Meteor.setTimeout ->
         $('.accordion').accordion()
     , 3000
@@ -78,7 +80,8 @@ Template.checkin_button.events
             guest_ids:[]
             resident_username:@username
             current:true
-        Meteor.call 'check_resident_status', @_id
+        Meteor.call 'member_waiver_signed', @
+        Meteor.call 'rules_and_regulations_signed', @
         Session.set 'username_query',null
         # Session.set 'session_document',session_document
         # Session.set 'checking_in',false
@@ -120,14 +123,11 @@ Template.healthclub.events
         else
             if username_query.length > 1
                 if isNaN(username_query)
-                    # console.log 'not a number'
                     Session.set 'username_query',username_query
                 else
-                    # console.log 'number'
                     barcode_entry = parseInt username_query
                     # alert barcode_entry
                     Meteor.call 'lookup_user_by_code', barcode_entry, (err,res)->
-                        console.log res
                         Session.set 'displaying_profile',res._id
                         session_document = Docs.insert
                             model:'healthclub_session'
@@ -240,10 +240,8 @@ Template.sign_waiver.helpers
 #             model:'rules_and_regs_signing'
 #             resident:@username)
 #         if rule_doc
-#             # console.log 'true'
 #             false
 #         else
-#             # console.log 'false'
 #             true
 #         # unless @rules_signed then true else false
 #
@@ -311,7 +309,6 @@ Template.sign_waiver.helpers
 #
 #
 #     'click .add_guest': ->
-#         console.log @
 #         new_guest_id =
 #             Docs.insert
 #                 model:'guest'

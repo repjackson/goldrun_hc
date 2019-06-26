@@ -25,8 +25,6 @@ Template.user_model_editor.helpers
 
     user_model_class: ->
         current_user = Meteor.users.findOne username:Router.current().params.username
-        # console.log @
-        # console.log current_user
 
         if current_user.model_ids and @_id in current_user.model_ids then 'grey' else ''
 
@@ -35,7 +33,6 @@ Template.user_model_editor.helpers
 Template.user_model_editor.events
     'click .toggle_model': ->
         current_user = Meteor.users.findOne username:Router.current().params.username
-        console.log @
         if current_user.model_ids and @_id in current_user.model_ids
             Meteor.users.update current_user._id,
                 $pull: model_ids: @_id
@@ -46,7 +43,6 @@ Template.user_model_editor.events
 
 
 Template.user_single_doc_ref_editor.onCreated ->
-    # console.log @data
     @autorun => Meteor.subscribe 'type', @data.model
 
 
@@ -61,14 +57,11 @@ Template.user_single_doc_ref_editor.events
 
 Template.user_single_doc_ref_editor.helpers
     choices: ->
-        # console.log @
         Docs.find
             model:@model
 
     choice_class: ->
-        # console.log @
         context = Template.parentData()
-        # console.log context
         current_user = Meteor.users.findOne Router.current().params._id
         if current_user["#{context.key}"] and @slug is current_user["#{context.key}"] then 'grey' else ''
 
@@ -125,31 +118,25 @@ Template.phone_editor.events
 #     hiddenInput.setAttribute 'value', token.id
 #     form.appendChild hiddenInput
 #     # Submit the form
-#     console.log token
 # # 	form.submit()
 #     return
 
 Template.user_edit.events
     'click .remove_user': ->
-        # console.log @
         if confirm "Confirm delete #{@username}?  Cannot be undone."
-            console.log @_id
             Meteor.users.remove @_id
             Router.go "/users"
 
     "change input[name='profile_image']": (e) ->
         files = e.currentTarget.files
-        # console.log files
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
             (err,res) -> #optional callback, you can catch with the Cloudinary collection as well
-                # console.log "Upload Error: #{err}"
                 # console.dir res
                 if err
                     console.error 'Error uploading', err
                 else
-                    console.log res
                     user = Meteor.users.findOne username:Router.current().params.username
                     Meteor.users.update user._id,
                         $set: "image_id": res.public_id
@@ -216,7 +203,6 @@ Template.user_edit.events
 #                 if !response.error
 #                     Meteor.call 'STRIPE_store_card', response.id, Meteor.userId(), (error, result) ->
 #                         if error
-#                             console.log error
 #                             $('.amDanger').html(error).fadeIn().delay('5000').fadeOut()
 #                         else
 #                             $('.amSuccess').html('Card Added').fadeIn().delay('5000').fadeOut()
@@ -227,8 +213,6 @@ Template.user_edit.events
 #                             $('#zip').val ''
 #                             $('#cvc').val ''
 #                 else
-#                     console.log status
-#                     #console.log(response);
 #                     $('#add_card_modal').fadeOut()
 #                     $('.amDanger').html(response.error.message).fadeIn().delay('5000').fadeOut()
 
@@ -288,13 +272,11 @@ Template.username_edit.events
     'click .change_username': (e,t)->
         new_username = t.$('.new_username').val()
         current_user = Meteor.users.findOne username:Router.current().params.username
-        console.log current_user
         if new_username
             if confirm "Change username from #{current_user.username} to #{new_username}?"
                 Meteor.call 'change_username', current_user._id, new_username, (err,res)->
                     if err
                         alert err
-                        console.log err
                     else
                         alert "Username changed."
                         Router.go("/user/#{new_username}")
@@ -319,7 +301,6 @@ Template.password_edit.events
 
     'click .send_enrollment_email': (e,t)->
         current_user = Meteor.users.findOne username:Router.current().params.username
-        # console.log current_user
         Meteor.call 'send_enrollment_email', current_user._id, @address, ->
             alert 'Enrollment Email Sent'
 
@@ -361,17 +342,14 @@ Template.password_edit.events
 
 #     "change input[type='file']": (e) ->
 #         files = e.currentTarget.files
-#         # console.log files
 #         Cloudinary.upload files[0],
 #             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
 #             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
 #             (err,res) -> #optional callback, you can catch with the Cloudinary collection as well
-#                 # console.log "Upload Error: #{err}"
 #                 # console.dir res
 #                 if err
 #                     console.error 'Error uploading', err
 #                 else
-#                     console.log res
 #                     Meteor.users.update Router.current().params._id,
 #                         $set: "profile.image_id": res.public_id
 #                 return
@@ -394,7 +372,6 @@ Template.password_edit.events
 #             if error
 #                 hideLoadingMask()
 #                 # Log service detailed response
-#                 console.log error
 #                 # console.error('Error uploading', uploader.xhr.response);
 #                 alert error.reason
 #             else
@@ -421,7 +398,6 @@ Template.password_edit.events
 #                     toastr.error err.reason
 #                 else
 #                     coord = data
-#                     #console.log(coord);
 #                     dataJson =
 #                         'profile.churchName': $('#name').val()
 #                         'profile.phone': $('#phone').val()
@@ -523,7 +499,6 @@ Template.emails_edit.events
         if valid_email
             Meteor.call 'add_email', current_user._id, new_email, (error, result) ->
                 if error
-                    # console.log 'updateUsername', error
                     alert "Error adding email: #{error.reason}"
                 else
                     # alert result
@@ -532,17 +507,13 @@ Template.emails_edit.events
 
     'click .remove_email': ->
         if confirm 'Remove email?'
-            # console.log @
             current_user = Meteor.users.findOne username:Router.current().params.username
-            # console.log current_user
             Meteor.call 'remove_email', current_user._id, @address, (error,result)->
                 if error
-                    # console.log 'updateUsername', error
                     alert "Error removing email: #{error.reason}"
 
 
     'click .send_verification_email': (e,t)->
         current_user = Meteor.users.findOne username:Router.current().params.username
-        console.log current_user
         Meteor.call 'verify_email', current_user._id, @address, ->
             alert 'verification email sent'

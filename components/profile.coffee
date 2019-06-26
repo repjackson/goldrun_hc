@@ -13,7 +13,6 @@ if Meteor.isClient
                 model:'staff_resident_widget'
 
         widget_template: ->
-            console.log @
 
 
     Template.user_section.helpers
@@ -31,7 +30,6 @@ if Meteor.isClient
                 _id:$in:user.model_ids
 
         banner_style: ->
-            console.log @
             # {
             #     background: url(/image/signup-bg.png) center no-repeat;
             #     /*height: 100%;*/
@@ -49,7 +47,6 @@ if Meteor.isClient
 
     Template.user_layout.events
         'click .set_delta_model': ->
-            console.log @
             Meteor.call 'set_delta_facets', @slug, null, true
 
         'click .logout_other_clients': ->
@@ -77,7 +74,6 @@ if Meteor.isClient
             if @user["#{@key}"] and @value in @user["#{@key}"] then 'black' else 'basic'
     Template.user_array_element_toggle.events
         'click .toggle_element': (e,t)->
-            # console.log @
             # user = Meteor.users.findOne Router.current().params.username
             if @user["#{@key}"]
                 if @value in @user["#{@key}"]
@@ -127,7 +123,6 @@ if Meteor.isClient
     #     'keyup .assign_task': (e,t)->
     #         if e.which is 13
     #             post = t.$('.assign_task').val().trim()
-    #             console.log post
     #             current_user = Meteor.users.findOne username:Router.current().params.username
     #             Docs.insert
     #                 body:post
@@ -280,7 +275,6 @@ if Meteor.isClient
     Template.user_bookmarks.helpers
         bookmarks: ->
             current_user = Meteor.users.findOne username:Router.current().params.username
-            console.log current_user
             Docs.find {
                 bookmark_ids:$in:[current_user._id]
             }, sort:_timestamp:-1
@@ -289,7 +283,6 @@ if Meteor.isClient
 
     Template.membership_status.events
         'click .email_rules_receipt': ->
-            console.log @
             Meteor.call 'send_rules_regs_receipt_email', @_id
 
 
@@ -308,22 +301,18 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'wall_posts', (username)->
-        # console.log username
         Docs.find
             model:'wall_post'
             # parent_username:username
 
     Meteor.publish 'healthclub_checkins', (username)->
-        # console.log username
         Docs.find
             model:'healthclub_checkin'
             resident_username:username
 
 
     Meteor.publish 'user_unit', (username)->
-        # console.log 'violation', username
         user = Meteor.users.findOne username:username
-        # console.log user
         Docs.find
             model:'unit'
             building_code:user.building_code
@@ -331,21 +320,17 @@ if Meteor.isServer
 
 
     Meteor.publish 'user_bookmarks', (username)->
-        # console.log 'violation', username
         user = Meteor.users.findOne username:username
-        console.log user
         Docs.find
             bookmark_ids:$in:[user._id]
 
 
     Meteor.publish 'violations', (username)->
-        # console.log 'violation', username
         Docs.find
             model:'violation'
             username:username
 
     Meteor.publish 'user_confirmed_transactions', (username)->
-        # console.log 'violation', username
         Docs.find
             model:'karma_transaction'
             recipient:username
@@ -353,7 +338,6 @@ if Meteor.isServer
 
 
     Meteor.publish 'user_guests', (username)->
-        # console.log 'violation', username
         user = Meteor.users.findOne username:username
         Docs.find
             model:'guest'
@@ -361,7 +345,6 @@ if Meteor.isServer
 
 
     Meteor.publish 'user_log', (username)->
-        # console.log 'violation', username
         user = Meteor.users.findOne username:username
         Docs.find
             model:'log_event'

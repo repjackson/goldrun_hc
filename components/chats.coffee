@@ -14,7 +14,6 @@ Meteor.methods
             group_id: chat_id
 
     join_chat: (chat_id)->
-        console.log 'joining', chat_id
         Docs.update chat_id,
             $addToSet:
                 participant_ids: Meteor.userId()
@@ -91,19 +90,16 @@ if Meteor.isClient
 
         'click #view_private_chats': (e,t)->
             t.view_published.set(false)
-            # console.log t.view_published.get()
 
         'click #view_published_chats': (e,t)->
             t.view_published.set(true)
 
-            # console.log t.view_published.get()
 
 
 
 
 if Meteor.isServer
     Meteor.publish 'people_list', (chat_id) ->
-        # console.log chat_id
         chat = Docs.findOne chat_id
         Meteor.users.find
             _id: $in: chat.participant_ids
@@ -127,8 +123,6 @@ if Meteor.isServer
             find: ->
                 self = @
                 match = {}
-                # console.log selected_participant_ids
-                # console.log selected_theme_tags
                 match.model = 'chat'
                 if selected_theme_tags.length > 0 then match.tags = $all: selected_theme_tags
                 if selected_participant_ids.length > 0 then match.participant_ids = $in: selected_participant_ids
@@ -146,7 +140,6 @@ if Meteor.isServer
                     ]
 
 
-                # console.log cloud
 
                 # author_objects = []
                 # Meteor.users.find _id: $in: cloud.
@@ -170,7 +163,6 @@ if Meteor.isServer
 
         self = @
         match = {}
-        # console.log selected_participant_ids
         if selected_theme_tags.length > 0 then match.tags = $all: selected_theme_tags
         if view_published is true
             match.published = 1
@@ -188,8 +180,6 @@ if Meteor.isServer
 
 
         match.model = 'chat'
-        # console.log match
 
         cursor = Docs.find match
-        # console.log cursor.count()
         return cursor

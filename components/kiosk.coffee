@@ -65,7 +65,7 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
     Template.healthclub_session.onRendered ->
         # @timer = new ReactiveVar 5
-        Session.set 'timer',3
+        Session.set 'timer',5
         Session.set 'timer_engaged', false
         Meteor.setTimeout ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
@@ -91,10 +91,18 @@ if Meteor.isClient
 
 
     Template.healthclub_session.events
+        'click .take_photo': ->
+
         'click .cancel_checkin': ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
             Docs.remove healthclub_session_document._id
             Router.go "/healthclub"
+
+        'click .recheck': ->
+            console.log @
+            Meteor.call 'run_user_checks', @
+            Meteor.call 'member_waiver_signed', @
+            Meteor.call 'rules_and_regulations_signed', @
 
         'click .add_guest': ->
             # console.log @
@@ -122,7 +130,6 @@ if Meteor.isClient
 
         'click .sign_guidelines': ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
-
             new_id = Docs.insert
                 model:'member_guidelines_signing'
                 session_id: healthclub_session_document._id
@@ -130,7 +137,6 @@ if Meteor.isClient
                 resident: healthclub_session_document.resident_username
             Router.go "/sign_guidelines/#{new_id}/#{healthclub_session_document.resident_username}"
             # Session.set 'displaying_profile',null
-
 
         'click .add_recent_guest': ->
             current_session = Docs.findOne
@@ -143,7 +149,7 @@ if Meteor.isClient
             current_session = Docs.findOne
                 model:'healthclub_session'
                 current:true
-            console.log current_session
+            # console.log current_session
             Docs.update current_session._id,
                 $pull:guest_ids:@_id
 
@@ -154,7 +160,12 @@ if Meteor.isClient
         'click .submit_checkin': (e,t)->
             Meteor.call 'submit_checkin'
 
+        'click .cancel_auto_checkin': (e,t)->
+            Session.set 'timer_engaged',false
+
     Template.healthclub_session.helpers
+        timer_engaged: ->
+            Session.get 'timer_engaged'
         timer: ->
             Session.get 'timer'
             # console.log Template.instance()
@@ -169,8 +180,7 @@ if Meteor.isClient
                 Docs.findOne
                     model:'rules_and_regs_signing'
                     resident:resident.username
-        session_document: ->
-            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+        session_document: -> Docs.findOne Router.current().params.doc_id
 
         adding_guests: -> Session.get 'adding_guest'
         checking_in_doc: ->
@@ -204,12 +214,10 @@ if Meteor.isServer
                 Docs.find doc_id
             children: [
                 { find: (doc) ->
-                    console.log doc
                     Meteor.users.find
                         _id: doc.user_id
                     }
                 { find: (doc) ->
-                    console.log doc
                     Docs.find
                         model: 'guest'
                         _id:doc.guest_ids

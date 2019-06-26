@@ -22,22 +22,17 @@ if Meteor.isClient
                 username:username
                 password:password
                 }
-            console.log options
             Meteor.call 'create_user', options, (err,res)->
-                console.log res
                 Meteor.users.update res,
                     $set: roles: ['user']
                 Meteor.loginWithPassword username, password, (err,res)=>
                     if err
-                        console.log err
                         alert err.reason
                         # if err.error is 403
                         #     Session.set 'message', "#{username} not found"
                         #     Session.set 'enter_mode', 'register'
                         #     Session.set 'username', "#{username}"
                     else
-                        console.log res
-
                         Router.go "/user/#{username}/edit"
             # else
             #     Meteor.loginWithPassword username, password, (err,res)=>
@@ -82,7 +77,6 @@ if Meteor.isServer
 
         new_demo_user: ->
             current_user_count = Meteor.users.find().count()
-            console.log 'current_user_count', current_user_count
 
             options = {
                 username:"user#{current_user_count}"
@@ -90,6 +84,5 @@ if Meteor.isServer
                 }
 
             create = Accounts.createUser options
-            console.log 'create', create
             new_user = Meteor.users.findOne create
             return new_user
