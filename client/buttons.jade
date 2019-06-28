@@ -21,11 +21,11 @@ template(name='session_edit_icon')
         unless is_editing
             .ui.button.edit_this
                 i.blue.pencil.link.icon(title=tags class=button_classes)
-                |edit
+                |Edit
         else
             .save_doc.ui.button(class=button_classes)
                 i.green.check.icon
-                |save
+                |Save
 
 template(name='edit_button')
     a.ui.icon.compact.basic.button(href="/m/#{model}/#{_id}/edit" title='edit')

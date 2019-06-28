@@ -10,11 +10,17 @@ template(name='rentals')
                     +upcoming_day data=this
                     
 template(name='upcoming_day')
-    .ui.small.grey.header #{this}
-    if reservation_exists
-        +reservation
-    .ui.button
-        |rent
+    .ui.small.grey.header #{this.long_form}
+    if reservation_slot_exists
+        .ui.header res slot exists
+        //- +reservation_slot
+    else
+        .ui.button.new_slot
+            |new slot
+        
+template(name='reservation_slot')
+    with reservation_slot
+        .ui.header hi res slot #{this}
         //- +rental
             
 template(name='view_rental')            

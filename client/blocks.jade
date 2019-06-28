@@ -4,7 +4,7 @@ template(name='comments')
             .ui.grey.header
                 //- i.chat.icon
                 +i name='chat'
-                |comments
+                |Comments
         .active.content
             if currentUser
                 .ui.fluid.icon.input
@@ -32,7 +32,7 @@ template(name='events_column')
         h4.active.title
             // +i name='edit-property' classes='ui inline image'
             i.rss.icon
-            | log
+            | Log
             i.dropdown.icon
         .active.content
             .ui.feed
@@ -55,7 +55,7 @@ template(name='follow')
     .ui.segment
         .ui.header
             i.user.plus.icon
-            |follow
+            |Follow
         +user_list_toggle key='follower_ids' icon='rss' add_label='Follow' remove_label='Unfollow' color='black'
 
 
@@ -73,7 +73,7 @@ template(name='user_list_info')
 template(name='view_full_button')
     a.ui.icon.basic.button(href="/view/#{_id}" class=classes data-tooltip='View Full')
         i.double.icon
-        |view
+        |View
 
 template(name='user_status')
     if online 
@@ -116,11 +116,11 @@ template(name='user_email')
     if email_verified
         .ui.green.label 
             i.checkmark.icon
-            |verified
+            |Verified
     else
         .ui.orange.label 
             i.ban.icon
-            |unverified
+            |Unverified
         
 
 template(name='big_user_card')
@@ -164,7 +164,7 @@ template(name='big_user_card')
 template(name='unit_key_checkout')
     .ui.compact.button.unit_key_checkout
         +i name='key' classes='ui mini inline image'
-        strong checkout unit key
+        strong Checkout Unit Key
 
 
 template(name='user_info')
@@ -239,8 +239,8 @@ template(name='voting_full')
 
 template(name='view_button')
     a.ui.icon.compact.basic.button.view(title='view' href="/m/#{model}/#{_id}/view")
-        //- i.right.chevron.large.icon
-        +i name='chevron right' classes='ui mini inline image'
+        i.right.chevron.large.icon
+        //- +i name='chevron right' classes='ui mini inline image'
 
 
 template(name='remove_button')
@@ -266,7 +266,7 @@ template(name='add_button')
 template(name='save_button')
     a.ui.basic.button.large.icon.save(title='Save' href="/m/#{model}/#{_id}/view")
         i.checkmark.green.icon
-        |save
+        |Save
 
 template(name='toggle_button')
     .ui.icon.toggle.basic.button(title=label)
@@ -278,7 +278,7 @@ template(name='toggle_button')
 template(name='view_user_button')
     .view_user.view(title="view #{username}")
         i.play.icon
-        |view
+        |View
 
 template(name='add_model_button')
     .ui.icon.basic.button.add(title="add #{model}")
@@ -299,7 +299,7 @@ template(name='email_validation_check')
     unless email_verified
         .ui.orange.basic.large.fluid.button.send_verification
             //- i.ban.icon
-            |email unvalidated
+            |Email Unvalidated
         if times
             .ui.label
                 |#{times}
@@ -311,7 +311,7 @@ template(name='lease_expiration_check')
     if expiration_date
         .ui.big.basic.fluid.label
             i.clock.icon
-            |lease expiring 
+            |Lease Expiring 
             |#{lease_expiring}
         
         
@@ -320,11 +320,11 @@ template(name='rules_and_regs_check')
         if rules_signed
             a.ui.basic.button(href="/m/rules_regs_signing/#{rules_signed._id}/view" title='click to view/edit signing document')
                 i.signature.icon
-                |rules and regs signed 
+                |Rules and Regs Signed 
         else
             .ui.red.basic.button
                 i.signature.icon
-                | rules+regs unsigned, notify resident
+                | Rules+Regs Unsigned
     //- else
     //-     unless rules_signed
     //-         .ui.large.red.basic.button.sign_rules
@@ -342,16 +342,16 @@ template(name='member_guidelines_check')
         if guidelines_signed
             a.ui.basic.button(href="/m/sign_guidelines/#{guidelines_signed._id}/view" title='click to view/edit signing document')
                 i.signature.icon
-                |member guidelines signed 
+                |Member Guidelines Signed 
         else
             .ui.red.basic.fluid.button
                 i.signature.icon
-                | member guidelines not signed
+                | Member Guidelines Not Signed
     else
         unless guidelines_signed
             .ui.large.red.basic.fluid.button.sign_guidelines
                 i.signature.icon
-                |click to sign member guidelines
+                | Click to Sign Member Guidelines
     //-     else if is_staff
     //-         .ui.large.basic.button
     //-             i.signature.icon
@@ -366,14 +366,14 @@ template(name='resident_key_check')
     //- else
     .ui.large.basic.button
         i.key.icon
-        |key on file 
+        |Key on File 
         
         
 template(name='guest_waiver_check')
     unless waiver_signed
         .ui.large.red.basic.button
             i.signature.icon
-            |guest waiver not signed 
+            |Guest Waiver Not Signed 
         
         
             

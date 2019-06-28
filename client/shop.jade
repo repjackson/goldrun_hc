@@ -149,7 +149,7 @@ template(name='shop_view_layout')
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
-                .four.wide.column
+                .five.wide.column
                     .ui.center.aligend.large.header #{title}
                     img.ui.centered.small.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                     if can_edit
@@ -174,7 +174,7 @@ template(name='shop_view_layout')
                             |stats
                             i.line.chart.icon
                     +voting_full            
-                .twelve.wide.column
+                .eleven.wide.column
                     +yield
                     
 template(name='shop_stats')

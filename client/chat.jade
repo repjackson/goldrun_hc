@@ -6,12 +6,12 @@ template(name='chat_messages_pane')
     if in_chat
         .ui.icon.fluid.attached.input
             i.chevron.right.icon
-            input.add_message(type='text' placeholder='add message...')
+            input.add_message(type='text' placeholder='Add Message...')
                 
 template(name='chat_list')
     div
     .ui.small.inline.header channels
-    .ui.icon.basic.button#create_chat(title='new channel')
+    .ui.icon.basic.button#create_chat(title='New Channel')
         i.plus.icon
 
     .ui.segments
@@ -100,12 +100,12 @@ template(name='chat_message')
             .actions
                 +voting
                 if is_author
-                    i.remove.link.icon.delete_message(title='delete message')
+                    i.remove.link.icon.delete_message(title='Delete Message')
                 else
                     if read
-                        i.envelope.open.outline.link.large.icon.mark_unread(title='mark unread')
+                        i.envelope.open.outline.link.large.icon.mark_unread(title='Mark Unread')
                     else
-                        i.mail.link.outline.large.icon.mark_read(title='mark read')
+                        i.mail.link.outline.large.icon.mark_read(title='Mark Read')
                 each readers
                     .ui.tiny.label(title="Read by #{username}") #{username}
                     // img.ui.avatar.image(src="{{c.url image_id width=50 height=50 gravity='face' crop='fill'}}")
@@ -149,7 +149,7 @@ template(name='view_chat')
                 .ui.cloud.segment
                     .ui.small.header 
                         i.line.chart.icon
-                        |stats
+                        |Stats
                     //- .ui.small.inline.header #{message_count} messages
                     //- .ui.small.inline.header #{unread_message_count} unread
                     +text_edit key='title' direct=true
@@ -158,17 +158,17 @@ template(name='view_chat')
                         |description
                     |!{content}
                     .ui.small.header
-                        |participants
+                        |Participants
                     if currentUser
                         if in_chat
                             //- i.sign.in.link.icon.leave_chat(title='leave')
                             .ui.basic.button.leave_chat
                                 i.sign.in.icon
-                                |leave
+                                |Leave
                         else
                             .ui.basic.button.join_chat
                                 i.sign.out.icon
-                                |join
+                                |Join
                     .ui.relaxed.list
                         each participants
                             .item
@@ -186,7 +186,7 @@ template(name='view_chat')
                     if can_edit
                         .ui.icon.basic.button.close_chat(title='close chat')
                             i.ban.icon
-                            |close chat
+                            |Close Chat
                     if can_edit
                         +array_edit key='tags' label='tags' direct=true
                     else     
@@ -203,6 +203,6 @@ template(name='view_chat')
                     //- +resonates_list
                     if can_edit
                         +boolean_edit key='private' label='private' direct=true
-                    .ui.small.header started by 
+                    .ui.small.header Started by 
                         img.ui.avatar.image(src="{{c.url author.image_id width=400 height=400 gravity='face' crop='fill'}}")
                         |#{author.username} #{when}

@@ -1,17 +1,17 @@
 template(name='staff')
     .ui.stackable.padded.grid
         .sixteen.wide.column
-            h1.ui.grey.inline.header 
+            h1.ui.grey.large.inline.header 
                 //- i.user.shield.icon
                 //- +i name='manager'
-                |staff
+                |Staff
             //- i.massive.loading.brown.poo.icon
             a.ui.big.compact.basic.button(href='/add_resident')
-                //- i.user.add.large.icon
-                +i name='add-user-male' classes='ui inline image'
-                strong add resident
+                i.user.add.large.icon
+                //- +i name='add-user-male' classes='ui inline image'
+                strong Add Resident
             .ui.inline.header
-                |#{checkedin_members.count} checked in members
+                |#{checkedin_members.count} Checked In Members
             //- +add_button model='work_order' label='work order'
             //- +add_button model='communication' label='communication'
             //- +add_button model='frontdesk_hourly_checklist' label='hourly checklist'
@@ -22,7 +22,7 @@ template(name='staff')
             .ui.styled.fluid.accordion
                 .active.title
                     i.users.icon
-                    |checked in members
+                    |Checked In Members
                     i.dropdown.icon
                 .active.content
                     .ui.stackable.four.cards
@@ -30,19 +30,19 @@ template(name='staff')
                             +hc_session
                 .title 
                     i.tablet.icon
-                    |kiosk management
+                    |Kiosk Management
                     i.dropdown.icon
                 .content
                     +kiosk_settings
                 .title 
                     i.calendar.icon
-                    |staff schedule
+                    |Staff Schedule
                     i.dropdown.icon
                 .content
                     +schedule
                 .title
                     i.chat.icon
-                    |chat
+                    |Chat
                     i.dropdown.icon
                 .content
                     +view_chats
@@ -64,27 +64,29 @@ template(name='hc_session')
             with session_resident
                 if address
                     div
-                    +i name='marker' classes='ui avatar image'
+                    //- +i name='marker' classes='ui avatar image'
+                    i.location.icon
                     |#{address}
-                div
-                +i name='apartment' classes='ui avatar image'
-                |#{building_number}
-                //- +number_view key='building_number' label='building #' direct=true
-                +i name='home' classes='ui avatar image'
-                strong #{unit_number}
+                .ui.horizontal.list
+                    .item
+                        i.building.icon
+                        |#{building_number}
+                    .item
+                        i.home.icon
+                        | #{unit_number}
                 //- +number_view key='unit_number' label='unit #' direct=true
                 //- +text_view key='building_code' label='building code' direct=true
                 +lease_expiration_check
                 //- +rules_and_regs_check
                 +user_check_steps 
                 if active_violations
-                    .ui.big.red.label active violation(s)
+                    .ui.big.red.label Active Violation(s)
                 if staff_notes
                     .ui.small.grey.header
                         i.clipboard.icon(title='staff notes')
                         |#{staff_notes}       
             if checkin_guest_docs.count
-                .ui.small.grey.header guests
+                .ui.small.grey.header Guests
                 each checkin_guest_docs
                     .ui.large.basic.label 
                         |#{guest_name} #{first_name} #{last_name}
@@ -101,7 +103,7 @@ template(name='hc_session')
             if active
                 .ui.fluid.button.sign_out
                     i.sign.out.icon
-                    |sign out
+                    |Sign Out
             //- +boolean_edit key='active' direct=true
             //- +boolean_edit key='submitted' direct=true
             //- +boolean_edit key='approved' direct=true
@@ -116,11 +118,11 @@ template(name='garden_key_checkout')
     if garden_key
         .ui.compact.green.fluid.button.garden_key_checkout
             +i name='plant' classes='ui mini inline image'
-            strong garden key
+            strong Garden Key
     else
         .ui.compact.fluid.button.garden_key_checkout
             +i name='plant' classes='ui mini inline image'
-            strong garden key
+            strong Garden Key
 
 
 
@@ -129,7 +131,7 @@ template(name='unit_key_widget')
     .ui.segment 
         .ui.header 
             i.yellow.key.icon
-            |unit key lookup
+            |Unit Key Lookup
         .ui.icon.large.fluid.input
             i.building.icon
             input.building_number(type='number' placeholder='building number')
@@ -137,7 +139,7 @@ template(name='unit_key_widget')
             i.home.icon
             input.unit_number(type='number' placeholder='unit number')
         .ui.fluid.button.lookup_key
-            |lookup key
+            |Lookup Key
 
 
 template(name='task_widget')
@@ -145,7 +147,7 @@ template(name='task_widget')
         .ui.header 
             //- +i name='task'
             i.tasks.teal.icon
-            |todos
+            |Todos
         //- .ui.fluid.styled.accordion
         +goto_model slug='task'
         .ui.icon.basic.button.new_task
@@ -171,7 +173,7 @@ template(name='wywo')
         .ui.header 
             //- +i name='note'
             i.orange.edit.icon
-            |while you were out
+            |While You Were Osut
         
 template(name='schedule')
     //- .ui.center.aligned.header 
@@ -181,13 +183,13 @@ template(name='schedule')
         thead
             tr
                 th
-                th sun
-                th mon
-                th tues
-                th wed
-                th thurs
-                th fri
-                th sat
+                th Sun
+                th Mon
+                th Tues
+                th Wed
+                th Thurs
+                th Fri
+                th Sat
         tbody
             tr
                 td 7/8am-4pm
@@ -243,13 +245,13 @@ template(name='schedule')
         thead
             tr
                 th
-                th sun
-                th mon
-                th tues
-                th wed
-                th thurs
-                th fri
-                th sat
+                th Sun
+                th Mon
+                th Tues
+                th Wed
+                th Thurs
+                th Fri
+                th Sat
         tbody
             tr
                 td 7/8am-4pm
@@ -304,7 +306,7 @@ template(name='schedule')
 template(name='shift_change_requests')
     .ui.grey.inline.header
         +i name='clock'
-        |shift change requests
+        |Shift Change Requests
     .ui.icon.basic.button.add_shift_change_request
         i.large.icons
             i.clock.icon
@@ -312,10 +314,10 @@ template(name='shift_change_requests')
     table.ui.celled.fixed.unstackable.table
         thead
             tr
-                th date
-                th time
-                th author
-                th assigned staff
+                th Date
+                th Time
+                th Author
+                th Assigned staff
                 th 
         tbody
             each requests

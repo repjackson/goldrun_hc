@@ -21,7 +21,7 @@ template(name='user_edit')
                         with user_from_username_param
                             .ui.orange.basic.button.remove_user 
                                 i.remove.icon
-                                |delete user
+                                |Delete User
                 .column
                     .ui.form
                         if user_is_resident_or_owner
@@ -37,7 +37,7 @@ template(name='user_edit')
                                 .ui.segment
                                     .ui.header 
                                         i.blue.envelope.icon
-                                        |email(s)
+                                        |Email(s)
                                     +emails_edit
                             else
                                 +text_view key='first_name' label='first name' direct=true

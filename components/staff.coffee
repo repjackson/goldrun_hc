@@ -46,7 +46,7 @@ if Meteor.isClient
 
     Template.hc_session.events
         'click .sign_out': (e,t)->
-            if confirm "check out #{@resident_username}?"
+            if confirm "Check Out #{@first_name} #{@last_name}?"
                 $(e.currentTarget).closest('.card').transition('fade up',500)
                 Meteor.setTimeout =>
                     Docs.update @_id,
@@ -117,7 +117,7 @@ if Meteor.isClient
             # $(e.currentTarget).closest('.segment').transition('fade left',100)
             # Meteor.setTimeout =>
             $('body').toast({
-                title: "unit key checked out #{@first_name} #{@last_name}"
+                title: "Unit Key Checked Out #{@first_name} #{@last_name}"
                 # message: 'See desk staff for key.'
                 class : 'blue'
                 position:'top right'

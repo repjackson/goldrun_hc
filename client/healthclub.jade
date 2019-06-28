@@ -12,14 +12,15 @@ template(name='healthclub')
                 if is_staff
                     a.ui.button(href='/staff')
                         i.left.chevron.icon
-                        |staff
+                        |Staff
                 img.ui.circular.centered.small.inline.image.shadowed(src="{{c.url 'gold_run_logo' }}")
-                h1.ui.center.aligned.inline.header.checkin_header
-                    |health club check in
+                //- .ui.center.aligned.inline.header.checkin_header
+                h1.ui.center.aligned.inline.massive.header.f10
+                    |Health Club Check In
         .row
             .sixteen.wide.column
                 .ui.left.icon.massive.fluid.input
-                    input.username_search(type='text' placeholder='lookup resident' autofocus)
+                    input.username_search(type='text' placeholder='Lookup resident...' autofocus)
                     if is_query
                         i.remove.link.icon.clear_results
                     else 
@@ -31,8 +32,8 @@ template(name='healthclub')
                     else
                         if checking_in
                             if is_query
-                                .ui.center.aligned.header no members found
-                                .ui.center.aligned.header see staff to add
+                                .ui.center.aligned.header No members found
+                                .ui.center.aligned.header See staff to add
                 .ui.padded.grid
                     .two.column.row
                         .column
@@ -40,15 +41,15 @@ template(name='healthclub')
                             +health_club_info
                         .column
                             +healthclub_status
-                            .ui.header hours
+                            .ui.header Hours
                             .ui.big.list
-                                .item mon 7a-10p
-                                .item tues 7a-10p
-                                .item wed 7a-10p
-                                .item thur 7a-10p
-                                .item fri 7a-9p
-                                .item sat 8a-9p
-                                .item sun 8a-10p
+                                .item Mon 7a-10p
+                                .item Tues 7a-10p
+                                .item Wed 7a-10p
+                                .item Thur 7a-10p
+                                .item Fri 7a-9p
+                                .item Sat 8a-9p
+                                .item Sun 8a-10p
                             
 
 template(name='facet_doc_edit')
@@ -77,7 +78,7 @@ template(name='add_resident')
                     //-     input#username(type='text')
                 if permission
                     .ui.fluid.green.big.button.create_resident
-                        |create resident
+                        |Create Resident
         
         
 template(name='sign_waiver')
@@ -88,12 +89,12 @@ template(name='sign_waiver')
                     .row
                         h1.ui.center.aligned.header
                             i.user.plus.icon
-                            |sign waiver
+                            |Sign Waiver
                         with waiver_doc
                             |!{html}
                         +signature
                         .ui.fluid.green.button.sign_waiver
-                            | sign waiver
+                            | Sign Waiver
 
 
 
@@ -114,7 +115,7 @@ template(name='checkin_button')
             .ui.basic.button.checkout
                 i.sign.out.icon
                 //- +i name='exit-sign' classes='ui avatar image'
-                |health club check out
+                |Health Club Check Out
         else
             .ui.large.basic.button.new_hc_session
                 strong #{first_name} #{last_name}
@@ -128,31 +129,31 @@ template(name='health_club_info')
                 .ui.big.relaxed.list
                     .item
                         .content
-                            .header wifi
+                            .header Wifi
                             .description Gold Run Health Club / goldrun1
                     .item
                         .content
-                            .header header upstairs code: 4589
+                            .header Upstairs Code: 4589
                     .item
                         .content
-                            .header colorado security services
+                            .header Colorado Security Services
                             .description 303-443-3701
             .column
                 .ui.big.relaxed.list
                     .item
                         .content
-                            .header onsite manager
+                            .header Onsite Manager
                             .description 
                                 div Rick Hamp 
                                 div 303-545-1787
                                 div goldruncondos@gmail.com
                     .item
                         .content
-                            .header after hours emergency
+                            .header After Hours Emergency
                             .description 303-221-1117
                     .item
                         .content
-                            .header boulder valley towing
+                            .header Boulder Valley Towing
                             .description 303-444-4868
 
 

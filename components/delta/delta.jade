@@ -2,10 +2,10 @@ template(name='delta')
     with current_model
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
+                .six.wide.column
                     .ui.inline.header
-                        //- i.icon(class=icon)
-                        +i name=icon
+                        i.icon(class=icon)
+                        //- +i name=icon
                         | #{title}
                     unless is_loading
                         if currentUser
@@ -47,12 +47,12 @@ template(name='delta')
                     div
                     each sorted_facets
                         +facet
-                .twelve.wide.column
+                .ten.wide.column
                     //- .ui.inline.header
                     //-     |sort by
                     //- .ui.button
                     //- .ui.stackable.four.column.grid
-                    .ui.four.cards
+                    .ui.three.cards
                         each current_delta.result_ids
                             //- .column
                             +delta_result
@@ -66,8 +66,8 @@ template(name='facet')
         //-     .active.title
         .ui.grey.inline.header 
             if icon
-                //- i.icon(class=icon)
-                +i name=icon classes='ui mini inline image'   
+                i.icon(class=icon)
+                //- +i name=icon classes='ui mini inline image'   
             if title
                 |#{title}
             else 
@@ -117,11 +117,11 @@ template(name='delta_result')
                             +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                             a.ui.basic.button.route_model(href="/m/#{slug}")
                                 i.sitemap.icon
-                                |view model
+                                |View Model
                             if is_admin
                                 a.ui.basic.button.route_model(href="/model/edit/#{_id}")
                                     i.edit.icon
-                                    |edit model
+                                    |Edit Model
                         else
                             if can_edit
                                 a.ui.large.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')

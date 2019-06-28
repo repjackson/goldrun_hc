@@ -1,7 +1,7 @@
 template(name='nav')
     unless is_frontdesk
         //- .ui.borderless.attached.big.inverted.menu.topnav
-        .ui.attached.borderless.inverted.big.menu.topnav.grgold
+        .ui.attached.borderless.inverted.big.menu.topnav
             //- a.toggle_sidebar.icon.item.sidebar_on
             //-     i.large.sidebar.icon
             if is_loading
@@ -10,25 +10,26 @@ template(name='nav')
             else
                 if is_staff
                     a.icon.item(href='/home' class="{{isActivePath '/home'}}")
-                        //- i.th.large.large.icon
-                        +i name='activity-grid-2' classes='ui avatar image'
+                        i.th.large.icon
+                        //- +i name='activity-grid-2' classes='ui avatar image'
                     //- a.header.icon.item(href='/' class="{{isActivePath '/'}}")
                     //-     //- i.home.large.large.icon
                     //-     +i name='home-page' classes='ui avatar image'
-                    a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                        +i name='apartment' classes='ui avatar image'
-                        .mobile.hidden &nbsp; buildings
+                    a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+                        //- +i name='apartment' classes='ui avatar image'
+                        i.building.large.icon
+                        .mobile.hidden &nbsp; Buildings
                 //- a.header.icon.set_units.item(href='/m/unit' class="{{isActivePath '/m/unit'}}")
                 //-     +i name='room'    
                 if is_staff
-                    a.item(href='/staff' class="{{isActivePath '/staff'}}")
-                        +i name='employee-card' classes='ui avatar image'
-                        //- i.shield.large.icon
-                        .mobile.hidden &nbsp; staff
-                    a.item(href='/users' class="{{isActivePath '/users'}}")
-                        //- i.users.large.icon
-                        +i name='groups' classes='ui avatar image'
-                        .mobile.hidden &nbsp; users
+                    a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
+                        //- +i name='employee-card' classes='ui avatar image'
+                        i.shield.large.icon
+                        .mobile.hidden &nbsp; Staff
+                    a.icon.item(href='/users' class="{{isActivePath '/users'}}")
+                        i.users.large.icon
+                        //- +i name='groups' classes='ui avatar image'
+                        .mobile.hidden &nbsp; Users
                 //- if is_user        
                 //-     //- a.item(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
                 //-     //-     +i name='food'
@@ -37,18 +38,22 @@ template(name='nav')
                 //-         +i name='shop'
                 //-         .mobile.hidden &nbsp; shop
                 if is_user
-                    a.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='shop')
-                        +i name='shop'
-                        .mobile.hidden &nbsp; shop
-                    a.item.set_library(href='/m/library' class="{{isActivePath '/m/library'}}" title='library')
-                        +i name='library'
-                        .mobile.hidden &nbsp; library
-                    a.item.set_event(href='/m/event' class="{{isActivePath '/m/event'}}" title='events')
-                        +i name='calendar'
-                        .mobile.hidden &nbsp; events
-                    a.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
-                        +i name='food'
-                        .mobile.hidden &nbsp; food
+                    a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='shop')
+                        //- +i name='shop'
+                        i.shop.icon
+                        .mobile.hidden &nbsp; Shop
+                    a.icon.item.set_library(href='/m/library' class="{{isActivePath '/m/library'}}" title='library')
+                        //- +i name='library'
+                        i.library.icon
+                        .mobile.hidden &nbsp; Library
+                    a.icon.item.set_event(href='/m/event' class="{{isActivePath '/m/event'}}" title='events')
+                        //- +i name='calendar'
+                        i.calendar.icon
+                        .mobile.hidden &nbsp; Events
+                    a.icon.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
+                        //- +i name='food'
+                        i.food.icon
+                        .mobile.hidden &nbsp; Food
                 //- if is_admin
                 //-     a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
                 //-         +i name='alpha'
@@ -61,10 +66,10 @@ template(name='nav')
                 //- a.item.set_marketplace(href='/m/marketplace' class="{{isActivePath '/m/marketplace'}}")
                 //-     +i name='shop'
                 if is_staff
-                    a.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
-                        +i name='treadmill' classes='ui avatar image'
-                        //- i.clinic.medical.large.icon
-                        .mobile.hidden &nbsp; kiosk
+                    a.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
+                        //- +i name='treadmill' classes='ui avatar image'
+                        i.clinic.medical.large.icon
+                        .mobile.hidden &nbsp; Kiosk
             .right.menu
                 //- if is_admin
                 //-     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
@@ -89,23 +94,27 @@ template(name='nav')
                             //- a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
                             //-     +i name='cashbook'
                             a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
-                                +i name='ledger'
+                                //- +i name='ledger'
+                                i.list.icon
                             if is_admin
                                 a.icon.item(href="/transactions" class="{{isActivePath '/transactions'}}" title='transactions')
-                                    +i name='cashbook'
+                                    //- +i name='cashbook'
+                                    i.user.sheild.icon
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
-                                +i name='chat'
+                                //- +i name='chat'
+                                i.chat.icon
                             //- a.icon.item(href="/karma" class="{{isActivePath '/karma'}}" title='karma')
                             //-     +i name='wallet'
                                 |#{currentUser.karma}
                             //- a.icon.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
                             //-     +i name='shopping-cart'
                             //-     |#{cart_amount}
-                            a.icon.item(href="/deliveries" class="{{isActivePath '/deliveries'}}" title='deliveries')
-                                +i name='in-transit'
+                            //- a.icon.item(href="/deliveries" class="{{isActivePath '/deliveries'}}" title='deliveries')
+                            //-     +i name='in-transit'
                                 //- |deliveries
                             a.icon.item(href="/tab" class="{{isActivePath '/tab'}}" title='tab')
-                                +i name='shopping-cart'
+                                //- +i name='shopping-cart'
+                                i.cart.icon
                                 |#{cart_amount}
                                 //- i.chat.large.icon
                             //- if is_user
@@ -119,8 +128,8 @@ template(name='nav')
                         //-         +i name='user shield'
                         if is_dev
                             a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
-                                +i name='active directory'
-                                //- i.sitemap.large.icon
+                                //- +i name='active directory'
+                                i.sitemap.large.icon
                         unless is_frontdesk
                             a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                                 if currentUser.image_id
@@ -133,18 +142,19 @@ template(name='nav')
                         .item
                             i.large.loading.circle.notch.icon
                     else
-                        a#logout.ui.mobile.hidden.icon.item(href='#' title='log out')
+                        a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
                             i.sign.out.large.icon
                 else
                     a.item(href='/login' title='login') 
-                        +i name='enter-2' classes='ui mini inline image'
-                        |login
+                        i.sign.in.large.icon
+                        //- +i name='enter-2' classes='ui mini inline image'
+                        |Login
         if currentUser.show_bookmarked_model_bar
             .ui.inverted.attached.borderless.menu.topnav.grblue
                 each bookmarked_models
                     a.item.set_bookmarked_model(href="/m/#{slug}" class="{{isActivePath '/m/#{slug}'}}")
-                        //- i.large.icon(class=icon)
-                        +i name=icon classes='ui avatar image'
+                        i.large.icon(class=icon)
+                        //- +i name=icon classes='ui avatar image'
                         |#{title}
 
 

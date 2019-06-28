@@ -21,12 +21,12 @@ template(name='user_layout')
                     if is_staff
                         +user_check_steps
                         a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                            i.settings.large.violet.icon
-                            | settings
+                            i.settings.large.icon
+                            | Settings
                     else if is_current_user
                         a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
-                            i.settings.large.violet.icon
-                            | settings
+                            i.settings.large.icon
+                            | Settings
                     //- else
                         //- .ui.button.direct_message
                         //-     i.sent.icon
@@ -42,7 +42,7 @@ template(name='user_layout')
                             //-         |health club                        
                             a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
                                 i.info.icon
-                                |about
+                                |About
                             //- a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
                             //-     i.handshake.icon
                             //-     |social
@@ -70,9 +70,9 @@ template(name='user_layout')
                     if is_current_user
                         a.ui.fluid.button.logout(href="#")
                             i.sign.out.icon
-                            |log out
+                            |Log Out
                         a.ui.fluid.button.logout_other_clients(href="#")
-                            |logout other clients
+                            |Logout Other Clients
                     //- unless is_staff
                     //-     +gr_status                
                     if is_admin
@@ -80,7 +80,7 @@ template(name='user_layout')
                             .ui.grey.header 
                                 //- +i name='user shield'
                                 i.shield.icon
-                                |roles
+                                |Roles
                             each roles
                                 .ui.basic.label #{this}
                     +staff_verification
@@ -102,7 +102,8 @@ template(name='user_check_steps')
                     i.large.green.checkmark.icon
                 else 
                     i.large.circle.outline.icon 
-                +i name=icon classes='ui avatar image'
+                i.icon(name=icon)
+                //- +i name=icon classes='ui avatar image'
                 |#{title}
         //- .item
         //-     if completed
@@ -142,15 +143,15 @@ template(name='staff_verification')
                     +i name='id-verified' classes='ui mini inline image'
                 else
                     i.red.ban.icon
-                |verified by staff
+                |Verified by Staff
             if staff_verifier
                 .ui.list
-                    .item verified by staff: #{staff_verifier}            
-                    .item verification date: {{long_date verification_timestamp}}
+                    .item verified by Staff: #{staff_verifier}            
+                    .item verification Date: {{long_date verification_timestamp}}
             else
-                  .ui.button.verify verify gov id as #{currentUser.username}
+                  .ui.button.verify Verify Government ID as #{currentUser.username}
             .ui.header #{user_from_username_param.username} created by #{user_from_username_param.added_by_username}
-            .ui.header created on {{long_date user_from_username_param.createdAt}}
+            .ui.header Created on {{long_date user_from_username_param.createdAt}}
 
 
 
@@ -180,11 +181,12 @@ template(name='user_residency')
 template(name='user_healthclub')
     .ui.segment
         .ui.header 
-            +i name='token-card-code'
-            |hc card
+            i.credit.card.icon
+            //- +i name='token-card-code'
+            |HC Card
         .ui.circular.button.generate_barcode
             i.barcode.icon
-            |generate health club checkin barcode
+            |Generate Health Club Checkin Barcode
         div
         svg#barcode
     
@@ -222,24 +224,24 @@ template(name='resident_info')
         //- +text_view key='first_name' label='First Name' direct=true
         //- +text_view key='last_name' label='Last Name' direct=true
         if is_admin
-            +text_view key='address' label='address' direct=true
+            +text_view key='address' label='Address' direct=true
         //- +text_view key='email' label='Email' direct=true
-        +phone_view key='phone' label='phone' direct=true
+        +phone_view key='phone' label='Phone' direct=true
         if user_is_resident
             //- if is_staff
-            +number_view key='unit_number' label='unit #' direct=true
-            +number_view key='building_number' label='building #' direct=true
-            +number_view key='healthclub_code' label='healthclub_code' direct=true
-            +text_view key='building_code' label='building code' direct=true
-            +date_view key='start_date' label='start date' direct=true
-            +date_view key='expiration_date' label='expiration date' direct=true
+            +number_view key='unit_number' label='Unit #' direct=true
+            +number_view key='building_number' label='Building #' direct=true
+            +number_view key='healthclub_code' label='Healthclub_code' direct=true
+            +text_view key='building_code' label='Building Code' direct=true
+            +date_view key='start_date' label='Start Date' direct=true
+            +date_view key='expiration_date' label='Expiration Date' direct=true
         +textarea_view key='notes' label='notes' icon='align-left' direct=true
         div
         each emails
             if verified
-                .ui.green.label(title='verified') #{address}
+                .ui.green.label(title='Verified') #{address}
             else
-                .ui.orange.label(title='unverified') #{address}
+                .ui.orange.label(title='Unverified') #{address}
 
     
             
@@ -277,16 +279,16 @@ template(name='user_permit')
         +goto_model slug='parking_permit'
         
         with permit_doc
-            .ui.small.inline.header permit
+            .ui.small.inline.header Permit
             .ui.grey.inline.header #{permit}
             div
-            .ui.small.inline.header date issued
+            .ui.small.inline.header Date Issued
             .ui.grey.inline.header #{date_issued}
             div
-            .ui.small.inline.header expiration date
+            .ui.small.inline.header Expiration Date
             .ui.grey.inline.header #{expiration_date}
             div
-            .ui.small.inline.header license plate 
+            .ui.small.inline.header License Plate 
             .ui.grey.inline.header #{license_plate}
             div
 
@@ -296,24 +298,25 @@ template(name='user_permits')
     if user_permits
         .ui.segment
             .ui.grey.inline.center.aligned.small.header 
-                //- i.id.card.alternate.icon
+                i.id.card.alternate.icon
                 +goto_model slug='parking_permit'
             
-                +i name='badge'
-                |permits
+                //- +i name='badge'
+                |Permits
 
             
 template(name='user_signatures')
     .ui.segment
         .ui.grey.inline.center.aligned.small.header 
-            +i name='signature'
-            | signatures
+            //- +i name='signature'
+            i.pencil.icon
+            | Signatures
         .ui.link.large.list
-            a.item(href='#') rules and regulations
+            a.item(href='#') Rules and Regulations
             +goto_model slug='rules_regs_signing'
 
-            a.item(href='#') proof of residency
-            a.item(href='#') injury waiver
+            a.item(href='#') Proof of Residency
+            a.item(href='#') Injury Waiver
 
 
 template(name='user_notes')
@@ -330,7 +333,7 @@ template(name='gr_status')
         //-     i.clock.icon
         //-     | Status
         if current_user
-            +array_edit key='gr_status' label='status' direct=true icon='clock'
+            +array_edit key='gr_status' label='Status' direct=true icon='clock'
         else
             each gr_status
                 .ui.label #{this}
@@ -338,7 +341,7 @@ template(name='gr_status')
         //-     i.marker.icon
         //-     | Location 
         if current_user
-            +array_edit key='gr_location' label='location' direct=true icon='marker'
+            +array_edit key='gr_location' label='Location' direct=true icon='marker'
         else 
             each gr_location
                 .ui.label #{this}
@@ -349,7 +352,7 @@ template(name='user_checkins')
     .ui.segment
         .ui.grey.inline.center.aligned.small.header 
             //- +i name='internal'
-            |health club check ins
+            |Health Club Check Ins
         if is_staff
             +checkin_button
         .ui.list.smallscroll
@@ -361,14 +364,15 @@ template(name='user_checkins')
 template(name='user_guests')
     .ui.segment
         .ui.grey.inline.center.aligned.small.header 
-            +i name='groups'
-            |guests
+            //- +i name='groups'
+            i.icon(name=icon)
+            |Guests
         +goto_model slug='guest'
         //- +add_button model='guest'
         //- .ui.circular.button.add_guest
         //-     |Add Guest
         with user_from_username_param
-            .ui.header total guests #{total_guests}
+            .ui.header Total Guests #{total_guests}
             //- .ui.header guests this month #{current_month_guests}
         .ui.link.large.list
             each resident_guests
@@ -382,9 +386,9 @@ template(name='user_guests')
 template(name='user_unit')
     .ui.segment
         .ui.grey.inline.center.aligned.small.header 
-            //- i.home.icon
-            +i name='interior'
-            |unit
+            i.home.icon
+            //- +i name='interior'
+            |Unit
         +goto_model slug='unit'
         with unit
             +number_view key='building_number' label='Building Number' direct=true
@@ -405,12 +409,13 @@ template(name='user_section')
 template(name='user_violations')
     .ui.segment
         .ui.grey.inline.center.aligned.small.header 
-            +i name='foul'
-            |violations
+            //- +i name='foul'
+            i.triangle.alert.icon
+            |Violations
         +goto_model slug='violation'
         .ui.button.add_inline_violation
             i.plus.icon
-            |add violation
+            |Add Violation
         if editing_violation
             .ui.segment
                 with editing_violation_doc
@@ -436,10 +441,10 @@ template(name='user_violations')
                         a.header(href="/m/violation/#{_id}/view") !{description}
                         .meta #{when}
                             +textarea_view key='body' label='description' direct=true
-                            div date: #{violation_date}
-                            div time: #{violation_time}
+                            div Date: #{violation_date}
+                            div Time: #{violation_time}
                             if active
-                                .ui.red.label active
+                                .ui.red.label Active
                         .actions
                             i.pencil.link.circular.icon.edit_violation
 
@@ -451,7 +456,7 @@ template(name='user_log')
         .ui.grey.inline.center.aligned.small.header 
             //- +i name='overview-pages-4'
             i.list.icon
-            |log
+            |Log
         .smallscroll
             .ui.list
                 each user_log_events
@@ -477,7 +482,7 @@ template(name='user_feed')
     .ui.cloud.segment
         .ui.grey.inline.header 
             +i name='feed'
-            |feed
+            |Feed
         //- if current_user
         //-     .ui.fluid.input
         //-         input(type='text' placeholder='Share something...')
@@ -490,7 +495,7 @@ template(name='user_bookmarks')
         .ui.grey.inline.center.aligned.small.header 
             //- +i name='bookmark'
             i.bookmark.icon
-            |bookmarks
+            |Bookmarks
         .ui.list.smallscroll
             each bookmarks
                 .item
@@ -505,7 +510,7 @@ template(name='user_karma')
         .active.title
             .ui.grey.inline.center.aligned.small.header 
                 i.heartbeat.icon
-                | karma
+                | Karma
         .active.content
             .ui.circular.button buy karma
             with user_from_username_param
@@ -571,9 +576,9 @@ template(name='user_array_list')
 template(name='role_switcher')
     .ui.segment
         .ui.grey.inline.center.aligned.small.header 
-            +i name='anonymous-mask'
-            //- i.shield.icon(title='role switcher')
-            |#{username} role switcher
+            //- +i name='anonymous-mask'
+            i.shield.icon(title='role switcher')
+            |#{username} Role Switcher
         //- if is_eric
         //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
         //- if current_user
@@ -604,13 +609,13 @@ template(name='membership_status')
     .ui.segment
         .active.title
             .ui.grey.inline.center.aligned.small.header 
-                |membership status
+                |Membership Status
         +email_validation_check
         +lease_expiration_check
         +rules_and_regs_check
         .ui.large.basic.button.email_rules_receipt
             i.envelope.teal.icon
-            |email rules and regs receipt
+            |Email Rules and Regs Receipt
         //- +rules_and_regs_
         if user_is_owner
             +image_view key='ownership_paperwork' label='ownership paperwork' direct=true
@@ -627,7 +632,7 @@ template(name='user_following')
     .ui.cloud.segment
         .ui.grey.header 
             i.bell.icon
-            |following
+            |Following
         +user_array_list user=user_from_username_param array='following_ids'
           
 
@@ -639,7 +644,7 @@ template(name='follow_user')
                     i.renew.icon
             else
                 i.bell.icon
-            |followed by
+            |Followed by
         +user_array_list user=user_from_username_param array='followed_by_ids'
                 
 
@@ -648,7 +653,7 @@ template(name='user_wall')
         .active.title
             .ui.grey.inline.center.aligned.small.header 
                 i.edit.icon
-                |wall
+                |Wall
         .active.content
             if currentUser
                 .ui.fluid.icon.input

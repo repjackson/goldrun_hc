@@ -2,19 +2,20 @@ template(name='unit')
     .ui.stackable.padded.grid
         .four.wide.column
             a.ui.big.button(href="/building/#{unit.building_code}")
-                i.yellow.left.chevron.icon
+                i.large.left.chevron.icon
                 |#{unit.building_code}
-            .ui.header 
-                +i name='apartment'
-                |unit
+            .ui.header
+                i.home.icon 
+                //- +i name='apartment'
+                |Unit
                 |#{unit.unit_number}
             .ui.header 
-                |building #{unit.building_number}
+                |Building #{unit.building_number}
             if is_dev
                 with unit
                     +number_edit key='building_number' direct=true
             .ui.header 
-                |building #{unit.building_code}
+                |Building #{unit.building_code}
             if is_dev
                 with unit
                     +text_edit key='building_code' direct=true
@@ -30,7 +31,7 @@ template(name='unit_permits')
     .ui.segment
         .ui.header 
             +i name='badge'
-            |unit permits
+            |Unit Permits
         .ui.cards
             each permits
                 .ui.card
@@ -44,8 +45,9 @@ template(name='unit_permits')
 template(name='unit_owners')            
     .ui.segment
         .ui.header 
-            +i name='rent'
-            |unit owners
+            //- +i name='rent'
+            i.money.icon
+            |Unit Owners
         .ui.four.cards
             each owners
                 .ui.card
@@ -61,8 +63,9 @@ template(name='unit_owners')
 template(name='unit_residents')            
     .ui.segment
         .ui.header
-            +i name='group'
-            |unit residents
+            //- +i name='group'
+            i.users.icon
+            |Unit Residents
         .ui.four.cards
             each residents
                 .ui.card
@@ -81,9 +84,9 @@ template(name='unit_residents')
 template(name='user_key')
     .ui.segment
         .ui.grey.inline.center.aligned.small.header 
-            //- i.key.icon
-            +i name='key'
-            |key
+            i.key.icon
+            //- +i name='key'
+            |Key
         if is_admin
             +goto_model slug='key'
         with key
@@ -112,7 +115,7 @@ template(name='user_key')
             if is_staff
                 .ui.tiny.grey.header
                     i.grey.shield.icon
-                    |access log            
+                    |Access Log            
                 .ui.list.smallscroll
                     each access_log
                         .item #{when} by #{_author_username}
