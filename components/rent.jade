@@ -1,23 +1,51 @@
 template(name='rentals')
-    .ui.secondary.segment
-        .ui.header rentals
-        .ui.green.button.rent rent
-        each rentals
-            +rental
+    .ui.header rentals
+    unless is_author
+        +view_rental
+    .ui.green.button.rent rent
+    .ui.celled.grid
+        .seven.column.row
+            each upcoming_days
+                .column
+                    +upcoming_day data=this
+                    
+template(name='upcoming_day')
+    .ui.small.grey.header #{this}
+    if reservation_exists
+        +reservation
+    .ui.button
+        |rent
+        //- +rental
             
-            
-template(name='rental')
+template(name='view_rental')            
     .ui.segment
-        unless confirmed
-            //- +datetime_edit key='start_time'
-            //- +datetime_edit key='end_time'
-            +range_edit
-            .ui.button.calculate_diff diff
-            .ui.icon.button.delete_rental
-                i.remove.icon
-                
         .ui.header from {{long_date start_datetime}} to {{long_date end_datetime}}
-        +boolean_edit key='confirmed' label='confirmed' direct=true
+        +boolean_view key='confirmed' label='confirmed' direct=true
         .ui.header #{rental_hours} hours at $#{../hourly_rate}/hour totaling $#{hourly_rental_price}
         if rental_days
             .ui.header #{rental_days} days at $#{daily_rental_price}/day
+
+            
+template(name='rental')
+    .ui.segment
+        //- if is_admin
+        //-     +boolean_edit key='completed' label='completed' direct=true
+            
+        unless confirmed
+            +date_edit key='reservation_day' direct=true
+            //- +datetime_edit key='start_time'
+            //- +datetime_edit key='end_time'
+            //- +range_edit
+            //- .ui.button.calculate_diff diff
+            .ui.icon.button.delete_rental
+                i.remove.icon
+                
+        +author_info
+        //- .ui.header from {{long_date start_datetime}} to {{long_date end_datetime}}
+        +boolean_edit key='confirmed' label='confirmed' direct=true
+        .ui.header {{long_date reservation_day}}
+        +date_view key='reservation_day' direct=true    
+        //- .ui.header #{rental_hours} hours at $#{../hourly_rate}/hour totaling $#{hourly_rental_price}
+        //- if rental_days
+            .ui.header #{rental_days} days at $#{daily_rental_price}/day
+        //- .ui.header #{rental_days} days at $#{daily_rental_price}/day

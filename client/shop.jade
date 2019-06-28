@@ -18,7 +18,8 @@ template(name='shop')
                             .header #{title}
                             .smallscroll
                                 |!{description}
-                            +add_to_tab
+                            unless rentable
+                                +add_to_tab
                             a.ui.basic.icon.button(href="/shop/#{_id}/view")
                                 +i name='chevron right' classes='ui mini image'
                             if can_edit
@@ -41,11 +42,10 @@ template(name='add_to_tab')
 
 
 template(name='shop_card')
-    .ui.stackable.grid.segment
-        .four.wide.column
-            a.pointer(href="/shop/#{_id}/view")
-                img.ui.centered.rounded.image(src="{{c.url picture width=300 height=200 crop='fit'}}")
-        .eight.wide.column
+    .ui.card
+        a.pointer(href="/shop/#{_id}/view")
+            img.ui.centered.rounded.image(src="{{c.url picture width=300 height=200 crop='fit'}}")
+        .content
             a.ui.grey.header(href="/shop/#{_id}/view") #{title}
             //- div
             //- +i name='food' classes='ui mini inline image'
@@ -60,9 +60,11 @@ template(name='shop_card')
             //-         .ui.header #{karma_price}k
             //-     .hidden.content
             //-         i.cart.plus.green.large.icon
-            if hourly_rate
-                .ui.header $#{hourly_rate}/hour
-            if dollar_price
+            if rentable
+                .ui.small.grey.header $#{daily_rate}/day
+            //- if hourly_rate
+            //-     .ui.header $#{hourly_rate}/hour
+            unless rentable
                 .ui.header $#{dollar_price}
             //- .ui.basic.animated.fade.button.add_to_cart(title="click to add to cart")
             //-     .visible.content
@@ -74,30 +76,35 @@ template(name='shop_card')
                 .hidden.content
                     i.cart.plus.green.large.icon
             //- +number_viez
-            a.ui.basic.small.icon.button(href="/shop/#{_id}/view")
-                +i name='chevron right' classes='ui mini image'
-            if can_edit
-                a.ui.basic.small.icon.button(href="/shop/#{_id}/edit")
-                    +i name='pencil' classes='ui mini image'
+            //- a.ui.basic.small.icon.button(href="/shop/#{_id}/view")
+            //-     +i name='chevron right' classes='ui mini image'
+            //- if can_edit
+            //-     a.ui.basic.small.icon.button(href="/shop/#{_id}/edit")
+            //-         +i name='pencil' classes='ui mini image'
                 //- +edit_button
-        .four.wide.column
-            with author
-                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 crop='fit'}}")    
-                .ui.inline.header #{first_name} #{last_name}
-                .ui.header #{sales_amount} sales
-                .ui.header #{purchase_amount} purchases
+        //- .four.wide.column
+        //-     with author
+        //-         img.ui.avatar.image(src="{{c.url image_id width=200 height=200 crop='fit'}}")    
+        //-         .ui.inline.header #{first_name} #{last_name}
+        //-         .ui.header #{sales_amount} sales
+        //-         .ui.header #{purchase_amount} purchases
             
 
 template(name='shop_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .six.wide.column
-                .ui.header #{title}
+            .eight.wide.column
+                .ui.inline.header #{title}
+                a.ui.large.basic.icon.button(href="/shop/#{_id}/view")
+                    i.big.green.checkmark.icon
+                .ui.large.basic.icon.button.delete_shop_item
+                    i.big.red.remove.icon
                 +text_edit key='title' icon='header' direct=true
                 +array_edit key='tags' icon='tags' direct=true
                 +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                 +dollar_price_edit key='dollar_price' icon='money' label='dollar price' direct=true
                 +boolean_edit key='active' icon='clock' label='active' direct=true
+                +text_edit key='model' icon='cube' label='model' direct=true
                 +number_edit key='inventory' icon='move-by-trolley' label='inventory' direct=true
                 +date_edit key='date_available' icon='calendar' label='date available' direct=true
                 +time_edit key='time_available' icon='clock' label='time available' direct=true
@@ -124,14 +131,9 @@ template(name='shop_edit')
                     if rentable
                         +number_edit key='hourly_rate' label='hourly rate' icon='time-span' direct=true
                         +number_edit key='daily_rate' label='daily rate' icon='timetable' direct=true
-            .six.wide.column
+            .eight.wide.column
                 +image_edit key='picture' direct=true
                 +html_edit key='description' direct=true
-            .two.wide.column
-                a.ui.massive.basic.icon.button(href="/shop/#{_id}/view")
-                    i.big.green.checkmark.icon   
-                .ui.massive.basic.icon.button.delete_shop_item
-                    i.big.red.remove.icon   
                 
 
 
@@ -140,11 +142,14 @@ template(name='shop_edit')
 
 template(name='shop_view_layout')
     +nav
+    a.ui.large.button(href="/m/shop")
+        i.shop.icon
+        | shop
     with current_doc
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
-                .six.wide.column
+                .four.wide.column
                     .ui.center.aligend.large.header #{title}
                     img.ui.centered.small.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                     if can_edit
@@ -169,14 +174,14 @@ template(name='shop_view_layout')
                             |stats
                             i.line.chart.icon
                     +voting_full            
-                .ten.wide.column
+                .twelve.wide.column
                     +yield
                     
 template(name='shop_stats')
     +product_transactions
 
 template(name='shop_rentals')
-    +cal
+    //- +cal
     +rentals
                         
 template(name='shop_chat')                        
@@ -189,6 +194,7 @@ template(name='shop_info')
     with _author_id
         +user_card
     +array_view key='tags' icon='tags' direct=true
+    +rentals    
     //- +array_view key='location_tags' label='location tags' icon='marker' direct=true
     +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
     +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true

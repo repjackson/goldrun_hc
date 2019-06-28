@@ -22,6 +22,33 @@ if Meteor.isClient
                 model:'rental'
                 product_id:Router.current().params.doc_id
 
+    Template.upcoming_day.onCreated ->
+        console.log @data.data
+        @autorun => Meteor.subscribe 'reservation_slot', @data.data.moment_ob
+        # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), 'shop'
+    Template.rentals.helpers
+        reservation_exists: ->
+            console.log @valueOf()
+
+            for day in [0..6]
+                day_number++
+                # long_form = moment(now).add(day, 'days').format('dddd MMM Do')
+                moment_ob = moment(now).add(day, 'days')
+
+
+        upcoming_days: ->
+            upcoming_days = []
+            now = new Date()
+            today = moment(now).format('dddd MMM Do')
+            # upcoming_days.push today
+            day_number = 0
+            for day in [0..6]
+                day_number++
+                moment_ob = moment(now).add(day, 'days')
+                long_form = moment(now).add(day, 'days').format('dddd MMM Do')
+                upcoming_days.push {moment_ob:moment_ob,long_form:long_form}
+            upcoming_days
+
 
     Template.rental.events
         'click .delete_rental': ->
@@ -48,3 +75,8 @@ if Meteor.isServer
         Docs.find
             model:'rental'
             product_id:product_id
+    Meteor.publish 'reservation_slot', (moment_ob)->
+        console.log moment_ob
+        # data.long_form
+        # Docs.find
+        #     model:'reservation_slot'

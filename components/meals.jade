@@ -25,7 +25,10 @@ template(name='meals')
                 .ui.stackable.three.cards
                     each meals
                         .ui.card
-                            img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+                            if picture
+                                img.ui.image(src="{{c.url picture width=400 height=400}}")
+                            else
+                                img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
                             .content
                                 a.ui.header(href="/meal/#{_id}") #{title}
                                 div created {{from_now _timestamp}}
@@ -51,7 +54,7 @@ template(name='meal_card')
     .ui.stackable.grid.segment
         .four.wide.column
             //- img.ui.fluid.image(src="{{c.url image }}")
-            img.ui.fluid.rounded.image(src="{{c.url image width=200 height=300 crop='fill'}}")
+            img.ui.fluid.rounded.image(src="{{c.url picture width=200 height=300 crop='fill'}}")
         .twelve.wide.column
             .ui.header #{title}
             +ismall name='food'
