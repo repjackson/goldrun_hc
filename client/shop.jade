@@ -3,10 +3,10 @@ template(name='shop')
         .three.wide.column
             .ui.header 
                 +i name='shop'
-                |shop
+                |Shop
             .ui.fluid.button.add_item
                 i.plus.icon
-                |add item
+                |Add Item
             +cloud filter='shop'
         .thirteen.wide.column
             .ui.three.cards
@@ -30,9 +30,9 @@ template(name='add_to_tab')
     .ui.segment
         .add_to_tab.ui.green.button
             i.cart.plus.icon
-            |add to tab
+            |Add to Tab
         if current_tab_additions
-            div current tab additions
+            div Current Tab Additions
             .ui.list
                 each current_tab_additions
                     .item
