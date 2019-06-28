@@ -143,8 +143,9 @@ template(name='shop_edit')
 template(name='shop_view_layout')
     +nav
     a.ui.large.button(href="/m/shop")
+        i.chevron.left.icon
         i.shop.icon
-        | shop
+        | Shop
     with current_doc
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
@@ -154,24 +155,24 @@ template(name='shop_view_layout')
                     img.ui.centered.small.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                     if can_edit
                         a.ui.fluid.button(href="/shop/#{_id}/edit")
-                            i.pencil.icon
-                            |edit
+                            i.cog.icon
+                            |Edit
                     .ui.large.vertical.fluid.menu
                         a.item(href="/shop/#{_id}/info")
-                            |info
+                            |Info
                             i.info.icon
                         if hourly_rate
                             a.item(href="/shop/#{_id}/rentals")
-                                |rentals
+                                |Rentals
                                 i.clock.icon
                         a.item(href="/shop/#{_id}/chat")
-                            |chat
+                            |Chat
                             i.chat.icon
                         a.item(href="/shop/#{_id}/earnings")
-                            |earnings
+                            |Earnings
                             i.money.icon
                         a.item(href="/shop/#{_id}/stats")
-                            |stats
+                            |Stats
                             i.line.chart.icon
                     +voting_full            
                 .eleven.wide.column
@@ -188,13 +189,13 @@ template(name='shop_chat')
     +comments
                     
 template(name='shop_info')                        
+    +rentals    
     +html_view key='description' direct=true
     .ui.header added by #{_author_username}
     |#{when}
     with _author_id
         +user_card
     +array_view key='tags' icon='tags' direct=true
-    +rentals    
     //- +array_view key='location_tags' label='location tags' icon='marker' direct=true
     +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
     +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true

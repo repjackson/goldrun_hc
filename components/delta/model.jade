@@ -36,8 +36,8 @@ template(name='model_edit')
                         each fields
                             .title 
                                 |#{rank}
-                                +i name=icon classes='ui avatar image'
-                                //- i.icon(class=icon)
+                                //- +i name=icon classes='ui avatar image'
+                                i.icon(class=icon)
                                 |#{title} 
                                 i.dropdown.icon
                             +field_edit

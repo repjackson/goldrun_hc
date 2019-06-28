@@ -1,27 +1,42 @@
 template(name='rentals')
-    .ui.header rentals
+    .ui.header Rentals
     unless is_author
         +view_rental
-    .ui.green.button.rent rent
+    .ui.green.button.rent Rent
     .ui.celled.grid
-        .seven.column.row
+        .three.column.row
             each upcoming_days
                 .column
                     +upcoming_day data=this
                     
 template(name='upcoming_day')
-    .ui.small.grey.header #{this.long_form}
+    .ui.small.grey.header #{print_this.data.long_form}
     if reservation_slot_exists
-        .ui.header res slot exists
-        //- +reservation_slot
+        //- .ui.header res slot exists
+        +reservation_slot_template
     else
         .ui.button.new_slot
-            |new slot
+            |New Slot
         
-template(name='reservation_slot')
-    with reservation_slot
-        .ui.header hi res slot #{this}
+template(name='reservation_slot_template')
+    with slot
+        .ui.header $#{price}
+        unless rented
+            +boolean_edit key='prepaid' direct=true
+            +number_edit key='price' direct=true
+            +remove_button
         //- +rental
+        .ui.divider
+        .ui.header #{price}
+        +boolean_edit key='rented' direct=true
+        .ui.green.button.rent_item Rent Item
+        if reservation
+            +reservation_template
+            
+template(name='reservation_template')        
+    .ui.header reservation
+    +remove_button
+    
             
 template(name='view_rental')            
     .ui.segment

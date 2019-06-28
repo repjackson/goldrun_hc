@@ -23,7 +23,7 @@ if Meteor.isClient
             today = moment(now).format('dddd MMM Do')
             # upcoming_days.push today
             day_number = 0
-            for day in [0..6]
+            for day in [0..2]
                 day_number++
                 moment_ob = moment(now).add(day, 'days')
                 long_form = moment(now).add(day, 'days').format('dddd MMM Do')
@@ -41,18 +41,20 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'reservation_slot', @data.data
         # @autorun => Meteor.subscribe 'reservation_slot', @data.data
         @autorun -> Meteor.subscribe 'model_docs', 'reservation_slot'
+        @autorun -> Meteor.subscribe 'model_docs', 'reservation'
     Template.upcoming_day.helpers
+        print_this: -> @
         reservation_slot_exists: ->
-            # console.log @valueOf()
-            console.log moment(@data.moment_ob).format('MM-DD-YY')
+            # console.log moment(@data.moment_ob).format('MM-DD-YY')
             # @moment_ob.format('dddd MMM Do')
             Docs.findOne
                 model:'reservation_slot'
                 date:@data.moment_ob.format('MM-DD-YY')
 
         reservation_slot: ->
-            # console.log @valueOf()
-            console.log moment(@data.moment_ob).format('MM-DD-YY')
+            # console.log @
+            # console.log Template.parentData(2)
+            # console.log moment(@data.moment_ob).format('MM-DD-YY')
             # @moment_ob.format('dddd MMM Do')
             Docs.findOne
                 model:'reservation_slot'
@@ -73,6 +75,27 @@ if Meteor.isClient
                 date:moment_ob.format('MM-DD-YY')
 
 
+    Template.reservation_slot_template.helpers
+        slot: ->
+            console.log @
+            product = Template.parentData(2)
+            Docs.findOne
+                model:'reservation_slot'
+                date:@data.moment_ob.format('MM-DD-YY')
+                # product_id: product._id
+        reservation: ->
+            console.log Template.parentData(1)
+            Docs.findOne
+                model:'reservation'
+                parent_slot:@_id
+    Template.reservation_slot_template.events
+        'click .rent_item': ->
+            reservation_slot = @
+            Docs.insert
+                model:'reservation'
+                parent_slot: @_id
+                # date:@data.moment_ob.format('MM-DD-YY')
+                # product_id: product._id
     # chips placeholder
     # check weater pressure at chips place with pressure gauge on faucet
 
@@ -102,6 +125,7 @@ if Meteor.isServer
         Docs.find
             model:'rental'
             product_id:product_id
+
     Meteor.publish 'reservation_slot', (moment_ob)->
         rentals_return = []
         # for day in [0..6]
