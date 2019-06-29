@@ -3,16 +3,15 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'rentals',Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs','reservation'
         @autorun => Meteor.subscribe 'model_docs','reservation_slot'
+        # @autorun -> Meteor.subscribe 'shop'
+        # @autorun -> Meteor.subscribe 'model_docs', 'reservation_slot'
+        # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), 'shop'
 
     Template.rentals.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1000
 
-    Template.rentals.onCreated ->
-        # @autorun -> Meteor.subscribe 'shop'
-        @autorun -> Meteor.subscribe 'model_docs', 'reservation_slot'
-        @autorun -> Meteor.subscribe 'docs', selected_tags.array(), 'shop'
     Template.rentals.helpers
         rentals: ->
             Docs.find

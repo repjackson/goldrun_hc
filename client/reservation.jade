@@ -1,22 +1,33 @@
 template(name='reservation_view')
     .ui.stackable.padded.grid
-        .four.wide.column
-            .ui.header reservation view
+        .eight.wide.column
+            .ui.header reservation slot view
+            with reservation_product
+                +reservation_product_template
         .eight.wide.column
             with reservation
+                .ui.segment
+                    .ui.header reservation
+                    .ui.header #{date}
+                    .ui.header #{product_id}
+                    +author_info
+                    .ui.header #{_author_username}
+                    .ui.header #{when}
+                    .ui.big.green.button mark delivery started
+                    .ui.big.green.button mark delivery delivered
+                    .ui.big.green.button mark reservation complete
+            with reservation_slot
                 .ui.header #{date}
-                .ui.header #{product_id}
-                .ui.big.green.button mark delivery started
-                .ui.big.green.button mark delivery delivered
-                .ui.big.green.button mark reservation complete
-                with reservation_product
-                    +reservation_product_template
-        .eight.wide.column
-                if is_author
-                    .ui.header author
+                .ui.header product id:#{product_id}
+                .ui.header parent slot:#{parent_slot}
+        //- .eight.wide.column
+        //-     if is_author
+        //-         .ui.header author
 
 
 template(name='reservation_product_template')
     .ui.segment
+        img.ui.centered.rounded.image(src="{{c.url picture width=300 height=200 crop='fit'}}")
+        a.ui.header(href="/shop/#{_id}/info") #{title}
         |!{description}
         

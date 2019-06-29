@@ -5,8 +5,10 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'reservation_slot_reservation', Router.current().params.doc_id
 
     Template.reservation_view.helpers
-        reservation:->
+        reservation_slot:->
             Docs.findOne Router.current().params.doc_id
+        reservation:->
+            Docs.findOne model:'reservation'
 
         reservation_product:->
             slot = Docs.findOne Router.current().params.doc_id
@@ -34,6 +36,9 @@ if Meteor.isServer
     Meteor.publish 'reservation_slot_reservation', (slot_id)->
         slot = Docs.findOne slot_id
         console.log 'slot', slot
-        Docs.find
+        res = Docs.find(
             model:'reservation'
-            _id:slot.product_id
+            parent_slot:slot._id
+            )
+        console.log res.fetch()
+        return res
