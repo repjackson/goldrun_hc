@@ -20,7 +20,7 @@ Template.registerHelper 'invert_class', () -> if Session.equals('dark_mode',true
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 Template.registerHelper 'is_author', () ->
-    console.log @
+    # console.log @
     @_author_id is Meteor.userId()
 Template.registerHelper 'is_grandparent_author', () ->
     grandparent = Template.parentData(2)

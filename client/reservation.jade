@@ -1,0 +1,22 @@
+template(name='reservation_view')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.header reservation view
+        .eight.wide.column
+            with reservation
+                .ui.header #{date}
+                .ui.header #{product_id}
+                .ui.big.green.button mark delivery started
+                .ui.big.green.button mark delivery delivered
+                .ui.big.green.button mark reservation complete
+                with reservation_product
+                    +reservation_product_template
+        .eight.wide.column
+                if is_author
+                    .ui.header author
+
+
+template(name='reservation_product_template')
+    .ui.segment
+        |!{description}
+        

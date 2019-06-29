@@ -36,6 +36,7 @@ template(name='reservation_slot_template')
             with reservation
                 +reservation_template
         else
+            //- with slot
             .ui.green.button.rent_item Rent Item
             
 template(name='reservation_template')        
@@ -80,7 +81,3 @@ template(name='rental')
         //- if rental_days
             .ui.header #{rental_days} days at $#{daily_rental_price}/day
         //- .ui.header #{rental_days} days at $#{daily_rental_price}/day
-
-
-template(name='reservation_view')
-    .ui.header reservation view

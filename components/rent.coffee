@@ -1,6 +1,8 @@
 if Meteor.isClient
     Template.rentals.onCreated ->
         @autorun => Meteor.subscribe 'rentals',Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'model_docs','reservation'
+        @autorun => Meteor.subscribe 'model_docs','reservation_slot'
 
     Template.rentals.onRendered ->
         Meteor.setTimeout ->
@@ -98,20 +100,33 @@ if Meteor.isClient
                 date:@data.moment_ob.format('MM-DD-YY')
             console.log @slot
         reservation: ->
-            # console.log @
-            # console.log Template.parentData(1)
-            Docs.findOne
+            console.log @
+            console.log Template.parentData(2)
+            slot = Docs.findOne
+                model:'reservation_slot'
+                date:@data.moment_ob.format('MM-DD-YY')
+
+            found_reservation = Docs.findOne
                 model:'reservation'
                 date:@data.moment_ob.format('MM-DD-YY')
-                parent_slot:@_id
+                parent_slot:slot._id
+            console.log found_reservation
+            found_reservation
     Template.reservation_slot_template.events
         'click .rent_item': ->
-            reservation_slot = @
+            # console.log Template.parentData(2)
+            # console.log @
+            product = Docs.findOne Router.current().params.doc_id
+            # console.log product
+            slot = Docs.findOne
+                model:'reservation_slot'
+                date:@data.moment_ob.format('MM-DD-YY')
+            console.log slot
             Docs.insert
                 model:'reservation'
-                parent_slot: @_id
+                parent_slot: slot._id
                 date:@data.moment_ob.format('MM-DD-YY')
-                # product_id: product._id
+                product_id: product._id
     # chips placeholder
     # check weater pressure at chips place with pressure gauge on faucet
 
