@@ -36,6 +36,7 @@ Router.route '/buildings', -> @render 'buildings'
 Router.route '/deliveries', -> @render 'deliveries'
 
 Router.route '/unit/:unit_id', -> @render 'unit'
+Router.route '/reservation_slot/:doc_id', -> @render 'reservation_view'
 Router.route '/building/:building_code', -> @render 'building'
 
 

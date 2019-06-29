@@ -91,6 +91,12 @@ if Meteor.isClient
                 model:'reservation_slot'
                 date:@data.moment_ob.format('MM-DD-YY')
                 # product_id: product._id
+        need_price: ->
+            console.log @
+            slot = Docs.findOne
+                model:'reservation_slot'
+                date:@data.moment_ob.format('MM-DD-YY')
+            console.log @slot
         reservation: ->
             # console.log @
             # console.log Template.parentData(1)

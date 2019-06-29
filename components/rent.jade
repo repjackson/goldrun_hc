@@ -10,7 +10,7 @@ template(name='rentals')
                     +upcoming_day data=this
                     
 template(name='upcoming_day')
-    .ui.small.grey.header #{print_this.data.long_form}
+    a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}") #{print_this.data.long_form}
     if reservation_slot_exists
         //- .ui.header res slot exists
         +reservation_slot_template
@@ -28,9 +28,9 @@ template(name='reservation_slot_template')
                 +number_edit key='price' direct=true
                 +remove_button
             //- +rental
-    unless is_grandparent_author
+    else
         .ui.divider
-        .ui.header #{price}
+        .ui.header $#{slot.price}
         //- +boolean_edit key='rented' direct=true
         if reservation
             with reservation
@@ -80,3 +80,7 @@ template(name='rental')
         //- if rental_days
             .ui.header #{rental_days} days at $#{daily_rental_price}/day
         //- .ui.header #{rental_days} days at $#{daily_rental_price}/day
+
+
+template(name='reservation_view')
+    .ui.header reservation view
