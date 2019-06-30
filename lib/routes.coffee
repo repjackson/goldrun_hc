@@ -21,7 +21,7 @@ Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
 
 Router.route '/units', -> @render 'units'
 Router.route '/add_karma', -> @render 'add_karma'
-Router.route '/karma', -> @render 'karma'
+Router.route '/credit', -> @render 'credit'
 Router.route '/alpha', -> @render 'alpha'
 Router.route '/omega', -> @render 'omega'
 Router.route '/transactions', -> @render 'transactions'
@@ -36,7 +36,7 @@ Router.route '/buildings', -> @render 'buildings'
 Router.route '/deliveries', -> @render 'deliveries'
 
 Router.route '/unit/:unit_id', -> @render 'unit'
-Router.route '/reservation_slot/:doc_id', -> @render 'reservation_view'
+Router.route '/reservation_slot/:doc_id', -> @render 'reservation_slot_view'
 Router.route '/building/:building_code', -> @render 'building'
 
 

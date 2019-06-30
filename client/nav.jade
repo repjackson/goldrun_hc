@@ -103,9 +103,10 @@ template(name='nav')
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
                                 //- +i name='chat'
                                 i.chat.icon
-                            //- a.icon.item(href="/karma" class="{{isActivePath '/karma'}}" title='karma')
-                            //-     +i name='wallet'
-                                |#{currentUser.karma}
+                            a.icon.item(href="/credit" class="{{isActivePath '/credit'}}" title="#{currentUser.credit} credit")
+                                 //- +i name='wallet'
+                                 i.wallet.icon
+                                 |#{currentUser.credit}
                             //- a.icon.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
                             //-     +i name='shopping-cart'
                             //-     |#{cart_amount}

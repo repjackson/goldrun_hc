@@ -46,7 +46,7 @@ template(name='shop_card')
         a.pointer(href="/shop/#{_id}/view")
             img.ui.centered.rounded.image(src="{{c.url picture width=300 height=200 crop='fit'}}")
         .content
-            a.ui.grey.header(href="/shop/#{_id}/view") #{title}
+            a.ui.grey.small.header(href="/shop/#{_id}/view") #{title}
             //- div
             //- +i name='food' classes='ui mini inline image'
             //- each ingredients
@@ -64,8 +64,8 @@ template(name='shop_card')
                 .ui.small.grey.header $#{daily_rate}/day
             //- if hourly_rate
             //-     .ui.header $#{hourly_rate}/hour
-            unless rentable
-                .ui.header $#{dollar_price}
+            //- unless rentable
+            .ui.header $#{dollar_price}
             //- .ui.basic.animated.fade.button.add_to_cart(title="click to add to cart")
             //-     .visible.content
             //-         .ui.header 
@@ -174,6 +174,17 @@ template(name='shop_view_layout')
                         a.item(href="/shop/#{_id}/stats")
                             |Stats
                             i.line.chart.icon
+                    .ui.header added by #{_author_username}
+                    |#{when}
+                    with _author_id
+                        +user_card
+                    +array_view key='tags' icon='tags' direct=true
+                    //- +array_view key='location_tags' label='location tags' icon='marker' direct=true
+                    +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
+                    //- +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
+                    +date_view key='date_available' label='date available' icon='calendar' direct=true
+                    +time_view key='time_available' label='time available' icon='clock' direct=true
+                        
                     +voting_full            
                 .eleven.wide.column
                     +yield
@@ -191,16 +202,6 @@ template(name='shop_chat')
 template(name='shop_info')                        
     +rentals    
     +html_view key='description' direct=true
-    .ui.header added by #{_author_username}
-    |#{when}
-    with _author_id
-        +user_card
-    +array_view key='tags' icon='tags' direct=true
-    //- +array_view key='location_tags' label='location tags' icon='marker' direct=true
-    +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
-    +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
-    +date_view key='date_available' label='date available' icon='calendar' direct=true
-    +time_view key='time_available' label='time available' icon='clock' direct=true
     if food
         +reservations
     .row
