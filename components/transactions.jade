@@ -2,7 +2,8 @@ template(name='transactions')
     .ui.stackable.padded.grid
         .four.wide.column
             .ui.header 
-                +i name='cashbook'
+                //- +i name='cashbook'
+                i.list.icon
                 |transactions
             .value #{unpaid_transactions}
             .label unpaid transactions
@@ -16,7 +17,7 @@ template(name='transactions')
                 |unpaid transactions
         .twelve.wide.column
             .ui.header
-                +i name='move-by-trolley'
+                i.clock.icon
                 |undelivered transactions
             .ui.fluid.styled.accordion
                 each undelivered_transactions
@@ -39,7 +40,7 @@ template(name='transactions')
                                 if is_dev
                                     +remove_button
             .ui.header
-                +i name='shipped'
+                i.checkmark.icon
                 |delivered transactions
             .ui.fluid.styled.accordion
                 each delivered_transactions
@@ -91,11 +92,11 @@ template(name='my_transactions')
     .ui.stackable.padded.grid
         .four.wide.column
             .ui.header 
-                +i name='cashbook'
+                i.list.icon
                 |my transactions
         .twelve.wide.column
             .ui.header
-                +i name='move-by-trolley'
+                i.clock.icon
                 |undelivered transactions
             .ui.styled.fluid.accordion
                 each undelivered_transactions
@@ -117,7 +118,7 @@ template(name='my_transactions')
                                 if is_dev
                                     +remove_button
             .ui.header 
-                +i name='shipped'
+                i.checkmark.icon
                 |delivered transactions
             .ui.styled.fluid.accordion
                 each delivered_transactions

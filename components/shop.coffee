@@ -85,6 +85,27 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.shop_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.shop_view_layout.events
+        'click .add_to_cart': ->
+            console.log @
+            Docs.insert
+                model:'cart_item'
+                product_id:@_id
+            $('body').toast({
+                title: "#{@title} added to cart."
+                # message: 'Please see desk staff for key.'
+                class : 'green'
+                # position:'top center'
+                # className:
+                #     toast: 'ui massive message'
+                displayTime: 5000
+                transition:
+                  showMethod   : 'zoom',
+                  showDuration : 250,
+                  hideMethod   : 'fade',
+                  hideDuration : 250
+                })
+
 
 
     Template.product_transactions.onCreated ->

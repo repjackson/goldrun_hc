@@ -38,10 +38,10 @@ template(name='nav')
                 //-         +i name='shop'
                 //-         .mobile.hidden &nbsp; shop
                 if is_user
-                    a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='shop')
+                    a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                         //- +i name='shop'
                         i.shop.icon
-                        .mobile.hidden &nbsp; Library
+                        .mobile.hidden &nbsp; Market
                     //- a.icon.item.set_library(href='/m/library' class="{{isActivePath '/m/library'}}" title='library')
                     //-     //- +i name='library'
                     //-     i.library.icon
@@ -50,10 +50,10 @@ template(name='nav')
                     //-     //- +i name='calendar'
                     //-     i.calendar.icon
                     //-     .mobile.hidden &nbsp; Events
-                    a.icon.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
-                        //- +i name='food'
-                        i.food.icon
-                        .mobile.hidden &nbsp; Food
+                    //- a.icon.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
+                    //-     //- +i name='food'
+                    //-     i.food.icon
+                    //-     .mobile.hidden &nbsp; Food
                 //- if is_admin
                 //-     a.icon.item(href='/alpha' class="{{isActivePath '/alpha'}}")
                 //-         +i name='alpha'
@@ -107,9 +107,9 @@ template(name='nav')
                                  //- +i name='wallet'
                                  i.wallet.icon
                                  |#{currentUser.credit}
-                            //- a.icon.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
-                            //-     +i name='shopping-cart'
-                            //-     |#{cart_amount}
+                            a.icon.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
+                                +i name='shopping-cart'
+                                |#{cart_amount}
                             //- a.icon.item(href="/deliveries" class="{{isActivePath '/deliveries'}}" title='deliveries')
                             //-     +i name='in-transit'
                                 //- |deliveries

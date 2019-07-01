@@ -1,5 +1,7 @@
 template(name='rentals')
-    .ui.header Rentals
+    .ui.header 
+        i.clock.icon
+        |rentals
     unless is_author
         +view_rental
     //- .ui.green.button.rent Rent
@@ -11,7 +13,7 @@ template(name='rentals')
                     
 template(name='upcoming_day')
     a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}") #{print_this.data.long_form}
-    if reservation_slot_exists
+    if reservation_slot
         //- .ui.header res slot exists
         +reservation_slot_template
     else

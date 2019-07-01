@@ -2,7 +2,7 @@ template(name='delta')
     with current_model
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
+                .five.wide.column.scrolling
                     .ui.inline.header
                         i.icon(class=icon)
                         //- +i name=icon
@@ -47,7 +47,7 @@ template(name='delta')
                     div
                     each sorted_facets
                         +facet
-                .ten.wide.column
+                .eleven.wide.column.scrolling
                     //- .ui.inline.header
                     //-     |sort by
                     //- .ui.button
@@ -66,7 +66,7 @@ template(name='facet')
         //-     .active.title
         .ui.grey.inline.header 
             if icon
-                i.icon(class=icon)
+                i.small.icon(class=icon)
                 //- +i name=icon classes='ui mini inline image'   
             if title
                 |#{title}
@@ -81,12 +81,12 @@ template(name='facet')
         //- div
         each filtering_res
             if name
-                .selector.ui.button.toggle_selection(class=toggle_value_class)
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
                     strong #{name}
                     if is_admin
                         small #{cal_count} #{count}
             else
-                .selector.ui.button.toggle_selection(class=toggle_value_class)
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
                     strong [null]
                     //- small #{cal_count}
         .ui.hidden.divider

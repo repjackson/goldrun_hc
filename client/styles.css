@@ -25,7 +25,7 @@ body {
     -moz-transition: all 0.25s ease;
     -o-transition: all 0.25s ease;
     transition: all 0.25s ease;
-    border-radius: 5px !important;
+    border-radius: 10px !important;
 }
 
 .invert {
@@ -36,18 +36,18 @@ body {
 
 .red_flagged {
   border: 5px solid red !important;
-  /* border-radius: 5px !important; */
+  /* border-radius: 10px !important; */
   box-shadow: 0 4px 8px 0 rgb(220,20,60, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 }
 
 .yellow_flagged {
   border: 5px solid orange !important;
-  /* border-radius: 5px !important; */
+  /* border-radius: 10px !important; */
 }
 
 .green_flagged {
   border: 5px solid green;
-  /* border-radius: 5px; */
+  /* border-radius: 10px; */
 }
 
 .abril{
@@ -123,7 +123,7 @@ input.username_search{
 .button, .segment, .label{
     /* -webkit-border-radius: 10px !important; */
     /* -moz-border-radius: 10px !important; */
-    border-radius: 5px !important;
+    border-radius: 10px !important;
 }
 
 

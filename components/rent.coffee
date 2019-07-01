@@ -52,6 +52,7 @@ if Meteor.isClient
             # console.log moment(@data.moment_ob).format('MM-DD-YY')
             # @moment_ob.format('dddd MMM Do')
             product = Template.parentData(2)
+            console.log product
             Docs.findOne
                 model:'reservation_slot'
                 date:@data.moment_ob.format('MM-DD-YY')
@@ -63,6 +64,7 @@ if Meteor.isClient
             product = Template.parentData(2)
             # console.log moment(@data.moment_ob).format('MM-DD-YY')
             # @moment_ob.format('dddd MMM Do')
+            console.log product
             Docs.findOne
                 model:'reservation_slot'
                 date:@data.moment_ob.format('MM-DD-YY')
@@ -99,8 +101,8 @@ if Meteor.isClient
                 date:@data.moment_ob.format('MM-DD-YY')
             console.log @slot
         reservation: ->
-            console.log @
-            console.log Template.parentData(2)
+            # console.log @
+            # console.log Template.parentData(2)
             slot = Docs.findOne
                 model:'reservation_slot'
                 date:@data.moment_ob.format('MM-DD-YY')
