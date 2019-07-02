@@ -110,7 +110,14 @@ if Meteor.isClient
 
     Template.product_transactions.onCreated ->
         @autorun => Meteor.subscribe 'product_transactions', Router.current().params.doc_id
-
+    Template.product_transactions.events
+        'click .add_transaction': ->
+            console.log @
+            Docs.insert
+                model:'transaction'
+                product_id: @_id
+                transaction_type:'purchase'
+            Meteor.call 'calculate_product_inventory_amount', @_id
     Template.product_transactions.helpers
         product_transactions: ->
             Docs.find
@@ -128,6 +135,20 @@ if Meteor.isServer
                 product_id:product._id
                 delivered:false
 
+        calculate_product_inventory_amount: (product_id)->
+            product = Docs.findOne product_id
+            product_transactions =
+                Docs.find(
+                    model:'transaction'
+                    product_id:product_id
+                    ).count()
+            console.log 'product_transactions',product_transactions
+            console.log 'product_inventory',product.inventory
+            if product_transactions>product.inventory
+                Docs.update product_id,
+                    $set:sold_out:true
+            Docs.update product_id,
+                $set:product_transactions:product_transactions
 
 
 

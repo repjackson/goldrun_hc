@@ -238,8 +238,8 @@ template(name='shop_view_layout')
                 .sixteen.wide.column
                     .ui.center.aligend.large.header #{title}
             .row
-                .four.wide.column
-                    img.ui.centered.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
+                .four.wide.column.scrolling
+                    img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                     if can_edit
                         a.ui.fluid.button(href="/shop/#{_id}/edit")
                             i.cog.icon
@@ -274,51 +274,56 @@ template(name='shop_view_layout')
                     +date_view key='date_available' label='date available' icon='calendar' direct=true
                     +time_view key='time_available' label='time available' icon='clock' direct=true
                         
-                .eight.wide.column
+                .eight.wide.column.scrolling
                     +yield
                 .four.wide.column
-                    .ui.big.green.fluid.button.add_to_cart 
-                        i.cart.plus.icon
-                        |add to cart
-                    +voting_full     
-                    .ui.basic.segment
-                        .ui.small.header
-                            i.grey.truck.icon
-                            |delivery instructions
-                        |#{delivery_instructions}      
-                    .ui.header
-                        i.truck.icon
-                        |delivery options
-                    +boolean_view key='pickup_delivery' label='pickup' direct=true
-                    +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
-                    +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
-                    +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
+                    unless sold_out
+                        .ui.big.green.fluid.button.add_to_cart 
+                            i.cart.plus.icon
+                            |add to cart
+                    else 
+                        .ui.big.disabled.button
+                            i.ban.icon
+                            |sold out
+                    .scrolling
+                        +voting_full     
+                        .ui.basic.segment
+                            .ui.small.header
+                                i.grey.truck.icon
+                                |delivery instructions
+                            |#{delivery_instructions}      
+                        .ui.header
+                            i.truck.icon
+                            |delivery options
+                        +boolean_view key='pickup_delivery' label='pickup' direct=true
+                        +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
+                        +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
+                        +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
 
-                    .ui.list
-                        .ui.header pickup
-                        .ui.header home dropoff
-                        .ui.header health club drop off
-                    .ui.header pricing options options
-                    +boolean_view key='cash_accepted' label='cash accepted' direct=true
-                    +boolean_view key='prepay' label='prepayment required' direct=true
-                    +boolean_view key='security_deposit_required' label='secuirty depoist requiired' direct=true
-                    if security_deposit_required
-                        +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
-                    .ui.header pricing planning determination options
-                    +boolean_view key='friend_discount' label='friend discount' direct=true
-                    if friend_discount
-                        +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
-                    .ui.header
-                        i.grey.eye.icon
-                        | privacy options
-                    .ui.small.header visibility
-                    +boolean_view key='visible_to_friends' label='visible to friends' direct=true
-                    +boolean_view key='visible_to_friends' label='visible to friends' direct=true
-                    +boolean_view key='visible_to_building' label='visible to building' direct=true
-                    +boolean_view key='visible_to_residents' label='visible to residents' direct=true
-                    .ui.divider
-                    +boolean_view key='published' label='published' direct=true
-                         
+                        .ui.list
+                            .ui.header pickup
+                            .ui.header home dropoff
+                            .ui.header health club drop off
+                        .ui.header pricing options options
+                        +boolean_view key='cash_accepted' label='cash accepted' direct=true
+                        +boolean_view key='prepay' label='prepayment required' direct=true
+                        +boolean_view key='security_deposit_required' label='secuirty depoist requiired' direct=true
+                        if security_deposit_required
+                            +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
+                        .ui.header pricing planning determination options
+                        +boolean_view key='friend_discount' label='friend discount' direct=true
+                        if friend_discount
+                            +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
+                        .ui.header
+                            i.grey.eye.icon
+                            | privacy options
+                        .ui.small.header visibility
+                        +boolean_view key='visible_to_friends' label='visible to friends' direct=true
+                        +boolean_view key='visible_to_friends' label='visible to friends' direct=true
+                        +boolean_view key='visible_to_building' label='visible to building' direct=true
+                        +boolean_view key='visible_to_residents' label='visible to residents' direct=true
+                        .ui.divider
+                        +boolean_view key='published' label='published' direct=true
     +footer                
 template(name='shop_stats')
     +product_transactions
@@ -337,6 +342,7 @@ template(name='shop_info')
     +comments
     if food
         +reservations
+    +product_transactions
     .row
         .twelve.wide.column
             if watson
@@ -349,12 +355,26 @@ template(name='shop_info')
                     .content
                         +watson_view
             
+template(name='shop_item_transactions')
+    .ui.segment
+        .ui.header shop item transactions
+        if is_author
+            .ui.big.button 
+                i.checkmark.icon
+                |mark as sold
+        
+
+
 
 
 template(name='product_transactions')
     .ui.header 
         +i name='cashbook'
         |transactions
+    if is_author
+        .ui.big.button.add_transaction
+            i.plus.icon
+            | add transaction
     each product_transactions
         +public_transaction
         
@@ -382,4 +402,5 @@ template(name='public_transaction')
                 +voting
         else
             +array_view key='tags' label='tags' icon='tags' direct=true
+        +remove_button    
                 
