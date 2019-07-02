@@ -28,6 +28,40 @@ if Meteor.isClient
                 Router.go "/m/shop"
 
 
+    Template.product_location.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'transaction'
+    Template.product_location.events
+        'click .recheck_location': ->
+            # console.log @
+            Meteor.call 'recheck_location', @
+        'click .remove_tab_item': ->
+            Docs.remove @_id
+
+
+
+    Template.product_ownership.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'stock_certificate'
+    Template.product_ownership.events
+        'click .recalculate_ownership': ->
+            Meteor.call 'recalculate_ownership', Router.current().params.doc_id
+        'click .make_author_owner': ->
+            Meteor.call 'make_author_owner', Router.current().params.doc_id
+    Template.product_ownership.helpers
+        ownership: ->
+            console.log @
+        stock_certificates: ->
+            Docs.find
+                model:'stock_certificate'
+        # 'click .recheck_location': ->
+        #     # console.log @
+        #     Meteor.call 'recheck_location', @
+        # 'click .remove_tab_item': ->
+        #     Docs.remove @_id
+
+
+
+
+
     Template.add_to_tab.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'transaction'
     Template.add_to_tab.events
@@ -56,10 +90,6 @@ if Meteor.isClient
             Docs.find
                 model:'transaction'
                 product_id:@_id
-
-
-
-
 
 
 
@@ -149,9 +179,8 @@ if Meteor.isClient
     Template.shop_stats.events
         'click .advise_price': ->
             Meteor.call 'advise_price', @_id
-
         'click .calculate_transaction_count': ->
-            console.log @
+            # console.log @
             Meteor.call 'calculate_product_inventory_amount', @_id
     Template.shop_stats.helpers
         product_transactions: ->
@@ -163,6 +192,17 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.methods
+        make_author_owner: (product_id)->
+            product = Docs.findOne product_id
+            Docs.insert
+                model:'stock_certificate'
+                product_id:product._id
+                ownership_percent: 100
+
+        recheck_location: (product_id)->
+            console.log product_id
+            Docs.update product_id,
+                $set:current_location:'home (not reserved)'
         calculate_future_earnings: (product_id)->
             console.log 'product id', product_id
             product = Docs.findOne product_id

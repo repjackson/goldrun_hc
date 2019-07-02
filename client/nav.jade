@@ -40,11 +40,11 @@ template(name='nav')
                 if is_user
                     a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                         i.dashboard.icon
-                        .mobile.hidden &nbsp; Dashboard
+                        .mobile.hidden &nbsp; dashboard
                     a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                         //- +i name='shop'
                         i.shop.icon
-                        .mobile.hidden &nbsp; Market
+                        .mobile.hidden &nbsp; market
                     //- a.icon.item.set_library(href='/m/library' class="{{isActivePath '/m/library'}}" title='library')
                     //-     //- +i name='library'
                     //-     i.library.icon
@@ -74,13 +74,13 @@ template(name='nav')
                         i.clinic.medical.large.icon
                         .mobile.hidden &nbsp; Kiosk
             .right.menu
-                //- if is_admin
-                //-     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                //-         +i name='tasks'
-                        //- i.tasks.large.icon
-                //-     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
-                //-         +i name='note'
-                //-         //- i.rss.large.icon
+                if is_admin
+                    a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
+                        //- +i name='tasks'
+                        i.tasks.large.icon
+                    a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
+                        //- +i name='note'
+                        i.rss.large.icon
                 if currentUser
                     //- .item
                     //-     .ui.header(title='your karma') #{currentUser.karma}
@@ -167,19 +167,21 @@ template(name='footer')
     .ui.fluid.basic.attached.segment.footer
         .ui.container.stackable.grid
             .eight.wide.column
+                with currentUser
+                    +textarea_edit key='notes' direct=true
                 //- +health_club_info
-                //- if is_user
-                //-     +ads
-                //-     form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                //-         input(type='hidden', name='cmd', value='_s-xclick')
-                //-         input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                //-         <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
-                //-         // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                //-         //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                //-         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                //-         button.ui.large.icon.button(type='submit')
-                //-             //- i.pied.piper.alternate.large.icon
-                //-             |donate
+                if is_user
+                    +ads
+                    form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                        input(type='hidden', name='cmd', value='_s-xclick')
+                        input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                        <input type="hidden" name="hosted_button_id" value="7SENHECABERS6" />
+                        // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                        //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                        button.ui.large.icon.button(type='submit')
+                            //- i.pied.piper.alternate.large.icon
+                            |donate
                 
                 //- +health_club_info
                 if is_dev    

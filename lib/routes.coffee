@@ -155,8 +155,8 @@ Router.route "/shop/:doc_id/projections", (->
     ), name:'shop_projections'
 Router.route "/shop/:doc_id/ownership", (->
     @layout 'shop_view_layout'
-    @render 'shop_ownership'
-    ), name:'shop_ownership'
+    @render 'product_ownership'
+    ), name:'product_ownership'
 Router.route "/shop/:doc_id/tasks", (->
     @layout 'shop_view_layout'
     @render 'shop_tasks'

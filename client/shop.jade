@@ -224,49 +224,47 @@ template(name='shop_edit')
 
 template(name='shop_view_layout')
     +nav
-    a.ui.large.button(href="/m/shop")
-        i.chevron.left.icon
-        i.shop.icon
-        | Shop
+    //- a.ui.large.button(href="/m/shop")
+    //-     i.chevron.left.icon
+    //-     i.shop.icon
+    //-     | Shop
     with current_doc
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
-                .sixteen.wide.column
-                    .ui.center.aligend.large.header #{title}
-            .row
                 .four.wide.column
-                    img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
+                    .ui.center.aligend.large.header #{title}
                     if can_edit
                         a.ui.fluid.button(href="/shop/#{_id}/edit")
                             i.cog.icon
                             |edit
                     .ui.large.vertical.fluid.menu
-                        a.item(href="/shop/#{_id}/info")
+                        a.item(href="/shop/#{_id}/info" class="{{isActiveRoute 'shop_info'}}")
                             |info
                             i.info.icon
                         if rentable
-                            a.item(href="/shop/#{_id}/rentals")
+                            a.item(href="/shop/#{_id}/rentals" class="{{isActiveRoute 'shop_rentals'}}")
                                 |rentals
                                 i.clock.icon
-                        a.item(href="/shop/#{_id}/chat")
+                        a.item(href="/shop/#{_id}/chat" class="{{isActiveRoute 'shop_chat'}}")
                             |chat
                             i.chat.icon
-                        a.item(href="/shop/#{_id}/tasks")
+                        a.item(href="/shop/#{_id}/tasks" class="{{isActiveRoute 'shop_tasks'}}")
                             |tasks
                             i.tasks.icon
-                        a.item(href="/shop/#{_id}/earnings")
+                        a.item(href="/shop/#{_id}/earnings" class="{{isActiveRoute 'shop_earnings'}}")
                             |earnings
                             i.money.icon
-                        a.item(href="/shop/#{_id}/stats")
+                        a.item(href="/shop/#{_id}/stats" class="{{isActiveRoute 'shop_stats'}}")
                             |stats
                             i.line.chart.icon
-                        a.item(href="/shop/#{_id}/ownership")
+                        a.item(href="/shop/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}")
                             |ownership
                             i.pie.chart.icon
-                        a.item(href="/shop/#{_id}/projections")
+                        a.item(href="/shop/#{_id}/projections" class="{{isActiveRoute 'shop_projections'}}")
                             |projections
                             i.line.chart.icon
+                    img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                     .ui.header added by #{_author_username}
                     |#{when}
                     with _author_id
@@ -279,10 +277,10 @@ template(name='shop_view_layout')
                     //- +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
                     +date_view key='date_available' label='date available' icon='calendar' direct=true
                     +time_view key='time_available' label='time available' icon='clock' direct=true
-                        
                 .eight.wide.column
                     +yield
                 .four.wide.column
+                    +product_location
                     .ui.header available_inventory #{inventory_available}
                     unless sold_out
                         .ui.big.green.fluid.button.add_to_cart 
@@ -306,7 +304,6 @@ template(name='shop_view_layout')
                         +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
                         +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
                         +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
-
                         .ui.list
                             .ui.header pickup
                             .ui.header home dropoff
@@ -314,7 +311,7 @@ template(name='shop_view_layout')
                         .ui.header pricing options options
                         +boolean_view key='cash_accepted' label='cash accepted' direct=true
                         +boolean_view key='prepay' label='prepayment required' direct=true
-                        +boolean_view key='security_deposit_required' label='secuirty depoist requiired' direct=true
+                        +boolean_view key='security_deposit_required' label='security deposit required' direct=true
                         if security_deposit_required
                             +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
                         .ui.header pricing planning determination options
@@ -346,6 +343,13 @@ template(name='shop_stats')
     .ui.header suggested daily rate #{daily_rate}
     
     //- +product_transactions
+    
+template(name='product_location')
+    .ui.inline.header current location
+    i.refresh.link.icon.recheck_location
+    |#{current_location}
+    
+    
 
 template(name='shop_rentals')
     //- +cal
@@ -371,19 +375,57 @@ template(name='shop_earnings')
 template(name='shop_chat')                        
     +comments
                     
-template(name='shop_ownership')                        
-    .ui.header product ownership
+template(name='product_ownership')                        
+    .ui.header 
+        i.hand.holding.usd.icon
+        |product ownership
     .ui.button.sell_shares sell shares
+    .ui.button.recalculate_ownership recalculate ownership
+    .ui.header #{ownership}
+    .ui.header 
+        | ownership
+    .content
+        .make_author_owner.ui.button make author owner
+        .ui.list
+            each ownership
+                .item user id: #{_user_id} #{percent}
+        .ui.list
+            each stock_certificates
+                .item user id: #{_user_id} #{percent}
+        .ui.header your ownership
+        if has_ownership
+            |#{my_ownership} %
+            #offer_ownership.ui.button offer ownership
+        .ui.header offers
+        .ui.header transactions
+                    
+                    
                     
 template(name='shop_projections')                        
     .ui.header shop projections
-    .ui.button bet a certain avg price at a certain time
+    .ui.disabled.button bet a certain avg price at a certain time
                     
 template(name='shop_tasks')                        
-    .ui.header product tasks
-    .ui.header unreplied messages
-    .ui.header undelivered orders
-    .ui.header open tickets
+    .ui.header
+        i.tasks.icon
+        | product tasks
+    i.green.checkmark.icon
+    |none
+    .ui.header
+        i.envelope.icon
+        | unreplied messages
+    i.green.checkmark.icon
+    |none
+    .ui.header
+        i.clipboard.icon
+        | undelivered orders
+    i.green.checkmark.icon
+    |none
+    .ui.header
+        i.ticket.icon
+        | open tickets
+    i.green.checkmark.icon
+    |none
                     
 template(name='shop_info')    
     if rentable                    

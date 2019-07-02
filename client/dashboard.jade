@@ -34,7 +34,8 @@ template(name='todays_earnings')
         .label earned
     .ui.button.recalculate_todays_earnings recalculate
     each todays_reservations
-        .ui.header #{date}
+        .ui.header #{date} #{notes}
+        a(href="/shop/#{product_id}/view") product view
 
 
 template(name='todays_schedule')

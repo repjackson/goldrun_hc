@@ -1,5 +1,5 @@
 template(name='comments')
-    .ui.fluid.styled.accordion
+    .ui.fluid.accordion
         .active.title
             .ui.grey.header
                 i.chat.icon
@@ -14,7 +14,7 @@ template(name='comments')
                 each doc_comments
                     .comment
                         .content
-                            .header #{body}
+                            .ui.header #{body}
                             .meta #{when}
                             .actions
                                 +voting

@@ -22,6 +22,8 @@ template(name='rentals')
         .seven.column.row
             each month_day
                 +month_day_template
+    each reservations
+        .ui.header #{date} #{notes}
 
 template(name='month_day_template')
     .column

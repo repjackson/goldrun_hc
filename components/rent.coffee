@@ -26,7 +26,7 @@ if Meteor.isClient
                 model:'reservation'
                 product_id:Router.current().params.doc_id
                 date:date_output
-                
+
     Template.month_day_template.events
         'click .new_reservation': ->
             console.log parseInt @
@@ -44,6 +44,11 @@ if Meteor.isClient
         rentals: ->
             Docs.find
                 model:'rental'
+                product_id:Router.current().params.doc_id
+
+        reservations: ->
+            Docs.find
+                model:'reservation'
                 product_id:Router.current().params.doc_id
 
         month_day: ->
@@ -193,8 +198,8 @@ if Meteor.isServer
         # console.log month_day
         # console.log product_id
         reservations = Docs.find(model:'reservation',product_id:product_id).fetch()
-        for reservation in reservations
-            console.log 'id', reservation._id
+        # for reservation in reservations
+            # console.log 'id', reservation._id
             # console.log reservation.paid_amount
         Docs.find
             model:'reservation'
