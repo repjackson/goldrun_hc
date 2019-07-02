@@ -238,29 +238,29 @@ template(name='shop_view_layout')
                 .sixteen.wide.column
                     .ui.center.aligend.large.header #{title}
             .row
-                .four.wide.column.scrolling
+                .four.wide.column
                     img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                     if can_edit
                         a.ui.fluid.button(href="/shop/#{_id}/edit")
                             i.cog.icon
                             |edit
-                    //- .ui.large.vertical.fluid.menu
-                    //-     a.item(href="/shop/#{_id}/info")
-                    //-         |info
-                    //-         i.info.icon
-                    //-     if hourly_rate
-                    //-         a.item(href="/shop/#{_id}/rentals")
-                    //-             |rentals
-                    //-             i.clock.icon
-                    //-     a.item(href="/shop/#{_id}/chat")
-                    //-         |chat
-                    //-         i.chat.icon
-                    //-     a.item(href="/shop/#{_id}/earnings")
-                    //-         |earnings
-                    //-         i.money.icon
-                    //-     a.item(href="/shop/#{_id}/stats")
-                    //-         |stats
-                    //-         i.line.chart.icon
+                    .ui.large.vertical.fluid.menu
+                        a.item(href="/shop/#{_id}/info")
+                            |info
+                            i.info.icon
+                        if hourly_rate
+                            a.item(href="/shop/#{_id}/rentals")
+                                |rentals
+                                i.clock.icon
+                        a.item(href="/shop/#{_id}/chat")
+                            |chat
+                            i.chat.icon
+                        a.item(href="/shop/#{_id}/earnings")
+                            |earnings
+                            i.money.icon
+                        a.item(href="/shop/#{_id}/stats")
+                            |stats
+                            i.line.chart.icon
                     .ui.header added by #{_author_username}
                     |#{when}
                     with _author_id
@@ -277,6 +277,7 @@ template(name='shop_view_layout')
                 .eight.wide.column.scrolling
                     +yield
                 .four.wide.column
+                    .ui.header available_inventory #{inventory_available}
                     unless sold_out
                         .ui.big.green.fluid.button.add_to_cart 
                             i.cart.plus.icon
@@ -326,7 +327,19 @@ template(name='shop_view_layout')
                         +boolean_view key='published' label='published' direct=true
     +footer                
 template(name='shop_stats')
-    +product_transactions
+    .ui.header admin actions
+    .ui.button.calculate_transaction_count calculate transaction count
+    .ui.button.advise_price advise price
+    .ui.header sale price $#{dollar_price}
+    .ui.header transaction count #{transaction_count}
+    .ui.header daily rate $#{daily_rate}
+    .ui.header sales_total $#{sales_total}
+    .ui.header average_sale_price $#{average_sale_price}
+    .ui.header advise notes
+    |#{advise_notes}
+    .ui.header suggested daily rate #{daily_rate}
+    
+    //- +product_transactions
 
 template(name='shop_rentals')
     //- +cal
@@ -375,16 +388,22 @@ template(name='product_transactions')
         .ui.big.button.add_transaction
             i.plus.icon
             | add transaction
-    each product_transactions
-        +public_transaction
+    .ui.styled.accordion
+        each product_transactions
+            +public_transaction
         
 template(name='public_transaction')
-    .ui.segment
+    .title
         +creation_info
         +author_info
-        if dev
+    .content
+        if is_author
+            +boolean_edit key='paid' label='paid' icon='money' direct=true
+            if paid
+                +number_edit key='paid_amount' label='amount paid' icon='hashtag' direct=true
+                +date_edit key='paid_date' label='date paid' icon='calendar' direct=true
+                +text_edit key='paid_payment_method' label='payment method' icon='credit card' direct=true
             +boolean_edit key='delivered' label='delivered' direct=true
-        if is_admin
             unless delivered
                 +image_edit key='dropoff_photo' label='drop off photo' direct=true
                 +datetime_edit key='dropoff_datetime' label='drop off datetime' direct=true

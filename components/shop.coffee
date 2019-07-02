@@ -108,6 +108,12 @@ if Meteor.isClient
 
 
 
+    Template.product_transactions.onRendered ->
+        Template.children_view.onRendered ->
+            Meteor.setTimeout ->
+                $('.accordion').accordion()
+            , 1000
+
     Template.product_transactions.onCreated ->
         @autorun => Meteor.subscribe 'product_transactions', Router.current().params.doc_id
     Template.product_transactions.events
@@ -125,9 +131,54 @@ if Meteor.isClient
                 product_id: Router.current().params.doc_id
 
 
+    Template.shop_stats.onCreated ->
+        @autorun => Meteor.subscribe 'shop_stats', Router.current().params.doc_id
+    Template.shop_stats.events
+        'click .advise_price': ->
+            Meteor.call 'advise_price', @_id
+
+        'click .calculate_transaction_count': ->
+            console.log @
+            Meteor.call 'calculate_product_inventory_amount', @_id
+    Template.shop_stats.helpers
+        product_transactions: ->
+            Docs.find
+                model:'transaction'
+                product_id: Router.current().params.doc_id
+
+
 
 if Meteor.isServer
     Meteor.methods
+        advise_price: (product_id)->
+            product = Docs.findOne product_id
+            advise_notes = 'not enough info'
+            Meteor.call 'calculate_product_inventory_amount', product_id
+            console.log 'transaction_count', product.transaction_count
+            product = Docs.findOne product_id
+            if product.transaction_count is 0
+                advise_notes = 'no transactions found, not enough info to calculate new price'
+                advise_notes = 'no transactions found, not enough info to calculate new price'
+            else
+                advise_notes = "found #{product.transaction_count} transactions, will calculate average"
+                product_transactions =
+                    Docs.find(
+                        model:'transaction'
+                        product_id:product_id
+                        ).fetch()
+                sales_total = 0
+                for transaction in product_transactions
+                    if transaction.paid_amount
+                        console.log 'transaction sale price', transaction.paid_amount
+                        sales_total += transaction.paid_amount
+
+                average_sale_price = sales_total/product.transaction_count
+            Docs.update product_id,
+                $set:
+                    advise_notes:advise_notes
+                    sales_total:sales_total
+                    average_sale_price:average_sale_price
+
         create_transaction: (product)->
             console.log product
             Docs.insert
@@ -137,18 +188,23 @@ if Meteor.isServer
 
         calculate_product_inventory_amount: (product_id)->
             product = Docs.findOne product_id
-            product_transactions =
+            transaction_count =
                 Docs.find(
                     model:'transaction'
                     product_id:product_id
                     ).count()
-            console.log 'product_transactions',product_transactions
+            console.log 'transaction_count',transaction_count
             console.log 'product_inventory',product.inventory
-            if product_transactions>product.inventory
+            if transaction_count>product.inventory
                 Docs.update product_id,
                     $set:sold_out:true
+            else
+                Docs.update product_id,
+                    $set:sold_out:false
             Docs.update product_id,
-                $set:product_transactions:product_transactions
+                $set:
+                    transaction_count:transaction_count
+                    inventory_available:product.inventory-transaction_count
 
 
 
