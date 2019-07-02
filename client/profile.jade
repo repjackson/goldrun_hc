@@ -32,7 +32,7 @@ template(name='user_layout')
                         //-     i.sent.icon
                         //-     |direct message
                     unless is_staff
-                        .ui.vertical.big.fluid.menu
+                        .ui.vertical.fluid.menu
                             //- if is_staff
                             //-     a.item(href="/user/#{username}/residency" class="{{isActiveRoute 'user_residency'}}")
                             //-         i.home.icon
@@ -43,30 +43,32 @@ template(name='user_layout')
                             a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
                                 i.info.icon
                                 |About
-                            //- a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                            //-     i.handshake.icon
-                            //-     |social
-                            //- a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                            //-     i.book.icon
-                            //-     |documents
-                            //- a.item(href="/user/#{username}/payment" class="{{isActiveRoute 'user_payment'}}")
-                            //-      i.money.icon
-                            //-      |payment
-                            //- a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
-                            //-      i.phone.icon
-                            //-      |contact
-                            //- a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
-                            //-     i.fork.icon
-                            //-     |comparison
-                            //- a.item(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
-                            //-     i.tags.icon
-                            //-     |tags
-                            //- a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
-                            //-      i.heart.icon
-                            //-      |karma
-                            //- a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
-                            //-      i.money.icon
-                            //-      |transactions                            
+                        if is_user
+                            .ui.vertical.fluid.menu
+                                a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
+                                    i.handshake.icon
+                                    |social
+                                a.item(href="/user/#{username}/products" class="{{isActiveRoute 'user_products'}}")
+                                    i.shop.icon
+                                    |products
+                                a.item(href="/user/#{username}/payment" class="{{isActiveRoute 'user_payment'}}")
+                                     i.money.icon
+                                     |payment
+                                a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
+                                     i.phone.icon
+                                     |contact
+                                a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
+                                    i.fork.icon
+                                    |comparison
+                                a.item(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
+                                    i.tags.icon
+                                    |tags
+                                a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
+                                     i.heart.icon
+                                     |karma
+                                a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
+                                     i.money.icon
+                                     |transactions                            
                     if is_current_user
                         a.ui.fluid.button.logout(href="#")
                             i.sign.out.icon
@@ -189,6 +191,12 @@ template(name='user_healthclub')
             |Generate Health Club Checkin Barcode
         div
         svg#barcode
+    
+template(name='user_products')
+    .ui.segment
+        .ui.header 
+            i.shop.icon
+            |User Products
     
     
 template(name='user_about')

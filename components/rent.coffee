@@ -26,6 +26,7 @@ if Meteor.isClient
                 model:'reservation'
                 product_id:Router.current().params.doc_id
                 date:date_output
+                
     Template.month_day_template.events
         'click .new_reservation': ->
             console.log parseInt @

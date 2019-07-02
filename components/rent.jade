@@ -25,12 +25,13 @@ template(name='rentals')
 
 template(name='month_day_template')
     .column
+        .ui.basic.label #{this}
         if reservation_exists
-            i.ban.icon(title='unavailable')
+            .ui.icon.disabled.button
+                i.ban.icon(title='unavailable')
         else
             .ui.icon.button.new_reservation
                 i.checkmark.icon(title='available')
-        .ui.label #{this}
                     
 template(name='upcoming_day')
     a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}") #{print_this.data.long_form}

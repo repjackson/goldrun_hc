@@ -1,0 +1,46 @@
+template(name='dashboard')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                .ui.header 
+                    i.dashboard.icon
+                    |dashboard
+        .row
+            .four.wide.column
+                +todays_schedule
+            .four.wide.column
+                .ui.header 
+                    i.user.icon
+                    |top buying user
+            .four.wide.column
+                .ui.header
+                    i.star.icon
+                    | top selling product
+            .four.wide.column
+                +todays_earnings
+            .four.wide.column
+                .ui.header 
+                    i.line.chart.icon
+                    |stats
+                .ui.small.header #{currentUser.current_product_count} products
+                .ui.small.header #{currentUser.reservation_count} reservations
+        
+template(name='todays_earnings')
+    .ui.header 
+        i.money.icon
+        |todays earnings
+    .ui.statistic
+        .value $24
+        .label earned
+    .ui.button.recalculate_todays_earnings recalculate
+    each todays_reservations
+        .ui.header #{date}
+
+
+template(name='todays_schedule')
+    .ui.header
+        i.calendar.icon
+        |schedule for today
+    if today_events
+        each today_events
+            .ui.header #{title}

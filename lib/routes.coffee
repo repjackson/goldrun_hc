@@ -32,6 +32,7 @@ Router.route '/register', -> @render 'register'
 Router.route '/cart', -> @render 'cart'
 Router.route '/tab', -> @render 'tab'
 Router.route '/admin', -> @render 'admin'
+Router.route '/dashboard', -> @render 'dashboard'
 Router.route '/buildings', -> @render 'buildings'
 Router.route '/deliveries', -> @render 'deliveries'
 
@@ -148,6 +149,14 @@ Router.route "/shop/:doc_id/chat", (->
     @layout 'shop_view_layout'
     @render 'shop_chat'
     ), name:'shop_chat'
+Router.route "/shop/:doc_id/projections", (->
+    @layout 'shop_view_layout'
+    @render 'shop_projections'
+    ), name:'shop_projections'
+Router.route "/shop/:doc_id/ownership", (->
+    @layout 'shop_view_layout'
+    @render 'shop_ownership'
+    ), name:'shop_ownership'
 Router.route "/shop/:doc_id/tasks", (->
     @layout 'shop_view_layout'
     @render 'shop_tasks'
@@ -205,32 +214,26 @@ Router.route '/user/:username/tags', (->
     @layout 'user_layout'
     @render 'user_tags'
     ), name:'user_tags'
-
-
 Router.route '/user/:username/residency', (->
     @layout 'user_layout'
     @render 'user_residency'
     ), name:'user_residency'
-
-
 Router.route '/user/:username/transactions', (->
     @layout 'user_layout'
     @render 'user_transactions'
     ), name:'user_transactions'
-
-
 Router.route '/user/:username/documents', (->
     @layout 'user_layout'
     @render 'user_documents'
     ), name:'user_documents'
-
-
 Router.route '/user/:username/contact', (->
     @layout 'user_layout'
     @render 'user_contact'
     ), name:'user_contact'
-
-
+Router.route '/user/:username/products', (->
+    @layout 'user_layout'
+    @render 'user_products'
+    ), name:'user_products'
 Router.route '/user/:username/comparison', (->
     @layout 'user_layout'
     @render 'user_comparison'

@@ -47,6 +47,19 @@ if Meteor.isClient
 
 
 
+    Template.shop_earnings.events
+        'click .calculate_future_earnings': ->
+            Meteor.call 'calculate_future_earnings', @_id
+    Template.shop_earnings.helpers
+        current_tab_additions: ->
+            # console.log @
+            Docs.find
+                model:'transaction'
+                product_id:@_id
+
+
+
+
 
 
 
@@ -150,6 +163,25 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.methods
+        calculate_future_earnings: (product_id)->
+            console.log 'product id', product_id
+            product = Docs.findOne product_id
+            reservations =
+                Docs.find
+                    model:'reservation'
+                    product_id:product_id
+                    paid:$ne:true
+            future_earnings = 0
+            for reservation in reservations.fetch()
+                if reservation.price
+                    future_earnings += reservation.price
+            console.log 'future earnings', future_earnings, 'after ', reservations.count(), 'amount'
+            Docs.update product_id,
+                $set:
+                    future_earnings:future_earnings
+                    future_reservations:reservations.count(),
+
+
         advise_price: (product_id)->
             product = Docs.findOne product_id
             advise_notes = 'not enough info'
@@ -157,7 +189,6 @@ if Meteor.isServer
             console.log 'transaction_count', product.transaction_count
             product = Docs.findOne product_id
             if product.transaction_count is 0
-                advise_notes = 'no transactions found, not enough info to calculate new price'
                 advise_notes = 'no transactions found, not enough info to calculate new price'
             else
                 advise_notes = "found #{product.transaction_count} transactions, will calculate average"

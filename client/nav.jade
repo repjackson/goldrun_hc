@@ -38,6 +38,9 @@ template(name='nav')
                 //-         +i name='shop'
                 //-         .mobile.hidden &nbsp; shop
                 if is_user
+                    a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                        i.dashboard.icon
+                        .mobile.hidden &nbsp; Dashboard
                     a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                         //- +i name='shop'
                         i.shop.icon
@@ -103,17 +106,17 @@ template(name='nav')
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
                                 //- +i name='chat'
                                 i.chat.icon
-                            a.icon.item(href="/credit" class="{{isActivePath '/credit'}}" title="#{currentUser.credit} credit")
+                            a.item(href="/credit" class="{{isActivePath '/credit'}}" title="#{currentUser.credit} credit")
                                  //- +i name='wallet'
                                  i.wallet.icon
                                  |#{currentUser.credit}
-                            a.icon.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
-                                +i name='shopping-cart'
+                            a.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
+                                i.cart.icon
                                 |#{cart_amount}
                             //- a.icon.item(href="/deliveries" class="{{isActivePath '/deliveries'}}" title='deliveries')
                             //-     +i name='in-transit'
                                 //- |deliveries
-                            a.icon.item(href="/tab" class="{{isActivePath '/tab'}}" title='tab')
+                            a.item(href="/tab" class="{{isActivePath '/tab'}}" title='tab')
                                 //- +i name='shopping-cart'
                                 i.cart.icon
                                 |#{cart_amount}

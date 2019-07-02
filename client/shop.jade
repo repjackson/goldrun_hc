@@ -261,6 +261,12 @@ template(name='shop_view_layout')
                         a.item(href="/shop/#{_id}/stats")
                             |stats
                             i.line.chart.icon
+                        a.item(href="/shop/#{_id}/ownership")
+                            |ownership
+                            i.pie.chart.icon
+                        a.item(href="/shop/#{_id}/projections")
+                            |projections
+                            i.line.chart.icon
                     .ui.header added by #{_author_username}
                     |#{when}
                     with _author_id
@@ -345,8 +351,33 @@ template(name='shop_rentals')
     //- +cal
     +rentals
                         
+template(name='shop_earnings')
+    .ui.header 
+        i.line.chart.icon
+        |shop earnings
+    .ui.segment
+        .ui.small.header future earnings
+        .ui.small.header future reservations #{future_reservations}
+        .ui.small.header future reservations #{future_earnings}
+        .ui.button.calculate_future_earnings calculate future earnings
+    .ui.segment
+        .ui.small.header total earnings
+        .ui.header sales_total $#{sales_total}
+        .ui.button.calculate_total_earnings calculate total earnings
+    .ui.segment
+        .ui.small.header monthly earnings
+            
+                        
 template(name='shop_chat')                        
     +comments
+                    
+template(name='shop_ownership')                        
+    .ui.header product ownership
+    .ui.button.sell_shares sell shares
+                    
+template(name='shop_projections')                        
+    .ui.header shop projections
+    .ui.button bet a certain avg price at a certain time
                     
 template(name='shop_tasks')                        
     .ui.header product tasks
