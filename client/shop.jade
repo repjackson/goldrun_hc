@@ -200,7 +200,7 @@ template(name='shop_edit')
                     .ui.header pricing options options
                     +boolean_edit key='cash_accepted' label='cash accepted' direct=true
                     +boolean_edit key='prepay' label='prepayment required' direct=true
-                    +boolean_edit key='security_deposit_required' label='secuirty depoist requiired' direct=true
+                    +boolean_edit key='security_deposit_required' label='security deposit required' direct=true
                     if security_deposit_required
                         +number_edit key='security_deposit_amount' label='security deposit amount' icon='dollar'
                     .ui.header pricing planning determination options
@@ -220,9 +220,6 @@ template(name='shop_edit')
                         
                 
                     
-
-
-        
 
 
 template(name='shop_view_layout')
@@ -248,13 +245,16 @@ template(name='shop_view_layout')
                         a.item(href="/shop/#{_id}/info")
                             |info
                             i.info.icon
-                        if hourly_rate
+                        if rentable
                             a.item(href="/shop/#{_id}/rentals")
                                 |rentals
                                 i.clock.icon
                         a.item(href="/shop/#{_id}/chat")
                             |chat
                             i.chat.icon
+                        a.item(href="/shop/#{_id}/tasks")
+                            |tasks
+                            i.tasks.icon
                         a.item(href="/shop/#{_id}/earnings")
                             |earnings
                             i.money.icon
@@ -274,7 +274,7 @@ template(name='shop_view_layout')
                     +date_view key='date_available' label='date available' icon='calendar' direct=true
                     +time_view key='time_available' label='time available' icon='clock' direct=true
                         
-                .eight.wide.column.scrolling
+                .eight.wide.column
                     +yield
                 .four.wide.column
                     .ui.header available_inventory #{inventory_available}
@@ -347,6 +347,12 @@ template(name='shop_rentals')
                         
 template(name='shop_chat')                        
     +comments
+                    
+template(name='shop_tasks')                        
+    .ui.header product tasks
+    .ui.header unreplied messages
+    .ui.header undelivered orders
+    .ui.header open tickets
                     
 template(name='shop_info')    
     if rentable                    

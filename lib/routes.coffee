@@ -148,6 +148,10 @@ Router.route "/shop/:doc_id/chat", (->
     @layout 'shop_view_layout'
     @render 'shop_chat'
     ), name:'shop_chat'
+Router.route "/shop/:doc_id/tasks", (->
+    @layout 'shop_view_layout'
+    @render 'shop_tasks'
+    ), name:'shop_tasks'
 Router.route "/shop/:doc_id/stats", (->
     @layout 'shop_view_layout'
     @render 'shop_stats'

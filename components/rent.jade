@@ -10,6 +10,27 @@ template(name='rentals')
             each upcoming_days
                 .column
                     +upcoming_day data=this
+    .ui.celled.grid
+        .seven.column.row
+            .header.column sun
+            .header.column mon
+            .header.column tues
+            .header.column wed
+            .header.column thurs
+            .header.column fri
+            .header.column sat
+        .seven.column.row
+            each month_day
+                +month_day_template
+
+template(name='month_day_template')
+    .column
+        if reservation_exists
+            i.ban.icon(title='unavailable')
+        else
+            .ui.icon.button.new_reservation
+                i.checkmark.icon(title='available')
+        .ui.label #{this}
                     
 template(name='upcoming_day')
     a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}") #{print_this.data.long_form}

@@ -1,8 +1,8 @@
 if Meteor.isClient
     Template.rentals.onCreated ->
         @autorun => Meteor.subscribe 'rentals',Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs','reservation'
-        @autorun => Meteor.subscribe 'model_docs','reservation_slot'
+        # @autorun => Meteor.subscribe 'model_docs','reservation'
+        # @autorun => Meteor.subscribe 'model_docs','reservation_slot'
         # @autorun -> Meteor.subscribe 'shop'
         # @autorun -> Meteor.subscribe 'model_docs', 'reservation_slot'
         # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), 'shop'
@@ -12,11 +12,41 @@ if Meteor.isClient
             $('.accordion').accordion()
         , 1000
 
+
+    Template.month_day_template.onCreated ->
+        @autorun => Meteor.subscribe 'reservation_by_day',Router.current().params.doc_id, @data
+    Template.month_day_template.helpers
+        reservation_exists: ->
+            # console.log @
+            # console.log Template.currentData()
+            today = new Date()
+            this_days_number = parseInt @
+            date_output = moment(today).format("MM-#{this_days_number}-YY")
+            Docs.findOne
+                model:'reservation'
+                product_id:Router.current().params.doc_id
+                date:date_output
+    Template.month_day_template.events
+        'click .new_reservation': ->
+            console.log parseInt @
+            this_days_number = parseInt @
+            today = new Date()
+            console.log moment(today).format("MM-#{this_days_number}-YY")
+            date_output = moment(today).format("MM-#{this_days_number}-YY")
+            Docs.insert
+                model:'reservation'
+                product_id:Router.current().params.doc_id
+                date:date_output
+
+
     Template.rentals.helpers
         rentals: ->
             Docs.find
                 model:'rental'
                 product_id:Router.current().params.doc_id
+
+        month_day: ->
+            [1..30]
 
         upcoming_days: ->
             upcoming_days = []
@@ -41,8 +71,8 @@ if Meteor.isClient
         # console.log @data.data
         # @autorun => Meteor.subscribe 'reservation_slot', @data.data
         # @autorun => Meteor.subscribe 'reservation_slot', @data.data
-        @autorun -> Meteor.subscribe 'model_docs', 'reservation_slot'
-        @autorun -> Meteor.subscribe 'model_docs', 'reservation'
+        # @autorun -> Meteor.subscribe 'model_docs', 'reservation_slot'
+        # @autorun -> Meteor.subscribe 'model_docs', 'reservation'
     Template.upcoming_day.helpers
         print_this: -> @
         is_product_author: ->
@@ -64,7 +94,7 @@ if Meteor.isClient
             product = Template.parentData(2)
             # console.log moment(@data.moment_ob).format('MM-DD-YY')
             # @moment_ob.format('dddd MMM Do')
-            console.log product
+            # console.log product
             Docs.findOne
                 model:'reservation_slot'
                 date:@data.moment_ob.format('MM-DD-YY')
@@ -156,6 +186,17 @@ if Meteor.isServer
     Meteor.publish 'rentals', (product_id)->
         Docs.find
             model:'rental'
+            product_id:product_id
+
+    Meteor.publish 'reservation_by_day', (product_id, month_day)->
+        # console.log month_day
+        # console.log product_id
+        reservations = Docs.find(model:'reservation',product_id:product_id).fetch()
+        for reservation in reservations
+            console.log 'id', reservation._id
+            # console.log reservation.paid_amount
+        Docs.find
+            model:'reservation'
             product_id:product_id
 
     Meteor.publish 'reservation_slot', (moment_ob)->
