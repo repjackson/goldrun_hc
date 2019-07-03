@@ -33,8 +33,11 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'users', ->
-        Meteor.users.find()
+    Meteor.publish 'users', (limit)->
+        if limit
+            Meteor.users.find({},limit:limit)
+        else
+            Meteor.users.find()
 
 
     Meteor.publish 'user_search', (username)->

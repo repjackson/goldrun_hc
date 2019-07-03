@@ -41,9 +41,14 @@ SyncedCron.add({
 if Meteor.isProduction
     SyncedCron.start()
 
-Meteor.publish 'model_docs', (model)->
-    Docs.find
-        model: model
+Meteor.publish 'model_docs', (model,limit)->
+    if limit
+        Docs.find {
+            model: model
+        }, limit:limit
+    else
+        Docs.find
+            model: model
 
 Meteor.publish 'document_by_slug', (slug)->
     Docs.find

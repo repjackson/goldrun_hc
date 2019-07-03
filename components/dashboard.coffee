@@ -2,30 +2,42 @@ if Meteor.isClient
     Template.dashboard.onCreated ->
         # @autorun -> Meteor.subscribe 'dashboard'
         # @autorun -> Meteor.subscribe 'model_docs', 'event'
+
+
+
+
+    Template.top_selling_products.onRendered ->
+        @autorun -> Meteor.subscribe 'model_docs', 'shop'
+    Template.top_selling_products.helpers
+        top_products: ->
+            Docs.find(
+                {
+                    model:'shop'
+                    _author_id:Meteor.userId()
+                },limit:5
+            )
+
+
+    Template.top_buying_user.onRendered ->
+        @autorun -> Meteor.subscribe 'users',5
+    Template.top_buying_user.helpers
+        top_buying_users: ->
+            Meteor.users.find({},limit:5)
+
+
     Template.dashboard.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1000
 
-    Template.dashboard.helpers
-        today_events: ->
-            today_formatted = moment(Date.now()).format("MM-DD-YY")
-            Docs.find
-                model:'event'
-
-        today_reservations: ->
-            today_formatted = moment(Date.now()).format("MM-DD-YY")
-            Docs.find
-                model:'reservation'
-
-
-    Template.dashboard.helpers
-
-
-
 
     Template.todays_schedule.onCreated ->
         @autorun -> Meteor.subscribe 'todays_reservations', Meteor.userId()
+    Template.todays_schedule.helpers
+        today_events: ->
+            today_formatted = moment(Date.now()).format("MM-DD-YY")
+            Docs.find({model:'shop'},limit:5)
+
 
     Template.todays_earnings.helpers
         todays_reservations: ->

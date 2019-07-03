@@ -192,7 +192,6 @@ template(name='shop_edit')
                     +boolean_edit key='home_dropoff_delivery' label='home dropoff' direct=true
                     +boolean_edit key='building_dropoff_delivery' label='building dropoff' direct=true
                     +boolean_edit key='healthclub_drop_off_delivery' label='health club drop off' direct=true
-
                     .ui.list
                         .ui.header pickup
                         .ui.header home dropoff
@@ -385,13 +384,17 @@ template(name='product_ownership')
     .ui.header 
         | ownership
     .content
+        .ui.label author #{_author_username}
+        if is_dev
+            +text_edit key='_author_username' direct=true
+            +single_user_edit key='_author_username' direct=true
         .make_author_owner.ui.button make author owner
         .ui.list
             each ownership
                 .item user id: #{_user_id} #{percent}
         .ui.list
             each stock_certificates
-                .item user id: #{_user_id} #{percent}
+                .item #{_author_username} #{ownership_percent}
         .ui.header your ownership
         if has_ownership
             |#{my_ownership} %

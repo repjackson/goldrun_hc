@@ -1,29 +1,47 @@
 template(name='dashboard')
     .ui.stackable.padded.grid
-        .row
-            .four.wide.column
-                .ui.header 
-                    i.dashboard.icon
-                    |dashboard
+        //- .row
+        //-     .four.wide.column
+        //-         .ui.header 
+        //-             i.dashboard.icon
+        //-             |dashboard
         .row
             .four.wide.column
                 +todays_schedule
             .four.wide.column
-                .ui.header 
-                    i.user.icon
-                    |top buying user
+                +top_buying_user
             .four.wide.column
-                .ui.header
-                    i.star.icon
-                    | top selling product
+                +top_selling_products
             .four.wide.column
                 +todays_earnings
             .four.wide.column
-                .ui.header 
-                    i.line.chart.icon
-                    |stats
-                .ui.small.header #{currentUser.current_product_count} products
-                .ui.small.header #{currentUser.reservation_count} reservations
+                +product_stats
+
+
+template(name='product_stats')
+    .ui.header 
+        i.line.chart.icon
+        |stats
+    .ui.small.header #{currentUser.current_product_count} products
+    .ui.small.header #{currentUser.reservation_count} reservations
+        
+template(name='top_buying_user')
+    .ui.header 
+        i.user.icon
+        |top buying user
+    each top_buying_users
+        .ui.small.header
+            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='crop'}}")        
+            | #{username}
+        
+template(name='top_selling_products')
+    .ui.header
+        i.star.icon
+        | top selling products
+    each top_products
+        .ui.small.header
+            img.ui.avatar.image(src="{{c.url image width=100 height=100 gravity='face' crop='crop'}}")        
+            | #{title}
         
 template(name='todays_earnings')
     .ui.header 
@@ -41,7 +59,6 @@ template(name='todays_earnings')
 template(name='todays_schedule')
     .ui.header
         i.calendar.icon
-        |schedule for today
-    if today_events
-        each today_events
-            .ui.header #{title}
+        |schedule for today hi
+    each today_events
+        .ui.header hi #{title} #{long_timestamp} #{_author_username}
