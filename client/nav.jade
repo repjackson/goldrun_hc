@@ -30,13 +30,13 @@ template(name='nav')
                         i.users.large.icon
                         //- +i name='groups' classes='ui avatar image'
                         .mobile.hidden &nbsp; Users
-                //- if is_user        
-                //-     //- a.item(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
-                //-     //-     +i name='food'
-                //-     //-     .mobile.hidden &nbsp; meals
-                //-     a.item(href='/shop' class="{{isActivePath '/shop'}}")
-                //-         +i name='shop'
-                //-         .mobile.hidden &nbsp; shop
+                if is_user        
+                    //- a.item(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
+                    //-     +i name='food'
+                    //-     .mobile.hidden &nbsp; meals
+                    a.item(href='/shop' class="{{isActivePath '/shop'}}")
+                        i.desktop.icon
+                        .mobile.hidden &nbsp; shop
                 if is_user
                     a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                         i.dashboard.icon
@@ -74,13 +74,13 @@ template(name='nav')
                         i.clinic.medical.large.icon
                         .mobile.hidden &nbsp; Kiosk
             .right.menu
-                if is_admin
-                    a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                        //- +i name='tasks'
-                        i.tasks.large.icon
-                    a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
-                        //- +i name='note'
-                        i.rss.large.icon
+                //- if is_admin
+                //-     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
+                //-         //- +i name='tasks'
+                //-         i.tasks.large.icon
+                //-     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
+                //-         //- +i name='note'
+                //-         i.rss.large.icon
                 if currentUser
                     //- .item
                     //-     .ui.header(title='your karma') #{currentUser.karma}

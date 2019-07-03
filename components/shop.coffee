@@ -13,6 +13,53 @@ if Meteor.isClient
         products: ->
             Docs.find
                 model:'shop'
+        top_selling_people: ->
+            Meteor.users.find {
+            },
+                sort:points:-1
+                limit:5
+        top_grossing_people: ->
+            Meteor.users.find {
+            },
+                sort:points:-1
+                limit:5
+        top_selling_products: ->
+            Docs.find {
+                model:'shop'
+            },
+                sort:points:-1
+                limit:5
+        top_grossing_products: ->
+            Docs.find {
+                model:'shop'
+            },
+                sort:points:-1
+                limit:5
+        most_viewed: ->
+            Docs.find {
+                model:'shop'
+            },
+                sort:views:-1
+                limit:5
+        top_voted: ->
+            Docs.find {
+                model:'shop'
+            },
+                sort:points:-1
+                limit:5
+        most_expensive_rentals: ->
+            Docs.find {
+                model:'shop'
+                rentable:true
+            },
+                sort:daily_rate:-1
+                limit:5
+        newest_products:->
+            Docs.find {
+                model:'shop'
+            },
+                sort:_timestamp:-1
+                limit:5
 
     Template.shop.events
         'click .add_item': ->

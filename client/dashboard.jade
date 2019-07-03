@@ -10,11 +10,12 @@ template(name='dashboard')
                 +todays_schedule
             .four.wide.column
                 +top_buying_user
+                +bookmarked_users
             .four.wide.column
                 +top_selling_products
+                .ui.header top selling tags
             .four.wide.column
                 +todays_earnings
-            .four.wide.column
                 +product_stats
 
 
@@ -25,40 +26,60 @@ template(name='product_stats')
     .ui.small.header #{currentUser.current_product_count} products
     .ui.small.header #{currentUser.reservation_count} reservations
         
-template(name='top_buying_user')
+template(name='bookmarked_users')
     .ui.header 
-        i.user.icon
-        |top buying user
-    each top_buying_users
-        .ui.small.header
-            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='crop'}}")        
-            | #{username}
+        i.favorite.icon
+        |bookmarked users
+    //- .ui.small.header #{currentUser.current_product_count} products
+    //- .ui.small.header #{currentUser.reservation_count} reservations
+        
+template(name='top_buying_user')
+    .ui.secondary.segment
+        .ui.header 
+            i.user.icon
+            |top buying user
+        each top_buying_users
+            a(href="/user/#{username}")
+                .ui.small.header
+                    img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='crop'}}")        
+                    | #{username}
         
 template(name='top_selling_products')
-    .ui.header
-        i.star.icon
-        | top selling products
-    each top_products
-        .ui.small.header
-            img.ui.avatar.image(src="{{c.url image width=100 height=100 gravity='face' crop='crop'}}")        
-            | #{title}
+    .ui.secondary.segment
+        .ui.header
+            i.star.icon
+            | top selling products
+        .ui.animated.list
+            each top_products
+                a.item(href="/shop/#{_id}/view")
+                    .ui.small.header
+                        img.ui.avatar.image(src="{{c.url image width=100 height=100 gravity='face' crop='crop'}}")        
+                        | #{title}
         
 template(name='todays_earnings')
-    .ui.header 
-        i.money.icon
-        |todays earnings
-    .ui.statistic
-        .value $24
-        .label earned
-    .ui.button.recalculate_todays_earnings recalculate
-    each todays_reservations
-        .ui.header #{date} #{notes}
-        a(href="/shop/#{product_id}/view") product view
+    .ui.secondary.segment
+        .ui.header 
+            i.money.icon
+            |todays earnings
+        .ui.statistic
+            .value $#{todays_earnings}
+            .label earned
+        .ui.button.recalculate_todays_earnings 
+            i.refresh.icon
+        each todays_reservations
+            .ui.header #{date} #{notes}
+            a(href="/shop/#{product_id}/view") product view
+        .ui.header available jobs
 
 
 template(name='todays_schedule')
-    .ui.header
-        i.calendar.icon
-        |schedule for today hi
-    each today_events
-        .ui.header hi #{title} #{long_timestamp} #{_author_username}
+    .ui.secondary.segment
+        .ui.header
+            i.calendar.icon
+            |schedule for today
+        .ui.small.header tasks due today
+        .ui.small.header unread messages
+        .ui.small.header unread tickets
+        .ui.small.header events
+        //- each today_events
+        //-     .ui.header #{title} #{long_timestamp} #{_author_username}

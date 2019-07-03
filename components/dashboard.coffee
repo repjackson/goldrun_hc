@@ -2,7 +2,10 @@ if Meteor.isClient
     Template.dashboard.onCreated ->
         # @autorun -> Meteor.subscribe 'dashboard'
         # @autorun -> Meteor.subscribe 'model_docs', 'event'
-
+    Template.dashboard.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 1000
 
 
 
@@ -24,11 +27,6 @@ if Meteor.isClient
         top_buying_users: ->
             Meteor.users.find({},limit:5)
 
-
-    Template.dashboard.onRendered ->
-        Meteor.setTimeout ->
-            $('.accordion').accordion()
-        , 1000
 
 
     Template.todays_schedule.onCreated ->

@@ -3,28 +3,132 @@ template(name='shop')
         .three.wide.column
             .ui.header 
                 +i name='shop'
-                |Shop
+                |shop
             .ui.fluid.button.add_item
                 i.plus.icon
-                |Add Item
+                |add item
             +cloud filter='shop'
         .thirteen.wide.column
-            .ui.three.cards
-                each products
-                    .ui.card
-                        a(href="/shop/#{_id}/view")
-                            img.ui.centered.rounded.image(src="{{c.url picture width=300 height=200 crop='fit'}}")
-                        .content 
-                            .header #{title}
-                            .smallscroll
-                                |!{description}
-                            unless rentable
-                                +add_to_tab
-                            a.ui.basic.icon.button(href="/shop/#{_id}/view")
-                                +i name='chevron right' classes='ui mini image'
-                            if can_edit
-                                a.ui.basic.button(href="/shop/#{_id}/edit")
-                                    +i name='pencil' classes='ui mini image'
+            .ui.stackable.grid
+                .row
+                    .four.wide.column
+                        .ui.segment
+                            .ui.header 
+                                i.box.icon
+                                |top selling products
+                            each top_selling_products
+                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+                                .ui.inline.small.header #{title}
+                                .meta #{sales_total}sales                         
+                    .four.wide.column
+                        .ui.segment
+                            .ui.header 
+                                i.users.icon
+                                |top selling people
+                            each top_selling_people
+                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+                                .ui.inline.small.header #{first_name} #{last_name}
+                                .meta #{sales_amount}sales                                                            
+                    .four.wide.column
+                        .ui.segment
+                            .ui.header 
+                                i.clock.icon
+                                |most rented
+                            each top_grossing_products
+                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+                                .ui.inline.small.header #{title}
+                                .meta #{sales_amount}sales
+                    .four.wide.column
+                        .ui.segment
+                            .ui.header 
+                                i.bullhorn.icon
+                                |ad
+                .row
+                    .four.wide.column
+                        .ui.segment
+                            .ui.header 
+                                i.cubes.icon
+                                |top grossing products
+                            each top_grossing_products
+                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+                                .ui.inline.small.header #{title}
+                                .meta #{sales_amount}sales                                
+                        
+                    .four.wide.column
+                        .ui.segment
+                            .ui.header 
+                                i.users.icon
+                                |top grossing people
+                            each top_grossing_people
+                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+                                .ui.inline.small.header #{first_name} #{last_name}
+                                .meta #{sales_amount}sales                                
+                    .four.wide.column
+                        .ui.segment
+                            .ui.header 
+                                i.thumbs.up.icon
+                                |most liked
+                            each top_voted
+                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+                                .ui.inline.small.header #{title}
+                                .meta #{points}pts                                  
+                    .four.wide.column
+                        .ui.segment
+                            .ui.header 
+                                i.diamond.ring.icon
+                                |most expensive rentals
+                            each most_expensive_rentals
+                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+                                .ui.inline.small.header #{title}
+                                .meta $#{daily_rate}/day                                  
+                .row
+                    //- .four.wide.column
+                    //-     .ui.segment
+                    //-         .ui.header 
+                    //-             i.tags.icon
+                    //-             |top grossing tags
+                    //- .four.wide.column
+                    //-     .ui.segment
+                    //-         .ui.header 
+                    //-             i.building.icon
+                    //-             |top grossing buildings
+                    //-         .ui.icon.button.calculate_top_grossing_buildings 
+                    //-             i.refresh.icon
+                    .four.wide.column
+                        .ui.segment
+                            .ui.header 
+                                i.eye.icon
+                                |most viewed
+                            each most_viewed
+                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+                                .ui.inline.small.header #{title}
+                                .meta #{views}
+                    .four.wide.column
+                        .ui.segment
+                            .ui.header 
+                                i.clock.icon
+                                |newest products
+                            each newest_products
+                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+                                .ui.inline.small.header #{title}
+                                .meta #{when}
+                //- .row
+                //-     .ui.three.cards
+                //-         each products
+                //-             .ui.card
+                //-                 a(href="/shop/#{_id}/view")
+                //-                     img.ui.centered.rounded.image(src="{{c.url picture width=300 height=200 crop='fit'}}")
+                //-                 .content 
+                //-                     .header #{title}
+                //-                     .smallscroll
+                //-                         |!{description}
+                //-                     unless rentable
+                //-                         +add_to_tab
+                //-                     a.ui.basic.icon.button(href="/shop/#{_id}/view")
+                //-                         +i name='chevron right' classes='ui mini image'
+                //-                     if can_edit
+                //-                         a.ui.basic.button(href="/shop/#{_id}/edit")
+                //-                             +i name='pencil' classes='ui mini image'
 
 template(name='add_to_tab')
     .ui.segment
@@ -75,38 +179,38 @@ template(name='shop_card')
             i.grey.marker.icon
             each location_tags
                 .ui.small.basic.label #{this}
-            div
-            .ui.small.inline.header(title='completed transactions') 
-                i.grey.checkmark.icon
-                if completed_transaction_amount
-                    |#{completed_transaction_amount} 
-                else 
-                    |0
-            div
-            div
-            .ui.small.inline.header(title='comments') 
-                i.grey.chat.icon
-                if chat_message_amount
-                    |#{chat_message_amount} 
-                else 
-                    |0
-            div
-            .ui.small.inline.header(title='likes') 
-                i.grey.thumbs.up.icon
-                if likes
-                    |#{likes} 
-                else 
-                    |0
-            div
-            div
-            .ui.small.inline.header(title='dislikes') 
-                i.grey.thumbs.down.icon
-                if dislikes
-                    |#{dislikes} 
-                else 
-                    |0
-            div
-            +fav_button
+            //- div
+            //- .ui.small.inline.header(title='completed transactions') 
+            //-     i.grey.checkmark.icon
+            //-     if completed_transaction_amount
+            //-         |#{completed_transaction_amount} 
+            //-     else 
+            //-         |0
+            //- div
+            //- div
+            //- .ui.small.inline.header(title='comments') 
+            //-     i.grey.chat.icon
+            //-     if chat_message_amount
+            //-         |#{chat_message_amount} 
+            //-     else 
+            //-         |0
+            //- div
+            //- .ui.small.inline.header(title='likes') 
+            //-     i.grey.thumbs.up.icon
+            //-     if likes
+            //-         |#{likes} 
+            //-     else 
+            //-         |0
+            //- div
+            //- div
+            //- .ui.small.inline.header(title='dislikes') 
+            //-     i.grey.thumbs.down.icon
+            //-     if dislikes
+            //-         |#{dislikes} 
+            //-     else 
+            //-         |0
+            //- div
+            //- +fav_button
             //- .ui.basic.animated.fade.button.add_to_cart(title="click to add to cart")
             //-     .visible.content
             //-         .ui.header 
