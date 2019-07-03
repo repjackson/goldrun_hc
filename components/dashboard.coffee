@@ -1,11 +1,40 @@
 if Meteor.isClient
     Template.dashboard.onCreated ->
-        # @autorun -> Meteor.subscribe 'dashboard'
+        @autorun -> Meteor.subscribe 'my_products'
         # @autorun -> Meteor.subscribe 'model_docs', 'event'
     Template.dashboard.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1000
+
+
+    Template.dashboard.helpers
+        my_products: ->
+            Docs.find
+                model:'shop'
+                _author_id:Meteor.userId()
+
+
+    Template.product_viewing.helpers
+        readers: ->
+            Meteor.users.find
+                _id: $in: @reader_ids
+        marked_read: ->
+            if @read_by_ids
+                console.log @reader_ids
+            else
+                console.log 'no readers'
+            if @reader_ids and Meteor.userId() in @reader_ids then true else false
+
+    Template.product_viewing.events
+        'click .mark_unread': ->
+            Docs.update @_id,
+                $pull:reader_ids:Meteor.userId()
+        'click .mark_read': ->
+            Docs.update @_id,
+                $addToSet:reader_ids:Meteor.userId()
+
+
 
 
 
@@ -51,9 +80,11 @@ if Meteor.isClient
             Meteor.call 'recalculate_todays_earnings', Meteor.userId()
 
 
-
-
 if Meteor.isServer
+    Meteor.publish 'my_products', (user_id)->
+        Docs.find
+            model:'shop'
+            _author_id:user_id
     Meteor.publish 'todays_reservations', (user_id)->
         user = Meteor.users.findOne user_id
         product_cursor = Docs.find(model:'shop',_author_id:user_id)

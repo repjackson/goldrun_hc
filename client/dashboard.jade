@@ -17,6 +17,18 @@ template(name='dashboard')
             .four.wide.column
                 +todays_earnings
                 +product_stats
+        .row
+            .sixteen.wide.column
+                .ui.five.cards
+                    each my_products
+                        +product_card
+                
+template(name='product_card')                
+    .ui.card
+        .content
+            a.header(href="/shop/#{_id}/view")
+                img.ui.avatar.image(src="{{c.url picture width=100 height=100 gravity='face' crop='crop'}}")
+                | #{title}
 
 
 template(name='product_stats')

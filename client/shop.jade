@@ -79,7 +79,7 @@ template(name='shop')
                                 |most expensive rentals
                             each most_expensive_rentals
                                 img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
-                                .ui.inline.small.header #{title}
+                                a.ui.inline.small.header(href="/shop/#{_id}/view") #{title}
                                 .meta $#{daily_rate}/day                                  
                 .row
                     //- .four.wide.column
@@ -336,7 +336,7 @@ template(name='shop_view_layout')
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
                 .four.wide.column
-                    .ui.center.aligend.large.header #{title}
+                    .ui.large.header #{title}
                     if can_edit
                         a.ui.fluid.button(href="/shop/#{_id}/edit")
                             i.cog.icon
@@ -538,6 +538,7 @@ template(name='shop_info')
     if rentable                    
         +rentals    
     +html_view key='description' direct=true
+    +product_viewing
     +comments
     if food
         +reservations
@@ -553,6 +554,21 @@ template(name='shop_info')
                             i.dropdown.icon
                     .content
                         +watson_view
+            
+template(name='product_viewing')
+    .ui.secondary.segment
+        .ui.header
+            i.eye.icon
+            | product viewing
+        if marked_read
+            .ui.button.mark_unread mark unread
+        else
+            .ui.button.mark_read mark read
+        div
+        each readers
+            .ui.label 
+                |#{username}
+            
             
 template(name='shop_item_transactions')
     .ui.segment
