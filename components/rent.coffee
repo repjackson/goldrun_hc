@@ -16,6 +16,11 @@ if Meteor.isClient
     Template.month_day_template.onCreated ->
         @autorun => Meteor.subscribe 'reservation_by_day',Router.current().params.doc_id, @data
     Template.month_day_template.helpers
+        product: -> Docs.findOne Router.current().params.doc_id
+        month: -> moment(Date.now()).format("MM")
+        day: -> parseInt @
+        year: -> moment(Date.now()).format("YY")
+
         reservation_exists: ->
             # console.log @
             # console.log Template.currentData()
@@ -26,6 +31,21 @@ if Meteor.isClient
                 model:'reservation'
                 product_id:Router.current().params.doc_id
                 date:date_output
+        reservation_count: ->
+            # console.log @
+            # console.log Template.currentData()
+            today = new Date()
+            this_days_number = parseInt @
+            date_output = moment(today).format("MM-#{this_days_number}-YY")
+            # console.log date_output
+            result = Docs.find(
+                model:'reservation'
+                product_id:Router.current().params.doc_id
+                date:date_output
+                ).count()
+            # console.log result
+            result
+
 
     Template.month_day_template.events
         'click .new_reservation': ->
@@ -60,7 +80,7 @@ if Meteor.isClient
             today = moment(now).format('dddd MMM Do')
             # upcoming_days.push today
             day_number = 0
-            for day in [0..3]
+            for day in [0..6]
                 day_number++
                 moment_ob = moment(now).add(day, 'days')
                 long_form = moment(now).add(day, 'days').format('dddd MMM Do')
@@ -205,8 +225,8 @@ if Meteor.isServer
             product_id:product_id
 
     Meteor.publish 'reservation_by_day', (product_id, month_day)->
-        # console.log month_day
-        # console.log product_id
+        console.log month_day
+        console.log product_id
         reservations = Docs.find(model:'reservation',product_id:product_id).fetch()
         # for reservation in reservations
             # console.log 'id', reservation._id

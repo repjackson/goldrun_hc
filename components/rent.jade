@@ -6,7 +6,7 @@ template(name='rentals')
         +view_rental
     //- .ui.green.button.rent Rent
     .ui.celled.grid
-        .four.column.row
+        .seven.column.row
             each upcoming_days
                 .column
                     +upcoming_day data=this
@@ -23,27 +23,36 @@ template(name='rentals')
             each month_day
                 +month_day_template
     each reservations
-        .ui.header #{date} #{notes}
+        .ui.segment
+            .ui.small.header 
+                i.clock.grey.icon
+                |#{hour}:00
+            .ui.header 
+                |#{date} #{notes}
+            +author_info
 
 template(name='month_day_template')
     .column
-        .ui.basic.label #{this}
-        if reservation_exists
-            .ui.icon.disabled.button
-                i.ban.icon(title='unavailable')
-        else
-            .ui.icon.button.new_reservation
-                i.checkmark.icon(title='available')
+        a(href="/shop/#{product._id}/daily_calendar/#{month}/#{day}/#{year}") #{this}
+        .ui.basic.label(title='reservations') #{reservation_count}
+        //- if reservation_exists
+        //-     //- with reservation_exists
+        //-         |#{_id}
+        //-     .ui.icon.disabled.button
+        //-         i.ban.icon(title='unavailable')
+        //- else
+        //-     .ui.icon.button.new_reservation
+        //-         i.checkmark.icon(title='available')
                     
 template(name='upcoming_day')
     a.ui.small.grey.header(href="/shop/#{product._id}/daily_calendar/#{month}/#{day}/#{year}") #{this.data.long_form}
-    if reservation_slot
-        //- .ui.header res slot exists
-        +reservation_slot_template
-    else
-        if is_product_author
-            .ui.button.new_slot
-                |new slot
+    //- if reservation_slot
+    //-     //- .ui.header res slot exists
+    //-     +reservation_slot_template
+    //- else
+    //-     if is_product_author
+    //-         .ui.button.new_slot
+    //-             |new slot
         
 template(name='reservation_slot_template')
     if is_grandparent_author
