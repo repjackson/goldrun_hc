@@ -17,8 +17,7 @@ template(name='shop')
                                 i.box.icon
                                 |top selling products
                             each top_selling_products
-                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
-                                .ui.inline.small.header #{title}
+                                +product_header
                                 .meta #{sales_total}sales                         
                     .four.wide.column
                         .ui.segment
@@ -34,9 +33,8 @@ template(name='shop')
                             .ui.header 
                                 i.clock.icon
                                 |most rented
-                            each top_grossing_products
-                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
-                                .ui.inline.small.header #{title}
+                            each most_rented
+                                +product_header
                                 .meta #{sales_amount}sales
                     .four.wide.column
                         .ui.segment
@@ -50,8 +48,7 @@ template(name='shop')
                                 i.cubes.icon
                                 |top grossing products
                             each top_grossing_products
-                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
-                                .ui.inline.small.header #{title}
+                                +product_header
                                 .meta #{sales_amount}sales                                
                         
                     .four.wide.column
@@ -69,8 +66,7 @@ template(name='shop')
                                 i.thumbs.up.icon
                                 |most liked
                             each top_voted
-                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
-                                .ui.inline.small.header #{title}
+                                +product_header
                                 .meta #{points}pts                                  
                     .four.wide.column
                         .ui.segment
@@ -78,8 +74,7 @@ template(name='shop')
                                 i.diamond.ring.icon
                                 |most expensive rentals
                             each most_expensive_rentals
-                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
-                                a.ui.inline.small.header(href="/shop/#{_id}/view") #{title}
+                                +product_header
                                 .meta $#{daily_rate}/day                                  
                 .row
                     //- .four.wide.column
@@ -100,8 +95,7 @@ template(name='shop')
                                 i.eye.icon
                                 |most viewed
                             each most_viewed
-                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
-                                .ui.inline.small.header #{title}
+                                +product_header
                                 .meta #{views}
                     .four.wide.column
                         .ui.segment
@@ -109,8 +103,7 @@ template(name='shop')
                                 i.clock.icon
                                 |newest products
                             each newest_products
-                                img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
-                                .ui.inline.small.header #{title}
+                                +product_header
                                 .meta #{when}
                 //- .row
                 //-     .ui.three.cards
@@ -129,6 +122,14 @@ template(name='shop')
                 //-                     if can_edit
                 //-                         a.ui.basic.button(href="/shop/#{_id}/edit")
                 //-                             +i name='pencil' classes='ui mini image'
+
+template(name='product_header')
+    a(href="/shop/#{_id}/view")
+        img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+        .ui.inline.small.header #{title}
+
+
+
 
 template(name='add_to_tab')
     .ui.segment

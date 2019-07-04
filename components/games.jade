@@ -5,7 +5,14 @@ template(name='game')
 
 
 
-template(name='picker_game')
-    .ui.header picker game
-    with current_product
-        .ui.header hi current product
+template(name='picker')
+    .ui.padded.stackable.grid
+        .row
+            .ten.wide.center.aligned.column
+                .ui.header picker game
+                with current_product
+                    .ui.card
+                        img.ui.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+                        .content
+                            .ui.header #{title}
+                            +voting

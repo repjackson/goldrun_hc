@@ -67,10 +67,12 @@ if Meteor.isClient
                 product_id:Router.current().params.doc_id
 
         reservations: ->
-            Docs.find
+            Docs.find {
                 model:'reservation'
                 product_id:Router.current().params.doc_id
-
+            },sort:
+                date:-1
+                hour:-1
         month_day: ->
             [1..30]
 

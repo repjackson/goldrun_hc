@@ -141,16 +141,28 @@ template(name='shop_view_layout')
                 .eight.wide.column
                     +yield
                 .four.wide.column
+                    .ui.small.statistic
+                        .value 
+                            |$#{future_earnings}
+                        .label
+                            |future earnings 
+                    .ui.small.statistic
+                        .value 
+                            |#{future_reservations}
+                        .label
+                            |future reservations
+                    div
                     +product_location
                     .ui.header available_inventory #{inventory_available}
-                    unless sold_out
-                        .ui.big.green.fluid.button.add_to_cart 
-                            i.cart.plus.icon
-                            |add to cart
-                    else 
-                        .ui.big.disabled.button
-                            i.ban.icon
-                            |sold out
+                    if for_sale
+                        unless sold_out
+                            .ui.big.green.fluid.button.add_to_cart 
+                                i.cart.plus.icon
+                                |add to cart
+                        else 
+                            .ui.big.disabled.button
+                                i.ban.icon
+                                |sold out
                     .scrolling
                         +voting_full     
                         .ui.basic.segment
@@ -221,10 +233,15 @@ template(name='shop_earnings')
         i.line.chart.icon
         |shop earnings
     .ui.segment
-        .ui.small.header future earnings
-        .ui.small.header future reservations #{future_reservations}
-        .ui.small.header future reservations #{future_earnings}
-        .ui.button.calculate_future_earnings calculate future earnings
+        .ui.small.header 
+            i.clock.icon
+            |future reservations #{future_reservations}
+        .ui.small.header 
+            i.money.icon
+            |future earnings $#{future_earnings}
+        .ui.button.calculate_future_earnings 
+            i.refresh.icon
+            //- calculate future earnings
     .ui.segment
         .ui.small.header total earnings
         .ui.header sales_total $#{sales_total}
@@ -324,9 +341,13 @@ template(name='product_viewing')
             i.eye.icon
             | viewers
         if marked_read
-            .ui.button.mark_unread mark unread
+            .ui.button.mark_unread 
+                i.eye.icon
+                |mark unread
         else
-            .ui.button.mark_read mark read
+            .ui.button.mark_read
+                i.hidden.icon
+                | mark read
         div
         .ui.header reader count #{reader_count}
         each readers

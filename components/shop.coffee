@@ -54,6 +54,13 @@ if Meteor.isClient
             },
                 sort:daily_rate:-1
                 limit:5
+        most_rented: ->
+            Docs.find {
+                model:'shop'
+                rentable:true
+            },
+                sort:daily_rate:-1
+                limit:5
         newest_products:->
             Docs.find {
                 model:'shop'
@@ -195,8 +202,10 @@ if Meteor.isServer
                     paid:$ne:true
             future_earnings = 0
             for reservation in reservations.fetch()
-                if reservation.price
-                    future_earnings += reservation.price
+                if product.hourly_rate
+                    future_earnings += product.hourly_rate
+                # if reservation.price
+                #     future_earnings += reservation.price
             console.log 'future earnings', future_earnings, 'after ', reservations.count(), 'amount'
             Docs.update product_id,
                 $set:

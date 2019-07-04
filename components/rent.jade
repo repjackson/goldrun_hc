@@ -24,12 +24,14 @@ template(name='rentals')
                 +month_day_template
     each reservations
         .ui.segment
-            .ui.small.header 
+            .ui.small.inline.header 
                 i.clock.grey.icon
                 |#{hour}:00
-            .ui.header 
+            .ui.inline.small.header 
                 |#{date} #{notes}
             +author_info
+            if is_author
+                +remove_button
 
 template(name='month_day_template')
     .column
