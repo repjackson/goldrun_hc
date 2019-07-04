@@ -35,12 +35,18 @@ template(name='nav')
                     //-     +i name='food'
                     //-     .mobile.hidden &nbsp; meals
                     a.item(href='/shop' class="{{isActivePath '/shop'}}")
-                        i.desktop.icon
+                        i.shop.icon
                         .mobile.hidden &nbsp; shop
                 if is_user
                     a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                         i.dashboard.icon
                         .mobile.hidden &nbsp; dashboard
+                        
+                    a.icon.item(href='/games' class="{{isActivePath '/games'}}")
+                        //- +i name='shop'
+                        i.dice.icon
+                        .mobile.hidden &nbsp; games
+                if is_admin
                     a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                         //- +i name='shop'
                         i.shop.icon

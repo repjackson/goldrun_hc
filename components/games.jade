@@ -1,0 +1,11 @@
+template(name='game')
+    with current_game
+        .ui.header #{title}
+        +Template.dynamic template=slug
+
+
+
+template(name='picker_game')
+    .ui.header picker game
+    with current_product
+        .ui.header hi current product

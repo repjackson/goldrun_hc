@@ -34,12 +34,14 @@ Router.route '/tab', -> @render 'tab'
 Router.route '/admin', -> @render 'admin'
 Router.route '/dashboard', -> @render 'dashboard'
 Router.route '/buildings', -> @render 'buildings'
+Router.route '/games', -> @render 'games'
 Router.route '/deliveries', -> @render 'deliveries'
 
 Router.route '/unit/:unit_id', -> @render 'unit'
-Router.route '/reservation_slot/:doc_id', -> @render 'reservation_slot_view'
 Router.route '/building/:building_code', -> @render 'building'
 
+Router.route '/shop/:product_id/daily_calendar/:month/:day/:year/', -> @render 'product_day_view'
+Router.route '/game/:game_slug', -> @render 'game'
 
 Router.route('enroll', {
     path: '/enroll-account/:token'

@@ -538,7 +538,12 @@ template(name='shop_info')
     if rentable                    
         +rentals    
     +html_view key='description' direct=true
-    +product_viewing
+    .ui.grid
+        .two.column.row
+            .column
+                +product_viewing
+            .column
+                +voting_full
     +comments
     if food
         +reservations
@@ -559,12 +564,13 @@ template(name='product_viewing')
     .ui.secondary.segment
         .ui.header
             i.eye.icon
-            | product viewing
+            | viewers
         if marked_read
             .ui.button.mark_unread mark unread
         else
             .ui.button.mark_read mark read
         div
+        .ui.header reader count #{reader_count}
         each readers
             .ui.label 
                 |#{username}

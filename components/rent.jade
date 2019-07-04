@@ -36,14 +36,14 @@ template(name='month_day_template')
                 i.checkmark.icon(title='available')
                     
 template(name='upcoming_day')
-    a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}") #{print_this.data.long_form}
+    a.ui.small.grey.header(href="/shop/#{product._id}/daily_calendar/#{month}/#{day}/#{year}") #{this.data.long_form}
     if reservation_slot
         //- .ui.header res slot exists
         +reservation_slot_template
     else
         if is_product_author
             .ui.button.new_slot
-                |New Slot
+                |new slot
         
 template(name='reservation_slot_template')
     if is_grandparent_author
@@ -63,10 +63,10 @@ template(name='reservation_slot_template')
                 +reservation_template
         else
             //- with slot
-            .ui.green.button.rent_item Rent Item
+            .ui.green.button.rent_item rent item
             
 template(name='reservation_template')        
-    .ui.header Reservation
+    .ui.header reservation
     +author_info
     .ui.small.header #{_author_username}
     if is_author

@@ -30,9 +30,11 @@ if Meteor.isClient
         'click .mark_unread': ->
             Docs.update @_id,
                 $pull:reader_ids:Meteor.userId()
+                $inc:reader_count:-1
         'click .mark_read': ->
             Docs.update @_id,
                 $addToSet:reader_ids:Meteor.userId()
+                $inc:reader_count:1
 
 
 

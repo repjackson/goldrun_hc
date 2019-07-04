@@ -43,7 +43,7 @@ template(name='user_layout')
                             a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
                                 i.info.icon
                                 |About
-                        if is_user
+                        if is_staff
                             .ui.vertical.fluid.menu
                                 a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
                                     i.handshake.icon

@@ -80,7 +80,17 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'model_docs', 'reservation_slot'
         # @autorun -> Meteor.subscribe 'model_docs', 'reservation'
     Template.upcoming_day.helpers
-        print_this: -> @
+        product: ->
+            Docs.findOne Router.current().params.doc_id
+        print_this: ->
+            console.log @data.moment_ob
+        month: ->
+            moment(@data.moment_ob).format("M")
+        day: ->
+            moment(@data.moment_ob).format("D")
+        year: ->
+            moment(@data.moment_ob).format("YY")
+
         is_product_author: ->
             product = Template.parentData(2)
             if product._author_id is Meteor.userId() then true else false
