@@ -40,7 +40,7 @@ Router.route '/deliveries', -> @render 'deliveries'
 Router.route '/unit/:unit_id', -> @render 'unit'
 Router.route '/building/:building_code', -> @render 'building'
 
-Router.route '/shop/:product_id/daily_calendar/:month/:day/:year/', -> @render 'product_day_view'
+Router.route '/shop/:product_id/daily_calendar/:month/:day/:year/', -> @render 'product_day'
 Router.route '/game/:game_slug', -> @render 'game'
 
 Router.route('enroll', {
