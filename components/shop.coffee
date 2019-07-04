@@ -192,6 +192,7 @@ if Meteor.isServer
             console.log product_id
             Docs.update product_id,
                 $set:current_location:'home (not reserved)'
+
         calculate_future_earnings: (product_id)->
             console.log 'product id', product_id
             product = Docs.findOne product_id
@@ -201,16 +202,28 @@ if Meteor.isServer
                     product_id:product_id
                     paid:$ne:true
             future_earnings = 0
+            future_reservations = 0
+            past_reservations = 0
+            past_earnings = 0
             for reservation in reservations.fetch()
-                if product.hourly_rate
+                moment_date =  moment(reservation.date)
+                if moment_date.isBefore(Date.now())
+                    past_earnings += product.hourly_rate
+                    past_reservations++
+            for reservation in reservations.fetch()
+                moment_date =  moment(reservation.date)
+                if moment_date.isAfter(Date.now())
                     future_earnings += product.hourly_rate
+                    future_reservations++
                 # if reservation.price
                 #     future_earnings += reservation.price
-            console.log 'future earnings', future_earnings, 'after ', reservations.count(), 'amount'
+            # console.log 'future earnings', future_earnings, 'after ', reservations.count(), 'amount'
             Docs.update product_id,
                 $set:
                     future_earnings:future_earnings
-                    future_reservations:reservations.count(),
+                    past_earnings:past_earnings
+                    future_reservations:future_reservations
+                    past_reservations:past_reservations
 
 
         advise_price: (product_id)->

@@ -2,8 +2,10 @@ template(name='product_day')
     .ui.padded.stackable.grid
         .row
             .four.wide.column
-                .ui.header product day #{month}/#{day}/#{year}
-                a.ui.header(href="/shop/#{product._id}/view") #{product.title}
+                a.ui.large.button(href="/shop/#{product._id}/view")
+                    i.left.chevron.icon
+                    | #{product.title}
+                .ui.header #{month}/#{day}/#{year} reservations
             .twelve.wide.column
                 each hours
                     .ui.divider

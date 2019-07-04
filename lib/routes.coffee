@@ -159,6 +159,10 @@ Router.route "/shop/:doc_id/ownership", (->
     @layout 'shop_view_layout'
     @render 'product_ownership'
     ), name:'product_ownership'
+Router.route "/shop/:doc_id/ads", (->
+    @layout 'shop_view_layout'
+    @render 'product_ads'
+    ), name:'product_ads'
 Router.route "/shop/:doc_id/tasks", (->
     @layout 'shop_view_layout'
     @render 'shop_tasks'

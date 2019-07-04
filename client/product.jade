@@ -6,8 +6,8 @@ template(name='shop_edit')
                     .ui.inline.header #{title}
                     a.ui.large.basic.icon.button(href="/shop/#{_id}/view")
                         i.big.green.checkmark.icon
-                    .ui.large.basic.icon.button.delete_shop_item
-                        i.big.red.remove.icon
+                    .ui.basic.icon.button.delete_shop_item
+                        i.red.remove.icon
                     +text_edit key='title' icon='header' direct=true
                     +array_edit key='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
@@ -48,40 +48,34 @@ template(name='shop_edit')
                     +html_edit key='description' direct=true
                 .column
                     .ui.header
-                        i.truck.icon
-                        |delivery options
+                        i.truck.grey.icon
+                        |delivery
                     +boolean_edit key='pickup_delivery' label='pickup' direct=true
                     +boolean_edit key='home_dropoff_delivery' label='home dropoff' direct=true
                     +boolean_edit key='building_dropoff_delivery' label='building dropoff' direct=true
                     +boolean_edit key='healthclub_drop_off_delivery' label='health club drop off' direct=true
-                    .ui.list
-                        .ui.header pickup
-                        .ui.header home dropoff
-                        .ui.header health club drop off
-                    .ui.header pricing options options
+                    .ui.header 
+                        i.money.grey.icon
+                        |pricing
                     +boolean_edit key='cash_accepted' label='cash accepted' direct=true
                     +boolean_edit key='prepay' label='prepayment required' direct=true
                     +boolean_edit key='security_deposit_required' label='security deposit required' direct=true
                     if security_deposit_required
                         +number_edit key='security_deposit_amount' label='security deposit amount' icon='dollar'
-                    .ui.header pricing planning determination options
                     +boolean_edit key='friend_discount' label='friend discount' direct=true
                     if friend_discount
                         +number_edit key='security_deposit_amount' label='security deposit amount' icon='dollar'
                     .ui.header
                         i.grey.eye.icon
-                        | privacy options
-                    .ui.small.header visibility
-                    +boolean_edit key='visible_to_friends' label='visible to friends' direct=true
+                        | visibility
+                    +boolean_edit key='published' label='published' direct=true
+                    .ui.divider
                     +boolean_edit key='visible_to_friends' label='visible to friends' direct=true
                     +boolean_edit key='visible_to_building' label='visible to building' direct=true
                     +boolean_edit key='visible_to_residents' label='visible to residents' direct=true
-                    .ui.divider
-                    +boolean_edit key='published' label='published' direct=true
+                    +boolean_edit key='visible_to_public' label='visible to public' direct=true
                         
                 
-                    
-
 
 template(name='shop_view_layout')
     +nav
@@ -125,6 +119,9 @@ template(name='shop_view_layout')
                         a.item(href="/shop/#{_id}/projections" class="{{isActiveRoute 'shop_projections'}}")
                             |projections
                             i.line.chart.icon
+                        a.item(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}")
+                            |ads
+                            i.bullhorn.icon
                     img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                     .ui.header added by #{_author_username}
                     |#{when}
@@ -136,21 +133,38 @@ template(name='shop_view_layout')
 
                     +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
                     //- +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
-                    +date_view key='date_available' label='date available' icon='calendar' direct=true
-                    +time_view key='time_available' label='time available' icon='clock' direct=true
+                    if date_available
+                        +date_view key='date_available' label='date available' icon='calendar' direct=true
+                    if time_available
+                        +time_view key='time_available' label='time available' icon='clock' direct=true
+                    +product_adspace
+                    .ui.header 
+                        i.star.icon
+                        |reviews
                 .eight.wide.column
                     +yield
                 .four.wide.column
-                    .ui.small.statistic
-                        .value 
-                            |$#{future_earnings}
-                        .label
-                            |future earnings 
-                    .ui.small.statistic
-                        .value 
-                            |#{future_reservations}
-                        .label
-                            |future reservations
+                    .ui.small.horizontal.statistics
+                        .ui.statistic
+                            .value 
+                                |$#{past_earnings}
+                            .label
+                                |past earnings 
+                        .ui.statistic
+                            .value 
+                                |$#{future_earnings}
+                            .label
+                                |future earnings 
+                        .ui.statistic
+                            .value 
+                                |#{future_reservations}
+                            .label
+                                |future reservations
+                        .ui.statistic
+                            .value 
+                                |#{past_reservations}
+                            .label
+                                |past reservations
                     div
                     +product_location
                     .ui.header available_inventory #{inventory_available}
@@ -177,11 +191,7 @@ template(name='shop_view_layout')
                         +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
                         +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
                         +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
-                        .ui.list
-                            .ui.header pickup
-                            .ui.header home dropoff
-                            .ui.header health club drop off
-                        .ui.header pricing options options
+                        .ui.header pricing options
                         +boolean_view key='cash_accepted' label='cash accepted' direct=true
                         +boolean_view key='prepay' label='prepayment required' direct=true
                         +boolean_view key='security_deposit_required' label='security deposit required' direct=true
@@ -196,12 +206,43 @@ template(name='shop_view_layout')
                             | privacy options
                         .ui.small.header visibility
                         +boolean_view key='visible_to_friends' label='visible to friends' direct=true
-                        +boolean_view key='visible_to_friends' label='visible to friends' direct=true
                         +boolean_view key='visible_to_building' label='visible to building' direct=true
                         +boolean_view key='visible_to_residents' label='visible to residents' direct=true
+                        +boolean_view key='visible_to_public' label='visible to public' direct=true
                         .ui.divider
                         +boolean_view key='published' label='published' direct=true
-    +footer                
+    +footer
+    
+    
+    
+template(name='product_adspace')
+    .ui.segment
+        .ui.header advertisement
+        if current_ad
+            .ui.header current ad
+            .ui.disabled.button buy now
+        else
+            .ui.button advertise
+    
+    
+    
+template(name='product_ads')
+    .ui.segment
+        .ui.header ads settings
+        .ui.segment
+            .ui.header ad 1
+        .ui.segment
+            .ui.header ad 2
+        if current_ad
+            .ui.header current ad
+            .ui.disabled.button buy now
+        else
+            .ui.button advertise
+    
+    
+    
+    
+        
 template(name='shop_stats')
     .ui.header admin actions
     .ui.button.calculate_transaction_count calculate transaction count
@@ -235,11 +276,17 @@ template(name='shop_earnings')
     .ui.segment
         .ui.small.header 
             i.clock.icon
+            |past reservations #{past_reservations}
+        .ui.small.header 
+            i.clock.icon
             |future reservations #{future_reservations}
         .ui.small.header 
             i.money.icon
+            |past earnings $#{past_earnings}
+        .ui.small.header 
+            i.money.icon
             |future earnings $#{future_earnings}
-        .ui.button.calculate_future_earnings 
+        .ui.icon.button.calculate_future_earnings 
             i.refresh.icon
             //- calculate future earnings
     .ui.segment
@@ -248,7 +295,9 @@ template(name='shop_earnings')
         .ui.button.calculate_total_earnings calculate total earnings
     .ui.segment
         .ui.small.header monthly earnings
-            
+    .ui.segment
+        .ui.small.header ad earnings
+        +product_viewing    
                         
 template(name='shop_chat')                        
     +comments

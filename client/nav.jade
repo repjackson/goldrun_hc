@@ -34,14 +34,12 @@ template(name='nav')
                     //- a.item(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
                     //-     +i name='food'
                     //-     .mobile.hidden &nbsp; meals
-                    a.item(href='/shop' class="{{isActivePath '/shop'}}")
-                        i.shop.icon
-                        .mobile.hidden &nbsp; shop
-                if is_user
                     a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                         i.dashboard.icon
                         .mobile.hidden &nbsp; dashboard
-                        
+                    a.item(href='/shop' class="{{isActivePath '/shop'}}")
+                        i.shop.icon
+                        .mobile.hidden &nbsp; shop
                     a.icon.item(href='/games' class="{{isActivePath '/games'}}")
                         //- +i name='shop'
                         i.dice.icon
@@ -122,10 +120,10 @@ template(name='nav')
                             //- a.icon.item(href="/deliveries" class="{{isActivePath '/deliveries'}}" title='deliveries')
                             //-     +i name='in-transit'
                                 //- |deliveries
-                            a.item(href="/tab" class="{{isActivePath '/tab'}}" title='tab')
-                                //- +i name='shopping-cart'
-                                i.cart.icon
-                                |#{cart_amount}
+                            //- a.item(href="/tab" class="{{isActivePath '/tab'}}" title='tab')
+                            //-     //- +i name='shopping-cart'
+                            //-     i.cart.icon
+                            //-     |#{cart_amount}
                                 //- i.chat.large.icon
                             //- if is_user
                             //-     a.icon.item(href="/events" class="{{isActivePath '/events'}}")
@@ -151,9 +149,9 @@ template(name='nav')
                     if logging_out
                         .item
                             i.large.loading.circle.notch.icon
-                    else
-                        a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
-                            i.sign.out.large.icon
+                    //- else
+                    //-     a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
+                    //-         i.sign.out.large.icon
                 else
                     a.item(href='/login' title='login') 
                         i.sign.in.large.icon

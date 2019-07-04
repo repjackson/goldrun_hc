@@ -44,8 +44,8 @@ if Meteor.isClient
     Template.product_day.events
         'click .confirm_delivery': ->
             if confirm 'confirm delivery?'
-                console.log 'your credits', Meteor.user().credits
-                console.log 'seller credits', Meteor.users.findOne(@_author_id)
+                # console.log 'your credits', Meteor.user().credits
+                # console.log 'seller credits', Meteor.users.findOne(@_author_id)
                 Docs.update @_id,
                     $set:
                         confirmed:true
@@ -68,7 +68,7 @@ if Meteor.isClient
             month = Router.current().params.month
             day = Router.current().params.day
             year = Router.current().params.year
-            console.log @
+            # console.log @
             Docs.insert
                 model:'reservation'
                 product_id:product._id
@@ -113,12 +113,12 @@ if Meteor.isServer
             product_id:product_id
             date:"#{month}-#{day}-#{year}"
 
-    Meteor.publish 'reservation_slot_reservation', (slot_id)->
-        slot = Docs.findOne slot_id
-        console.log 'slot', slot
-        res = Docs.find(
-            model:'reservation'
-            parent_slot:slot._id
-            )
-        console.log res.fetch()
-        return res
+    # Meteor.publish 'reservation_slot_reservation', (slot_id)->
+    #     slot = Docs.findOne slot_id
+    #     console.log 'slot', slot
+    #     res = Docs.find(
+    #         model:'reservation'
+    #         parent_slot:slot._id
+    #         )
+    #     console.log res.fetch()
+    #     return res

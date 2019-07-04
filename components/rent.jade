@@ -10,13 +10,14 @@ template(name='rentals')
             each upcoming_days
                 .column
                     +upcoming_day data=this
+    .ui.small.header #{current_month} reservations
     .ui.celled.grid
         .seven.column.row
             .header.column sun
             .header.column mon
-            .header.column tues
+            .header.column tue
             .header.column wed
-            .header.column thurs
+            .header.column thu
             .header.column fri
             .header.column sat
         .seven.column.row

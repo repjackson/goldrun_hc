@@ -85,7 +85,7 @@ if Meteor.isClient
             for day in [0..6]
                 day_number++
                 moment_ob = moment(now).add(day, 'days')
-                long_form = moment(now).add(day, 'days').format('dddd MMM Do')
+                long_form = moment(now).add(day, 'days').format('ddd MMM Do')
                 upcoming_days.push {moment_ob:moment_ob,long_form:long_form}
             upcoming_days
 
