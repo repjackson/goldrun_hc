@@ -35,6 +35,22 @@ if Meteor.isClient
     Template.role_editor.onCreated ->
         @autorun => Meteor.subscribe 'model', 'role'
 
+
+    Template.user_tribe_editor.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'tribe'
+    Template.user_tribe_editor.helpers
+        my_tribes: -> Docs.find model:'tribe'
+    Template.user_tribe_editor.events
+        'click .select_tribe': ->
+            console.log @
+
+
+
+
+
+
+
+
     Template.user_card.onCreated ->
         @autorun => Meteor.subscribe 'user_from_username', @data
     Template.user_card.helpers

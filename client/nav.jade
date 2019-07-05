@@ -8,10 +8,12 @@ template(name='nav')
                 .icon.item
                     i.big.loading.dharmachakra.icon
             else
+                with current_tribe
+                    .item.header #{title}
+                a.icon.item(href='/home' class="{{isActivePath '/home'}}")
+                    i.th.large.icon
                 if is_staff
-                    a.icon.item(href='/home' class="{{isActivePath '/home'}}")
-                        i.th.large.icon
-                        //- +i name='activity-grid-2' classes='ui avatar image'
+                    //- +i name='activity-grid-2' classes='ui avatar image'
                     //- a.header.icon.item(href='/' class="{{isActivePath '/'}}")
                     //-     //- i.home.large.large.icon
                     //-     +i name='home-page' classes='ui avatar image'
@@ -40,10 +42,10 @@ template(name='nav')
                     a.item(href='/shop' class="{{isActivePath '/shop'}}")
                         i.shop.icon
                         .mobile.hidden &nbsp; shop
-                    a.icon.item(href='/games' class="{{isActivePath '/games'}}")
-                        //- +i name='shop'
-                        i.dice.icon
-                        .mobile.hidden &nbsp; games
+                    //- a.icon.item(href='/games' class="{{isActivePath '/games'}}")
+                    //-     //- +i name='shop'
+                    //-     i.dice.icon
+                    //-     .mobile.hidden &nbsp; games
                 if is_admin
                     a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                         //- +i name='shop'
@@ -53,10 +55,10 @@ template(name='nav')
                     //-     //- +i name='library'
                     //-     i.library.icon
                     //-     .mobile.hidden &nbsp; Library
-                    //- a.icon.item.set_event(href='/m/event' class="{{isActivePath '/m/event'}}" title='events')
-                    //-     //- +i name='calendar'
-                    //-     i.calendar.icon
-                    //-     .mobile.hidden &nbsp; Events
+                    a.icon.item.set_event(href='/m/event' class="{{isActivePath '/m/event'}}" title='events')
+                        //- +i name='calendar'
+                        i.calendar.icon
+                        .mobile.hidden &nbsp; Events
                     //- a.icon.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
                     //-     //- +i name='food'
                     //-     i.food.icon
@@ -78,10 +80,10 @@ template(name='nav')
                         i.clinic.medical.large.icon
                         .mobile.hidden &nbsp; Kiosk
             .right.menu
-                //- if is_admin
-                //-     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                //-         //- +i name='tasks'
-                //-         i.tasks.large.icon
+                if is_admin
+                    a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
+                        //- +i name='tasks'
+                        i.tasks.large.icon
                 //-     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
                 //-         //- +i name='note'
                 //-         i.rss.large.icon
@@ -199,6 +201,7 @@ template(name='footer')
                 if is_eric
                     with currentUser
                         +role_switcher
+                        +tribe_switcher
                 else if is_dev
                     with currentUser
                         +role_switcher
@@ -207,3 +210,45 @@ template(name='footer')
         //-         .ui.center.aligned.inverted.header
         //-             i.copyright.outline.icon
         //-             |
+
+
+template(name='role_switcher')
+    .ui.segment
+        .ui.grey.inline.center.aligned.small.header 
+            //- +i name='anonymous-mask'
+            i.shield.icon(title='role switcher')
+            |#{username} role switcher
+        //- if is_eric
+        //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
+        //- if current_user
+        //-     with current_user
+        //-         +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
+        //- else if currentUser
+        //-     with currentUser
+        +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
+        //- +user_array_element_toggle key='roles' value='admin' user=currentUser
+        //- +user_array_element_toggle key='roles' value='user' user=currentUser
+        //- +user_array_element_toggle key='roles' value='staff' user=currentUser
+        //- +user_array_element_toggle key='roles' value='resident' user=currentUser
+        //- +user_array_element_toggle key='roles' value='owner' user=currentUser
+
+
+template(name='tribe_switcher')
+    .ui.segment
+        .ui.grey.inline.center.aligned.small.header 
+            //- +i name='anonymous-mask'
+            i.fire.icon(title='role switcher')
+            |#{username} tribe switcher
+        //- if is_eric
+        //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
+        //- if current_user
+        //-     with current_user
+        //-         +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
+        //- else if currentUser
+        //-     with currentUser
+        +single_doc_edit key='current_tribe' label='current tribe' ref_model='tribe' direct=true
+        //- +user_array_element_toggle key='roles' value='admin' user=currentUser
+        //- +user_array_element_toggle key='roles' value='user' user=currentUser
+        //- +user_array_element_toggle key='roles' value='staff' user=currentUser
+        //- +user_array_element_toggle key='roles' value='resident' user=currentUser
+        //- +user_array_element_toggle key='roles' value='owner' user=currentUser

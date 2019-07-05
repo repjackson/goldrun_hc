@@ -40,6 +40,7 @@ Template.registerHelper 'current_day', () -> moment(Date.now()).format("DD")
 
 
 
+
 # Template.registerHelper 'parent_template', () -> Template.parentData()
     # Session.get 'displaying_profile'
 

@@ -25,7 +25,7 @@ body {
     -moz-transition: all 0.25s ease;
     -o-transition: all 0.25s ease;
     transition: all 0.25s ease;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
 }
 
 .invert {

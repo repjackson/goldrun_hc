@@ -581,26 +581,6 @@ template(name='user_array_list')
             
             
             
-template(name='role_switcher')
-    .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            //- +i name='anonymous-mask'
-            i.shield.icon(title='role switcher')
-            |#{username} role switcher
-        //- if is_eric
-        //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
-        //- if current_user
-        //-     with current_user
-        //-         +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
-        //- else if currentUser
-        //-     with currentUser
-        +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
-        //- +user_array_element_toggle key='roles' value='admin' user=currentUser
-        //- +user_array_element_toggle key='roles' value='user' user=currentUser
-        //- +user_array_element_toggle key='roles' value='staff' user=currentUser
-        //- +user_array_element_toggle key='roles' value='resident' user=currentUser
-        //- +user_array_element_toggle key='roles' value='owner' user=currentUser
-
 
             
 template(name='user_array_element_toggle')

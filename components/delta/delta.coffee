@@ -209,11 +209,12 @@ if Meteor.isClient
     Template.delta_result.helpers
         template_exists: ->
             current_model = Router.current().params.model_slug
-            if Template["#{current_model}_card"]
+            if Template["#{current_model}_card_template"]
+                # console.log 'true'
                 return true
             else
+                # console.log 'false'
                 return false
-            # console.log @
 
         model_template: ->
             current_model = Router.current().params.model_slug
@@ -222,6 +223,7 @@ if Meteor.isClient
 
         result: ->
             if Docs.findOne @_id
+                # console.log 'doc'
                 result = Docs.findOne @_id
                 if result.private is true
                     if result._author_id is Meteor.userId()
@@ -229,6 +231,7 @@ if Meteor.isClient
                 else
                     result
             else if Meteor.users.findOne @_id
+                # console.log 'user'
                 Meteor.users.findOne @_id
 
     Template.delta_result.events

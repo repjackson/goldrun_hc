@@ -7,11 +7,9 @@ template(name='model_doc_edit')
                         |edit #{model}
                     +creation_info
                     a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
-                        //- i.big.checkmark.icon
-                        +i name='checkmark'
+                        i.big.checkmark.icon
                     #delete_doc.ui.icon.basic.button
-                        //- i.trash.icon
-                        +ismall name='trash'
+                        i.trash.icon
                     if is_user
                         +boolean_edit key='private' direct=true
                 .ten.wide.column
@@ -30,15 +28,15 @@ template(name='model_doc_view')
             .row
                 .six.wide.column
                     .ui.large.basic.button.back_to_model
-                        +i name='chevron left' classes='ui mini inline image'
-                        +i name=current_model.icon classes='ui mini inline image'
+                        i.chevron.left.icon
+                        i.icon(class=current_model.icon)
                         //- i.icon(class=current_model.icon)
                         //- +i name=current_model.icon classes='ui mini inline image'
                         |#{current_model.title}
                     if can_edit
                         div
                         a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
-                            +i name='edit'
+                            i.pencil.icon
                     if is_admin
                         .ui.header timestamp tags
                         each _timestamp_tags

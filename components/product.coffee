@@ -62,3 +62,22 @@ if Meteor.isClient
             Docs.find
                 model:'transaction'
                 product_id: Router.current().params.doc_id
+
+
+
+    Template.product_ads.onCreated ->
+        @autorun => Meteor.subscribe 'product_ads', Router.current().params.doc_id
+    Template.product_ads.events
+        'click .create_product_ad': ->
+            Docs.insert
+                model:'product_ad'
+                product_id:Router.current().params.doc_id
+            Meteor.call 'advise_price', @_id
+        'click .calculate_transaction_count': ->
+            # console.log @
+            Meteor.call 'calculate_product_inventory_amount', @_id
+    Template.product_ads.helpers
+        product_transactions: ->
+            Docs.find
+                model:'transaction'
+                product_id: Router.current().params.doc_id

@@ -21,7 +21,7 @@ template(name='user_edit')
                         with user_from_username_param
                             .ui.orange.basic.button.remove_user 
                                 i.remove.icon
-                                |Delete User
+                                |delete user
                 .column
                     .ui.form
                         if user_is_resident_or_owner
@@ -104,7 +104,9 @@ template(name='user_edit')
                             //- with user_from_username_param
                         //- +boolean_edit key='published' icon='eye' label='profile published'
                     //- +payment_methods
-                    //- +user_settings
+                    +user_tribe_editor    
+                    if is_admin
+                        +user_settings
                     
                     
 template(name='user_settings')
@@ -125,8 +127,8 @@ template(name='user_model_editor')
             
 template(name='user_tribe_editor')
     .ui.header my tribes
-    each tribes
-        .ui.basic.button.toggle_tribe(class=user_tribe_class title=title)
+    each my_tribes
+        .ui.basic.button.select_tribe(class=user_tribe_class title=title)
             i.icon(class=icon)
             |#{title}
             

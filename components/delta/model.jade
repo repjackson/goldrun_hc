@@ -9,11 +9,9 @@ template(name='model_edit')
                     h1.ui.header edit model
                     .ui.center.aligned.basic.segment
                         a.ui.huge.icon.basic.button(href="/m/#{slug}")
-                            //- i.big.checkmark.icon
-                            +i name='checkmark'
+                            i.big.checkmark.icon
                         #delete_model.ui.icon.basic.button
-                            //- i.trash.icon
-                            +ismall name='delete'
+                            i.trash.icon
                     
                     .ui.form
                         +text_edit key='title' label='title' direct=true

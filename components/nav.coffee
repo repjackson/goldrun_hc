@@ -78,6 +78,7 @@ if Meteor.isClient
     Template.nav.onCreated ->
         @autorun -> Meteor.subscribe 'me'
         # @autorun -> Meteor.subscribe 'current_session'
+        @autorun -> Meteor.subscribe 'current_tribe'
         # @autorun -> Meteor.subscribe 'my_cart'
 
         # @autorun -> Meteor.subscribe 'bookmarked_models'
@@ -87,6 +88,14 @@ if Meteor.isClient
         notifications: ->
             Docs.find
                 model:'notification'
+
+        current_tribe: () ->
+            user = Meteor.user()
+            if user
+                Docs.findOne
+                    model:'tribe'
+                    slug:user.current_tribe
+
 
         models: ->
             Docs.find
@@ -172,3 +181,8 @@ if Meteor.isServer
 
     Meteor.publish 'me', ->
         Meteor.users.find @userId
+
+    Meteor.publish 'current_tribe', ->
+        Docs.find
+            model:'tribe'
+            slug:Meteor.user().current_tribe
