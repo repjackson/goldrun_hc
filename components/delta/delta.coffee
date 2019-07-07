@@ -218,7 +218,7 @@ if Meteor.isClient
 
         model_template: ->
             current_model = Router.current().params.model_slug
-            "#{current_model}_card"
+            "#{current_model}_card_template"
 
 
         result: ->

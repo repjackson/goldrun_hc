@@ -98,7 +98,7 @@ template(name='user_contact_info')
     .shadowed-box
         .ui.header
             +i name='phone'
-            |CSontact
+            |Contact
         .ui.icon.circular.button.toggle_edit
             if is_editing
                 i.green.checkmark.icon
@@ -134,9 +134,9 @@ template(name='users')
         .row
             .sixteen.wide.column
                 h1.ui.center.aligned.grey.header 
-                    //- +i name='groups'
-                    i.users.icon
-                    |Users
+                    +i name='groups'
+                    //- i.users.icon
+                    |users
                 .ui.left.icon.huge.fluid.input
                     i.search.icon
                     input.username_search(type='text' placeholder='lookup name...')

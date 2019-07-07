@@ -12,19 +12,19 @@ template(name='healthclub')
                 if is_staff
                     a.ui.button(href='/staff')
                         i.left.chevron.icon
-                        |Staff
+                        |staff
                 img.ui.circular.centered.small.inline.image.shadowed(src="{{c.url 'gold_run_logo' }}")
                 //- .ui.center.aligned.inline.header.checkin_header
-                h1.ui.center.aligned.inline.massive.header.f10
-                    |Health Club Check In
+                //- h1.ui.center.aligned.inline.massive.header.f10
+                //-     |Health Club Check In
         .row
             .sixteen.wide.column
-                .ui.left.icon.massive.fluid.input
-                    input.username_search(type='text' placeholder='Lookup resident...' autofocus)
+                .ui.massive.fluid.input
+                    input.username_search(type='text' placeholder='resident...' autofocus)
                     if is_query
                         i.remove.link.icon.clear_results
-                    else 
-                        i.user.grey.icon
+                    //- else 
+                    //-     i.user.grey.outline.icon
                 .ui.center.aligned.basic.segment.test
                     if checkedout_members.length
                         each checkedout_members
@@ -38,6 +38,19 @@ template(name='healthclub')
                     .two.column.row
                         .column
                             +inline_doc slug='health_club_notices' classes='ui large header'
+                            a.ui.big.fluid.button(href="/library")
+                                i.university.large.icon
+                                |library
+                            //- a.ui.big.fluid.button(href="/food")
+                            //-     i.food.large.icon
+                            //-     |food
+                            a.ui.big.fluid.button(href="/shop")
+                                i.shop.large.icon
+                                |shop
+                            
+                            a.ui.big.fluid.button(href="/events") 
+                                i.calendar.large.outline.icon
+                                |events
                             +health_club_info
                         .column
                             +healthclub_status

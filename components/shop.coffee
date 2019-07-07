@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Template.shop_card.onCreated ->
+    Template.shop_card_template.onCreated ->
 
     Template.shop.onRendered ->
         Meteor.setTimeout ->
@@ -147,12 +147,12 @@ if Meteor.isClient
 
 
 
-    Template.shop_card.onRendered ->
+    Template.shop_card_template.onRendered ->
         Meteor.setTimeout ->
             $('.button').popup()
         , 3000
 
-    Template.shop_card.events
+    Template.shop_card_template.events
         'click .add_to_cart': ->
             if Meteor.user()
                 console.log @

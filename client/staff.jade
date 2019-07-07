@@ -4,14 +4,14 @@ template(name='staff')
             h1.ui.grey.large.inline.header 
                 //- i.user.shield.icon
                 //- +i name='manager'
-                |Staff
+                |staff
             //- i.massive.loading.brown.poo.icon
             a.ui.big.compact.basic.button(href='/add_resident')
-                i.user.add.large.icon
-                //- +i name='add-user-male' classes='ui inline image'
-                strong Add Resident
+                //- i.user.add.large.icon
+                +i name='add-user-male' classes='ui inline image'
+                strong add resident
             .ui.inline.header
-                |#{checkedin_members.count} Checked In Members
+                |#{checkedin_members.count} checked in members
             //- +add_button model='work_order' label='work order'
             //- +add_button model='communication' label='communication'
             //- +add_button model='frontdesk_hourly_checklist' label='hourly checklist'
@@ -22,7 +22,7 @@ template(name='staff')
             .ui.styled.fluid.accordion
                 .active.title
                     i.users.icon
-                    |Checked In Members
+                    |checked in members
                     i.dropdown.icon
                 .active.content
                     .ui.stackable.four.cards
@@ -30,19 +30,19 @@ template(name='staff')
                             +hc_session
                 .title 
                     i.tablet.icon
-                    |Kiosk Management
+                    |kiosk management
                     i.dropdown.icon
                 .content
                     +kiosk_settings
                 .title 
                     i.calendar.icon
-                    |Staff Schedule
+                    |staff schedule
                     i.dropdown.icon
                 .content
                     +schedule
                 .title
                     i.chat.icon
-                    |Chat
+                    |chat
                     i.dropdown.icon
                 .content
                     +view_chats
@@ -103,7 +103,7 @@ template(name='hc_session')
             if active
                 .ui.fluid.button.sign_out
                     i.sign.out.icon
-                    |Sign Out
+                    |check out
             //- +boolean_edit key='active' direct=true
             //- +boolean_edit key='submitted' direct=true
             //- +boolean_edit key='approved' direct=true
@@ -118,11 +118,11 @@ template(name='garden_key_checkout')
     if garden_key
         .ui.compact.green.fluid.button.garden_key_checkout
             +i name='plant' classes='ui mini inline image'
-            strong Garden Key
+            strong garden key
     else
         .ui.compact.fluid.button.garden_key_checkout
             +i name='plant' classes='ui mini inline image'
-            strong Garden Key
+            strong garden key
 
 
 
@@ -131,7 +131,7 @@ template(name='unit_key_widget')
     .ui.segment 
         .ui.header 
             i.yellow.key.icon
-            |Unit Key Lookup
+            |unit key lookup
         .ui.icon.large.fluid.input
             i.building.icon
             input.building_number(type='number' placeholder='building number')
@@ -139,7 +139,7 @@ template(name='unit_key_widget')
             i.home.icon
             input.unit_number(type='number' placeholder='unit number')
         .ui.fluid.button.lookup_key
-            |Lookup Key
+            |lookup key
 
 
 template(name='task_widget')
@@ -147,7 +147,7 @@ template(name='task_widget')
         .ui.header 
             //- +i name='task'
             i.tasks.teal.icon
-            |Todos
+            |todos
         //- .ui.fluid.styled.accordion
         +goto_model slug='task'
         .ui.icon.basic.button.new_task
@@ -183,13 +183,13 @@ template(name='schedule')
         thead
             tr
                 th
-                th Sun
-                th Mon
-                th Tues
-                th Wed
-                th Thurs
-                th Fri
-                th Sat
+                th sun
+                th mon
+                th tue
+                th wed
+                th thu
+                th fri
+                th sat
         tbody
             tr
                 td 7/8am-4pm

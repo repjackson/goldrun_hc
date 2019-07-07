@@ -46,12 +46,16 @@ if Meteor.isClient
 
     Template.hc_session.events
         'click .sign_out': (e,t)->
-            if confirm "Check Out #{@first_name} #{@last_name}?"
-                $(e.currentTarget).closest('.card').transition('fade up',500)
-                Meteor.setTimeout =>
-                    Docs.update @_id,
-                        $set: active: false
-                , 500
+            # resident = Meteor.users.findOne
+            #     username:@resident_username
+            #
+            # console.log @
+            # if confirm "Check Out #{@first_name} #{@last_name}?"
+            $(e.currentTarget).closest('.card').transition('fade up',500)
+            Meteor.setTimeout =>
+                Docs.update @_id,
+                    $set: active: false
+            , 500
 
 
 

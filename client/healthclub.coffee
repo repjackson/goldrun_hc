@@ -24,9 +24,9 @@ Template.healthclub.onRendered ->
     # Meteor.setTimeout ->
     #     $('.item').popup()
     # , 3000
-    Meteor.setInterval ->
-          $('.username_search').focus();
-    , 5000
+    # Meteor.setInterval ->
+    #       $('.username_search').focus();
+    # , 5000
     Meteor.setTimeout ->
         $('.accordion').accordion()
     , 3000

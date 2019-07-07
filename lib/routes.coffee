@@ -37,6 +37,34 @@ Router.route '/buildings', -> @render 'buildings'
 Router.route '/games', -> @render 'games'
 Router.route '/deliveries', -> @render 'deliveries'
 
+Router.route '/library', (->
+    @layout 'mlayout'
+    @render 'library'
+    ), name:'library'
+
+Router.route '/food', (->
+    @layout 'mlayout'
+    @render 'food'
+    ), name:'food'
+
+Router.route '/events', (->
+    @layout 'mlayout'
+    @render 'events'
+    ), name:'events'
+
+Router.route "/shop", (->
+    @layout 'mlayout'
+    @render 'shop'
+    ), name:'shop'
+
+
+Router.route "/shop_item_page/:doc_id", (->
+    @layout 'mlayout'
+    @render 'shop_item_page'
+    ), name:'shop_item_page'
+
+
+
 Router.route '/unit/:unit_id', -> @render 'unit'
 Router.route '/building/:building_code', -> @render 'building'
 
@@ -99,7 +127,6 @@ Router.route '/reddit', -> @render 'reddit'
 Router.route '/staff', -> @render 'staff'
 Router.route '/groups', -> @render 'groups'
 Router.route '/meals', -> @render 'meals'
-Router.route '/events', -> @render 'cal'
 Router.route '/frontdesk', -> @render 'frontdesk'
 Router.route '/user/:username/edit', -> @render 'user_edit'
 Router.route '/p/:slug', -> @render 'page'
@@ -128,9 +155,9 @@ Router.route "/meal/:doc_id/edit", (->
     ), name:'meal_edit'
 
 
-Router.route "/shop", (->
-    @render 'shop'
-    ), name:'shop'
+# Router.route "/shop", (->
+#     @render 'shop'
+#     ), name:'shop'
 Router.route "/shop/:doc_id/view", (->
     @layout 'shop_view_layout'
     @render 'shop_info'

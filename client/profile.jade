@@ -22,11 +22,11 @@ template(name='user_layout')
                         +user_check_steps
                         a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
                             i.settings.large.icon
-                            | Settings
+                            | settings
                     else if is_current_user
                         a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
                             i.settings.large.icon
-                            | Settings
+                            | settings
                     //- else
                         //- .ui.button.direct_message
                         //-     i.sent.icon
@@ -42,7 +42,7 @@ template(name='user_layout')
                             //-         |health club                        
                             a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
                                 i.info.icon
-                                |About
+                                |about
                         if is_staff
                             .ui.vertical.fluid.menu
                                 a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
@@ -72,9 +72,9 @@ template(name='user_layout')
                     if is_current_user
                         a.ui.fluid.button.logout(href="#")
                             i.sign.out.icon
-                            |Log Out
+                            |log out
                         a.ui.fluid.button.logout_other_clients(href="#")
-                            |Logout Other Clients
+                            |logout other clients
                     //- unless is_staff
                     //-     +gr_status                
                     if is_admin
@@ -82,7 +82,7 @@ template(name='user_layout')
                             .ui.grey.header 
                                 //- +i name='user shield'
                                 i.shield.icon
-                                |Roles
+                                |roles
                             each roles
                                 .ui.basic.label #{this}
                     +staff_verification
@@ -103,7 +103,7 @@ template(name='user_check_steps')
                 if user_check_completed
                     i.large.green.checkmark.icon
                 else 
-                    i.large.circle.outline.icon 
+                    i.large.circle.grey.outline.icon 
                 i.icon(name=icon)
                 //- +i name=icon classes='ui avatar image'
                 |#{title}

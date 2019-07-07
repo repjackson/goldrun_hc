@@ -6,10 +6,10 @@ template(name='nav')
             //-     i.large.sidebar.icon
             if is_loading
                 .icon.item
-                    i.big.loading.dharmachakra.icon
+                    i.big.loading.yin.yang.icon
             else
-                with current_tribe
-                    .item.header #{title}
+                //- with current_tribe
+                //-     .item.header #{title}
                 a.icon.item(href='/home' class="{{isActivePath '/home'}}")
                     i.th.large.icon
                 if is_staff
@@ -18,47 +18,48 @@ template(name='nav')
                     //-     //- i.home.large.large.icon
                     //-     +i name='home-page' classes='ui avatar image'
                     a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                        //- +i name='apartment' classes='ui avatar image'
-                        i.building.large.icon
-                        .mobile.hidden &nbsp; Buildings
+                        +i name='apartment' classes='ui avatar image'
+                        //- i.building.large.icon
+                        .mobile.hidden &nbsp; buildings
                 //- a.header.icon.set_units.item(href='/m/unit' class="{{isActivePath '/m/unit'}}")
                 //-     +i name='room'    
                 if is_staff
                     a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
-                        //- +i name='employee-card' classes='ui avatar image'
-                        i.shield.large.icon
-                        .mobile.hidden &nbsp; Staff
+                        +i name='employee-card' classes='ui avatar image'
+                        //- i.shield.large.icon
+                        .mobile.hidden &nbsp; staff
                     a.icon.item(href='/users' class="{{isActivePath '/users'}}")
-                        i.users.large.icon
-                        //- +i name='groups' classes='ui avatar image'
-                        .mobile.hidden &nbsp; Users
+                        //- i.users.large.icon
+                        +i name='groups' classes='ui avatar image'
+                        .mobile.hidden &nbsp; users
                 if is_user        
                     //- a.item(href='/meals' class="{{isActivePath '/meals'}}" title='meals')
                     //-     +i name='food'
                     //-     .mobile.hidden &nbsp; meals
-                    a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                        i.dashboard.icon
-                        .mobile.hidden &nbsp; dashboard
-                    a.item(href='/shop' class="{{isActivePath '/shop'}}")
-                        i.shop.icon
-                        .mobile.hidden &nbsp; shop
+                    //- a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                    //-     //- i.dashboard.icon
+                    //-     +i name='dashboard'
+                    //-     .mobile.hidden &nbsp; dashboard
+                    //- a.item(href='/shop' class="{{isActivePath '/shop'}}")
+                    //-     i.shop.icon
+                    //-     .mobile.hidden &nbsp; shop
                     //- a.icon.item(href='/games' class="{{isActivePath '/games'}}")
                     //-     //- +i name='shop'
                     //-     i.dice.icon
                     //-     .mobile.hidden &nbsp; games
                 if is_admin
                     a.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
-                        //- +i name='shop'
-                        i.shop.icon
+                        +i name='shop'
+                        //- i.shop.icon
                         .mobile.hidden &nbsp; market
                     //- a.icon.item.set_library(href='/m/library' class="{{isActivePath '/m/library'}}" title='library')
                     //-     //- +i name='library'
                     //-     i.library.icon
                     //-     .mobile.hidden &nbsp; Library
                     a.icon.item.set_event(href='/m/event' class="{{isActivePath '/m/event'}}" title='events')
-                        //- +i name='calendar'
-                        i.calendar.icon
-                        .mobile.hidden &nbsp; Events
+                        +i name='calendar'
+                        //- i.calendar.icon
+                        .mobile.hidden &nbsp; events
                     //- a.icon.item.set_meal(href='/m/meal' class="{{isActivePath '/m/meal'}}" title='food')
                     //-     //- +i name='food'
                     //-     i.food.icon
@@ -76,14 +77,14 @@ template(name='nav')
                 //-     +i name='shop'
                 if is_staff
                     a.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
-                        //- +i name='treadmill' classes='ui avatar image'
-                        i.clinic.medical.large.icon
-                        .mobile.hidden &nbsp; Kiosk
+                        +i name='treadmill' classes='ui avatar image'
+                        //- i.clinic.medical.large.icon
+                        .mobile.hidden &nbsp; kiosk
             .right.menu
                 if is_admin
                     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                        //- +i name='tasks'
-                        i.tasks.large.icon
+                        +i name='tasks'
+                        //- i.tasks.large.icon
                 //-     a.icon.item.set_note(href='/m/note' class="{{isActivePath '/m/note'}}")
                 //-         //- +i name='note'
                 //-         i.rss.large.icon
@@ -102,20 +103,20 @@ template(name='nav')
                             //-     i.big.mail.icon(class=mail_icon_class title="#{unread_count} Unread")
                             //- a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
                             //-     +i name='cashbook'
-                            a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
-                                //- +i name='ledger'
-                                i.list.icon
-                            if is_admin
-                                a.icon.item(href="/transactions" class="{{isActivePath '/transactions'}}" title='transactions')
-                                    //- +i name='cashbook'
-                                    i.user.sheild.icon
-                            a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
-                                //- +i name='chat'
-                                i.chat.icon
-                            a.item(href="/credit" class="{{isActivePath '/credit'}}" title="#{currentUser.credit} credit")
-                                 //- +i name='wallet'
-                                 i.wallet.icon
-                                 |#{currentUser.credit}
+                            //- a.icon.item(href="/my_transactions" class="{{isActivePath '/my_transactions'}}" title='my transactions')
+                            //-     //- +i name='ledger'
+                            //-     i.list.icon
+                            //- if is_admin
+                            //-     a.icon.item(href="/transactions" class="{{isActivePath '/transactions'}}" title='transactions')
+                            //-         //- +i name='cashbook'
+                            //-         i.user.sheild.icon
+                            //- a.icon.item(href="/chat" class="{{isActivePath '/chat'}}" title='chat')
+                            //-     //- +i name='chat'
+                            //-     i.chat.icon
+                            //- a.item(href="/credit" class="{{isActivePath '/credit'}}" title="#{currentUser.credit} credit")
+                            //-      //- +i name='wallet'
+                            //-      i.wallet.icon
+                            //-      |#{currentUser.credit}
                             a.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
                                 i.cart.icon
                                 |#{cart_amount}
@@ -145,8 +146,8 @@ template(name='nav')
                                 if currentUser.image_id
                                     img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 else
-                                    //- +i name='user'
-                                    i.user.large.icon
+                                    +i name='user'
+                                    //- i.user.large.icon
                                 //- | #{currentUser.username}
                     if logging_out
                         .item
@@ -158,7 +159,7 @@ template(name='nav')
                     a.item(href='/login' title='login') 
                         i.sign.in.large.icon
                         //- +i name='enter-2' classes='ui mini inline image'
-                        |Login
+                        |login
         if currentUser.show_bookmarked_model_bar
             .ui.inverted.attached.borderless.menu.topnav.grblue
                 each bookmarked_models
