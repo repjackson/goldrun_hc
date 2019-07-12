@@ -63,5 +63,5 @@ if Meteor.isServer
 
         email_verified: (user)->
             if user.emails and user.emails[0].verified then true else false
-        # staff_government_id_check: (user)->
-        #     if user.staff_government_id_check then true else false
+        staff_government_id_check: (user)->
+            if user.verification_timestamp then true else false

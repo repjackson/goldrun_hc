@@ -197,7 +197,7 @@ if Meteor.isServer
         if selected_tags.length > 0 then match.tags = $all: selected_tags
         if filter then match.model = filter
 
-        Docs.find match
+        Docs.find match, sort:_timestamp:-1
 
 
     Meteor.publish 'doc', (id)->

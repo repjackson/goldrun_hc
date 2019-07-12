@@ -25,7 +25,7 @@ body {
     -moz-transition: all 0.25s ease;
     -o-transition: all 0.25s ease;
     transition: all 0.25s ease;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
 }
 
 .invert {
@@ -123,7 +123,7 @@ input.username_search{
 .button, .segment, .label{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
-    border-radius: 5px !important;
+    border-radius: 10px !important;
 }
 
 
@@ -240,7 +240,7 @@ a {
   animation: fadein .25s;
 }
 .segment{
-  animation: fadein .25s;
+  animation: fadein .5s;
 }
 
 .icon.item {

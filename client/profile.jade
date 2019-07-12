@@ -43,40 +43,12 @@ template(name='user_layout')
                             a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
                                 i.info.icon
                                 |about
-                        if is_staff
-                            .ui.vertical.fluid.menu
-                                a.item(href="/user/#{username}/documents" class="{{isActiveRoute 'user_documents'}}")
-                                    i.handshake.icon
-                                    |social
-                                a.item(href="/user/#{username}/products" class="{{isActiveRoute 'user_products'}}")
-                                    i.shop.icon
-                                    |products
-                                a.item(href="/user/#{username}/payment" class="{{isActiveRoute 'user_payment'}}")
-                                     i.money.icon
-                                     |payment
-                                a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
-                                     i.phone.icon
-                                     |contact
-                                a.item(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
-                                    i.fork.icon
-                                    |comparison
-                                a.item(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
-                                    i.tags.icon
-                                    |tags
-                                a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
-                                     i.heart.icon
-                                     |karma
-                                a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
-                                     i.money.icon
-                                     |transactions                            
                     if is_current_user
                         a.ui.fluid.button.logout(href="#")
                             i.sign.out.icon
                             |log out
                         a.ui.fluid.button.logout_other_clients(href="#")
                             |logout other clients
-                    //- unless is_staff
-                    //-     +gr_status                
                     if is_admin
                         .ui.segment
                             .ui.grey.header 
@@ -192,12 +164,6 @@ template(name='user_healthclub')
         div
         svg#barcode
     
-template(name='user_products')
-    .ui.segment
-        .ui.header 
-            i.shop.icon
-            |User Products
-    
     
 template(name='user_about')
     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
@@ -253,32 +219,6 @@ template(name='resident_info')
 
     
             
-template(name='user_transactions')
-    .ui.segment
-        .ui.header sent karma
-        each sent_karma
-            .ui.segment
-                .ui.small.inline.header #{_author_username}
-                |#{description}
-                each tags
-                    .ui.label #{this}
-                .ui.small.inline.header #{karma_amount}
-    +transactions
-            
-template(name='received_karma')
-    .ui.segment
-        .ui.header received karma
-        each received_karma
-            .ui.segment
-                .ui.small.inline.header #{_author_username}
-                |#{description}
-                each tags
-                    .ui.label #{this}
-                .ui.small.inline.header #{karma_amount}
-                
-            
-            
-
 template(name='user_permit')
     .ui.segment
         .ui.grey.inline.center.aligned.small.header 
@@ -333,27 +273,6 @@ template(name='user_notes')
             .ui.segment
                 +textarea_edit key='staff_notes' title='staff notes' icon='note' direct=true
 
-            
-            
-template(name='gr_status')   
-    with user_from_username_param         
-        //- .ui.small.header
-        //-     i.clock.icon
-        //-     | Status
-        if current_user
-            +array_edit key='gr_status' label='Status' direct=true icon='clock'
-        else
-            each gr_status
-                .ui.label #{this}
-        //- .ui.small.header
-        //-     i.marker.icon
-        //-     | Location 
-        if current_user
-            +array_edit key='gr_location' label='Location' direct=true icon='marker'
-        else 
-            each gr_location
-                .ui.label #{this}
-            
             
             
 template(name='user_checkins')
@@ -497,46 +416,6 @@ template(name='user_feed')
     +user_wall
                 
                 
-                
-template(name='user_bookmarks')
-    .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            //- +i name='bookmark'
-            i.bookmark.icon
-            |Bookmarks
-        .ui.list.smallscroll
-            each bookmarks
-                .item
-                    .content
-                        a.header(href="/m/#{model}/#{_id}/view") #{title} [#{model}]
-                        .description #{when}
-
-            
-            
-template(name='user_karma')
-    .ui.fluid.styled.accordion
-        .active.title
-            .ui.grey.inline.center.aligned.small.header 
-                i.heartbeat.icon
-                | Karma
-        .active.content
-            .ui.circular.button buy karma
-            with user_from_username_param
-                |karma #{karma}
-            .ui.circular.button.send_new
-                |send karma
-            if sending_karma
-                .ui.icon.circular.button.cancel_sending
-                    i.remove.icon
-                with send_karma_transaction
-                    +textarea_edit key='description' direct=true
-                    +array_edit key='tags' direct=true
-                    +number_edit key='karma_amount' direct=true
-                    .ui.green.circular.button.complete_sending
-                        |complete
-
-
-            
                 
 template(name='user_unread')
     .ui.cloud.segment

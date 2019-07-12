@@ -46,8 +46,8 @@
 	},
 	"galaxy.meteor.com": {
 		"env": {
-			"MONGO_URL": "mongodb://goldrunadmin:turnfearagainstthose@aws-us-east-1-portal.21.dblayer.com:10444/goldrundb?ssl=true",
-            "MAIL_URL": "smtp://postmaster%40mg.goldrun.online:0975ef1bf94c7fe525014827dbc2455d-39bc661a-833f9eab@smtp.mailgun.org:587",
+			"MONGO_URL": "mongodb://goldrunadmin!:goldrunadminpassword!@aws-us-east-1-portal.21.dblayer.com:10444/goldrundb?ssl=true",
+            "MAIL_URL": "smtp://postmaster%40mg.goldrun.online:62b9cfcfcadd35f8b1bba4db39c87a45-afab6073-31a68e6f@smtp.mailgun.org:587",
 			"ROOT_URL": "https://www.goldrun.online"
 		}
 	}

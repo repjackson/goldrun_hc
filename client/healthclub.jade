@@ -38,19 +38,19 @@ template(name='healthclub')
                     .two.column.row
                         .column
                             +inline_doc slug='health_club_notices' classes='ui large header'
-                            a.ui.big.fluid.button(href="/library")
-                                i.university.large.icon
-                                |library
-                            //- a.ui.big.fluid.button(href="/food")
-                            //-     i.food.large.icon
-                            //-     |food
-                            a.ui.big.fluid.button(href="/shop")
-                                i.shop.large.icon
-                                |shop
-                            
-                            a.ui.big.fluid.button(href="/events") 
-                                i.calendar.large.outline.icon
-                                |events
+                            //- a.ui.big.fluid.button(href="/library")
+                            //-     +i name='badminton-racquet' classes='ui inline tiny image'
+                            //-     |equipment
+                            //- //- a.ui.big.fluid.button(href="/food")
+                            //- //-     i.food.large.icon
+                            //- //-     |food
+                            //- a.ui.big.fluid.button(href="/shop")
+                            //-     +i name='shop' classes='ui inline tiny image'
+                            //-     |market
+                            //- 
+                            a.ui.fluid.button(href="/events") 
+                                +i name='calendar' classes='ui inline mini image'
+                                |Events
                             +health_club_info
                         .column
                             +healthclub_status
