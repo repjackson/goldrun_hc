@@ -81,6 +81,8 @@ Template.checkin_button.events
             resident_username:@username
             current:true
         Meteor.call 'member_waiver_signed', @
+        Meteor.call 'image_check', @
+        Meteor.call 'staff_government_id_check', @
         Meteor.call 'rules_and_regulations_signed', @
         Session.set 'username_query',null
         # Session.set 'session_document',session_document

@@ -64,4 +64,6 @@ if Meteor.isServer
         email_verified: (user)->
             if user.emails and user.emails[0].verified then true else false
         staff_government_id_check: (user)->
-            if user.verification_timestamp then true else false
+            if user.staff_verifier
+                Meteor.users.update user._id,
+                    $set:staff_government_id_check:true

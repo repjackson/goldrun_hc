@@ -19,7 +19,7 @@ template(name='healthclub')
                 //-     |Health Club Check In
         .row
             .sixteen.wide.column
-                .ui.massive.fluid.input
+                .ui.massive.fluid.icon.input
                     input.username_search(type='text' placeholder='resident...' autofocus)
                     if is_query
                         i.remove.link.icon.clear_results
@@ -48,9 +48,9 @@ template(name='healthclub')
                             //-     +i name='shop' classes='ui inline tiny image'
                             //-     |market
                             //- 
-                            a.ui.fluid.button(href="/events") 
-                                +i name='calendar' classes='ui inline mini image'
-                                |Events
+                            //- a.ui.fluid.button(href="/events") 
+                            //-     +i name='calendar' classes='ui inline mini image'
+                            //-     |Events
                             +health_club_info
                         .column
                             +healthclub_status
