@@ -40,7 +40,10 @@ if Meteor.isServer
         staff_image_verification: (user)->
             if user.staff_image_verified then true else false
         image_check: (user)->
-            if user.kiosk_photo then true else false
+            if user.kiosk_photo
+                Meteor.users.update user._id,
+                    $set:staff_image_verification:true
+
         rules_and_regulations_signed: (user)->
             console.log 'checking rules and regs for ', user.username
             found_rules_signing = Docs.findOne
@@ -67,3 +70,6 @@ if Meteor.isServer
             if user.staff_verifier
                 Meteor.users.update user._id,
                     $set:staff_government_id_check:true
+            else
+                Meteor.users.update user._id,
+                    $inc:checkins_without_gov_id:1

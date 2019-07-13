@@ -210,7 +210,8 @@ Template.water_status.helpers
             Docs.findOne
                 model:'water_status'
                 slug:@slug
-        water_feature_status_doc.on
+        if water_feature_status_doc
+            water_feature_status_doc.on
 Template.water_status.events
     'click .toggle_status': ->
         console.log @

@@ -101,7 +101,8 @@ template(name='healthclub_session')
                     //- with user
                     //-     .ui.button.recheck recheck
                     with user
-                        +user_check_steps                
+                        +user_check_steps
+                        .ui.small.grey.header check in's without government ID #{checkins_without_gov_id}
                         //- +member_guidelines_check
                         //- +rules_and_regs_check
             .row

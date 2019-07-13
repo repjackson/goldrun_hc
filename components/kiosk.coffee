@@ -67,27 +67,27 @@ if Meteor.isClient
         # @timer = new ReactiveVar 5
         Session.set 'timer',5
         Session.set 'timer_engaged', false
-        Meteor.setTimeout ->
-            healthclub_session_document = Docs.findOne Router.current().params.doc_id
-            # console.log @
-            if healthclub_session_document.user_id
-                resident = Meteor.users.findOne healthclub_session_document.user_id
-                # if resident.user_id
-                rules_found = Docs.findOne
-                    model:'rules_and_regs_signing'
-                    resident:resident.username
-                if resident.rules_and_regulations_signed and resident.member_waiver_signed
-                    Session.set 'timer_engaged', true
-                    interval_id = Meteor.setInterval( ->
-                        if Session.equals 'timer_engaged', true
-                            if Session.equals 'timer', 0
-                                Meteor.call 'submit_checkin'
-                                Meteor.clearInterval interval_id
-                            else
-                                Session.set('timer', Session.get('timer')-1)
-                        # t.timer.set(t.timer.get()-1)
-                    ,1000)
-        , 4000
+        # Meteor.setTimeout ->
+        #     healthclub_session_document = Docs.findOne Router.current().params.doc_id
+        #     # console.log @
+        #     if healthclub_session_document and healthclub_session_document.user_id
+        #         resident = Meteor.users.findOne healthclub_session_document.user_id
+        #         # if resident.user_id
+        #         rules_found = Docs.findOne
+        #             model:'rules_and_regs_signing'
+        #             resident:resident.username
+        #         if resident.rules_and_regulations_signed and resident.member_waiver_signed
+        #             Session.set 'timer_engaged', true
+        #             interval_id = Meteor.setInterval( ->
+        #                 if Session.equals 'timer_engaged', true
+        #                     if Session.equals 'timer', 0
+        #                         Meteor.call 'submit_checkin'
+        #                         Meteor.clearInterval interval_id
+        #                     else
+        #                         Session.set('timer', Session.get('timer')-1)
+        #                 # t.timer.set(t.timer.get()-1)
+        #             ,1000)
+        # , 4000
 
 
     Template.healthclub_session.events
@@ -195,7 +195,7 @@ if Meteor.isClient
 
         user: ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
-            if healthclub_session_document.user_id
+            if healthclub_session_document and healthclub_session_document.user_id
                 Meteor.users.findOne healthclub_session_document.user_id
 
 
