@@ -404,54 +404,8 @@ template(name='user_people')
     +user_following
     +follow_user
 
-
-template(name='user_feed')
-    .ui.cloud.segment
-        .ui.grey.inline.header 
-            +i name='feed'
-            |Feed
-        //- if current_user
-        //-     .ui.fluid.input
-        //-         input(type='text' placeholder='Share something...')
-    +user_wall
                 
                 
-                
-template(name='user_unread')
-    .ui.cloud.segment
-        .ui.header 
-            i.new.icon
-            |unread messages
-                
-                
-
-template(name='user_tasks')
-    //- .ui.fluid.styled.accordion
-    .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            //- +i name='tasks'
-            i.tasks.icon
-            |staff tasks
-        +goto_model slug='task'
-        .ui.icon.input
-            i.plus.icon
-            input.assign_task(type='text' placeholder='assign task...')
-        //- .ui.circular.button.view_complete(class=view_complete_class)
-        //-     |View Completed
-        // .ui.circular.button.view_incomplete(class=view_complete_class)
-        //     |View Incomplete
-        each assigned_tasks
-            .ui.smoothed.segment
-                .ui.header #{body}
-                +boolean_edit key='complete' label='Complete' direct=true true_icon='checkmark' false_icon='remove'
-                //- +voting
-                +author_info
-                +creation_info
-                if is_author
-                    +remove_button
-                    
-            
-            
 template(name='user_array_list')
     .ui.list
         each users
@@ -491,52 +445,3 @@ template(name='membership_status')
             +date_view key='expiration_date' label='expiration date' direct=true
             +pdf_view key='lease_agreement' label='lease agreement' direct=true
             +pdf_view key='lease_addendum' label='lease addendum' direct=true
-        
-        
-        
-        
-template(name='user_following')    
-    .ui.cloud.segment
-        .ui.grey.header 
-            i.bell.icon
-            |Following
-        +user_array_list user=user_from_username_param array='following_ids'
-          
-
-template(name='follow_user')    
-    .ui.cloud.segment
-        .ui.grey.inline.header
-            unless current_user
-                a.toggle_follow_user(href='#' title='Follow User')
-                    i.renew.icon
-            else
-                i.bell.icon
-            |Followed by
-        +user_array_list user=user_from_username_param array='followed_by_ids'
-                
-
-template(name='user_wall')
-    .ui.fluid.styled.accordion
-        .active.title
-            .ui.grey.inline.center.aligned.small.header 
-                i.edit.icon
-                |Wall
-        .active.content
-            if currentUser
-                .ui.fluid.icon.input
-                    i.plus.icon
-                    input.new_post(type='text' placeholder='Add post...')
-            .ui.comments
-                each wall_posts
-                    .comment
-                        //- .avatar
-                        .active.content
-                            a.author(href='#') #{author.first_name} #{author.last_name}
-                            .metadata
-                                span.date #{when}
-                            .text.large120 #{body}
-                            .actions
-                                i.remove.link.icon.remove_comment(title='Vote Down')
-                                i.thumbs.up.link.icon.vote_up_comment(title='Vote Up')
-                                |#{points}
-                                i.message.link.icon.mark_comment_read(title='Mark Read')        

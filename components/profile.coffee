@@ -29,21 +29,6 @@ if Meteor.isClient
                 model:'model'
                 _id:$in:user.model_ids
 
-        banner_style: ->
-            # {
-            #     background: url(/image/signup-bg.png) center no-repeat;
-            #     /*height: 100%;*/
-            #     width: 100%;
-            #     height: 100vh;
-            #     background-repeat: no-repeat;
-            #     background-position: center center;
-            #     background-size: cover;
-            #     background-attachment: fixed;
-            #     position: relative;
-            # }
-
-
-
 
     Template.user_layout.events
         'click .set_delta_model': ->
@@ -109,65 +94,6 @@ if Meteor.isClient
                     users.push user
                 users
 
-
-
-
-    # Template.user_connections.onCreated ->
-    #     @autorun => Meteor.subscribe 'all_users', Router.current().params.username
-    #
-    # Template.user_connections.helpers
-    #     connections: ->
-    #         Meteor.users.find {}
-    #
-    # Template.user_connections.events
-    #     'keyup .assign_task': (e,t)->
-    #         if e.which is 13
-    #             post = t.$('.assign_task').val().trim()
-    #             current_user = Meteor.users.findOne username:Router.current().params.username
-    #             Docs.insert
-    #                 body:post
-    #                 model:'task'
-    #                 assigned_user_id:current_user._id
-    #                 assigned_username:current_user.username
-    #
-    #             t.$('.assign_task').val('')
-
-
-
-    Template.user_wall.onCreated ->
-        @autorun => Meteor.subscribe 'wall_posts', Router.current().params.username
-    Template.user_wall.helpers
-        wall_posts: ->
-            Docs.find
-                model:'wall_post'
-    Template.user_wall.events
-        'keyup .new_post': (e,t)->
-            if e.which is 13
-                post = t.$('.new_post').val().trim()
-                Docs.insert
-                    body:post
-                    model:'wall_post'
-                t.$('.new_post').val('')
-        'click .remove_comment': ->
-            if confirm 'remove comment?'
-                Docs.remove @_id
-        'click .vote_up_comment': ->
-            if @upvoters and Meteor.userId() in @upvoters
-                Docs.update @_id,
-                    $inc:points:1
-                    $addToSet:upvoters:Meteor.userId()
-                Meteor.users.update @author_id,
-                    $inc:points:-1
-            else
-                Meteor.users.update @author_id,
-                    $pull:upvoters:Meteor.userId()
-                    $inc:points:1
-                Meteor.users.update @author_id,
-                    $inc:points:1
-
-        'click .mark_comment_read': ->
-            Docs.update @_id,
-                $addToSet:readers:Meteor.userId()
 
 
 
@@ -269,11 +195,6 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'wall_posts', (username)->
-        Docs.find
-            model:'wall_post'
-            # parent_username:username
-
     Meteor.publish 'healthclub_checkins', (username)->
         Docs.find
             model:'healthclub_checkin'
