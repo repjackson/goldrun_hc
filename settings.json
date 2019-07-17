@@ -47,7 +47,7 @@
 	"galaxy.meteor.com": {
 		"env": {
 			"MONGO_URL": "mongodb://goldrunadmin!:goldrunadminpassword!@aws-us-east-1-portal.21.dblayer.com:10444/goldrundb?ssl=true",
-            "MAIL_URL": "smtp://postmaster%40mg.goldrun.online:62b9cfcfcadd35f8b1bba4db39c87a45-afab6073-31a68e6f@smtp.mailgun.org:587",
+            "MAIL_URL": "smtp://postmaster%40mg.goldrun.online:6f213f0ad9eae2a2f91f5f29a8e665bd-fd0269a6-78c00f51@smtp.mailgun.org:587",
 			"ROOT_URL": "https://www.goldrun.online"
 		}
 	}

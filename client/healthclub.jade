@@ -5,7 +5,7 @@ template(name='kiosk_container')
 
 template(name='healthclub')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
-    .ui.padded.stackable.grid.header-wrapper
+    .ui.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
         .row
             .sixteen.wide.center.aligned.column
@@ -19,40 +19,42 @@ template(name='healthclub')
                 //-     |Health Club Check In
         .row
             .sixteen.wide.column
-                .ui.massive.fluid.icon.input
-                    input.username_search(type='text' placeholder='resident first or last name...' autofocus)
-                    if is_query
-                        i.remove.link.icon.clear_results
-                    //- else 
-                    //-     i.user.grey.outline.icon
-                .ui.center.aligned.basic.segment.test
-                    if checkedout_members.length
-                        each checkedout_members
-                            +checkin_button
-                    else
-                        if checking_in
-                            if is_query
-                                .ui.center.aligned.header No members found
-                                .ui.center.aligned.header See staff to add
-                .ui.padded.grid
-                    .two.column.row
-                        .column
-                            +inline_doc slug='health_club_notices' classes='ui large header'
-                            //- a.ui.fluid.button(href="/events") 
-                            //-     +i name='calendar' classes='ui inline mini image'
-                            //-     |Events
-                            +health_club_info
-                        .column
-                            +healthclub_status
-                            .ui.header Hours
-                            .ui.big.list
-                                .item Mon 7a-10p
-                                .item Tues 7a-10p
-                                .item Wed 7a-10p
-                                .item Thur 7a-10p
-                                .item Fri 7a-9p
-                                .item Sat 8a-9p
-                                .item Sun 8a-10p
+                .row
+                    .ui.massive.fluid.icon.input
+                        input.username_search(type='text' placeholder='resident first or last name...' autofocus)
+                        if is_query
+                            i.remove.link.icon.clear_results
+                        //- else 
+                        //-     i.user.grey.outline.icon
+                    .ui.center.aligned.basic.segment.test
+                        if checkedout_members.length
+                            each checkedout_members
+                                +checkin_button
+                        else
+                            if checking_in
+                                if is_query
+                                    .ui.center.aligned.header No members found
+                                    .ui.center.aligned.header See staff to add
+                    .ui.padded.grid
+                        .row
+                            .five.wide.column
+                                +inline_doc slug='health_club_notices' classes='ui large header'
+                                +health_club_info
+                            .four.wide.column
+                                +healthclub_status
+                            .four.wide.column
+                                .ui.header Hours
+                                .ui.large.list
+                                    .item Mon 7a-10p
+                                    .item Tues 7a-10p
+                                    .item Wed 7a-10p
+                            .three.wide.column
+                                .ui.header 
+                                .ui.large.list
+                                    .item Thur 7a-10p
+                                    .item Fri 7a-9p
+                                    .item Sat 8a-9p
+                                    .item Sun 8a-10p
                             
 
 template(name='facet_doc_edit')
@@ -131,7 +133,7 @@ template(name='health_club_info')
     .ui.stackable.grid.f5
         .two.column.inverted.row
             .column
-                .ui.big.relaxed.list
+                .ui.large.relaxed.list
                     .item
                         .content
                             .header Wifi
@@ -139,10 +141,6 @@ template(name='health_club_info')
                     .item
                         .content
                             .header Upstairs Code: 4589
-                    .item
-                        .content
-                            .header Colorado Security Services
-                            .description 303-443-3701
             .column
                 .ui.big.relaxed.list
                     .item
@@ -152,111 +150,3 @@ template(name='health_club_info')
                                 div Rick Hamp 
                                 div 303-545-1787
                                 div goldruncondos@gmail.com
-                    .item
-                        .content
-                            .header After Hours Emergency
-                            .description 303-221-1117
-                    .item
-                        .content
-                            .header Boulder Valley Towing
-                            .description 303-444-4868
-
-
-//- template(name='checkin_card')
-    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
-    //- //- .ui.padded.stackable.grid
-    //- //- .ui.padded.middle.aligned.grid.header-wrapper(class=resident_status_class)
-    //- .ui.padded.middle.aligned.grid.header-wrapper
-    //-     unless session_document.submitted
-    //-         .two.column.row
-    //-             .column
-    //-                 //- if is_staff
-    //-                 //- a.ui.header(href="/user/#{user.username}")
-    //-                 .ui.large.icon.basic.button.cancel_checkin
-    //-                     i.big.left.chevron.icon
-    //-                 if user.kiosk_photo
-    //-                     with user
-    //-                         +image_view key='kiosk_photo' label='photo' direct=true
-    //-                     //- +image_edit key='kiosk_photo' label='please click below to take new photo' direct=true
-    //-                 else
-    //-                     with user
-    //-                         +image_edit key='kiosk_photo' label='click below to take new photo' direct=true
-    //-                 //- img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
-    //-                 //- .meta @#{user.username}
-    //-                 //- +array_view key='tags' label='Tags' direct=true
-    //-             .column
-    //-                 .ui.huge.inline.header(href="/user/#{user.username}")
-    //-                     |#{user.first_name} #{user.last_name} 
-    //-                 if adding_guests
-    //-                     .ui.header 
-    //-                         //- +i name='groups'
-    //-                         i.users.teal.icon
-    //-                         |guests
-    //-                     //- //- .ui.hidden.divider
-    //-                     .ui.small.inline.header recent guests
-    //-                     each resident_guests
-    //-                         .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
-    //-                     div
-    //-                     .ui.big.basic.button.add_guest
-    //-                         i.plus.icon
-    //-                         strong new guest
-    //-                     +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
-    //-                     div
-    //-                     with checking_in_doc
-    //-                         if checkin_guest_docs
-    //-                             .ui.inline.header guests for this session
-    //-                             each checkin_guest_docs
-    //-                                 .ui.big.teal.basic.button.remove_guest 
-    //-                                     i.remove.icon
-    //-                                     |#{guest_name} #{first_name} #{last_name}
-    //-                 else
-    //-                     .ui.big.basic.fluid.button.toggle_adding_guest 
-    //-                         i.plus.large.icon
-    //-                         |guest
-    //-                 +email_validation_check
-    //-                 +lease_expiration_check
-    //-                 +rules_and_regs_check  
-    //-         .row
-    //-             .sixteen.wide.column
-    //-                 unless user.member_waiver_signed
-    //-                     .ui.big.fluid.red.basic.button.sign_rules
-    //-                         //- +i name='treadmill' classes='ui inline image'
-    //-                         .ui.inline.header 
-    //-                         //- +i name='treadmill'
-    //-                         | sign rules and regs
-    //-                         i.right.chevron.icon
-    //- 
-    //-                 if user.rules_signed
-    //-                     .ui.big.fluid.basic.button.healthclub_checkin
-    //-                         //- +i name='treadmill' classes='ui inline image'
-    //-                         .ui.inline.header 
-    //-                             +i name='treadmill'
-    //-                             | health club check in
-    //-                             //- i.right.chevron.icon
-    //-                     .ui.big.fluid.basic.button.garden_key_checkout
-    //-                         +i name='basketball' classes='ui inline image'
-    //-                         .ui.inline.header court key check out
-    //-                         //- i.right.chevron.icon
-    //-                     .ui.big.fluid.basic.button.unit_key_checkout
-    //-                         +i name='key' classes='ui inline image'
-    //-                         .ui.inline.header unit key check out
-    //-                 else unless user.rules_and_regulations_signed
-    //-                     .ui.big.fluid.red.basic.button.sign_rules
-    //-                         //- +i name='treadmill' classes='ui inline image'
-    //-                         .ui.inline.header 
-    //-                         //- +i name='treadmill'
-    //-                         | please sign rules and regs
-    //-                         i.right.chevron.icon
-    //-     if session_document.submitted
-    //-         unless session_document.approved
-    //-             .centered.row
-    //-                 .twelve.wide.column
-    //-                     i.huge.notched.circle.loading.icon
-    //-                     //- .ui.header request submitted, awaiting staff approval        
-    //-         if session_document.approved
-    //-             .centered.row
-    //-                 .twelve.wide.column
-    //-                     .ui.header 
-    //-                         i.green.checkmark.icon
-    //-                         |request approved        
-                

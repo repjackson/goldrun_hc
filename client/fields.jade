@@ -773,16 +773,16 @@ template(name='youtube_view')
 
 template(name='signature_edit')
     .ui.segment
-        canvas(id="signature-pad" class="signature-pad" width='800' height='200')
-        .ui.grid
-            .middle.aligned.row
-                .fourteen.wide.column
-                    .ui.huge.basic.fluid.button.save(title='Save')
-                        i.checkmark.icon
-                        |save signature
-                .one.wide.column
-                    .ui.large.icon.basic.button.clear(title='Clear')
-                        i.remove.icon
+        canvas.canvas_area(id="signature-pad" class="signature-pad" width='800' height='200')
+    .ui.grid
+        .middle.aligned.row
+            .fifteen.wide.column
+                .ui.huge.basic.fluid.button.save(title='Save')
+                    i.checkmark.icon
+                    |submit
+            .one.wide.column
+                .ui.large.icon.basic.button.clear(title='Clear')
+                    i.remove.icon
 
 template(name='signature_view')
     .ui.small.header

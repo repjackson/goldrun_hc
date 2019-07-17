@@ -13,10 +13,10 @@ if Meteor.isClient
             # console.log @slug
 
         checkins_left_without_email_verification: ->
-            5-@checkins_without_email_verification
+            3-@checkins_without_email_verification
 
         checkins_left_without_gov_id: ->
-            5-@checkins_without_gov_id
+            3-@checkins_without_gov_id
 
 
     Template.user_check_steps.events
@@ -25,9 +25,9 @@ if Meteor.isClient
             context_user = Template.currentData()
             console.log context_user
             # username = Template.parentData().resident_username
-            # Meteor.call @slug, context_user, (err,res)=>
-            #     Meteor.users.update context_user._id,
-            #         $set: "#{@slug}":res
+            Meteor.call @slug, context_user, (err,res)=>
+                # Meteor.users.update context_user._id,
+                #     $set: "#{@slug}":res
 
 
 if Meteor.isServer
@@ -43,13 +43,11 @@ if Meteor.isServer
                     # console.log 'check',user_check.slug,'res',res
             #         Meteor.users.update user._id,
             #             $set: "#{user_check.slug}":res
-        staff_image_verification: (user)->
-            if user.kiosk_photo then true else false
         image_check: (user)->
             if user.kiosk_photo
                 Meteor.users.update user._id,
                     $set:
-                        staff_image_verification:true
+                        image_check:true
                     $unset:
                         checkins_without_image:1
             else
@@ -70,6 +68,7 @@ if Meteor.isServer
             check_value = if found_rules_signing then true else false
             Meteor.users.update user._id,
                 $set:rules_and_regulations_signed:check_value
+
         member_waiver_signed: (user)->
             console.log 'checking member waiver for ', user.username
             found_member_signing = Docs.findOne
@@ -84,7 +83,9 @@ if Meteor.isServer
             if user.emails and user.emails[0].verified
                 console.log 'email verification', user.emails[0].verified
                 Meteor.users.update user._id,
-                    $set:email_verified:true
+                    $set:
+                        email_verified:true
+                        email_red_flagged:false
                     $unset:checkins_without_email_verification:1
             else
                 Meteor.users.update user._id,
@@ -96,6 +97,7 @@ if Meteor.isServer
                     Meteor.users.update user._id,
                         $set: email_red_flagged:true
         staff_government_id_check: (user)->
+            console.log 'running staff gov id check', user.username
             if user.staff_verifier
                 Meteor.users.update user._id,
                     $set:staff_government_id_check:true

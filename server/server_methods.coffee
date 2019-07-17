@@ -44,6 +44,8 @@ Meteor.methods
 
 
     verify_email: (user_id)->
+        user = Meteor.users.findOne user_id
+        console.log 'sending verification', user.username
         Accounts.sendVerificationEmail(user_id)
 
     validate_email: (email) ->

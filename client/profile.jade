@@ -18,11 +18,11 @@ template(name='user_layout')
                         | @#{user.username}        
                     if is_staff
                         +user_check_steps
-                        a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                        a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.large.icon
                             | settings
                     else if is_current_user
-                        a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit" title='settings')
+                        a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.large.icon
                             | settings
                     //- else
@@ -67,9 +67,7 @@ template(name='user_layout')
 template(name='user_check_steps')
     .ui.vertical.fluid.menu
         each user_check
-            .item
-                if is_admin
-                    i.refresh.link.icon.recheck
+            .item.recheck
                 if user_check_completed
                     i.large.green.checkmark.icon
                 else 
@@ -81,7 +79,7 @@ template(name='user_check_steps')
         .ui.header #{checkins_left_without_gov_id} check in's left without government ID
     if checkins_without_email_verification
         .ui.header #{checkins_left_without_email_verification} check in's left without email verification
-            
+        +email_validation_check
         //- .item
         //-     if completed
         //-         i.large.green.checkmark.icon
@@ -127,6 +125,8 @@ template(name='staff_verification')
                     .item verification Date: {{long_date verification_timestamp}}
             else
                   .ui.button.verify Verify Government ID as #{currentUser.username}
+            .ui.button.rerun_check
+                |rerun check
             .ui.header #{user_from_username_param.username} created by #{user_from_username_param.added_by_username}
             .ui.header Created on {{long_date user_from_username_param.createdAt}}
 

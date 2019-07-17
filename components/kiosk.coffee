@@ -98,6 +98,15 @@ if Meteor.isClient
             Docs.remove healthclub_session_document._id
             Router.go "/healthclub"
 
+        'click .recheck_photo': ->
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+            if healthclub_session_document and healthclub_session_document.user_id
+                user = Meteor.users.findOne healthclub_session_document.user_id
+                Meteor.call 'image_check', user
+                Meteor.call 'staff_government_id_check', user
+
+
+
         'click .recheck': ->
             console.log @
             Meteor.call 'run_user_checks', @

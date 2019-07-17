@@ -12,9 +12,6 @@ if Meteor.isClient
             Docs.find
                 model:'staff_resident_widget'
 
-        widget_template: ->
-
-
     Template.user_section.helpers
         user_section_template: ->
             "user_#{Router.current().params.group}"
@@ -190,6 +187,9 @@ if Meteor.isClient
                         staff_verifier:Meteor.user().username
                         verification_timestamp:Date.now()
 
+        'click .rerun_check': ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Meteor.call 'staff_government_id_check', current_user
 
 
 
