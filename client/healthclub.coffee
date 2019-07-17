@@ -24,9 +24,9 @@ Template.healthclub.onRendered ->
     # Meteor.setTimeout ->
     #     $('.item').popup()
     # , 3000
-    # Meteor.setInterval ->
-    #       $('.username_search').focus();
-    # , 5000
+    Meteor.setInterval ->
+          $('.username_search').focus();
+    , 5000
     Meteor.setTimeout ->
         $('.accordion').accordion()
     , 3000
@@ -84,6 +84,7 @@ Template.checkin_button.events
         Meteor.call 'image_check', @
         Meteor.call 'staff_government_id_check', @
         Meteor.call 'rules_and_regulations_signed', @
+        Meteor.call 'email_verified', @
         Session.set 'username_query',null
         # Session.set 'session_document',session_document
         # Session.set 'checking_in',false
@@ -214,7 +215,7 @@ Template.water_status.helpers
             water_feature_status_doc.on
 Template.water_status.events
     'click .toggle_status': ->
-        console.log @
+        # console.log @
         status_doc =
             Docs.findOne
                 model:'water_status'

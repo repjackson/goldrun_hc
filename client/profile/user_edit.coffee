@@ -123,7 +123,7 @@ Template.phone_editor.events
 
 Template.user_edit.events
     'click .remove_user': ->
-        if confirm "Confirm delete #{@username}?  Cannot be undone."
+        if confirm "confirm delete #{@username}?  cannot be undone."
             Meteor.users.remove @_id
             Router.go "/users"
 

@@ -57,9 +57,6 @@ if Meteor.isClient
                     $set: active: false
             , 500
 
-
-
-    Template.garden_key_checkout.events
         'click .garden_key_checkout': (e,t)->
             # healthclub_session_document = Docs.findOne
             #     model:'healthclub_session'
@@ -67,6 +64,29 @@ if Meteor.isClient
                 $set:
                     garden_key:true
                     submitted:true
+
+
+        'click .check_in_garden_key': (e,t)->
+            # healthclub_session_document = Docs.findOne
+            #     model:'healthclub_session'
+            Docs.update @_id,
+                $set:
+                    active:false
+                    garden_key_checkin_timestamp: Date.now()
+            $('body').toast({
+                title: "Garden Key checked in."
+                # message: 'See desk staff for key.'
+                class : 'blue'
+                position:'top right'
+                # className:
+                #     toast: 'ui massive message'
+                displayTime: 5000
+                transition:
+                  showMethod   : 'zoom',
+                  showDuration : 250,
+                  hideMethod   : 'fade',
+                  hideDuration : 250
+                })
 
 
 

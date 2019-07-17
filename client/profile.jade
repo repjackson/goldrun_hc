@@ -15,8 +15,6 @@ template(name='user_layout')
                                 | #{user.first_name}
                                 | #{user.last_name}
                     .ui.center.aligned.small.grey.header
-                        | #{user.tagline}
-                    .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     if is_staff
                         +user_check_steps
@@ -67,7 +65,7 @@ template(name='user_layout')
 
 
 template(name='user_check_steps')
-    .ui.vertical.fluid.small.menu
+    .ui.vertical.fluid.menu
         each user_check
             .item
                 if is_admin
@@ -79,6 +77,11 @@ template(name='user_check_steps')
                 i.icon(name=icon)
                 //- +i name=icon classes='ui avatar image'
                 |#{title}
+    if checkins_without_gov_id
+        .ui.header #{checkins_left_without_gov_id} check in's left without government ID
+    if checkins_without_email_verification
+        .ui.header #{checkins_left_without_email_verification} check in's left without email verification
+            
         //- .item
         //-     if completed
         //-         i.large.green.checkmark.icon

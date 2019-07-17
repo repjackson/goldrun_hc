@@ -12,12 +12,12 @@ template(name='user_edit')
                         //- strong save
                         i.checkmark.large.green.icon
                     .ui.hidden.divider
-                    +image_edit key='image_id' icon='picture' title='profile image' direct=true
+                    +image_edit key='kiosk_photo' icon='picture' title='profile image' direct=true
                     if is_admin
                         +password_edit
                         //- +phone_editor
                         +username_edit
-                    if is_dev
+                    if is_admin
                         with user_from_username_param
                             .ui.orange.basic.button.remove_user 
                                 i.remove.icon
@@ -29,8 +29,8 @@ template(name='user_edit')
                                 +text_edit key='first_name' label='first name' icon='header' direct=true
                                 +text_edit key='last_name' label='last name' icon='text' direct=true
                                 +text_edit key='address' label='address' icon='marker' direct=true
-                                +number_edit key='unit_number' label='unit #' icon='home' direct=true
-                                +number_edit key='building_number' label='building #' icon='building' direct=true
+                                +number_edit key='unit_number' label='unit #' icon='home' direct=true tip='apt #'
+                                +number_edit key='building_number' label='building #' icon='building' direct=true tip='eg 203'
                                 //- +text_edit key='building_code' label='building code' icon='building' direct=true
                                 +number_edit key='healthclub_code' label='keycard code' icon='barcode' direct=true
                                 +boolean_edit key='owner' label='owner' direct=true
@@ -103,9 +103,6 @@ template(name='user_edit')
                         //-     +date_view key='id_checked_date' label='government id checked date' icon='today' direct=true
                             //- with user_from_username_param
                         //- +boolean_edit key='published' icon='eye' label='profile published'
-                    //- +payment_methods
-                    if is_admin
-                        +user_settings
                     
                     
 template(name='user_settings')

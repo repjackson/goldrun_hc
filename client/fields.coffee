@@ -493,62 +493,6 @@ Template.number_edit.events
 
 
 
-Template.dollar_price_edit.events
-    'blur .edit_price': (e,t)->
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        val = parseInt t.$('.edit_price').val()
-        doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
-        if doc
-            Docs.update parent._id,
-                $set:"#{@key}":val
-        else if user
-            Meteor.users.update parent._id,
-                $set:"#{@key}":val
-
-
-Template.dollar_price_view.events
-    'click .buy_now': ->
-        parent = Template.parentData()
-        parent5 = Template.parentData(5)
-        parent6 = Template.parentData(6)
-        if @direct
-            parent = Template.parentData()
-        else if parent5._id
-            parent = Template.parentData(5)
-        else if parent6._id
-            parent = Template.parentData(6)
-        if parent
-            value = parent["#{@key}"]
-
-            Template.instance().checkout.open
-                name: parent.title
-                # email:Meteor.user().emails[0].address
-                description: 'gold run market'
-                amount: value*100
-
-    'click .add_to_tab': ->
-    # 'blur .edit_price': (e,t)->
-    #     if @direct
-    #         parent = Template.parentData()
-    #     else
-    #         parent = Template.parentData(5)
-    #     val = parseInt t.$('.edit_price').val()
-    #     doc = Docs.findOne parent._id
-    #     user = Meteor.users.findOne parent._id
-    #     if doc
-    #         Docs.update parent._id,
-    #             $set:"#{@key}":val
-    #     else if user
-    #         Meteor.users.update parent._id,
-    #             $set:"#{@key}":val
-
-
-
-
 Template.date_edit.events
     'blur .edit_date': (e,t)->
         if @direct
@@ -1119,6 +1063,7 @@ Template.multi_doc_input.events
             Meteor.call 'lookup_doc', search_value, 'guest', (err,res)=>
                 if err then console.error err
                 else
+                    console.log res
                     t.doc_results.set res
     'click .select_doc': (e,t) ->
         # session_document = Docs.findOne Session.get('session_document')

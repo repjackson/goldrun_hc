@@ -12,6 +12,12 @@ if Meteor.isClient
             context_user["#{check.slug}"]
             # console.log @slug
 
+        checkins_left_without_email_verification: ->
+            5-@checkins_without_email_verification
+
+        checkins_left_without_gov_id: ->
+            5-@checkins_without_gov_id
+
 
     Template.user_check_steps.events
         'click .recheck': ->
@@ -38,11 +44,21 @@ if Meteor.isServer
             #         Meteor.users.update user._id,
             #             $set: "#{user_check.slug}":res
         staff_image_verification: (user)->
-            if user.staff_image_verified then true else false
+            if user.kiosk_photo then true else false
         image_check: (user)->
             if user.kiosk_photo
                 Meteor.users.update user._id,
-                    $set:staff_image_verification:true
+                    $set:
+                        staff_image_verification:true
+                    $unset:
+                        checkins_without_image:1
+            else
+                Meteor.users.update user._id,
+                    $inc:checkins_without_image:1
+                updated_user = Meteor.users.findOne user._id
+                if updated_user.checkins_without_image > 3
+                    Meteor.users.update user._id,
+                        $set: red_flagged:true
 
         rules_and_regulations_signed: (user)->
             console.log 'checking rules and regs for ', user.username
@@ -50,7 +66,7 @@ if Meteor.isServer
                 model:'rules_and_regs_signing'
                 resident:user.username
                 signature_saved:true
-            console.log 'found rules signing', found_rules_signing
+            # console.log 'found rules signing', found_rules_signing
             check_value = if found_rules_signing then true else false
             Meteor.users.update user._id,
                 $set:rules_and_regulations_signed:check_value
@@ -59,17 +75,37 @@ if Meteor.isServer
             found_member_signing = Docs.findOne
                 model:'member_guidelines_signing'
                 resident:user.username
-            console.log 'found member signing', found_member_signing
+            # console.log 'found member signing', found_member_signing
             check_value = if found_member_signing then true else false
             Meteor.users.update user._id,
                 $set:found_member_signing:check_value
 
         email_verified: (user)->
-            if user.emails and user.emails[0].verified then true else false
+            if user.emails and user.emails[0].verified
+                console.log 'email verification', user.emails[0].verified
+                Meteor.users.update user._id,
+                    $set:email_verified:true
+                    $unset:checkins_without_email_verification:1
+            else
+                Meteor.users.update user._id,
+                    $set:email_verified:false
+                    $inc:checkins_without_email_verification:1
+                updated_user = Meteor.users.findOne user._id
+
+                if updated_user.checkins_without_email_verification > 3
+                    Meteor.users.update user._id,
+                        $set: email_red_flagged:true
         staff_government_id_check: (user)->
             if user.staff_verifier
                 Meteor.users.update user._id,
                     $set:staff_government_id_check:true
+                    $unset:
+                        checkins_without_gov_id:1
+                        gov_red_flagged:1
             else
                 Meteor.users.update user._id,
                     $inc:checkins_without_gov_id:1
+                updated_user = Meteor.users.findOne user._id
+                if updated_user.checkins_without_gov_id > 3
+                    Meteor.users.update user._id,
+                        $set: gov_red_flagged:true

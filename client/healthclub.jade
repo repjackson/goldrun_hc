@@ -20,7 +20,7 @@ template(name='healthclub')
         .row
             .sixteen.wide.column
                 .ui.massive.fluid.icon.input
-                    input.username_search(type='text' placeholder='resident...' autofocus)
+                    input.username_search(type='text' placeholder='resident first or last name...' autofocus)
                     if is_query
                         i.remove.link.icon.clear_results
                     //- else 
@@ -120,9 +120,11 @@ template(name='checkin_button')
                 //- +i name='exit-sign' classes='ui avatar image'
                 |Health Club Check Out
         else
-            .ui.large.basic.button.new_hc_session
-                strong #{first_name} #{last_name}
-
+            .ui.massive.fade.animated.button.new_hc_session
+                .visible.content
+                    strong #{first_name} #{last_name}
+                .hidden.content
+                    |check in
 
 
 template(name='health_club_info')

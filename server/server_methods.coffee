@@ -129,10 +129,10 @@ Meteor.methods
                 healthclub_code:healthclub_code
                 })
 
-    lookup_doc: (first_name, model_filter)->
+    lookup_doc: (guest_name, model_filter)->
         Docs.find({
             model:model_filter
-            first_name: {$regex:"#{first_name}", $options: 'i'}
+            guest_name: {$regex:"#{guest_name}", $options: 'i'}
             }).fetch()
 
     # lookup_username: (username_query)->

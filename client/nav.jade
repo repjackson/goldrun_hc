@@ -11,12 +11,9 @@ template(name='nav')
                 a.icon.item(href='/home' class="{{isActivePath '/home'}}")
                     i.th.large.icon
                 if is_staff
-                    //- +i name='activity-grid-2' classes='ui avatar image'
                     a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
                         i.building.large.icon
                         .mobile.hidden &nbsp; buildings
-                //- a.header.icon.set_units.item(href='/m/unit' class="{{isActivePath '/m/unit'}}")
-                //-     +i name='room'    
                 if is_staff
                     a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
                         i.shield.large.icon
@@ -24,29 +21,13 @@ template(name='nav')
                     a.icon.item(href='/users' class="{{isActivePath '/users'}}")
                         i.users.large.icon
                         .mobile.hidden &nbsp; users
-                if is_admin
-                    a.icon.item.set_event(href='/m/event' class="{{isActivePath '/m/event'}}" title='events')
-                        i.calendar.icon
-                        .mobile.hidden &nbsp; events
                 if is_staff
                     a.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
                         i.clinic.medical.large.icon
                         .mobile.hidden &nbsp; kiosk
             .right.menu
-                if is_admin
-                    a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
-                        i.tasks.large.icon
                 if currentUser
                     unless logging_out
-                        //- .ui.simple.dropdown.item(href="/user/#{currentUser.username}/notifications" class="{{isActivePath '/messages'}}")
-                        //-     i.alarm.icon
-                        //-     .menu
-                        //-         each notifications
-                        //-             .ui.button #{text}
-                        if is_user
-                            a.item(href="/cart" class="{{isActivePath '/cart'}}" title='cart')
-                                i.cart.icon
-                                |#{cart_amount}
                         if is_dev
                             a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
                                 i.sitemap.large.icon

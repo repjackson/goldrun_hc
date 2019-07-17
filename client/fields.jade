@@ -492,7 +492,7 @@ template(name='phone_view')
 template(name='number_edit')
     div
     .ui.fluid.input
-        .ui.small.inline.header
+        .ui.small.inline.header(title=tip)
             if icon
                 +i name=icon
                 //- i.grey.icon(class=icon)
@@ -523,78 +523,6 @@ template(name='number_view')
                 |#{this}
         strong &nbsp; #{field_value}
 
-
-template(name='karma_price_edit')
-    div
-    .ui.fluid.input
-        .ui.small.inline.header
-            if icon
-                +i name=icon
-                //- i.grey.icon(class=icon)
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else
-                |#{key}
-        //- +clear_value                
-        input.edit_price(type='number' value=field_value placeholder=placeholder autocomplete="off")
-template(name='karma_price_view')
-    if field_value
-        div
-        .ui.small.inline.header
-            if icon
-                +i name=icon
-                //- i.grey.icon(class=icon)
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}
-        strong &nbsp; #{field_value}
-        .ui.big.green.button.buy_now
-            |buy now
-
-
-template(name='dollar_price_edit')
-    div
-    .ui.fluid.input
-        .ui.small.inline.header
-            if icon
-                +i name=icon
-                //- i.grey.icon(class=icon)
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else
-                |#{key}
-        //- +clear_value                
-        input.edit_price(type='number' value=field_value placeholder=placeholder autocomplete="off")
-
-template(name='dollar_price_view')
-    if field_value
-        div
-        .ui.small.inline.header
-            if icon
-                +i name=icon
-                //- i.grey.icon(class=icon)
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}
-        strong &nbsp; #{field_value}
-        with parent
-            +add_to_tab
-        //- .ui.big.green.button.buy_now
-        //-     |buy now
 
 
 template(name='date_edit')
@@ -1176,7 +1104,7 @@ template(name='multi_doc_input')
         //- input#multi_doc_select_input(type='text' placeholder="Lookup #{ref_model}..." autocomplete="off")
     each selections
         .ui.large.label
-            |#{first_name} #{last_name}
+            |#{guest_name} #{first_name} #{last_name}
     if doc_results
         .ui.attached.segment
             .ui.middle.aligned.selection.animated.list
@@ -1184,7 +1112,7 @@ template(name='multi_doc_input')
                     .select_doc.item
                         h3.ui.header
                             //- img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-                            strong #{first_name} #{last_name}
+                            strong #{guest_name} #{first_name} #{last_name}
         //- +clear_value                
         //- .ui.list
         //-     each field_value
