@@ -1140,39 +1140,40 @@ Template.multi_doc_input.events
                     signature_saved:true
 
             signing_doc = Docs.findOne Router.current().params.doc_id
+            if signing_doc
+                if signing_doc.model is 'rules_and_regs_signing'
+                    user = Meteor.users.findOne username:signing_doc.resident
+                    Meteor.users.update user._id,
+                        $set:rules_signed:true
+                    Meteor.call 'send_rules_regs_receipt_email', user._id
+                    Meteor.call 'rules_and_regulations_signed', user
+                    # Session.set 'displaying_profile', user._id
+                    Router.go "/healthclub_session/#{signing_doc.session_id}"
 
-            if signing_doc.model is 'rules_and_regs_signing'
-                user = Meteor.users.findOne username:signing_doc.resident
-                Meteor.users.update user._id,
-                    $set:rules_signed:true
-                Meteor.call 'send_rules_regs_receipt_email', user._id
-                Meteor.call 'run_user_checks', user
-                # Session.set 'displaying_profile', user._id
-                Router.go "/healthclub_session/#{signing_doc.session_id}"
-
-            if signing_doc.model is 'member_guidelines_signing'
-                signing_doc = Docs.findOne Router.current().params.doc_id
-                user = Meteor.users.findOne username:signing_doc.resident
-                Meteor.users.update user._id,
-                    $set:member_waiver_signed:true
-                # Meteor.call 'send_rules_regs_receipt_email', user._id
-                Meteor.call 'run_user_checks', user
-                # Session.set 'displaying_profile', user._id
-                Router.go "/healthclub_session/#{signing_doc.session_id}"
-
-            if signing_doc.model is 'guest_doc'
+                if signing_doc.model is 'member_guidelines_signing'
+                    signing_doc = Docs.findOne Router.current().params.doc_id
+                    user = Meteor.users.findOne username:signing_doc.resident
+                    Meteor.users.update user._id,
+                        $set:member_waiver_signed:true
+                    # Meteor.call 'send_rules_regs_receipt_email', user._id
+                    Meteor.call 'member_waiver_signed', user
+                    # Session.set 'displaying_profile', user._id
+                    Router.go "/healthclub_session/#{signing_doc.session_id}"
+            else
                 guest_doc = Docs.findOne Router.current().params.new_guest_id
-                checking_in_doc = Docs.findOne guest_doc.session_id
+                if guest_doc
+                    guest_doc = Docs.findOne Router.current().params.new_guest_id
+                    checking_in_doc = Docs.findOne guest_doc.session_id
 
-                Docs.update checking_in_doc._id,
-                    $addToSet: guest_ids: guest_doc._id
+                    Docs.update checking_in_doc._id,
+                        $addToSet: guest_ids: guest_doc._id
 
-                user = Meteor.users.findOne guest_doc.resident_id
-                Meteor.users.update user._id,
-                    $addToSet:guest_ids: guest_doc._id
+                    user = Meteor.users.findOne guest_doc.resident_id
+                    Meteor.users.update user._id,
+                        $addToSet:guest_ids: guest_doc._id
 
-                # Session.set 'displaying_profile', guest_doc.resident_id
-                Router.go "/healthclub_session/#{guest_doc.session_id}"
+                    # Session.set 'displaying_profile', guest_doc.resident_id
+                    Router.go "/healthclub_session/#{guest_doc.session_id}"
             # save image as JPEG
         'click .thing': ->
             Template.instance().signaturePad.toDataURL 'image/svg+xml'

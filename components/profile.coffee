@@ -203,10 +203,11 @@ if Meteor.isServer
 
     Meteor.publish 'user_unit', (username)->
         user = Meteor.users.findOne username:username
-        Docs.find
-            model:'unit'
-            building_code:user.building_code
-            unit_number:user.unit_number
+        if user.unit_number
+            Docs.find
+                model:'unit'
+                building_code:user.building_code
+                unit_number:user.unit_number
 
 
     Meteor.publish 'user_bookmarks', (username)->

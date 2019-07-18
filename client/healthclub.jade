@@ -35,26 +35,30 @@ template(name='healthclub')
                                 if is_query
                                     .ui.center.aligned.header No members found
                                     .ui.center.aligned.header See staff to add
-                    .ui.padded.grid
-                        .row
-                            .five.wide.column
-                                +inline_doc slug='health_club_notices' classes='ui large header'
-                                +health_club_info
-                            .four.wide.column
-                                +healthclub_status
-                            .four.wide.column
-                                .ui.header Hours
-                                .ui.large.list
-                                    .item Mon 7a-10p
-                                    .item Tues 7a-10p
-                                    .item Wed 7a-10p
-                            .three.wide.column
-                                .ui.header 
-                                .ui.large.list
-                                    .item Thur 7a-10p
-                                    .item Fri 7a-9p
-                                    .item Sat 8a-9p
-                                    .item Sun 8a-10p
+                .ui.padded.grid
+                    .two.column.row
+                        .column
+                            +inline_doc slug='health_club_notices' classes='ui large header'
+                            +health_club_info
+                        .column
+                            .ui.grid
+                                .row
+                                    .eight.wide.column
+                                        .ui.header Hours
+                                        .ui.large.list
+                                            .item Mon 7a-10p
+                                            .item Tues 7a-10p
+                                            .item Wed 7a-10p
+                                            .item Thur 7a-10p
+                                    .eight.wide.column
+                                        .ui.hidde.divider 
+                                        .three.wide.column
+                                        .ui.large.list
+                                            .item Fri 7a-9p
+                                            .item Sat 8a-9p
+                                            .item Sun 8a-10p
+                                .row
+                                    +healthclub_status
                             
 
 template(name='facet_doc_edit')

@@ -13,10 +13,10 @@ if Meteor.isClient
             # console.log @slug
 
         checkins_left_without_email_verification: ->
-            3-@checkins_without_email_verification
+            4-@checkins_without_email_verification
 
         checkins_left_without_gov_id: ->
-            3-@checkins_without_gov_id
+            4-@checkins_without_gov_id
 
 
     Template.user_check_steps.events
@@ -90,12 +90,6 @@ if Meteor.isServer
             else
                 Meteor.users.update user._id,
                     $set:email_verified:false
-                    $inc:checkins_without_email_verification:1
-                updated_user = Meteor.users.findOne user._id
-
-                if updated_user.checkins_without_email_verification > 3
-                    Meteor.users.update user._id,
-                        $set: email_red_flagged:true
         staff_government_id_check: (user)->
             console.log 'running staff gov id check', user.username
             if user.staff_verifier
@@ -104,10 +98,3 @@ if Meteor.isServer
                     $unset:
                         checkins_without_gov_id:1
                         gov_red_flagged:1
-            else
-                Meteor.users.update user._id,
-                    $inc:checkins_without_gov_id:1
-                updated_user = Meteor.users.findOne user._id
-                if updated_user.checkins_without_gov_id > 3
-                    Meteor.users.update user._id,
-                        $set: gov_red_flagged:true

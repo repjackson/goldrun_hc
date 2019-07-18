@@ -209,7 +209,9 @@ template(name='image_edit')
                 //-     input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id' autocomplete="off")
                 // else
                 //     label Upload Image
-                input(type='file' name='upload_image' accept='image/*' capture='user')
+    .upload-btn-wrapper            
+        .btn + Add Photo (switch camera to front)
+        input(type='file' name='upload_image' accept='image/*' capture='user')
 
 
 template(name='image_link_edit')
@@ -491,19 +493,18 @@ template(name='phone_view')
 
 template(name='number_edit')
     div
-    .ui.fluid.input
-        .ui.small.inline.header(title=tip)
-            if icon
-                +i name=icon
-                //- i.grey.icon(class=icon)
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else
-                |#{key}
-        //- +clear_value                
-        input.edit_number(type='number' value=field_value placeholder=placeholder autocomplete="off")
+    h4.ui.header(title=tip)
+        if icon
+            +i name=icon
+            //- i.grey.icon(class=icon)
+        if title
+            |#{title}
+        else if label
+            |#{label}
+        else
+            |#{key}
+    //- +clear_value                
+    input.edit_number(type='number' value=field_value placeholder=placeholder autocomplete="off")
             
             
 template(name='number_view')

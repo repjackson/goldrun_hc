@@ -66,6 +66,7 @@ Template.healthclub.helpers
 Template.checkin_button.events
     'click .new_hc_session': (e,t)->
         # $(e.currentTarget).closest('.button').transition('fade up')
+        Session.set 'loading_checkin', true
         # Meteor.setTimeout =>
         # Docs.insert
         #     model:'log_event'
@@ -88,8 +89,32 @@ Template.checkin_button.events
         Session.set 'username_query',null
         # Session.set 'session_document',session_document
         # Session.set 'checking_in',false
+
+        unless @email_verified
+            Meteor.users.update @_id,
+                $inc:checkins_without_email_verification:1
+            updated_user = Meteor.users.findOne @_id
+            if updated_user.checkins_without_email_verification > 4
+                Meteor.users.update @_id,
+                    $set: email_red_flagged:true
+            else
+                Meteor.users.update @_id,
+                    $set: email_red_flagged:false
+
+        unless @staff_verifier
+            Meteor.users.update @_id,
+                $inc:checkins_without_gov_id:1
+            updated_user = Meteor.users.findOne @_id
+            if updated_user.checkins_without_gov_id > 4
+                Meteor.users.update @_id,
+                    $set: gov_red_flagged:true
+            else
+                Meteor.users.update @_id,
+                    $set: gov_red_flagged:false
+
         $('.username_search').val('')
         Router.go "/healthclub_session/#{session_document}"
+        Session.set 'loading_checkin', false
         Session.set 'displaying_profile',@_id
         # , 750
 

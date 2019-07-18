@@ -76,6 +76,8 @@ template(name='hc_session')
                     .item
                         i.home.icon
                         | #{unit_number}
+                +number_edit key='checkins_without_gov_id' label='alter checkins without gov id' direct=true
+                +number_edit key='checkins_without_email_verification' label='alter checkins without email verification' direct=true
                 //- +number_view key='unit_number' label='unit #' direct=true
                 //- +text_view key='building_code' label='building code' direct=true
                 +lease_expiration_check

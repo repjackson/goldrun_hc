@@ -17,10 +17,12 @@ template(name='user_layout')
                     .ui.center.aligned.small.grey.header
                         | @#{user.username}        
                     if is_staff
-                        +user_check_steps
                         a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit")
-                            i.settings.large.icon
-                            | settings
+                            i.pencil.large.blue.icon
+                            | edit
+                        +user_check_steps
+                        +staff_verification
+                
                     else if is_current_user
                         a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit")
                             i.settings.large.icon
@@ -55,7 +57,6 @@ template(name='user_layout')
                                 |roles
                             each roles
                                 .ui.basic.label #{this}
-                    +staff_verification
                     if user_is_resident
                         +resident_info         
                 .twelve.wide.column.shadowed-box

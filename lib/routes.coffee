@@ -63,9 +63,9 @@ Router.route('verify-email', {
                 alert err
                 @next()
             else
-                alert 'email verified'
-                @next()
-                # Router.go "/user/#{Meteor.user().username}"
+                # alert 'email verified'
+                # @next()
+                Router.go "/verification_confirmation/"
         )
 })
 
@@ -82,6 +82,7 @@ Router.route '/model/edit/:doc_id', -> @render 'model_edit'
 # Router.route '/user/:username', -> @render 'user'
 Router.route '/edit/:doc_id', -> @render 'edit'
 Router.route '/view/:doc_id', -> @render 'view'
+Router.route '/verification_confirmation', -> @render 'verification_confirmation'
 Router.route '*', -> @render 'not_found'
 
 # Router.route '/user/:username/m/:type', -> @render 'profile_layout', 'user_section'

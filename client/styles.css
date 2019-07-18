@@ -16,12 +16,39 @@ body {
     font-size: 130% !important;
 } */
 
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  border: 2px solid gray;
+  color: green;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+
+
 .home_segment{
     -webkit-transition: all 0.25s ease;
     -moz-transition: all 0.25s ease;
     -o-transition: all 0.25s ease;
     transition: all 0.25s ease;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
 }
 
 .invert {
@@ -119,7 +146,7 @@ input.username_search{
 .button, .segment, .label{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
-    border-radius: 10px !important;
+    border-radius: 8px !important;
 }
 
 

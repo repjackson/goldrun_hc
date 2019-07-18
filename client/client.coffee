@@ -14,7 +14,7 @@ $.cloudinary.config
 # Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
 
 Session.setDefault 'invert', false
-Template.registerHelper 'dark_mode', () -> Session.equals('dark_mode',true)
+Template.registerHelper 'loading_checkin', () -> Session.get 'loading_checkin'
 Template.registerHelper 'parent', () -> Template.parentData()
 Template.registerHelper 'invert_class', () -> if Session.equals('dark_mode',true) then 'invert' else ''
 Template.registerHelper 'is_loading', () -> Session.get 'loading'

@@ -91,27 +91,33 @@ if Meteor.isClient
 
 
     Template.healthclub_session.events
-        'click .take_photo': ->
-
         'click .cancel_checkin': ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
-            Docs.remove healthclub_session_document._id
+            if healthclub_session_document
+                Docs.remove healthclub_session_document._id
+            if healthclub_session_document and healthclub_session_document.user_id
+                Meteor.users.update healthclub_session_document.user_id,
+                    $inc:
+                        checkins_without_email_verification:-1
+                        checkins_without_gov_id:-1
+
+
             Router.go "/healthclub"
 
-        'click .recheck_photo': ->
-            healthclub_session_document = Docs.findOne Router.current().params.doc_id
-            if healthclub_session_document and healthclub_session_document.user_id
-                user = Meteor.users.findOne healthclub_session_document.user_id
-                Meteor.call 'image_check', user
-                Meteor.call 'staff_government_id_check', user
-
-
-
-        'click .recheck': ->
-            console.log @
-            Meteor.call 'run_user_checks', @
-            Meteor.call 'member_waiver_signed', @
-            Meteor.call 'rules_and_regulations_signed', @
+        # 'click .recheck_photo': ->
+        #     healthclub_session_document = Docs.findOne Router.current().params.doc_id
+        #     if healthclub_session_document and healthclub_session_document.user_id
+        #         user = Meteor.users.findOne healthclub_session_document.user_id
+        #         Meteor.call 'image_check', user
+        #         Meteor.call 'staff_government_id_check', user
+        #
+        #
+        #
+        # 'click .recheck': ->
+        #     console.log @
+        #     Meteor.call 'run_user_checks', @
+        #     Meteor.call 'member_waiver_signed', @
+        #     Meteor.call 'rules_and_regulations_signed', @
 
         'click .add_guest': ->
             # console.log @

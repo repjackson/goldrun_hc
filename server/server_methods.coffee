@@ -28,6 +28,7 @@ Meteor.methods
 
     add_email: (user_id, new_email) ->
         Accounts.addEmail(user_id, new_email);
+        Accounts.sendVerificationEmail(user_id, new_email)
         return "Updated Email to #{new_email}"
 
     remove_email: (user_id, email)->
@@ -43,10 +44,10 @@ Meteor.methods
 
 
 
-    verify_email: (user_id)->
+    verify_email: (user_id, email)->
         user = Meteor.users.findOne user_id
         console.log 'sending verification', user.username
-        Accounts.sendVerificationEmail(user_id)
+        Accounts.sendVerificationEmail(user_id, email)
 
     validate_email: (email) ->
         re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

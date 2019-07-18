@@ -1,15 +1,15 @@
 template(name='healthclub_status')
     .ui.basic.segment
-        .ui.header
+        .ui.inline.header
             |Upper Hot Tub
         +water_status slug='upper_hot_tub'
         div
-        .ui.header
+        .ui.inline.header
             |Lower Hot Tub
         +water_status slug='lower_hot_tub'
-        //- .ui.grey.header
+        //- .ui.grey.inline.header
         div
-        .ui.header
+        .ui.inline.header
             |Pool
         +water_status slug='pool'
         //- .ui.grey.inline.header

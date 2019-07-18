@@ -177,6 +177,7 @@ if Meteor.isClient
 
     Template.email_validation_check.events
         'click .send_verification': ->
+            console.log @
             if confirm 'send verification email?'
                 Meteor.call 'verify_email', @_id, ->
                     alert 'verification email sent'
