@@ -13,6 +13,7 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
         # @autorun => Meteor.subscribe 'users'
         @autorun => Meteor.subscribe 'sessions'
+        @autorun => Meteor.subscribe 'shift_checklists'
 
 
     Template.staff.helpers
@@ -25,6 +26,12 @@ if Meteor.isClient
                 model:'healthclub_session'
                 active:true
                 # model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
+
+        shift_checklists: ->
+            Docs.find
+                model:'frontdesk_hourly_checklist'
+                _author_id: Meteor.userId()
+
 
     Template.hc_session.onCreated ->
         @autorun => Meteor.subscribe 'user_by_username', @data.resident_username
@@ -182,6 +189,18 @@ if Meteor.isServer
             # model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
             active:true
 
+
+    Meteor.publish 'shift_checklists', ()->
+        # this_moment = moment(Date.now())
+        # console.log this_moment.subtract(20, 'hours')
+        hours = 1000*60*60*20
+        now = Date.now()
+        start_window = now-hours
+        console.log start_window
+        Docs.find
+            model:'frontdesk_hourly_checklist'
+            _author_id:Meteor.userId()
+            _timestamp:$gt:start_window
 
     Meteor.publish 'session_guests', (session_data)->
         if session_data
