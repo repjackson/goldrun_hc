@@ -23,7 +23,8 @@ Docs.before.insert (userId, doc)->
     month = moment(timestamp).format('MMMM')
     year = moment(timestamp).format('YYYY')
 
-    date_array = [ap, "hour #{hour}", "min #{minute}", weekday, month, date, year]
+    # date_array = [ap, "hour #{hour}", "min #{minute}", weekday, month, date, year]
+    date_array = [ap, weekday, month, date, year]
     if _
         date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
     # date_array = _.each(date_array, (el)-> console.log(typeof el))

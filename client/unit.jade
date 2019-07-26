@@ -15,10 +15,11 @@ template(name='unit')
                 with unit
                     +number_edit key='building_number' direct=true
             .ui.header 
-                |Building #{unit.building_code}
+                |building #{unit.building_code}
             if is_dev
                 with unit
                     +text_edit key='building_code' direct=true
+                    +textarea_edit key='notes' direct=true
             +user_key
         .twelve.wide.column
             +unit_residents

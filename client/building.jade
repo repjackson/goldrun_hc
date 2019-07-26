@@ -4,7 +4,7 @@ template(name='buildings')
             .four.wide.column
                 a(href="/building/#{slug}")
                     .ui.segment.home_segment
-                        //- img.ui.rounded.image(src="{{c.url image width=400 height=200 crop='fill'}}")
+                        //- img.ui.circular.tiny.image(src="{{c.url image width=400 height=200 crop='fill'}}")
                         .ui.large.header #{building_code}
                             each building_numbers
                                 .ui.basic.label #{this}
@@ -69,6 +69,7 @@ template(name='unit_card')
             //-     +i name='badge'
             //-     each permits
             //-         .ui.basic.label #{license_plate}
+            .ui.small.header #{notes}
             if is_dev
                 +number_view key='building_number' direct=true
                 +number_view key='unit_number' direct=true

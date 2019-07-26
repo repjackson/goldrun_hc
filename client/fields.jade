@@ -78,7 +78,8 @@ template(name='icon_view')
 
 
 template(name='i')
-    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
@@ -209,10 +210,12 @@ template(name='image_edit')
                 //-     input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id' autocomplete="off")
                 // else
                 //     label Upload Image
-    .upload-btn-wrapper            
-        .btn + Add Photo (switch camera to front)
+    unless is_staff
+        .upload-btn-wrapper            
+            .btn + Add Photo (switch camera to front)
+            input(type='file' name='upload_image' accept='image/*' capture='user')
+    if is_staff            
         input(type='file' name='upload_image' accept='image/*' capture='user')
-
 
 template(name='image_link_edit')
     .ui.fluid.input

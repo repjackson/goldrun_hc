@@ -217,9 +217,10 @@ Template.add_resident.events
                 #     model:'log_event'
                 #     object_id:res
                 #     body: "#{username} checked in."
+                new_user = Meteor.users.findOne res
                 Session.set 'username_query',null
                 $('.username_search').val('')
-
+                Meteor.call 'email_verified',new_user
                 Router.go "/user/#{username}/edit"
 
 

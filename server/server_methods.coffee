@@ -72,7 +72,11 @@ Meteor.methods
     checkout_members: ()->
         now = Date.now()
         # checkedin_members = Meteor.users.find(healthclub_checkedin:true).fetch()
-        checkedin_sessions = Docs.find(model:'healthclub_session',active:true).fetch()
+        checkedin_sessions = Docs.find(
+            model:'healthclub_session',
+            active:true
+            garden_key:$ne:true
+            ).fetch()
 
 
         for session in checkedin_sessions

@@ -312,6 +312,9 @@ template(name='email_validation_check')
                 |#{times}
             //- else
                 //- |#{times}x sent
+        if is_staff
+            .ui.button.toggle_email_verified
+                |mark email verified
         
         
 template(name='lease_expiration_check')

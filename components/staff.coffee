@@ -13,7 +13,7 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
         # @autorun => Meteor.subscribe 'users'
         @autorun => Meteor.subscribe 'sessions'
-        @autorun => Meteor.subscribe 'shift_checklists'
+        @autorun => Meteor.subscribe 'shift_walks'
 
 
     Template.staff.helpers
@@ -26,11 +26,20 @@ if Meteor.isClient
                 model:'healthclub_session'
                 active:true
                 # model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
-
-        shift_checklists: ->
+        shift_walks: ->
             Docs.find
-                model:'frontdesk_hourly_checklist'
+                model:'shift_walk'
                 _author_id: Meteor.userId()
+
+    Template.staff.events
+        'click .log_staff_walked': ->
+            if confirm 'Log hourly walk?'
+                Docs.insert
+                    model: 'shift_walk'
+        'click .remove_walk': ->
+            if confirm 'Remove walk log? Cannont be undone'
+                Docs.remove @_id
+
 
 
     Template.hc_session.onCreated ->
@@ -104,13 +113,10 @@ if Meteor.isClient
         requests: ->
             Docs.find {model:'shift_change_request'},
                 sort: date: -1
-
-
     Template.shift_change_requests.events
         'click .add_shift_change_request': (e,t)->
             Docs.insert
                 model:'shift_change_request'
-
     Template.request_row.events
         'click .declare_unavailable': (e,t)->
             Docs.update @_id,
@@ -118,7 +124,6 @@ if Meteor.isClient
         'click .take_shift': (e,t)->
             Docs.update @_id,
                 $set:assigned_staff:Meteor.user().username
-
 
     Template.task_widget.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'task'
@@ -141,8 +146,6 @@ if Meteor.isClient
         tasks: ->
             Docs.find {model:'task'},
                 sort: date: -1
-
-
     Template.unit_key_checkout.events
         'click .unit_key_checkout': (e,t)->
             # $(e.currentTarget).closest('.segment').transition('fade left',100)
@@ -173,6 +176,22 @@ if Meteor.isClient
 
 
 
+    Template.shift_checklist.onCreated ->
+        @autorun => Meteor.subscribe 'todays_checklist'
+    Template.shift_checklist.events
+        'click .create_checklist': ->
+            Docs.insert
+                model:'shift_checklist'
+
+    Template.shift_checklist.helpers
+        todays_checklist: ->
+            Docs.findOne
+                model:'shift_checklist'
+
+        checklist_items: ->
+            Docs.find
+                model:'shift_checklist'
+
 
 
 if Meteor.isServer
@@ -190,7 +209,7 @@ if Meteor.isServer
             active:true
 
 
-    Meteor.publish 'shift_checklists', ()->
+    Meteor.publish 'shift_walks', ()->
         # this_moment = moment(Date.now())
         # console.log this_moment.subtract(20, 'hours')
         hours = 1000*60*60*20
@@ -198,7 +217,7 @@ if Meteor.isServer
         start_window = now-hours
         console.log start_window
         Docs.find
-            model:'frontdesk_hourly_checklist'
+            model:'shift_walk'
             _author_id:Meteor.userId()
             _timestamp:$gt:start_window
 
@@ -206,3 +225,16 @@ if Meteor.isServer
         if session_data
             Docs.find
                 _id:$in:session_data.guest_ids
+
+
+    Meteor.publish 'todays_checklist', ->
+        this_moment = moment(Date.now())
+        # console.log this_moment.subtract(20, 'hours')
+        hours = 1000*60*60*24
+        now = Date.now()
+        start_window = now-hours
+        # console.log start_window
+        Docs.find
+            model:'shift_checklist'
+            _author_id:Meteor.userId()
+            _timestamp:$gt:start_window

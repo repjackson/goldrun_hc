@@ -181,6 +181,12 @@ if Meteor.isClient
             if confirm 'send verification email?'
                 Meteor.call 'verify_email', @_id, ->
                     alert 'verification email sent'
+        'click .toggle_email_verified': ->
+            console.log @emails[0].verified
+            if @emails[0]
+                Meteor.users.update @_id,
+                    $set:"emails.0.verified":true
+
 
 
 

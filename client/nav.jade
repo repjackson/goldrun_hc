@@ -12,18 +12,27 @@ template(name='nav')
                     i.th.large.icon
                 if is_staff
                     a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                        i.building.large.icon
+                        //- i.building.large.icon
+                        +i name='building'
                         .mobile.hidden &nbsp; buildings
                 if is_staff
                     a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
-                        i.shield.large.icon
+                        //- i.shield.large.icon
+                        +i name='user-shield'
                         .mobile.hidden &nbsp; staff
+                if is_manager
+                    a.icon.item(href='/manager' class="{{isActivePath '/manager'}}")
+                        //- i.shield.large.icon
+                        +i name='user-shield'
+                        .mobile.hidden &nbsp; manager
                     a.icon.item(href='/users' class="{{isActivePath '/users'}}")
-                        i.users.large.icon
+                        //- i.users.large.icon
+                        +i name='groups'
                         .mobile.hidden &nbsp; users
                 if is_staff
                     a.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
-                        i.clinic.medical.large.icon
+                        //- i.clinic.medical.large.icon
+                        +i name='treadmill'
                         .mobile.hidden &nbsp; kiosk
             .right.menu
                 if currentUser
