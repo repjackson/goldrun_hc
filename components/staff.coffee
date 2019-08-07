@@ -9,6 +9,7 @@ if Meteor.isClient
     Template.shift_change_requests.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'shift_change_request'
 
+
     Template.staff.onCreated ->
         # @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
         # @autorun => Meteor.subscribe 'users'
@@ -178,19 +179,66 @@ if Meteor.isClient
 
     Template.shift_checklist.onCreated ->
         @autorun => Meteor.subscribe 'todays_checklist'
+        @autorun => Meteor.subscribe 'model_docs', 'shift_checklist'
+        @autorun -> Meteor.subscribe 'model_fields', 'shift_checklist'
+
     Template.shift_checklist.events
         'click .create_checklist': ->
             Docs.insert
                 model:'shift_checklist'
+
+        'click .complete': ->
+            console.log @
+            console.log Template.parentData()
+            todays_checklist =
+                Docs.findOne
+                    model:'shift_checklist'
+            Docs.update todays_checklist._id,
+                $set:
+                    "#{@key}":true
+                    "#{@key}_timestamp":Date.now()
+
+        'click .incomplete': ->
+            console.log @
+            console.log Template.parentData()
+            todays_checklist =
+                Docs.findOne
+                    model:'shift_checklist'
+            Docs.update todays_checklist._id,
+                $unset:
+                    "#{@key}":1
+                    "#{@key}_timestamp":1
+
 
     Template.shift_checklist.helpers
         todays_checklist: ->
             Docs.findOne
                 model:'shift_checklist'
 
-        checklist_items: ->
-            Docs.find
+        completed_time: ->
+            todays_checklist =
+                Docs.findOne
+                    model:'shift_checklist'
+            todays_checklist["#{@key}_timestamp"]
+
+
+        completed: ->
+            checklist = Docs.findOne
                 model:'shift_checklist'
+            # console.log @
+            checklist["#{@key}"]
+
+        # checklist_items: ->
+        #     Docs.find
+        #         model:'shift_checklist'
+
+
+        checklist_items: ->
+            shift_checklist = Docs.findOne
+                model:'shift_checklist'
+            Docs.find
+                model:'field'
+
 
 
 

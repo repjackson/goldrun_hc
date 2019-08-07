@@ -20,15 +20,15 @@ template(name='nav')
                         //- i.shield.large.icon
                         +i name='user-shield'
                         .mobile.hidden &nbsp; staff
+                    a.icon.item(href='/users' class="{{isActivePath '/users'}}")
+                        //- i.users.large.icon
+                        +i name='groups'
+                        .mobile.hidden &nbsp; users
                 if is_manager
                     a.icon.item(href='/manager' class="{{isActivePath '/manager'}}")
                         //- i.shield.large.icon
                         +i name='user-shield'
                         .mobile.hidden &nbsp; manager
-                    a.icon.item(href='/users' class="{{isActivePath '/users'}}")
-                        //- i.users.large.icon
-                        +i name='groups'
-                        .mobile.hidden &nbsp; users
                 if is_staff
                     a.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
                         //- i.clinic.medical.large.icon
