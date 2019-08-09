@@ -1,5 +1,3 @@
-@selected_tags = new ReactiveArray []
-
 # Meteor.startup ->
 #     scheduler.init "scheduler_here", new Date()
 #     scheduler.meteor(Docs.find(model:'event'), Docs);

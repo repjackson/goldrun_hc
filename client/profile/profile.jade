@@ -42,7 +42,7 @@ template(name='user_layout')
                             //-     a.item(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
                             //-         i.clinic.medical.icon
                             //-         |health club                        
-                            a.item(href="/user/#{username}" class="{{isActiveRoute 'user_about'}}")
+                            a.item(href="/user/#{username}" class="{{isActiveRoute 'resident_about'}}")
                                 i.info.icon
                                 |about
                     if is_current_user
@@ -60,6 +60,33 @@ template(name='user_layout')
                             each roles
                                 .ui.basic.label #{this}
                 .twelve.wide.column.shadowed-box
+                    a.ui.icon.button(href="/user/#{username}/info" class="{{isActiveRoute 'user_info'}}" title='info')
+                        +i name='info'
+                    //- a.ui.icon.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
+                    //-     +i name='dashboard'
+                    a.ui.icon.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}" title='social')
+                        +i name='collaboration'
+                    a.ui.icon.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}" title='gallery')
+                        +i name='gallery'
+                    a.ui.icon.button(href="/user/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}" title='bookmarks')
+                        +i name='star'
+                    a.ui.icon.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}" title='contact')
+                        +i name='phone'
+                    a.ui.icon.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}" title='events')
+                        +i name='calendar'
+                    a.ui.icon.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}" title='comparison')
+                        +i name='meeting'
+                    a.ui.icon.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}" title='tags')
+                        +i name='tags'
+                    a.ui.icon.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}" title='tags')
+                        +i name='tasks'
+                    a.ui.icon.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
+                        +i name='yin-yang'
+                    a.ui.icon.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}" title='votes')
+                        +i name='elections'
+                    a.ui.icon.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}" title='money')
+                         +i name='appointment-reminders'
+                    
                     +yield
     unless is_frontdesk
         +footer 
@@ -177,7 +204,7 @@ template(name='user_healthclub')
         svg#barcode
     
     
-template(name='user_about')
+template(name='resident_about')
     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
     .ui.stackable.grid
         .row

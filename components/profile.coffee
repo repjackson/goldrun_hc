@@ -7,6 +7,14 @@ if Meteor.isClient
     Template.user_layout.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'staff_resident_widget'
 
+    Template.user_layout.onRendered ->
+        Meteor.setTimeout ->
+            $('.button').popup()
+        , 2000
+
+
+
+
     Template.user_about.helpers
         staff_resident_widgets: ->
             Docs.find

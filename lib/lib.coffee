@@ -1,5 +1,4 @@
 @Docs = new Meteor.Collection 'docs'
-@Tags = new Meteor.Collection 'tags'
 
 # Meteor.users.helpers
 #     name: ->
@@ -136,70 +135,12 @@ Meteor.methods
         Meteor.call 'fa', alpha_id, (err,res)->
 
 
-if Meteor.isClient
-    Template.docs.onCreated ->
-        @autorun -> Meteor.subscribe('docs', selected_tags.array())
-
-    Template.docs.helpers
-        docs: ->
-            Docs.find { },
-                sort:
-                    tag_count: 1
-                limit: 1
-
-        tag_class: -> if @valueOf() in selected_tags.array() then 'primary' else 'basic'
-
-        selected_tags: -> selected_tags.array()
-
-
-    Template.view.helpers
-        tag_class: -> if @valueOf() in selected_tags.array() then 'primary' else 'basic'
-        when: -> moment(@_timestamp).fromNow()
-
-    Template.view.events
-        'click .tag': -> if @valueOf() in selected_tags.array() then selected_tags.remove(@valueOf()) else selected_tags.push(@valueOf())
-
-        'click .edit': -> Router.go("/edit/#{@_id}")
-
-    Template.docs.events
-        'click #add': ->
-            Meteor.call 'add', (err,id)->
-                Router.go "/edit/#{id}"
-
-        'keyup #quick_add': (e,t)->
-            e.preventDefault
-            tag = $('#quick_add').val().toLowerCase()
-            if e.which is 13
-                if tag.length > 0
-                    split_tags = tag.match(/\S+/g)
-                    $('#quick_add').val('')
-                    Meteor.call 'add', split_tags
-                    selected_tags.clear()
-                    for tag in split_tags
-                        selected_tags.push tag
-
-
-
 if Meteor.isServer
     Docs.allow
         insert: (userId, doc) -> doc._author_id is userId
         update: (userId, doc) -> userId
         # update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
         remove: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
-
-    Meteor.publish 'docs', (selected_tags, filter)->
-        # user = Meteor.users.findOne @userId
-        console.log selected_tags
-        console.log filter
-        self = @
-        match = {}
-        # if filter is 'shop'
-        #     match.active = true
-        if selected_tags.length > 0 then match.tags = $all: selected_tags
-        if filter then match.model = filter
-
-        Docs.find match, sort:_timestamp:-1
-
 
     Meteor.publish 'doc', (id)->
         doc = Docs.findOne id
