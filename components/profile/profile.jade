@@ -26,30 +26,17 @@ template(name='user_layout')
                         +staff_verification
                 
                     else if is_current_user
-                        a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit")
-                            i.settings.large.icon
-                            | settings
+                        a.ui.icon.big.button.item(href="/user/#{user_from_username_param.username}/edit")
+                            i.cog.large.icon
                     //- else
                         //- .ui.button.direct_message
                         //-     i.sent.icon
                         //-     |direct message
-                    unless is_staff
-                        .ui.vertical.fluid.menu
-                            //- if is_staff
-                            //-     a.item(href="/user/#{username}/residency" class="{{isActiveRoute 'user_residency'}}")
-                            //-         i.home.icon
-                            //-         |residency
-                            //-     a.item(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
-                            //-         i.clinic.medical.icon
-                            //-         |health club                        
-                            a.item(href="/user/#{username}" class="{{isActiveRoute 'resident_about'}}")
-                                i.info.icon
-                                |about
                     if is_current_user
-                        a.ui.fluid.button.logout(href="#")
+                        a.ui.fluid.large.button.logout(href="#")
                             i.sign.out.icon
                             |log out
-                        a.ui.fluid.button.logout_other_clients(href="#")
+                        a.ui.fluid.large.button.logout_other_clients(href="#")
                             |logout other clients
                     if is_admin
                         .ui.segment
@@ -60,7 +47,7 @@ template(name='user_layout')
                             each roles
                                 .ui.basic.label #{this}
                 .twelve.wide.column.shadowed-box
-                    a.ui.icon.button(href="/user/#{username}/info" class="{{isActiveRoute 'user_info'}}" title='info')
+                    a.ui.icon.button(href="/user/#{username}/about" class="{{isActiveRoute 'user_about'}}" title='about')
                         +i name='info'
                     //- a.ui.icon.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
                     //-     +i name='dashboard'
@@ -75,13 +62,15 @@ template(name='user_layout')
                     a.ui.icon.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}" title='events')
                         +i name='calendar'
                     a.ui.icon.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}" title='comparison')
-                        +i name='meeting'
+                        +i name='scales'
                     a.ui.icon.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}" title='tags')
                         +i name='tags'
-                    a.ui.icon.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}" title='tags')
-                        +i name='tasks'
+                    //- a.ui.icon.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}" title='tags')
+                    +i name='tasks'
                     a.ui.icon.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
                         +i name='yin-yang'
+                    a.ui.icon.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}" title='stats')
+                        +i name='line-chart'
                     a.ui.icon.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}" title='votes')
                         +i name='elections'
                     a.ui.icon.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}" title='money')
@@ -435,8 +424,8 @@ template(name='user_log')
 template(name='user_rules_widget')
     .ui.cloud.segment
         .ui.grey.header
-            i.edit.icon
-            | User Rules Signature
+            i.signature.icon
+            | user rules signature
     
 
 template(name='user_people')
@@ -451,7 +440,10 @@ template(name='user_array_list')
             .item
                 +user_info
             
-            
+template(name='user_comparison')
+    .ui.header user comparison
+    .ui.header simulate conversation between you and them using site stats
+
             
 
             

@@ -202,19 +202,12 @@ template(name='image_edit')
                 a#remove_photo.ui.right.corner.link.label
                     i.remove.red.link.icon
             else
-                //- if icon
-                //-     i.icon(class=icon)
-                //- |#{title}
-                //- if is_dev
-                //-     input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id' autocomplete="off")
-                // else
-                //     label Upload Image
-    unless is_staff
-        .upload-btn-wrapper            
-            .btn + Add Photo (switch camera to front)
-            input(type='file' name='upload_image' accept='image/*' capture='user')
-    if is_staff            
-        input(type='file' name='upload_image' accept='image/*' capture='user')
+                if is_frontdesk
+                    .upload-btn-wrapper            
+                        .btn + Add Photo (switch camera to front)
+                        input(type='file' name='upload_image' accept='image/*' capture='user')
+                else            
+                    input(type='file' name='upload_image' accept='image/*' capture='user')
 
 template(name='image_link_edit')
     .ui.fluid.input

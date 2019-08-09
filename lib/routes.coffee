@@ -137,10 +137,10 @@ Router.route '/user/:username', (->
     @layout 'user_layout'
     @render 'resident_info'
     ), name:'resident_info'
-Router.route '/user/:username/info', (->
+Router.route '/user/:username/about', (->
     @layout 'user_layout'
-    @render 'user_info'
-    ), name:'user_info'
+    @render 'user_about'
+    ), name:'user_about'
 Router.route '/user/:username/healthclub', (->
     @layout 'user_layout'
     @render 'user_healthclub'
@@ -157,6 +157,14 @@ Router.route '/user/:username/payment', (->
     @layout 'user_layout'
     @render 'user_payment'
     ), name:'user_payment'
+Router.route '/user/:username/contact', (->
+    @layout 'user_layout'
+    @render 'user_contact'
+    ), name:'user_contact'
+Router.route '/user/:username/stats', (->
+    @layout 'user_layout'
+    @render 'user_stats'
+    ), name:'user_stats'
 Router.route '/user/:username/votes', (->
     @layout 'user_layout'
     @render 'user_votes'
@@ -201,10 +209,6 @@ Router.route '/user/:username/events', (->
     @layout 'user_layout'
     @render 'user_events'
     ), name:'user_events'
-Router.route '/user/:username/contact', (->
-    @layout 'user_layout'
-    @render 'user_contact'
-    ), name:'user_contact'
 Router.route '/user/:username/products', (->
     @layout 'user_layout'
     @render 'user_products'
