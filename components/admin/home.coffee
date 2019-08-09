@@ -19,11 +19,15 @@ if Meteor.isClient
 
     Template.home.helpers
         role_models: ->
-            # console.log Meteor.user().roles
-            Docs.find {
-                model:'model'
-                view_roles:$in:Meteor.user().roles
-            }, sort:title:1
+            if 'dev' in Meteor.user().roles
+                Docs.find {
+                    model:'model'
+                }, sort:title:1
+            else
+                Docs.find {
+                    model:'model'
+                    view_roles:$in:Meteor.user().roles
+                }, sort:title:1
 
         marketplace_items: ->
             # console.log Meteor.user().roles
@@ -41,6 +45,10 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'role_models', ()->
-        Docs.find
-            model:'model'
-            view_roles:$in:Meteor.user().roles
+        if 'dev' in Meteor.user().roles
+            Docs.find
+                model:'model'
+        else
+            Docs.find
+                model:'model'
+                view_roles:$in:Meteor.user().roles

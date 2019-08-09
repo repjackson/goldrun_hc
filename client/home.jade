@@ -8,10 +8,12 @@ template(name='home')
             .column
                 a(href="/m/#{slug}")
                     .ui.segment.home_segment.set_model
-                        .ui.grey.header 
-                            //- i.icon(class=icon)
+                        .ui.header 
                             +i name=icon
                             |#{title}
+                        if is_dev
+                            each view_roles
+                                .ui.basic.label #{this}
 
 
 //- 

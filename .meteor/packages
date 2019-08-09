@@ -31,7 +31,6 @@ kevohagan:sweetalert
 raix:handlebar-helpers
 matb33:collection-hooks
 mizzao:autocomplete
-dynamic-import@0.5.1
 froala:editor-reactive@=2.4.2
 mquandalle:jade
 underscore@1.0.10
@@ -41,5 +40,3 @@ reywood:publish-composite
 pascoual:pdfkitx
 lookback:emails
 percolate:synced-cron
-http
-modules

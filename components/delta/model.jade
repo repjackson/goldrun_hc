@@ -3,10 +3,8 @@ template(name='model_edit')
         .ui.stackable.padded.grid            
             .centered.row
                 .six.wide.column
-                    .ui.header(title="model: #{model}")
-                        |#{title}
+                    h1.ui.header edit model #{title}
                     +creation_info
-                    h1.ui.header edit model
                     .ui.center.aligned.basic.segment
                         a.ui.huge.icon.basic.button(href="/m/#{slug}")
                             i.big.checkmark.icon
@@ -33,9 +31,12 @@ template(name='model_edit')
                         each fields
                             .title 
                                 |#{rank}
-                                //- +i name=icon classes='ui avatar image'
-                                i.icon(class=icon)
-                                |#{title} 
+                                +i name=icon classes='ui avatar image'
+                                |#{title} (#{field_type})
+                                if faceted
+                                    i.filter.icon
+                                each view_roles
+                                    .ui.small.basic.label #{this}
                                 i.dropdown.icon
                             +field_edit
 
@@ -86,8 +87,6 @@ template(name='model_view')
                                 +Template.dynamic template=view_template 
                     div
                     +comments
-                    if watson
-                        +watson_view
         .ui.stackable.padded.grid
             .four.wide.column
                 h1.ui.header #{title}
@@ -125,10 +124,10 @@ template(name='field_edit')
         +text_edit key='key'  direct=true label='key'           
         //- +text_edit key='field_type' direct=true label='Field Type'              
         +icon_edit key='icon' direct=true label='icon'              
+        +number_edit key='rank' label='rank' direct=true                 
         +single_doc_edit key='field_type' ref_model='field_type' label='field type' direct=true                 
         +multi_doc_edit key='view_roles' ref_model='role' label='view roles' direct=true icon='eye'          
         +multi_doc_edit key='edit_roles' ref_model='role' label='edit roles' direct=true icon='pencil'        
-        +number_edit key='rank' label='rank' direct=true                 
         //- +text_edit key='ref_model' label='Reference Model' direct=true
         +boolean_edit key='faceted' label='faceted' direct=true
         if is_ref  

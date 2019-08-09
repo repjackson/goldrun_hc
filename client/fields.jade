@@ -73,13 +73,12 @@ template(name='color_icon_view')
 template(name='icon_view')
     if field_value
         div
-        i.icon(class=field_value)
-        //- img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+        //- i.icon(class=field_value)
+        img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
 
 template(name='i')
-    img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
-    //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
@@ -496,7 +495,7 @@ template(name='phone_view')
 
 template(name='number_edit')
     div
-    h4.ui.header(title=tip)
+    .ui.inline.header(title=tip)
         if icon
             +i name=icon
             //- i.grey.icon(class=icon)
@@ -506,8 +505,9 @@ template(name='number_edit')
             |#{label}
         else
             |#{key}
-    //- +clear_value                
-    input.edit_number(type='number' value=field_value placeholder=placeholder autocomplete="off")
+    //- +clear_value    
+    .ui.input            
+        input.edit_number(type='number' value=field_value placeholder=placeholder autocomplete="off")
             
             
 template(name='number_view')
@@ -888,14 +888,14 @@ template(name='multi_doc_edit')
     div
     .ui.small.inline.header(title=key)
         if icon
-            //- +i name=icon classes='ui avatar image'
-            i.icon(class=icon)
+            +i name=icon classes='ui avatar image'
+            //- i.icon(class=icon)
         |#{title} #{label}    
     each choices
         .ui.circular.compact.button.select_choice(class=choice_class)
             if icon
-                //- +i name=icon classes='ui avatar image'
-                i.grey.icon(class=icon)
+                +i name=icon classes='ui avatar image'
+                //- i.grey.icon(class=icon)
             //- |#{title} #{slug}
             |#{slug}
     //- .ui.sub.header 

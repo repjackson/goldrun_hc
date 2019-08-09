@@ -37,9 +37,9 @@ template(name='nav')
             .right.menu
                 if currentUser
                     unless logging_out
-                        if is_dev
-                            a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
-                                i.sitemap.large.icon
+                        //- if is_dev
+                        a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
+                            i.sitemap.large.icon
                         unless is_frontdesk
                             a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                                 if currentUser.image_id
