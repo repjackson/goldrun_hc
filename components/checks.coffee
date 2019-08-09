@@ -13,10 +13,10 @@ if Meteor.isClient
             # console.log @slug
 
         checkins_left_without_email_verification: ->
-            4-@checkins_without_email_verification
+            6-@checkins_without_email_verification
 
         checkins_left_without_gov_id: ->
-            4-@checkins_without_gov_id
+            6-@checkins_without_gov_id
 
 
     Template.user_check_steps.events

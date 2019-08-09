@@ -20,14 +20,13 @@ Template.registerHelper 'invert_class', () -> if Session.equals('dark_mode',true
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 Template.registerHelper 'is_author', () ->
-    # console.log @
     @_author_id is Meteor.userId()
 Template.registerHelper 'is_grandparent_author', () ->
     grandparent = Template.parentData(2)
     grandparent._author_id is Meteor.userId()
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
 Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM Do h:mm:ss a")
-Template.registerHelper 'today', () -> 
+Template.registerHelper 'today', () ->
     moment(Date.now()).format("dddd, MMMM Do a")
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
@@ -132,11 +131,7 @@ Template.registerHelper 'resident_status_class', ()->
         'orange_flagged'
     else ''
 
-Template.registerHelper 'available_servings', () ->
-
-
 Template.registerHelper 'author', () -> Meteor.users.findOne @_author_id
-
 Template.registerHelper 'is_text', () ->
     # console.log @field_type
     @field_type is 'text'

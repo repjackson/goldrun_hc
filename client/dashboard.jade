@@ -29,25 +29,6 @@ template(name='dashboard')
                     each my_products
                         +product_card
                 
-template(name='product_card')                
-    .ui.card
-        .content
-            a(href="/shop/#{_id}/view")
-                img.ui.avatar.image(src="{{c.url picture width=100 height=100 gravity='face' crop='crop'}}")
-                .ui.small.inline.header
-                    | #{title}
-            .ui.small.inline.header #{reader_count}
-            .ui.small.inline.header #{points} likes
-            .ui.small.inline.header #{transactions_count} transactions count
-
-
-template(name='product_stats')
-    .ui.header 
-        i.line.chart.grey.icon
-        |stats
-    .ui.small.header #{currentUser.current_product_count} products
-    .ui.small.header #{currentUser.reservation_count} reservations
-        
         
 template(name='bookmarked_users')
     .ui.header 

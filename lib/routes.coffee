@@ -16,16 +16,13 @@ Router.onBeforeAction(force_loggedin, {
   except: ['register', 'forgot_password','reset_password','delta','doc_view','verify-email','download_rules_pdf']
 });
 
-
 Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
 
-Router.route '/units', -> @render 'units'
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
 # Router.route '/register', -> @render 'register'
 Router.route '/admin', -> @render 'admin'
 Router.route '/dashboard', -> @render 'dashboard'
-Router.route '/buildings', -> @render 'buildings'
 Router.route '/manager', -> @render 'manager'
 Router.route '/shift_checklist', -> @render 'shift_checklist'
 
@@ -39,7 +36,6 @@ Router.route '/events', (->
     @render 'events'
     ), name:'events'
 
-Router.route '/unit/:unit_id', -> @render 'unit'
 Router.route '/building/:building_code', -> @render 'building'
 
 Router.route('enroll', {

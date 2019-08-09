@@ -4,15 +4,15 @@ template(name='manager')
             .four.wide.column
                 .ui.header 
                     +i name='manager'
-                    |Manager Dashboard
+                    |manager dashboard
             .twelve.wide.column
                 .ui.segment
-                    .ui.header Staff Shift Walks
+                    .ui.header staff shift walks
                     .ui.large.list
                         each shift_walks
                             .item #{_author_username} #{when}
                 .ui.segment
-                    .ui.header Check In History
+                    .ui.header check in history
                     .ui.large.list
                         each check_ins
                             .item

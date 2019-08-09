@@ -1,3 +1,6 @@
+Router.route '/buildings', -> @render 'buildings'
+
+
 if Meteor.isClient
     Template.buildings.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'building'

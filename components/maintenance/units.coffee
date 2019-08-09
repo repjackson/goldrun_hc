@@ -1,3 +1,7 @@
+Router.route '/units', -> @render 'units'
+Router.route '/unit/:unit_id', -> @render 'unit'
+
+
 if Meteor.isClient
     Template.unit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.unit_id
