@@ -2,25 +2,30 @@ template(name='unit')
     .ui.stackable.padded.grid
         .four.wide.column
             a.ui.big.button(href="/building/#{unit.building_code}")
-                i.large.left.chevron.icon
+                //- i.large.left.chevron.icon
+                +i name='chevron-left' classes='ui inline mini image'
                 |#{unit.building_code}
             .ui.header
-                i.home.icon 
-                //- +i name='apartment'
-                |Unit
-                |#{unit.unit_number}
+                //- i.home.icon 
+                +i name='apartment'
+                small unit
+                strong #{unit.unit_number}
             .ui.header 
-                |Building #{unit.building_number}
+                small building 
+                strong #{unit.building_number}
             if is_dev
                 with unit
                     +number_edit key='building_number' direct=true
             .ui.header 
-                |building #{unit.building_code}
+                small building
+                strong #{unit.building_code}
             if is_dev
                 with unit
                     +text_edit key='building_code' direct=true
                     +textarea_edit key='notes' direct=true
             +user_key
+            with unit
+                +comments
         .twelve.wide.column
             +unit_residents
             +unit_owners
@@ -32,7 +37,7 @@ template(name='unit_permits')
     .ui.segment
         .ui.header 
             +i name='badge'
-            |Unit Permits
+            |unit permits
         .ui.cards
             each permits
                 .ui.card
@@ -46,9 +51,9 @@ template(name='unit_permits')
 template(name='unit_owners')            
     .ui.segment
         .ui.header 
-            //- +i name='rent'
-            i.money.icon
-            |Unit Owners
+            +i name='rent'
+            //- i.money.icon
+            |owners
         .ui.four.cards
             each owners
                 .ui.card
@@ -64,14 +69,17 @@ template(name='unit_owners')
 template(name='unit_residents')            
     .ui.segment
         .ui.header
-            //- +i name='group'
-            i.users.icon
-            |Unit Residents
+            +i name='group'
+            //- i.users.icon
+            |residents
         .ui.four.cards
             each residents
                 .ui.card
                     .image
-                        img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                        if kiosk_photo
+                            img.ui.image(src="{{c.url kiosk_photo width=400 height=400 gravity='face' crop='fill'}}")
+                        else if image_id
+                            img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                     .content
                         a.header(href="/user/#{username}")
                              |#{first_name} #{last_name} 
@@ -85,9 +93,9 @@ template(name='unit_residents')
 template(name='user_key')
     .ui.segment
         .ui.grey.inline.center.aligned.small.header 
-            i.key.icon
-            //- +i name='key'
-            |Key
+            //- i.key.icon
+            +i name='key'
+            |key
         if is_admin
             +goto_model slug='key'
         with key
@@ -115,8 +123,9 @@ template(name='user_key')
                 +view_button
             if is_staff
                 .ui.tiny.grey.header
-                    i.grey.shield.icon
-                    |Access Log            
+                    //- i.grey.shield.icon
+                    +i name='user-shield'
+                    |access log            
                 .ui.list.smallscroll
                     each access_log
                         .item #{when} by #{_author_username}

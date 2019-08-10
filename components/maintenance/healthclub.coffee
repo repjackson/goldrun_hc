@@ -4,6 +4,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'me'
 
         # @autorun => Meteor.subscribe 'current_session'
+        @autorun => Meteor.subscribe 'latest_movie'
         # @autorun => Meteor.subscribe 'model_docs', 'log_event'
         # @autorun => Meteor.subscribe 'users'
 
@@ -39,6 +40,11 @@ if Meteor.isClient
                 model:'healthclub_session'
                 current:true
 
+        latest_movie: ()->
+            Docs.findOne
+                model:'event'
+                tags:$in:['movie']
+
         selected_person: ->
             Meteor.users.findOne Session.get('selected_user_id')
 
@@ -68,6 +74,7 @@ if Meteor.isClient
         'click .new_hc_session': (e,t)->
             # $(e.currentTarget).closest('.button').transition('fade up')
             Session.set 'loading_checkin', true
+            # alert 'loading checkin'
             # Meteor.setTimeout =>
             # Docs.insert
             #     model:'log_event'
@@ -115,7 +122,6 @@ if Meteor.isClient
 
             $('.username_search').val('')
             Router.go "/healthclub_session/#{session_document}"
-            Session.set 'loading_checkin', false
             Session.set 'displaying_profile',@_id
             # , 750
 
@@ -394,3 +400,11 @@ if Meteor.isClient
     #
     # Template.checkin_card.onCreated ->
     #     @autorun => Meteor.subscribe 'user_from_id', @data
+
+
+if Meteor.isServer
+    Meteor.publish 'latest_movie', ->
+        Docs.find {
+            model:'event'
+            tags:$in:['movie']
+        }, sort: _timestamp:-1

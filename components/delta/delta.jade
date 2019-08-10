@@ -80,12 +80,12 @@ template(name='facet')
         //- div
         each filtering_res
             if name
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+                .selector.ui.button.toggle_selection(class=toggle_value_class)
                     strong #{name}
                     if is_admin
                         small #{cal_count} #{count}
             else
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+                .selector.ui.button.toggle_selection(class=toggle_value_class)
                     strong [null]
                     //- small #{cal_count}
         .ui.hidden.divider
@@ -115,19 +115,19 @@ template(name='delta_result')
                         if is_model
                             +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                             a.ui.basic.button.route_model(href="/m/#{slug}")
-                                i.sitemap.icon
+                                i.sitemap.teal.icon
                                 |view model
                             if is_admin
                                 a.ui.basic.button.route_model(href="/model/edit/#{_id}")
-                                    i.edit.icon
+                                    i.edit.blue.icon
                                     |edit model
                         else
                             if can_edit
                                 a.ui.large.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
-                                    i.pencil.large.icon
+                                    i.pencil.blue.large.icon
                                     //- |edit
                             a.ui.icon.large.basic.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
-                                i.right.chevron.large.icon
+                                i.right.chevron.yellow.large.icon
                         if _author_id
                             +author_info
                         +creation_info

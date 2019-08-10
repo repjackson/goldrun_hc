@@ -7,9 +7,9 @@ template(name='model_doc_edit')
                         |edit #{model}
                     +creation_info
                     a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
-                        i.big.checkmark.icon
+                        i.big.green.checkmark.icon
                     #delete_doc.ui.icon.basic.button
-                        i.trash.icon
+                        i.red.trash.icon
                     if is_user
                         +boolean_edit key='private' direct=true
                 .ten.wide.column
@@ -32,11 +32,12 @@ template(name='model_doc_view')
                         +i name=current_model.icon classes='ui mini inline image'
                         |#{current_model.title}
                     if can_edit
-                        div
                         a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
-                            i.pencil.icon
+                            i.blue.pencil.large.icon
                     if is_admin
-                        .ui.header timestamp tags
+                        .ui.header 
+                            +i name='clock'
+                            |timestamp tags
                         each _timestamp_tags
                             .ui.basic.label #{this}
                     +user_list_toggle key='bookmark_ids' icon='bookmark' label='bookmark' color='red'

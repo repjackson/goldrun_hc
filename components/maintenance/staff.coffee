@@ -19,14 +19,15 @@ if Meteor.isClient
                     model:'shift_checklist'
             checklist.complete
         checkedin_members: ->
-            Docs.find
+            Docs.find {
                 model:'healthclub_session'
                 active:true
+            }, sort: _timestamp:-1
         sessions: ->
-            Docs.find
+            Docs.find {
                 model:'healthclub_session'
                 active:true
-                # model:$in:['healthclub_checkin','garden_key_checkout','unit_key_checkout']
+            }, sort: _timestamp:-1
         shift_walks: ->
             Docs.find
                 model:'shift_walk'

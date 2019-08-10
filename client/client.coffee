@@ -14,18 +14,18 @@ Template.body.events
         .transition('fade in')
 
 
-Template.healthclub.events
-    'click .button': ->
-        $('.global_container')
-        .transition('fade out', 5000)
-        .transition('fade in', 5000)
+# Template.healthclub.events
+#     'click .button': ->
+#         $('.global_container')
+#         .transition('fade out', 5000)
+#         .transition('fade in', 5000)
 
 
-Template.healthclub_session.events
-    'click .button': ->
-        $('.global_container')
-        .transition('fade out', 5000)
-        .transition('fade in', 5000)
+# Template.healthclub_session.events
+#     'click .button': ->
+#         $('.global_container')
+#         .transition('fade out', 5000)
+#         .transition('fade in', 5000)
 
 
 
@@ -48,6 +48,12 @@ Template.registerHelper 'today', () ->
     moment(Date.now()).format("dddd, MMMM Do a")
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
+Template.registerHelper 'last_initial', (user) ->
+    @last_name[0]+'.'
+    # moment(input).fromNow()
+Template.registerHelper 'first_initial', (user) ->
+    @first_name[0]+'.'
+    # moment(input).fromNow()
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
 Template.registerHelper 'is_event', () -> @shop_type is 'event'
 Template.registerHelper 'is_service', () -> @shop_type is 'service'

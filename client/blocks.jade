@@ -2,14 +2,14 @@ template(name='comments')
     .ui.fluid.accordion
         .active.title
             .ui.grey.header
-                i.chat.outline.icon
-                //- +i name='chat'
+                //- i.chat.outline.icon
+                +i name='chat'
                 |comments
         .active.content
             if currentUser
                 .ui.fluid.icon.input
                     i.plus.icon
-                    input.add_comment(model='text' placeholder='add...')
+                    input.add_comment(model='text')
             .ui.comments
                 each doc_comments
                     .comment
@@ -24,8 +24,8 @@ template(name='comments')
 template(name='goto_model')
     if is_staff
         a.ui.icon.basic.button.goto_model(href="/m/#{slug}" title="goto #{slug}")
-            i.external.icon
-            //- +ismall name='external-link'
+            //- i.external.icon
+            +ismall name='external-link'
 
 template(name='events_column')
     .ui.accordion
@@ -39,7 +39,7 @@ template(name='events_column')
                 each log_events
                     .event
                         .label
-                            img.ui.image(src="{{c.url object.image width=400 height=400 gravity='face' crop='fill'}}")
+                            img.ui.rounded.image(src="{{c.url object.image width=400 height=400 gravity='face' crop='fill'}}")
                         .content
                             .summary
                                 |#{body}
@@ -92,18 +92,20 @@ template(name='user_card')
         .ui.grid.smoothed.segment
             if is_staff
                 .four.wide.column
-                    if image_id
-                        img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                    if kiosk_photo
+                        img.ui.rounded.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
+                    else if image_id
+                        img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .twelve.wide.column
                 unless is_staff
                     .header #{first_name} #{last_name} 
                 if is_staff
                     a.header(href="/user/#{username}") #{first_name} #{last_name} 
                     .meta @#{username}
-                    +text_view key='address' direct=true label='Address'
-                    +text_view key='building_code' direct=true label='Building Code'
-                    +number_view key='unit_number' direct=true label='Unit #'
-                    +number_view key='building_number' direct=true label='Building #'
+                    +text_view key='address' direct=true label='address'
+                    +text_view key='building_code' direct=true label='building code'
+                    +number_view key='unit_number' direct=true label='unit #'
+                    +number_view key='building_number' direct=true label='building #'
                     if is_admin
                         div
                         +user_email
@@ -129,7 +131,7 @@ template(name='big_user_card')
         //- .ui.card(class=resident_status_class)
         .ui.card
             .image
-                img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .content
                 a.header(href="/user/#{username}")
                      |#{first_name} #{last_name} 
@@ -209,8 +211,8 @@ template(name='creation_info')
 template(name='user_list_toggle')
     if currentUser
         .ui.icon.compact.button.toggle(class=user_list_toggle_class title=label)
-            i.icon(class=icon)
-            //- +ismall name=icon classes='ui inline image'
+            //- i.icon(class=icon)
+            +i name=icon classes='ui inline image'
             //- |#{label}
         //- each list_users
         //-     +user_info
@@ -253,8 +255,8 @@ template(name='voting_full')
 
 template(name='view_button')
     a.ui.icon.compact.basic.button.view(title='view' href="/m/#{model}/#{_id}/view")
-        i.right.chevron.large.icon
-        //- +i name='chevron right' classes='ui mini inline image'
+        //- i.right.chevron.large.icon
+        +i name='chevron right' classes='ui mini inline image'
 
 
 template(name='remove_button')

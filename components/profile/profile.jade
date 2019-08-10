@@ -12,15 +12,12 @@ template(name='user_layout')
                     .ui.center.aligned.basic.segment
                         a(href="/user/#{user.username}")
                             h1.ui.large.center.aligned.header
-                                | #{user.first_name}
-                                | #{user.last_name}
-                    .ui.center.aligned.header
-                        | @#{user.username}        
+                                strong #{user.first_name} #{user.last_name}
+                                small @#{user.username}        
                     if user_is_resident
                         if is_staff
-                            a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit")
-                                i.pencil.large.blue.icon
-                                | edit
+                            a.ui.big.compact.icon.button.item(href="/user/#{user_from_username_param.username}/edit")
+                                +i name='settings' classes='ui inline mini image'
                         +resident_info         
                         +user_check_steps
                         +staff_verification
@@ -206,12 +203,12 @@ template(name='resident_info')
         +phone_view key='phone' label='Phone' direct=true
         if user_is_resident
             //- if is_staff
-            +number_view key='unit_number' label='Unit #' direct=true
-            +number_view key='building_number' label='Building #' direct=true
-            +number_view key='healthclub_code' label='Healthclub_code' direct=true
-            +text_view key='building_code' label='Building Code' direct=true
-            +date_view key='start_date' label='Start Date' direct=true
-            +date_view key='expiration_date' label='Expiration Date' direct=true
+            +number_view key='unit_number' label='unit #' direct=true
+            +number_view key='building_number' label='building #' direct=true
+            +number_view key='healthclub_code' label='healthclub code' direct=true
+            +text_view key='building_code' label='building code' direct=true
+            +date_view key='start_date' label='start date' direct=true
+            +date_view key='expiration_date' label='expiration date' direct=true
         +textarea_view key='notes' label='notes' icon='align-left' direct=true
         div
         each emails

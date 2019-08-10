@@ -98,3 +98,11 @@ if Meteor.isServer
                     $unset:
                         checkins_without_gov_id:1
                         gov_red_flagged:1
+        residence_paperwork: (user)->
+            console.log 'running residence paperwork', user.username
+            # if user.staff_verifier
+            #     Meteor.users.update user._id,
+            #         $set:staff_government_id_check:true
+            #         $unset:
+            #             checkins_without_gov_id:1
+            #             gov_red_flagged:1

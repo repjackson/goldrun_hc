@@ -136,13 +136,14 @@ template(name='healthclub_session')
                                         .ui.massive.fluid.basic.green.button.submit_checkin
                                             .ui.inline.inverted.header 
                                                 | check in
-            .row
-                .sixteen.wide.column
-                    if timer_engaged
-                        .ui.small.grey.header auto check in #{timer} seconds
-                        .ui.button.cancel_auto_checkin
-                            i.ban.icon
-                            | cancel auto check in
+                                                if timer_engaged
+                                                    small (auto in #{timer})                    
+                                                //- i.right.chevron.icon
+                if timer_engaged
+                    //- .ui.small.grey.header auto check in #{timer} seconds
+                    .ui.button.cancel_auto_checkin
+                        i.red.ban.icon
+                        | cancel auto check in
                 
 template(name='resident_guest')
     with guest_doc

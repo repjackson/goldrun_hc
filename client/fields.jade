@@ -250,7 +250,7 @@ template(name='textarea_edit')
             label 
                 if icon
                     i.icon(name=icon)
-                    //- +i name=icon classes='ui avatar image'
+                    //- +i name=icon classes='ui mini inline image'
                 if title
                     |#{title}
                 else if label
@@ -269,7 +269,7 @@ template(name='html_edit')
             label 
                 if icon
                     i.icon(name=icon)
-                    //- +i name=icon classes='ui avatar image'
+                    //- +i name=icon classes='ui mini inline image'
                     //- i.icon(class=icon)
                 if title
                     |#{title}
@@ -291,7 +291,7 @@ template(name='html_view')
     if field_value
         div
         if icon
-            //- +i name=icon classes='ui avatar image'
+            //- +i name=icon classes='ui mini inline image'
             i.icon(class=icon)
         //- if title
         //-     |#{title}
@@ -874,24 +874,23 @@ template(name='single_doc_edit')
     each choices
         .ui.small.circular.compact.button.select_choice(class=choice_class)
             if icon
-                +i name=icon classes='ui avatar image'
+                +i name=icon classes='ui mini inline image'
                 //- i.icon(class=icon)
-                //- +i name=icon classes='ui avatar image'
+                //- +i name=icon classes='ui mini inline image'
             |#{calculated_label}
             |#{slug}
 
 
 template(name='multi_doc_edit')
     div
+    if icon
+        +i name=icon classes='ui mini inline image'
     .ui.small.inline.header(title=key)
-        if icon
-            +i name=icon classes='ui avatar image'
-            //- i.icon(class=icon)
         |#{title} #{label}    
     each choices
         .ui.circular.compact.button.select_choice(class=choice_class)
             if icon
-                +i name=icon classes='ui avatar image'
+                +i name=icon classes='ui mini inline image'
                 //- i.grey.icon(class=icon)
             //- |#{title} #{slug}
             |#{slug}
@@ -931,15 +930,14 @@ template(name='multiple_unit_edit')
     
 
 template(name='multi_doc_view')
+    div
+    if icon
+        +i name=icon classes='ui mini inline image'
     if field_value
-        div
-        if icon
-            +ismall name=icon classes='ui avatar image'
-            //- i.icon(class=icon)
         .ui.inline.header(title=key)
             |#{title}
         each field_value
-            .ui.basic.label
+            .ui.large.basic.label
                 |#{this}
 
 
