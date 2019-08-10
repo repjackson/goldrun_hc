@@ -14,16 +14,17 @@ template(name='user_layout')
                             h1.ui.large.center.aligned.header
                                 | #{user.first_name}
                                 | #{user.last_name}
-                    .ui.center.aligned.small.grey.header
+                    .ui.center.aligned.header
                         | @#{user.username}        
                     if user_is_resident
+                        if is_staff
+                            a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit")
+                                i.pencil.large.blue.icon
+                                | edit
+                    if user_is_resident
                         +resident_info         
-                    if is_staff
-                        a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit")
-                            i.pencil.large.blue.icon
-                            | edit
-                        +user_check_steps
-                        +staff_verification
+                            +user_check_steps
+                            +staff_verification
                 
                     else if is_current_user
                         a.ui.icon.big.button.item(href="/user/#{user_from_username_param.username}/edit")
@@ -40,42 +41,43 @@ template(name='user_layout')
                             |logout other clients
                     if is_admin
                         .ui.segment
-                            .ui.grey.header 
+                            .ui.header 
                                 //- +i name='user shield'
                                 i.shield.icon
                                 |roles
                             each roles
                                 .ui.basic.label #{this}
                 .twelve.wide.column.shadowed-box
-                    a.ui.icon.button(href="/user/#{username}/about" class="{{isActiveRoute 'user_about'}}" title='about')
-                        +i name='info'
-                    //- a.ui.icon.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
-                    //-     +i name='dashboard'
-                    a.ui.icon.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}" title='social')
-                        +i name='collaboration'
-                    a.ui.icon.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}" title='gallery')
-                        +i name='gallery'
-                    a.ui.icon.button(href="/user/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}" title='bookmarks')
-                        +i name='star'
-                    a.ui.icon.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}" title='contact')
-                        +i name='phone'
-                    a.ui.icon.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}" title='events')
-                        +i name='calendar'
-                    a.ui.icon.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}" title='comparison')
-                        +i name='scales'
-                    a.ui.icon.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}" title='tags')
-                        +i name='tags'
-                    //- a.ui.icon.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}" title='tags')
-                    +i name='tasks'
-                    a.ui.icon.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
-                        +i name='yin-yang'
-                    a.ui.icon.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}" title='stats')
-                        +i name='line-chart'
-                    a.ui.icon.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}" title='votes')
-                        +i name='elections'
-                    a.ui.icon.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}" title='money')
-                         +i name='appointment-reminders'
-                    
+                    if user_is_user
+                        if is_user
+                            a.ui.icon.button(href="/user/#{username}/about" class="{{isActiveRoute 'user_about'}}" title='about')
+                                +i name='info'
+                            //- a.ui.icon.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
+                            //-     +i name='dashboard'
+                            a.ui.icon.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}" title='social')
+                                +i name='collaboration'
+                            a.ui.icon.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}" title='gallery')
+                                +i name='gallery'
+                            a.ui.icon.button(href="/user/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}" title='bookmarks')
+                                +i name='star'
+                            a.ui.icon.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}" title='contact')
+                                +i name='phone'
+                            a.ui.icon.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}" title='events')
+                                +i name='calendar'
+                            a.ui.icon.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}" title='comparison')
+                                +i name='scales'
+                            a.ui.icon.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}" title='tags')
+                                +i name='tags'
+                            a.ui.icon.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}" title='tags')
+                                +i name='tasks'
+                            a.ui.icon.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
+                                +i name='yin-yang'
+                            a.ui.icon.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}" title='stats')
+                                +i name='line-chart'
+                            a.ui.icon.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}" title='votes')
+                                +i name='elections'
+                            a.ui.icon.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}" title='money')
+                                 +i name='appointment-reminders'
                     +yield
     unless is_frontdesk
         +footer 
@@ -88,7 +90,7 @@ template(name='user_check_steps')
                 if user_check_completed
                     i.large.green.checkmark.icon
                 else 
-                    i.large.circle.grey.outline.icon 
+                    i.large.circle.outline.icon 
                 i.icon(name=icon)
                 //- +i name=icon classes='ui avatar image'
                 |#{title}
@@ -103,31 +105,6 @@ template(name='user_check_steps')
         else
             .ui.header #{checkins_left_without_email_verification} check in's left without email verification
         +email_validation_check
-        //- .item
-        //-     if completed
-        //-         i.large.green.checkmark.icon
-        //-     else 
-        //-         i.large.circle.outline.icon 
-        //-     +i name='signature' classes='ui avatar image'
-        //-     |rules and regs
-        //- .item
-        //-     if completed
-        //-         i.large.green.checkmark.icon
-        //-     else 
-        //-         i.large.circle.outline.icon 
-        //-     |address info
-        //- .item
-        //-     if completed
-        //-         i.large.green.checkmark.icon
-        //-     else 
-        //-         i.large.circle.outline.icon 
-        //-     |email verification
-        //- .item
-        //-     if completed
-        //-         i.large.green.checkmark.icon
-        //-     else 
-        //-         i.large.circle.outline.icon 
-        //-     .title staff gov verification
 
 
 
@@ -141,23 +118,22 @@ template(name='staff_verification')
                     +i name='id-verified' classes='ui mini inline image'
                 else
                     i.red.ban.icon
-                |Verified by Staff
+                |verified by staff
             if staff_verifier
                 .ui.list
-                    .item verified by Staff: #{staff_verifier}            
-                    .item verification Date: {{long_date verification_timestamp}}
+                    .item verified by staff: #{staff_verifier}            
+                    .item verification date: {{long_date verification_timestamp}}
             else
-                  .ui.button.verify Verify Government ID as #{currentUser.username}
+                  .ui.button.verify verify government ID as #{currentUser.username}
             .ui.button.rerun_check
                 |rerun check
             .ui.header #{user_from_username_param.username} created by #{user_from_username_param.added_by_username}
-            .ui.header Created on {{long_date user_from_username_param.createdAt}}
+            .ui.header created on {{long_date user_from_username_param.createdAt}}
 
 
 
 template(name='user_residency')
     +resident_info         
-
     +user_key
     +user_unit
     .ui.segment
@@ -183,12 +159,11 @@ template(name='user_residency')
 template(name='user_healthclub')
     .ui.segment
         .ui.header 
-            i.credit.card.icon
-            //- +i name='token-card-code'
-            |HC Card
+            +i name='token-card-code'
+            |hc card
         .ui.circular.button.generate_barcode
-            i.barcode.icon
-            |Generate Health Club Checkin Barcode
+            +i name='barcode' classes='ui inline image'
+            |generate health club checkin barcode
         div
         svg#barcode
     
@@ -196,29 +171,30 @@ template(name='user_healthclub')
 template(name='resident_about')
     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
     .ui.stackable.grid
-        .row
-            .four.wide.column
-                +user_healthclub                        
+        .three.column.row
+            if user_from_username_param.healthclub_code
+                .column
+                    +user_healthclub                        
             if user_is_resident
                 if is_staff
                     each staff_resident_widgets
-                        .four.wide.column
+                        .column
                             +Template.dynamic template=widget_template
-                    .four.wide.column
+                    .column
                         +user_checkins
-                    .four.wide.column
+                    .column
                         +user_guests
-                    .four.wide.column
+                    .column
                         +user_violations
-                    //- .four.wide.column
+                    //- .column
                     //-     +user_signatures
-                    .four.wide.column
+                    .column
                         +user_notes        
-                    .four.wide.column
+                    .column
                         +user_unit
-                    .four.wide.column
+                    .column
                         +membership_status
-                    .four.wide.column
+                    .column
                         +user_permit
                 
 template(name='resident_info')
@@ -249,23 +225,23 @@ template(name='resident_info')
             
 template(name='user_permit')
     .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
+        .ui.inline.center.aligned.header 
             +i name='badge'
             |permit
         +goto_model slug='parking_permit'
         
         with permit_doc
-            .ui.small.inline.header Permit
-            .ui.grey.inline.header #{permit}
+            .ui.inline.header Permit
+            .ui.inline.header #{permit}
             div
-            .ui.small.inline.header Date Issued
-            .ui.grey.inline.header #{date_issued}
+            .ui.inline.header Date Issued
+            .ui.inline.header #{date_issued}
             div
-            .ui.small.inline.header Expiration Date
-            .ui.grey.inline.header #{expiration_date}
+            .ui.inline.header Expiration Date
+            .ui.inline.header #{expiration_date}
             div
-            .ui.small.inline.header License Plate 
-            .ui.grey.inline.header #{license_plate}
+            .ui.inline.header License Plate 
+            .ui.inline.header #{license_plate}
             div
 
 
@@ -273,7 +249,7 @@ template(name='user_permit')
 template(name='user_permits')
     if user_permits
         .ui.segment
-            .ui.grey.inline.center.aligned.small.header 
+            .ui.inline.center.aligned.header 
                 i.id.card.alternate.icon
                 +goto_model slug='parking_permit'
             
@@ -283,7 +259,7 @@ template(name='user_permits')
             
 template(name='user_signatures')
     .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
+        .ui.inline.center.aligned.header 
             //- +i name='signature'
             i.pencil.icon
             | Signatures
@@ -305,12 +281,12 @@ template(name='user_notes')
             
 template(name='user_checkins')
     .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            //- +i name='internal'
-            |Health Club Check Ins
+        .ui.inline.center.aligned.header 
+            +i name='internal'
+            |health club check ins
         if is_staff
             +checkin_button
-        .ui.list.smallscroll
+        .ui.listscroll
             each healthclub_checkins
                 .item #{when}
             
@@ -318,16 +294,15 @@ template(name='user_checkins')
             
 template(name='user_guests')
     .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            //- +i name='groups'
-            i.icon(name=icon)
-            |Guests
+        .ui.inline.center.aligned.header 
+            +i name='groups'
+            |guests
         +goto_model slug='guest'
         //- +add_button model='guest'
         //- .ui.circular.button.add_guest
         //-     |Add Guest
         with user_from_username_param
-            .ui.header Total Guests #{total_guests}
+            .ui.header total guests #{total_guests}
             //- .ui.header guests this month #{current_month_guests}
         .ui.link.large.list
             each resident_guests
@@ -340,10 +315,10 @@ template(name='user_guests')
             
 template(name='user_unit')
     .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            i.home.icon
-            //- +i name='interior'
-            |Unit
+        .ui.inline.center.aligned.header 
+            //- i.home.icon
+            +i name='interior'
+            |unit
         +goto_model slug='unit'
         with unit
             +number_view key='building_number' label='Building Number' direct=true
@@ -363,14 +338,13 @@ template(name='user_section')
     
 template(name='user_violations')
     .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            //- +i name='foul'
-            i.triangle.alert.icon
-            |Violations
+        .ui.inline.center.aligned.header 
+            +i name='foul'
+            |violations
         +goto_model slug='violation'
         .ui.button.add_inline_violation
             i.plus.icon
-            |Add Violation
+            |add violation
         if editing_violation
             .ui.segment
                 with editing_violation_doc
@@ -408,11 +382,11 @@ template(name='user_violations')
 template(name='user_log')
     //- .ui.fluid.styled.accordion
     .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
+        .ui.inline.center.aligned.header 
             //- +i name='overview-pages-4'
             i.list.icon
             |Log
-        .smallscroll
+        scroll
             .ui.list
                 each user_log_events
                     .item
@@ -423,7 +397,7 @@ template(name='user_log')
 
 template(name='user_rules_widget')
     .ui.cloud.segment
-        .ui.grey.header
+        .ui.header
             i.signature.icon
             | user rules signature
     
@@ -460,8 +434,9 @@ template(name='user_string_toggle')
 template(name='membership_status')
     .ui.segment
         .active.title
-            .ui.grey.inline.center.aligned.small.header 
-                |Membership Status
+            .ui.inline.center.aligned.header 
+                +i name='membership-card' classes='ui inline image'
+                |membership status
         +email_validation_check
         +lease_expiration_check
         +rules_and_regs_check
@@ -474,6 +449,7 @@ template(name='membership_status')
             +pdf_view key='lease_agreement' label='lease agreement' direct=true
         else if user_is_resident
             +date_view key='expiration_date' label='expiration date' direct=true
+            div
             +pdf_view key='lease_agreement' label='lease agreement' direct=true
             div
             +pdf_view key='lease_addendum' label='lease addendum' direct=true

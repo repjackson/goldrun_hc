@@ -177,8 +177,12 @@ template(name='pdf_view')
         //-     |#{key}
         //- else
         //-     |#{this}
-        a(href="{{c.url field_value gravity='face' crop='fit'}}")
-            |download pdf
+        a.ui.animated.button(href="{{c.url field_value gravity='face' crop='fit'}}")
+            .visible.content
+                i.download.icon
+                |#{label}
+            .hidden.content
+                |download pdf
     //- +call_visual
 
 template(name='image_edit')
@@ -646,8 +650,8 @@ template(name='array_view')
         div
         .ui.inline.small.header
             if icon
-                i.grey.icon(class=icon)
-                //- +i name=icon
+                //- i.grey.icon(class=icon)
+                +i name=icon
             if title
                 |#{title}
             else if label

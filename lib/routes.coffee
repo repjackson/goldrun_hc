@@ -26,16 +26,6 @@ Router.route '/dashboard', -> @render 'dashboard'
 Router.route '/manager', -> @render 'manager'
 Router.route '/shift_checklist', -> @render 'shift_checklist'
 
-Router.route '/library', (->
-    @layout 'mlayout'
-    @render 'library'
-    ), name:'library'
-
-Router.route '/events', (->
-    @layout 'mlayout'
-    @render 'events'
-    ), name:'events'
-
 Router.route '/building/:building_code', -> @render 'building'
 
 Router.route('enroll', {
@@ -78,8 +68,6 @@ Router.route '/m/:model_slug/:doc_id/view', (->
 Router.route '/model/edit/:doc_id', -> @render 'model_edit'
 
 # Router.route '/user/:username', -> @render 'user'
-Router.route '/edit/:doc_id', -> @render 'edit'
-Router.route '/view/:doc_id', -> @render 'view'
 Router.route '/verification_confirmation', -> @render 'verification_confirmation'
 Router.route '*', -> @render 'not_found'
 
@@ -135,8 +123,8 @@ Router.route '/healthclub_session/:doc_id', (->
 
 Router.route '/user/:username', (->
     @layout 'user_layout'
-    @render 'resident_info'
-    ), name:'resident_info'
+    @render 'resident_about'
+    ), name:'resident_about'
 Router.route '/user/:username/about', (->
     @layout 'user_layout'
     @render 'user_about'

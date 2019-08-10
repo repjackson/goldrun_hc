@@ -170,10 +170,12 @@ template(name='unit_key_checkout')
 template(name='user_info')
     a.ui.animated.basic.button(href="/user/#{user.username}/")
         .visible.content
-            if user.image_id
+            if user.kiosk_photo
+                img.ui.avatar.image(src="{{c.url user.kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
+            else if user.image_id
                 img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100 gravity='face' crop='fill'}}")
             |#{user.first_name} #{user.last_name}
-            |@#{user.username}
+            //- |@#{user.username}
             +user_status user
         .hidden.content
             |view
@@ -309,9 +311,9 @@ template(name='email_validation_check')
     //-         i.checkmark.icon
     //-         |email validated
     unless email_verified
-        .ui.orange.basic.large.fluid.button.send_verification
-            //- i.ban.icon
-            |Click to resend verification email
+        .ui.basic.fluid.button.send_verification
+            +i name='user-shield' classes='ui inline image'
+            |resend verification email
         if times
             .ui.label
                 |#{times}
@@ -323,23 +325,23 @@ template(name='email_validation_check')
         
         
 template(name='lease_expiration_check')
+    div
     if expiration_date
-        .ui.big.basic.fluid.label
-            i.clock.icon
-            |Lease Expiring 
-            |#{lease_expiring}
+        +i name='clock' classes='ui inline image'
+        |lease expiring 
+        |#{lease_expiring}
         
         
 template(name='rules_and_regs_check')
     if is_staff
         if rules_signed
             a.ui.basic.button(href="/m/rules_regs_signing/#{rules_signed._id}/view" title='click to view/edit signing document')
-                i.signature.icon
-                |Rules and Regs Signed 
+                i.signature.large.icon
+                |rules and regs signed 
         else
             .ui.red.basic.button
-                i.signature.icon
-                | Rules+Regs Unsigned
+                i.signature.large.icon
+                | rules+regs unsigned
     //- else
     //-     unless rules_signed
     //-         .ui.large.red.basic.button.sign_rules
@@ -357,16 +359,16 @@ template(name='member_guidelines_check')
         if guidelines_signed
             a.ui.basic.button(href="/m/sign_guidelines/#{guidelines_signed._id}/view" title='click to view/edit signing document')
                 i.signature.icon
-                |Member Guidelines Signed 
+                |member guidelines signed 
         else
             .ui.red.basic.fluid.button
                 i.signature.icon
-                | Member Guidelines Not Signed
+                | member guidelines not signed
     else
         unless guidelines_signed
             .ui.large.red.basic.fluid.button.sign_guidelines
                 i.signature.icon
-                | Click to Sign Member Guidelines
+                | sign member guidelines
     //-     else if is_staff
     //-         .ui.large.basic.button
     //-             i.signature.icon

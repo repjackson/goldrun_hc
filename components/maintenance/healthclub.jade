@@ -10,13 +10,11 @@ template(name='healthclub')
         .row
             .sixteen.wide.center.aligned.column
                 if is_staff
-                    a.ui.button(href='/staff')
+                    a.ui.compact.button(href='/staff')
                         i.left.chevron.icon
+                        +i name='user-shield' classes='ui inline image'
                         |staff
                 img.ui.circular.centered.small.inline.image.shadowed(src="{{c.url 'gold_run_logo' }}")
-                //- .ui.center.aligned.inline.header.checkin_header
-                //- h1.ui.center.aligned.inline.massive.header.f10
-                //-     |Health Club Check In
         .row
             .sixteen.wide.column
                 .row
@@ -124,7 +122,7 @@ template(name='checkin_button')
             .ui.basic.button.checkout
                 i.sign.out.icon
                 //- +i name='exit-sign' classes='ui avatar image'
-                |Health Club Check Out
+                |health club check out
         else
             .ui.massive.fade.animated.button.new_hc_session
                 .visible.content

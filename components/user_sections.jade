@@ -180,9 +180,9 @@ template(name='user_bookmarks')
     .ui.header 
         +i name='star'
         |bookmarks
-    .ui.list
+    .ui.four.stackable.cards
         each bookmarks
-            .item
+            .card
                 .content
                     a.header(href="/m/#{model}/#{_id}/view") #{title} [#{model}]
                     .description #{when}

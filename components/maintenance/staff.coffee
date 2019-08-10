@@ -4,20 +4,20 @@ if Meteor.isClient
             $('.accordion').accordion()
         , 1000
 
-
-
     Template.shift_change_requests.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'shift_change_request'
-
-
     Template.staff.onCreated ->
-        # @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
-        # @autorun => Meteor.subscribe 'users'
+        @autorun => Meteor.subscribe 'todays_checklist'
         @autorun => Meteor.subscribe 'sessions'
         @autorun => Meteor.subscribe 'shift_walks'
 
 
     Template.staff.helpers
+        checklist_completed: ->
+            checklist =
+                Docs.findOne
+                    model:'shift_checklist'
+            checklist.complete
         checkedin_members: ->
             Docs.find
                 model:'healthclub_session'
@@ -31,14 +31,16 @@ if Meteor.isClient
             Docs.find
                 model:'shift_walk'
                 _author_id: Meteor.userId()
+        all_completed: ->
+
 
     Template.staff.events
         'click .log_staff_walked': ->
-            if confirm 'Log hourly walk?'
+            if confirm 'log hourly walk?'
                 Docs.insert
                     model: 'shift_walk'
         'click .remove_walk': ->
-            if confirm 'Remove walk log? Cannont be undone'
+            if confirm 'remove walk log?'
                 Docs.remove @_id
 
 
@@ -91,7 +93,7 @@ if Meteor.isClient
                     active:false
                     garden_key_checkin_timestamp: Date.now()
             $('body').toast({
-                title: "Garden Key checked in."
+                title: "garden Key checked in."
                 # message: 'See desk staff for key.'
                 class : 'blue'
                 position:'top right'
@@ -152,7 +154,7 @@ if Meteor.isClient
             # $(e.currentTarget).closest('.segment').transition('fade left',100)
             # Meteor.setTimeout =>
             $('body').toast({
-                title: "Unit Key Checked Out #{@first_name} #{@last_name}"
+                title: "unit Key Checked Out #{@first_name} #{@last_name}"
                 # message: 'See desk staff for key.'
                 class : 'blue'
                 position:'top right'
@@ -179,7 +181,7 @@ if Meteor.isClient
 
     Template.shift_checklist.onCreated ->
         @autorun => Meteor.subscribe 'todays_checklist'
-        @autorun => Meteor.subscribe 'model_docs', 'shift_checklist'
+        # @autorun => Meteor.subscribe 'model_docs', 'shift_checklist'
         @autorun -> Meteor.subscribe 'model_fields', 'shift_checklist'
 
     Template.shift_checklist.events
@@ -187,9 +189,31 @@ if Meteor.isClient
             Docs.insert
                 model:'shift_checklist'
 
+        'click .submit_checklist': ->
+            todays_checklist =
+                Docs.findOne
+                    model:'shift_checklist'
+            Docs.update todays_checklist._id,
+                $set:
+                    complete:true
+                    complete_timestamp:Date.now()
+            $('body').toast({
+                title: "shift checklist submitted"
+                # message: 'See desk staff for key.'
+                class : 'blue'
+                position:'top right'
+                # className:
+                #     toast: 'ui massive message'
+                displayTime: 5000
+                transition:
+                  showMethod   : 'zoom',
+                  showDuration : 250,
+                  hideMethod   : 'fade',
+                  hideDuration : 250
+                })
+            Router.go '/staff'
+
         'click .complete': ->
-            console.log @
-            console.log Template.parentData()
             todays_checklist =
                 Docs.findOne
                     model:'shift_checklist'
@@ -197,10 +221,10 @@ if Meteor.isClient
                 $set:
                     "#{@key}":true
                     "#{@key}_timestamp":Date.now()
+            Docs.update todays_checklist._id,
+                $inc:completed_count:1
 
         'click .incomplete': ->
-            console.log @
-            console.log Template.parentData()
             todays_checklist =
                 Docs.findOne
                     model:'shift_checklist'
@@ -208,6 +232,8 @@ if Meteor.isClient
                 $unset:
                     "#{@key}":1
                     "#{@key}_timestamp":1
+            Docs.update todays_checklist._id,
+                $inc:completed_count:-1
 
 
     Template.shift_checklist.helpers
@@ -220,6 +246,15 @@ if Meteor.isClient
                 Docs.findOne
                     model:'shift_checklist'
             todays_checklist["#{@key}_timestamp"]
+        all_completed: ->
+            task_count = Docs.find(
+                model:'field'
+                field_type:'boolean').count()
+            console.log task_count
+            todays_checklist =
+                Docs.findOne
+                    model:'shift_checklist'
+            todays_checklist.completed_count is task_count
 
 
         completed: ->
@@ -238,6 +273,7 @@ if Meteor.isClient
                 model:'shift_checklist'
             Docs.find
                 model:'field'
+                field_type:'boolean'
 
 
 
