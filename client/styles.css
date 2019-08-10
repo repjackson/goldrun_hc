@@ -32,9 +32,10 @@ body {
   border: 2px solid gray;
   color: green;
   background-color: white;
-  padding: 10px 20px;
+  padding: 30px 30px;
   border-radius: 8px;
-  font-size: 25px;
+  font-size: 30px;
+  line-height: 130%;
   font-weight: bold;
 }
 
@@ -221,12 +222,19 @@ input.username_search{
 }
 
 
-.button, .selector, .card{
-  animation: fadein .75s;
+.button, .selector, .card, body{
+    animation: fadein .75s;
+    /* -webkit-transition: opacity 2s ease-out; */
+    /* animation: fadeout 1s; */
 }
 @keyframes fadein {
   from { opacity: 0}
   to   { opacity: 1}
+}
+
+@keyframes fadeout {
+  from { opacity: 1}
+  to   { opacity: 0}
 }
 
 

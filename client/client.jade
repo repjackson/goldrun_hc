@@ -21,14 +21,10 @@ head
 template(name='layout')
     +nav
     //- if currentUser
-    .ui.stackable.grid(class=invert_class)
+    .ui.stackable.grid.global_container(class=invert_class)
         .centered.row
             .sixteen.wide.column
-                //- if current_session_doc
-                //-     +checkin_card current_session_doc
-                //- else 
                 +yield
-        //- if is_eric
         unless is_frontdesk
             +footer 
 
@@ -44,7 +40,8 @@ template(name='layout')
 
 
 template(name='mlayout')
-    +yield
+    .global_container
+        +yield
 
 
 template(name='verification_confirmation')

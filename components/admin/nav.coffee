@@ -70,6 +70,8 @@ if Meteor.isClient
     #             Router.go '/'
 
 
+    Template.mlayout.onCreated ->
+        @autorun -> Meteor.subscribe 'me'
     Template.nav.onCreated ->
         @autorun -> Meteor.subscribe 'me'
         # @autorun -> Meteor.subscribe 'current_session'

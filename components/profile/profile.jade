@@ -1,7 +1,7 @@
 template(name='user_layout')
     +nav
     with user_from_username_param
-        .ui.padded.stackable.grid
+        .ui.padded.stackable.grid.global_container
             .row
                 .four.wide.column
                     if kiosk_photo
@@ -21,10 +21,9 @@ template(name='user_layout')
                             a.ui.fluid.basic.button.item(href="/user/#{user_from_username_param.username}/edit")
                                 i.pencil.large.blue.icon
                                 | edit
-                    if user_is_resident
                         +resident_info         
-                            +user_check_steps
-                            +staff_verification
+                        +user_check_steps
+                        +staff_verification
                 
                     else if is_current_user
                         a.ui.icon.big.button.item(href="/user/#{user_from_username_param.username}/edit")

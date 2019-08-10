@@ -2,12 +2,32 @@
 #     scheduler.init "scheduler_here", new Date()
 #     scheduler.meteor(Docs.find(model:'event'), Docs);
 
-
-
 $.cloudinary.config
     cloud_name:"facet"
 # Router.notFound =
     # action: 'not_found'
+
+Template.body.events
+    'click a': ->
+        $('.global_container')
+        .transition('fade out')
+        .transition('fade in')
+
+
+Template.healthclub.events
+    'click .button': ->
+        $('.global_container')
+        .transition('fade out', 5000)
+        .transition('fade in', 5000)
+
+
+Template.healthclub_session.events
+    'click .button': ->
+        $('.global_container')
+        .transition('fade out', 5000)
+        .transition('fade in', 5000)
+
+
 
 # Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
 

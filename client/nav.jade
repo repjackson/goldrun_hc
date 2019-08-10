@@ -8,6 +8,9 @@ template(name='nav')
                 .icon.item
                     i.big.loading.yin.yang.icon
             else
+                a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
+                    //- i.sitemap.large.icon
+                    +i name='active-directory'
                 a.icon.item(href='/home' class="{{isActivePath '/home'}}")
                     +i name='circled-menu'
                     //- i.th.large.icon
@@ -45,9 +48,6 @@ template(name='nav')
                 if currentUser
                     unless logging_out
                         //- if is_dev
-                        a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
-                            //- i.sitemap.large.icon
-                            +i name='active-directory'
                         unless is_frontdesk
                             a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                                 if currentUser.image_id

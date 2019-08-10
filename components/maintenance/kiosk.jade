@@ -88,7 +88,8 @@ template(name='healthclub_session')
                             .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
                         div
                         .ui.big.basic.button.add_guest
-                            i.plus.icon
+                            //- i.plus.icon
+                            +i name='add-user-group-man-man--v2' classes='ui inline image'
                             strong new guest
                         +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
                         div
@@ -98,8 +99,9 @@ template(name='healthclub_session')
                                 each checking_in_doc.guest_ids
                                     +resident_guest
                     else
-                        .ui.big.basic.fluid.button.toggle_adding_guest 
-                            i.plus.large.icon
+                        .ui.big.basic.compact.fluid.button.toggle_adding_guest 
+                            //- i.plus.large.icon
+                            +i name='add-user-group-man-man--v2' classes='ui inline image'                
                             |guest
                     with user
                         +user_check_steps
@@ -113,13 +115,13 @@ template(name='healthclub_session')
                     unless user.member_waiver_signed
                         .ui.massive.fluid.red.basic.button.sign_guidelines
                             .ui.inline.header 
-                                i.edit.icon
-                                | sign member waiver            
+                                +i name='signature'
+                                | click to sign member waiver            
                     unless user.rules_and_regulations_signed
                         .ui.massive.fluid.red.basic.button.sign_rules
                             .ui.inline.header 
-                                i.edit.icon
-                                | sign rules and regs
+                                +i name='signature'
+                                | click to sign rules and regs
                     if user.email_red_flagged
                         .ui.disabled.massive.fluid.button
                             |email verification required, please see staff

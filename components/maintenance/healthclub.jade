@@ -5,7 +5,7 @@ template(name='kiosk_container')
 
 template(name='healthclub')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
-    .ui.grid.header-wrapper
+    .ui.grid.header-wrapper.global_container
         //- +Template.dynamic template=kiosk_view
         .row
             .sixteen.wide.center.aligned.column
@@ -85,7 +85,7 @@ template(name='add_resident')
                     //-     input#username(type='text')
                 if permission
                     .ui.fluid.green.big.button.create_resident
-                        |Create Resident
+                        |create resident
         
         
 template(name='sign_waiver')
