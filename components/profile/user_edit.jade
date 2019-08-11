@@ -8,9 +8,9 @@ template(name='user_edit')
                         | #{user_from_username_param.first_name} #{user_from_username_param.last_name}
                     //- +i name='pencil'
                     .ui.small.inline.header @#{user_from_username_param.username}
-                    a.ui.large.fluid.basic.button(href="/user/#{user_from_username_param.username}/") 
-                        i.checkmark.large.green.icon
-                        strong save
+                    a.ui.big.icon.basic.button(href="/user/#{user_from_username_param.username}/") 
+                        i.checkmark.big.green.icon
+                        //- strong save
                     .ui.hidden.divider
                     +image_edit key='kiosk_photo' icon='picture' title='profile image' direct=true
                     if is_admin
@@ -33,11 +33,11 @@ template(name='user_edit')
                                 +number_edit key='building_number' label='building #' icon='building' direct=true tip='eg 203'
                                 //- +text_edit key='building_code' label='building code' icon='building' direct=true
                                 +number_edit key='healthclub_code' label='keycard code' icon='barcode' direct=true
-                                +boolean_edit key='owner' label='owner' direct=true
-                                .ui.segment
+                                +boolean_edit key='owner' icon='rent' label='owner' direct=true
+                                .ui.basic.segment
                                     .ui.header 
                                         i.blue.envelope.icon
-                                        |Email(s)
+                                        |emails
                                     +emails_edit
                             else
                                 +text_view key='first_name' label='first name' direct=true
@@ -58,7 +58,7 @@ template(name='user_edit')
                                 //-     +pdf_edit key='lease_addendum' label='lease addendum' direct=true
                                 //- +pdf_view key='member_guidelines_and_waiver' label='lease agreement' direct=true
                         //- +text_edit key='email' label='email' direct=true
-                        +phone_edit key='phone' label='phone' icon='telephone' direct=true
+                        +phone_edit key='phone' label='phone' icon='phone' direct=true
                         //- +image_edit key='banner_image_id' label='banner image' direct=true
                         //- +text_edit key='tagline' label='tag line' direct=true
                         
@@ -69,7 +69,7 @@ template(name='user_edit')
                     if user_is_resident_or_owner
                         unless owner
                             if is_staff
-                                .ui.segment
+                                .ui.basic.segment
                                     +i name='home' classes='ui inline mini image'
                                     .ui.inline.header residency
                                     .ui.divider
@@ -81,7 +81,7 @@ template(name='user_edit')
                                     +date_edit key='expiration_date' label='expiration date' icon='calendar minus' direct=true
                         if owner
                             if is_staff
-                                .ui.segment
+                                .ui.basic.segment
                                     +i name='rent' classes='ui inline mini image'
                                     .ui.inline.header owner
                                     .ui.divider
@@ -106,7 +106,7 @@ template(name='user_edit')
                     
                     
 template(name='user_settings')
-    .ui.segment
+    .ui.basic.segment
         .ui.header 
             +i name='settings'
             |settings
@@ -169,14 +169,11 @@ template(name='password_edit')
     //-     input#password(type='password', placeholder='old password')
     .ui.fluid.icon.input
         input#new_password(type='password', placeholder='new password')
-    //- .ui.fluid.basic.button.change_password
-    //-     i.refresh.icon
-    //-     |set password
     if is_dev
         .ui.fluid.basic.button.send_enrollment_email
             |send enrollment email
-    .ui.fluid.basic.button.set_password
-        i.user.shield.icon
+    .ui.fluid.large.basic.button.set_password
+        +i name='password' classes='ui mini inline image'
         | set password
             
             
@@ -203,16 +200,19 @@ template(name='emails_edit')
                 //     .right.floated.content
                 //         .ui.basic.button Verify
                 .content
-                    |#{address}
                     if verified
-                        .ui.green.label verified
+                        .ui.big.basic.green.label(title='verified') #{address}
                     else
-                        .ui.label unverified
+                        .ui.label
+                            i.ban.icon
+                            | #{address}
                         .send_verification_email.ui.basic.button 
                             |verify
                             i.caret.right.icon
                     .ui.small.icon.basic.button.remove_email
-                        i.remove.icon
-    .ui.action.big.fluid.input
+                        i.red.remove.icon
+    .ui.action.big.fluid.icon.action.input
         input#new_email(type='email' placeholder='add new email address' autocomplete="off")
-        #add_email.ui.submit.basic.button add email
+        #add_email.ui.submit.icon.button 
+            i.plus.big.green.icon
+            //- |email

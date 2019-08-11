@@ -1,12 +1,10 @@
-template(name='healthclub_status')
+template(name='health_club_status')
     .ui.inline.header Upper Hot Tub
         +water_status slug='upper_hot_tub'
     .ui.inline.header Lower Hot Tub
         +water_status slug='lower_hot_tub'
     .ui.inline.header Pool
         +water_status slug='pool'
-    //- .ui.grey.inline.header
-    //-     |80.1°
 
 
 template(name='water_status')
@@ -20,3 +18,6 @@ template(name='water_status')
             i.green.checkmark.big.icon
         else    
             i.red.ban.big.icon
+    with latest_reading
+        | #{temperature}&#8457;
+    div

@@ -20,9 +20,9 @@ head
 
 template(name='layout')
     +nav
-    //- if currentUser
     .ui.stackable.grid.global_container(class=invert_class)
         .centered.row
+            img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
             .sixteen.wide.column
                 +yield
         unless is_frontdesk
@@ -40,8 +40,8 @@ template(name='layout')
 
 
 template(name='mlayout')
-    .global_container
-        +yield
+    //- .global_container
+    +yield
 
 
 template(name='verification_confirmation')

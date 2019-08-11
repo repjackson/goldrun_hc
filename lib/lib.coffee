@@ -81,7 +81,7 @@ Docs.helpers
                 downvoters.push downvoter
             downvoters
 Meteor.users.helpers
-    email_address: -> if @emails then @emails[0].address
+    email_address: -> if @emails and @emails[0] then @emails[0].address
     email_verified: -> if @emails and @emails[0] then @emails[0].verified
     five_tags: -> if @tags then @tags[..4]
     three_tags: -> if @tags then @tags[..2]

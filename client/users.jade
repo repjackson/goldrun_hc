@@ -37,15 +37,15 @@ template(name='resident')
             a(href="/user/#{username}/")
                 h2.ui.center.aligned.header #{first_name} #{last_name} 
                 .ui.small.header @#{username}
-            +text_view key='first_name' label='First Name'
-            +text_view key='last_name' label='Last Name'
-            +text_view key='address' label='Address'
+            +text_view key='first_name' label='first name'
+            +text_view key='last_name' label='last name'
+            +text_view key='address' label='address'
             +number_view key='unit_number' label='Unit #'
-            +number_view key='building_number' label='Building #'
-            +text_view key='email' label='Email'
-            +phone_view key='phone' label='Phone'
-            +date_view key='start_date' label='Start Date'
-            +date_view key='expiration_date' label='Expiration Date'
+            +number_view key='building_number' label='building #'
+            +text_view key='email' label='email'
+            +phone_view key='phone' label='phone'
+            +date_view key='start_date' label='start date'
+            +date_view key='expiration_date' label='expiration date'
             +user_check_steps            
 
             

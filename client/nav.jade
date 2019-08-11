@@ -6,7 +6,7 @@ template(name='nav')
             //-     i.large.sidebar.icon
             if is_loading
                 .icon.item
-                    i.big.grey.loading.yin.yang.icon
+                    i.big.loading.yin.yang.icon
             else
                 a.item.set_model(href='/m/model' class="{{isActivePath '/m/model'}}")
                     //- i.sitemap.large.icon
@@ -70,7 +70,7 @@ template(name='nav')
 
 
 template(name='footer')
-    .ui.fluid.basic.attached.segment.footer
+    .ui.fluid.basic.attached.basic.segment.footer
         .ui.container.stackable.grid
             .eight.wide.column
                 form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
@@ -79,8 +79,8 @@ template(name='footer')
                     //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                     //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
                     img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                    button.ui.button(type='submit')
-                        |donate
+                    button.ui.icon.button(type='submit' title='donate')
+                        +i name='donate'
                 if is_dev    
                     with current_user
                         +role_switcher
@@ -103,21 +103,19 @@ template(name='footer')
 
 
 template(name='role_switcher')
-    .ui.segment
-        .ui.grey.inline.center.aligned.small.header 
-            //- +i name='anonymous-mask'
-            i.shield.icon(title='role switcher')
-            |#{username} role switcher
-        //- if is_eric
-        //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
-        //- if current_user
-        //-     with current_user
-        //-         +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
-        //- else if currentUser
-        //-     with currentUser
-        +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
-        //- +user_array_element_toggle key='roles' value='admin' user=currentUser
-        //- +user_array_element_toggle key='roles' value='user' user=currentUser
-        //- +user_array_element_toggle key='roles' value='staff' user=currentUser
-        //- +user_array_element_toggle key='roles' value='resident' user=currentUser
-        //- +user_array_element_toggle key='roles' value='owner' user=currentUser
+    .ui.inline.center.aligned.small.header 
+        +i name='anonymous-mask'
+        |#{username} role switcher
+    //- if is_eric
+    //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
+    //- if current_user
+    //-     with current_user
+    //-         +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
+    //- else if currentUser
+    //-     with currentUser
+    +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
+    //- +user_array_element_toggle key='roles' value='admin' user=currentUser
+    //- +user_array_element_toggle key='roles' value='user' user=currentUser
+    //- +user_array_element_toggle key='roles' value='staff' user=currentUser
+    //- +user_array_element_toggle key='roles' value='resident' user=currentUser
+    //- +user_array_element_toggle key='roles' value='owner' user=currentUser

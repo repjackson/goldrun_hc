@@ -3,12 +3,13 @@ template(name='buildings')
         each buildings
             .four.wide.column
                 a(href="/building/#{slug}")
-                    .ui.segment.home_segment
-                        //- img.ui.circular.tiny.image(src="{{c.url image width=400 height=200 crop='fill'}}")
-                        .ui.large.header #{building_code}
-                            each building_numbers
-                                .ui.basic.label #{this}
-                        .ui.grey.small.header #{building_street}
+                    .ui.card.home_segment
+                        img.ui.fluid.image(src="{{c.url image width=400 height=200 crop='fill'}}")
+                        .content
+                            .ui.large.header #{building_code}
+                                each building_numbers
+                                    .ui.basic.label #{this}
+                            .ui.grey.small.header #{building_street}
                 
                 
 template(name='building')
@@ -57,21 +58,21 @@ template(name='unit_card')
             +i name='rent'
             //- i.dollar.icon
             each owners
-                .ui.basic.big.label
+                .ui.basic.large.label
                     if kiosk_photo
-                        img.ui.avatar.image(src="{{c.url kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
+                        img.ui.rounded.image(src="{{c.url kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
                     else if image_id
-                        img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                        img.ui.rounded.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                     |#{first_name} #{last_name}
             div
             //- i.home.icon
             +i name='home'
             each residents
-                .ui.basic.big.label
+                .ui.basic.large.label
                     if kiosk_photo
-                        img.ui.avatar.image(src="{{c.url kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
+                        img.ui.rounded.image(src="{{c.url kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
                     else if image_id
-                        img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                        img.ui.rounded.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                     |#{first_name} #{last_name}
             div
             //- if is_springdale

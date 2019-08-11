@@ -2,13 +2,13 @@ template(name='model_edit')
     with current_doc
         .ui.stackable.padded.grid            
             .centered.row
-                .six.wide.column
+                .four.wide.column
                     h1.ui.header edit model #{title}
                     +creation_info
                     a.ui.huge.icon.basic.button(href="/m/#{slug}")
-                        i.big.checkmark.icon
+                        i.big.green.checkmark.icon
                     #delete_model.ui.icon.basic.button
-                        i.trash.icon
+                        i.red.trash.icon
                     .ui.form
                         +text_edit key='title' label='title' direct=true
                         +text_edit key='slug' label='slug' direct=true
@@ -18,7 +18,7 @@ template(name='model_edit')
                         +text_edit key='collection' label='collection' direct=true
                         +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
                         +multi_doc_edit key='actions' label='actions' ref_model='action' direct=true
-                .ten.wide.column
+                .twelve.wide.column
                     //- |#{model}
                     //- each fields
                     //-     +Template.dynamic template=edit_template 
@@ -36,7 +36,7 @@ template(name='model_edit')
                                     i.filter.icon
                                 each view_roles
                                     .ui.small.basic.label #{this}
-                                i.dropdown.icon
+                                i.large.dropdown.icon
                             +field_edit
 
 

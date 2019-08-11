@@ -11,6 +11,10 @@ body {
     font-size: 4em !important;
 }
 
+.accordion {
+    border-radius: 10px !important;
+}
+
 /* .menu .item {
     font-family: 'Abril Fatface', serif !important;
     font-size: 130% !important;
@@ -101,23 +105,26 @@ body {
     width:100%;
 }
 .checkin_banner {
+    background-attachment: fixed !important;
     position: absolute !important;
-    top:0px;
+    /* top:0px; */
     opacity: 0.4;
     -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 .grgold {
-    background-color: #2b2100 !important;
+    background-color: rgba(43, 33, 0, .9) !important;
+
 }
 
 
 input{
-    -webkit-border-radius: 7px !important; */
-    border-radius: 7px !important;
+    -webkit-border-radius: 10px !important; */
+    border-radius: 10px !important;
     margin-bottom: 3px !important;
     margin-top: 3px !important;
+    font-size: 120% !important;
     /* -moz-border-radius: 50px !important; */
     /* border-radius: 50px !important;
     /* -webkit-border-radius: 5px !important; */
@@ -126,6 +133,10 @@ input{
     opacity: 1;
 }
 
+textarea{
+    -webkit-border-radius: 20px !important; */
+    border-radius: 20px !important;
+}
 input.username_search{
     -webkit-border-radius: 25px !important; */
     border-radius: 20px !important;
@@ -147,12 +158,12 @@ input.username_search{
 
 
 .shadowed{
-    box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2) !important;
 }
 .button, .segment, .label{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
-    border-radius: 8px !important;
+    border-radius: 12px !important;
 }
 
 
@@ -193,7 +204,7 @@ input.username_search{
         0px 4px rgba(118,118,118,1),
         0px 5px rgba(108,108,108,1),
         0px 6px rgba(98,98,98,1),
-        0px 7px rgba(88,88,88,1),
+        0px 10px rgba(88,88,88,1),
         0px 8px rgba(78,78,78,1),
         0px 10px 2px 0px rgba(128,128,128,.6); /* shadow */
 } */
@@ -223,10 +234,14 @@ input.username_search{
 
 
 .button, .selector, .card, body{
-    animation: fadein .75s;
+    animation: fadein 1s;
     /* -webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout 1s; */
 }
+.global_container {
+    padding-left:10px !important;
+}
+
 @keyframes fadein {
   from { opacity: 0}
   to   { opacity: 1}
@@ -514,10 +529,15 @@ a {
 .smallscroll{
 	overflow-y:scroll;
 	overflow-x:hidden;
-	max-height:300px;
+	max-height:250px;
 	/*max-height:85vh;*/
 	/* padding-top: 1em; */
 	/*padding-left: 1em;*/
+}
+
+
+.card {
+    opacity: .9 !important;
 }
 
 .scrolling::-webkit-scrollbar {

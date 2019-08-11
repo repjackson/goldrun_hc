@@ -1,7 +1,7 @@
 template(name='comments')
     .ui.fluid.accordion
         .active.title
-            .ui.grey.header
+            .ui.header
                 //- i.chat.outline.icon
                 +i name='chat'
                 |comments
@@ -23,16 +23,16 @@ template(name='comments')
 
 template(name='goto_model')
     if is_staff
-        a.ui.icon.basic.button.goto_model(href="/m/#{slug}" title="goto #{slug}")
-            //- i.external.icon
-            +ismall name='external-link'
+        a.goto_model(href="/m/#{slug}" title="goto #{slug}")
+            i.external.blue.icon
+            //- +i name='external-link'
 
 template(name='events_column')
     .ui.accordion
         h4.active.title
             // +i name='edit-property' classes='ui inline image'
             i.rss.icon
-            | Log
+            | log
             i.dropdown.icon
         .active.content
             .ui.feed
@@ -101,7 +101,7 @@ template(name='user_card')
                     .header #{first_name} #{last_name} 
                 if is_staff
                     a.header(href="/user/#{username}") #{first_name} #{last_name} 
-                    .meta @#{username}
+                    //- .meta @#{username}
                     +text_view key='address' direct=true label='address'
                     +text_view key='building_code' direct=true label='building code'
                     +number_view key='unit_number' direct=true label='unit #'
@@ -135,7 +135,7 @@ template(name='big_user_card')
             .content
                 a.header(href="/user/#{username}")
                      |#{first_name} #{last_name} 
-                    .meta @#{username}
+                    //- .meta @#{username}
                     //- +array_view key='tags' label='Tags' direct=true
             if is_staff
                 .content
@@ -205,7 +205,7 @@ template(name='author_info')
              by #{first_name} #{last_name}
 
 template(name='creation_info')
-    .ui.small.grey.inline.header #{when}
+    .ui.small.inline.header #{when}
 
 
 template(name='user_list_toggle')

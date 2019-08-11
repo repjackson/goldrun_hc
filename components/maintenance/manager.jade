@@ -5,7 +5,7 @@ template(name='manager')
                 .ui.header 
                     +i name='key'
                     |key checkouts
-                .ui.large.list
+                .ui.large.list.scrolling
                     each key_checkouts
                         .item
                             .ui.basic.label 
@@ -24,7 +24,7 @@ template(name='manager')
                 .ui.header 
                     +i name='internal'
                     |check in history
-                .ui.large.list
+                .ui.large.list.scrolling
                     each check_ins
                         +checkin_list_item
                         

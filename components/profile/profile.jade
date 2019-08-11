@@ -1,8 +1,9 @@
 template(name='user_layout')
     +nav
     with user_from_username_param
-        .ui.padded.stackable.grid.global_container
+        .ui.stackable.grid.global_container
             .row
+                img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
                 .four.wide.column
                     if kiosk_photo
                         img.ui.centered.circular.shadowed.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
@@ -23,23 +24,22 @@ template(name='user_layout')
                         +staff_verification
                 
                     else if is_current_user
-                        a.ui.icon.big.button.item(href="/user/#{user_from_username_param.username}/edit")
-                            i.cog.large.icon
+                        a.ui.icon.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                            +i name='settings'
                     //- else
                         //- .ui.button.direct_message
                         //-     i.sent.icon
                         //-     |direct message
                     if is_current_user
-                        a.ui.fluid.large.button.logout(href="#")
-                            i.sign.out.icon
-                            |log out
-                        a.ui.fluid.large.button.logout_other_clients(href="#")
-                            |logout other clients
+                        a.ui.icon.large.button.logout(href="#" title='logout')
+                            +i name='exit-sign'
+                        a.ui.icon.large.button.logout_other_clients(href="#" title='logout other clients')
+                            +i name='feed-out'
                     if is_admin
-                        .ui.segment
+                        .ui.basic.segment
                             .ui.header 
-                                //- +i name='user shield'
-                                i.shield.icon
+                                +i name='user shield'
+                                //- i.shield.icon
                                 |roles
                             each roles
                                 .ui.basic.label #{this}
@@ -82,7 +82,7 @@ template(name='user_layout')
 template(name='user_check_steps')
     .ui.vertical.fluid.menu
         each user_check
-            .item.recheck
+            .item.pointer.recheck
                 if user_check_completed
                     i.large.green.checkmark.icon
                 else 
@@ -108,23 +108,16 @@ template(name='user_check_steps')
 
 template(name='staff_verification')
     if is_staff
-        .ui.segment
+        .ui.basic.segment
             .ui.header 
                 if staff_verifier
                     +i name='id-verified' classes='ui mini inline image'
                 else
                     i.red.ban.icon
-                |verified by staff
-            if staff_verifier
-                .ui.list
-                    .item verified by staff: #{staff_verifier}            
-                    .item verification date: {{long_date verification_timestamp}}
-            else
-                  .ui.button.verify verify government ID as #{currentUser.username}
-            .ui.button.rerun_check
-                |rerun check
-            .ui.header #{user_from_username_param.username} created by #{user_from_username_param.added_by_username}
-            .ui.header created on {{long_date user_from_username_param.createdAt}}
+                |verified by #{staff_verifier} on {{long_date verification_timestamp}}
+            unless staff_verifier
+                .ui.button.verify verify government ID as #{currentUser.username}
+            .ui.small.header #{user_from_username_param.username} created by #{user_from_username_param.added_by_username} on {{long_date user_from_username_param.createdAt}}
 
 
 
@@ -132,7 +125,7 @@ template(name='user_residency')
     +resident_info         
     +user_key
     +user_unit
-    .ui.segment
+    .ui.basic.segment
         //- +text_view key='first_name' label='First Name' direct=true
         //- +text_view key='last_name' label='Last Name' direct=true
         if is_admin
@@ -153,7 +146,7 @@ template(name='user_residency')
     
     
 template(name='user_healthclub')
-    .ui.segment
+    .ui.basic.segment
         .ui.header 
             +i name='token-card-code'
             |hc card
@@ -194,13 +187,13 @@ template(name='resident_about')
                         +user_permit
                 
 template(name='resident_info')
-    .ui.segment
+    .ui.basic.segment
         //- +text_view key='first_name' label='First Name' direct=true
         //- +text_view key='last_name' label='Last Name' direct=true
         if is_admin
-            +text_view key='address' label='Address' direct=true
+            +text_view key='address' label='address' direct=true
         //- +text_view key='email' label='Email' direct=true
-        +phone_view key='phone' label='Phone' direct=true
+        +phone_view key='phone' label='phone' direct=true
         if user_is_resident
             //- if is_staff
             +number_view key='unit_number' label='unit #' direct=true
@@ -213,14 +206,14 @@ template(name='resident_info')
         div
         each emails
             if verified
-                .ui.green.label(title='Verified') #{address}
+                .ui.green.label(title='verified') #{address}
             else
-                .ui.orange.label(title='Unverified') #{address}
+                .ui.orange.label(title='unverified') #{address}
 
     
             
 template(name='user_permit')
-    .ui.segment
+    .ui.basic.segment
         .ui.inline.center.aligned.header 
             +i name='badge'
             |permit
@@ -244,7 +237,7 @@ template(name='user_permit')
             
 template(name='user_permits')
     if user_permits
-        .ui.segment
+        .ui.basic.segment
             .ui.inline.center.aligned.header 
                 i.id.card.alternate.icon
                 +goto_model slug='parking_permit'
@@ -254,7 +247,7 @@ template(name='user_permits')
 
             
 template(name='user_signatures')
-    .ui.segment
+    .ui.basic.segment
         .ui.inline.center.aligned.header 
             //- +i name='signature'
             i.pencil.icon
@@ -270,13 +263,13 @@ template(name='user_signatures')
 template(name='user_notes')
     if user_is_resident
         if is_staff
-            .ui.segment
-                +textarea_edit key='staff_notes' title='staff notes' icon='note' direct=true
+            +textarea_edit key='staff_notes' title='private staff notes' icon='note' direct=true
+            +textarea_edit key='public_staff_notes' title='public staff notes' icon='note' direct=true
 
             
             
 template(name='user_checkins')
-    .ui.segment
+    .ui.basic.segment
         .ui.inline.center.aligned.header 
             +i name='internal'
             |health club check ins
@@ -289,7 +282,7 @@ template(name='user_checkins')
             
             
 template(name='user_guests')
-    .ui.segment
+    .ui.basic.segment
         .ui.inline.center.aligned.header 
             +i name='groups'
             |guests
@@ -297,8 +290,8 @@ template(name='user_guests')
         //- +add_button model='guest'
         //- .ui.circular.button.add_guest
         //-     |Add Guest
-        with user_from_username_param
-            .ui.header total guests #{total_guests}
+        //- with user_from_username_param
+        //-     .ui.header total guests #{total_guests}
             //- .ui.header guests this month #{current_month_guests}
         .ui.link.large.list
             each resident_guests
@@ -310,15 +303,15 @@ template(name='user_guests')
             
             
 template(name='user_unit')
-    .ui.segment
+    .ui.basic.segment
         .ui.inline.center.aligned.header 
             //- i.home.icon
             +i name='interior'
             |unit
         +goto_model slug='unit'
         with unit
-            +number_view key='building_number' label='Building Number' direct=true
-            +number_view key='unit_number' label='Unit #' direct=true
+            +number_view key='building_number' label='building number' direct=true
+            +number_view key='unit_number' label='unit #' direct=true
             if is_admin
                 div
                 +edit_button
@@ -333,16 +326,16 @@ template(name='user_section')
 
     
 template(name='user_violations')
-    .ui.segment
+    .ui.basic.segment
         .ui.inline.center.aligned.header 
             +i name='foul'
             |violations
         +goto_model slug='violation'
-        .ui.button.add_inline_violation
-            i.plus.icon
-            |add violation
+        .ui.icon.button.add_inline_violation(title='add violation')
+            i.large.green.plus.icon
+            //- |add violation
         if editing_violation
-            .ui.segment
+            .ui.basic.segment
                 with editing_violation_doc
                     +textarea_edit key='body' label='description' direct=true
                     +boolean_edit key='active' label='active' direct=true
@@ -377,7 +370,7 @@ template(name='user_violations')
 
 template(name='user_log')
     //- .ui.fluid.styled.accordion
-    .ui.segment
+    .ui.basic.segment
         .ui.inline.center.aligned.header 
             //- +i name='overview-pages-4'
             i.list.icon
@@ -412,7 +405,7 @@ template(name='user_array_list')
             
 template(name='user_comparison')
     .ui.header user comparison
-    .ui.header simulate conversation between you and them using site stats
+    //- .ui.header simulate conversation between you and them using site stats
 
             
 
@@ -428,7 +421,7 @@ template(name='user_string_toggle')
             
             
 template(name='membership_status')
-    .ui.segment
+    .ui.basic.segment
         .active.title
             .ui.inline.center.aligned.header 
                 +i name='membership-card' classes='ui inline image'

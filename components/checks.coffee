@@ -20,8 +20,8 @@ if Meteor.isClient
 
 
     Template.user_check_steps.events
-        'click .recheck': ->
-            # console.log @slug
+        'click .recheck': (e,t)->
+            $(e.currentTarget).closest('.recheck').transition('pulse')
             context_user = Template.currentData()
             console.log context_user
             # username = Template.parentData().resident_username

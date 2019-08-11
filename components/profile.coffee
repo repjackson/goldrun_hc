@@ -165,9 +165,10 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'healthclub_checkins', Router.current().params.username
     Template.user_checkins.helpers
         healthclub_checkins: ->
-            Docs.find
-                model:'healthclub_checkin'
+            Docs.find {
+                model:'healthclub_session'
                 resident_username:Router.current().params.username
+            }, sort: _timestamp:-1
 
 
 
@@ -205,7 +206,7 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'healthclub_checkins', (username)->
         Docs.find
-            model:'healthclub_checkin'
+            model:'healthclub_session'
             resident_username:username
 
 

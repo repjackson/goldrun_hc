@@ -238,6 +238,9 @@ if Meteor.isClient
 
     Template.water_status.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'water_status'
+        Meteor.subscribe 'latest_reading', @data.slug
+
+
     Template.water_status.helpers
         on: ->
             water_feature_status_doc =
@@ -246,6 +249,13 @@ if Meteor.isClient
                     slug:@slug
             if water_feature_status_doc
                 water_feature_status_doc.on
+
+        latest_reading: ->
+            Docs.findOne {
+                model:"#{@slug}_reading"
+            }, {sort:_timestamp:-1, limit:1}
+
+
     Template.water_status.events
         'click .toggle_status': ->
             # console.log @
@@ -408,3 +418,9 @@ if Meteor.isServer
             model:'event'
             tags:$in:['movie']
         }, sort: _timestamp:-1
+
+    Meteor.publish 'latest_reading', (slug)->
+        console.log slug
+        Docs.find {
+            model:"#{slug}_reading"
+        }, {sort:_timestamp:-1, limit:1}

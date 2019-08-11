@@ -4,8 +4,9 @@ template(name='kiosk_container')
 
 
 template(name='healthclub')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
-    .ui.grid.header-wrapper.global_container
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
+    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
+    .ui.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
         //- .row
         //-     .sixteen.wide.center.aligned.column
@@ -13,7 +14,8 @@ template(name='healthclub')
         .row
             .sixteen.wide.column
                 .row
-                    .ui.massive.fluid.icon.input
+                    .ui.massive.fluid.left.icon.input
+                        i.user.icon
                         input.username_search(type='text' placeholder='check in resident' autofocus)
                         if is_query
                             i.remove.link.icon.clear_results
@@ -33,9 +35,12 @@ template(name='healthclub')
                     .two.column.row
                         .column
                             with latest_movie
-                                .movie_image(title='pavilion at 6:30')
-                                    +image_view key='image_id' direct=true
-                                .ui.small.center.aligned.header monday @ 6:30 in the pavilion    
+                                .smallscroll
+                                    img.ui.rounded.image(src="{{c.url image_id height=600 gravity='face' crop='fill'}}")
+                                    //- img.ui.image(src="{{c.url image_id }}")
+                                    //- .movie_image(title='pavilion at 6:30')
+                                    //-     +image_view key='image_id' direct=true
+                            .ui.center.aligned.inline.small.header monday @ 6:30 in the pavilion    
                             +inline_doc slug='health_club_notices' classes='ui large header'
                             div
                             +health_club_info
@@ -56,7 +61,7 @@ template(name='healthclub')
                                             .item Fri 7a-9p
                                             .item Sat 8a-9p
                                             .item Sun 8a-10p
-                            +healthclub_status
+                            +health_club_status
                             if is_staff
                                 a.ui.compact.button(href='/staff')
                                     i.left.chevron.icon
@@ -101,12 +106,12 @@ template(name='sign_waiver')
                     .row
                         h1.ui.center.aligned.header
                             i.user.plus.icon
-                            |Sign Waiver
+                            |sign waiver
                         with waiver_doc
                             |!{html}
                         +signature
                         .ui.fluid.green.button.sign_waiver
-                            | Sign Waiver
+                            | sign waiver
 
 
 

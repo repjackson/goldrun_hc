@@ -34,7 +34,7 @@ template(name='unit')
 
             
 template(name='unit_permits')            
-    .ui.segment
+    .ui.basic.segment
         .ui.header 
             +i name='badge'
             |unit permits
@@ -49,7 +49,7 @@ template(name='unit_permits')
                         +text_view key='license_plate' icon='driver-license-card' direct=true
 
 template(name='unit_owners')            
-    .ui.segment
+    .ui.basic.segment
         .ui.header 
             +i name='rent'
             //- i.money.icon
@@ -67,7 +67,7 @@ template(name='unit_owners')
 
 
 template(name='unit_residents')            
-    .ui.segment
+    .ui.basic.segment
         .ui.header
             +i name='group'
             //- i.users.icon
@@ -85,13 +85,14 @@ template(name='unit_residents')
                              |#{first_name} #{last_name} 
                             .meta @#{username}
                             .meta 
-                                i.calendar.icon(title='expiration date')
+                                //- i.calendar.icon(title='expiration date')
+                                +i name='calendar' title='expiration date' classes='ui mini inline image'
                                 |#{expiration_date}
                             //- +array_view key='tags' label='Tags' direct=true
 
 
 template(name='user_key')
-    .ui.segment
+    .ui.basic.segment
         .ui.grey.inline.center.aligned.small.header 
             //- i.key.icon
             +i name='key'

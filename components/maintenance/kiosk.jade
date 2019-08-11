@@ -79,6 +79,10 @@ template(name='healthclub_session')
                 .column
                     h1.ui.huge.header.f11
                         |#{user.first_name} #{user.last_name} 
+                    if user.public_staff_notes
+                        h2
+                            small staff notes:
+                            strong !{user.public_staff_notes}
                     if adding_guests
                         .ui.header 
                             i.users.teal.icon
