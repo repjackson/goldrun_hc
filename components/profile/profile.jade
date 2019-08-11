@@ -26,10 +26,9 @@ template(name='user_layout')
                     else if is_current_user
                         a.ui.icon.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings'
-                    //- else
-                        //- .ui.button.direct_message
-                        //-     i.sent.icon
-                        //-     |direct message
+                    else
+                        .ui.button.direct_message(title='new message')
+                            +i name='envelope'
                     if is_current_user
                         a.ui.icon.large.button.logout(href="#" title='logout')
                             +i name='exit-sign'
@@ -39,17 +38,16 @@ template(name='user_layout')
                         .ui.basic.segment
                             .ui.header 
                                 +i name='user shield'
-                                //- i.shield.icon
                                 |roles
                             each roles
                                 .ui.basic.label #{this}
                 .twelve.wide.column.shadowed-box
                     if user_is_user
                         if is_user
+                            a.ui.icon.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
+                                +i name='dashboard'
                             a.ui.icon.button(href="/user/#{username}/about" class="{{isActiveRoute 'user_about'}}" title='about')
                                 +i name='info'
-                            //- a.ui.icon.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
-                            //-     +i name='dashboard'
                             a.ui.icon.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}" title='social')
                                 +i name='collaboration'
                             a.ui.icon.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}" title='gallery')

@@ -13,15 +13,16 @@ force_loggedin =  ()->
 Router.onBeforeAction(force_loggedin, {
   # only: ['admin']
   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
-  except: ['register', 'forgot_password','reset_password','delta','doc_view','verify-email','download_rules_pdf']
+  except: ['register', 'front','forgot_password','reset_password','delta','doc_view','verify-email','download_rules_pdf']
 });
 
 Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
 
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
-# Router.route '/register', -> @render 'register'
+Router.route '/register', -> @render 'register'
 Router.route '/admin', -> @render 'admin'
+Router.route '/front', -> @render 'front'
 Router.route '/dashboard', -> @render 'dashboard'
 Router.route '/manager', -> @render 'manager'
 Router.route '/shift_checklist', -> @render 'shift_checklist'
@@ -85,7 +86,6 @@ Router.route '/p/:slug', -> @render 'page'
 Router.route '/settings', -> @render 'settings'
 Router.route '/sign_rules/:doc_id/:username', -> @render 'rules_signing'
 Router.route '/sign_guidelines/:doc_id/:username', -> @render 'guidelines_signing'
-# Router.route '/users', -> @render 'people'
 Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 # Router.route "/meal/:meal_id", -> @render 'meal_doc'
 
@@ -106,7 +106,7 @@ Router.route '/home', -> @render 'home'
 Router.route '/', (->
     @layout 'layout'
     @render 'home'
-    ), name:'front'
+    ), name:'root'
 
 
 Router.route '/healthclub', (->

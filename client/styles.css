@@ -163,7 +163,7 @@ input.username_search{
 .button, .segment, .label{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
-    border-radius: 12px !important;
+    border-radius: 10px !important;
 }
 
 
@@ -211,6 +211,7 @@ input.username_search{
 
 .button:active{
     -webkit-transform: translate(0, 5px) !important; /* depth of button press */
+    transform: translate(0, 5px) !important; /* depth of button press */
 }
 
 
@@ -234,7 +235,7 @@ input.username_search{
 
 
 .button, .selector, .card, body{
-    animation: fadein 1s;
+    animation: fadein .5s;
     /* -webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout 1s; */
 }

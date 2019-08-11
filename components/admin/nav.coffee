@@ -6,7 +6,7 @@ if Meteor.isClient
                 Session.set 'logging_out', false
                 Router.go '/'
 
-        'click .set_model': ->
+        'click .set_models': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', 'model', ->
                 Session.set 'loading', false
@@ -42,7 +42,7 @@ if Meteor.isClient
                 Session.set 'loading', false
 
 
-        'click .set_bookmarked_model': ->
+        'click .set_model': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
@@ -74,6 +74,8 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'me'
     Template.nav.onCreated ->
         @autorun -> Meteor.subscribe 'me'
+        @autorun -> Meteor.subscribe 'role_models'
+
         # @autorun -> Meteor.subscribe 'current_session'
         # @autorun -> Meteor.subscribe 'unread_messages'
 
@@ -81,6 +83,16 @@ if Meteor.isClient
         notifications: ->
             Docs.find
                 model:'notification'
+        role_models: ->
+            if 'dev' in Meteor.user().roles
+                Docs.find {
+                    model:'model'
+                }, sort:title:1
+            else
+                Docs.find {
+                    model:'model'
+                    view_roles:$in:Meteor.user().roles
+                }, sort:title:1
 
         models: ->
             Docs.find

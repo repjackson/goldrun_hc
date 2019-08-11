@@ -30,29 +30,26 @@ template(name='user_votes')
         |votes
 
 template(name='user_tasks')
-    //- .ui.fluid.styled.accordion
-    .ui.segment
-        .ui.inline.center.aligned.small.header 
-            //- +i name='tasks'
-            i.tasks.icon
-            |staff tasks
-        +goto_model slug='task'
-        .ui.icon.input
-            i.plus.icon
-            input.assign_task(type='text' placeholder='assign task...')
-        //- .ui.circular.button.view_complete(class=view_complete_class)
-        //-     |View Completed
-        // .ui.circular.button.view_incomplete(class=view_complete_class)
-        //     |View Incomplete
-        each assigned_tasks
-            .ui.smoothed.segment
-                .ui.header #{body}
-                +boolean_edit key='complete' label='Complete' direct=true true_icon='checkmark' false_icon='remove'
-                //- +voting
-                +author_info
-                +creation_info
-                if is_author
-                    +remove_button
+    .ui.header 
+        +i name='tasks'
+        |tasks
+    +goto_model slug='task'
+    .ui.icon.input
+        i.plus.icon
+        input.assign_task(type='text' placeholder='assign task...')
+    .ui.circular.button.view_complete(class=view_complete_class)
+        |view completed
+    .ui.circular.button.view_incomplete(class=view_complete_class)
+         |view incomplete
+    each assigned_tasks
+        .ui.smoothed.segment
+            .ui.header #{body}
+            +boolean_edit key='complete' label='Complete' direct=true true_icon='checkmark' false_icon='remove'
+            +voting
+            +author_info
+            +creation_info
+            if is_author
+                +remove_button
 
 
 template(name='user_transactions')
@@ -60,11 +57,11 @@ template(name='user_transactions')
         .ui.header sent karma
         each sent_karma
             .ui.segment
-                .ui.small.inline.header #{_author_username}
+                .ui.inline.header #{_author_username}
                 |#{description}
                 each tags
                     .ui.label #{this}
-                .ui.small.inline.header #{karma_amount}
+                .ui.inline.header #{karma_amount}
     +transactions
 
 
@@ -93,7 +90,7 @@ template(name='follow_user')
 template(name='user_wall')
     .ui.fluid.styled.accordion
         .active.title
-            .ui.inline.center.aligned.small.header 
+            .ui.inline.center.aligned.header 
                 i.edit.icon
                 |wall
         .active.content
@@ -130,7 +127,7 @@ template(name='user_contact')
         +i name='contact'
         |contact
     if current_user
-        .ui.small.header whatever info you want people to contact you by
+        .ui.header whatever info you want people to contact you by
         +textarea_edit key='contact_info' direct=true
     else
         +textarea_view key='contact_info' direct=true
@@ -155,11 +152,11 @@ template(name='user_karma')
     .ui.header 
         +i name='yin-yang'
         |karma
-    .ui.small.header 
-        i.thumbs.up.icon
+    .ui.header 
+        +i name='chevron up'
         |upvoted documents
-    .ui.small.header 
-        i.thumbs.down.icon
+    .ui.header 
+        +i name='chevron down'
         |downvoted documents
     +received_karma
 
@@ -192,17 +189,16 @@ template(name='user_bookmarks')
 
 
 template(name='received_karma')
-    .ui.segment
-        .ui.header received karma
-        each received_karma
-            .ui.segment
-                .ui.small.inline.header #{_author_username}
-                |#{description}
-                each tags
-                    .ui.label #{this}
-                .ui.small.inline.header #{karma_amount}
-                
+    .ui.header received karma
+    each received_karma
+        .ui.segment
+            .ui.inline.header #{_author_username}
+            |#{description}
+            each tags
+                .ui.label #{this}
+            .ui.inline.header #{karma_amount}
             
+        
 
 
 template(name='user_notifications')

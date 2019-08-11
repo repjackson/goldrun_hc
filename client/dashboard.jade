@@ -11,10 +11,10 @@ template(name='dashboard')
             .four.wide.column
                 +top_selling_products
                 .ui.header 
-                    i.food.grey.icon
+                    i.food.icon
                     |top selling food
                 .ui.header 
-                    i.tags.grey.icon
+                    i.tags.icon
                     |top selling tags
             .four.wide.column
                 +todays_stats
@@ -23,7 +23,7 @@ template(name='dashboard')
         .row
             .sixteen.wide.column
                 .ui.header 
-                    i.th.grey.icon
+                    i.th.icon
                     |your products
                 .ui.five.cards
                     each my_products
@@ -32,7 +32,7 @@ template(name='dashboard')
         
 template(name='bookmarked_users')
     .ui.header 
-        i.favorite.grey.icon
+        i.favorite.icon
         |bookmarked users
     //- .ui.small.header #{currentUser.current_product_count} products
     //- .ui.small.header #{currentUser.reservation_count} reservations
@@ -42,7 +42,7 @@ template(name='bookmarked_users')
 template(name='most_frequent_buyers')
     .ui.secondary.segment
         .ui.header 
-            i.user.grey.icon
+            i.user.icon
             |most frequent buyers
         each most_frequent_buyers
             a(href="/user/#{username}")
@@ -56,7 +56,7 @@ template(name='most_frequent_buyers')
 template(name='most_lucrative_buyers')
     .ui.secondary.segment
         .ui.header 
-            i.user.grey.icon
+            i.user.icon
             |most lucrative buyers
         each most_lucrative_buyers
             a(href="/user/#{username}")
@@ -69,7 +69,7 @@ template(name='most_lucrative_buyers')
 template(name='top_selling_products')
     .ui.secondary.segment
         .ui.header
-            i.star.grey.icon
+            i.star.icon
             | top selling products
         .ui.animated.list
             each top_products
@@ -84,11 +84,11 @@ template(name='top_selling_products')
 template(name='todays_stats')
     .ui.secondary.segment
         .ui.header 
-            i.sun.grey.icon
+            i.sun.icon
             |todays stats
         .ui.small.header $#{currentUser.todays_earnings} earned
-        .ui.grey.icon.button.redraw_todays_stats 
-            i.refresh.grey.icon
+        .ui.icon.button.redraw_todays_stats 
+            i.refresh.icon
         each todays_reservations
             .ui.header #{date} #{notes}
             a(href="/shop/#{product_id}/view") product view
@@ -101,23 +101,23 @@ template(name='todays_stats')
 template(name='weekly_stats')
     .ui.secondary.segment
         .ui.header 
-            i.list.grey.icon
+            i.list.icon
             |weekly stats
         .ui.small.header $#{currentUser.weekly_earnings} earned
         .ui.small.header #{currentUser.weekly_reservations} reservations
-        .ui.grey.icon.button.redraw_weekly_stats
-            i.refresh.grey.icon
+        .ui.icon.button.redraw_weekly_stats
+            i.refresh.icon
 
 
 
 template(name='monthly_stats')
     .ui.secondary.segment
         .ui.header 
-            i.calendar.grey.icon
+            i.calendar.icon
             |monthly stats
         .ui.small.header $#{todays_earnings} earned
-        .ui.grey.icon.button.redraw_monthly_stats
-            i.refresh.grey.icon
+        .ui.icon.button.redraw_monthly_stats
+            i.refresh.icon
         each todays_reservations
             .ui.header #{date} #{notes}
             a(href="/shop/#{product_id}/view") product view
@@ -129,7 +129,7 @@ template(name='monthly_stats')
 template(name='todays_schedule')
     .ui.secondary.segment
         .ui.header
-            i.calendar.grey.icon
+            i.calendar.icon
             |schedule for today
         .ui.small.header tasks due today
         .ui.small.header unread messages
@@ -146,9 +146,65 @@ template(name='games')
         .row
             .sixteen.wide.column
                 .ui.header 
-                    i.dice.grey.icon
+                    i.dice.icon
                     |games
         .row
             .four.wide.column
                 .ui.segment
                     a.ui.header(href="/game/picker") picker
+
+
+
+
+//- 
+//- template(name='dashboard')
+//-     .ui.stackable.padded.grid
+//-         .row
+//-             .four.wide.column
+//-                 +todays_schedule
+//-                 +product_stats
+//-             .four.wide.column
+//-                 +most_frequent_buyers
+//-                 +most_lucrative_buyers
+//-                 +bookmarked_users
+//-             .four.wide.column
+//-                 +top_selling_products
+//-                 .ui.header 
+//-                     i.food.icon
+//-                     |top selling food
+//-                 .ui.header 
+//-                     i.tags.icon
+//-                     |top selling tags
+//-             .four.wide.column
+//-                 +todays_stats
+//-                 +weekly_stats
+//-                 +monthly_stats
+//-         .row
+//-             .sixteen.wide.column
+//-                 .ui.header 
+//-                     i.th.icon
+//-                     |your products
+//-                 .ui.five.cards
+//-                     each my_products
+//-                         +product_card
+                
+template(name='product_card')                
+    .ui.card
+        .content
+            a(href="/shop/#{_id}/view")
+                img.ui.avatar.image(src="{{c.url picture width=100 height=100 gravity='face' crop='crop'}}")
+                .ui.small.inline.header
+                    | #{title}
+            .ui.small.inline.header #{reader_count}
+            .ui.small.inline.header #{points} likes
+            .ui.small.inline.header #{transactions_count} transactions count
+
+
+template(name='product_stats')
+    .ui.header 
+        i.line.chart.icon
+        |stats
+    .ui.small.header #{currentUser.current_product_count} products
+    .ui.small.header #{currentUser.reservation_count} reservations
+        
+        

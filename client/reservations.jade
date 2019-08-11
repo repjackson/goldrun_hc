@@ -1,0 +1,65 @@
+template(name='reservation_slot_view')
+    .ui.stackable.padded.grid
+        .eight.wide.column
+            .ui.header reservation slot view
+            with reservation_product
+                +reservation_product_template
+        .eight.wide.column
+            with reservation
+                .ui.segment
+                    .ui.header reservation
+                    .ui.header #{date}
+                    .ui.header #{product_id}
+                    +author_info
+                    if is_author
+                        +remove_button
+                    .ui.header #{_author_username}
+                    .ui.header #{when}
+                    +textarea_edit key='notes' direct=true
+                    unless confirmed
+                        .ui.green.button.confirm_delivery confirm_delivery
+                    if confirmed
+                        .ui.button.cancel_reservation cancel reservation
+                        unless delivery_started
+                            .ui.big.green.button.mark_delivery_started 
+                                i.clock.icon
+                                |mark delivery started
+                        if delivery_started
+                            .ui.header delivery started {{long_date delivery_started_timestamp}}
+                            unless delivery_ended
+                                .ui.big.button.mark_delivered 
+                                    i.checkmark.icon
+                                    |mark delivery delivered
+                            else 
+                                .ui.header delivery ended {{long_date delivery_ended_timestamp}}
+                                unless reservation_ended
+                                    .ui.big.green.button.mark_complete 
+                                        i.checkmark.icon
+                                        |mark reservation complete
+                                else
+                                    .ui.header reservation ended {{long_date reservation_ended_timestamp}}
+            with reservation_slot
+                .ui.header #{date}
+                //- .ui.header product id:#{product_id}
+                .ui.header parent slot:#{parent_slot}
+            unless reservation
+                .ui.header no reservation 
+                .ui.green.button.new_reservation new reservation
+            +comments
+        //- .eight.wide.column
+        //-     if is_author
+        //-         .ui.header author
+
+
+template(name='reservation_product_template')
+    .ui.segment
+        a.ui.header(href="/shop/#{_id}/info") 
+            i.left.chevron.icon
+            |#{title}
+        img.ui.centered.rounded.image(src="{{c.url picture width=300 height=200 crop='fit'}}")
+        each tags
+            .ui.large.label #{this}
+        |!{description}
+        
+
+    
