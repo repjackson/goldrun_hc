@@ -1,18 +1,13 @@
 template(name='front')
     .ui.padded.stackable.grid
-        .row
-            .sixteen.wide.column
-                .ui.large.center.aligned.header 
-                    +i name='apartment'
-                    |Gold Run Community
         .two.column.row
             .column
                 +health_club_status
                 //- +meal_widget
                 //- +marketplace_widget
                 //- .ui.header chat
-                //- +model_scroller model='for_rent' header='For Rent' icon='business'
-                //- +model_scroller model='event' header='Events' icon='calendar'
+                +model_scroller model='for_rent' header='For Rent' icon='business'
+                +model_scroller model='event' header='Events' icon='calendar'
             .column
                 +cal
                 //- +model_scroller model='photo' header='Photos' icon='image'
@@ -91,7 +86,7 @@ template(name='photo_doc_view')
 
 
 template(name='model_scroller')
-    .ui.smoothed.segment
+    .ui.basic.segment
         a.ui.inline.header.go_to_model(href="/m/#{model}")
             if icon 
                 +i name=icon

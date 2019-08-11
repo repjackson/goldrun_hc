@@ -61,13 +61,35 @@ if Meteor.isClient
             )
         , 3000
 
+    Template.sidebar.onRendered ->
+        @autorun =>
+            if @subscriptionsReady()
+                Meteor.setTimeout ->
+                    $('.context.example .ui.sidebar')
+                        .sidebar({
+                            context: $('.context.example .bottom.segment')
+                            dimPage: false
+                            transition:  'push'
+                        })
+                        .sidebar('attach events', '.context.example .menu .toggle_sidebar.item')
+                , 500
 
-    # Template.sidebar.events
-    #     'click #logout': ->
-    #         Session.set 'logging_out', true
-    #         Meteor.logout ->
-    #             Session.set 'logging_out', false
-    #             Router.go '/'
+    Template.nav.events
+        'click .sidebar_on': ->
+            $('.context .ui.sidebar')
+                .sidebar({
+                    context: $('.context .segment')
+                    dimPage: false
+                    transition:  'push'
+                })
+                .sidebar('attach events', '.context .menu .toggle_sidebar.item')
+
+    Template.sidebar.events
+        'click #logout': ->
+            Session.set 'logging_out', true
+            Meteor.logout ->
+                Session.set 'logging_out', false
+                Router.go '/'
 
 
     Template.mlayout.onCreated ->

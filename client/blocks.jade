@@ -210,9 +210,9 @@ template(name='creation_info')
 
 template(name='user_list_toggle')
     if currentUser
-        .ui.icon.compact.button.toggle(class=user_list_toggle_class title=label)
+        .ui.icon.compact.small.button.toggle(class=user_list_toggle_class title=label)
             //- i.icon(class=icon)
-            +i name=icon classes='ui inline image'
+            +i name=icon classes='ui inline mini image'
             //- |#{label}
         //- each list_users
         //-     +user_info

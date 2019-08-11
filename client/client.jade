@@ -20,23 +20,19 @@ head
 
 template(name='layout')
     +nav
-    .ui.stackable.grid.global_container(class=invert_class)
-        .centered.row
-            img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
-            .sixteen.wide.column
-                +yield
+    .context
+        .ui.stackable.grid.global_container(class=invert_class)
+            .centered.row
+                img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
+                .sixteen.wide.column
+                    .ui.attached.basic.segment.pushable
+                        +sidebar
+                        .pusher
+                            #main
+                                //- .ui.basic.fluid.segment
+                                +yield
         unless is_frontdesk
             +footer 
-
-    //- .context
-    //-     +nav
-    //-     .ui.attached.basic.segment.pushable
-    //-         +sidebar
-    //-         .pusher
-    //-             #main
-    //-                 //- .ui.basic.fluid.segment
-    //-                 +yield
-        //- +footer
 
 
 template(name='mlayout')

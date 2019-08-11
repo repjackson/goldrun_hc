@@ -10,15 +10,14 @@ template(name='nav')
                     i.big.loading.grey.yin.yang.icon
             else
                 a.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
-                    //- i.sitemap.large.icon
                     +i name='active-directory'
                 a.icon.item(href='/home' class="{{isActivePath '/home'}}")
                     +i name='circled-menu'
-                a.icon.item(href='/front' class="{{isActivePath '/front'}}")
-                    +i name='home'
-                a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                    +i name='dashboard'
-                    //- i.th.large.icon
+                if is_user
+                    a.icon.item(href='/front' class="{{isActivePath '/front'}}")
+                        +i name='home'
+                    a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                        +i name='dashboard'
                 if is_manager
                     a.icon.item(href='/manager' class="{{isActivePath '/manager'}}")
                         +i name='user-shield'
