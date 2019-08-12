@@ -100,9 +100,11 @@ if Meteor.isServer
                         gov_red_flagged:1
         residence_paperwork: (user)->
             console.log 'running residence paperwork', user.username
-            # if user.staff_verifier
-            #     Meteor.users.update user._id,
-            #         $set:staff_government_id_check:true
-            #         $unset:
-            #             checkins_without_gov_id:1
-            #             gov_red_flagged:1
+            if user.owner
+                if user.ownership_paperwork
+                    Meteor.users.update user._id,
+                        $set:residence_paperwork:true
+            else
+                if user.lease_agreement
+                    Meteor.users.update user._id,
+                        $set:residence_paperwork:true

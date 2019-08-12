@@ -58,7 +58,7 @@ if Meteor.isClient
                 username: {$regex:"#{username_query}", $options: 'i'}
                 # healthclub_checkedin:$ne:true
                 roles:$in:['resident','owner']
-                },{ limit:10 }).fetch()
+                },{ limit:20 }).fetch()
 
 
         checking_in: -> Session.get('checking_in')
@@ -94,6 +94,7 @@ if Meteor.isClient
             Meteor.call 'staff_government_id_check', @
             Meteor.call 'rules_and_regulations_signed', @
             Meteor.call 'email_verified', @
+            Meteor.call 'residence_paperwork', @
             Session.set 'username_query',null
             # Session.set 'session_document',session_document
             # Session.set 'checking_in',false

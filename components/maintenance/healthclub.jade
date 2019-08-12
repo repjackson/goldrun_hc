@@ -13,24 +13,27 @@ template(name='healthclub')
         //-         img.ui.circular.centered.small.inline.image.shadowed(src="{{c.url 'gold_run_logo' }}")
         .row
             .sixteen.wide.column
-                .row
-                    .ui.massive.fluid.left.icon.input
-                        i.user.icon
-                        input.username_search(type='text' placeholder='check in resident' autofocus)
-                        if is_query
-                            i.remove.link.icon.clear_results
-                        //- else 
-                        //-     i.user.grey.outline.icon
-                    if checkedout_members.length
-                        .ui.center.aligned.basic.segment.test
-                            each checkedout_members
-                                +checkin_button
-                    else
-                        if checking_in
-                            .ui.center.aligned.basic.segment.test
+                .ui.grid
+                    .row.checkin_toprow
+                        .two.wide.column
+                            img.ui.circular.centered.small.inline.image.shadowed(src="{{c.url 'gold_run_logo' }}")
+                        .fourteen.wide.column
+                            .ui.massive.fluid.left.icon.input
+                                input.username_search(type='text' placeholder='check in resident' autofocus)
                                 if is_query
-                                    .ui.center.aligned.header No members found
-                                    .ui.center.aligned.header See staff to add
+                                    i.remove.link.icon.clear_results
+                                else 
+                                    i.user.grey.outline.icon
+                    .row.checking_in_area
+                        .sixteen.wide.center.aligned.column.checking_in_area
+                            if checkedout_members.length
+                                each checkedout_members
+                                    +checkin_button
+                            else
+                                if checking_in
+                                    if is_query
+                                        .ui.center.aligned.header No members found
+                                        .ui.center.aligned.header See staff to add
                 .ui.padded.grid
                     .two.column.row
                         .column
@@ -40,7 +43,7 @@ template(name='healthclub')
                                     //- img.ui.image(src="{{c.url image_id }}")
                                     //- .movie_image(title='pavilion at 6:30')
                                     //-     +image_view key='image_id' direct=true
-                            .ui.center.aligned.inline.small.header monday @ 6:30 in the pavilion    
+                            .ui.center.aligned.inline.small.header monday @ 8:30 in the pavilion    
                             +inline_doc slug='health_club_notices' classes='ui large header'
                             div
                             +health_club_info
@@ -118,7 +121,7 @@ template(name='sign_waiver')
 template(name='checkin_button')
     unless is_staff
         //- unless healthclub_checkedin
-        .ui.massive.basic.button.checkin.new_hc_session
+        .ui.massive.compact.button.checkin.new_hc_session
             strong #{first_initial} #{last_name}
         //- if healthclub_checkedin
         //- if is_staff

@@ -12,8 +12,8 @@ $.cloudinary.config
 Template.body.events
     'click a': ->
         $('.global_container')
-        .transition('fade out')
-        .transition('fade in')
+        .transition('fade out', 250)
+        .transition('fade in', 250)
 
 
 # Template.healthclub.events
@@ -265,8 +265,8 @@ Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
 Template.registerHelper 'is_model', -> @model is 'model'
 
 
-# Template.body.events
-#     'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
+Template.body.events
+    'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
 
 Template.registerHelper 'is_editing', () -> Session.equals 'editing_id', @_id
 

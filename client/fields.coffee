@@ -463,6 +463,23 @@ Template.number_edit.events
                 $set:"#{@key}":val
 
 
+Template.float_edit.events
+    'blur .edit_float': (e,t)->
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        val = parseFloat t.$('.edit_float').val()
+        doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:"#{@key}":val
+        else if user
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
+
+
 # Template.dollar_price_view.onCreated ->
 # 	# Session.set 'giveAmount', ''
 #     if Meteor.isDevelopment

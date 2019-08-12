@@ -25,8 +25,8 @@ template(name='layout')
             .centered.row
                 img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
                 .sixteen.wide.column
+                    +sidebar
                     .ui.attached.basic.segment.pushable
-                        +sidebar
                         .pusher
                             #main
                                 //- .ui.basic.fluid.segment

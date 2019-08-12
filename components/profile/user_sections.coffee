@@ -7,11 +7,13 @@ if Meteor.isClient
                 model:'wall_post'
     Template.user_wall.events
         'keyup .new_post': (e,t)->
+            current_user = Meteor.users.findOne username:Router.current().params.username
             if e.which is 13
                 post = t.$('.new_post').val().trim()
                 Docs.insert
                     body:post
                     model:'wall_post'
+                    user_id:current_user._id
                 t.$('.new_post').val('')
         'click .remove_comment': ->
             if confirm 'remove comment?'
@@ -68,3 +70,12 @@ if Meteor.isClient
                 model:'karma_transaction'
                 recipient:Router.current().params.username
                 # confirmed:true
+
+
+
+if Meteor.isServer
+    Meteor.publish 'wall_posts', (username)->
+        current_user = Meteor.users.findOne username:username
+        Docs.find
+            model:'wall_post'
+            user_id: current_user._id

@@ -3,7 +3,7 @@ template(name='user_layout')
     with user_from_username_param
         .ui.stackable.grid.global_container
             .row
-                img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
+                //- img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
                 .four.wide.column
                     if kiosk_photo
                         img.ui.centered.circular.shadowed.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
@@ -70,7 +70,7 @@ template(name='user_layout')
                                 +i name='line-chart'
                             a.ui.icon.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}" title='votes')
                                 +i name='elections'
-                            a.ui.icon.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}" title='money')
+                            a.ui.icon.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}" title='notifications')
                                  +i name='appointment-reminders'
                     +yield
     unless is_frontdesk
@@ -389,11 +389,6 @@ template(name='user_rules_widget')
             | user rules signature
     
 
-template(name='user_people')
-    +user_following
-    +follow_user
-
-                
                 
 template(name='user_array_list')
     .ui.list

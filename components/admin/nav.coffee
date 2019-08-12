@@ -67,22 +67,22 @@ if Meteor.isClient
                 Meteor.setTimeout ->
                     $('.context.example .ui.sidebar')
                         .sidebar({
-                            context: $('.context.example .bottom.segment')
+                            context: $('.pushable')
                             dimPage: false
                             transition:  'push'
                         })
-                        .sidebar('attach events', '.context.example .menu .toggle_sidebar.item')
+                        .sidebar('attach events', '.toggle_sidebar')
                 , 500
 
-    Template.nav.events
-        'click .sidebar_on': ->
-            $('.context .ui.sidebar')
-                .sidebar({
-                    context: $('.context .segment')
-                    dimPage: false
-                    transition:  'push'
-                })
-                .sidebar('attach events', '.context .menu .toggle_sidebar.item')
+    # Template.nav.events
+    #     'click .sidebar_on': ->
+    #         $('.context .ui.sidebar')
+    #             .sidebar({
+    #                 context: $('.context .segment')
+    #                 dimPage: false
+    #                 transition:  'push'
+    #             })
+    #             .sidebar('attach events', '.context .menu .toggle_sidebar.item')
 
     Template.sidebar.events
         'click #logout': ->
@@ -106,15 +106,16 @@ if Meteor.isClient
             Docs.find
                 model:'notification'
         role_models: ->
-            if 'dev' in Meteor.user().roles
-                Docs.find {
-                    model:'model'
-                }, sort:title:1
-            else
-                Docs.find {
-                    model:'model'
-                    view_roles:$in:Meteor.user().roles
-                }, sort:title:1
+            if Meteor.user() and Meteor.user().roles
+                if 'dev' in Meteor.user().roles
+                    Docs.find {
+                        model:'model'
+                    }, sort:title:1
+                else
+                    Docs.find {
+                        model:'model'
+                        view_roles:$in:Meteor.user().roles
+                    }, sort:title:1
 
         models: ->
             Docs.find

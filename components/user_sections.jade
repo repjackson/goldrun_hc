@@ -20,6 +20,19 @@ template(name='user_social')
     +user_people
     +user_wall
 
+
+template(name='user_people')
+    .ui.stackable.grid
+        .eight.wide.column
+            +user_following
+        .eight.wide.column
+            +follow_user
+
+                
+
+
+
+
 template(name='user_requests')
     .ui.header requests
 
@@ -68,7 +81,7 @@ template(name='user_transactions')
 
 
 template(name='user_following')    
-    .ui.cloud.segment
+    .ui.basic.segment
         .ui.header 
             +i name='alarm'
             |following
@@ -76,7 +89,7 @@ template(name='user_following')
           
 
 template(name='follow_user')    
-    .ui.cloud.segment
+    .ui.basic.segment
         .ui.inline.header
             unless current_user
                 a.toggle_follow_user(href='#' title='Follow User')
@@ -88,7 +101,7 @@ template(name='follow_user')
                 
 
 template(name='user_wall')
-    .ui.fluid.styled.accordion
+    .ui.fluid.accordion
         .active.title
             .ui.inline.center.aligned.header 
                 i.edit.icon
@@ -108,9 +121,10 @@ template(name='user_wall')
                                 span.date #{when}
                             .text.large120 #{body}
                             .actions
-                                i.remove.link.icon.remove_comment(title='Vote Down')
-                                i.thumbs.up.link.icon.vote_up_comment(title='Vote Up')
-                                |#{points}
+                                +voting
+                                //- i.remove.link.icon.remove_comment(title='Vote Down')
+                                //- i.thumbs.up.link.icon.vote_up_comment(title='Vote Up')
+                                //- |#{points}
                                 i.message.link.icon.mark_comment_read(title='Mark Read')        
 
 
@@ -162,7 +176,7 @@ template(name='user_karma')
 
 
 template(name='user_feed')
-    .ui.cloud.segment
+    .ui.basic.segment
         .ui.inline.header 
             +i name='feed'
             |feed

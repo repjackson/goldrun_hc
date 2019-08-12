@@ -131,7 +131,7 @@ Meteor.publish 'health_club_members', (username_query)->
         username: {$regex:"#{username_query}", $options: 'i'}
         # healthclub_checkedin:$ne:true
         roles:$in:['resident','owner']
-        },{ limit:10 })
+        },{ limit:20 })
 
 
 
