@@ -72,10 +72,39 @@ if Meteor.isClient
                 # confirmed:true
 
 
+    Template.user_tags.onCreated ->
+        @autorun => Meteor.subscribe 'user_tag_reviews', Router.current().params.username
+    Template.user_tags.helpers
+        user_tag_reviews: ->
+            Docs.find
+                model:'user_tag_review'
+
+        my_tag_review: ->
+            Docs.findOne
+                model:'user_tag_review'
+                _author_id: Meteor.userId()
+
+
+    Template.user_tags.events
+        'click .new_tag_review': (e,t)->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Docs.insert
+                model:'user_tag_review'
+                user_id:current_user._id
+
+
+
+
 
 if Meteor.isServer
     Meteor.publish 'wall_posts', (username)->
         current_user = Meteor.users.findOne username:username
         Docs.find
             model:'wall_post'
+            user_id: current_user._id
+
+    Meteor.publish 'user_tag_reviews', (username)->
+        current_user = Meteor.users.findOne username:username
+        Docs.find
+            model:'user_tag_review'
             user_id: current_user._id

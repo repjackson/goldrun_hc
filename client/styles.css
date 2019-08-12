@@ -142,8 +142,8 @@ input{
 }
 
 textarea{
-    -webkit-border-radius: 20px !important; */
-    border-radius: 20px !important;
+    -webkit-border-radius: 10px !important; */
+    border-radius: 10px !important;
 }
 input.username_search{
     -webkit-border-radius: 25px !important; */

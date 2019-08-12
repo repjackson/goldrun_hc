@@ -5,10 +5,12 @@ template(name='user_layout')
             .row
                 //- img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
                 .four.wide.column
-                    if kiosk_photo
-                        img.ui.centered.circular.shadowed.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
-                    else if image_id
-                        img.ui.centered.circular.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                    if user_is_resident
+                        if is_staff
+                            if kiosk_photo
+                                img.ui.centered.circular.shadowed.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
+                            else if image_id
+                                img.ui.centered.circular.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     .ui.center.aligned.basic.segment
                         a(href="/user/#{user.username}")
@@ -19,9 +21,9 @@ template(name='user_layout')
                         if is_staff
                             a.ui.big.compact.icon.button.item(href="/user/#{user_from_username_param.username}/edit")
                                 +i name='settings' classes='ui inline mini image'
-                        +resident_info         
-                        +user_check_steps
-                        +staff_verification
+                            +resident_info         
+                            +user_check_steps
+                            +staff_verification
                 
                     else if is_current_user
                         a.ui.icon.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
@@ -42,6 +44,10 @@ template(name='user_layout')
                             each roles
                                 .ui.basic.label #{this}
                 .twelve.wide.column.shadowed-box
+                    if is_staff
+                        if user_is_resident
+                            a.ui.icon.button(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}" title='info')
+                                +i name='treadmill'
                     if user_is_user
                         if is_user
                             a.ui.icon.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
@@ -66,6 +72,8 @@ template(name='user_layout')
                                 +i name='tasks'
                             a.ui.icon.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
                                 +i name='yin-yang'
+                            a.ui.icon.button(href="/user/#{username}/workhistory" class="{{isActiveRoute 'user_workhistory'}}" title='karma')
+                                +i name='resume'
                             a.ui.icon.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}" title='stats')
                                 +i name='line-chart'
                             a.ui.icon.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}" title='votes')

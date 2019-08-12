@@ -124,15 +124,15 @@ Router.route '/healthclub_session/:doc_id', (->
 Router.route '/user/:username', (->
     @layout 'user_layout'
     @render 'resident_about'
-    ), name:'resident_about'
+    ), name:'user_home'
 Router.route '/user/:username/about', (->
     @layout 'user_layout'
     @render 'user_about'
     ), name:'user_about'
 Router.route '/user/:username/healthclub', (->
     @layout 'user_layout'
-    @render 'user_healthclub'
-    ), name:'user_healthclub'
+    @render 'resident_about'
+    ), name:'resident_about'
 Router.route '/user/:username/residency', (->
     @layout 'user_layout'
     @render 'user_residency'
@@ -145,6 +145,10 @@ Router.route '/user/:username/payment', (->
     @layout 'user_layout'
     @render 'user_payment'
     ), name:'user_payment'
+Router.route '/user/:username/workhistory', (->
+    @layout 'user_layout'
+    @render 'user_workhistory'
+    ), name:'user_workhistory'
 Router.route '/user/:username/contact', (->
     @layout 'user_layout'
     @render 'user_contact'
