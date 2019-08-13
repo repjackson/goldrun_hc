@@ -1,0 +1,75 @@
+template(name='tasks')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                +i name='tasks' classes='ui inline image'
+                .ui.inline.header tasks
+                .ui.icon.big.button.add_task
+                    i.plus.green.icon
+                +cloud filter='task'
+                .ui.header work done
+                .ui.header tasks completed
+                .ui.header tasks completed time
+                .ui.header task estimated time
+                .ui.header task monthly completeion rate
+            .twelve.wide.column
+                each my_tasks
+                    +task_card_template
+                    
+                    
+template(name='task_card_template')
+    .ui.segment                    
+        .ui.inline.header #{description}
+            if complete
+                i.large.green.checkmark.icon
+        .ui.basic.segment
+            |!{description}
+        each tags
+            .ui.basic.large.label #{this}
+        if is_admin
+            +boolean_edit key='complete' label='complete' direct=true
+        +html_view key='description' label='description' direct=true
+        +boolean_view key='complete' label='complete' direct=true
+        +number_view key='estimated_minutes' label='estimated minutes' direct=true
+        +single_user_view key='assigned_to' role_filter='user' label='assigned to' direct=true
+        div
+        a.ui.button(href="/task/#{_id}/view")
+            |view
+            i.chevron.right.icon
+
+
+template(name='task_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header edit task
+                    a.ui.button(href="/task/#{_id}/view")
+                        |view
+                .twelve.wide.column 
+                    +text_edit key='title' label='title' direct=true
+                    +array_edit key='tags' label='tags' direct=true
+                    +html_edit key='description' label='description' direct=true
+                    +boolean_edit key='complete' label='complete' direct=true
+                    +number_edit key='estimated_minutes' label='estimated minutes' direct=true
+                    +single_user_edit key='assigned_to' role_filter='user' label='assigned to' direct=true
+                     
+template(name='task_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    a.ui.button(href="/task/#{_id}/edit")
+                        i.pencil.icon
+                        |edit
+                    .ui.header view task
+                    +voting
+                    +viewing
+                .twelve.wide.column 
+                    +text_view key='title' label='title' direct=true
+                    +array_view key='tags' label='tags' direct=true
+                    +html_view key='description' label='description' direct=true
+                    +boolean_view key='complete' label='complete' direct=true
+                    +number_view key='estimated_minutes' label='estimated minutes' direct=true
+                    +single_user_view key='assigned_to' role_filter='user' label='assigned to' direct=true
+                    +comments

@@ -9,8 +9,14 @@ template(name='user_about')
 
 
 template(name='user_workhistory')
-    +i name='resume'
-    .ui.header work history
+    +i name='resume' classes='ui inline image'
+    .ui.inline.header work history
+    if is_current_user
+        +pdf_edit key='resume' label='resume' direct=true
+    else
+        if resume
+            +pdf_view key='resume' label='resume' direct=true
+    
 
 
 template(name='user_payment')
@@ -50,10 +56,16 @@ template(name='user_tasks')
     .ui.icon.input
         i.plus.icon
         input.assign_task(type='text' placeholder='assign task...')
-    .ui.circular.button.view_complete(class=view_complete_class)
-        |view completed
-    .ui.circular.button.view_incomplete(class=view_complete_class)
-         |view incomplete
+    //- .ui.circular.button.view_complete(class=view_complete_class)
+    //-     |view completed
+    //- .ui.circular.button.view_incomplete(class=view_complete_class)
+    //-     |view incomplete
+    .ui.header work done
+    .ui.header tasks completed
+    .ui.header tasks completed time
+    .ui.header task estimated time
+    .ui.header task monthly completeion rate
+    
     each assigned_tasks
         .ui.smoothed.segment
             .ui.header #{body}
@@ -239,9 +251,9 @@ template(name='user_tags')
     else
         +array_view key='tags' label='self tags' direct=true
         .ui.header tag #{user_from_username_param.first_name} #{user_from_username_param.last_name}
-    unless my_tag_review
-        .ui.large.button.new_tag_review
-            |tag #{user_from_username_param.first_name}
+        unless my_tag_review
+            .ui.large.button.new_tag_review
+                |tag #{user_from_username_param.first_name}
     each user_tag_reviews
         .ui.segment
             if can_edit

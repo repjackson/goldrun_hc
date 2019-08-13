@@ -2,7 +2,6 @@ template(name='comments')
     .ui.fluid.accordion
         .active.title
             .ui.header
-                //- i.chat.outline.icon
                 +i name='chat'
                 |comments
         .active.content
@@ -19,6 +18,18 @@ template(name='comments')
                             .actions
                                 +voting
                                 +remove_button
+
+
+template(name='viewing')
+    .ui.header viewed by
+    unless viewed_by
+        .ui.button.mark_read
+            |mark read
+    else 
+        .ui.button.mark_unread
+            |mark read
+    each viewers
+        +user_info
 
 
 template(name='goto_model')

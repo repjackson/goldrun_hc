@@ -54,7 +54,7 @@ if Meteor.isClient
             if current_user.healthclub_code
                 JsBarcode("#barcode", current_user.healthclub_code);
             else
-                alert 'No healthclub code'
+                alert 'no healthclub code'
 
 
 

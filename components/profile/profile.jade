@@ -12,6 +12,10 @@ template(name='user_layout')
                             else if image_id
                                 img.ui.centered.circular.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
+                    else
+                        if is_current_user
+                            +image_edit key='profile_photo' label='profile photo' direct=true
+                            
                     .ui.center.aligned.basic.segment
                         a(href="/user/#{user.username}")
                             h1.ui.large.center.aligned.header
@@ -80,6 +84,7 @@ template(name='user_layout')
                                 +i name='elections'
                             a.ui.icon.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}" title='notifications')
                                  +i name='appointment-reminders'
+                            div
                     +yield
     unless is_frontdesk
         +footer 

@@ -1,12 +1,15 @@
 template(name='sidebar')
-    .ui.left.inline.vertical.sidebar.inverted.fixed.menu
+    .ui.left.inline.vertical.borderless.sidebar.inverted.fixed.menu
         a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
-            i.home.icon
-            |Gold Run
+            i.icon
+                +ismall name='home'
+            |gro
         // .header.toggle_sidebar.item GR
         a.toggle_sidebar.item(href='/readings' class="{{isActivePath '/readings'}}")
-            i.theme.icon
-            | Readings
+            //- i.theme.icon
+            i.icon
+                +ismall name='water'
+            | readings
         //- a.toggle_sidebar.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
         //-     i.random.icon
         //-     |Lost and Found
@@ -14,19 +17,29 @@ template(name='sidebar')
         //-     i.bicycle.icon
         //-     |Bikes
         a.toggle_sidebar.item(href='/staff' class="{{isActivePath '/staff'}}")
-            i.circle.info.icon
+            //- i.circle.info.icon
+            i.icon
+                +ismall name='user-shield'
             | staff
         a.toggle_sidebar.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-            i.building.icon
+            i.icon
+                +ismall name='building'
+            //- i.building.icon
             | buildings
         a.toggle_sidebar.item(href='/tasks' class="{{isActivePath '/tasks'}}")
-            i.edit.icon
+            i.icon
+                +ismall name='tasks'
+            //- i.edit.icon
             | tasks
         a.toggle_sidebar.item(href='/keys' class="{{isActivePath '/keys'}}")
-            i.key.icon
+            i.icon
+                +ismall name='key'
+            //- i.key.icon
             | keys
         a.toggle_sidebar.item(href='/residents' class="{{isActivePath '/residents'}}")
-            i.users.icon
+            //- i.users.icon
+            i.icon
+                +ismall name='home'
             | residents
         if currentUser
             // a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
@@ -40,7 +53,8 @@ template(name='sidebar')
             //     i.mail.icon
             if is_admin
                 a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
-                    i.configure.icon
+                    +ismall name='user-shield'
+                    //- i.configure.icon
                     |admin
             a.toggle_sidebar.item(href="/u/#{currentUser.username}/view" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
                 if currentUser.profile.image_id

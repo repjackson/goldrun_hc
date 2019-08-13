@@ -130,9 +130,9 @@ template(name='image_view')
 
 template(name='pdf_edit')
     .ui.form
+        if icon
+            +i name=icon
         .ui.inline.header
-            if icon
-                +i name=icon
             if title
                 |#{title}
             else if label
@@ -143,9 +143,9 @@ template(name='pdf_edit')
                 |#{this}            
         .field
             if field_value
-                label Uploaded PDF
+                label uploaded pdf
                 a.ui.circular.button(href="{{c.url field_value gravity='face' crop='fit'}}")
-                    |Download PDF
+                    |download pdf
                 #remove_photo.ui.icon.circular.button
                     i.remove.red.icon
             else
@@ -800,7 +800,7 @@ template(name='signature_view')
     if is_admin
         .ui.button.print_rules
             i.download.icon
-            |Download PDF
+            |download pdf
     //- .ui.icon.button.print_guest
     //-     i.download.icon
     //-     |Download Guest PDF

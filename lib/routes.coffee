@@ -29,6 +29,10 @@ Router.route '/shift_checklist', -> @render 'shift_checklist'
 
 Router.route '/building/:building_code', -> @render 'building'
 
+Router.route '/tasks', -> @render 'tasks'
+Router.route '/task/:doc_id/view', -> @render 'task_view'
+Router.route '/task/:doc_id/edit', -> @render 'task_edit'
+
 Router.route('enroll', {
     path: '/enroll-account/:token'
     template: 'reset_password'

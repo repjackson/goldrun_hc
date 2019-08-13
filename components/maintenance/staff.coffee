@@ -17,7 +17,8 @@ if Meteor.isClient
             checklist =
                 Docs.findOne
                     model:'shift_checklist'
-            checklist.complete
+            if checklist
+                checklist.complete
         checkedin_members: ->
             Docs.find {
                 model:'healthclub_session'

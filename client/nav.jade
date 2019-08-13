@@ -4,7 +4,8 @@ template(name='nav')
         //- .ui.attached.borderless.inverted.large.menu.topnav.grgold
         .ui.attached.borderless.inverted.menu.topnav
             .pointer.toggle_sidebar.icon.item.sidebar_on
-                i.large.sidebar.icon
+                +i name='menu'
+                //- i.large.sidebar.icon
             if is_loading
                 .icon.item
                     i.big.loading.grey.yin.yang.icon
@@ -12,7 +13,7 @@ template(name='nav')
                 a.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
                     +i name='active-directory'
                 a.icon.item(href='/home' class="{{isActivePath '/home'}}")
-                    +i name='circled-menu'
+                    +i name='activity-grid-2'
                 if is_user
                     a.icon.item(href='/front' class="{{isActivePath '/front'}}")
                         +i name='home'
@@ -40,7 +41,11 @@ template(name='nav')
                         +i name='groups'
                         .mobile.hidden &nbsp; users
             .right.menu
+                a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
+                    +i name='tasks'
                 if currentUser
+                    a.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}")
+                        +i name='inbox'
                     a.icon.item(href='/chat' class="{{isActivePath '/chat'}}")
                         +i name='chat'
                     unless logging_out
@@ -74,14 +79,17 @@ template(name='footer')
     .ui.fluid.basic.attached.basic.segment.footer
         .ui.container.stackable.grid
             .eight.wide.column
-                form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                    input(type='hidden', name='cmd', value='_s-xclick')
-                    input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
-                    //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                    //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                    img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                    button.ui.icon.button(type='submit' title='donate')
-                        +i name='donate'
+                if is_staff
+                    +add_button label='submit bug' model='bug'
+                else
+                    form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                        input(type='hidden', name='cmd', value='_s-xclick')
+                        input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
+                        //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                        //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                        button.ui.icon.button(type='submit' title='donate')
+                            +i name='donate'
                 if is_dev    
                     with current_user
                         +role_switcher
