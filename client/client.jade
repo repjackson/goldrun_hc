@@ -14,6 +14,7 @@ head
     link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000")
     //- link(rel="stylesheet" href="http://cdn.dhtmlx.com/edge/dhtmlx.css" type="text/css") 
     script(src='https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js')
+    script(src='tablesort.js')
     script(src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js")
     script(src='https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.4/dist/semantic.min.js')
     script(src='https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js')
@@ -23,10 +24,10 @@ template(name='layout')
     .context
         .ui.stackable.grid.global_container(class=invert_class)
             .centered.row
-                img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
+                //- img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
                 .sixteen.wide.column
                     +sidebar
-                    .ui.attached.basic.segment.pushable
+                    .pushable
                         .pusher
                             #main
                                 //- .ui.basic.fluid.segment

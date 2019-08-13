@@ -4,8 +4,8 @@ template(name='kiosk_container')
 
 
 template(name='healthclub')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
-    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
+    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     .ui.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
         //- .row
@@ -39,11 +39,11 @@ template(name='healthclub')
                         .column
                             with latest_movie
                                 .smallscroll
-                                    img.ui.rounded.image(src="{{c.url image_id height=600 gravity='face' crop='fill'}}")
+                                    //- img.ui.rounded.image(src="{{c.url image_id height=600 gravity='face' crop='fill'}}")
                                     //- img.ui.image(src="{{c.url image_id }}")
                                     //- .movie_image(title='pavilion at 6:30')
                                     //-     +image_view key='image_id' direct=true
-                            .ui.center.aligned.inline.small.header monday @ 8:30 in the pavilion    
+                            //- .ui.center.aligned.inline.small.header monday @ 8:30 in the pavilion    
                             +inline_doc slug='health_club_notices' classes='ui large header'
                             div
                             +health_club_info

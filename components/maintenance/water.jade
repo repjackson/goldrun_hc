@@ -1,0 +1,196 @@
+template(name='readings')
+    .ui.container
+        .ui.inline.center.aligned.header
+            +i name='thin-test-tube'
+            |water readings
+        .ui.three.item.menu
+            a.item(href='/readings/lower' class="{{isActivePath '/readings/lower'}}") 
+                +i name='jacuzzi' classes='ui inline image'
+                |lower hot tub
+            a.item(href='/readings/upper' class="{{isActivePath '/readings/upper'}}")
+                +i name='jacuzzi' classes='ui inline image'
+                |lower hot tub
+            a.item(href='/readings/pool' class="{{isActivePath '/readings/pool'}}")
+                +i name='swimming'
+                |pool
+        +lower_hot_tub_readings
+        +upper_hot_tub_readings
+        +pool_readings
+
+
+
+template(name='edit_pool_reading')
+    with current_doc
+        .ui.container
+            .ui.header edit reading
+            .ui.form
+                +ph
+                +chlorine
+                +temperature
+                +alkalinity
+                +textarea_edit key='notes' direct=true
+                a.ui.green.fluid.button(href='/readings') save pool reading
+                +delete_reading_button
+            
+template(name='edit_upper_hot_tub_reading')
+    with current_doc
+        .ui.container
+            .ui.header edit hot tub reading
+            .ui.form
+                +br
+                +ph
+                +temperature
+                +textarea_edit key='notes' direct=true
+                a.ui.green.fluid.button(href='/readings') save hot tub reading
+                +delete_reading_button
+            
+            
+            
+template(name='edit_lower_hot_tub_reading')
+    with current_doc
+        .ui.container
+            .ui.header edit hot tub reading
+            .ui.form
+                +br
+                +ph
+                +temperature
+                +textarea_edit key='notes' direct=true
+                a.ui.green.fluid.button(href='/readings') save hot tub reading
+                +delete_reading_button
+            
+            
+            
+            
+template(name='lower_hot_tub_readings')    
+    .ui.inline.header
+        +i name='jacuzzi' 
+        |lower hot tub readings
+    #add_lower_hot_tub_reading.ui.button
+        i.green.plus.icon
+        |add lower hot tub reading
+    table.ui.sortable.striped.table
+        thead
+            tr
+                th pH
+                th Br
+                th temperature
+                th notes
+                th recorded by
+                th actions
+        tbody
+            each lower_hot_tub_readings
+                tr
+                    td #{ph}
+                    td #{br}
+                    td #{temperature}
+                    td #{notes}
+                    td #{author.username} #{when}
+                    td 
+                        a.ui.compact.button(href="/hot_tub_reading/edit/#{_id}")
+                            i.pencil.icon
+                            | edit
+
+            
+template(name='upper_hot_tub_readings')   
+    .ui.inline.header
+        +i name='jacuzzi'
+        | outdoor hot tub readings
+    .ui.icon.button
+        i#add_upper_hot_tub_reading.green.plus.icon
+        |add outdoor hot tub reading
+    table.ui.sortable.striped.table
+        thead
+            tr
+                th pH
+                th Br
+                th temperature
+                th notes
+                th recorded by
+                th actions
+        tbody
+            each upper_hot_tub_readings
+                tr
+                    td #{ph}
+                    td #{br}
+                    td #{temperature}
+                    td #{notes}
+                    td #{author.username} #{when}
+                    td 
+                        a.ui.compact.button(href="/hot_tub_reading/edit/#{_id}")
+                            i.pencil.icon
+                            | edit
+
+            
+            
+template(name='pool_readings') 
+    .ui.inline.header 
+        +i name='swimming'
+        |pool readings
+    .ui.large.button
+        i#add_pool_reading.green.plus.icon 
+        |add pool reading
+    table.ui.sortable.striped.table
+        thead
+            tr
+                th pH
+                th br
+                th alkalinity
+                th temperature
+                th notes
+                th recorded by
+                th actions
+        tbody
+            each pool_readings
+                tr
+                    td #{ph}
+                    td #{br}
+                    td #{alkalinity}
+                    td #{temperature}
+                    td #{notes}
+                    td #{author.username} #{when}
+                    td 
+                        a.ui.compact.button(href="/pool_reading/edit/#{_id}")
+                            i.pencil.icon
+                            | Edit
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+template(name='ph')            
+    .field
+        label pH
+        input#ph(type='number' step='.1' min='0' value=ph)
+        
+template(name='br')            
+    .field
+        label Br
+        input#br(type='number' step='.1' min='0' value=br)
+        
+template(name='temperature')            
+    .field
+        label Temperature
+        input#temperature(type='number' step='.1' min='0' value=temperature)
+
+template(name='alkalinity')            
+    .field
+        label Alkalinity
+        input#alkalinity(type='number' step='.1' min='0' value=alkalinity)
+
+template(name='chlorine')            
+    .field
+        label Chlorine
+        input#chlorine(type='number' step='.1' min='0' value=chlorine)
+
+        
+        
+template(name='delete_reading_button')
+    #delete_reading.ui.red.icon.button
+        i.trash.icon
