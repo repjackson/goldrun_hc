@@ -1,18 +1,5 @@
 template(name='readings')
     .ui.container
-        .ui.inline.center.aligned.header
-            +i name='thin-test-tube'
-            |water readings
-        .ui.three.item.menu
-            a.item(href='/readings/lower' class="{{isActivePath '/readings/lower'}}") 
-                +i name='jacuzzi' classes='ui inline image'
-                |lower hot tub
-            a.item(href='/readings/upper' class="{{isActivePath '/readings/upper'}}")
-                +i name='jacuzzi' classes='ui inline image'
-                |lower hot tub
-            a.item(href='/readings/pool' class="{{isActivePath '/readings/pool'}}")
-                +i name='swimming'
-                |pool
         +lower_hot_tub_readings
         +upper_hot_tub_readings
         +pool_readings
@@ -62,13 +49,14 @@ template(name='edit_lower_hot_tub_reading')
             
             
 template(name='lower_hot_tub_readings')    
-    .ui.inline.header
-        +i name='jacuzzi' 
-        |lower hot tub readings
+    a.ui.big.button(href='/readings/lower' class="{{isActivePath '/readings/lower'}}") 
+        .ui.inline.header
+            +i name='jacuzzi' 
+            |lower hot tub readings
     #add_lower_hot_tub_reading.ui.button
         i.green.plus.icon
-        |add lower hot tub reading
-    table.ui.sortable.striped.table
+        |add
+    table.ui.sortable.striped.very.basic.table
         thead
             tr
                 th pH
@@ -86,19 +74,19 @@ template(name='lower_hot_tub_readings')
                     td #{notes}
                     td #{author.username} #{when}
                     td 
-                        a.ui.compact.button(href="/hot_tub_reading/edit/#{_id}")
+                        a.ui.large.icon.button(href="/edit_lower_hot_tub_reading/edit/#{_id}")
                             i.pencil.icon
-                            | edit
 
             
 template(name='upper_hot_tub_readings')   
-    .ui.inline.header
-        +i name='jacuzzi'
-        | outdoor hot tub readings
-    .ui.icon.button
-        i#add_upper_hot_tub_reading.green.plus.icon
-        |add outdoor hot tub reading
-    table.ui.sortable.striped.table
+    a.ui.big.button(href='/readings/upper' class="{{isActivePath '/readings/upper'}}")
+        .ui.inline.header
+            +i name='jacuzzi'
+            | upper hot tub readings
+    #add_upper_hot_tub_reading.ui.icon.button
+        i.green.plus.icon
+        |add
+    table.ui.sortable.striped.very.basic.table
         thead
             tr
                 th pH
@@ -116,20 +104,20 @@ template(name='upper_hot_tub_readings')
                     td #{notes}
                     td #{author.username} #{when}
                     td 
-                        a.ui.compact.button(href="/hot_tub_reading/edit/#{_id}")
+                        a.ui.large.icon.button(href="/edit_upper_hot_tub_reading/edit/#{_id}")
                             i.pencil.icon
-                            | edit
 
             
             
 template(name='pool_readings') 
-    .ui.inline.header 
-        +i name='swimming'
-        |pool readings
-    .ui.large.button
-        i#add_pool_reading.green.plus.icon 
-        |add pool reading
-    table.ui.sortable.striped.table
+    a.ui.big.button(href='/readings/pool' class="{{isActivePath '/readings/pool'}}")
+        .ui.inline.header 
+            +i name='swimming'
+            |pool readings
+    #add_pool_reading.ui.large.button
+        i.green.plus.icon 
+        |add
+    table.ui.sortable.striped.very.basic.table
         thead
             tr
                 th pH
@@ -149,9 +137,8 @@ template(name='pool_readings')
                     td #{notes}
                     td #{author.username} #{when}
                     td 
-                        a.ui.compact.button(href="/pool_reading/edit/#{_id}")
+                        a.ui.large.icon.button(href="/pool_reading/edit/#{_id}")
                             i.pencil.icon
-                            | Edit
 
             
             

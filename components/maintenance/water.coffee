@@ -38,7 +38,7 @@ if Meteor.isClient
     Template.upper_hot_tub_readings.helpers
         upper_hot_tub_readings: ->
             Docs.find
-                model:'reading'
+                model:'upper_hot_tub_reading'
 
     Template.pool_readings.helpers
         pool_readings: ->

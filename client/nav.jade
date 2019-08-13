@@ -24,29 +24,32 @@ template(name='nav')
                         +i name='user-shield'
                         .mobile.hidden &nbsp; manager
                 if is_staff
+                    a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
+                        +i name='manager'
+                        .mobile.hidden &nbsp; Staff
                     a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
                         +i name='building'
-                        .mobile.hidden &nbsp; buildings
-                    a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
-                        +i name='user-shield'
-                        .mobile.hidden &nbsp; staff
+                        .mobile.hidden &nbsp; Buildings
                     a.icon.item(href='/residents' class="{{isActivePath '/residents'}}")
                         +i name='groups'
-                        .mobile.hidden &nbsp; residents
+                        .mobile.hidden &nbsp; Residents
                     a.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
-                        +i name='treadmill'
-                        .mobile.hidden &nbsp; kiosk
+                        +i name='kindle'
+                        .mobile.hidden &nbsp; Kiosk
+                    a.icon.item(href='/readings' class="{{isActivePath '/readings'}}")
+                        +i name='water'
+                        .mobile.hidden &nbsp; Readings
                 if is_user
                     a.icon.item(href='/users' class="{{isActivePath '/users'}}")
                         +i name='groups'
                         .mobile.hidden &nbsp; users
             .right.menu
-                a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}")
+                a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}" title='tasks')
                     +i name='tasks'
                 if currentUser
-                    a.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}")
+                    a.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
                         +i name='inbox'
-                    a.icon.item(href='/chat' class="{{isActivePath '/chat'}}")
+                    a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
                         +i name='chat'
                     unless logging_out
                         //- if is_dev
@@ -67,7 +70,7 @@ template(name='nav')
                     a.item(href='/login' title='login') 
                         +i name='internal'
                         |login
-        .ui.attached.borderless.inverted.menu.topnav
+        .ui.attached.borderless.inverted.small.menu.topnav
             each role_models
                 a.item.set_model(href="/m/#{slug}/")
                     +i name=icon classes='ui avatar image'

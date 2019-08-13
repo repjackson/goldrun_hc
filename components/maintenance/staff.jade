@@ -24,8 +24,21 @@ template(name='staff')
                 //- +add_button model='front_desk_opening_closing_checklist' label='opening/closing checklist'
                 //- +unit_key_widget
                 .ui.header 
+                    +i name='water' classes='ui inline image'                
+                    |shift water readings
+                .ui.basic.segment
+                    each shift_pool_readings
+                        .ui.header #{when}
+                            i.remove.small.link.circular.icon.remove_walk(title='remove walk entry')
+                    each shift_upper_hot_tub_readings
+                        .ui.header #{when}
+                            i.remove.small.link.circular.icon.remove_walk(title='remove walk entry')
+                    each shift_lower_hot_tub_readings
+                        .ui.header #{when}
+                            i.remove.small.link.circular.icon.remove_walk(title='remove walk entry')
+                .ui.header 
                     +i name='walking' classes='ui inline image'                
-                    |your shift walks
+                    |shift walks
                 .ui.basic.segment
                     each shift_walks
                         .ui.header #{when}
@@ -60,12 +73,12 @@ template(name='staff')
                         i.dropdown.icon
                     .content
                         +schedule
-                    //- .title
-                    //-     i.chat.icon
-                    //-     |chat
-                    //-     i.dropdown.icon
-                    //- .content
-                    //-     +view_chats
+                    .title
+                        i.chat.icon
+                        |chat
+                        i.dropdown.icon
+                    .content
+                        +view_chats
     
     
 
@@ -158,8 +171,7 @@ template(name='unit_key_widget')
 template(name='task_widget')
     .ui.smoothed.segment
         .ui.header 
-            //- +i name='task'
-            i.tasks.teal.icon
+            +i name='task'
             |todos
         //- .ui.fluid.styled.accordion
         +goto_model slug='task'
@@ -186,8 +198,8 @@ template(name='wywo')
         .ui.header 
             //- +i name='note'
             i.orange.edit.icon
-            |While You Were Osut
-        
+            |while you were out
+    
 template(name='schedule')
     //- .ui.center.aligned.header 
     //-     i.calendar.icon
@@ -252,36 +264,36 @@ template(name='schedule')
                     +facet_staff_select tags='shift,friday,evening'
                 td 
                     +facet_staff_select tags='shift,saturday,evening'
-    //- .ui.header upcoming week
-    //- +inline_doc slug='staff_schedule_notes' classes='ui small grey header'    
-    //- table.ui.definition.celled.striped.unstackable.selectable.table
-    //-     thead
-    //-         tr
-    //-             th
-    //-             th Sun
-    //-             th Mon
-    //-             th Tues
-    //-             th Wed
-    //-             th Thurs
-    //-             th Fri
-    //-             th Sat
-    //-     tbody
-    //-         tr
-    //-             td 7/8am-4pm
-    //-             td 
-    //-                 +facet_staff_select tags='upcoming,shift,sunday,morning'
-    //-             td 
-    //-                 +facet_staff_select tags='upcoming,shift,monday,morning'
-    //-             td 
-    //-                 +facet_staff_select tags='upcoming,shift,tuesday,morning'
-    //-             td 
-    //-                 +facet_staff_select tags='upcoming,shift,wednesday,morning'
-    //-             td 
-    //-                 +facet_staff_select tags='upcoming,shift,thursday,morning'
-    //-             td 
-    //-                 +facet_staff_select tags='upcoming,shift,friday,morning'
-    //-             td 
-    //-                 +facet_staff_select tags='upcoming,shift,saturday,morning'
+    .ui.header upcoming week
+    +inline_doc slug='staff_schedule_notes' classes='ui small grey header'    
+    table.ui.definition.celled.striped.unstackable.selectable.table
+        thead
+            tr
+                th
+                th sun
+                th mon
+                th tues
+                th wed
+                th thurs
+                th fri
+                th sat
+        tbody
+            tr
+                td 7/8am-4pm
+                td 
+                    +facet_staff_select tags='upcoming,shift,sunday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,monday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,tuesday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,wednesday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,thursday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,friday,morning'
+                td 
+                    +facet_staff_select tags='upcoming,shift,saturday,morning'
             //- tr
             //-     td afternoon 12pm-4pm
             //-     td 
@@ -319,7 +331,7 @@ template(name='schedule')
 template(name='shift_change_requests')
     .ui.grey.inline.header
         +i name='clock'
-        |Shift Change Requests
+        |shift change requests
     .ui.icon.basic.button.add_shift_change_request
         i.large.icons
             i.clock.icon
@@ -327,10 +339,10 @@ template(name='shift_change_requests')
     table.ui.celled.fixed.unstackable.table
         thead
             tr
-                th Date
-                th Time
-                th Author
-                th Assigned staff
+                th date
+                th time
+                th author
+                th assigned staff
                 th 
         tbody
             each requests
@@ -339,24 +351,24 @@ template(name='shift_change_requests')
                 
 template(name='request_row')
     tr
-        td(data-label='Date')
+        td(data-label='date')
             if can_edit
                 +date_edit key='date' direct=true
             else
                 +date_view key='date' direct=true
-        td(data-label='Time')
+        td(data-label='time')
             if can_edit
                 +time_edit key='time' direct=true
             else
                 +time_view key='time' direct=true
-        td(data-label='Author')
+        td(data-label='author')
             +author_info
-        td(data-label='Assigned Staff')
+        td(data-label='assigned staff')
             //- if can_edit
             //-     +single_user_edit key='assigned_staff' role_filter='staff' direct=true
             //- else
             +username_info assigned_staff
-        td(data-label='Actions')
+        td(data-label='actions')
             .ui.icon.basic.button.take_shift(title='take shift')
                 i.checkmark.icon
             .ui.icon.basic.button.declare_unavailable(title='declare unavailable')

@@ -4,10 +4,13 @@ if Meteor.isClient
             $('.accordion').accordion()
         , 1000
 
-    Template.shift_change_requests.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'shift_change_request'
+    # Template.shift_change_requests.onCreated ->
+    #     @autorun => Meteor.subscribe 'model_docs', 'shift_change_request'
     Template.staff.onCreated ->
         @autorun => Meteor.subscribe 'todays_checklist'
+        @autorun => Meteor.subscribe 'todays_pool_readings'
+        @autorun => Meteor.subscribe 'todays_lower_hot_tub_readings'
+        @autorun => Meteor.subscribe 'todays_upper_hot_tub_readings'
         @autorun => Meteor.subscribe 'sessions'
         @autorun => Meteor.subscribe 'shift_walks'
 
@@ -33,7 +36,16 @@ if Meteor.isClient
             Docs.find
                 model:'shift_walk'
                 _author_id: Meteor.userId()
-        all_completed: ->
+        shift_pool_readings: ->
+            Docs.find
+                model:'pool_reading'
+                _author_id: Meteor.userId()
+        upper_hot_tub_readings: ->
+            Docs.find
+                model:'upper_hot_tub_reading'
+        lower_hot_tub_readings: ->
+            Docs.find
+                model:'lower_hot_tub_reading'
 
 
     Template.staff.events
@@ -95,7 +107,7 @@ if Meteor.isClient
                     active:false
                     garden_key_checkin_timestamp: Date.now()
             $('body').toast({
-                title: "garden Key checked in."
+                title: "garden key checked in."
                 # message: 'See desk staff for key.'
                 class : 'blue'
                 position:'top right'
@@ -304,6 +316,42 @@ if Meteor.isServer
         console.log start_window
         Docs.find
             model:'shift_walk'
+            _author_id:Meteor.userId()
+            _timestamp:$gt:start_window
+
+    Meteor.publish 'todays_pool_readings', ()->
+        # this_moment = moment(Date.now())
+        # console.log this_moment.subtract(20, 'hours')
+        hours = 1000*60*60*20
+        now = Date.now()
+        start_window = now-hours
+        console.log start_window
+        Docs.find
+            model:'pool_reading'
+            _author_id:Meteor.userId()
+            _timestamp:$gt:start_window
+
+    Meteor.publish 'todays_upper_hot_tub_readings', ()->
+        # this_moment = moment(Date.now())
+        # console.log this_moment.subtract(20, 'hours')
+        hours = 1000*60*60*20
+        now = Date.now()
+        start_window = now-hours
+        console.log start_window
+        Docs.find
+            model:'upper_hot_tub_reading'
+            _author_id:Meteor.userId()
+            _timestamp:$gt:start_window
+
+    Meteor.publish 'todays_lower_hot_tub_readings', ()->
+        # this_moment = moment(Date.now())
+        # console.log this_moment.subtract(20, 'hours')
+        hours = 1000*60*60*20
+        now = Date.now()
+        start_window = now-hours
+        console.log start_window
+        Docs.find
+            model:'lower_hot_tub_reading'
             _author_id:Meteor.userId()
             _timestamp:$gt:start_window
 

@@ -53,9 +53,9 @@ template(name='sidebar')
             //     i.mail.icon
             if is_admin
                 a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
-                    +ismall name='user-shield'
-                    //- i.configure.icon
                     |admin
+                    i.icon
+                        +ismall name='user-shield'
             a.toggle_sidebar.item(href="/u/#{currentUser.username}/view" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
                 if currentUser.profile.image_id
                     img.ui.avatar.image(src="{{c.url currentUser.kiosk_photo width=50 height=50 gravity='face' crop='fill'}}")
@@ -66,7 +66,8 @@ template(name='sidebar')
                 else
                     | profile
             a#logout.ui.toggle_sidebar.item(href='#') 
-                i.sign.out.icon
+                i.icon
+                    +ismall name='exit-sign'
                 | sign out
         else
             a.ui.toggle_sidebar.item(href='/sign-in') 
