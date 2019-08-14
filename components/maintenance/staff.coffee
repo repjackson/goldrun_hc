@@ -37,15 +37,32 @@ if Meteor.isClient
                 model:'shift_walk'
                 _author_id: Meteor.userId()
         shift_pool_readings: ->
+            hours = 1000*60*60*20
+            now = Date.now()
+            start_window = now-hours
+            console.log start_window
             Docs.find
                 model:'pool_reading'
-                _author_id: Meteor.userId()
-        upper_hot_tub_readings: ->
+                _author_id:Meteor.userId()
+                _timestamp:$gt:start_window
+        shift_upper_hot_tub_readings: ->
+            hours = 1000*60*60*20
+            now = Date.now()
+            start_window = now-hours
+            console.log start_window
             Docs.find
                 model:'upper_hot_tub_reading'
-        lower_hot_tub_readings: ->
+                _author_id:Meteor.userId()
+                _timestamp:$gt:start_window
+        shift_lower_hot_tub_readings: ->
+            hours = 1000*60*60*20
+            now = Date.now()
+            start_window = now-hours
+            console.log start_window
             Docs.find
                 model:'lower_hot_tub_reading'
+                _author_id:Meteor.userId()
+                _timestamp:$gt:start_window
 
 
     Template.staff.events

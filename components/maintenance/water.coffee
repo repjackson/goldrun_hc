@@ -3,8 +3,8 @@ Router.route '/readings/lower', -> @render 'lower_hot_tub_readings'
 Router.route '/readings/upper', -> @render 'upper_hot_tub_readings'
 Router.route '/readings/pool', -> @render 'pool_readings'
 Router.route '/pool_reading/edit/:doc_id', -> @render 'edit_pool_reading'
-Router.route '/lower_hot_tub_reading/edit/:doc_id', -> @render 'edit_hot_tub_reading'
-Router.route '/upper_hot_tub_reading/edit/:doc_id', -> @render 'edit_hot_tub_reading'
+Router.route '/lower_hot_tub_reading/edit/:doc_id', -> @render 'edit_lower_hot_tub_reading'
+Router.route '/upper_hot_tub_reading/edit/:doc_id', -> @render 'edit_upper_hot_tub_reading'
 
 
 if Meteor.isClient

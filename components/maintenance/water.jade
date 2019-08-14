@@ -10,25 +10,25 @@ template(name='edit_pool_reading')
     with current_doc
         .ui.container
             .ui.header edit reading
-            .ui.form
+            .ui.inline.form
                 +ph
                 +chlorine
                 +temperature
                 +alkalinity
                 +textarea_edit key='notes' direct=true
-                a.ui.green.fluid.button(href='/readings') save pool reading
+                a.ui.green.fluid.large.button(href='/readings') save pool reading
                 +delete_reading_button
             
 template(name='edit_upper_hot_tub_reading')
     with current_doc
         .ui.container
-            .ui.header edit hot tub reading
-            .ui.form
+            h1.ui.header edit upper hot tub reading
+            .ui.inline.form
                 +br
                 +ph
                 +temperature
                 +textarea_edit key='notes' direct=true
-                a.ui.green.fluid.button(href='/readings') save hot tub reading
+                a.ui.green.fluid.large.button(href='/readings') save hot tub reading
                 +delete_reading_button
             
             
@@ -36,13 +36,13 @@ template(name='edit_upper_hot_tub_reading')
 template(name='edit_lower_hot_tub_reading')
     with current_doc
         .ui.container
-            .ui.header edit hot tub reading
-            .ui.form
+            h1.ui.header edit lower hot tub reading
+            .ui.inline.form
                 +br
                 +ph
                 +temperature
                 +textarea_edit key='notes' direct=true
-                a.ui.green.fluid.button(href='/readings') save hot tub reading
+                a.ui.green.fluid.large.button(href='/readings') save hot tub reading
                 +delete_reading_button
             
             
@@ -141,39 +141,39 @@ template(name='pool_readings')
                             i.pencil.icon
 
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
 template(name='ph')            
-    .field
-        label pH
+    .inline.field
+        label 
+            +ismall name='molecule'
+            |pH
         input#ph(type='number' step='.1' min='0' value=ph)
         
 template(name='br')            
-    .field
-        label Br
+    .inline.field
+        label 
+            +ismall name='molecule'
+            |Br
         input#br(type='number' step='.1' min='0' value=br)
         
 template(name='temperature')            
-    .field
-        label Temperature
+    .inline.field
+        label 
+            +ismall name='thermometer'
+            |temperature
         input#temperature(type='number' step='.1' min='0' value=temperature)
 
 template(name='alkalinity')            
-    .field
-        label Alkalinity
+    .inline.field
+        label 
+            |alkalinity
+            +ismall name='thermometer'
         input#alkalinity(type='number' step='.1' min='0' value=alkalinity)
 
 template(name='chlorine')            
-    .field
-        label Chlorine
+    .inline.field
+        label 
+            |chlorine
+            +ismall name='thermometer'
         input#chlorine(type='number' step='.1' min='0' value=chlorine)
 
         
