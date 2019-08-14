@@ -1,28 +1,43 @@
 template(name='timecard')
-    .ui.segment
-        .ui.horizontal.divider.header 
-            i.wait.icon
-            |timecard
-        +check_in_button
-        ul.ui.divided.list
-            each logs
-                .item
-                    .center.aligned.header
-                        if is_in
-                            i.green.sign.in.big.icon
-                        |#{date_format}
-                        unless is_in
-                            i.red.sign.out.big.icon
-                    span.right.floated
-                        i.red.remove.link.icon.delete_entry
-                    // .meta
-                    //     each tags 
-                    //         .ui.basic.label #{this}
-        .ui.horizontal.divider.header totals
-        .ui.header monthly day usage: #{monthly_day_usage}
-        // .ui.header Monthly Day Allotment: #{day_allotment}
-        // .ui.header Days Left: #{monthly_day_comparison}
-        
-        // .ui.header Check-ins this month: #{checkins_this_month}
-        // .ui.header Total Time this month
-        // p This Month: #{this_month}
+    .ui.horizontal.divider.header 
+        +i name='clock'
+        |timecard
+    +check_in_button
+    ul.ui.divided.list
+        each logs
+            .item
+                .center.aligned.header
+                    if is_in
+                        i.green.sign.in.big.icon
+                    |#{date_format}
+                    unless is_in
+                        i.red.sign.out.big.icon
+                span.right.floated
+                    i.red.remove.link.icon.delete_entry
+                // .meta
+                //     each tags 
+                //         .ui.basic.label #{this}
+    .ui.horizontal.divider.header totals
+    +call_method name='calculate_user_totals'
+    .ui.header monthly day usage: #{currentUser.monthly_day_usage}
+    // .ui.header Monthly Day Allotment: #{day_allotment}
+    // .ui.header Days Left: #{monthly_day_comparison}
+    
+    // .ui.header Check-ins this month: #{checkins_this_month}
+    // .ui.header Total Time this month
+    // p This Month: #{this_month}
+
+
+
+template(name='call_method')
+    .ui.button.call_method
+        |#{name}
+
+
+template(name='check_in_button')
+    if checked_in
+        .ui.button.check_out
+            |check out
+    else
+        .ui.button.check_in
+            |check out
