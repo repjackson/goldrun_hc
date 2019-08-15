@@ -5,136 +5,138 @@ template(name='readings')
         +pool_readings
 
 
-
 template(name='edit_pool_reading')
     with current_doc
         .ui.container
             .ui.header edit reading
-            .ui.inline.form
-                +ph
+            .ui.form
+                +pool_ph
                 +chlorine
                 +temperature
                 +alkalinity
                 +textarea_edit key='notes' direct=true
-                a.ui.green.fluid.large.button(href='/readings') save pool reading
+                a.ui.green.fluid.large.button(href='/readings')
+                    i.big.checkmark.icon
                 +delete_reading_button
             
 template(name='edit_upper_hot_tub_reading')
     with current_doc
         .ui.container
             h1.ui.header edit upper hot tub reading
-            .ui.inline.form
+            .ui.form
                 +br
                 +ph
                 +temperature
                 +textarea_edit key='notes' direct=true
-                a.ui.green.fluid.large.button(href='/readings') save hot tub reading
+                a.ui.green.fluid.large.button(href='/readings')
+                    i.big.checkmark.icon
                 +delete_reading_button
             
             
             
 template(name='edit_lower_hot_tub_reading')
     with current_doc
-        .ui.container
+        .ui.text.container
             h1.ui.header edit lower hot tub reading
-            .ui.inline.form
+            .ui.form
                 +br
                 +ph
                 +temperature
                 +textarea_edit key='notes' direct=true
-                a.ui.green.fluid.large.button(href='/readings') save hot tub reading
+                a.ui.green.fluid.large.button(href='/readings')
+                    i.big.checkmark.icon
                 +delete_reading_button
             
             
             
             
 template(name='lower_hot_tub_readings')    
-    a.ui.big.button(href='/readings/lower' class="{{isActivePath '/readings/lower'}}") 
-        .ui.inline.header
-            +i name='jacuzzi' 
-            |lower hot tub readings
-    #add_lower_hot_tub_reading.ui.button
+    //- a.ui.big.button(href='/readings/lower' class="{{isActivePath '/readings/lower'}}") 
+    .ui.inline.header
+        +i name='jacuzzi' 
+        |lower hot tub readings
+    #add_lower_hot_tub_reading.ui.big.icon.button
         i.green.plus.icon
-        |add
-    table.ui.sortable.striped.very.basic.table
+    table.ui.sortable.striped.very.basic.large.table
         thead
             tr
-                th pH
-                th Br
-                th temperature
+                th ph
+                th br
+                th temp
                 th notes
                 th recorded by
                 th actions
         tbody
             each lower_hot_tub_readings
                 tr
-                    td #{ph}
-                    td #{br}
+                    td #{ph} 
+                        .ui.large.orange.basic.label #{ph_message}
+                    td #{br} #{br_message}
                     td #{temperature}
                     td #{notes}
                     td #{author.username} #{when}
                     td 
-                        a.ui.large.icon.button(href="/edit_lower_hot_tub_reading/edit/#{_id}")
+                        a.ui.large.icon.button(href="/lower_hot_tub_reading/edit/#{_id}")
                             i.pencil.icon
 
             
 template(name='upper_hot_tub_readings')   
-    a.ui.big.button(href='/readings/upper' class="{{isActivePath '/readings/upper'}}")
-        .ui.inline.header
-            +i name='jacuzzi'
-            | upper hot tub readings
-    #add_upper_hot_tub_reading.ui.icon.button
+    //- a.ui.big.button(href='/readings/upper' class="{{isActivePath '/readings/upper'}}")
+    .ui.inline.header
+        +i name='jacuzzi'
+        | upper hot tub readings
+    #add_upper_hot_tub_reading.ui.big.icon.button
         i.green.plus.icon
-        |add
-    table.ui.sortable.striped.very.basic.table
+    table.ui.sortable.striped.very.basic.large.table
         thead
             tr
-                th pH
-                th Br
-                th temperature
+                th ph
+                th br
+                th temp
                 th notes
                 th recorded by
                 th actions
         tbody
             each upper_hot_tub_readings
                 tr
-                    td #{ph}
+                    td #{ph} 
+                        .ui.large.orange.basic.label #{ph_message}
                     td #{br}
+                        .ui.large.orange.basic.label #{br_message}
                     td #{temperature}
                     td #{notes}
                     td #{author.username} #{when}
                     td 
-                        a.ui.large.icon.button(href="/edit_upper_hot_tub_reading/edit/#{_id}")
+                        a.ui.large.icon.button(href="/upper_hot_tub_reading/edit/#{_id}")
                             i.pencil.icon
 
             
             
 template(name='pool_readings') 
-    a.ui.big.button(href='/readings/pool' class="{{isActivePath '/readings/pool'}}")
-        .ui.inline.header 
-            +i name='swimming'
-            |pool readings
-    #add_pool_reading.ui.large.button
+    //- a.ui.big.button(href='/readings/pool' class="{{isActivePath '/readings/pool'}}")
+    .ui.inline.header 
+        +i name='swimming'
+        |pool readings
+    #add_pool_reading.ui.big.icon.button
         i.green.plus.icon 
-        |add
-    table.ui.sortable.striped.very.basic.table
+    table.ui.sortable.striped.very.basic.large.table
         thead
             tr
-                th pH
-                th br
-                th alkalinity
-                th temperature
+                th ph
+                th chlorine
+                th temp
                 th notes
                 th recorded by
                 th actions
         tbody
             each pool_readings
                 tr
-                    td #{ph}
-                    td #{br}
-                    td #{alkalinity}
+                    td #{ph} 
+                        .ui.large.basic.orange.label #{ph_message}
+                    td #{chlorine}
+                        .ui.large.basic.orange.label #{chlorine_message}
                     td #{temperature}
-                    td #{notes}
+                    td #{notes}  
                     td #{author.username} #{when}
                     td 
                         a.ui.large.icon.button(href="/pool_reading/edit/#{_id}")
@@ -142,39 +144,51 @@ template(name='pool_readings')
 
             
 template(name='ph')            
-    .inline.field
+    .large.field
         label 
             +ismall name='molecule'
-            |pH
-        input#ph(type='number' step='.1' min='0' value=ph)
+            |ph (goal 7.2-7.4)
+            if ph_message
+                .ui.big.basic.orange.label #{ph_message}
+        input#ph(type='number' step='.1' min='6.4' max='8.0' value=ph)
+        
+template(name='pool_ph')            
+    .large.field
+        label 
+            +ismall name='molecule'
+            |ph (goal 7.2-7.4)
+            if ph_message
+                .ui.big.basic.orange.label #{ph_message}
+        input#ph(type='number' step='.1' min='6.4' max='8.0' value=ph)
         
 template(name='br')            
-    .inline.field
+    .large.field
         label 
             +ismall name='molecule'
-            |Br
+            |br
         input#br(type='number' step='.1' min='0' value=br)
         
 template(name='temperature')            
-    .inline.field
+    .large.field
         label 
             +ismall name='thermometer'
             |temperature
         input#temperature(type='number' step='.1' min='0' value=temperature)
 
 template(name='alkalinity')            
-    .inline.field
+    .large.field
         label 
             |alkalinity
             +ismall name='thermometer'
         input#alkalinity(type='number' step='.1' min='0' value=alkalinity)
 
 template(name='chlorine')            
-    .inline.field
+    .large.field
         label 
-            |chlorine
+            |chlorine (ppm) (goal 2-3ppm)
+            .ui.big.basic.orange.label #{chlorine_message}
             +ismall name='thermometer'
-        input#chlorine(type='number' step='.1' min='0' value=chlorine)
+        input#chlorine(type='number' step='.1' min='1' max='5' value=chlorine)
 
         
         

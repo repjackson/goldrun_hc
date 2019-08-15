@@ -940,7 +940,7 @@ template(name='single_user_edit')
     .ui.inline.header 
         if icon
             +i name=icon
-        |#{title}
+        |#{label} #{title}
     if field_value
         .pull_user.ui.button(title='remove user')
             i.user.remove.icon

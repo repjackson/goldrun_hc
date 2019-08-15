@@ -48,34 +48,39 @@ template(name='user_votes')
         +i name='elections'
         |votes
 
-template(name='user_tasks')
-    .ui.header 
-        +i name='tasks'
-        |tasks
-    +goto_model slug='task'
-    .ui.icon.input
-        i.plus.icon
-        input.assign_task(type='text' placeholder='assign task...')
-    //- .ui.circular.button.view_complete(class=view_complete_class)
-    //-     |view completed
-    //- .ui.circular.button.view_incomplete(class=view_complete_class)
-    //-     |view incomplete
-    .ui.header work done
-    .ui.header tasks completed
-    .ui.header tasks completed time
-    .ui.header task estimated time
-    .ui.header task monthly completeion rate
-    
-    each assigned_tasks
-        .ui.smoothed.segment
-            .ui.header #{body}
-            +boolean_edit key='complete' label='Complete' direct=true true_icon='checkmark' false_icon='remove'
-            +voting
-            +author_info
-            +creation_info
-            if is_author
-                +remove_button
+template(name='user_messages')
+    .ui.styled.fluid.profile_block.accordion
+        .active.title
+            .ui.inline.grey.header 
+                i.mail.icon
+                |user messages
+        .active.content
+            if currentUser
+                .ui.fluid.icon.input
+                    i.plus.icon
+                    input#new_message(type='text' placeholder='New Message')
+            each user_messages
+                .ui.smoothed.segment
+                    .ui.small.header #{body}
+                    each tags
+                        .ui.label #{this}
+                    div
+                    +notify_message
+                    +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
+                    if can_edit
+                        +remove_button
+                    div
+                    +author_info
+                    +creation_info
+                    //- +watson_view
+            
 
+template(name='notify_message')
+    unless notified
+        .ui.circular.basic.icon.button.notify(title="notify #{to_username}")
+            i.rss.icon
+                
+                
 
 template(name='user_transactions')
     .ui.segment

@@ -1,14 +1,12 @@
 template(name='sidebar')
-    .ui.left.inline.vertical.borderless.large.sidebar.inverted.fixed.menu
+    .ui.left.inline.vertical.borderless.sidebar.inverted.fixed.menu
         a.header.toggle_sidebar.item(href='/' class="{{isActivePath '/'}}") 
-            i.icon
-                +ismall name='home'
+            +i name='home' classes='ui avatar image'
             |gro
         // .header.toggle_sidebar.item GR
         a.toggle_sidebar.item(href='/readings' class="{{isActivePath '/readings'}}")
             //- i.theme.icon
-            i.icon
-                +ismall name='water'
+            +i name='water' classes='ui avatar image'
             | readings
         //- a.toggle_sidebar.item(href='/lostfound' class="{{isActivePath '/lostfound'}}")
         //-     i.random.icon
@@ -18,44 +16,39 @@ template(name='sidebar')
         //-     |Bikes
         a.toggle_sidebar.item(href='/staff' class="{{isActivePath '/staff'}}")
             //- i.circle.info.icon
-            i.icon
-                +ismall name='user-shield'
+            +i name='user-shield' classes='ui avatar image'
             | staff
         a.toggle_sidebar.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-            i.icon
-                +ismall name='building'
+            //- i.icon
+            +i name='building' classes='ui avatar image'
             //- i.building.icon
             | buildings
         a.toggle_sidebar.item(href='/tasks' class="{{isActivePath '/tasks'}}")
-            i.icon
-                +ismall name='tasks'
+            +i name='tasks' classes='ui avatar image'
             //- i.edit.icon
             | tasks
         a.toggle_sidebar.item(href='/keys' class="{{isActivePath '/keys'}}")
-            i.icon
-                +ismall name='key'
+            +i name='key' classes='ui avatar image'
             //- i.key.icon
             | keys
         a.toggle_sidebar.item(href='/residents' class="{{isActivePath '/residents'}}")
             //- i.users.icon
-            i.icon
-                +ismall name='home'
+            +i name='home' classes='ui avatar image'
             | residents
         if currentUser
-            // a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-            //     i.line.chart.icon
-            // .ui.simple.dropdown.icon.item
-            //     i.alarm.icon
-            //     .menu
-            //         each notifications
-            //             .item #{text}
-            // a.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
-            //     i.mail.icon
+            a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                +i name='line chart' classes='ui avatar image'
+                | dashboard
+            //- a.icon.item(href='/notifications' class="{{isActivePath '/notifications'}}")
+            //-     +i name='bell' classes='ui avatar image'
+            //-     | notifications
+            a.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
+                +i name='envelope' classes='ui avatar image'
+                | inbox
             if is_admin
                 a.icon.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
                     |admin
-                    i.icon
-                        +ismall name='user-shield'
+                    +i name='user-shield' classes='ui avatar image'
             a.toggle_sidebar.item(href="/u/#{currentUser.username}/view" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
                 if currentUser.profile.image_id
                     img.ui.avatar.image(src="{{c.url currentUser.kiosk_photo width=50 height=50 gravity='face' crop='fill'}}")
@@ -66,8 +59,7 @@ template(name='sidebar')
                 else
                     | profile
             a#logout.ui.toggle_sidebar.item(href='#') 
-                i.icon
-                    +ismall name='exit-sign'
+                +i name='exit-sign' classes='ui avatar image'
                 | sign out
         else
             a.ui.toggle_sidebar.item(href='/sign-in') 

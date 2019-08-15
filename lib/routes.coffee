@@ -190,6 +190,10 @@ Router.route '/user/:username/gallery', (->
     @layout 'user_layout'
     @render 'user_gallery'
     ), name:'user_gallery'
+Router.route '/user/:username/messages', (->
+    @layout 'user_layout'
+    @render 'user_messages'
+    ), name:'user_messages'
 Router.route '/user/:username/bookmarks', (->
     @layout 'user_layout'
     @render 'user_bookmarks'

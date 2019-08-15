@@ -4,53 +4,55 @@ template(name='nav')
         //- .ui.attached.borderless.inverted.large.menu.topnav.grgold
         .ui.attached.borderless.inverted.menu.topnav
             .pointer.toggle_sidebar.icon.item.sidebar_on
-                +i name='menu'
-                //- i.large.sidebar.icon
+                //- +i name='menu'
+                i.large.sidebar.icon
             if is_loading
                 .icon.item
                     i.big.loading.grey.yin.yang.icon
             else
                 a.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
-                    +i name='active-directory'
+                    +i name='active-directory' classes='ui avatar image'
                 a.icon.item(href='/home' class="{{isActivePath '/home'}}")
-                    +i name='activity-grid-2'
+                    +i name='activity-grid-2' classes='ui avatar image'
                 if is_user
                     a.icon.item(href='/front' class="{{isActivePath '/front'}}")
-                        +i name='home'
+                        +i name='home' classes='ui avatar image'
                     a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                        +i name='dashboard'
+                        +i name='dashboard' classes='ui avatar image'
                 if is_manager
                     a.icon.item(href='/manager' class="{{isActivePath '/manager'}}")
-                        +i name='user-shield'
+                        +i name='user-shield' classes='ui avatar image'
                         .mobile.hidden &nbsp; manager
                 if is_staff
                     a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
-                        +i name='manager'
+                        +i name='manager' classes='ui avatar image'
                         .mobile.hidden &nbsp; Staff
                     a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                        +i name='building'
+                        +i name='building' classes='ui avatar image'
                         .mobile.hidden &nbsp; Buildings
                     a.icon.item(href='/residents' class="{{isActivePath '/residents'}}")
-                        +i name='groups'
+                        +i name='groups' classes='ui avatar image'
                         .mobile.hidden &nbsp; Residents
                     a.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
-                        +i name='kindle'
+                        +i name='kindle' classes='ui avatar image'
                         .mobile.hidden &nbsp; Kiosk
                     a.icon.item(href='/readings' class="{{isActivePath '/readings'}}")
-                        +i name='water'
+                        +i name='water' classes='ui avatar image'
                         .mobile.hidden &nbsp; Readings
                 if is_user
                     a.icon.item(href='/users' class="{{isActivePath '/users'}}")
-                        +i name='groups'
+                        +i name='groups' classes='ui avatar image'
                         .mobile.hidden &nbsp; users
             .right.menu
                 a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}" title='tasks')
-                    +i name='tasks'
+                    +i name='tasks' classes='ui avatar image'
+                a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
+                    i.tasks.icon
                 if currentUser
                     a.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
-                        +i name='inbox'
+                        +i name='inbox' classes='ui avatar image'
                     a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
-                        +i name='chat'
+                        +i name='chat' classes='ui avatar image'
                     unless logging_out
                         //- if is_dev
                         unless is_frontdesk

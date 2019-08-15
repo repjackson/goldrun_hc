@@ -22,29 +22,31 @@ template(name='staff')
                 //- +unit_key_widget
                 a.ui.header(href='readings')
                     +i name='water' classes='ui inline image'                
-                    |shift water readings
+                    |water readings
                 div
                 +ismall name='swim'
                 .ui.small.inline.header 
-                    |pool readings
+                    |pool
                 each shift_pool_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
-                        +remove_button
+                    if ph_message
+                        .ui.large.basic.orange.label #{ph_message}
                 div
                 +ismall name='jacuzzi'
                 .ui.small.inline.header 
-                    |upper hot tub readings
+                    |upper hot tub
                 each shift_upper_hot_tub_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
-                        +remove_button
+                        if ph_message
+                            .ui.large.basic.orange.label #{ph_message}
                 div
                 +ismall name='jacuzzi'
                 .ui.small.inline.header 
-                    |lower hot tub readings
+                    |lower hot tub
                 each shift_lower_hot_tub_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
-                        +remove_button
-                
+                        if ph_message
+                            .ui.large.basic.orange.label #{ph_message}
                 .ui.inline.header 
                     +i name='walking' classes='ui inline image'                
                     |shift walks

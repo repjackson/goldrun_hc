@@ -1,7 +1,7 @@
 Router.route '/readings',-> @render 'readings'
-Router.route '/readings/lower', -> @render 'lower_hot_tub_readings'
-Router.route '/readings/upper', -> @render 'upper_hot_tub_readings'
-Router.route '/readings/pool', -> @render 'pool_readings'
+# Router.route '/readings/lower', -> @render 'lower_hot_tub_readings'
+# Router.route '/readings/upper', -> @render 'upper_hot_tub_readings'
+# Router.route '/readings/pool', -> @render 'pool_readings'
 Router.route '/pool_reading/edit/:doc_id', -> @render 'edit_pool_reading'
 Router.route '/lower_hot_tub_reading/edit/:doc_id', -> @render 'edit_lower_hot_tub_reading'
 Router.route '/upper_hot_tub_reading/edit/:doc_id', -> @render 'edit_upper_hot_tub_reading'
@@ -50,12 +50,10 @@ if Meteor.isClient
             id = Docs.insert
                 model: 'pool_reading'
             Router.go "/pool_reading/edit/#{id}"
-
         'click #add_upper_hot_tub_reading': ->
             id = Docs.insert
                 model: 'upper_hot_tub_reading'
             Router.go "/upper_hot_tub_reading/edit/#{id}"
-
         'click #add_lower_hot_tub_reading': ->
             id = Docs.insert
                 model: 'lower_hot_tub_reading'
@@ -68,31 +66,78 @@ if Meteor.isClient
             ph = parseFloat $(e.currentTarget).closest('#ph').val()
             Docs.update @_id,
                 $set: ph: ph
+            ph_message =
+                switch
+                    when ph < 6.5 then 'add 3/4 tb soda ash.  retest in one hour.'
+                    when ph < 6.7 then 'add 3/4 tb soda ash.'
+                    when ph < 6.9 then 'add 1/2 tb soda ash.'
+                    when ph < 7.1 then 'add 1/4 tb soda ash.  retest in one hour.'
+                    when ph < 7.4 then 'no adjustment neccessary.'
+                    when ph < 7.6 then 'add 1/4tb muriatic acid'
+                    when ph < 7.8 then 'add 1/2tb muriatic acid.'
+                    when ph < 8.0 then 'add 3/4tb muriatic acid.'
+                    when ph >= 8.0 then 'close hot tub until drained and refilled.'
+                    else ''
+            Docs.update @_id,
+                $set: ph_message: ph_message
+
+
+    Template.pool_ph.events
+        'blur #ph': (e,t)->
+            ph = parseFloat $(e.currentTarget).closest('#ph').val()
+            Docs.update @_id,
+                $set: ph: ph
+            ph_message =
+                switch
+                    when ph < 6.5 then 'add 3/4 tb soda ash.  retest in one hour.'
+                    when ph < 6.7 then 'add 3/4 tb soda ash.'
+                    when ph < 6.9 then 'add 1/2 tb soda ash.'
+                    when ph < 7.1 then 'add 1/4 tb soda ash.  retest in one hour.'
+                    when ph < 7.4 then 'no adjustment neccessary.'
+                    when ph < 7.6 then 'add 1/4tb muriatic acid'
+                    when ph < 7.8 then 'add 1/2tb muriatic acid.'
+                    when ph < 8.0 then 'add 3/4tb muriatic acid.'
+                    when ph >= 8.0 then 'close hot tub until drained and refilled.'
+                    else ''
+            Docs.update @_id,
+                $set: ph_message: ph_message
+
+
 
     Template.chlorine.events
         'blur #chlorine': (e,t)->
             chlorine = parseFloat $(e.currentTarget).closest('#chlorine').val()
             Docs.update @_id,
                 $set: chlorine: chlorine
+            chlorine_message =
+                switch
+                    when chlorine <= 1 then 'add 10 ounces chlorine granules.  retest in one hour.'
+                    when chlorine < 2 then 'add 5 ounces chlorine granules'
+                    when chlorine < 4.9 then 'add no adjustment neccessary'
+                    when chlorine >= 5 then 'close pool. retest in two hours'
+                    else ''
+            Docs.update @_id,
+                $set: chlorine_message: chlorine_message
+
+
+
+
 
     Template.temperature.events
         'blur #temperature': (e,t)->
             temperature = parseFloat $(e.currentTarget).closest('#temperature').val()
             Docs.update @_id,
                 $set: temperature: temperature
-
     Template.br.events
         'blur #br': (e,t)->
             br = parseFloat $(e.currentTarget).closest('#br').val()
             Docs.update @_id,
                 $set: br: br
-
     Template.alkalinity.events
         'blur #alkalinity': (e,t)->
             alkalinity = parseFloat $(e.currentTarget).closest('#alkalinity').val()
             Docs.update @_id,
                 $set: alkalinity: alkalinity
-
 
     Template.delete_reading_button.events
         'click #delete_reading': (e,t)->

@@ -72,11 +72,13 @@ template(name='user_layout')
                                 +i name='scales'
                             a.ui.icon.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}" title='tags')
                                 +i name='tags'
-                            a.ui.icon.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}" title='tags')
+                            a.ui.icon.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}" title='tasks')
                                 +i name='tasks'
+                            a.ui.icon.button(href="/user/#{username}/messages" class="{{isActiveRoute 'user_messages'}}" title='messages')
+                                +i name='envelope'
                             a.ui.icon.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
                                 +i name='yin-yang'
-                            a.ui.icon.button(href="/user/#{username}/workhistory" class="{{isActiveRoute 'user_workhistory'}}" title='karma')
+                            a.ui.icon.button(href="/user/#{username}/workhistory" class="{{isActiveRoute 'user_workhistory'}}" title='work history')
                                 +i name='resume'
                             a.ui.icon.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}" title='stats')
                                 +i name='line-chart'
