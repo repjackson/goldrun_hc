@@ -29,8 +29,10 @@ template(name='staff')
                     |pool
                 each shift_pool_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
-                    if ph_message
-                        .ui.large.basic.orange.label #{ph_message}
+                        if ph_message
+                            .ui.basic.label #{ph_message}
+                        if chlorine_message
+                            .ui.basic.label #{chlorine_message}
                 div
                 +ismall name='jacuzzi'
                 .ui.small.inline.header 
@@ -38,7 +40,9 @@ template(name='staff')
                 each shift_upper_hot_tub_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
                         if ph_message
-                            .ui.large.basic.orange.label #{ph_message}
+                            .ui.basic.label #{ph_message}
+                        if chlorine_message
+                            .ui.basic.label #{chlorine_message}
                 div
                 +ismall name='jacuzzi'
                 .ui.small.inline.header 
@@ -46,7 +50,9 @@ template(name='staff')
                 each shift_lower_hot_tub_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
                         if ph_message
-                            .ui.large.basic.orange.label #{ph_message}
+                            .ui.basic.label #{ph_message}
+                        if chlorine_message
+                            .ui.basic.label #{chlorine_message}
                 .ui.inline.header 
                     +i name='walking' classes='ui inline image'                
                     |shift walks

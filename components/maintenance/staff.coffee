@@ -40,7 +40,7 @@ if Meteor.isClient
             hours = 1000*60*60*20
             now = Date.now()
             start_window = now-hours
-            console.log start_window
+            # console.log start_window
             Docs.find
                 model:'pool_reading'
                 _author_id:Meteor.userId()
@@ -49,7 +49,7 @@ if Meteor.isClient
             hours = 1000*60*60*20
             now = Date.now()
             start_window = now-hours
-            console.log start_window
+            # console.log start_window
             Docs.find
                 model:'upper_hot_tub_reading'
                 _author_id:Meteor.userId()
@@ -58,7 +58,7 @@ if Meteor.isClient
             hours = 1000*60*60*20
             now = Date.now()
             start_window = now-hours
-            console.log start_window
+            # console.log start_window
             Docs.find
                 model:'lower_hot_tub_reading'
                 _author_id:Meteor.userId()
