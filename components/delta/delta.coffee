@@ -135,6 +135,7 @@ if Meteor.isClient
             #             selected_tags.pop()
 
 
+
     Template.facet.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()

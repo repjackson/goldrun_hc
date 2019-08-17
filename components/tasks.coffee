@@ -1,7 +1,7 @@
 if Meteor.isClient
     Template.tasks.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'task_stats'
-        @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'task'
+        @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'task', 10
 
     Template.task_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id

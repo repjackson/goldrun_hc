@@ -125,10 +125,15 @@ Meteor.methods
 
 
     lookup_user: (username_query, role_filter)->
-        Meteor.users.find({
-            username: {$regex:"#{username_query}", $options: 'i'}
-            roles:$in:[role_filter]
-            }).fetch()
+        if role_filter
+            Meteor.users.find({
+                username: {$regex:"#{username_query}", $options: 'i'}
+                roles:$in:[role_filter]
+                },{limit:10}).fetch()
+        else
+            Meteor.users.find({
+                username: {$regex:"#{username_query}", $options: 'i'}
+                },{limit:10}).fetch()
 
     lookup_user_by_code: (healthclub_code)->
         unless isNaN(healthclub_code)

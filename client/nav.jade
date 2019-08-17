@@ -2,18 +2,20 @@ template(name='nav')
     unless is_frontdesk
         //- .ui.borderless.attached.big.inverted.menu.topnav
         //- .ui.attached.borderless.inverted.large.menu.topnav.grgold
-        .ui.attached.borderless.inverted.menu.topnav
-            .pointer.toggle_sidebar.icon.item.sidebar_on
-                //- +i name='menu'
-                i.large.sidebar.icon
+        .ui.attached.borderless.menu.topnav
+            //- if is_staff
+            //-     .pointer.toggle_sidebar.icon.item.sidebar_on
+            //-         //- +i name='menu'
+            //-         i.large.sidebar.icon
             if is_loading
                 .icon.item
-                    i.big.loading.grey.yin.yang.icon
+                    i.big.grey.loading.yin.yang.icon
             else
-                a.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
-                    +i name='active-directory' classes='ui avatar image'
-                a.icon.item(href='/home' class="{{isActivePath '/home'}}")
-                    +i name='activity-grid-2' classes='ui avatar image'
+                if is_admin
+                    a.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
+                        +i name='active-directory' classes='ui avatar image'
+                    a.icon.item(href='/home' class="{{isActivePath '/home'}}")
+                        +i name='activity-grid-2' classes='ui avatar image'
                 if is_user
                     a.icon.item(href='/front' class="{{isActivePath '/front'}}")
                         +i name='home' classes='ui avatar image'
@@ -24,35 +26,38 @@ template(name='nav')
                         +i name='user-shield' classes='ui avatar image'
                         .mobile.hidden &nbsp; manager
                 if is_staff
-                    a.icon.item(href='/staff' class="{{isActivePath '/staff'}}")
+                    //- a.icon.item(href='/stats' class="{{isActivePath '/stats'}}")
+                    //-     +i name='line chart' classes='ui avatar image'
+                    a.item(href='/staff' class="{{isActivePath '/staff'}}")
                         +i name='manager' classes='ui avatar image'
-                        .mobile.hidden &nbsp; Staff
-                    a.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+                        .mobile.hidden &nbsp; staff
+                    a.item(href='/buildings' class="{{isActivePath '/buildings'}}")
                         +i name='building' classes='ui avatar image'
-                        .mobile.hidden &nbsp; Buildings
-                    a.icon.item(href='/residents' class="{{isActivePath '/residents'}}")
+                        .mobile.hidden &nbsp; buildings
+                    a.item(href='/residents' class="{{isActivePath '/residents'}}")
                         +i name='groups' classes='ui avatar image'
-                        .mobile.hidden &nbsp; Residents
-                    a.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
+                        .mobile.hidden &nbsp; residents
+                    a.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
                         +i name='kindle' classes='ui avatar image'
-                        .mobile.hidden &nbsp; Kiosk
+                        .mobile.hidden &nbsp; kiosk
                     a.icon.item(href='/readings' class="{{isActivePath '/readings'}}")
                         +i name='water' classes='ui avatar image'
-                        .mobile.hidden &nbsp; Readings
-                if is_user
+                        .mobile.hidden &nbsp; water
+                if is_admin
                     a.icon.item(href='/users' class="{{isActivePath '/users'}}")
                         +i name='groups' classes='ui avatar image'
                         .mobile.hidden &nbsp; users
             .right.menu
-                a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}" title='tasks')
-                    +i name='tasks' classes='ui avatar image'
-                a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
-                    i.tasks.icon
-                if currentUser
+                if is_admin
+                    a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}" title='tasks')
+                        +i name='tasks' classes='ui avatar image'
+                    a.icon.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
+                        i.tasks.icon
                     a.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
                         +i name='inbox' classes='ui avatar image'
                     a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
                         +i name='chat' classes='ui avatar image'
+                if currentUser
                     unless logging_out
                         //- if is_dev
                         unless is_frontdesk
@@ -69,14 +74,16 @@ template(name='nav')
                     //-     a#logout.ui.mobile.hidden.icon.item(href='#' title='Log Out')
                     //-         i.sign.out.large.icon
                 else
-                    a.item(href='/login' title='login') 
-                        +i name='internal'
-                        |login
-        .ui.attached.borderless.inverted.small.menu.topnav
-            each role_models
-                a.item.set_model(href="/m/#{slug}/")
-                    +i name=icon classes='ui avatar image'
-                    |#{title}
+                    unless is_resident
+                        a.item(href='/login' title='login') 
+                            +i name='internal'
+                            |login
+        //- if is_dev
+        //-     .ui.attached.borderless.small.menu.topnav
+        //-         each role_models
+        //-             a.item.set_model(href="/m/#{slug}/")
+        //-                 +i name=icon classes='ui avatar image'
+        //-                 |#{title}
 
 
 

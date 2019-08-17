@@ -53,7 +53,7 @@ template(name='staff')
                             .ui.basic.label #{ph_message}
                         if chlorine_message
                             .ui.basic.label #{chlorine_message}
-                .ui.inline.header 
+                .ui.header 
                     +i name='walking' classes='ui inline image'                
                     |shift walks
                 .ui.compact.icon.button.log_staff_walked(title='log hourly shift walk')
@@ -71,9 +71,9 @@ template(name='staff')
                         +i name='to-do' classes='ui inline mini image'
                         |checklist not completed
             .twelve.wide.column
-                .ui.fluid.accordion
+                .ui.fluid.styled.accordion
                     .active.title
-                        +i name='groups' classes='ui inline image'
+                        +i name='groups' classes='ui inline mini image'
                         .ui.inline.header #{checkedin_members.count} checked in members
                         i.dropdown.icon
                     .active.content
@@ -81,19 +81,19 @@ template(name='staff')
                             each sessions
                                 +hc_session
                     .title 
-                        +i name='android-tablet' classes='ui inline image'
+                        +i name='android-tablet' classes='ui inline mini image'
                         |kiosk management
                         i.dropdown.icon
                     .content
                         +kiosk_settings
                     .title 
-                        +i name='calendar' classes='ui inline image'
+                        +i name='calendar' classes='ui inline mini image'
                         |staff schedule
                         i.dropdown.icon
                     .content
                         +schedule
                     .title
-                        +i name='chat' classes='ui inline image'
+                        +i name='chat' classes='ui inline mini image'
                         |chat
                         i.dropdown.icon
                     .content

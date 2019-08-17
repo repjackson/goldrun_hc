@@ -4,7 +4,8 @@ template(name='buildings')
             .four.wide.column
                 a(href="/building/#{slug}")
                     .ui.card.home_segment
-                        img.ui.fluid.image(src="{{c.url image width=400 height=200 crop='fill'}}")
+                        if is_admin
+                            img.ui.fluid.image(src="{{c.url image width=400 height=200 crop='fill'}}")
                         .content
                             .ui.large.header #{building_code}
                                 each building_numbers

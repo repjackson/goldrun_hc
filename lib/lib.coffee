@@ -7,7 +7,6 @@
 #             "#{@profile.first_name}  #{@profile.last_name}"
 
 
-
 Docs.before.insert (userId, doc)->
     doc._author_id = Meteor.userId()
     timestamp = Date.now()

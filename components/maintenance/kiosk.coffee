@@ -65,29 +65,29 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'rules_signed_username', @data.username
     Template.healthclub_session.onRendered ->
         # @timer = new ReactiveVar 5
-        Session.set 'timer',5
-        Session.set 'timer_engaged', false
-        Meteor.setTimeout ->
-            healthclub_session_document = Docs.findOne Router.current().params.doc_id
-            # console.log @
-            if healthclub_session_document and healthclub_session_document.user_id
-                resident = Meteor.users.findOne healthclub_session_document.user_id
-                # if resident.user_id
-                rules_found = Docs.findOne
-                    model:'rules_and_regs_signing'
-                    resident:resident.username
-                if resident.rules_and_regulations_signed and resident.member_waiver_signed
-                    Session.set 'timer_engaged', true
-                    interval_id = Meteor.setInterval( ->
-                        if Session.equals 'timer_engaged', true
-                            if Session.equals 'timer', 0
-                                Meteor.call 'submit_checkin'
-                                Meteor.clearInterval interval_id
-                            else
-                                Session.set('timer', Session.get('timer')-1)
-                        # t.timer.set(t.timer.get()-1)
-                    ,1000)
-        , 4000
+        # Session.set 'timer',5
+        # Session.set 'timer_engaged', false
+        # Meteor.setTimeout ->
+        #     healthclub_session_document = Docs.findOne Router.current().params.doc_id
+        #     # console.log @
+        #     if healthclub_session_document and healthclub_session_document.user_id
+        #         resident = Meteor.users.findOne healthclub_session_document.user_id
+        #         # if resident.user_id
+        #         rules_found = Docs.findOne
+        #             model:'rules_and_regs_signing'
+        #             resident:resident.username
+        #         if resident.rules_and_regulations_signed and resident.member_waiver_signed
+        #             Session.set 'timer_engaged', true
+        #             interval_id = Meteor.setInterval( ->
+        #                 if Session.equals 'timer_engaged', true
+        #                     if Session.equals 'timer', 0
+        #                         Meteor.call 'submit_checkin'
+        #                         Meteor.clearInterval interval_id
+        #                     else
+        #                         Session.set('timer', Session.get('timer')-1)
+        #                 # t.timer.set(t.timer.get()-1)
+        #             ,1000)
+        # , 4000
         Session.set 'loading_checkin', false
         # alert 'stop loading'
 
@@ -175,8 +175,8 @@ if Meteor.isClient
             Session.set 'adding_guest', true
             Session.set 'timer_engaged', false
 
-        # 'click .submit_checkin': (e,t)->
-        #     Meteor.call 'submit_checkin'
+        'click .submit_checkin': (e,t)->
+            Meteor.call 'submit_checkin'
 
         'click .cancel_auto_checkin': (e,t)->
             Session.set 'timer_engaged',false

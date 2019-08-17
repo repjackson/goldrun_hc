@@ -2,21 +2,26 @@ template(name='tasks')
     .ui.stackable.padded.grid
         .row
             .six.wide.column
-                +i name='tasks' classes='ui inline image'
+                +i name='tasks' classes='ui avatar image'
                 .ui.inline.header tasks
                 .ui.icon.big.button.add_task
                     i.plus.green.icon
+                div
                 +cloud filter='task'
-                .ui.large.button.calculate_task_stats
-                    |calculate task stats
+                div
+                .ui.large.icon.button.calculate_task_stats(title='calculate task stats')
+                    i.refresh.icon
+                .ui.header 
+                    +i name='line chart' classes='ui avatar image'
+                    |task stats
                 with task_stats_doc
-                    .ui.header work done
-                    .ui.header total #{total_count}
-                    .ui.header complete tasks #{complete_count}
-                    .ui.header incomplete tasks #{incomplete_count}
-                    .ui.header tasks completed time
-                    .ui.header task estimated time
-                    .ui.header task monthly completion rate
+                    .ui.small.header work done
+                    .ui.small.header total #{total_count}
+                    .ui.small.header complete tasks #{complete_count}
+                    .ui.small.header incomplete tasks #{incomplete_count}
+                    .ui.small.header tasks completed time
+                    .ui.small.header task estimated time
+                    .ui.small.header task monthly completion rate
             .ten.wide.column.scrolling
                 each my_tasks
                     +task_card_template
@@ -36,12 +41,22 @@ template(name='task_card_template')
         +boolean_view key='complete' label='complete' direct=true
         div
         +number_view key='estimated_minutes' label='estimated minutes' direct=true
+        if due_date
+            +date_view key='due_date' label='due date' direct=true
+        if due_time
+            +time_view key='due_time' label='due time' direct=true
         div
-        +single_user_view key='assigned_to' role_filter='user' label='assigned to' direct=true
+        +multi_user_view key='assigned_to_multiple' label='assigned to' direct=true
+        +multi_user_view key='related_people' label='related people' direct=true
         div
         a.ui.button(href="/task/#{_id}/view")
             |view
             i.chevron.right.icon
+        if can_edit
+            a.ui.button(href="/task/#{_id}/edit")
+                i.pencil.icon
+                |edit
+            +remove_button
 
 
 template(name='task_edit')
@@ -49,17 +64,21 @@ template(name='task_edit')
         .ui.stackable.padded.grid
             .row
                 .four.wide.column 
-                    .ui.header edit task
+                    .ui.header 
+                        i.pencil.icon
+                        |edit task
                     a.ui.big.icon.fluid.button(href="/task/#{_id}/view" title='save')
                         i.green.checkmark.icon
+                    +remove_button
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
                 .twelve.wide.column 
-                    +text_edit key='title' label='title' direct=true
-                    +array_edit key='tags' label='tags' direct=true
-                    +html_edit key='description' label='description' direct=true
-                    +boolean_edit key='complete' label='complete' direct=true
-                    +number_edit key='estimated_minutes' label='estimated minutes' direct=true
-                    +single_user_edit key='assigned_to' role_filter='user' label='assigned to' direct=true
+                    +text_edit key='title' label='title' icon='title' direct=true
+                    +html_edit key='description' label='description' icon='content' direct=true
+                    +boolean_edit key='complete' label='complete' icon='checkmark' direct=true
+                    +number_edit key='estimated_minutes' label='estimated minutes' icon='clock' direct=true
+                    //- +single_user_edit key='assigned_to' role_filter='user' label='assigned to' icon='user-male' direct=true
                     +multi_user_edit key='assigned_to_multiple' role_filter='user' label='assigned to' direct=true
+                    +multi_user_edit key='related_people' label='related people' direct=true
                      
 template(name='task_view')
     with current_doc
@@ -67,21 +86,21 @@ template(name='task_view')
             .row
                 .four.wide.column 
                     a.ui.fluid.button(href="/tasks")
-                        +i name='tasks' classes='ui inline image'
+                        +i name='tasks' classes='ui avatar image'
                         |tasks
                     .ui.header view task
-                    a.ui.fluid.button(href="/task/#{_id}/edit")
+                    a.ui.big.icon.button(href="/task/#{_id}/edit")
                         i.pencil.icon
-                        |edit
-                    +voting
+                    +voting_full
                     +viewing
                 .twelve.wide.column 
                     +text_view key='title' label='title' direct=true
-                    +array_view key='tags' label='tags' direct=true
-                    +html_view key='description' label='description' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    +html_view key='description' icon='content' label='description' direct=true
                     +boolean_view key='complete' label='complete' direct=true
                     +number_view key='estimated_minutes' label='estimated minutes' direct=true
-                    +single_user_view key='assigned_to' role_filter='user' label='assigned to' direct=true
+                    +multi_user_view key='assigned_to_multiple' label='assigned to' direct=true
+                    +multi_user_view key='related_people' label='related people' direct=true
                     +comments
 
 
@@ -99,8 +118,11 @@ template(name='user_tasks')
     //-     |view completed
     //- .ui.circular.button.view_incomplete(class=view_complete_class)
     //-     |view incomplete
-    
+    .ui.header assigned tasks
     each assigned_tasks
+        +user_task_segment
+    .ui.header tasks referenced in
+    each referenced_in_tasks
         +user_task_segment
         
 template(name='user_task_segment')

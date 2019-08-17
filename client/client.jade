@@ -14,7 +14,7 @@ head
     link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000")
     //- link(rel="stylesheet" href="http://cdn.dhtmlx.com/edge/dhtmlx.css" type="text/css") 
     script(src='https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js')
-    script(src='tablesort.js')
+    //- /* script(src='tablesort.js') */
     script(src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js")
     script(src='https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.4/dist/semantic.min.js')
     script(src='https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js')
@@ -26,12 +26,12 @@ template(name='layout')
             .centered.row
                 //- img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
                 .sixteen.wide.column
-                    +sidebar
-                    .pushable
-                        .pusher
-                            #main
+                    //- +sidebar
+                    //- .pushable
+                    //-     .pusher
+                    //-         #main
                                 //- .ui.basic.fluid.segment
-                                +yield
+                    +yield
         unless is_frontdesk
             +footer 
 
@@ -43,7 +43,7 @@ template(name='mlayout')
 
 template(name='verification_confirmation')
     .ui.text.container
-        h1.ui.header Thank you, you're email has been verified.  You may close the window. 
+        h1.ui.header Thank you, your email has been verified.  You may close the window. 
 
 
 

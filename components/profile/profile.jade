@@ -32,6 +32,9 @@ template(name='user_layout')
                     else if is_current_user
                         a.ui.icon.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings'
+                    else if is_admin
+                        a.ui.icon.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                            +i name='settings'
                     else
                         .ui.button.direct_message(title='new message')
                             +i name='envelope'
@@ -288,7 +291,7 @@ template(name='user_checkins')
             |health club check ins
         if is_staff
             +checkin_button
-        .ui.listscroll
+        .ui.list.smallscroll
             each healthclub_checkins
                 .item #{when}
             

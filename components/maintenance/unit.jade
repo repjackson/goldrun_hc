@@ -58,7 +58,10 @@ template(name='unit_owners')
             each owners
                 .ui.card
                     .image
-                        img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                        if kiosk_photo
+                            img.ui.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
+                        else
+                            img.ui.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
                     .content
                         a.header(href="/user/#{username}")
                              |#{first_name} #{last_name} 
@@ -69,7 +72,7 @@ template(name='unit_owners')
 template(name='unit_residents')            
     .ui.basic.segment
         .ui.header
-            +i name='group'
+            +i name='groups'
             //- i.users.icon
             |residents
         .ui.four.cards
@@ -117,7 +120,6 @@ template(name='user_key')
                     .ui.icon.button.view_code
                         i.lock.icon
                     //- +i name='enter-pin' classes='view_code pointer' title='view code'
-
             if is_admin
                 div
                 +edit_button

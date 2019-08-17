@@ -27,9 +27,9 @@ template(name='model_doc_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    .ui.large.basic.button.back_to_model
+                    .ui.basic.button.back_to_model
                         i.chevron.left.icon
-                        +i name=current_model.icon classes='ui mini inline image'
+                        +i name=current_model.icon classes='ui avatar image'
                         |#{current_model.title}
                     if can_edit
                         a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')

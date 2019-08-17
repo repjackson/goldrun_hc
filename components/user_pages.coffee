@@ -4,6 +4,10 @@ if Meteor.isClient
             Router.current().params.username
             Session.get 'view_complete'
 
+        @autorun => Meteor.subscribe 'referenced_in_tasks',
+            Router.current().params.username
+            Session.get 'view_complete'
+
     Template.user_tasks.helpers
         view_complete_class: ->
             if Session.equals('view_complete',true) then 'grey' else ''
@@ -11,7 +15,11 @@ if Meteor.isClient
         assigned_tasks: ->
             Docs.find
                 model:'task'
-                assigned_username:Router.current().params.username
+                assigned_to_multiple:Router.current().params.username
+        referenced_in_tasks: ->
+            Docs.find
+                model:'task'
+                related_people:Router.current().params.username
 
     Template.user_tasks.events
         'click .view_complete': ->
@@ -103,8 +111,15 @@ if Meteor.isServer
         match.model = 'message'
         match.to_username = username
         Docs.find match
+
+
     Meteor.publish 'assigned_tasks', (username)->
-        match = {}
-        match.model = 'task'
-        # match.to_username = username
-        Docs.find match
+        Docs.find
+            model:'task'
+            assigned_to_multiple: $in: [username]
+
+
+    Meteor.publish 'referenced_in_tasks', (username)->
+        Docs.find
+            model:'task'
+            related_people: $in: [username]

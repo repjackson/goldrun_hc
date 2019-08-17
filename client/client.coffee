@@ -247,6 +247,14 @@ Template.registerHelper 'is_resident_or_user', () ->
         # console.log _.intersection(Meteor.user().roles, ['resident','user']).length
         if _.intersection(Meteor.user().roles, ['resident','user']).length then true else false
 
+Template.registerHelper 'is_staff_or_manager', () ->
+    if Meteor.user() and Meteor.user().roles
+        # console.log _.intersection(Meteor.user().roles, ['resident','user']).length
+        if _.intersection(Meteor.user().roles, ['manager','staff']).length then true else false
+
+
+
+
 Template.registerHelper 'user_is_resident', () -> if @roles and 'resident' in @roles then true else false
 Template.registerHelper 'user_is_owner', () -> if @roles and 'owner' in @roles then true else false
 Template.registerHelper 'user_is_staff', () -> if @roles and 'staff' in @roles then true else false
@@ -255,8 +263,6 @@ Template.registerHelper 'user_is_resident_or_owner', () -> if @roles and _.inter
 
 
 Template.registerHelper 'is_eric', () -> if Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId() then true else false
-Template.registerHelper 'is_alpha', () -> if Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId() then true else false
-
 
 Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
 Template.registerHelper 'is_current_user', () ->  Meteor.user().username is Router.current().params.username
@@ -265,8 +271,8 @@ Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
 Template.registerHelper 'is_model', -> @model is 'model'
 
 
-Template.body.events
-    'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
+# Template.body.events
+#     'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
 
 Template.registerHelper 'is_editing', () -> Session.equals 'editing_id', @_id
 
@@ -331,3 +337,79 @@ Template.registerHelper 'calculated_size', (metric) ->
 
 
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
+
+
+
+globalHotkeys = new Hotkeys();
+
+
+globalHotkeys.add
+	combo: "d r"
+	callback: ->
+        model_slug =  Router.current().params.model_slug
+        Session.set 'loading', true
+        Meteor.call 'set_facets', model_slug, ->
+            Session.set 'loading', false
+
+
+globalHotkeys.add
+	combo: "r a"
+	callback: ->
+        if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
+            if 'admin' in Meteor.user().roles
+                Meteor.users.update Meteor.userId(),
+                    $pull:roles:'admin'
+            else
+                Meteor.users.update Meteor.userId(),
+                    $addToSet:roles:'admin'
+
+
+globalHotkeys.add
+	combo: "r d"
+	callback: ->
+        if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
+            if 'dev' in Meteor.user().roles
+                Meteor.users.update Meteor.userId(),
+                    $pull:roles:'dev'
+            else
+                Meteor.users.update Meteor.userId(),
+                    $addToSet:roles:'dev'
+
+
+
+globalHotkeys.add
+	combo: "g h"
+	callback: ->
+        Router.go '/home'
+
+globalHotkeys.add
+	combo: "a d"
+	callback: ->
+        model = Docs.findOne
+            model:'model'
+            slug: Router.current().params.model_slug
+        # console.log model
+        if model.collection and model.collection is 'users'
+            name = prompt 'first and last name'
+            split = name.split ' '
+            first_name = split[0]
+            last_name = split[1]
+            username = name.split(' ').join('_')
+            # console.log username
+            Meteor.call 'add_user', first_name, last_name, username, 'guest', (err,res)=>
+                if err
+                    alert err
+                else
+                    Meteor.users.update res,
+                        $set:
+                            first_name:first_name
+                            last_name:last_name
+                    Router.go "/m/#{model.slug}/#{res}/edit"
+        else if model.slug is 'shop'
+            new_doc_id = Docs.insert
+                model:model.slug
+            Router.go "/shop/#{new_doc_id}/edit"
+        else
+            new_doc_id = Docs.insert
+                model:model.slug
+            Router.go "/m/#{model.slug}/#{new_doc_id}/edit"
