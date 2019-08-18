@@ -34,7 +34,7 @@ template(name='layout')
                     +yield
         unless is_frontdesk
             +footer 
-
+        +shortcut_modal
 
 template(name='mlayout')
     //- .global_container
@@ -54,3 +54,15 @@ template(name='not_found')
             a.ui.button(href="/staff") 
                 +i name='user shield'
                 |staff
+
+
+
+template(name='shortcut_modal')
+    .ui.shortcut.modal
+        .ui.header shortcuts
+        .content
+            .ui.large.list
+                each shortcuts
+                    .item 
+                        .header #{combo}
+                        .content #{action}
