@@ -32,11 +32,15 @@ template(name='resident_portal')
                 .ui.list
                     each event_logs
                         .item #{text}
-        .three.column.row
+        .four.column.row
             .column
                 +published_resident_small
             .column
-                +leaderboard_small
+                +karma_leaderboard
+            .column
+                +most_viewed_posts
+            .column
+                +most_viewed_models
                 //- +meal_widget
                 //- +marketplace_widget
                 //- .ui.header chat
@@ -67,11 +71,33 @@ template(name='resident_portal')
         //-         +model_scroller model='for_rent' header='for rent' icon='business'
 
 
-template(name='leaderboard_small')
+template(name='karma_leaderboard')
     .ui.segment
         .ui.header 
             +i name='leaderboard'
-            |leaderboard
+            |karma leaderboard
+        each top_karma_users
+            .ui.small.header #{username}    
+        
+template(name='most_viewed_posts')
+    .ui.segment
+        .ui.header 
+            +i name='eye'
+            |most viewed posts
+        
+template(name='most_viewed_models')
+    .ui.segment
+        .ui.header 
+            +i name='cube'
+            |most viewed models
+        .ui.animated.list 
+            each most_viewed
+                a.item(href="/m/#{slug}") 
+                    .header 
+                        +ismall name=icon
+                        |#{title}
+                    | #{views} views
+                
         
         
 template(name='events_small')

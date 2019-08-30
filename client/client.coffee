@@ -15,6 +15,11 @@ Template.body.events
         .transition('fade out', 250)
         .transition('fade in', 250)
 
+    'click .result': ->
+        $('.global_container')
+        .transition('fade out', 250)
+        .transition('fade in', 250)
+
 
 # Template.healthclub.events
 #     'click .button': ->

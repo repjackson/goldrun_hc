@@ -79,12 +79,12 @@ if Meteor.isClient
                 if 'dev' in Meteor.user().roles
                     Docs.find {
                         model:'model'
-                    }, sort:title:1
+                    }, sort:views:1
                 else
                     Docs.find {
                         model:'model'
                         view_roles:$in:Meteor.user().roles
-                    }, sort:title:1
+                    }, sort:views:1
 
         models: ->
             Docs.find

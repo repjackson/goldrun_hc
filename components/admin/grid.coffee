@@ -10,6 +10,14 @@ if Meteor.isClient
     Template.grid.events
         'click .set_model': ->
             Session.set 'loading', true
+            if Meteor.user()
+                Docs.update @_id,
+                    $inc: views: 1
+                    $addToSet:viewer_usernames:Meteor.user().username
+            else
+                Docs.update @_id,
+                    $inc: views: 1
+
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
 
@@ -39,23 +47,23 @@ if Meteor.isClient
                     Docs.find {
                         model:'model'
                         title: {$regex:"#{model_filter}", $options: 'i'}
-                    }, sort:title:1
+                    }, sort:views:-1
                 else
                     Docs.find {
                         model:'model'
-                    }, sort:title:1
+                    }, sort:views:-1
             else
                 if model_filter
                     Docs.find {
                         title: {$regex:"#{model_filter}", $options: 'i'}
                         model:'model'
                         view_roles:$in:Meteor.user().roles
-                    }, sort:title:1
+                    }, sort:views:-1
                 else
                     Docs.find {
                         model:'model'
                         view_roles:$in:Meteor.user().roles
-                    }, sort:title:1
+                    }, sort:views:-1
 
 
 

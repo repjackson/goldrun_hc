@@ -42,7 +42,13 @@ template(name='model_doc_view')
                             .ui.basic.label #{this}
                     +user_list_toggle key='bookmark_ids' icon='bookmark' label='bookmark' color='red'
                     div
-                    .ui.header
+                    .ui.small.header #{views} views
+                    div
+                    .ui.small.inline.header viewed by
+                    each viewer_usernames
+                        .ui.small.basic.label #{this}
+                    
+                    .ui.small.header
                         |by
                         +author_info
                         +creation_info

@@ -17,6 +17,14 @@ globalHotkeys.add
         Meteor.call 'set_facets', model_slug, ->
             Session.set 'loading', false
 
+globalHotkeys.add
+	combo: "d c"
+	callback: ->
+        model = Docs.findOne
+            model:'model'
+            slug: Router.current().params.model_slug
+        Router.go "/model/edit/#{model._id}"
+
 
 globalHotkeys.add
 	combo: "r a"
@@ -58,7 +66,14 @@ globalHotkeys.add
 globalHotkeys.add
 	combo: "g h"
 	callback: ->
-        Router.go '/home'
+        Router.go '/'
+        Meteor.setTimeout ->
+            $('.model_filter').focus()
+        , 1000
+globalHotkeys.add
+	combo: "g g"
+	callback: ->
+        Router.go '/grid'
         Meteor.setTimeout ->
             $('.model_filter').focus()
         , 1000

@@ -26,17 +26,21 @@ Meteor.methods
             $set:facets:[]
         for field in fields.fetch()
             if field.faceted is true
-                Docs.update delta._id,
-                    $addToSet:
-                        facets: {
-                            title:field.title
-                            icon:field.icon
-                            key:field.key
-                            rank:field.rank
-                            field_type:field.field_type
-                            filters:[]
-                            res:[]
-                        }
+                # console.log field
+                if Meteor.user()
+                    console.log _.intersection(Meteor.user().roles,field.view_roles)
+                    if _.intersection(Meteor.user().roles,field.view_roles).length > 0
+                        Docs.update delta._id,
+                            $addToSet:
+                                facets: {
+                                    title:field.title
+                                    icon:field.icon
+                                    key:field.key
+                                    rank:field.rank
+                                    field_type:field.field_type
+                                    filters:[]
+                                    res:[]
+                                }
         Meteor.call 'fum', delta._id
 
 
@@ -86,7 +90,7 @@ Meteor.methods
             {
                 fields:_id:1
                 limit:20
-                sort:_timestamp:-1
+                sort:views:-1
             }
 
         # results_cursor =

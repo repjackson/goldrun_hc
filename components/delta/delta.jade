@@ -3,13 +3,19 @@ template(name='delta')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column.scrolling
-                    +i name=icon classes='ui avatar image'
-                    .ui.inline.header
-                        | #{title}
+                    if is_loading
+                        .ui.inline.header.pulsing
+                            +i name=icon classes='ui avatar image'
+                            |loading #{title}...
+                    else 
+                        .ui.inline.header
+                            +i name=icon classes='ui avatar image'
+                            | #{title}
                     unless is_loading
                         if currentUser
-                            .ui.icon.compact.button.add_model_doc(title="Add #{title}")
-                                +i name='plus' classes='ui avatar image'
+                            .ui.icon.large.compact.button.add_model_doc(title="Add #{title}")
+                                //- +i name='plus' classes='ui avatar image'
+                                i.green.plus.icon
                         //- if can_edit
                             //- +edit_circular.button
             
@@ -27,8 +33,9 @@ template(name='delta')
                             if is_dev
                                 .ui.icon.large.button.print_delta(title='print session doc')
                                     i.code.icon
-                            .ui.reset.icon.compact.button(title='reload session')
-                                +i name='refresh' classes='ui avatar image'
+                            .ui.reset.icon.large.button(title='reload session')
+                                //- +i name='refresh' classes='ui avatar image'
+                                i.refresh.icon
                             .ui.delete_delta.icon.button(title='delete session')
                                 i.trash.icon
                         else
@@ -104,7 +111,7 @@ template(name='delta_result')
         if template_exists
             +Template.dynamic template=model_template
         else
-            .ui.result.cloud.fluid.segment(class=loading_class)
+            .ui.result.cloud.fluid.segment(class=loading_class tabindex="0")
                 .content
                     each fields
                         +Template.dynamic template=view_template 
@@ -118,16 +125,20 @@ template(name='delta_result')
                                 a.ui.button.route_model(href="/model/edit/#{_id}")
                                     i.edit.blue.icon
                                     |edit model
-                        else
-                            if can_edit
-                                a.ui.large.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
-                                    i.pencil.blue.large.icon
-                                    //- |edit
-                            a.ui.icon.large.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
-                                i.right.chevron.yellow.large.icon
+                        //- else
+                        //-     if can_edit
+                        //-         a.ui.large.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
+                        //-             i.pencil.blue.large.icon
+                        //-             //- |edit
+                        //-     a.ui.icon.large.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
+                        //-         i.right.chevron.yellow.large.icon
                         if _author_id
                             +author_info
                         +creation_info
+                        .ui.small.inline.header #{views} views
+                            //- i.eye.icon
+                            each viewer_usernames
+                                .ui.small.basic.label #{this}
                     if is_admin
                         +remove_button
                 

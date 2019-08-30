@@ -15,6 +15,9 @@ template(name='grid')
                         .ui.header 
                             +i name=icon
                             |#{title}
+                        span(title='views')
+                            |#{views}
+                            i.eye.icon
                         if is_dev
                             each view_roles
                                 .ui.basic.label #{this}

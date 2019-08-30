@@ -236,6 +236,17 @@ if Meteor.isClient
                 Meteor.users.findOne @_id
 
     Template.delta_result.events
+        'click .result': ->
+            # console.log @
+            if Meteor.user()
+                Docs.update @_id,
+                    $inc: views: 1
+                    $addToSet:viewer_usernames:Meteor.user().username
+            else
+                Docs.update @_id,
+                    $inc: views: 1
+            Router.go "/m/#{@model}/#{@_id}/view"
+
         'click .set_model': ->
             Meteor.call 'set_delta_facets', @slug, Meteor.userId()
 

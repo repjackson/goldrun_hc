@@ -9,7 +9,7 @@ template(name='nav')
             //-         i.large.sidebar.icon
             if is_loading
                 .icon.item
-                    i.big.loading.yin.yang.icon
+                    i.big.spinning.yin.yang.icon
             else
                 if is_resident
                     a.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
@@ -18,18 +18,16 @@ template(name='nav')
                         +i name='activity-grid-2' classes='ui avatar image zoom'                    
                     a.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}")
                         +i name='home' classes='ui avatar image zoom'
-                    a.item(href='/blog' class="{{isActivePath '/blog'}}")
-                        +i name='blog' classes='ui avatar image zoom'
-                    a.item(href='/events' class="{{isActivePath '/events'}}")
-                        +i name='calendar' classes='ui avatar image zoom'
-                    a.item(href='/shop' class="{{isActivePath '/shop'}}")
-                        +i name='shop' classes='ui avatar image zoom'
-                    a.item(href='/gallery' class="{{isActivePath '/gallery'}}")
-                        +i name='gallery' classes='ui avatar image zoom'
+                    //- a.item(href='/blog' class="{{isActivePath '/blog'}}")
+                    //-     +i name='blog' classes='ui avatar image zoom'
+                    //- a.item(href='/events' class="{{isActivePath '/events'}}")
+                    //-     +i name='calendar' classes='ui avatar image zoom'
+                    //- a.item(href='/shop' class="{{isActivePath '/shop'}}")
+                    //-     +i name='shop' classes='ui avatar image zoom'
+                    //- a.item(href='/gallery' class="{{isActivePath '/gallery'}}")
+                    //-     +i name='gallery' classes='ui avatar image zoom'
                     a.item(href='/profiles' class="{{isActivePath '/profiles'}}")
                         +i name='groups' classes='ui avatar image zoom'
-                    a.icon.item(href='/front' class="{{isActivePath '/front'}}")
-                        +i name='home' classes='ui avatar image zoom'
                     a.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                         +i name='dashboard' classes='ui avatar image zoom'
                 if is_manager

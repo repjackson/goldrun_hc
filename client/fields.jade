@@ -670,19 +670,20 @@ template(name='array_view')
 
 
 template(name='children_edit')
-    if children
-        div
-        .ui.inline.header 
-            |#{title}
-        .ui.icon.large.circular.button.add_child(title="add child #{ref_model}")
-            i.plus.icon
-        //- .ui.styled.fluid.accordion
+    div
+    .ui.inline.header 
+        |#{title}
+    .ui.icon.large.circular.button.add_child(title="add child #{ref_model}")
+        i.plus.icon
+    .ui.styled.fluid.accordion
         each children
             +child_edit
 
 
 template(name='child_edit')
-    .ui.smoothed.segment
+    .title
+        .ui.header #{title} #{key} #{slug}
+    .content
         each child_fields
             +Template.dynamic template=edit_template 
         +remove_button
