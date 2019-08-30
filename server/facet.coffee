@@ -86,11 +86,23 @@ Meteor.methods
                 Docs.update { _id:delta._id, 'facets.key':facet.key},
                     { $set: 'facets.$.res': agg_res }
 
+
+        if delta.sort_key
+            console.log 'found sort key', delta.sort_key
+            sort_by = delta.sort_key
+        else
+            sort_by = 'views'
+
+        if delta.sort_direction
+            sort_direction = delta.sort_direction
+        else
+            sort_direction = -1
+
         modifier =
             {
                 fields:_id:1
                 limit:20
-                sort:views:-1
+                sort:"#{sort_by}":sort_direction
             }
 
         # results_cursor =

@@ -32,6 +32,33 @@ if Meteor.isClient
 
 
     Template.delta.events
+        'click .set_sort_key': ->
+            # console.log @
+            delta = Docs.findOne model:'delta'
+            Docs.update delta._id,
+                $set:sort_key:@key
+            Session.set 'loading', true
+            Meteor.call 'fum', delta._id, ->
+                Session.set 'loading', false
+
+        'click .set_sort_direction': ->
+            # console.log @
+            delta = Docs.findOne model:'delta'
+            if delta.sort_direction is -1
+                Docs.update delta._id,
+                    $set:sort_direction:1
+            else
+                Docs.update delta._id,
+                    $set:sort_direction:-1
+            Session.set 'loading', true
+            Meteor.call 'fum', delta._id, ->
+                Session.set 'loading', false
+
+
+
+
+
+
         'click .create_delta': (e,t)->
             Docs.insert
                 model:'delta'
@@ -221,6 +248,14 @@ if Meteor.isClient
             current_model = Router.current().params.model_slug
             "#{current_model}_card_template"
 
+        toggle_value_class: ->
+            facet = Template.parentData()
+            delta = Docs.findOne model:'delta'
+            if Session.equals 'loading', true
+                 'disabled basic'
+            else if facet.filters.length > 0 and @name in facet.filters
+                'active'
+            else 'basic'
 
         result: ->
             if Docs.findOne @_id

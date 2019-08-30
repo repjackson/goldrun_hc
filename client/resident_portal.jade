@@ -1,9 +1,6 @@
 template(name='resident_portal')
     //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")    
     .ui.padded.stackable.grid
-        .row
-            .sixteen.wide.column
-                .ui.center.aligned.header gold run resident portal
         .three.column.row
             .column
                 +events_small
@@ -76,21 +73,34 @@ template(name='karma_leaderboard')
         .ui.header 
             +i name='leaderboard'
             |karma leaderboard
-        each top_karma_users
-            .ui.small.header #{username}    
+        .mediumscroll
+            each top_karma_users
+                .ui.small.header #{username} 
+                    .ui.small.basic.teal.label #{points} #{karma}
+                each five_tags
+                    .ui.small.basic.label #{this}
         
 template(name='most_viewed_posts')
     .ui.segment
         .ui.header 
             +i name='eye'
             |most viewed posts
+        .ui.animated.list.mediumscroll
+            each most_viewed_posts
+                a.item.pointer(href="/m/#{model}/#{_id}/view")
+                    .ui.small.header #{title} 
+                        .ui.basic.teal.label(title='model') #{model}
+                        .ui.basic.blue.label(title='views') #{views}
+                    each five_tags
+                        .ui.small.basic.label #{this}
+            
         
 template(name='most_viewed_models')
     .ui.segment
         .ui.header 
             +i name='cube'
             |most viewed models
-        .ui.animated.list 
+        .ui.animated.list.mediumscroll
             each most_viewed
                 a.item(href="/m/#{slug}") 
                     .header 
@@ -105,19 +115,31 @@ template(name='events_small')
         .ui.header 
             +i name='calendar'
             |events
-        each gr_events
-            a.ui.small.header(href="/event/#{_id}/view") #{title}
-            div
+        .ui.animated.list
+            each gr_events
+                a.item(href="/m/#{model}/#{_id}/view")
+                    a.ui.small.header(href="/event/#{_id}/view") #{title}
+                    .content
+                        |#{views}
+                        i.eye.icon
+                        |#{points} pts
             
             
             
 template(name='posts_small')
     .ui.segment
-        .ui.header 
+        a.ui.header(href="/m/post")
             +i name='blog'
             |posts
-        each posts
-            a.ui.small.header(href="/post/#{_id}/view") #{title}
+        .ui.animated.list
+            each posts
+                a.item(href="/m/#{model}/#{_id}/view")
+                    .ui.small.header #{title}
+                    .content
+                        |#{views}
+                        i.eye.icon
+                        |#{points} pts
+                        
 
 template(name='chat_small')
     .ui.segment

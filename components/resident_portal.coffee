@@ -13,10 +13,10 @@ if Meteor.isClient
     Template.most_viewed_posts.onCreated ->
         @autorun -> Meteor.subscribe 'published_residents'
     Template.most_viewed_posts.helpers
-        published_residents: ->
-            Meteor.users.find {roles:$in:['resident']},
-                sort: karma: -1
-
+        most_viewed_posts: ->
+            Docs.find {},
+                sort:views:-1
+                limit:10
 
     Template.karma_leaderboard.onCreated ->
         @autorun -> Meteor.subscribe 'karma_leaderboard'

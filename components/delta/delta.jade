@@ -15,12 +15,9 @@ template(name='delta')
                         if currentUser
                             .ui.icon.large.compact.button.add_model_doc(title="Add #{title}")
                                 //- +i name='plus' classes='ui avatar image'
-                                i.green.plus.icon
-                        //- if can_edit
-                            //- +edit_circular.button
-            
+                                i.green.plus.large.icon
+                        +user_list_toggle key='bookmark_ids' icon='bookmark' label='bookmark' color='red'
                         if is_dev
-                            //- +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                             .ui.icon.large.button.edit_model
                                 i.large.cog.icon
                                 //- +i name='settings'
@@ -52,14 +49,47 @@ template(name='delta')
                     div
                     each sorted_facets
                         +facet
-                .ten.wide.column.scrolling
-                    //- .ui.inline.header
-                    //-     |sort by
-                    //- .ui.button
+                .ten.wide.column
+                    .ui.inline.small.header
+                        |sort by
+                    .ui.compact.menu
+                        .ui.simple.dropdown.item
+                            |#{current_delta.sort_key}
+                            i.dropdown.item
+                            .menu
+                                each fields
+                                    .item.set_sort_key #{title}
+                    .ui.small.inline.header direction
+                    .ui.compact.button.set_sort_direction
+                        |#{current_delta.sort_direction}
+                    .ui.inline.small.header
+                        |limit
+                    .ui.small.input
+                        input(type='number' val=limit_amount)
+                    .ui.inline.small.header
+                        |search
+                    .ui.small.input
+                        input(type='text' val=search_value)
+                    .ui.inline.small.header view
+                    .ui.compact.menu
+                        .ui.simple.dropdown.item
+                            |#{current_delta.sort_by_key}
+                            i.dropdown.item
+                            .menu
+                                .item table 
+                                .item list
+                                .item icons 
+                                .item cards 
+                                .item items 
                     //- .ui.stackable.four.column.grid
-                    each current_delta.result_ids
-                        //- .column
-                        +delta_result
+                    .scrolling    
+                        each current_delta.result_ids
+                            //- .column
+                            +delta_result
+            .row 
+                .sixteen.wide.column
+                    .ui.header calculations
+                    .ui.button rerun calculations
                 
 
 
@@ -108,38 +138,38 @@ template(name='toggle_delta_config')
 
 template(name='delta_result')
     with result 
-        if template_exists
-            +Template.dynamic template=model_template
-        else
-            .ui.result.cloud.fluid.segment(class=loading_class tabindex="0")
-                .content
-                    each fields
-                        +Template.dynamic template=view_template 
-                    .extra
-                        if is_model
-                            +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                            a.ui.button.route_model(href="/m/#{slug}")
-                                i.sitemap.teal.icon
-                                |view model
-                            if is_admin
-                                a.ui.button.route_model(href="/model/edit/#{_id}")
-                                    i.edit.blue.icon
-                                    |edit model
-                        //- else
-                        //-     if can_edit
-                        //-         a.ui.large.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
-                        //-             i.pencil.blue.large.icon
-                        //-             //- |edit
-                        //-     a.ui.icon.large.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
-                        //-         i.right.chevron.yellow.large.icon
-                        if _author_id
-                            +author_info
-                        +creation_info
-                        .ui.small.inline.header #{views} views
-                            //- i.eye.icon
-                            each viewer_usernames
-                                .ui.small.basic.label #{this}
-                    if is_admin
-                        +remove_button
-                
-                        
+        //- if template_exists
+        //-     +Template.dynamic template=model_template
+        //- else
+        .ui.result.cloud.fluid.segment(class=loading_class tabindex="0")
+            .content
+                each fields
+                    +Template.dynamic template=view_template 
+                .extra
+                    if is_model
+                        +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                        a.ui.button.route_model(href="/m/#{slug}")
+                            i.sitemap.teal.icon
+                            |view model
+                        if is_admin
+                            a.ui.button.route_model(href="/model/edit/#{_id}")
+                                i.edit.blue.icon
+                                |edit model
+                    //- else
+                    //-     if can_edit
+                    //-         a.ui.large.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
+                    //-             i.pencil.blue.large.icon
+                    //-             //- |edit
+                    //-     a.ui.icon.large.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
+                    //-         i.right.chevron.yellow.large.icon
+                    if _author_id
+                        +author_info
+                    +creation_info
+                    .ui.small.inline.header #{views} views
+                        //- i.eye.icon
+                        each viewer_usernames
+                            .ui.small.basic.label #{this}
+                if is_admin
+                    +remove_button
+            
+                    

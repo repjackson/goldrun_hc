@@ -174,8 +174,8 @@ body {
 
 .pointer:hover{
     cursor: pointer !important;
-    /* -webkit-filter: drop-shadow(5px 5px 5px #222);
-    filter:         drop-shadow(5px 5px 5px #222); */
+    /* -webkit-filter: drop-shadow(5px 5px 5px rgba(250,250,250, 0.5); */
+    /* filter:         drop-shadow(5px 5px 5px rgba(250,250,250, 0.5); */
 }
 
 .profile_grid {
@@ -259,7 +259,14 @@ input.username_search{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
     opacity:.9 !important;
-    border-radius: 20px !important;
+    border-radius: 15px !important;
+}
+
+.disabled.button, .disabled.segment, .disabled.label{
+    /* -webkit-border-radius: 5px !important; */
+    /* -moz-border-radius: 5px !important; */
+    opacity:.4 !important;
+    border-radius: 15px !important;
 }
 
 /* .segment {
@@ -284,6 +291,13 @@ input.username_search{
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
     background-color: green !important;
+    color: white !important;
+    /* transform: translate(0, 4px); */
+}
+.button.blue {
+    /* background-color: rgba(200, 200, 200, 0.5) !important; */
+    box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
+    background-color: navy !important;
     color: white !important;
     /* transform: translate(0, 4px); */
 }
@@ -648,7 +662,16 @@ a {
 	overflow-x:hidden;
 	max-height:250px;
 	/*max-height:85vh;*/
-	/* padding-top: 1em; */
+	padding-top: 1em;
+	/*padding-left: 1em;*/
+}
+
+.mediumscroll{
+	overflow-y:scroll;
+	overflow-x:hidden;
+	max-height:500px;
+	/*max-height:85vh;*/
+	padding-top: 1em;
 	/*padding-left: 1em;*/
 }
 

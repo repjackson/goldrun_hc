@@ -1,12 +1,6 @@
 template(name='nav')
     unless is_frontdesk
-        //- .ui.borderless.attached.big.inverted.menu.topnav
-        //- .ui.attached.borderless.inverted.large.menu.topnav.grgold
         #topnav.ui.attached.borderless.inverted.menu.topnav
-            //- if is_staff
-            //-     .pointer.toggle_sidebar.icon.item.sidebar_on
-            //-         //- +i name='menu'
-            //-         i.large.sidebar.icon
             if is_loading
                 .icon.item
                     i.big.spinning.yin.yang.icon
@@ -18,6 +12,10 @@ template(name='nav')
                         +i name='activity-grid-2' classes='ui avatar image zoom'                    
                     a.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}")
                         +i name='home' classes='ui avatar image zoom'
+                    each bookmarked_models
+                        a.item.set_model(href="/m/#{slug}/" title=title)
+                            +i name=icon classes='ui avatar image zoom'
+                    
                     //- a.item(href='/blog' class="{{isActivePath '/blog'}}")
                     //-     +i name='blog' classes='ui avatar image zoom'
                     //- a.item(href='/events' class="{{isActivePath '/events'}}")
@@ -93,7 +91,7 @@ template(name='nav')
                         a.item(href='/login' title='login') 
                             +i name='internal'
                             |login
-        .ui.attached.borderless.small.menu.topnav
+        .ui.attached.borderless.menu.topnav
             each role_models
                 a.item.set_model(href="/m/#{slug}/")
                     +i name=icon classes='ui avatar image zoom'
