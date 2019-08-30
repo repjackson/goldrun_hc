@@ -1,4 +1,5 @@
 template(name='user_layout')
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
     with user_from_username_param
         .ui.stackable.grid.global_container
@@ -11,6 +12,8 @@ template(name='user_layout')
                                 img.ui.centered.circular.shadowed.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
                             else if image_id
                                 img.ui.centered.circular.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                        else
+                            img.ui.centered.circular.shadowed.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     else
                         if is_current_user
@@ -28,8 +31,10 @@ template(name='user_layout')
                             +resident_info         
                             +user_check_steps
                             +staff_verification
+                        else 
+                            .ui.small.header #{tagline}
                 
-                    else if is_current_user
+                    if is_current_user
                         a.ui.icon.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings'
                     else if is_admin
@@ -55,57 +60,71 @@ template(name='user_layout')
                         if user_is_resident
                             a.ui.icon.button(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}" title='info')
                                 +i name='treadmill'
-                    if user_is_user
-                        if is_user
-                            a.ui.icon.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
-                                +i name='dashboard'
-                            a.ui.icon.button(href="/user/#{username}/about" class="{{isActiveRoute 'user_about'}}" title='about')
-                                +i name='info'
-                            a.ui.icon.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}" title='social')
-                                +i name='collaboration'
-                            a.ui.icon.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}" title='gallery')
-                                +i name='gallery'
-                            a.ui.icon.button(href="/user/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}" title='bookmarks')
-                                +i name='star'
-                            a.ui.icon.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}" title='contact')
-                                +i name='phone'
-                            a.ui.icon.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}" title='events')
-                                +i name='calendar'
-                            a.ui.icon.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}" title='comparison')
-                                +i name='scales'
-                            a.ui.icon.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}" title='tags')
-                                +i name='tags'
-                            a.ui.icon.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}" title='tasks')
-                                +i name='tasks'
-                            a.ui.icon.button(href="/user/#{username}/messages" class="{{isActiveRoute 'user_messages'}}" title='messages')
-                                +i name='envelope'
-                            a.ui.icon.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
-                                +i name='yin-yang'
-                            a.ui.icon.button(href="/user/#{username}/workhistory" class="{{isActiveRoute 'user_workhistory'}}" title='work history')
-                                +i name='resume'
-                            a.ui.icon.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}" title='stats')
-                                +i name='line-chart'
-                            a.ui.icon.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}" title='votes')
-                                +i name='elections'
-                            a.ui.icon.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}" title='notifications')
-                                 +i name='appointment-reminders'
-                            div
+                    if user_is_resident
+                        a.ui.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
+                            +ismall name='dashboard' classes='ui inline image'
+                            |dashboard
+                        a.ui.button(href="/user/#{username}/about" class="{{isActiveRoute 'user_about'}}" title='about')
+                            +ismall name='info' classes='ui inline image'
+                            |info
+                        a.ui.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}" title='social')
+                            +ismall name='collaboration' classes='ui inline image'
+                            |social
+                        a.ui.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}" title='gallery')
+                            +ismall name='gallery' classes='ui inline image'
+                            |gallery
+                        a.ui.button(href="/user/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}" title='bookmarks')
+                            +ismall name='star' classes='ui inline image'
+                            |bookmarks
+                        a.ui.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}" title='contact')
+                            +ismall name='phone' classes='ui inline image'
+                            |contact
+                        a.ui.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}" title='events')
+                            +ismall name='calendar' classes='ui inline image'
+                            |calendar
+                        a.ui.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}" title='comparison')
+                            +ismall name='scales' classes='ui inline image'
+                            |comparison
+                        a.ui.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}" title='tags')
+                            +ismall name='tags' classes='ui inline image'
+                            |tags
+                        a.ui.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}" title='tasks')
+                            +ismall name='tasks' classes='ui inline image'
+                            |tasks
+                        a.ui.button(href="/user/#{username}/messages" class="{{isActiveRoute 'user_messages'}}" title='messages')
+                            +ismall name='envelope' classes='ui inline image'
+                            |mail
+                        a.ui.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}" title='karma')
+                            +ismall name='yin-yang' classes='ui inline image'
+                            |karma
+                        a.ui.button(href="/user/#{username}/workhistory" class="{{isActiveRoute 'user_workhistory'}}" title='work history')
+                            +ismall name='resume' classes='ui inline image'
+                            |work history
+                        a.ui.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}" title='stats')
+                            +ismall name='line-chart' classes='ui inline image'
+                            |stats
+                        a.ui.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}" title='votes')
+                            +ismall name='elections' classes='ui inline image'
+                            |votes
+                        a.ui.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}" title='notifications')
+                            +ismall name='appointment-reminders' classes='ui inline image'
+                            |notifications
+                        div
                     +yield
     unless is_frontdesk
         +footer 
 
 
 template(name='user_check_steps')
-    .ui.vertical.fluid.menu
-        each user_check
-            .item.pointer.recheck
-                if user_check_completed
-                    i.large.green.checkmark.icon
-                else 
-                    i.large.circle.outline.icon 
-                i.icon(name=icon)
-                //- +i name=icon classes='ui avatar image'
-                |#{title}
+    each user_check
+        .ui.compact.small.button.recheck
+            if user_check_completed
+                i.large.green.checkmark.icon
+            else 
+                i.large.circle.outline.icon 
+            //- i.icon(name=icon)
+            //- +i name=icon classes='ui avatar image'
+            |#{title}
     if checkins_without_gov_id
         if is_staff
             .ui.tiny.header #{checkins_left_without_gov_id} check in's left without government ID

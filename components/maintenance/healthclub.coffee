@@ -4,7 +4,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'me'
 
         # @autorun => Meteor.subscribe 'current_session'
-        @autorun => Meteor.subscribe 'latest_movie'
+        # @autorun => Meteor.subscribe 'latest_movie'
         # @autorun => Meteor.subscribe 'model_docs', 'log_event'
         # @autorun => Meteor.subscribe 'users'
 

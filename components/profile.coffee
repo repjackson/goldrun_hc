@@ -13,8 +13,6 @@ if Meteor.isClient
         , 2000
 
 
-
-
     Template.user_about.helpers
         staff_resident_widgets: ->
             Docs.find

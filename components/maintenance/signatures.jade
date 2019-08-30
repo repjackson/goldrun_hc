@@ -99,38 +99,38 @@ template(name='add_guest')
             +number_edit key='emergency_contact_phone' label='emergency contact phone' direct=true
             if guest_name
                 if guest_phone
-                    if emergency_contact_name
-                        if emergency_contact_phone
-                            .ui.header I agree to the guest waiver terms
-                                if agree
-                                    i.huge.checkmark.green.link.icon.agree
-                                else
-                                    i.huge.circle.outline.grey.link.icon.agree
-                            if agree
-                                .ui.header please sign below
-                                if signature_saved
-                                    +signature_view key='signature' direct=true
-                                    i.pencil.large.icon.edit_signature
-                                else
-                                    +signature_edit key='signature' direct=true
-                                if signature_saved
-                                    .ui.big.green.fluid.button.submit_guest
-                                        | submit
-                                        i.right.chevron.icon
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
-                            .ui.hidden.divider
+                    //- if emergency_contact_name
+                    //- if emergency_contact_phone
+                    .ui.header I agree to the guest waiver terms
+                        if agree
+                            i.huge.checkmark.green.link.icon.agree
+                        else
+                            i.huge.circle.outline.grey.link.icon.agree
+                    if agree
+                        .ui.header please sign below
+                        if signature_saved
+                            +signature_view key='signature' direct=true
+                            i.pencil.large.icon.edit_signature
+                        else
+                            +signature_edit key='signature' direct=true
+                        if signature_saved
+                            .ui.big.green.fluid.button.submit_guest
+                                | submit
+                                i.right.chevron.icon
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
+                    .ui.hidden.divider
 
 
 

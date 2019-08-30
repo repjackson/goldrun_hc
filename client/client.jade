@@ -20,11 +20,11 @@ head
     script(src='https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js')
 
 template(name='layout')
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
     .context
         .ui.stackable.grid.global_container(class=invert_class)
             .centered.row
-                //- img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
                 .sixteen.wide.column
                     //- +sidebar
                     //- .pushable

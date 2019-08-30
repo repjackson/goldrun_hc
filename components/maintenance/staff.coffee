@@ -4,8 +4,8 @@ if Meteor.isClient
             $('.accordion').accordion()
         , 1000
 
-    # Template.shift_change_requests.onCreated ->
-    #     @autorun => Meteor.subscribe 'model_docs', 'shift_change_request'
+    Template.shift_change_requests.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'shift_change_request'
     Template.staff.onCreated ->
         @autorun => Meteor.subscribe 'todays_checklist'
         @autorun => Meteor.subscribe 'todays_pool_readings'

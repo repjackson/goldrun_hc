@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Template.home.onCreated ->
+    Template.grid.onCreated ->
         # @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'model_docs', 'marketplace'
@@ -7,7 +7,7 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'model_fields_from_child_id', Router.current().params.doc_id
         Session.set 'model_filter',null
 
-    Template.home.events
+    Template.grid.events
         'click .set_model': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', @slug, ->
@@ -31,7 +31,7 @@ if Meteor.isClient
         'mouseleave .home_segment': (e,t)->
             t.$(e.currentTarget).closest('.home_segment').removeClass('raised')
 
-    Template.home.helpers
+    Template.grid.helpers
         role_models: ->
             model_filter = Session.get('model_filter')
             if 'dev' in Meteor.user().roles

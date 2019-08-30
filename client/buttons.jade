@@ -19,13 +19,10 @@ template(name='detect')
 template(name='session_edit_icon')
     if currentUser
         unless is_editing
-            .ui.inline.button.edit_this
-                i.blue.pencil.link.icon(title=tags class=button_classes)
-                |edit
+            i.blue.pencil.link.circular.icon.edit_this(title=tags class=button_classes)
         else
-            .save_doc.ui.button(class=button_classes)
+            .save_doc.ui.icon.button(class=button_classes title='save')
                 i.green.check.icon
-                |Save
 
 template(name='edit_button')
     a.ui.icon.compact.basic.button(href="/m/#{model}/#{_id}/edit" title='edit')

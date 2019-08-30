@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Template.front.onCreated ->
+    Template.resident_portal.onCreated ->
         # @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'model_docs', 'marketplace'
@@ -7,13 +7,13 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'model_docs', 'gr_post'
         # @autorun => Meteor.subscribe 'model_fields_from_child_id', Router.current().params.doc_id
 
-    Template.front.events
+    Template.resident_portal.events
         'click .set_model': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
 
-    Template.front.helpers
+    Template.resident_portal.helpers
         role_models: ->
             # console.log Meteor.user().roles
             Docs.find {
@@ -46,7 +46,7 @@ if Meteor.isClient
             water_feature_status_doc.on
     Template.water_status.events
         'click .toggle_status': ->
-            console.log @
+            # console.log @
             status_doc =
                 Docs.findOne
                     model:'water_status'

@@ -5,26 +5,34 @@ template(name='kiosk_container')
 
 template(name='healthclub')
     //- img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")
     .ui.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
         .row
             .sixteen.wide.center.aligned.column
                 img.ui.circular.centered.small.inline.image.shadowed(src="{{c.url 'gold_run_logo' }}")
+            .sixteen.wide.center.aligned.column
+                .ui.massive.fluid.left.icon.input
+                    input.username_search(type='text' placeholder='resident first or last name' autofocus)
+                    if is_query
+                        i.remove.link.icon.clear_results
+                    else 
+                        i.user.grey.outline.icon
+        
         .row
             .sixteen.wide.column
                 .ui.grid
-                    .row.checkin_toprow
-                        .sixteen.wide.column
-                            //- .two.wide.column
-                            //-     img.ui.circular.centered.small.inline.image.shadowed(src="{{c.url 'gold_run_logo' }}")
-                            //- .fourteen.wide.column
-                            .ui.massive.fluid.left.icon.input
-                                input.username_search(type='text' placeholder='check in resident' autofocus)
-                                if is_query
-                                    i.remove.link.icon.clear_results
-                                else 
-                                    i.user.grey.outline.icon
+                    //- .row.checkin_toprow
+                    //-     .sixteen.wide.column
+                    //-         //- .two.wide.column
+                    //-         //-     img.ui.circular.centered.small.inline.image.shadowed(src="{{c.url 'gold_run_logo' }}")
+                    //-         //- .fourteen.wide.column
+                    //-         .ui.massive.fluid.left.icon.input
+                    //-             input.username_search(type='text' placeholder='resident first or last name' autofocus)
+                    //-             if is_query
+                    //-                 i.remove.link.icon.clear_results
+                    //-             else 
+                    //-                 i.user.grey.outline.icon
                     .row.checking_in_area
                         .sixteen.wide.center.aligned.column.checking_in_area
                             if checkedout_members.length
@@ -33,19 +41,19 @@ template(name='healthclub')
                             else
                                 if checking_in
                                     if is_query
-                                        .ui.center.aligned.header No members found
-                                        .ui.center.aligned.header See staff to add
+                                        .ui.center.aligned.header no members found
+                                        .ui.center.aligned.header see staff to add
                 .ui.padded.grid
+                    +inline_doc slug='health_club_notices' classes='ui large header'
                     .two.column.row
                         .column
-                            with latest_movie
-                                .smallscroll
+                            //- with latest_movie
+                            //-     .smallscroll
                                     //- img.ui.rounded.image(src="{{c.url image_id height=600 gravity='face' crop='fill'}}")
                                     //- img.ui.image(src="{{c.url image_id }}")
                                     //- .movie_image(title='pavilion at 6:30')
                                     //-     +image_view key='image_id' direct=true
                             //- .ui.center.aligned.inline.small.header monday @ 8:30 in the pavilion    
-                            +inline_doc slug='health_club_notices' classes='ui large header'
                             div
                             +health_club_info
                         .column

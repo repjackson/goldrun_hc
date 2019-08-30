@@ -80,11 +80,14 @@ template(name='user_list_info')
         |#{user.profile.name}
         +user_status user
 
+template(name='call_watson')
+    .ui.button.autotag
+        |call watson
 
 template(name='view_full_button')
     a.ui.icon.basic.button(href="/view/#{_id}" class=classes data-tooltip='View Full')
         i.double.icon
-        |View
+        |view
 
 template(name='user_status')
     if online 
@@ -181,18 +184,18 @@ template(name='unit_key_checkout')
 
 
 template(name='user_info')
-    a.ui.animated.basic.button(href="/user/#{user.username}/")
-        .visible.content
-            if user.kiosk_photo
-                img.ui.avatar.image(src="{{c.url user.kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
-            else if user.image_id
-                img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100 gravity='face' crop='fill'}}")
-            |#{user.first_name} #{user.last_name}
-            //- |@#{user.username}
-            +user_status user
-        .hidden.content
-            |view
-            i.right.chevron.icon
+    a.ui.compact.button(href="/user/#{user.username}/")
+        if user.kiosk_photo
+            img.ui.avatar.inline.image(src="{{c.url user.kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
+        else if user.image_id
+            img.ui.avatar.inline.image(src="{{c.url user.image_id width=300 height=100 gravity='face' crop='fill'}}")
+        //- .visible.content
+        |#{user.first_name} #{user.last_name}
+        //- |@#{user.username}
+        +user_status user
+        //- .hidden.content
+        //-     |view
+        //-     i.right.chevron.icon
 
 
 template(name='username_info')

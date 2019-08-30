@@ -265,7 +265,11 @@ Template.registerHelper 'user_is_resident_or_owner', () -> if @roles and _.inter
 Template.registerHelper 'is_eric', () -> if Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId() then true else false
 
 Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
-Template.registerHelper 'is_current_user', () ->  Meteor.user().username is Router.current().params.username
+Template.registerHelper 'is_current_user', () ->
+    if Meteor.user().username is Router.current().params.username
+        true
+    else
+        false
 Template.registerHelper 'view_template', -> "#{@field_type}_view"
 Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
 Template.registerHelper 'is_model', -> @model is 'model'

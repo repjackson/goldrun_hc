@@ -3,14 +3,41 @@ body {
     /* font-size: 110% !important; */
     /*line-height: 200% !important;*/
     /*background: #3d3d3d !important;*/
-    background: rgba(0, 0, 0, .01) !important
+    background: rgba(0, 0, 0, .05) !important
     /* background: #0e0e44 !important; */
 }
 
 .checkin_header {
     font-size: 4em !important;
 }
+.menu > .item {
+    border-radius:20px !important;
+}
+#topnav {
+    border-radius: 0px 0px 20px 20px !important;
+}
 
+.menu {
+    border-radius: 20px !important;
+}
+
+.card {
+    border-radius:10px !important;
+}
+
+.image {
+    border-radius:10px !important;
+}
+
+
+.zoom{
+    transition: transform .1s; /* Animation */
+    box-shadow: 0 2px 2px 2px rgba(50, 50, 100, 0.1) !important;
+}
+.zoom:hover {
+    /* filter: drop-shadow(0px 0px 5px rgba(250,250,250,.5)) !important; */
+    transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
 
 .checking_in_area {
     padding-top: 0px !important;
@@ -21,6 +48,8 @@ body {
 
 .accordion {
     border-radius: 10px !important;
+    /* opacity: .8 !important; */
+    background-color: rgba(250,250,250,.6) !important;
 }
 
 /* .menu .item {
@@ -60,6 +89,11 @@ body {
 }
 
 
+.button:active {
+    color: black !important;
+    /* background-color: darkgrey !important; */
+    box-shadow: inset 5px 5px 10px #333 !important;
+}}
 
 .home_segment{
     -webkit-transition: all 0.25s ease;
@@ -172,7 +206,8 @@ input.username_search{
 .button, .segment, .label{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
-    border-radius: 10px !important;
+    opacity:.8 !important;
+    border-radius: 15px !important;
 }
 
 
@@ -270,7 +305,7 @@ input.username_search{
 
 .ui.header{
     /* font-family: 'Lusitana', sans-serif !important; */
-    /* font-family: 'Ubuntu', sans-serif !important; */
+    font-family: 'Ubuntu', sans-serif !important;
 }
 h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */

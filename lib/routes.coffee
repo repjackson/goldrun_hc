@@ -21,10 +21,12 @@ Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'
+Router.route '/shop', -> @render 'shop_dashboard'
+Router.route '/grid', -> @render 'grid'
 Router.route '/admin', -> @render 'admin'
 Router.route '/timecard', -> @render 'timecard'
 Router.route '/stats', -> @render 'stats'
-Router.route '/front', -> @render 'front'
+Router.route '/resident_portal', -> @render 'resident_portal'
 Router.route '/dashboard', -> @render 'dashboard'
 Router.route '/manager', -> @render 'manager'
 Router.route '/shift_checklist', -> @render 'shift_checklist'
@@ -111,8 +113,13 @@ Router.route '/login', -> @render 'login'
 Router.route '/home', -> @render 'home'
 Router.route '/', (->
     @layout 'layout'
-    @render 'home'
+    @render 'resident_portal'
     ), name:'root'
+
+Router.route '/staff_home', (->
+    @layout 'layout'
+    @render 'staff_home'
+    ), name:'staff_home'
 
 
 Router.route '/healthclub', (->

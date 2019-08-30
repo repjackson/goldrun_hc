@@ -127,7 +127,7 @@ Meteor.publish 'health_club_members', (username_query)->
     for active_session in existing_sessions
         active_session_ids.push active_session.user_id
     Meteor.users.find({
-        _id:$nin:active_session_ids
+        # _id:$nin:active_session_ids
         username: {$regex:"#{username_query}", $options: 'i'}
         # healthclub_checkedin:$ne:true
         roles:$in:['resident','owner']

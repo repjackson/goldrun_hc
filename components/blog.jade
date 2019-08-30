@@ -1,0 +1,72 @@
+template(name='blog')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column
+            .ui.inline.header 
+                +i name='blog'
+                |blog
+            .ui.button.add_post
+                i.plus.icon
+                | post
+        .row
+            .six.wide.column
+                +cloud filter='post'
+            .ten.wide.column
+                each posts
+                    +post
+                    
+                    
+template(name='post')
+    .ui.fluid.segment
+        .ui.header #{title}
+        |!{content}
+        each tags
+            .ui.basic.label #{this}
+        a.ui.icon.button(href="/post/#{_id}/edit")
+            i.pencil.icon
+        a.ui.icon.button(href="/post/#{_id}/view")
+            i.right.chevron.icon
+        +voting_full
+        +comments
+
+
+
+
+
+template(name='post_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header 
+                        i.pencil.icon
+                        |edit post
+                    a.ui.big.icon.fluid.button(href="/post/#{_id}/view" title='save')
+                        i.green.checkmark.icon
+                    +remove_button
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                .twelve.wide.column 
+                    +text_edit key='title' label='title' icon='title' direct=true
+                    +html_edit key='content' label='content' icon='content' direct=true
+                    +boolean_edit key='published' label='published' icon='checkmark' direct=true
+                     
+                     
+template(name='post_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    a.ui.fluid.button(href="/blog")
+                        +i name='blog' classes='ui avatar image'
+                        |posts
+                    .ui.header view post
+                    a.ui.big.icon.button(href="/post/#{_id}/edit")
+                        i.pencil.icon
+                    +voting_full
+                    +viewing
+                .twelve.wide.column 
+                    +text_view key='title' label='title' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    .ui.segment
+                        +html_view key='content' icon='content' label='content' direct=true
+                    +boolean_view key='published' label='published' direct=true
+                    +comments

@@ -1,0 +1,85 @@
+template(name='events')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column
+            .ui.inline.header 
+                +i name='calendar'
+                |events
+            .ui.icon.button.add_event(title='add event')
+                i.plus.icon
+        .row
+            .six.wide.column
+                +cloud filter='event'
+            .ten.wide.column
+                each events
+                    +event
+                    
+                    
+template(name='event')
+    .ui.fluid.segment
+        .ui.header #{title}
+        |!{content}
+        each tags
+            .ui.basic.label #{this}
+        +edit_button
+        +view_button
+
+
+
+
+
+
+template(name='event_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .eight.wide.column 
+                    .ui.header 
+                        i.pencil.icon
+                        |edit event
+                    a.ui.big.icon.fluid.button(href="/event/#{_id}/view" title='save')
+                        i.green.checkmark.icon
+                    +remove_button
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +image_edit key='image' label='image' icon='image' direct=true
+                .eight.wide.column 
+                    +text_edit key='title' label='title' icon='title' direct=true
+                    +html_edit key='description' label='description' icon='content' direct=true
+                    +boolean_edit key='published' label='published' icon='checkmark' direct=true
+                .twelve.wide.column 
+                    .ui.dividing.header visibility
+                    +boolean_edit key='public' label='visible to public' direct=true
+
+                    .ui.dividing.header when and where
+                    +text_edit key='location_text' label='location text' icon='marker' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +date_edit key='start_date' label='start date' direct=true
+                    +date_edit key='end_date' label='end date' direct=true
+                    +time_edit key='start_time' label='start time' direct=true
+                    +time_edit key='end_time' label='end time' direct=true
+                    .ui.dividing.header registration
+                    +date_edit key='registration_start_date' label='registration start date' direct=true
+                    +date_edit key='registration_end_date' label='registration end date' direct=true
+                    +boolean_edit key='allow_guest_registration' label='allow guest registration' direct=true
+                    if allow_guest_registration
+                        +number_edit key='guest_limit' label='guest limit per registration' direct=true
+
+
+template(name='event_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    a.ui.fluid.button(href="/events")
+                        +i name='calendar' classes='ui avatar image'
+                        |events
+                    .ui.header view event
+                    a.ui.big.icon.button(href="/event/#{_id}/edit")
+                        i.pencil.icon
+                    +voting_full
+                    +viewing
+                .twelve.wide.column 
+                    +text_view key='title' label='title' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    +html_view key='description' icon='content' label='description' direct=true
+                    +boolean_view key='published' label='published' direct=true
+                    +comments

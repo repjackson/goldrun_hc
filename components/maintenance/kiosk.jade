@@ -56,7 +56,7 @@ template(name='healthclub_session')
     if loading_checkin
         .ui.center.aligned.basic.segment
             i.massive.loading.refresh.icon
-            .ui.massive.header Running checks and loading profile
+            .ui.massive.header running checks and loading profile
     else 
         .ui.padded.middle.aligned.grid.header-wrapper
             .two.column.row
@@ -69,7 +69,7 @@ template(name='healthclub_session')
                         with user
                             +image_view key='kiosk_photo' label='photo' direct=true classes='medium circular shadowed'
                     else
-                        //- h1.ui.header Please click below to add photo
+                        //- h1.ui.header click below to add photo
                         //- .ui.header (switch camera to front)
                         with user
                             +image_edit key='kiosk_photo' label=' ' direct=true
@@ -106,7 +106,7 @@ template(name='healthclub_session')
                         .ui.big.basic.compact.fluid.button.toggle_adding_guest 
                             //- i.plus.large.icon
                             +i name='add-user-group-man-man--v2' classes='ui inline image'                
-                            |guest
+                            .ui.inline.big.header guest
                     with user
                         +user_check_steps
             .row
