@@ -389,8 +389,8 @@ input.username_search{
 }
 
 .ui.header{
-    /* font-family: 'Lusitana', sans-serif !important; */
-    font-family: 'Ubuntu', sans-serif !important;
+    font-family: 'Lusitana', sans-serif !important;
+    /* font-family: 'Ubuntu', sans-serif !important; */
 }
 h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */

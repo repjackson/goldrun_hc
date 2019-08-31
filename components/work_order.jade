@@ -1,30 +1,88 @@
 template(name='work_orders')
-    .ui.stackable.padded.grid
+    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")    
+    .ui.padded.stackable.grid
         .row
-            .six.wide.column
-                .ui.inline.header 
-                    +i name='work' classes='ui avatar image'
-                    |work_orders
-                .ui.big.icon.button.add_work_order(title='add work_order')
-                    i.plus.icon
-                +cloud filter='work_order'
-            .ten.wide.column.scrolling
-                each work_orders
-                    +work_order
-                    
-                    
-template(name='work_order')
-    .ui.fluid.segment
-        .ui.header #{title}
-        +image_view key='image' direct=true
-        |!{description}
-        each tags
-            .ui.basic.label #{this}
-        +edit_button
-        +view_button
+            .twelve.wide.column
+                .ui.inline.header
+                    +i name='dashboard'
+                    |owner portal
+                .ui.inline.grey.header
+                    |your unit
+                    |##{currentUser.unit_number}
+                    |at ##{currentUser.building_number}
+                .ui.header response time
+                .ui.header total requests
+                .ui.header total diverted
+                .ui.header total complete
+                .ui.header total incomplete
+            .four.wide.column
+                .ui.button.add_work_order
+                    i.large.plus.icon
+                    |work order
+        .three.column.row
+            .column
+                +my_unit_work_orders
+            .column
+                +my_building_work_orders
+            .column
+                +all_work_orders
+        .three.column.row
+            .column
+                .ui.header
+                    +i name='google-alerts'
+                    |notifications
+                .ui.list
+                    each notifications
+                        .item #{text}
+            .column
+                .ui.header
+                    +i name='rss'
+                    |activity
+                .ui.list
+                    each event_logs
+                        .item #{text}
+            .column
+                +posts_small
+        .three.column.row
+            .column
+                +model_scroller model='for_rent' header='for rent' icon='business'
+        .three.column.row
+            .sixteen.wide.column
+                +view_chats
 
 
+template(name='my_unit_work_orders')
+    .ui.header 
+        +i name='work'
+        |my unit work orders
+    .ui.animated.list
+        each my_unit_work_orders
+            +work_order_item
+        
+        
+template(name='all_work_orders')
+    .ui.header 
+        +i name='work'
+        |work orders
+    .ui.animated.list
+        each all_work_orders
+            +work_order_item
+        
+        
+template(name='my_building_work_orders')
+    .ui.header 
+        +i name='work'
+        |building #{my_building.code} work orders
+    .ui.animated.list
+        each my_building_work_orders
+            +work_order_item
 
+template(name='work_order_item')
+    a.item(href="/work_order/#{_id}/view")
+        .ui.small.header #{title}
+        .content
+            |#{when} by #{_author_username} #{building_number} #{unit_number}
+    
 
 
 
@@ -62,12 +120,16 @@ template(name='work_order_view')
             .row
                 .four.wide.column 
                     a.ui.fluid.button(href="/work_orders")
+                        i.left.chevron.icon
                         +i name='work' classes='ui avatar image'
                         |work orders
                     .ui.header view work order
                     a.ui.big.icon.button(href="/work_order/#{_id}/edit")
-                        i.pencil.icon
+                        i.pencil.large.icon
                     +voting_full
+                    .ui.header submitted #{_timestamp_long}
+                    each _timestamp_tags
+                        .ui.basic.label #{this}
                     +viewing
                 .eight.wide.column 
                     +text_view key='title' label='title' direct=true
@@ -87,9 +149,10 @@ template(name='work_order_view')
                         |stats
                     .ui.small.header #{views} views
                     .ui.small.header #{points} points
-                    .ui.header status
                     .ui.small.header status: #{status}
-                    .ui.header activity
+                    .ui.header 
+                        +i name='rss'
+                        |activity
                     .ui.list
                         each log_items
                             .item #{text}

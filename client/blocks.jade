@@ -247,7 +247,9 @@ template(name='voting')
 
 
 template(name='voting_full')
-    .ui.header voting
+    .ui.header 
+        +i name='elections'
+        |voting
     if points
         strong #{points}
     .ui.basic.basic.button.upvote(class=upvote_class title='upvote')
@@ -257,11 +259,15 @@ template(name='voting_full')
         i.thumbs.down.icon
         |dislike
     if upvoter_ids
-        .ui.small.header upvoters
+        .ui.small.header 
+            i.chevron.up.icon
+            |upvoters
         each upvoter_ids
             +user_info
     if downvoter_ids
-        .ui.small.header downvoters
+        .ui.small.header 
+            i.chevron.up.icon
+            |downvoters
         each downvoter_ids
             +user_info
 

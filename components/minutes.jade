@@ -1,0 +1,108 @@
+template(name='minutes')
+    .ui.stackable.padded.grid
+        .row
+            .six.wide.column
+                .ui.inline.header 
+                    +i name='checklist' classes='ui avatar image'
+                    |minutes
+                .ui.big.icon.button.add_minute(title='add minute')
+                    i.plus.icon
+                +cloud filter='minute'
+            .ten.wide.column.scrolling
+                each minutes
+                    +minute
+                    
+                    
+template(name='minute')
+    .ui.fluid.segment
+        .ui.header #{title}
+        +image_view key='image' direct=true
+        |!{description}
+        each tags
+            .ui.basic.label #{this}
+        +edit_button
+        +view_button
+
+
+
+
+
+
+template(name='minute_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header 
+                        i.pencil.icon
+                        |edit minute
+                    a.ui.big.icon.fluid.button(href="/minute/#{_id}/view" title='save')
+                        i.green.checkmark.icon
+                    +remove_button
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                .twelve.wide.column 
+                    +date_edit key='meeting_date' label='meeting date' icon='calendar' direct=true
+                    .ui.small.header board members present
+                    .ui.list
+                        each board_members
+                            //- a.item(href="/user/#{username}" target='_window') #{title} - #{first_name} #{last_name} 
+                            a.item(href="/m/board_member/#{_id}/edit" target='_window') #{title} - #{first_name} #{last_name} 
+                                .ui.button mark present
+                                .ui.button mark absent
+                    .ui.header call to order
+                    .ui.button call to order
+                    .ui.header owner/guest
+                    +text_edit key='owner_guest_notes' label='owner/guest notes' direct=true
+                    .ui.header approval of minutes
+                    +text_edit key='approval_of_minutes_notes' label='approval of minutes notes' direct=true
+                    .ui.header ratification/ email approvals
+                    +text_edit key='ratification_email_approvals' label='ratification/ email approval notes' direct=true
+                    .ui.header financial review
+                    +text_edit key='financial_review_notes' label='financial review notes' direct=true
+                    .ui.header need for direction
+                    +text_edit key='need_for_direction_notes' label='need for direction notes' icon='sorting-arrows-horizontal' direct=true
+                    .ui.header old business
+                    +text_edit key='old_business_notes' label='old business notes' direct=true
+                    .ui.header new business
+                    +text_edit key='new_business_notes' label='new business notes' direct=true
+                    .ui.header adjournment
+                    +text_edit key='adjournment_notes' label='adjournment notes' direct=true
+                     
+                     
+template(name='minute_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    a.ui.fluid.button(href="/minutes")
+                        i.left.chevron.icon
+                        +i name='list' classes='ui avatar image'
+                        |minutes
+                    .ui.header view minute
+                    a.ui.big.icon.button(href="/minute/#{_id}/edit")
+                        i.pencil.icon
+                    +voting_full
+                    +comments
+                    //- +viewing
+                .twelve.wide.column 
+                    .ui.center.aligned.header Minutes of the Board of Director’s Meeting
+                    .ui.center.aligned.header {{short_date meeting_date}}
+                    .ui.header Board Members Present
+                    .ui.header call to order
+                    .ui.button call to order
+                    .ui.header owner/guest
+                    +text_view key='owner_guest_notes' label='owner/guest notes' icon='rent' direct=true
+                    .ui.header approval of minutes
+                    +text_view key='approval_of_minutes_notes' label='approval of minutes notes' icon='list' direct=true
+                    .ui.header ratification/ email approvals
+                    +text_view key='ratification_email_approvals' label='ratification/ email approval notes' icon='message' direct=true
+                    .ui.header financial review
+                    +text_view key='financial_review_notes' label='financial review notes' icon='finance' direct=true
+                    .ui.header need for direction
+                    +text_view key='need_for_direction_notes' label='need for direction notes' icon='sorting-arrows-horizontal' direct=true
+                    .ui.header old business
+                    +text_view key='old_business_notes' label='old business notes' icon='signature' direct=true
+                    .ui.header new business
+                    +text_view key='new_business_notes' label='new business notes' icon='signature' direct=true
+                    .ui.header adjournment
+                    +text_view key='adjournment_notes' label='adjournment notes' icon='list' direct=true

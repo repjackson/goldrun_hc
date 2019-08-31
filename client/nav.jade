@@ -39,6 +39,12 @@ template(name='nav')
                     a.icon.item(href='/owners' class="{{isActivePath '/owners'}}")
                         +i name='rent' classes='ui avatar image zoom'
                         .mobile.hidden.zoom &nbsp; owners
+                    a.icon.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
+                        +i name='work' classes='ui avatar image zoom'
+                        .mobile.hidden.zoom &nbsp; work orders
+                    a.icon.item(href='/minutes' class="{{isActivePath '/minutes'}}")
+                        +i name='checklist' classes='ui avatar image zoom'
+                        .mobile.hidden.zoom &nbsp; minutes
                 if is_staff
                     a.icon.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
                         +i name='home' classes='ui avatar image zoom'

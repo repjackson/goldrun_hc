@@ -168,7 +168,9 @@ template(name='pdf_view')
         //-     |#{key}
         //- else
         //-     |#{this}
-        a.ui.animated.button(href="{{c.url field_value gravity='face' crop='fit'}}")
+        //- img.ui.large.centered.rounded.image(src="{{c.url field_value 'pdf.jpg' height=500 crop='fill'}}")
+        
+        a.ui.animated.button(href="{{c.url field_value }}")
             .visible.content
                 i.download.icon
                 |#{label}
@@ -392,7 +394,7 @@ template(name='text_view')
                     |#{key}
                 else
                     |#{this}
-        .ui.inline.header #{field_value}
+        .large120 #{field_value}
 
 
 

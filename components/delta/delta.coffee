@@ -9,7 +9,8 @@ if Meteor.isClient
         view_mode_template: ->
             # console.log @
             delta = Docs.findOne model:'delta'
-            "delta_#{delta.view_mode}"
+            if delta
+                "delta_#{delta.view_mode}"
 
         sorted_facets: ->
             current_delta =
