@@ -1,4 +1,6 @@
 if Meteor.isClient
+    Router.route '/resident_portal', -> @render 'resident_portal'
+
     Template.published_resident_small.onCreated ->
         @autorun -> Meteor.subscribe 'published_residents'
     Template.published_resident_small.helpers

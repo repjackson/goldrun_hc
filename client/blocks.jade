@@ -216,7 +216,7 @@ template(name='author_info')
         a.ui.compact.basic.button(href="/user/#{username}")
             if image_id
                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-             by #{first_name} #{last_name}
+            |by #{first_name} #{last_name}
 
 template(name='creation_info')
     .ui.small.inline.header #{when}
@@ -226,7 +226,7 @@ template(name='user_list_toggle')
     if currentUser
         .ui.icon.compact.small.button.toggle(class=user_list_toggle_class title=label)
             //- i.icon(class=icon)
-            +i name=icon classes='ui inline mini image'
+            +ismall name=icon
             //- |#{label}
         //- each list_users
         //-     +user_info

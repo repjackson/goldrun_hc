@@ -1,0 +1,79 @@
+template(name='owner_portal')
+    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")    
+    .ui.padded.stackable.grid
+        .row
+            .twelve.wide.column
+                .ui.inline.header
+                    +i name='dashboard'
+                    |owner portal
+                .ui.inline.grey.header
+                    |your unit
+                    |##{currentUser.unit_number}
+                    |at ##{currentUser.building_number}
+            .four.wide.column
+                .ui.button.add_work_order
+                    i.large.plus.icon
+                    |work order
+        .three.column.row
+            .column
+                +my_unit_work_orders
+            .column
+                +my_building_work_orders
+            .column
+                +all_work_orders
+        .three.column.row
+            .column
+                .ui.header
+                    +i name='google-alerts'
+                    |notifications
+                .ui.list
+                    each notifications
+                        .item #{text}
+            .column
+                .ui.header
+                    +i name='rss'
+                    |activity
+                .ui.list
+                    each event_logs
+                        .item #{text}
+            .column
+                +posts_small
+        .three.column.row
+            .column
+                +model_scroller model='for_rent' header='for rent' icon='business'
+        .three.column.row
+            .sixteen.wide.column
+                +view_chats
+
+
+template(name='my_unit_work_orders')
+    .ui.header 
+        +i name='work'
+        |my unit work orders
+    .ui.animated.list
+        each my_unit_work_orders
+            .item
+                a.ui.small.header(href="/work_order/#{_id}/view") #{title}
+                |#{when} by #{_author_username}
+        
+        
+template(name='all_work_orders')
+    .ui.header 
+        +i name='work'
+        |work orders
+    .ui.animated.list
+        each all_work_orders
+            .item
+                a.ui.small.header(href="/work_order/#{_id}/view") #{title}
+                |#{when} by #{_author_username}
+        
+        
+template(name='my_building_work_orders')
+    .ui.header 
+        +i name='work'
+        |building #{my_building.code} work orders
+    .ui.animated.list
+        each my_building_work_orders
+            .item
+                a.ui.small.header(href="/work_order/#{_id}/view") #{title}
+                |#{when} by #{_author_username}

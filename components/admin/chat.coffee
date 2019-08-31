@@ -1,4 +1,6 @@
 if Meteor.isClient
+    Router.route '/chat', -> @render 'view_chats'
+
     @selected_theme_tags = new ReactiveArray []
     @selected_participant_ids = new ReactiveArray []
 

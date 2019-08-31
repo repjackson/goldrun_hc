@@ -191,6 +191,16 @@ template(name='user_healthclub')
         div
         svg#barcode
     
+template(name='profile_home')
+    if user_is_owner
+        +owner_profile
+    else if user_is_resident
+        +resident_about    
+    
+    
+template(name='owner_profile')
+    .ui.header owner profile    
+    
     
 template(name='resident_about')
     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")

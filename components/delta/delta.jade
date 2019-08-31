@@ -52,46 +52,87 @@ template(name='delta')
                 .ten.wide.column
                     .ui.inline.small.header
                         |sort by
-                    .ui.compact.menu
+                    .ui.compact.small.menu
                         .ui.simple.dropdown.item
                             |#{current_delta.sort_key}
-                            i.dropdown.item
+                            i.dropdown.icon
                             .menu
                                 each fields
                                     .item.set_sort_key #{title}
-                    .ui.small.inline.header direction
+                    if current_delta.sort_direction
+                        i.sort.amount.down.large.icon
+                    unless current_delta.sort_direction
+                        i.sort.amount.up.large.icon
                     .ui.compact.button.set_sort_direction
                         |#{current_delta.sort_direction}
                     .ui.inline.small.header
                         |limit
-                    .ui.small.input
-                        input(type='number' val=limit_amount)
-                    .ui.inline.small.header
-                        |search
-                    .ui.small.input
-                        input(type='text' val=search_value)
+                    .ui.compact.small.menu
+                        .ui.simple.dropdown.item
+                            |#{current_delta.limit}
+                            i.dropdown.icon
+                            .menu
+                                +set_limit amount=1
+                                +set_limit amount=5
+                                +set_limit amount=10
+                                +set_limit amount=20
+                    //- .ui.inline.small.header
+                    //-     |search
+                    //- .ui.small.input
+                    //-     input(type='text' val=search_value)
                     .ui.inline.small.header view
                     .ui.compact.menu
                         .ui.simple.dropdown.item
-                            |#{current_delta.sort_by_key}
-                            i.dropdown.item
+                            |#{current_delta.view_mode}
+                            i.dropdown.icon
                             .menu
-                                .item table 
-                                .item list
-                                .item icons 
-                                .item cards 
-                                .item items 
+                                +set_view_mode title='table'
+                                +set_view_mode title='list'
+                                +set_view_mode title='cards'
+                                +set_view_mode title='items'
+                                +set_view_mode title='map'
+                                +set_view_mode title='graph'
                     //- .ui.stackable.four.column.grid
-                    .scrolling    
-                        each current_delta.result_ids
-                            //- .column
-                            +delta_result
+                    +Template.dynamic template=view_mode_template
             .row 
                 .sixteen.wide.column
                     .ui.header calculations
                     .ui.button rerun calculations
                 
+                
+template(name='delta_table')
+    .ui.table
+        thead
+            each fields
+                th #{title}
+        tbody
+            each current_delta.result_ids
+                tr
+                    each fields
+                        td
+                            |#{field_value}   
+template(name='delta_list')
+    .scrolling    
+        each current_delta.result_ids
+            //- .column
+            +delta_result
+                        
+template(name='delta_card')
+    .ui.header cards
+    .scrolling    
+        each current_delta.result_ids
+            //- .column
+            +delta_result
+                        
+                        
+                
+                
+                
+template(name='set_limit')
+    .item.set_limit #{amount}
 
+template(name='set_view_mode')
+    .item.set_view_mode #{title}
 
 template(name='facet')
     if filtering_res

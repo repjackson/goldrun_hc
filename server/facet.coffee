@@ -98,10 +98,16 @@ Meteor.methods
         else
             sort_direction = -1
 
+
+        if delta.limit
+            limit = delta.limit
+        else
+            limit = 10
+
         modifier =
             {
                 fields:_id:1
-                limit:20
+                limit:limit
                 sort:"#{sort_by}":sort_direction
             }
 

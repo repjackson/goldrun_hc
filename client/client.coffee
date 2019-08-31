@@ -69,6 +69,8 @@ Template.registerHelper 'is_product', () -> @shop_type is 'product'
 
 Template.registerHelper 'current_month', () -> moment(Date.now()).format("MMMM")
 Template.registerHelper 'current_day', () -> moment(Date.now()).format("DD")
+Template.registerHelper 'current_delta', () -> Docs.findOne model:'delta'
+
 
 
 
@@ -228,6 +230,10 @@ Template.registerHelper 'is_staff', () ->
     if Meteor.user() and Meteor.user().roles
         # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
         if 'staff' in Meteor.user().roles then true else false
+Template.registerHelper 'is_owner', () ->
+    if Meteor.user() and Meteor.user().roles
+        # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
+        if 'owner' in Meteor.user().roles then true else false
 Template.registerHelper 'is_frontdesk', () ->
     if Meteor.user() and Meteor.user().roles
         # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
@@ -267,7 +273,7 @@ Template.registerHelper 'user_is_user', () -> if @roles and 'user' in @roles the
 Template.registerHelper 'user_is_resident_or_owner', () -> if @roles and _.intersection(@roles,['resident','owner']) then true else false
 
 
-Template.registerHelper 'is_eric', () -> if Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId() then true else false
+Template.registerHelper 'is_eric', () -> if Meteor.userId() and Meteor.userId() in ['ytjpFxiwnWaJELZEd','rDqxdcTBTszjeMh9T'] then true else false
 
 Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
 Template.registerHelper 'is_current_user', () ->

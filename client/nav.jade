@@ -5,16 +5,16 @@ template(name='nav')
                 .icon.item
                     i.big.spinning.yin.yang.icon
             else
+                a.icon.item(href='/grid' class="{{isActivePath '/grid'}}")
+                    +i name='activity-grid-2' classes='ui avatar image zoom'                    
+                a.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
+                    +i name='active-directory' classes='ui avatar image zoom'
                 if is_resident
-                    a.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
-                        +i name='active-directory' classes='ui avatar image zoom'
-                    a.icon.item(href='/grid' class="{{isActivePath '/grid'}}")
-                        +i name='activity-grid-2' classes='ui avatar image zoom'                    
                     a.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}")
                         +i name='home' classes='ui avatar image zoom'
                     each bookmarked_models
-                        a.item.set_model(href="/m/#{slug}/" title=title)
-                            +i name=icon classes='ui avatar image zoom'
+                        a.item.set_model.zoom(href="/m/#{slug}/" title=title)
+                            +i name=icon classes='ui avatar image'
                     
                     //- a.item(href='/blog' class="{{isActivePath '/blog'}}")
                     //-     +i name='blog' classes='ui avatar image zoom'
@@ -32,6 +32,13 @@ template(name='nav')
                     a.icon.item(href='/manager' class="{{isActivePath '/manager'}}")
                         +i name='user-shield' classes='ui avatar image zoom'
                         .mobile.hidden.zoom &nbsp; manager
+                if is_owner
+                    a.icon.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}")
+                        +i name='dashboard' classes='ui avatar image zoom'
+                        .mobile.hidden.zoom &nbsp; dashboard
+                    a.icon.item(href='/owners' class="{{isActivePath '/owners'}}")
+                        +i name='rent' classes='ui avatar image zoom'
+                        .mobile.hidden.zoom &nbsp; owners
                 if is_staff
                     a.icon.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
                         +i name='home' classes='ui avatar image zoom'
@@ -53,14 +60,17 @@ template(name='nav')
                         +i name='water' classes='ui avatar image zoom'
                         .mobile.hidden.zoom &nbsp; water
                 if is_admin
-                    a.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
-                        +i name='active-directory' classes='ui avatar image zoom'
-                    a.icon.item(href='/grid' class="{{isActivePath '/grid'}}")
-                        +i name='activity-grid-2' classes='ui avatar image zoom'
+                    //- a.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
+                    //-     +i name='active-directory' classes='ui avatar image zoom'
+                    //- a.icon.item(href='/grid' class="{{isActivePath '/grid'}}")
+                    //-     +i name='activity-grid-2' classes='ui avatar image zoom'
                     a.icon.item(href='/users' class="{{isActivePath '/users'}}")
                         +i name='groups' classes='ui avatar image zoom'
                         .mobile.hidden.zoom &nbsp; users
             .right.menu
+                if is_dev
+                    a.icon.item(href='/dev' class="{{isActivePath '/dev'}}" title='dev')
+                        +i name='code' classes='ui avatar image zoom'
                 if is_admin
                     a.icon.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}" title='tasks')
                         +i name='tasks' classes='ui avatar image zoom'
@@ -93,8 +103,8 @@ template(name='nav')
                             |login
         .ui.attached.borderless.menu.topnav
             each role_models
-                a.item.set_model(href="/m/#{slug}/")
-                    +i name=icon classes='ui avatar image zoom'
+                a.item.set_model.zoom(href="/m/#{slug}/")
+                    +i name=icon classes='ui avatar image'
                     |#{title}
 
 

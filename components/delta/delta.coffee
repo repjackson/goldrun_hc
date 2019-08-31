@@ -6,17 +6,15 @@ if Meteor.isClient
 
     Template.delta.helpers
         selected_tags: -> selected_tags.list()
-
-        current_delta: ->
-            Docs.findOne
-                model:'delta'
-                _author_id:Meteor.userId()
+        view_mode_template: ->
+            # console.log @
+            delta = Docs.findOne model:'delta'
+            "delta_#{delta.view_mode}"
 
         sorted_facets: ->
             current_delta =
                 Docs.findOne
                     model:'delta'
-                    _author_id:Meteor.userId()
             if current_delta
                 # console.log _.sortBy current_delta.facets,'rank'
                 _.sortBy current_delta.facets,'rank'
@@ -53,9 +51,6 @@ if Meteor.isClient
             Session.set 'loading', true
             Meteor.call 'fum', delta._id, ->
                 Session.set 'loading', false
-
-
-
 
 
 
@@ -160,6 +155,30 @@ if Meteor.isClient
             #     when 8
             #         if e.target.value is ''
             #             selected_tags.pop()
+
+    Template.set_limit.events
+        'click .set_limit': ->
+            console.log @
+            delta = Docs.findOne model:'delta'
+            Docs.update delta._id,
+                $set:limit:@amount
+            Session.set 'loading', true
+            Meteor.call 'fum', delta._id, ->
+                Session.set 'loading', false
+
+
+
+    Template.set_view_mode.events
+        'click .set_view_mode': ->
+            console.log @
+            delta = Docs.findOne model:'delta'
+            Docs.update delta._id,
+                $set:view_mode:@title
+            Session.set 'loading', true
+            Meteor.call 'fum', delta._id, ->
+                Session.set 'loading', false
+
+
 
 
 
