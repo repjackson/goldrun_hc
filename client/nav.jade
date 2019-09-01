@@ -5,124 +5,142 @@ template(name='nav')
                 .icon.item
                     i.big.spinning.yin.yang.icon
             else
-                a.ui.compact.item(href='/grid' class="{{isActivePath '/grid'}}")
-                    +i name='activity-grid-2' classes='ui avatar inline image'                    
-                a.ui.compact.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
-                    +i name='active-directory' classes='ui avatar inline image'
+                a.ui.item(href='/grid' class="{{isActivePath '/grid'}}")
+                    //- +i name='activity-grid-2' classes='ui avatar inline image'    
+                    i.th.large.icon                
+                a.ui.icon.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
+                    //- +i name='active-directory' classes='ui avatar inline image'
+                    i.large.fork.icon
                 if is_resident
-                    a.ui.compact.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}")
-                        +i name='home' classes='ui avatar inline image'
+                    a.ui.icon.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}")
+                        //- +i name='home' classes='ui avatar inline image'
+                        i.large.home.icon
                     each bookmarked_models
-                        a.ui.compact.item.set_model(href="/m/#{slug}/" title=title)
+                        a.ui.item.set_model(href="/m/#{slug}/" title=title)
                             +i name=icon classes='ui avatar inline image'
                     
-                    //- a.ui.compact.item(href='/blog' class="{{isActivePath '/blog'}}")
+                    //- a.ui.item(href='/blog' class="{{isActivePath '/blog'}}")
                     //-     +i name='blog' classes='ui avatar inline image'
-                    //- a.ui.compact.item(href='/events' class="{{isActivePath '/events'}}")
+                    //- a.ui.item(href='/events' class="{{isActivePath '/events'}}")
                     //-     +i name='calendar' classes='ui avatar inline image'
-                    //- a.ui.compact.item(href='/shop' class="{{isActivePath '/shop'}}")
+                    //- a.ui.item(href='/shop' class="{{isActivePath '/shop'}}")
                     //-     +i name='shop' classes='ui avatar inline image'
-                    //- a.ui.compact.item(href='/gallery' class="{{isActivePath '/gallery'}}")
+                    //- a.ui.item(href='/gallery' class="{{isActivePath '/gallery'}}")
                     //-     +i name='gallery' classes='ui avatar inline image'
-                    a.ui.compact.item(href='/profiles' class="{{isActivePath '/profiles'}}")
-                        +i name='groups' classes='ui avatar inline image'
-                    a.ui.compact.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                        +i name='dashboard' classes='ui avatar inline image'
+                    a.ui.item(href='/profiles' class="{{isActivePath '/profiles'}}")
+                        //- +i name='groups' classes='ui avatar inline image'
+                        i.large.users.icon
+                    a.ui.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
+                        //- +i name='dashboard' classes='ui avatar inline image'
+                        i.large.dashboard.icon
                 if is_manager
-                    a.ui.compact.item(href='/manager' class="{{isActivePath '/manager'}}")
-                        +i name='user-shield' classes='ui avatar inline image'
+                    a.ui.item(href='/manager' class="{{isActivePath '/manager'}}")
+                        //- +i name='user-shield' classes='ui avatar inline image'
+                        i.large.user.shield.icon
                         .mobile.hidden.inline &nbsp; manager
-                    a.ui.compact.item(href='/projects' class="{{isActivePath '/projects'}}")
-                        +i name='project' classes='ui avatar inline image'
+                    a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
+                        //- +i name='project' classes='ui avatar inline image'
+                        i.chart.line.large.icon
                         .mobile.hidden.inline &nbsp; projects
                 if is_owner
-                    a.ui.compact.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}")
-                        +i name='dashboard' classes='ui avatar inline image'
-                        .mobile.hidden.inline &nbsp; dashboard
-                    a.ui.compact.item(href='/owners' class="{{isActivePath '/owners'}}")
-                        +i name='rent' classes='ui avatar inline image'
+                    a.ui.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}")
+                        //- +i name='dashboard' classes='ui avatar inline image'
+                        i.large.dashboard.icon
+                        .mobile.hidden.inline &nbsp; owner dashboard
+                    a.ui.item(href='/owners' class="{{isActivePath '/owners'}}")
+                        //- +i name='rent' classes='ui avatar inline image'
+                        i.money.icon
                         .mobile.hidden.inline &nbsp; owners
-                    a.ui.compact.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
-                        +i name='work' classes='ui avatar inline image'
+                    a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
+                        //- +i name='work' classes='ui avatar inline image'
+                        i.large.wrench.icon
                         .mobile.hidden.inline &nbsp; work orders
-                    a.ui.compact.item(href='/minutes' class="{{isActivePath '/minutes'}}")
-                        +i name='checklist' classes='ui avatar inline image'
+                    a.ui.item(href='/minutes' class="{{isActivePath '/minutes'}}")
+                        //- +i name='checklist' classes='ui avatar inline image'
+                        i.large.list.icon
                         .mobile.hidden.inline &nbsp; minutes
-                    a.ui.compact.item(href='/projects' class="{{isActivePath '/projects'}}")
-                        +i name='project' classes='ui avatar inline image'
+                    a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
+                        //- +i name='project' classes='ui avatar inline image'
+                        i.chart.line.large.icon
                         .mobile.hidden.inline &nbsp; projects
             
                 if is_staff
-                    a.ui.compact.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
-                        +i name='home' classes='ui avatar inline image'
-                    //- a.ui.compact.item(href='/stats' class="{{isActivePath '/stats'}}")
+                    a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
+                        //- +i name='home' classes='ui avatar inline image'
+                        i.large.home.icon
+                    //- a.ui.item(href='/stats' class="{{isActivePath '/stats'}}")
                     //-     +i name='line chart' classes='ui avatar inline image'
-                    a.ui.compact.item(href='/staff' class="{{isActivePath '/staff'}}")
-                        +i name='manager' classes='ui avatar inline image'
+                    a.ui.item(href='/staff' class="{{isActivePath '/staff'}}")
+                        //- +i name='manager' classes='ui avatar inline image'
+                        i.large.user.shield.large.icon
                         .mobile.hidden.inline &nbsp; staff
-                    a.ui.compact.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                        +i name='building' classes='ui avatar inline image'
+                    a.ui.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+                        //- +i name='building' classes='ui avatar inline image'
+                        i.large.building.icon
                         .mobile.hidden.inline &nbsp; buildings
-                    a.ui.compact.item(href='/residents' class="{{isActivePath '/residents'}}")
-                        +i name='groups' classes='ui avatar inline image'
+                    a.ui.item(href='/residents' class="{{isActivePath '/residents'}}")
+                        //- +i name='groups' classes='ui avatar inline image'
+                        i.large.users.icon
                         .mobile.hidden.inline &nbsp; residents
-                    a.ui.compact.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
+                    a.ui.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
                         +i name='kindle' classes='ui avatar inline image'
                         .mobile.hidden.inline &nbsp; kiosk
-                    a.ui.compact.item(href='/readings' class="{{isActivePath '/readings'}}")
+                    a.ui.item(href='/readings' class="{{isActivePath '/readings'}}")
                         +i name='water' classes='ui avatar inline image'
                         .mobile.hidden.inline &nbsp; water
                 if is_admin
-                    //- a.ui.compact.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
+                    //- a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
                     //-     +i name='active-directory' classes='ui avatar inline image'
-                    //- a.ui.compact.item(href='/grid' class="{{isActivePath '/grid'}}")
+                    //- a.ui.item(href='/grid' class="{{isActivePath '/grid'}}")
                     //-     +i name='activity-grid-2' classes='ui avatar inline image'
-                    a.ui.compact.item(href='/users' class="{{isActivePath '/users'}}")
-                        +i name='groups' classes='ui avatar inline image'
+                    a.ui.item(href='/users' class="{{isActivePath '/users'}}")
+                        //- +i name='groups' classes='ui avatar inline image'
+                        i.users.large.icon
                         .mobile.hidden.inline &nbsp; users
             .right.menu
                 if is_dev
-                    a.ui.compact.item(href='/dev' class="{{isActivePath '/dev'}}" title='dev')
+                    a.ui.item(href='/dev' class="{{isActivePath '/dev'}}" title='dev')
                         //- +i name='code' classes='ui avatar inline image'
                         i.code.large.icon
                 if is_admin
-                    a.ui.compact.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}" title='tasks')
+                    a.ui.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}" title='tasks')
                         //- +i name='tasks' classes='ui avatar inline image'
                         i.tasks.large.icon
-                    //- a.ui.compact.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
+                    //- a.ui.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
                     //-     i.tasks.large.icon
-                    a.ui.compact.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
+                    a.ui.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
                         //- +i name='inbox' classes='ui avatar inline image'
                         i.inbox.large.icon
-                    a.ui.compact.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
-                        +i name='chat' classes='ui avatar inline image'
-                        i.chat.large.icon
+                    a.ui.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
+                        //- +i name='chat' classes='ui avatar inline image'
+                        i.chat.large.outline.icon
                 if currentUser
                     unless logging_out
                         //- if is_dev
                         unless is_frontdesk
-                            a.ui.compact.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
+                            a.ui.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
                                 if currentUser.image_id
                                     img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 else
                                     +i name='user'
                                 | #{currentUser.username}
                     if logging_out
-                        .ui.compact.item
+                        .ui.item
                             i.large.loading.circle.notch.icon
                     //- else
-                    //-     a#logout.ui.mobile.hidden.inline.icon.ui.compact.item(href='#' title='Log Out')
+                    //-     a#logout.ui.mobile.hidden.inline.icon.ui.item(href='#' title='Log Out')
                     //-         i.sign.out.large.icon
                 else
                     unless is_resident
-                        a.ui.compact.item(href='/login' title='login') 
+                        a.ui.item(href='/login' title='login') 
                             +i name='internal'
                             |login
                             //- .secnav
         .ui.attached.borderless.small.menu.topnav
             each role_models
                 a.item.secnav.set_model(href="/m/#{slug}/" title="#{views} views")
-                    +i name=icon classes='ui avatar inline image'
+                    //- +i name=icon classes='ui avatar inline image'
+                    i.large.icon(class=icon)
                     |#{title}
 
 

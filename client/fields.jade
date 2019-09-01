@@ -421,7 +421,7 @@ template(name='parent_edit')
         
 template(name='parent_view')
     if field_value
-        .ui.header Parent    
+        .ui.header parent    
             div
             // if icon
             //     i.icon(class=icon)
@@ -434,9 +434,13 @@ template(name='parent_view')
                 |#{key}
             else
                 |#{this}
-        .ui.inline.header #{field_value}
+        .ui.segment
+            //- .ui.inline.header #{field_value}
+            +doc_card doc_id=field_value
 
 
+template(name='doc_card')
+    a.ui.header(href="/m/#{doc.model}/#{doc._id}/view") doc #{doc.model}
 
 
 template(name='phone_edit')
@@ -690,7 +694,7 @@ template(name='children_edit')
 
 template(name='child_edit')
     .title
-        .ui.header #{title} #{key} #{slug}
+        .ui.header child doc: #{title} #{key} #{parent.slug}
     .content
         each child_fields
             +Template.dynamic template=edit_template 
@@ -1056,17 +1060,17 @@ template(name='multi_user_edit')
     .ui.input
         input#multi_user_select_input(type='text' placeholder="lookup #{role_filter}...")
     each selections
-        .ui.large.label
-            |#{username} #{first_name} #{last_name}
+        a.ui.large.label(href="/user/#{username}")
+            |#{first_name} #{last_name} @#{username}
     if user_results
         .ui.top.attached.segment
             .ui.middle.aligned.selection.animated.list
                 each user_results
                     .select_user.item
-                        h5.ui.header
+                        a.ui.header(href="/user/#{username}")
                             img.ui.avatar.image(src="{{c.url kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
                             strong #{first_name} #{last_name}
-                         #{username}
+                            |@#{username}
     +clear_value                
     .ui.list
         each field_value

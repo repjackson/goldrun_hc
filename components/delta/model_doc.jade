@@ -32,8 +32,8 @@ template(name='model_doc_view')
                         +i name=current_model.icon classes='ui avatar image'
                         |#{current_model.title}
                     if can_edit
-                        a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
-                            i.blue.pencil.large.icon
+                        a.ui.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
+                            i.pencil.large.icon
                     if is_admin
                         .ui.header 
                             +i name='clock'

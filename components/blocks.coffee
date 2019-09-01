@@ -3,10 +3,8 @@ if Meteor.isClient
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1000
-
     Template.comments.onCreated ->
         @autorun => Meteor.subscribe 'children', 'comment', Router.current().params.doc_id
-
     Template.comments.helpers
         doc_comments: ->
             Docs.find
@@ -15,12 +13,13 @@ if Meteor.isClient
     Template.comments.events
         'keyup .add_comment': (e,t)->
             if e.which is 13
-                # parent = Docs.findOne Router.current().params.doc_id
+                parent = Docs.findOne Router.current().params.doc_id
                 comment = t.$('.add_comment').val()
                 # console.log comment
                 Docs.insert
                     parent_id: Router.current().params.doc_id
                     model:'comment'
+                    parent_model:parent.model
                     body:comment
                 t.$('.add_comment').val('')
 
@@ -34,13 +33,10 @@ if Meteor.isClient
                 _id: $in: @follower_ids
 
         following: -> @follower_ids and Meteor.userId() in @follower_ids
-
-
     Template.follow.events
         'click .follow': ->
             Docs.update @_id,
                 $addToSet:follower_ids:Meteor.userId()
-
         'click .unfollow': ->
             Docs.update @_id,
                 $pull:follower_ids:Meteor.userId()
@@ -48,7 +44,6 @@ if Meteor.isClient
     Template.voting.helpers
         upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else 'outline'
         downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else 'outline'
-
     Template.voting.events
         'click .upvote': ->
             if @downvoter_ids and Meteor.userId() in @downvoter_ids
@@ -83,6 +78,16 @@ if Meteor.isClient
                     $inc:points:-1
             # Meteor.users.update @_author_id,
             #     $inc:karma:-1
+
+
+    Template.doc_card.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Template.currentData().doc_id
+    Template.doc_card.helpers
+        doc: ->
+            Docs.findOne
+                _id:Template.currentData().doc_id
+
+
 
 
 

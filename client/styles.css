@@ -390,7 +390,7 @@ input.username_search{
 
 .inline {
   display:inline !important;
-  /* padding: 10px !important; */
+  padding-right: 5px !important;
   /* margin: .5em !important;2 */
 }
 
