@@ -147,6 +147,12 @@ Meteor.methods
             guest_name: {$regex:"#{guest_name}", $options: 'i'}
             }).fetch()
 
+    lookup_project: (project_title)->
+        Docs.find({
+            model:'project'
+            title: {$regex:"#{project_title}", $options: 'i'}
+            }).fetch()
+
     # lookup_username: (username_query)->
     #     found_users =
     #         Docs.find({

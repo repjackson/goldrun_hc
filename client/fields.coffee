@@ -1110,6 +1110,58 @@ Template.multi_doc_input.events
 
 
 
+Template.project_lookup.onCreated ->
+    # @autorun => Meteor.subscribe 'model_docs', 'guest'
+    @doc_results = new ReactiveVar
+Template.project_lookup.helpers
+    doc_results: -> Template.instance().doc_results.get()
+Template.project_lookup.events
+    'click .clear_results': (e,t)->
+        t.doc_results.set null
+    'keyup .project_title_lookup': (e,t)->
+        search_value = $(e.currentTarget).closest('.project_title_lookup').val().trim()
+        if search_value.length is 0
+            t.doc_results.set null
+        else if search_value
+            Meteor.call 'lookup_project', search_value, (err,res)=>
+                if err then console.error err
+                else
+                    console.log res
+                    t.doc_results.set res
+    'click .select_doc': (e,t) ->
+        # session_document = Docs.findOne Session.get('session_document')
+        # if @direct
+        #     parent = Template.parentData(1)
+        # else
+        #     parent = Template.parentData(5)
+        minute = Docs.findOne _id: Router.current().params.doc_id
+        project = @
+        project_update = Template.parentData()
+        # Docs.update minute._id,
+        #     $addToSet:new_business_ids:@_id
+        Docs.update project_update._id,
+            $set:
+                parent_id: project._id
+                project_id: project._id
+        # t.doc_results.set null
+        # $('.project_title_lookup').val ''
+
+    'click .pull_user': ->
+        if confirm "Remove #{@username}?"
+            page_doc = Docs.findOne Router.current().params.id
+            parent = Template.parentData(5)
+            doc = Docs.findOne parent._id
+            user = Meteor.users.findOne parent._id
+            if doc
+                Docs.update parent._id,
+                    $pull:"#{@key}":@_id
+            else if user
+                Meteor.users.update parent._id,
+                    $pull:"#{@key}":@_id
+            # Meteor.call 'unassign_user', page_doc._id, @
+
+
+
 
 
     Template.signature_view.events

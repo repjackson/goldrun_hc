@@ -76,6 +76,11 @@ Template.registerHelper 'current_day', () -> moment(Date.now()).format("DD")
 Template.registerHelper 'current_delta', () -> Docs.findOne model:'delta'
 
 
+Template.registerHelper 'project', () ->
+    Docs.findOne
+        _id:@project_id
+        model:'project'
+
 
 
 

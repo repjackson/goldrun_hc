@@ -10,14 +10,41 @@ if Meteor.isClient
 
     Template.minute_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'model_docs', 'projec  t'
     Template.minute_edit.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'project'
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'users_by_role', 'board_member'
+        @autorun => Meteor.subscribe 'minute_updates', Router.current().params.doc_id
 
     Template.minute_edit.helpers
         board_members: ->
             Meteor.users.find
                 roles:$in:['board_member']
+        old_business_updates: ->
+            Docs.find
+                model:'project_update'
+                minute_id: Router.current().params.doc_id
+                business_type:'old'
+
+        new_business_updates: ->
+            Docs.find
+                model:'project_update'
+                minute_id: Router.current().params.doc_id
+                business_type:'new'
+
+    Template.minute_edit.events
+        'click .add_old_business_update': ->
+            Docs.insert
+                model:'project_update'
+                minute_id: Router.current().params.doc_id
+                business_type:'old'
+        'click .add_new_business_update': ->
+            Docs.insert
+                model:'project_update'
+                minute_id: Router.current().params.doc_id
+                business_type:'new'
+
     Template.minutes.helpers
         minutes: ->
             Docs.find
@@ -27,3 +54,12 @@ if Meteor.isClient
             new_id = Docs.insert
                 model:'minute'
             Router.go "/minute/#{new_id}/edit"
+
+
+
+
+if Meteor.isServer
+    Meteor.publish 'minute_updates', (minute_id)->
+        Docs.find
+            model:'project_update'
+            minute_id: minute_id

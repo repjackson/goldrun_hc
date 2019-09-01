@@ -58,9 +58,31 @@ template(name='minute_edit')
                     +textarea_edit key='financial_review_notes' label='financial review notes' direct=true
                     .ui.header need for direction
                     +textarea_edit key='need_for_direction_notes' label='need for direction notes' icon='sorting-arrows-horizontal' direct=true
-                    .ui.header old business
+                    div
+                    .ui.inline.header old business
+                    .ui.button.add_old_business_update
+                        i.plus.icon
+                    each old_business_updates
+                        .ui.segment
+                            .ui.header parent_id #{parent_id}
+                            .ui.header #{project_title} #{text}
+                            .ui.header project_id #{project_id}
+                            +project_lookup key='project_id' label='project' ref_model='project' direct=true
+                            +text_edit key='project_title' direct=true
+                            +text_edit key='text' direct=true
                     +textarea_edit key='old_business_notes' label='old business notes' direct=true
-                    .ui.header new business
+                    div
+                    .ui.inline.header new business
+                    .ui.button.add_new_business_update
+                        i.plus.icon
+                    each new_business_updates
+                        .ui.segment
+                            .ui.header parent_id #{parent_id}
+                            .ui.header project_id #{project_id}
+                            .ui.header project title #{project.title} #{text}
+                            +project_lookup key='project_id' label='project' ref_model='project' direct=true
+                            +text_edit key='project_title' direct=true
+                            +text_edit key='text' direct=true
                     +textarea_edit key='new_business_notes' label='new business notes' direct=true
                     .ui.header adjournment
                     +textarea_edit key='adjournment_notes' label='adjournment notes' direct=true
