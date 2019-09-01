@@ -357,10 +357,11 @@ if Meteor.isServer
             roles:$in:['guest']
 
 
-    Meteor.publish 'children', (model, parent_id)->
+    Meteor.publish 'children', (model, parent_id, limit)->
         # console.log model
         # console.log parent_id
+        limit = if limit then limit else 10
         Docs.find {
             model:model
             parent_id:parent_id
-        }, limit:10
+        }, limit:limit

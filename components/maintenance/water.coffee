@@ -14,6 +14,8 @@ if Meteor.isClient
         ), 500
 
     Template.readings.onCreated ->
+        @autorun -> Meteor.subscribe('users_by_role','staff')
+
         @autorun -> Meteor.subscribe('lower_hot_tub_readings')
         @autorun -> Meteor.subscribe('upper_hot_tub_readings')
         @autorun -> Meteor.subscribe('pool_readings')

@@ -1,5 +1,5 @@
 body {
-    font-family: 'Ubuntu', sans-serif !important;
+    font-family: 'Raleway', sans-serif !important;
     /* font-size: 110% !important; */
     /*line-height: 200% !important;*/
     /*background: #3d3d3d !important;*/
@@ -74,8 +74,8 @@ body {
     /* box-shadow: 0 2px 2px 2px rgba(50, 50, 100, 0.1) !important; */
 }
 .zoom:hover {
-    /* filter: drop-shadow(0px 0px 5px rgba(250,250,250,.5)) !important; */
-    transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    filter: drop-shadow(2px 2px 5px rgba(100,100,100,.7)) !important;
+    transform: scale(1.05) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .checking_in_area {
@@ -88,8 +88,8 @@ body {
 .accordion {
     border-radius: 10px !important;
     /* opacity: .8 !important; */
+    background-color: rgba(255,255,255, 0.3) !important;
     padding:5px !important;
-    background-color: rgba(250,250,250,.8) !important;
 }
 
 /* .menu .item {
@@ -129,11 +129,11 @@ body {
 }
 
 
-.button:active {
+/* .button:active {
     color: black !important;
     /* background-color: darkgrey !important; */
     box-shadow: inset 5px 5px 10px #333 !important;
-}}
+}} */
 
 .home_segment{
     -webkit-transition: all 0.25s ease;
@@ -190,9 +190,10 @@ body {
 .checkin_banner {
     background-attachment: fixed !important;
     position: absolute !important;
-    max-height: 1000px !important;
+    max-height: 100% !important;
+    /* max-height: 1000px !important; */
     /* top:0px; */
-    opacity: 0.2;
+    opacity: 0.1;
     -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 }
@@ -234,6 +235,7 @@ textarea{
 input.username_search{
     -webkit-border-radius: 25px !important; */
     border-radius: 20px !important;
+    font-size: 150% !important;
     /* margin-bottom: 5px !important;
     margin-top: 5px !important; */
     background: rgba(250, 250, 250, 0.9) !important;
@@ -254,18 +256,20 @@ input.username_search{
 .shadowed{
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2) !important;
 }
-.button, .segment, .label{
+/* .button, .segment, .label{ */
+.segment, .label{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
     opacity:.9 !important;
-    border-radius: 15px !important;
+    font-family: 'Raleway', sans-serif !important;
+    border-radius: 10px !important;
 }
 
 .disabled.button, .disabled.segment, .disabled.label{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
     opacity:.4 !important;
-    border-radius: 15px !important;
+    border-radius: 10px !important;
 }
 
 /* .segment {
@@ -275,14 +279,15 @@ input.username_search{
 .button {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
-    background-color: white !important;
+    background-color: rgba(0,0,0,.01) !important;
+    border-radius: 20px !important;
     /* transform: translate(0, 4px); */
 }
 
 .button.active {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
-    background-color: rgba(71, 55, 0, .8) !important;
+    background-color: rgba(100, 100, 100, .8) !important;
     color: white !important;
     /* transform: translate(0, 4px); */
 }
@@ -304,7 +309,7 @@ input.username_search{
 .button:hover {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     box-shadow: 0 2px 2px 2px rgba(50, 50, 100, 0.1) !important;
-    background-color: rgba(71, 55, 0, .5) !important;
+    background-color: rgba(100, 100, 100, .5) !important;
     /* color: white !important; */
     /* transform: translate(0, 4px); */
 }
@@ -385,11 +390,12 @@ input.username_search{
 
 .inline {
   display:inline !important;
-  margin: .5em !important;2
+  /* padding: 10px !important; */
+  /* margin: .5em !important;2 */
 }
 
 .ui.header{
-    font-family: 'Lusitana', sans-serif !important;
+    font-family: 'Raleway', sans-serif !important;
     /* font-family: 'Ubuntu', sans-serif !important; */
 }
 h1.ui.header{
@@ -400,16 +406,16 @@ h1.ui.header{
 
     /* font-weight: lighter !important; */
 }
-.checkin_button{
+.new_hc_session{
     /* font-family: 'Ubuntu', sans-serif !important; */
-    font-family: 'Abril Fatface', serif !important;
-    font-size: 300% !important;
-    color: #5a4400 !important;
-    font-weight: 200px !important;
+    /* font-family: 'Abril Fatface', serif !important; */
+    font-size: 200% !important;
+    /* color: #5a4400 !important; */
+    /* font-weight: 200px !important; */
 }
-a {
-  font-family: 'Ubuntu', sans-serif !important;
-}
+/* a { */
+  /* font-family: 'Ubuntu', sans-serif !important; */
+/* } */
 /* .card a.header {
   color: #482d1b !important;
 } */
@@ -449,9 +455,24 @@ a {
   }
 }
 
+/* .secnav {
+    border: 1px !important;
+    padding: 5px !important;
+    margin: 2em !important;
+} */
 
-.ui.button, .ui.input .ui.large.label {
+/* .button {
+    margin: 2em !important;
+} */
+
+
+/* .ui.button.ui.input .ui.large.label {
 	 margin: 0.2em !important;
+} */
+
+
+.menu > .ui.button{
+	 margin_top: 2em !important;
 }
 
 
@@ -692,12 +713,17 @@ a {
 	overflow-x:scroll;
 	/*max-height:1000px;*/
 	/*max-height:85vh;*/
-	/*padding: 1em;*/
+    background-color: (250,250,250,.2) !important;
+	/* padding: 1em; */
     /* -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.9)), to(rgba(0,0,0,1))); */
     /* mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0)); */
-
 }
+
 .topnav::-webkit-scrollbar {
+    display: none;
+}
+
+.secnav::-webkit-scrollbar {
     display: none;
 }
 

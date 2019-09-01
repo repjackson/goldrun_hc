@@ -40,9 +40,9 @@ template(name='user_layout')
                     else if is_admin
                         a.ui.icon.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings'
-                    else
-                        .ui.button.direct_message(title='new message')
-                            +i name='envelope'
+                    //- else
+                    //-     .ui.button.direct_message(title='new message')
+                    //-         +i name='envelope'
                     if is_current_user
                         a.ui.icon.large.button.logout(href="#" title='logout')
                             +i name='exit-sign'
@@ -58,8 +58,9 @@ template(name='user_layout')
                 .twelve.wide.column.shadowed-box
                     if is_staff
                         if user_is_resident
-                            a.ui.icon.button(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}" title='info')
-                                +i name='treadmill'
+                            a.ui.button(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}" title='info')
+                                +ismall name='treadmill' classes='ui inline image'
+                                |healthclub
                     if user_is_resident
                         a.ui.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}" title='info')
                             +ismall name='dashboard' classes='ui inline image'
@@ -117,14 +118,15 @@ template(name='user_layout')
 
 template(name='user_check_steps')
     each user_check
-        .ui.compact.small.button.recheck
-            if user_check_completed
-                i.large.green.checkmark.icon
-            else 
-                i.large.circle.outline.icon 
-            //- i.icon(name=icon)
-            //- +i name=icon classes='ui avatar image'
-            |#{title}
+        unless user_check_completed
+            .ui.compact.small.button.recheck
+                if user_check_completed
+                    i.large.green.checkmark.icon
+                else 
+                    i.large.circle.outline.icon 
+                //- i.icon(name=icon)
+                //- +i name=icon classes='ui avatar image'
+                |#{title}
     if checkins_without_gov_id
         if is_staff
             .ui.tiny.header #{checkins_left_without_gov_id} check in's left without government ID
@@ -309,7 +311,7 @@ template(name='user_notes')
     if user_is_resident
         if is_staff
             +textarea_edit key='staff_notes' title='private staff notes' icon='note' direct=true
-            +textarea_edit key='public_staff_notes' title='public staff notes' icon='note' direct=true
+            +textarea_edit key='public_staff_notes' title='public staff notes (shown on checkin screen)' icon='note' direct=true
 
             
             

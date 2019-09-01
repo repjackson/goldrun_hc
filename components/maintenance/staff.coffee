@@ -174,7 +174,16 @@ if Meteor.isClient
             building_number = parseInt t.$('.building_number').val()
             unit_number = parseInt t.$('.unit_number').val()
             Meteor.call 'lookup_key',building_number, unit_number, (err,res)->
-                alert "key tag number", res.tag_number
+                console.log res
+                alert "key tag number #{res.tag_number}"
+
+
+        'keyup .unit_number': (e,t)->
+            if e.which is 13
+                building_number = parseInt t.$('.building_number').val()
+                unit_number = parseInt t.$('.unit_number').val()
+                Meteor.call 'lookup_key',building_number, unit_number, (err,res)->
+                    alert "key tag number #{res.tag_number}"
 
     Template.unit_key_widget.helpers
         tasks: ->
@@ -312,10 +321,22 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.methods
         lookup_key: (building_number, unit_number)->
+            console.log 'looking up', building_number, unit_number
             found_key = Docs.findOne
                 model:'key'
                 building_number:building_number
                 unit_number:unit_number
+            # console.log 'found key', found_key
+            if found_key
+                Docs.insert
+                    model:'log_event'
+                    log_type:'unit_key_checkout'
+                    active:true
+                    object_id:found_key._id
+                    body: "#{Meteor.user().first_name} #{Meteor.user().last_name} checked out the unit key"
+                found_key
+            else
+                return 'no key found'
 
     Meteor.publish 'sessions', ->
         Docs.find

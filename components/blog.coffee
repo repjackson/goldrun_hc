@@ -6,8 +6,8 @@ Router.route '/post/:doc_id/edit', -> @render 'post_edit'
 
 if Meteor.isClient
     Template.blog.onCreated ->
-        # @autorun => Meteor.subscribe 'tribe_docs', Router.current().params.tribe_slug, 'post'
-        @autorun => Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.tribe_slug, 'post'
+        # @autorun => Meteor.subscribe 'tribe_docs', 'post'
+        @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'post'
 
     Template.post_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id

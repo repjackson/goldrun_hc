@@ -1,7 +1,8 @@
 if Meteor.isClient
     Template.grid.onCreated ->
         # @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'role_models', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'model'
+        # @autorun => Meteor.subscribe 'role_models'
         # @autorun => Meteor.subscribe 'model_docs', 'marketplace'
         # @autorun => Meteor.subscribe 'model_docs', 'post'
         # @autorun => Meteor.subscribe 'model_fields_from_child_id', Router.current().params.doc_id
@@ -41,29 +42,16 @@ if Meteor.isClient
 
     Template.grid.helpers
         role_models: ->
+            match = {model:'model'}
+            if selected_tags.array().length > 0
+                match.tags = $in:selected_tags.array()
             model_filter = Session.get('model_filter')
-            if 'dev' in Meteor.user().roles
-                if model_filter
-                    Docs.find {
-                        model:'model'
-                        title: {$regex:"#{model_filter}", $options: 'i'}
-                    }, sort:views:-1
-                else
-                    Docs.find {
-                        model:'model'
-                    }, sort:views:-1
-            else
-                if model_filter
-                    Docs.find {
-                        title: {$regex:"#{model_filter}", $options: 'i'}
-                        model:'model'
-                        view_roles:$in:Meteor.user().roles
-                    }, sort:views:-1
-                else
-                    Docs.find {
-                        model:'model'
-                        view_roles:$in:Meteor.user().roles
-                    }, sort:views:-1
+            if model_filter
+                match.title = {$regex:"#{model_filter}", $options: 'i'}
+            unless Meteor.user() and Meteor.user().roles and 'dev' in Meteor.user().roles
+                match.view_roles = $in:Meteor.user().roles
+            Docs.find match, sort:views:-1
+
 
 
 

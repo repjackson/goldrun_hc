@@ -2,9 +2,9 @@ template(name='staff_home')
     .ui.stackable.padded.grid
         .three.column.row
             .column
-                +task_widget
-            .column
                 +staff_widget
+            .column
+                +task_widget
             .column
                 +wywo
         .row
@@ -15,4 +15,7 @@ template(name='staff_home')
                 
     
 template(name='staff_widget')
-    .ui.header staff 
+    .ui.header
+        +i name='dashboard'
+        |staff dashboard
+        

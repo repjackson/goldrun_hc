@@ -2,17 +2,17 @@ template(name='model_doc_edit')
     with current_doc
         .ui.stackable.padded.grid
             .centered.row
-                .six.wide.column
+                .four.wide.column
                     .ui.header(title="model: #{model}")
                         |edit #{model}
                     +creation_info
                     a.ui.big.icon.basic.button(href="/m/#{current_model.slug}/#{_id}/view")
-                        i.big.green.checkmark.icon
+                        i.big.checkmark.icon
                     #delete_doc.ui.icon.basic.button
                         i.red.trash.icon
                     if is_user
                         +boolean_edit key='private' direct=true
-                .ten.wide.column
+                .twelve.wide.column
                     //- |#{model}
                     each edit_fields
                         +Template.dynamic template=edit_template 

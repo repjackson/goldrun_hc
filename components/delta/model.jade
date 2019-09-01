@@ -6,9 +6,9 @@ template(name='model_edit')
                     h1.ui.header edit model #{title}
                     +creation_info
                     a.ui.huge.icon.basic.button(href="/m/#{slug}")
-                        i.big.green.checkmark.icon
+                        i.big.checkmark.icon
                     #delete_model.ui.icon.basic.button
-                        i.red.trash.icon
+                        i.trash.icon
                     .ui.form
                         +text_edit key='title' label='title' direct=true
                         +text_edit key='slug' label='slug' direct=true
@@ -25,7 +25,7 @@ template(name='model_edit')
                     //-     // .ui.header #{key} [#{field}] #{label}
                     .ui.inline.header fields
                     .ui.icon.large.basic.button.add_field
-                        i.plus.green.icon
+                        i.plus.icon
                     .ui.styled.fluid.accordion
                         each fields
                             .title 
@@ -89,7 +89,7 @@ template(name='model_view')
         .ui.stackable.padded.grid
             .four.wide.column
                 h1.ui.header #{title}
-                .ui.icon.big.green.button.add_child(title="add #{slug}")
+                .ui.icon.big.button.add_child(title="add #{slug}")
                     i.plus.icon
                 a.ui.icon.blue.big.button(href="/model/edit/#{_id}")
                     i.pencil.icon

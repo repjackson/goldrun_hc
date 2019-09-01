@@ -104,8 +104,8 @@ template(name='healthclub_session')
                                     +resident_guest
                     else
                         .ui.big.basic.compact.fluid.button.toggle_adding_guest 
-                            //- i.plus.large.icon
-                            +i name='add-user-group-man-man--v2' classes='ui inline image'                
+                            i.plus.large.icon
+                            //- +i name='add-user-group-man' classes='ui inline image'                
                             .ui.inline.big.header guest
                     with user
                         +user_check_steps
@@ -113,19 +113,19 @@ template(name='healthclub_session')
                 .sixteen.wide.column
                     unless user.kiosk_photo
                         .ui.disabled.massive.fluid.button
-                            |new photo required to sign in
+                            |new photo required
                         //- .ui.center.aligned.header
                         //-     |please click 'Choose File' above, switch the camera to the front, and take photo to proceed 
                     unless user.member_waiver_signed
                         .ui.massive.fluid.red.basic.button.sign_guidelines
                             .ui.inline.header 
                                 +i name='signature'
-                                | click to sign member waiver            
+                                | sign member waiver            
                     unless user.rules_and_regulations_signed
                         .ui.massive.fluid.red.basic.button.sign_rules
                             .ui.inline.header 
                                 +i name='signature'
-                                | click to sign rules and regs
+                                | sign rules and regs
                     if user.email_red_flagged
                         .ui.disabled.massive.fluid.button
                             |email verification required, please see staff
@@ -137,9 +137,10 @@ template(name='healthclub_session')
                             if user.member_waiver_signed
                                 if user.rules_and_regulations_signed
                                     unless user.email_red_flagged
-                                        .ui.massive.fluid.basic.green.button.submit_checkin
+                                        .ui.massive.fluid.basic.button.submit_checkin
                                             .ui.inline.inverted.header 
-                                                | check in
+                                                //- | check in
+                                                i.checkmark.green.icon
                                                 //- if timer_engaged
                                                     //- small (auto in #{timer})                    
                                                 //- i.right.chevron.icon

@@ -20,12 +20,12 @@ template(name='staff')
                 //- +add_button model='frontdesk_hourly_checklist' label='hourly checklist'
                 //- +add_button model='front_desk_opening_closing_checklist' label='opening/closing checklist'
                 +unit_key_widget
-                a.ui.compact.button(href='readings')
+                a.ui.compact.fluid.button(href='readings')
                     +i name='water' classes='ui inline image'                
                     |water readings
                 div
                 +ismall name='swim'
-                .ui.small.inline.header 
+                .ui.inline.header 
                     |pool
                 each shift_pool_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
@@ -35,7 +35,7 @@ template(name='staff')
                             .ui.basic.label #{chlorine_message}
                 div
                 +ismall name='jacuzzi'
-                .ui.small.inline.header 
+                .ui.inline.header 
                     |upper hot tub
                 each shift_upper_hot_tub_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
@@ -45,7 +45,7 @@ template(name='staff')
                             .ui.basic.label #{chlorine_message}
                 div
                 +ismall name='jacuzzi'
-                .ui.small.inline.header 
+                .ui.inline.header 
                     |lower hot tub
                 each shift_lower_hot_tub_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
@@ -53,11 +53,12 @@ template(name='staff')
                             .ui.basic.label #{ph_message}
                         if chlorine_message
                             .ui.basic.label #{chlorine_message}
-                .ui.header 
+                .ui.hidden.divider
+                .ui.inline.header 
                     +i name='walking' classes='ui inline image'                
                     |shift walks
-                .ui.compact.icon.button.log_staff_walked(title='log hourly shift walk')
-                    i.green.plus.icon    
+                .ui.icon.button.log_staff_walked(title='log hourly shift walk')
+                    i.plus.icon    
                 .ui.basic.segment
                     each shift_walks
                         .ui.header #{when}
@@ -174,9 +175,10 @@ template(name='hc_session')
 
 
 template(name='unit_key_widget')
-    .ui.segment 
+    .ui.secondary.segment 
         .ui.header 
-            i.yellow.key.icon
+            //- i.yellow.key.icon
+            +i name='key'
             |unit key lookup
         .ui.icon.large.fluid.input
             i.building.icon
@@ -189,7 +191,7 @@ template(name='unit_key_widget')
 
 
 template(name='task_widget')
-    .ui.smoothed.segment
+    .ui.secondary.segment
         .ui.header 
             +i name='task'
             |todos
@@ -215,10 +217,9 @@ template(name='task_widget')
     
     
 template(name='wywo')
-    .ui.smoothed.segment
+    .ui.secondary.segment
         .ui.header 
-            //- +i name='note'
-            i.orange.edit.icon
+            +i name='note'
             |while you were out
     
 template(name='schedule')

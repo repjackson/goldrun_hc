@@ -15,6 +15,7 @@ template(name='owner_portal')
                     |work order
         .three.column.row
             .column
+                +board_member_small
                 +documents_small
             .column
                 .ui.header 
@@ -26,9 +27,8 @@ template(name='owner_portal')
                 .ui.header total diverted
                 .ui.header total complete
             .column
-                +board_member_small
                 +projects_small
-                +board_meeting_minutes_small
+                +minutes_small
             
             
             
@@ -43,22 +43,22 @@ template(name='board_member_small')
 
 
 template(name='projects_small')            
-    .ui.header 
+    a.ui.header(href='/projects')
         +i name='project'
         |projects
-    each board_members
-        .ui.header #{first_name} #{last_name} 
-            .ui.basic.label(title='approval rating') #{approval_rating}%
+    .ui.selectable.link.list
+        each projects
+            a.item.ui.header(href="/project/#{_id}/view") #{title}
                 
 
 
-template(name='board_meeting_minutes_small')            
+template(name='minutes_small')            
     .ui.header 
         +i name='checklist'
         |board meeting minutes
-    each board_members
-        .ui.header #{first_name} #{last_name} 
-            .ui.basic.label(title='approval rating') #{approval_rating}%
+    .ui.select.link.list
+        each minutes
+            a.ui.item.header(href="/minute/#{_id}/view") #{meeting_date}
                 
 
 

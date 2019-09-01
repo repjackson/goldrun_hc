@@ -1,6 +1,7 @@
 if Meteor.isClient
     Router.route '/residents', -> @render 'residents'
     Router.route '/profiles', -> @render 'profiles'
+    Router.route '/owners', -> @render 'owners'
     Template.residents.onCreated ->
         @autorun => Meteor.subscribe 'user_search', Session.get('username_query'), 'resident'
     Template.profiles.onCreated ->

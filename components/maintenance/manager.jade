@@ -3,6 +3,11 @@ template(name='manager')
         .row
             .four.wide.column
                 .ui.header 
+                    +i name='manager'
+                    |manager dashboard
+        .row
+            .four.wide.column
+                .ui.header 
                     +i name='key'
                     |key checkouts
                 .ui.large.list.smallscroll
@@ -13,18 +18,18 @@ template(name='manager')
                                 |#{owner_user_id.last_name}
                             |by
                             |#{_author_username} #{when}
-            .four.wide.column.smallscroll
+            .four.wide.column
                 .ui.header 
                     +i name='walking'
                     |staff shift walks
-                .ui.large.list
+                .ui.large.list.smallscroll
                     each shift_walks
                         .item #{_author_username} #{when}
-            .eight.wide.column.smallscroll
+            .eight.wide.column
                 .ui.header 
                     +i name='internal'
                     |check in history
-                .ui.large.list.scrolling
+                .ui.large.list.smallscroll
                     each check_ins
                         +checkin_list_item
                         

@@ -6,16 +6,15 @@ template(name='comments')
                 |comments
         .active.content
             if currentUser
-                .ui.fluid.icon.input
+                .ui.fluid.icon.transparent.input
                     i.plus.icon
-                    input.add_comment(model='text')
+                    input.add_comment(model='text' placeholder='add comment')
             .ui.comments
                 each doc_comments
                     .comment
                         .content
                             .ui.header #{body}
                             .meta #{when}
-                            .actions
                                 +voting
                                 +remove_button
 
@@ -92,7 +91,7 @@ template(name='view_full_button')
 template(name='user_status')
     if online 
         // .ui.label(class='{{labelClass}}') 
-        .ui.empty.green.label(title='online')
+        .ui.empty.label(title='online')
         // img.ui.avatar.image(src="https://img.icons8.com/connection-user_status-on/color/48" title='Online' width="48" height="48")
         // |Online
     else if idle
@@ -103,13 +102,12 @@ template(name='user_status')
 
 template(name='user_card')
     with user
-        .ui.grid.smoothed.segment
-            if is_staff
-                .four.wide.column
-                    if kiosk_photo
-                        img.ui.rounded.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
-                    else if image_id
-                        img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+        .ui.grid.secondary.segment
+            .four.wide.column
+                if kiosk_photo
+                    img.ui.rounded.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
+                else if image_id
+                    img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .twelve.wide.column
                 unless is_staff
                     .header #{first_name} #{last_name} 
@@ -130,7 +128,7 @@ template(name='user_card')
 template(name='user_email')
     .ui.small.inline.header #{email_address}
     if email_verified
-        .ui.green.label 
+        .ui.label 
             i.checkmark.icon
             |Verified
     else
@@ -214,7 +212,9 @@ template(name='role_editor')
 template(name='author_info')
     with author
         a.ui.compact.basic.button(href="/user/#{username}")
-            if image_id
+            if kiosk_photo
+                img.ui.avatar.image(src="{{c.url kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
+            else if image_id
                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
             |by #{first_name} #{last_name}
 
@@ -225,8 +225,8 @@ template(name='creation_info')
 template(name='user_list_toggle')
     if currentUser
         .ui.icon.compact.small.button.toggle(class=user_list_toggle_class title=label)
-            //- i.icon(class=icon)
-            +ismall name=icon
+            i.large.icon(class=icon)
+            //- +ismall name=icon
             //- |#{label}
         //- each list_users
         //-     +user_info
@@ -247,17 +247,18 @@ template(name='voting')
 
 
 template(name='voting_full')
-    .ui.header 
+    div
+    .ui.inline.header 
         +i name='elections'
         |voting
+    .ui.large.icon.button.upvote(class=upvote_class title='upvote')
+        i.thumbs.up.icon
+        //- |like
+    .ui.large.icon.button.downvote(title='downvote' class=downvote_class)
+        i.thumbs.down.icon
+        //- |dislike
     if points
         strong #{points}
-    .ui.basic.basic.button.upvote(class=upvote_class title='upvote')
-        i.thumbs.up.icon
-        |like
-    .ui.basic.basic.button.downvote(title='downvote' class=downvote_class)
-        i.thumbs.down.icon
-        |dislike
     if upvoter_ids
         .ui.small.header 
             i.chevron.up.icon
@@ -286,7 +287,10 @@ template(name='remove_button')
 
 template(name='add_button')
     a.ui.large.button.add(title="add #{model}")
-        i.green.plus.icon
+        if icon
+            i.icon(class=icon)
+        else        
+            i.plus.icon
         if label
             |#{label}
         //- |#{model}
@@ -301,7 +305,7 @@ template(name='add_button')
 
 template(name='save_button')
     a.ui.basic.button.large.icon.save(title='Save' href="/m/#{model}/#{_id}/view")
-        i.checkmark.green.icon
+        i.checkmark.icon
         |Save
 
 template(name='toggle_button')
@@ -329,7 +333,7 @@ template(name='add_model_button')
             
 template(name='email_validation_check')
     //- if email_verified
-    //-     .ui.large.green.basic.button
+    //-     .ui.large.basic.button
     //-         i.checkmark.icon
     //-         |email validated
     unless email_verified

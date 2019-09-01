@@ -6,8 +6,8 @@ template(name='grid')
     .ui.left.icon.fluid.input
         i.search.icon
         input.model_filter(type='text' placeholder='filter...' autofocus='autofocus')
-    
-    .ui.stackable.four.column.padded.grid
+    +cloud filter='model'
+    .ui.stackable.four.column.padded.grid.scrolling
         each role_models
             .column
                 a(href="/m/#{slug}")

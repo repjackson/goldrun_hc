@@ -15,7 +15,7 @@ template(name='delta')
                         if currentUser
                             .ui.icon.large.compact.button.add_model_doc(title="Add #{title}")
                                 //- +i name='plus' classes='ui avatar image'
-                                i.green.plus.large.icon
+                                i.plus.large.icon
                         +user_list_toggle key='bookmark_ids' icon='bookmark' label='bookmark' color='red'
                         if is_dev
                             .ui.icon.large.button.edit_model
@@ -86,12 +86,11 @@ template(name='delta')
                             |#{current_delta.view_mode}
                             i.dropdown.icon
                             .menu
-                                +set_view_mode title='table'
-                                +set_view_mode title='list'
-                                +set_view_mode title='cards'
-                                +set_view_mode title='items'
-                                +set_view_mode title='map'
-                                +set_view_mode title='graph'
+                                +set_view_mode title='table' icon='table'
+                                +set_view_mode title='list' icon='list'
+                                +set_view_mode title='cards' icon='clone'
+                                +set_view_mode title='items' icon='list'
+                                +set_view_mode title='map' icon='map'
                     //- .ui.stackable.four.column.grid
                     +Template.dynamic template=view_mode_template
             .row 
@@ -132,7 +131,9 @@ template(name='set_limit')
     .item.set_limit #{amount}
 
 template(name='set_view_mode')
-    .item.set_view_mode #{title}
+    .item.set_view_mode 
+        i.icon(class=icon)
+        |#{title}
 
 template(name='facet')
     if filtering_res

@@ -9,7 +9,7 @@ template(name='user_edit')
                     //- +i name='pencil'
                     .ui.small.inline.header @#{user_from_username_param.username}
                     a.ui.big.icon.basic.button(href="/user/#{user_from_username_param.username}/") 
-                        i.checkmark.big.green.icon
+                        i.checkmark.big.icon
                         strong save
                     .ui.hidden.divider
                     if is_staff
@@ -35,11 +35,11 @@ template(name='user_edit')
                                 +number_edit key='unit_number' label='unit #' icon='home' direct=true tip='apt #'
                                 +number_edit key='building_number' label='building #' icon='building' direct=true tip='eg 203'
                                 //- +text_edit key='building_code' label='building code' icon='building' direct=true
-                                +number_edit key='healthclub_code' label='keycard code' icon='barcode' direct=true
+                                //- +number_edit key='healthclub_code' label='keycard code' icon='barcode' direct=true
                                 +boolean_edit key='owner' icon='rent' label='owner' direct=true
                                 .ui.basic.segment
                                     .ui.header 
-                                        i.blue.envelope.icon
+                                        i.envelope.outline.icon
                                         |emails
                                     +emails_edit
                             else
@@ -122,7 +122,7 @@ template(name='phone_editor')
         input#phone.form-control(type='phone', name='phone', value='{{newNumber}}')
     if user_from_username_param.profile.phone
         if user_from_username_param.profile.phone_verified
-            .ui.green.label verified
+            .ui.label verified
         else
             p
                 .ui.label not verified
@@ -175,9 +175,11 @@ template(name='emails_edit')
                 //         .ui.basic.button Verify
                 .content
                     if verified
-                        .ui.big.basic.green.label(title='verified') #{address}
+                        .ui.big.basic.label(title='verified')
+                            | #{address}
+                            i.green.checkmark.icon
                     else
-                        .ui.label
+                        .ui.big.basic.label
                             i.ban.icon
                             | #{address}
                         .send_verification_email.ui.basic.button 
@@ -188,5 +190,5 @@ template(name='emails_edit')
     .ui.action.big.fluid.icon.action.input
         input#new_email(type='email' placeholder='add new email address' autocomplete="off")
         #add_email.ui.submit.icon.button 
-            i.plus.big.green.icon
+            i.plus.big.icon
             //- |email

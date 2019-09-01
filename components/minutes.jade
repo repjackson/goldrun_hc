@@ -15,15 +15,12 @@ template(name='minutes')
                     
 template(name='minute')
     .ui.fluid.segment
-        .ui.header #{title}
-        +image_view key='image' direct=true
+        .ui.header #{meeting_date}
         |!{description}
         each tags
             .ui.basic.label #{this}
-        +edit_button
-        +view_button
-
-
+        a.ui.button(href="/minute/#{_id}/view")
+            i.right.chevron.icon
 
 
 
@@ -52,21 +49,21 @@ template(name='minute_edit')
                     .ui.header call to order
                     .ui.button call to order
                     .ui.header owner/guest
-                    +text_edit key='owner_guest_notes' label='owner/guest notes' direct=true
+                    +textarea_edit key='owner_guest_notes' label='owner/guest notes' direct=true
                     .ui.header approval of minutes
-                    +text_edit key='approval_of_minutes_notes' label='approval of minutes notes' direct=true
+                    +textarea_edit key='approval_of_minutes_notes' label='approval of minutes notes' direct=true
                     .ui.header ratification/ email approvals
-                    +text_edit key='ratification_email_approvals' label='ratification/ email approval notes' direct=true
+                    +textarea_edit key='ratification_email_approvals' label='ratification/ email approval notes' direct=true
                     .ui.header financial review
-                    +text_edit key='financial_review_notes' label='financial review notes' direct=true
+                    +textarea_edit key='financial_review_notes' label='financial review notes' direct=true
                     .ui.header need for direction
-                    +text_edit key='need_for_direction_notes' label='need for direction notes' icon='sorting-arrows-horizontal' direct=true
+                    +textarea_edit key='need_for_direction_notes' label='need for direction notes' icon='sorting-arrows-horizontal' direct=true
                     .ui.header old business
-                    +text_edit key='old_business_notes' label='old business notes' direct=true
+                    +textarea_edit key='old_business_notes' label='old business notes' direct=true
                     .ui.header new business
-                    +text_edit key='new_business_notes' label='new business notes' direct=true
+                    +textarea_edit key='new_business_notes' label='new business notes' direct=true
                     .ui.header adjournment
-                    +text_edit key='adjournment_notes' label='adjournment notes' direct=true
+                    +textarea_edit key='adjournment_notes' label='adjournment notes' direct=true
                      
                      
 template(name='minute_view')
@@ -85,24 +82,24 @@ template(name='minute_view')
                     +comments
                     //- +viewing
                 .twelve.wide.column 
-                    .ui.center.aligned.header Minutes of the Board of Director’s Meeting
+                    .ui.center.aligned.header minutes of the board of director’s meeting
                     .ui.center.aligned.header {{short_date meeting_date}}
-                    .ui.header Board Members Present
+                    .ui.header board members present
                     .ui.header call to order
                     .ui.button call to order
                     .ui.header owner/guest
-                    +text_view key='owner_guest_notes' label='owner/guest notes' icon='rent' direct=true
+                    +textarea_view key='owner_guest_notes' label='owner/guest notes' icon='rent' direct=true
                     .ui.header approval of minutes
-                    +text_view key='approval_of_minutes_notes' label='approval of minutes notes' icon='list' direct=true
+                    +textarea_view key='approval_of_minutes_notes' label='approval of minutes notes' icon='list' direct=true
                     .ui.header ratification/ email approvals
-                    +text_view key='ratification_email_approvals' label='ratification/ email approval notes' icon='message' direct=true
+                    +textarea_view key='ratification_email_approvals' label='ratification/ email approval notes' icon='message' direct=true
                     .ui.header financial review
-                    +text_view key='financial_review_notes' label='financial review notes' icon='finance' direct=true
+                    +textarea_view key='financial_review_notes' label='financial review notes' icon='finance' direct=true
                     .ui.header need for direction
-                    +text_view key='need_for_direction_notes' label='need for direction notes' icon='sorting-arrows-horizontal' direct=true
+                    +textarea_view key='need_for_direction_notes' label='need for direction notes' icon='sorting-arrows-horizontal' direct=true
                     .ui.header old business
-                    +text_view key='old_business_notes' label='old business notes' icon='signature' direct=true
+                    +textarea_view key='old_business_notes' label='old business notes' icon='signature' direct=true
                     .ui.header new business
-                    +text_view key='new_business_notes' label='new business notes' icon='signature' direct=true
+                    +textarea_view key='new_business_notes' label='new business notes' icon='signature' direct=true
                     .ui.header adjournment
-                    +text_view key='adjournment_notes' label='adjournment notes' icon='list' direct=true
+                    +textarea_view key='adjournment_notes' label='adjournment notes' icon='list' direct=true

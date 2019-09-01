@@ -77,7 +77,9 @@ template(name='lower_hot_tub_readings')
                     td #{notes}
                         .ui.large.basic.label #{ph_message}
                         .ui.large.basic.label #{chlorine_message}
-                    td #{author.username} #{when}
+                    td 
+                        +author_info
+                        | #{when}
                     td 
                         a.ui.large.icon.button(href="/lower_hot_tub_reading/edit/#{_id}")
                             i.pencil.icon
@@ -109,7 +111,9 @@ template(name='upper_hot_tub_readings')
                     td #{notes}
                         .ui.large.basic.label #{chlorine_message}
                         .ui.large.basic.label #{ph_message}
-                    td #{author.username} #{when}
+                    td 
+                        +author_info
+                        | #{when}
                     td 
                         a.ui.large.icon.button(href="/upper_hot_tub_reading/edit/#{_id}")
                             i.pencil.icon
@@ -141,7 +145,9 @@ template(name='pool_readings')
                     td #{notes}  
                         .ui.large.basic.label #{ph_message}
                         .ui.large.basic.label #{chlorine_message}
-                    td #{author.username} #{when}
+                    td 
+                        +author_info
+                        | #{when}
                     td 
                         a.ui.large.icon.button(href="/pool_reading/edit/#{_id}")
                             i.pencil.icon

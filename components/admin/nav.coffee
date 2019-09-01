@@ -1,4 +1,8 @@
 if Meteor.isClient
+    Template.footer.events
+        'click .shortcut_modal': ->
+            $('.ui.shortcut.modal').modal('show')
+
     Template.nav.events
         'click #logout': ->
             Session.set 'logging_out', true
@@ -44,6 +48,8 @@ if Meteor.isClient
 
         'click .set_model': ->
             Session.set 'loading', true
+            Docs.update @_id,
+                $inc:views:1
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
 
@@ -79,12 +85,12 @@ if Meteor.isClient
                 if 'dev' in Meteor.user().roles
                     Docs.find {
                         model:'model'
-                    }, sort:views:1
+                    }, sort:title:1
                 else
                     Docs.find {
                         model:'model'
                         view_roles:$in:Meteor.user().roles
-                    }, sort:views:1
+                    }, sort:title:1
 
         models: ->
             Docs.find

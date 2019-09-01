@@ -46,41 +46,46 @@ template(name='color_icon_edit')
 
 template(name='icon_edit')
     div
-    .ui.right.icon.fluid.input
-        if icon
-            +ismall name=icon
-        .ui.inline.header
-            if title
-                |#{title}
-            else if key
-                |#{key}
-            else
-                |#{this}    
-        if field_value
-            //- i.large.icon(class=field_value)
-            img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+    if icon
+        +ismall name=icon
+    .ui.inline.header
+        if title
+            |#{title}
+        else if key
+            |#{key}
+        else
+            |#{this}    
+    if field_value
+        //- i.large.icon(class=field_value)
+        img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
+    .ui.right.icon.input
         input.icon_val(type='text' value=field_value placeholder='icon8 class' autocomplete="off")
 
 
 template(name='color_icon_view')
     if field_value
-        img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+        //- img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+        img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
 
 template(name='icon_view')
     if field_value
-        div
+        span.inline.spaced
         //- i.icon(class=field_value)
-        img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+        //- img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+        img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
 
 
 template(name='i')
     //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
-    img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/ios/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
     //- img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=classes title=title)
-    img(src="https://img.icons8.com/ultraviolet/24/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/ultraviolet/24/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/ios/24/000000/#{name}.png" class=classes title=title) 
+    |&nbsp;
 
 template(name='iblue')
     img(src="https://img.icons8.com/ultraviolet/40/000000/#{name}.png" class=classes)
@@ -223,7 +228,7 @@ template(name='textarea_view')
     if field_value
         div
         if icon
-            +ismall name=icon
+            +ismall name=icon classes='ui inline image'
         .ui.inline.header
             if title
                 |#{title}
@@ -381,20 +386,20 @@ template(name='clear_value')
 
 template(name='text_view')
     if field_value
-        unless header
-            div
-            if icon
-                +ismall name=icon                
-            .ui.inline.header
-                if title
-                    |#{title}
-                else if label
-                    |#{label}
-                else if key
-                    |#{key}
-                else
-                    |#{this}
-        .large120 #{field_value}
+        //- unless header
+        //-     div
+        //-     if icon
+        //-         +ismall name=icon                
+        //-     .ui.inline.header
+        //-         if title
+        //-             |#{title}
+        //-         else if label
+        //-             |#{label}
+        //-         else if key
+        //-             |#{key}
+        //-         else
+        //-             |#{this}
+        .ui.inline.header #{field_value}
 
 
 
@@ -435,17 +440,17 @@ template(name='parent_view')
 
 
 template(name='phone_edit')
+    i.phone.icon
+    .ui.inline.header 
+    if title
+        |#{title}
+    else if label
+        |#{label}
+    else if key
+        |#{key}
+    else
+        |#{this}
     .ui.fluid.input
-        .ui.inline.header 
-            i.phone.icon
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}
         //- +clear_value                
         input.edit_phone(type='tel' value=field_value placeholder=placeholder autocomplete="off")
 
@@ -537,19 +542,20 @@ template(name='float_view')
 
 
 template(name='date_edit')
-    .ui.fluid.input
-        if icon
-            +i name=icon classes='ui inline mini image'   
+    if icon
+        +i name=icon classes='ui inline mini image'   
+        |&nbsp;
         .ui.inline.header
             if title
                 |#{title}
             else if label
                 |#{label}
-            //- else if key
-            //-     |#{key}
-            //- else
-            //-     |#{this}
-        //- +clear_value                
+                //- else if key
+                //-     |#{key}
+                //- else
+                //-     |#{this}
+                //- +clear_value                
+    .ui.fluid.input
         input.edit_date(type='date' value=field_value placeholder=placeholder autocomplete="off")
 
 
@@ -658,15 +664,15 @@ template(name='array_view')
         div
         if icon
             +ismall name=icon
-        .ui.inline.header
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}
+        //- .ui.inline.header
+        //-     if title
+        //-         |#{title}
+        //-     else if label
+        //-         |#{label}
+        //-     else if key
+        //-         |#{key}
+        //-     else
+        //-         |#{this}
         each field_value
             .ui.large.basic.label #{this}
 
@@ -820,6 +826,7 @@ template(name='boolean_edit')
             |#{key}
         else
             |#{this}
+    |&nbsp;
     //- .ui.icon.button.toggle_boolean
     .ui.circular.button.toggle_boolean(class=boolean_toggle_class)
         if field_value
@@ -1057,7 +1064,7 @@ template(name='multi_user_edit')
                 each user_results
                     .select_user.item
                         h5.ui.header
-                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                            img.ui.avatar.image(src="{{c.url kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
                             strong #{first_name} #{last_name}
                          #{username}
     +clear_value                

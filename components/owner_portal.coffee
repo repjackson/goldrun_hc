@@ -16,6 +16,21 @@ if Meteor.isClient
             Meteor.users.find
                 roles:$in:['board_member']
 
+    Template.minutes_small.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'minute'
+    Template.minutes_small.helpers
+        minutes: ->
+            Docs.find
+                model:'minute'
+
+
+    Template.projects_small.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'project'
+    Template.projects_small.helpers
+        projects: ->
+            Docs.find
+                model:'project'
+
 
 if Meteor.isServer
     Meteor.publish 'users_by_role', (role)->
