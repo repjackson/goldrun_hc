@@ -15,11 +15,14 @@ template(name='minutes')
                     
 template(name='minute_card')
     .ui.fluid.segment
-        .ui.header #{meeting_date}
-        |!{description}
+        .ui.header {{medium_date meeting_date}}
+        |#{views} views,
+        |#{comment_count} comments
+        
         each tags
             .ui.basic.label #{this}
-        a.ui.button(href="/minute/#{_id}/view")
+        a.ui.large.button.log_view(href="/minute/#{_id}/view")
+            |view
             i.right.chevron.icon
 
 
@@ -72,45 +75,57 @@ template(name='minute_edit')
                     //- .ui.header 
                     //-     +i name='sorting-arrows-horizontal'
                     //-     |need for direction
+                    .ui.inline.header 
+                        +i name='clock'
+                        |need for direction business
+                    each need_for_direction_updates
+                        div
+                        +ismall name=project.icon
+                        .ui.small.inline.header 
+                            |#{project.title}
+                        +project_lookup key='project_id' label='project' ref_model='project' direct=true
+                        div
+                        +textarea_edit key='text' direct=true
+                        +remove_button
+                        .ui.divider
+                    .ui.icon.button.add_need_for_direction_update
+                        i.plus.icon
+                
                     +textarea_edit key='need_for_direction_notes' label='need for direction' icon='sorting-arrows-horizontal' direct=true
                     div
                     .ui.inline.header 
                         +i name='clock'
                         |old business
-                    .ui.accordion
-                        each old_business_updates
-                            .title
-                                .ui.inline.header #{project.title}:
-                                .inline.f7 #{text}
-                            .content
-                                //- .ui.header parent_id #{parent_id}
-                                //- .ui.header project_id #{project_id}
-                                +project_lookup key='project_id' label='project' ref_model='project' direct=true
-                                div
-                                +textarea_edit key='text' direct=true
-                                +remove_button
+                    each old_business_updates
+                        div
+                        +ismall name=project.icon
+                        .ui.small.inline.header 
+                            |#{project.title}
+                        +project_lookup key='project_id' label='project' ref_model='project' direct=true
+                        div
+                        +textarea_edit key='text' direct=true
+                        +remove_button
+                        .ui.divider
                     .ui.icon.button.add_old_business_update
                         i.plus.icon
-                    //- +html_edit key='old_business_notes' label='new business notes' direct=true
+                    //- +textarea_edit key='old_business_notes' label='new business notes' direct=true
                     div
                     .ui.inline.header 
                         +i name='business'
                         |new business
-                    .ui.accordion
-                        each new_business_updates
-                            .title
-                                .ui.inline.header #{project.title}:
-                                .inline.f7 #{text}
-                            .content
-                                //- .ui.header parent_id #{parent_id}
-                                //- .ui.header project_id #{project_id}
-                                +project_lookup key='project_id' label='project' ref_model='project' direct=true
-                                div
-                                +textarea_edit key='text' direct=true
-                                +remove_button
+                    each new_business_updates
+                        div
+                        +ismall name=project.icon
+                        .ui.small.inline.header 
+                            |#{project.title}
+                        +project_lookup key='project_id' label='project' ref_model='project' direct=true
+                        div
+                        +textarea_edit key='text' direct=true
+                        +remove_button
+                        .ui.divider
                     .ui.icon.button.add_new_business_update
                         i.plus.icon
-                    //- +html_edit key='new_business_notes' label='new business notes' direct=true
+                    //- +textarea_edit key='new_business_notes' label='new business notes' direct=true
                     .ui.header adjournment
                     +textarea_edit key='adjournment_notes' label='adjournment notes' direct=true
                      
@@ -128,12 +143,14 @@ template(name='minute_view')
                     a.ui.big.fluid.button(href="/minute/#{_id}/edit")
                         i.pencil.icon
                         |edit minutes
-                    +voting_full
+                    +array_view key='tags' label='tags' icon='tags'
+                    +voting
                     +comments
                     //- +viewing
                 .twelve.wide.column 
-                    .ui.center.aligned.header minutes of the board of director’s meeting
-                    .ui.center.aligned.header {{short_date meeting_date}}
+                    .ui.center.aligned.header 
+                        small minutes of the board of director’s meeting 
+                        strong {{short_date meeting_date}}
                     .ui.header
                         +i name='meeting-room'
                         |board members present
@@ -157,28 +174,42 @@ template(name='minute_view')
                     //-     +i name='invoice'
                     //-     |financial review
                     +textarea_view key='financial_review_notes' label='financial review' icon='invoice' direct=true
-                    //- .ui.header
-                    //-     +i name='sorting-arrows-horizontal'
-                    //-     |need for direction
+                    .ui.header
+                        +i name='sorting-arrows-horizontal'
+                        |need for direction
+                    each need_for_direction_updates
+                        +ismall name=project.icon
+                        .ui.small.inline.header 
+                            |#{project.title}
+                        | #{text}
+                        +voting
+                        div
                     +textarea_view key='need_for_direction_notes' icon='sorting-arrows-horizontal' label='need for direction' direct=true
                     .ui.header 
                         +i name='clock'
                         |old business
                     each old_business_updates
-                        .ui.small.inline.header #{project.title}
+                        +ismall name=project.icon
+                        .ui.small.inline.header 
+                            |#{project.title}
                         | #{text}
+                        +voting
                         div
                     |{{nl2br old_business_notes}}
-                    //- +html_view key='old_business_notes' label='old business' icon='signature' direct=true
+                    //- +textarea_view key='old_business_notes' label='old business' icon='signature' direct=true
                     .ui.header 
                         i.briefcase.icon
                         |new business
                     each old_business_updates
-                        .ui.small.inline.header #{project.title}
+                        +ismall name=project.icon
+                        .ui.small.inline.header 
+                            |#{project.title}
                         | #{text}
+                        +voting
                         div
                 
                     |{{nl2br new_business_notes}}
-                    //- +html_view key='new_business_notes' label='new business' icon='signature' direct=true
+                    //- +textarea_view key='new_business_notes' label='new business' icon='signature' direct=true
                     .ui.header adjournment
                     +textarea_view key='adjournment_notes' label='adjournment' icon='list' direct=true
+                +array_view key='tags' label='tags' icon='tags' direct=true

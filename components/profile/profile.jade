@@ -202,6 +202,8 @@ template(name='profile_home')
     
 template(name='owner_profile')
     .ui.header owner profile    
+    each roles
+        .ui.large.label #{this}
     
     
 template(name='resident_about')

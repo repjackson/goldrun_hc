@@ -1,7 +1,6 @@
 if Meteor.isClient
     Router.route '/residents', -> @render 'residents'
     Router.route '/profiles', -> @render 'profiles'
-    Router.route '/owners', -> @render 'owners'
     Template.residents.onCreated ->
         @autorun => Meteor.subscribe 'user_search', Session.get('username_query'), 'resident'
     Template.profiles.onCreated ->
@@ -84,12 +83,48 @@ if Meteor.isClient
                 Session.set 'username_query',username_query
 
 
+
+
+    Router.route '/owners', -> @render 'owners'
+    Template.owners.onCreated ->
+        @autorun -> Meteor.subscribe('owners')
+        @autorun => Meteor.subscribe 'user_search', Session.get('username_query'), 'owner'
+    Template.owners.helpers
+        owners: ->
+            username_query = Session.get('username_query')
+            Meteor.users.find({
+                username: {$regex:"#{username_query}", $options: 'i'}
+                # healthclub_checkedin:$ne:true
+                # roles:$in:['owner']
+                },{ limit:20 }).fetch()
+    Template.owners.events
+        # 'click #add_user': ->
+        #     id = Docs.insert model:'person'
+        #     Router.go "/person/edit/#{id}"
+        'keyup .username_search': (e,t)->
+            username_query = $('.username_search').val()
+            if e.which is 8
+                if username_query.length is 0
+                    Session.set 'username_query',null
+                    Session.set 'checking_in',false
+                else
+                    Session.set 'username_query',username_query
+            else
+                Session.set 'username_query',username_query
+
+
 if Meteor.isServer
     Meteor.publish 'users', (limit)->
         if limit
             Meteor.users.find({},limit:limit)
         else
             Meteor.users.find()
+
+    Meteor.publish 'owners', (limit)->
+        if limit
+            Meteor.users.find({},limit:limit)
+        else
+            Meteor.users.find(owner:true)
 
     Meteor.publish 'profiles', ()->
         Meteor.users.find

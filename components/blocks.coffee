@@ -8,8 +8,8 @@ if Meteor.isClient
             parent = Docs.findOne Router.current().params.doc_id
         else
             parent = Docs.findOne Template.parentData()._id
-
-        @autorun => Meteor.subscribe 'children', 'comment', parent._id
+        if parent
+            @autorun => Meteor.subscribe 'children', 'comment', parent._id
     Template.comments.helpers
         doc_comments: ->
             if Router.current().params.doc_id
@@ -43,7 +43,6 @@ if Meteor.isClient
         followers: ->
             Meteor.users.find
                 _id: $in: @follower_ids
-
         following: -> @follower_ids and Meteor.userId() in @follower_ids
     Template.follow.events
         'click .follow': ->
@@ -113,8 +112,8 @@ if Meteor.isClient
 
 
     Template.voting_full.helpers
-        upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else ''
-        downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else ''
+        upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else 'outline'
+        downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else 'outline'
 
     Template.voting_full.events
         'click .upvote': ->

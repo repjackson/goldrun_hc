@@ -237,14 +237,14 @@ template(name='user_list_toggle')
 template(name='voting')
     if points
         strong #{points}
-    .ui.icon.basic.basic.button.upvote(class=upvote_class title='upvote')
-        i.thumbs.up.icon
-    //- each upvoter_ids
-    //-     +user_info
-    .ui.icon.basic.basic.button.downvote(title='downvote' class=downvote_class)
-        i.thumbs.down.icon
-    //- each downvoter_ids
-    //-     +user_info
+    .ui.icon.button.upvote(title='upvote')
+        i.thumbs.up.icon(class=upvote_class)
+    each upvoter_ids
+        +user_info
+    .ui.icon.button.downvote(title='downvote')
+        i.thumbs.down.icon(class=downvote_class)
+    each downvoter_ids
+        +user_info
 
 
 
@@ -253,14 +253,14 @@ template(name='voting_full')
     .ui.inline.header 
         +i name='elections'
         |voting
-    .ui.large.icon.button.upvote(class=upvote_class title='upvote')
-        i.thumbs.up.icon
+    .ui.large.icon.button.upvote(title='upvote')
+        i.thumbs.up.icon(class=upvote_class)
         //- |like
-    .ui.large.icon.button.downvote(title='downvote' class=downvote_class)
-        i.thumbs.down.icon
+    .ui.large.icon.button.downvote(title='downvote')
+        i.thumbs.down.icon(class=downvote_class)
         //- |dislike
     if points
-        strong #{points}
+        .ui.lareg.basic.label(title='points') #{points}
     if upvoter_ids
         .ui.small.header 
             i.chevron.up.icon
@@ -290,7 +290,8 @@ template(name='remove_button')
 template(name='add_button')
     a.ui.large.button.add(title="add #{model}")
         if icon
-            i.icon(class=icon)
+            //- i.icon(class=icon)
+            +ismall name=icon classes='ui inline image'
         else        
             i.plus.icon
         if label

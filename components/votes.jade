@@ -1,4 +1,4 @@
-template(name='projects')
+template(name='votes')
     .ui.stackable.padded.grid
         .row
             .sixteen.wide.column
@@ -6,51 +6,51 @@ template(name='projects')
                     .title
                         .ui.inline.header 
                             +i name='line chart' classes='ui avatar image'
-                            |project stats
-                            .ui.basic.label #{project_stats_doc.total_count} total
-                            .ui.basic.label #{project_stats_doc.complete_count} complete 
-                            .ui.basic.label #{project_stats_doc.incomplete_count} incomplete 
-                            .ui.basic.label #{project_stats_doc.total_updates_count} total updates 
+                            |vote stats
+                            .ui.basic.label #{vote_stats_doc.total_count} total
+                            .ui.basic.label #{vote_stats_doc.complete_count} complete 
+                            .ui.basic.label #{vote_stats_doc.incomplete_count} incomplete 
+                            .ui.basic.label #{vote_stats_doc.total_updates_count} total updates 
                             i.dropdown.icon
                     .content
                         .ui.grid
                             .three.column.row
                                 .column
-                                    .ui.icon.button.recalc_projects(title='recalculate')
+                                    .ui.icon.button.recalc_votes(title='recalculate')
                                         i.refresh.icon
-                                    with project_stats_doc
-                                        .ui.mini.header projects completed time
-                                        .ui.mini.header project estimated time
-                                        .ui.mini.header project monthly completion rate
+                                    with vote_stats_doc
+                                        .ui.mini.header votes completed time
+                                        .ui.mini.header vote estimated time
+                                        .ui.mini.header vote monthly completion rate
                                 .column
-                                    +latest_project_updates
+                                    +latest_vote_updates
                                 .column
                                     .ui.header 
                                         +i name='comments'
                                         |latest comments
                                     .ui.large.link.bulleted.list
                                         each latest_comments
-                                            a.active.item(href="/project/#{parent_id}/view") 
+                                            a.active.item(href="/vote/#{parent_id}/view") 
                                                 strong #{body}
                                             |#{when}
         .row
             .six.wide.column
                 .ui.inline.header 
                     +i name='road-worker' classes='ui avatar image'
-                    |projects
-                .ui.big.icon.button.add_project(title='add project')
+                    |votes
+                .ui.big.icon.button.add_vote(title='add vote')
                     i.plus.icon
-                +cloud filter='project'
+                +cloud filter='vote'
             .ten.wide.column.scrolling
-                each projects
-                    +project_card_template
+                each votes
+                    +vote_card_template
                     
                     
                     
                     
-template(name='project_card_template')
+template(name='vote_card_template')
     .ui.fluid.segment
-        a.ui.inline.header(href="/project/#{_id}/view")
+        a.ui.inline.header(href="/vote/#{_id}/view")
             if icon
                 +i name=icon
             |#{title}
@@ -60,56 +60,35 @@ template(name='project_card_template')
             i.large.checkmark.icon(title='complete')
         else
             i.large.circle.outline.icon(title='incomplete')
-        |approved
-        if approved
-            +i name='approval' title='approved'
-        else
-            i.large.circle.outline.icon(title='not approved')
         i.tags.icon
         each tags
             .ui.basic.label #{this}
         div
-        .ui.large.basic.label
-            |estimated cost #{estimated_cost}
-        .ui.large.basic.label
-            |actual cost #{actual_cost}
-        .ui.large.basic.label
-            |related company #{related_company}
-        .ui.large.basic.label
-            |estimated complete date #{estimated_complete_date}
-        .ui.large.basic.label
-            |actual complete date #{actual_complete_date}
-        .ui.accordion
-            .title 
-                .ui.inline.header updates
-                i.dropdown.icon
-            .content
-                +activity
-        a.ui.button(href="/project/#{_id}/view")
+        a.ui.button(href="/vote/#{_id}/view")
             |view
             i.right.chevron.icon
 
 
-template(name='project_update_small')
+template(name='vote_update_small')
     .ui.small.header #{text}
 
 
 
 
 
-template(name='project_edit')
+template(name='vote_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .four.wide.column 
                     .ui.header 
                         i.pencil.icon
-                        |edit project
+                        |edit vote
                     .ui.header
                         if icon
                             +i name=icon
                         |#{title}
-                    a.ui.big.fluid.button(href="/project/#{_id}/view" title='save')
+                    a.ui.big.fluid.button(href="/vote/#{_id}/view" title='save')
                         i.green.checkmark.icon
                         |save
                     +remove_button
@@ -121,18 +100,18 @@ template(name='project_edit')
                     +html_edit key='description' label='description' icon='content' direct=true
                     +activity
                      
-template(name='project_view')
+template(name='vote_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .sixteen.wide.column 
-                    a.ui.icon.button(href="/projects" title='view projects')
+                    a.ui.icon.button(href="/votes" title='view votes')
                         +i name='road-worker' classes='ui avatar image'
                     .ui.inline.header
                         if icon
                             +i name=icon
                         +text_view key='title' label='title' direct=true
-                    a.ui.big.icon.button(href="/project/#{_id}/edit")
+                    a.ui.big.icon.button(href="/vote/#{_id}/edit")
                         i.pencil.icon
             .row
                 .four.wide.column 
@@ -147,56 +126,20 @@ template(name='project_view')
                         |activity
                     +activity
                 .six.wide.column 
-                    +project_finance
-                    +project_photos
                     +comments
 
 
-template(name='project_finance')
-    .ui.header 
-        +i name='money'
-        |finance
-    .ui.small.header budget
-    .ui.small.header expenses
-
-template(name='project_photos')
-    .ui.header 
-        +i name='gallery'
-        |photos
-    .ui.button add photo
 
 
-template(name='activity')
-    .ui.button.add_update
-        i.plus.icon
-        |update
-    .ui.feed
-        each updates
-            .event
-                .label
-                    img.ui.avatar.image(src="{{c.url author.kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
-                .content
-                    //- .summary
-                    a.user #{author.username} 
-                    //- |added
-                    //- .date posted #{when}
-                    | {{ med_date update_date }}
-                    .extra.text !{text}
-                    .meta
-                        +voting
-
-
-
-
-template(name='latest_project_updates')
+template(name='latest_vote_updates')
     .ui.header 
         +i name='clock'
-        |latest project updates
+        |latest vote updates
     .ui.link.list
         each latest_updates
-            a.item(href="/project/#{parent_id}/view") 
-                +ismall name=project.icon
+            a.item(href="/vote/#{parent_id}/view") 
+                +ismall name=vote.icon
                 .ui.small.inline.header 
-                    |#{project.title}: 
+                    |#{vote.title}: 
                 strong #{text}
             |#{when}

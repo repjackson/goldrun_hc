@@ -57,7 +57,7 @@ template(name='icon_edit')
             |#{this}    
     if field_value
         //- i.large.icon(class=field_value)
-        img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
+        img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
     .ui.right.icon.input
         input.icon_val(type='text' value=field_value placeholder='icon8 class' autocomplete="off")
 
@@ -77,13 +77,14 @@ template(name='icon_view')
 
 
 template(name='i')
-    //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
-    img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ios/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
-    img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/color/24/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ios/24/000000/#{name}.png" class=classes title=title) 
     |&nbsp;
@@ -256,7 +257,8 @@ template(name='textarea_edit')
                 else
                     |#{this}
             textarea.edit_textarea(rows='5') #{field_value}
-        //- +call_watson mode='text' key=key
+        if is_dev
+            +call_watson mode='text' key=key
 
 
 template(name='html_edit')
@@ -267,14 +269,16 @@ template(name='html_edit')
                     +ismall name=icon
                 if title
                     |#{title}
+                else if label
+                    |#{label}
                 else if key
                     |#{key}
                 else
                     |#{this}
     .froala-container
         +froalaReactive getFEContext
-    //- if is_dev
-    +call_watson mode='html' key=key
+    if is_dev
+        +call_watson mode='html' key=key
     div
     //- +tone mode='html'
     if watson
@@ -1160,9 +1164,10 @@ template(name='project_lookup')
             .ui.middle.aligned.selection.animated.list
                 each doc_results
                     .select_doc.item
-                        h3.ui.header
-                            //- img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                        +ismall name=icon
+                        .ui.inline.header
                             strong #{title}
+                        div
         //- +clear_value                
         //- .ui.list
         //-     each field_value

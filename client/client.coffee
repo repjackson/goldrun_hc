@@ -55,6 +55,8 @@ Template.registerHelper 'is_grandparent_author', () ->
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
 Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM Do h:mm:ss a")
 Template.registerHelper 'short_date', (input) -> moment(input).format("dddd, MMMM Do")
+Template.registerHelper 'med_date', (input) -> moment(input).format("MMM D 'YY")
+Template.registerHelper 'medium_date', (input) -> moment(input).format("dddd, MMMM Do YYYY")
 Template.registerHelper 'today', () ->
     moment(Date.now()).format("dddd, MMMM Do a")
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()

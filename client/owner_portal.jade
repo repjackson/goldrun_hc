@@ -18,6 +18,7 @@ template(name='owner_portal')
                 +board_member_small
                 +documents_small
             .column
+                +minutes_small
                 .ui.header 
                     +i name='work' 
                     |maintenance
@@ -30,7 +31,6 @@ template(name='owner_portal')
                 +latest_project_updates
             .column
                 +projects_small
-                +minutes_small
             
             
             
@@ -48,9 +48,11 @@ template(name='projects_small')
     a.ui.header(href='/projects')
         +i name='project'
         |projects
-    .ui.link.list
+    .ui.link.large.list
         each projects
-            a.item.log_view(href="/project/#{_id}/view") #{title}
+            a.active.item.log_view(href="/project/#{_id}/view") 
+                +ismall name=icon
+                |#{title}
             |#{views} 
             i.grey.eye.icon
             |#{comment_count}
@@ -61,9 +63,9 @@ template(name='minutes_small')
     .ui.header 
         +i name='checklist'
         |board meeting minutes
-    .ui.select.link.list
+    .ui.bulleted.large.link.list
         each minutes
-            a.ui.item.header(href="/minute/#{_id}/view") #{meeting_date}
+            a.active.item(href="/minute/#{_id}/view") {{medium_date meeting_date}}
                 
 
 
