@@ -38,10 +38,11 @@ template(name='board_member_small')
     .ui.header 
         +i name='meeting-room'
         |board
-    each board_members
-        a.ui.header(href="/user/#{username}") #{first_name} #{last_name} 
-            .ui.basic.label(title='approval rating') #{approval_rating}%
-        div
+    .ui.large.link.list
+        each board_members
+            a.active.item(href="/user/#{username}") #{first_name} #{last_name} - #{title}
+                //- .ui.basic.label(title='approval rating') #{approval_rating}%
+            div
 
 
 template(name='projects_small')            
@@ -53,10 +54,12 @@ template(name='projects_small')
             a.active.item.log_view(href="/project/#{_id}/view") 
                 +ismall name=icon
                 |#{title}
-            |#{views} 
-            i.grey.eye.icon
-            |#{comment_count}
-            i.grey.comment.icon
+                span
+                    |#{views} 
+                    i.grey.eye.icon
+                span
+                    |#{comment_count}
+                    i.grey.comment.icon
 
 
 template(name='minutes_small')            
@@ -74,14 +77,14 @@ template(name='documents_small')
     .ui.header
         +i name='document'
         |documents
-    .ui.link.list
+    .ui.large.link.list
         each documents
-            a.item(href="/m/document/#{_id}/view") 
-                .header.log_view
+            a.active.item(href="/m/document/#{_id}/view") 
+                .inline.log_view
                     |#{title}
                 span 
                     |#{views}
-                    i.eye.icon
+                    i.eye.grey.icon
                 span         
                     |#{points}
-                    i.thumbs.up.icon
+                    i.thumbs.up.grey.icon

@@ -7,18 +7,14 @@ template(name='nav')
             else
                 a.ui.item(href='/grid' class="{{isActivePath '/grid'}}")
                     +i name='activity-grid-2' classes='ui mini inline image'    
-                    //- i.th.large.icon                
                 a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
                     +i name='active-directory' classes='ui mini inline image'
-                    //- i.large.fork.icon
                 if is_resident
                     a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}")
                         +i name='home' classes='ui mini inline image'
-                        //- i.large.home.icon
                     each bookmarked_models
                         a.ui.item.set_model(href="/m/#{slug}/" title=title)
                             +i name=icon classes='ui mini inline image'
-                    
                     //- a.ui.item(href='/blog' class="{{isActivePath '/blog'}}")
                     //-     +i name='blog' classes='ui mini inline image'
                     //- a.ui.item(href='/events' class="{{isActivePath '/events'}}")
@@ -29,40 +25,31 @@ template(name='nav')
                     //-     +i name='gallery' classes='ui mini inline image'
                     a.ui.item(href='/profiles' class="{{isActivePath '/profiles'}}")
                         +i name='groups' classes='ui mini inline image'
-                        //- i.large.users.icon
                     a.ui.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                         +i name='dashboard' classes='ui mini inline image'
-                        //- i.large.dashboard.icon
                 if is_manager
                     a.ui.item(href='/manager' class="{{isActivePath '/manager'}}")
                         +i name='user-shield' classes='ui mini inline image'
-                        //- i.large.user.shield.icon
                         .mobile.hidden.inline &nbsp; manager
                     a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
                         +i name='project' classes='ui mini inline image'
-                        //- i.chart.line.large.icon
                         .mobile.hidden.inline &nbsp; projects
                 if is_owner
                     a.ui.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}")
-                        +i name='dashboard' classes='ui mini inline image'
-                        //- i.large.dashboard.icon
-                        .mobile.hidden.inline &nbsp; owner dashboard
-                    a.ui.item(href='/owners' class="{{isActivePath '/owners'}}")
                         +i name='rent' classes='ui mini inline image'
-                        //- i.money.icon
+                        .mobile.hidden.inline &nbsp; dashboard
+                    a.ui.item(href='/owners' class="{{isActivePath '/owners'}}")
+                        +i name='groups' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; owners
+                    a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
+                        +i name='project' classes='ui mini inline image'
+                        .mobile.hidden.inline &nbsp; projects
                     a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
                         +i name='work' classes='ui mini inline image'
-                        //- i.large.wrench.icon
                         .mobile.hidden.inline &nbsp; work orders
                     a.ui.item(href='/minutes' class="{{isActivePath '/minutes'}}")
                         +i name='checklist' classes='ui mini inline image'
-                        //- i.large.list.icon
                         .mobile.hidden.inline &nbsp; minutes
-                    a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
-                        +i name='project' classes='ui mini inline image'
-                        //- i.chart.line.large.icon
-                        .mobile.hidden.inline &nbsp; projects
                     a.ui.item(href='/votes' class="{{isActivePath '/votes'}}")
                         +i name='elections' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; votes
@@ -70,20 +57,16 @@ template(name='nav')
                 if is_staff
                     a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
                         +i name='home' classes='ui mini inline image'
-                        //- i.large.home.icon
                     //- a.ui.item(href='/stats' class="{{isActivePath '/stats'}}")
                     //-     +i name='line chart' classes='ui mini inline image'
                     a.ui.item(href='/staff' class="{{isActivePath '/staff'}}")
                         +i name='manager' classes='ui mini inline image'
-                        //- i.large.user.shield.large.icon
                         .mobile.hidden.inline &nbsp; staff
                     a.ui.item(href='/buildings' class="{{isActivePath '/buildings'}}")
                         +i name='building' classes='ui mini inline image'
-                        //- i.large.building.icon
                         .mobile.hidden.inline &nbsp; buildings
                     a.ui.item(href='/residents' class="{{isActivePath '/residents'}}")
                         +i name='groups' classes='ui mini inline image'
-                        //- i.large.users.icon
                         .mobile.hidden.inline &nbsp; residents
                     a.ui.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
                         +i name='kindle' classes='ui mini inline image'
@@ -98,7 +81,6 @@ template(name='nav')
                     //-     +i name='activity-grid-2' classes='ui mini inline image'
                     a.ui.item(href='/users' class="{{isActivePath '/users'}}")
                         +i name='groups' classes='ui mini inline image'
-                        //- i.users.large.icon
                         .mobile.hidden.inline &nbsp; users
             .right.menu
                 if is_dev

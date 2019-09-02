@@ -90,9 +90,10 @@ template(name='delta')
                             .menu
                                 +set_view_mode title='table' icon='table'
                                 +set_view_mode title='list' icon='list'
-                                +set_view_mode title='cards' icon='clone'
+                                +set_view_mode title='cards' icon='cards'
                                 +set_view_mode title='items' icon='list'
                                 +set_view_mode title='map' icon='map'
+                                +set_view_mode title='graph' icon='graph'
                     //- .ui.stackable.four.column.grid
                     +Template.dynamic template=view_mode_template
             .row 
@@ -134,7 +135,8 @@ template(name='set_limit')
 
 template(name='set_view_mode')
     .item.set_view_mode 
-        i.icon(class=icon)
+        //- i.icon(class=icon)
+        +ismall name=icon
         |#{title}
 
 template(name='facet')
@@ -158,7 +160,7 @@ template(name='facet')
                 //- div
                 each filtering_res
                     if name
-                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+                        .selector.ui.large.compact.button.toggle_selection(class=toggle_value_class)
                             strong #{name}
                             if is_admin
                                 small #{cal_count} #{count}

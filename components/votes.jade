@@ -1,38 +1,36 @@
 template(name='votes')
     .ui.stackable.padded.grid
-        .row
-            .sixteen.wide.column
-                .ui.fluid.accordion
-                    .title
-                        .ui.inline.header 
-                            +i name='line chart' classes='ui avatar image'
-                            |vote stats
-                            .ui.basic.label #{vote_stats_doc.total_count} total
-                            .ui.basic.label #{vote_stats_doc.complete_count} complete 
-                            .ui.basic.label #{vote_stats_doc.incomplete_count} incomplete 
-                            .ui.basic.label #{vote_stats_doc.total_updates_count} total updates 
-                            i.dropdown.icon
-                    .content
-                        .ui.grid
-                            .three.column.row
-                                .column
-                                    .ui.icon.button.recalc_votes(title='recalculate')
-                                        i.refresh.icon
-                                    with vote_stats_doc
-                                        .ui.mini.header votes completed time
-                                        .ui.mini.header vote estimated time
-                                        .ui.mini.header vote monthly completion rate
-                                .column
-                                    +latest_vote_updates
-                                .column
-                                    .ui.header 
-                                        +i name='comments'
-                                        |latest comments
-                                    .ui.large.link.bulleted.list
-                                        each latest_comments
-                                            a.active.item(href="/vote/#{parent_id}/view") 
-                                                strong #{body}
-                                            |#{when}
+        .ui.fluid.accordion
+            .title
+                .ui.inline.header 
+                    +i name='line chart' classes='ui avatar image'
+                    |vote stats
+                    .ui.basic.large.label #{vote_stats_doc.total_count} total
+                    .ui.basic.large.label #{vote_stats_doc.complete_count} complete 
+                    .ui.basic.large.label #{vote_stats_doc.incomplete_count} incomplete 
+                    .ui.basic.large.label #{vote_stats_doc.total_updates_count} total updates 
+                    i.dropdown.icon
+            .content
+                .ui.grid
+                    .three.column.row
+                        .column
+                            .ui.icon.button.recalc_votes(title='recalculate')
+                                i.refresh.icon
+                            with vote_stats_doc
+                                .ui.mini.header votes completed time
+                                .ui.mini.header vote estimated time
+                                .ui.mini.header vote monthly completion rate
+                        .column
+                            +latest_vote_updates
+                        .column
+                            .ui.header 
+                                +i name='comments'
+                                |latest comments
+                            .ui.large.link.bulleted.list
+                                each latest_comments
+                                    a.active.item(href="/vote/#{parent_id}/view") 
+                                        strong #{body}
+                                    |#{when}
         .row
             .six.wide.column
                 .ui.inline.header 

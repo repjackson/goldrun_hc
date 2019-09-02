@@ -1,14 +1,11 @@
 template(name='residents') 
-    .ui.padded.grid
-        .row
-            .sixteen.wide.column
-                .ui.left.icon.large.fluid.input
-                    i.search.icon
-                    input.username_search(type='text' placeholder='lookup resident...' autofocus='autofocus')
-                .ui.centered.four.stackable.cards
-                    each residents
-                        +resident
-                        
+    .ui.left.icon.large.fluid.input
+        i.search.icon
+        input.username_search(type='text' placeholder='lookup resident...' autofocus='autofocus')
+    .ui.centered.four.stackable.cards
+        each residents
+            +resident
+            
 template(name='profiles') 
     .ui.padded.grid
         .row
@@ -27,7 +24,7 @@ template(name='owners')
                 .ui.left.icon.large.fluid.input
                     i.search.icon
                     input.username_search(type='text' placeholder='lookup owner...' autofocus='autofocus')
-                .ui.centered.four.stackable.cards
+                .ui.centered.five.stackable.cards
                     each owners
                         +owner
                 
@@ -42,7 +39,7 @@ template(name='users')
                 .ui.left.icon.large.fluid.input
                     i.search.icon
                     input.username_search(type='text' placeholder='lookup user...' autofocus='autofocus')
-                .ui.centered.four.stackable.cards
+                .ui.centered.five.stackable.cards
                     each users
                         +user
                 
@@ -61,15 +58,17 @@ template(name='resident')
             a(href="/user/#{username}/")
                 h2.ui.center.aligned.header #{first_name} #{last_name} 
                 .ui.small.header @#{username}
-            +text_view key='first_name' label='first name'
-            +text_view key='last_name' label='last name'
-            +text_view key='address' label='address'
-            +number_view key='unit_number' label='Unit #'
-            +number_view key='building_number' label='building #'
-            +text_view key='email' label='email'
-            +phone_view key='phone' label='phone'
-            +date_view key='start_date' label='start date'
-            +date_view key='expiration_date' label='expiration date'
+            +text_view key='first_name' label='first name' direct=true
+            +text_view key='last_name' label='last name' direct=true
+            +text_view key='address' label='address' direct=true
+            +number_view key='unit_number' label='Unit #' direct=true
+            +number_view key='building_number' label='building #' direct=true
+            +text_view key='email' label='email' direct=true
+            +phone_view key='phone' label='phone' direct=true
+            +date_view key='start_date' label='start date' direct=true
+            +date_view key='expiration_date' label='expiration date' direct=true
+            each roles
+                .ui.large.label #{this}
             +user_check_steps            
 
             
@@ -121,10 +120,10 @@ template(name='owner')
             //- img(src="{{c.url image_id height=400 width=400 background='white' crop='pad'}}")
             if kiosk_photo
                 a.zoom(href="/user/#{username}/")
-                    img.ui.image(src="{{c.url kiosk_photo width=400 height=400 crop='fit'}}")
+                    img.ui.image(src="{{c.url kiosk_photo width=400 height=300 crop='fit'}}")
             else if image_id
                 a.zoom(href="/user/#{username}/")
-                    img.ui.image(src="{{c.url image_id width=400 height=400 crop='fit'}}")
+                    img.ui.image(src="{{c.url image_id width=400 height=300 crop='fit'}}")
         .content
             a(href="/user/#{username}/")
                 h2.ui.center.aligned.header #{first_name} #{last_name} 

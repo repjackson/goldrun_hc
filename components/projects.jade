@@ -1,38 +1,36 @@
 template(name='projects')
     .ui.stackable.padded.grid
-        .row
-            .sixteen.wide.column
-                .ui.fluid.accordion
-                    .title
-                        .ui.inline.header 
-                            +i name='line chart' classes='ui avatar image'
-                            |project stats
-                            .ui.basic.label #{project_stats_doc.total_count} total
-                            .ui.basic.label #{project_stats_doc.complete_count} complete 
-                            .ui.basic.label #{project_stats_doc.incomplete_count} incomplete 
-                            .ui.basic.label #{project_stats_doc.total_updates_count} total updates 
-                            i.dropdown.icon
-                    .content
-                        .ui.grid
-                            .three.column.row
-                                .column
-                                    .ui.icon.button.recalc_projects(title='recalculate')
-                                        i.refresh.icon
-                                    with project_stats_doc
-                                        .ui.mini.header projects completed time
-                                        .ui.mini.header project estimated time
-                                        .ui.mini.header project monthly completion rate
-                                .column
-                                    +latest_project_updates
-                                .column
-                                    .ui.header 
-                                        +i name='comments'
-                                        |latest comments
-                                    .ui.large.link.bulleted.list
-                                        each latest_comments
-                                            a.active.item(href="/project/#{parent_id}/view") 
-                                                strong #{body}
-                                            |#{when}
+        .ui.fluid.accordion
+            .title
+                .ui.inline.header 
+                    +i name='line chart' classes='ui avatar image'
+                    |project stats
+                    .ui.large.label #{project_stats_doc.total_count} total
+                    .ui.large.label #{project_stats_doc.complete_count} complete 
+                    .ui.large.label #{project_stats_doc.incomplete_count} incomplete 
+                    .ui.large.label #{project_stats_doc.total_updates_count} total updates 
+                    i.dropdown.icon
+            .content
+                .ui.grid
+                    .three.column.row
+                        .column
+                            .ui.icon.button.recalc_projects(title='recalculate')
+                                i.refresh.icon
+                            with project_stats_doc
+                                .ui.mini.header projects completed time
+                                .ui.mini.header project estimated time
+                                .ui.mini.header project monthly completion rate
+                        .column
+                            +latest_project_updates
+                        .column
+                            .ui.header 
+                                +i name='comments'
+                                |latest comments
+                            .ui.large.link.bulleted.list
+                                each latest_comments
+                                    a.active.item(href="/project/#{parent_id}/view") 
+                                        strong #{body}
+                                    |#{when}
         .row
             .six.wide.column
                 .ui.inline.header 

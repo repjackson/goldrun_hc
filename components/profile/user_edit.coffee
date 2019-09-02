@@ -277,7 +277,6 @@ if Meteor.isClient
                         if err
                             alert err
                         else
-                            alert "Username changed."
                             Router.go("/user/#{new_username}")
 
 

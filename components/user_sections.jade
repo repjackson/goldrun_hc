@@ -49,31 +49,29 @@ template(name='user_votes')
         |votes
 
 template(name='user_messages')
-    .ui.styled.fluid.profile_block.accordion
-        .active.title
-            .ui.inline.grey.header 
-                i.mail.icon
-                |user messages
-        .active.content
-            if currentUser
-                .ui.fluid.icon.input
-                    i.plus.icon
-                    input#new_message(type='text' placeholder='New Message')
-            each user_messages
-                .ui.smoothed.segment
-                    .ui.small.header #{body}
-                    each tags
-                        .ui.label #{this}
-                    div
-                    +notify_message
-                    +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
-                    if can_edit
-                        +remove_button
-                    div
-                    +author_info
-                    +creation_info
-                    //- +watson_view
-            
+    .ui.inline.header 
+        +i name='envelope'
+        |user messages
+    .active.content
+        if currentUser
+            .ui.fluid.icon.input
+                i.plus.icon
+                input#new_message(type='text' placeholder='new message')
+        each user_messages
+            .ui.secondary.segment
+                .ui.small.header #{body}
+                each tags
+                    .ui.label #{this}
+                div
+                +notify_message
+                +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
+                if can_edit
+                    +remove_button
+                div
+                +author_info
+                +creation_info
+                //- +watson_view
+        
 
 template(name='notify_message')
     unless notified
@@ -118,31 +116,29 @@ template(name='follow_user')
                 
 
 template(name='user_wall')
-    .ui.fluid.accordion
-        .active.title
-            .ui.inline.center.aligned.header 
-                i.edit.icon
-                |wall
-        .active.content
-            if currentUser
-                .ui.fluid.icon.input
-                    i.plus.icon
-                    input.new_post(type='text' placeholder='add post...')
-            .ui.comments
-                each wall_posts
-                    .comment
-                        //- .avatar
-                        .active.content
-                            a.author(href='#') #{author.first_name} #{author.last_name}
-                            .metadata
-                                span.date #{when}
-                            .text.large120 #{body}
-                            .actions
-                                +voting
-                                //- i.remove.link.icon.remove_comment(title='Vote Down')
-                                //- i.thumbs.up.link.icon.vote_up_comment(title='Vote Up')
-                                //- |#{points}
-                                i.message.link.icon.mark_comment_read(title='Mark Read')        
+    .ui.inline.center.aligned.header 
+        +i name='my-topic'
+        |wall
+    .active.content
+        if currentUser
+            .ui.fluid.icon.input
+                i.plus.icon
+                input.new_post(type='text' placeholder='add post...')
+        .ui.comments
+            each wall_posts
+                .comment
+                    //- .avatar
+                    .active.content
+                        a.author(href='#') #{author.first_name} #{author.last_name}
+                        .metadata
+                            span.date #{when}
+                        .text.large120 #{body}
+                        .actions
+                            +voting
+                            //- i.remove.link.icon.remove_comment(title='Vote Down')
+                            //- i.thumbs.up.link.icon.vote_up_comment(title='Vote Up')
+                            //- |#{points}
+                            i.message.link.icon.mark_comment_read(title='Mark Read')        
 
 
 
@@ -152,6 +148,8 @@ template(name='user_gallery')
     .ui.header 
         +i name='gallery'
         |gallery
+    .ui.header uploaded photos
+    .ui.header photos tagged in
 
 template(name='user_contact')
     .ui.header 
@@ -260,7 +258,7 @@ template(name='user_tags')
             .ui.large.button.new_tag_review
                 |tag #{user_from_username_param.first_name}
     each user_tag_reviews
-        .ui.segment
+        .ui.secondary.segment
             if can_edit
                 +array_edit key='tags' label='your tags' direct=true
             else 

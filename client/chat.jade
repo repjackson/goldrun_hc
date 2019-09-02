@@ -98,7 +98,7 @@ template(name='chat_message')
                 else 
                     strong #{body}
             .actions
-                +voting
+                +voting_small
                 if is_author
                     i.remove.link.icon.delete_message(title='Delete Message')
                 else
