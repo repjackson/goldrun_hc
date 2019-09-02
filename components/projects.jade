@@ -152,7 +152,8 @@ template(name='activity')
                     .summary
                         a.user #{author.username} 
                         |added
-                        .date #{when}
+                        .date posted #{when}
+                        .date update date #{update_date}
                         .extra.text #{text}
                     .meta
                         +voting

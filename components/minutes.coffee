@@ -63,15 +63,21 @@ if Meteor.isClient
                     called_to_order:true
                     called_to_order_timestamp: Date.now()
         'click .add_old_business_update': ->
+            current_minute = Docs.findOne(Router.current().params.doc_id)
+            console.log 'current minute', current_minute
             Docs.insert
                 model:'project_update'
                 minute_id: Router.current().params.doc_id
                 business_type:'old'
+                update_date: current_minute.meeting_date
         'click .add_new_business_update': ->
+            current_minute = Docs.findOne(Router.current().params.doc_id)
+            console.log 'current minute', current_minute
             Docs.insert
                 model:'project_update'
                 minute_id: Router.current().params.doc_id
                 business_type:'new'
+                update_date: current_minute.meeting_date
 
     Template.minutes.helpers
         minutes: ->

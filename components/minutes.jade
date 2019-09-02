@@ -39,7 +39,9 @@ template(name='minute_edit')
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                 .twelve.wide.column 
                     +date_edit key='meeting_date' label='meeting date' icon='calendar' direct=true
-                    .ui.small.header board members present
+                    .ui.small.header 
+                        +i name='meeting-room'
+                        |board members present
                     .ui.link.list
                         each board_members
                             //- a.item(href="/user/#{username}" target='_window') #{title} - #{first_name} #{last_name} 
@@ -53,24 +55,24 @@ template(name='minute_edit')
                         .ui.button.call_to_order
                             i.bell.icon
                             | call to order
-                    .ui.header owner/guest
-                    +textarea_edit key='owner_guest_notes' label='owner/guest notes' direct=true
-                    .ui.header
-                        +i name='approval'
-                        |approval of minutes
-                    +textarea_edit key='approval_of_minutes_notes' label='approval of minutes notes' direct=true
-                    .ui.header
-                        +i name='approval'
-                        |ratification/ email approvals
-                    +textarea_edit key='ratification_email_approvals' label='ratification/ email approval notes' direct=true
-                    .ui.header 
-                        +i name='invoice'
-                        |financial review
-                    +textarea_edit key='financial_review_notes' label='financial review notes' direct=true
-                    .ui.header 
-                        +i name='sorting-arrows-horizontal'
-                        |need for direction
-                    +textarea_edit key='need_for_direction_notes' label='need for direction notes' icon='sorting-arrows-horizontal' direct=true
+                    //- .ui.header owner/guest
+                    +textarea_edit key='owner_guest_notes' label='owner/guest' icon='user-male' direct=true
+                    //- .ui.header
+                    //-     +i name='approval'
+                    //-     |approval of minutes
+                    +textarea_edit key='approval_of_minutes_notes' label='approval of minutes' icon='approval' direct=true
+                    //- .ui.header
+                    //-     +i name='approval'
+                    //-     |ratification/ email approvals
+                    +textarea_edit key='ratification_email_approvals' label='ratification/ email approval' icon='approval' direct=true
+                    //- .ui.header 
+                    //-     +i name='invoice'
+                    //-     |financial review
+                    +textarea_edit key='financial_review_notes' label='financial review' icon='invoice' direct=true
+                    //- .ui.header 
+                    //-     +i name='sorting-arrows-horizontal'
+                    //-     |need for direction
+                    +textarea_edit key='need_for_direction_notes' label='need for direction' icon='sorting-arrows-horizontal' direct=true
                     div
                     .ui.inline.header 
                         +i name='clock'
@@ -89,10 +91,10 @@ template(name='minute_edit')
                                 +remove_button
                     .ui.icon.button.add_old_business_update
                         i.plus.icon
-                    +html_edit key='old_business_notes' label='new business notes' direct=true
+                    //- +html_edit key='old_business_notes' label='new business notes' direct=true
                     div
                     .ui.inline.header 
-                        +i name='finance'
+                        +i name='business'
                         |new business
                     .ui.accordion
                         each new_business_updates
@@ -108,7 +110,7 @@ template(name='minute_edit')
                                 +remove_button
                     .ui.icon.button.add_new_business_update
                         i.plus.icon
-                    +html_edit key='new_business_notes' label='new business notes' direct=true
+                    //- +html_edit key='new_business_notes' label='new business notes' direct=true
                     .ui.header adjournment
                     +textarea_edit key='adjournment_notes' label='adjournment notes' direct=true
                      
@@ -132,49 +134,51 @@ template(name='minute_view')
                 .twelve.wide.column 
                     .ui.center.aligned.header minutes of the board of director’s meeting
                     .ui.center.aligned.header {{short_date meeting_date}}
-                    .ui.header board members present
+                    .ui.header
+                        +i name='meeting-room'
+                        |board members present
                     .ui.header 
                         +i name='service-bell'
                         |call to order
                     .ui.small.header called to order at {{long_date called_to_order_timestamp}}
-                    .ui.header 
-                        +i name='rent'
-                        |owner/guest
-                    +textarea_view key='owner_guest_notes' label='owner/guest notes' direct=true
-                    .ui.header 
-                        +i name='approval'
-                        |approval of minutes
-                    +textarea_view key='approval_of_minutes_notes' label='approval of minutes notes' direct=true
-                    .ui.header 
-                        +i name='approval'
-                        |ratification/ email approvals
-                    +textarea_view key='ratification_email_approvals' label='ratification/ email approval notes' direct=true
-                    .ui.header 
-                        +i name='invoice'
-                        |financial review
-                    +textarea_view key='financial_review_notes' label='financial review notes' direct=true
-                    .ui.header
-                        +i name='sorting-arrows-horizontal'
-                        |need for direction
-                    +textarea_view key='need_for_direction_notes' label='need for direction notes' direct=true
+                    //- .ui.header 
+                    //-     +i name='rent'
+                    //-     |owner/guest
+                    +textarea_view key='owner_guest_notes' label='owner/guest' icon='rent' direct=true
+                    //- .ui.header 
+                    //-     +i name='approval'
+                    //-     |approval of minutes
+                    +textarea_view key='approval_of_minutes_notes' icon='approval' label='approval of minutes' direct=true
+                    //- .ui.header 
+                    //-     +i name='approval'
+                    //-     |ratification/ email approvals
+                    +textarea_view key='ratification_email_approvals' icon='approval' label='ratification/ email approval' direct=true
+                    //- .ui.header 
+                    //-     +i name='invoice'
+                    //-     |financial review
+                    +textarea_view key='financial_review_notes' label='financial review' icon='invoice' direct=true
+                    //- .ui.header
+                    //-     +i name='sorting-arrows-horizontal'
+                    //-     |need for direction
+                    +textarea_view key='need_for_direction_notes' icon='sorting-arrows-horizontal' label='need for direction' direct=true
                     .ui.header 
                         +i name='clock'
                         |old business
                     each old_business_updates
-                        .ui.basic.segment
-                            .ui.small.inline.header #{project.title}
-                            | #{text}
+                        .ui.small.inline.header #{project.title}
+                        | #{text}
+                        div
                     |{{nl2br old_business_notes}}
-                    +html_view key='old_business_notes' label='old business notes' icon='signature' direct=true
+                    //- +html_view key='old_business_notes' label='old business' icon='signature' direct=true
                     .ui.header 
                         i.briefcase.icon
                         |new business
                     each old_business_updates
-                        .ui.basic.segment
-                            .ui.small.inline.header #{project.title}
-                            | #{text}
+                        .ui.small.inline.header #{project.title}
+                        | #{text}
+                        div
                 
                     |{{nl2br new_business_notes}}
-                    +html_view key='new_business_notes' label='new business notes' icon='signature' direct=true
+                    //- +html_view key='new_business_notes' label='new business' icon='signature' direct=true
                     .ui.header adjournment
-                    +textarea_view key='adjournment_notes' label='adjournment notes' icon='list' direct=true
+                    +textarea_view key='adjournment_notes' label='adjournment' icon='list' direct=true

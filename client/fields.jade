@@ -547,19 +547,20 @@ template(name='float_view')
 
 
 template(name='date_edit')
+    div
     if icon
         +i name=icon classes='ui inline mini image'   
         |&nbsp;
-        .ui.inline.header
-            if title
-                |#{title}
-            else if label
-                |#{label}
-                //- else if key
-                //-     |#{key}
-                //- else
-                //-     |#{this}
-                //- +clear_value                
+    .ui.inline.header
+        if title
+            |#{title}
+        else if label
+            |#{label}
+            //- else if key
+            //-     |#{key}
+            //- else
+            //-     |#{this}
+            //- +clear_value                
     .ui.fluid.input
         input.edit_date(type='date' value=field_value placeholder=placeholder autocomplete="off")
 
