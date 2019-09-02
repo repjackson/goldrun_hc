@@ -6,10 +6,12 @@ template(name='delta')
                     if is_loading
                         .ui.inline.header.pulsing
                             +i name=icon classes='ui avatar image'
+                            //- i.icon(class=icon)
                             |loading #{title}...
                     else 
                         .ui.inline.header
                             +i name=icon classes='ui avatar image'
+                            //- i.icon(class=icon)
                             | #{title}
                     unless is_loading
                         if currentUser
@@ -211,6 +213,7 @@ template(name='delta_result')
                             //- i.eye.icon
                             each viewer_usernames
                                 .ui.small.basic.label #{this}
+                        +comments
                     if is_admin
                         +remove_button
             

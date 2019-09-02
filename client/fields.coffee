@@ -1126,7 +1126,7 @@ Template.project_lookup.events
             Meteor.call 'lookup_project', search_value, (err,res)=>
                 if err then console.error err
                 else
-                    console.log res
+                    # console.log res
                     t.doc_results.set res
     'click .select_doc': (e,t) ->
         # session_document = Docs.findOne Session.get('session_document')
@@ -1143,8 +1143,8 @@ Template.project_lookup.events
             $set:
                 parent_id: project._id
                 project_id: project._id
-        # t.doc_results.set null
-        # $('.project_title_lookup').val ''
+        t.doc_results.set null
+        $('.project_title_lookup').val ''
 
     'click .pull_user': ->
         if confirm "Remove #{@username}?"

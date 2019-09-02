@@ -8,10 +8,11 @@ template(name='healthclub')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")
     .ui.padded.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
+        //- .row
+        //-     .six.wide.center.aligned.column
+        img.ui.medium.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
         .row
-            .two.wide.center.aligned.column
-                img.ui.circular.centered.small.inline.image.shadowed(src="{{c.url 'gold_run_logo' }}")
-            .fourteen.wide.center.aligned.column
+            .sixteen.wide.center.aligned.column
                 .ui.massive.fluid.left.icon.input
                     input.username_search(type='text' placeholder='resident name' autofocus)
                     if is_query

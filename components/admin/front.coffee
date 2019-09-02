@@ -35,31 +35,6 @@ if Meteor.isClient
 
 
 
-    Template.water_status.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'water_status'
-    Template.water_status.helpers
-        on: ->
-            water_feature_status_doc =
-                Docs.findOne
-                    model:'water_status'
-                    slug:@slug
-            water_feature_status_doc.on
-    Template.water_status.events
-        'click .toggle_status': ->
-            # console.log @
-            status_doc =
-                Docs.findOne
-                    model:'water_status'
-                    slug:@slug
-            if status_doc
-                Docs.update status_doc._id,
-                    $set:on:!status_doc.on
-            else
-                Docs.insert
-                    model:'water_status'
-                    slug:@slug
-                    on:true
-
     Template.model_scroller.onCreated ->
         @skip = new ReactiveVar 0
         @autorun => Meteor.subscribe 'model_docs_with_skip', @data.model, @skip.get()

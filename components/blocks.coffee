@@ -4,20 +4,32 @@ if Meteor.isClient
             $('.accordion').accordion()
         , 1000
     Template.comments.onCreated ->
-        @autorun => Meteor.subscribe 'children', 'comment', Router.current().params.doc_id
+        if Router.current().params.doc_id
+            parent = Docs.findOne Router.current().params.doc_id
+        else
+            parent = Docs.findOne Template.parentData()._id
+
+        @autorun => Meteor.subscribe 'children', 'comment', parent._id
     Template.comments.helpers
         doc_comments: ->
+            if Router.current().params.doc_id
+                parent = Docs.findOne Router.current().params.doc_id
+            else
+                parent = Docs.findOne Template.parentData()._id
             Docs.find
-                parent_id:Router.current().params.doc_id
+                parent_id:parent._id
                 model:'comment'
     Template.comments.events
         'keyup .add_comment': (e,t)->
             if e.which is 13
-                parent = Docs.findOne Router.current().params.doc_id
+                if Router.current().params.doc_id
+                    parent = Docs.findOne Router.current().params.doc_id
+                else
+                    parent = Docs.findOne Template.parentData()._id
+                # parent = Docs.findOne Router.current().params.doc_id
                 comment = t.$('.add_comment').val()
-                # console.log comment
                 Docs.insert
-                    parent_id: Router.current().params.doc_id
+                    parent_id: parent._id
                     model:'comment'
                     parent_model:parent.model
                     body:comment

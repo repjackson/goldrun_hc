@@ -15,6 +15,8 @@ template(name='comments')
                         .content
                             .ui.header #{body}
                             .meta #{when}
+                                |by 
+                                a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
                                 +voting
                                 +remove_button
 
@@ -281,7 +283,7 @@ template(name='view_button')
 
 
 template(name='remove_button')
-    a.ui.icon.basic.button.remove_doc(title='delete')
+    .ui.icon.basic.button.remove_doc(title='delete')
         i.remove.red.icon
         //- |Delete
 

@@ -57,34 +57,35 @@ template(name='icon_edit')
             |#{this}    
     if field_value
         //- i.large.icon(class=field_value)
-        img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
+        img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
     .ui.right.icon.input
         input.icon_val(type='text' value=field_value placeholder='icon8 class' autocomplete="off")
 
 
 template(name='color_icon_view')
     if field_value
-        //- img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
-        img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
+        img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
+        //- img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
 
 template(name='icon_view')
     if field_value
         span.inline.spaced
         //- i.icon(class=field_value)
+        img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
         //- img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
-        img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
+        //- img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
 
 
 template(name='i')
     //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
-    //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
-    img(src="https://img.icons8.com/ios/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/ios/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
-    //- img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/24/000000/#{name}.png" class=classes title=title)
-    img(src="https://img.icons8.com/ios/24/000000/#{name}.png" class=classes title=title) 
+    //- img(src="https://img.icons8.com/ios/24/000000/#{name}.png" class=classes title=title) 
     |&nbsp;
 
 template(name='iblue')
@@ -1146,8 +1147,9 @@ template(name='project_lookup')
         //-         |#{key}
         //-     else
         //-         |#{this}
-    .ui.input
-        input.project_title_lookup(type='text' placeholder='lookup project' autocomplete="off")
+    unless field_value
+        .ui.input
+            input.project_title_lookup(type='text' placeholder='lookup project' autocomplete="off")
         //- input#multi_doc_select_input(type='text' placeholder="Lookup #{ref_model}..." autocomplete="off")
     each selections
         .ui.large.label

@@ -72,6 +72,7 @@ if Meteor.isClient
     Template.nav.onCreated ->
         @autorun -> Meteor.subscribe 'me'
         @autorun -> Meteor.subscribe 'role_models'
+        @autorun -> Meteor.subscribe 'users_by_role','staff'
 
         # @autorun -> Meteor.subscribe 'current_session'
         # @autorun -> Meteor.subscribe 'unread_messages'

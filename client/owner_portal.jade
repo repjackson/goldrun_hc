@@ -13,7 +13,7 @@ template(name='owner_portal')
                 .ui.button.add_work_order
                     i.large.plus.icon
                     |work order
-        .three.column.row
+        .four.column.row
             .column
                 +board_member_small
                 +documents_small
@@ -27,6 +27,8 @@ template(name='owner_portal')
                 .ui.header total diverted
                 .ui.header total complete
             .column
+                +latest_project_updates
+            .column
                 +projects_small
                 +minutes_small
             
@@ -37,19 +39,22 @@ template(name='board_member_small')
         +i name='meeting-room'
         |board
     each board_members
-        .ui.header #{first_name} #{last_name} 
+        a.ui.header(href="/user/#{username}") #{first_name} #{last_name} 
             .ui.basic.label(title='approval rating') #{approval_rating}%
-                
+        div
 
 
 template(name='projects_small')            
     a.ui.header(href='/projects')
         +i name='project'
         |projects
-    .ui.selectable.link.list
+    .ui.link.list
         each projects
-            a.item.ui.header(href="/project/#{_id}/view") #{title}
-                
+            a.item.log_view(href="/project/#{_id}/view") #{title}
+            |#{views} 
+            i.grey.eye.icon
+            |#{comment_count}
+            i.grey.comment.icon
 
 
 template(name='minutes_small')            

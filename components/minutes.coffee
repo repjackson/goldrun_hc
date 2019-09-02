@@ -10,12 +10,34 @@ if Meteor.isClient
 
     Template.minute_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'projec  t'
+        @autorun => Meteor.subscribe 'model_docs', 'project'
+        @autorun => Meteor.subscribe 'users_by_role', 'board_member'
+        @autorun => Meteor.subscribe 'minute_updates', Router.current().params.doc_id
+
+    Template.minute_edit.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 3000
     Template.minute_edit.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'project'
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'users_by_role', 'board_member'
         @autorun => Meteor.subscribe 'minute_updates', Router.current().params.doc_id
+
+    Template.minute_view.helpers
+        board_members: ->
+            Meteor.users.find
+                roles:$in:['board_member']
+        old_business_updates: ->
+            Docs.find
+                model:'project_update'
+                minute_id: Router.current().params.doc_id
+                business_type:'old'
+        new_business_updates: ->
+            Docs.find
+                model:'project_update'
+                minute_id: Router.current().params.doc_id
+                business_type:'new'
 
     Template.minute_edit.helpers
         board_members: ->
@@ -26,7 +48,6 @@ if Meteor.isClient
                 model:'project_update'
                 minute_id: Router.current().params.doc_id
                 business_type:'old'
-
         new_business_updates: ->
             Docs.find
                 model:'project_update'
@@ -34,6 +55,13 @@ if Meteor.isClient
                 business_type:'new'
 
     Template.minute_edit.events
+        'click .call_to_order': ->
+            console.log @
+            # Docs.update Router.current().params.doc_id,
+            Docs.update @_id,
+                $set:
+                    called_to_order:true
+                    called_to_order_timestamp: Date.now()
         'click .add_old_business_update': ->
             Docs.insert
                 model:'project_update'

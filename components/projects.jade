@@ -23,14 +23,7 @@ template(name='projects')
                                         .ui.mini.header project estimated time
                                         .ui.mini.header project monthly completion rate
                                 .column
-                                    .ui.header 
-                                        i.clock.outline.icon
-                                        |latest updates
-                                    .ui.link.bulleted.list
-                                        each latest_updates
-                                            a.item(href="/project/#{parent_id}/view") 
-                                                strong #{text}
-                                            |#{when}
+                                    +latest_project_updates
                                 .column
                                     .ui.header 
                                         i.comment.outline.icon
@@ -53,14 +46,23 @@ template(name='projects')
                     +project_card_template
                     
                     
+                    
+                    
 template(name='project_card_template')
     .ui.fluid.segment
         a.ui.inline.header(href="/project/#{_id}/view") #{title}
         |!{description}
+        |complete
         if complete
             i.large.checkmark.icon(title='complete')
         else
             i.large.circle.outline.icon(title='incomplete')
+        |approved
+        if approved
+            +i name='approval' title='approved'
+        else
+            i.large.circle.outline.icon(title='not approved')
+        i.tags.icon
         each tags
             .ui.basic.label #{this}
         div
@@ -154,3 +156,17 @@ template(name='activity')
                         .extra.text #{text}
                     .meta
                         +voting
+
+
+
+
+template(name='latest_project_updates')
+    .ui.header 
+        i.clock.outline.icon
+        |latest updates
+    .ui.link.list
+        each latest_updates
+            a.item(href="/project/#{parent_id}/view") 
+                .ui.small.inline.header #{project.title}: 
+                strong #{text}
+            |#{when}

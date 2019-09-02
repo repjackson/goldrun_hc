@@ -68,12 +68,6 @@ if Meteor.isClient
         projects: ->
             Docs.find
                 model:'project'
-        latest_updates: ->
-            Docs.find {
-                model:'project_update'
-            },
-                limit:5
-                sort:_timestamp:-1
         latest_comments: ->
             Docs.find {
                 model:'comment'
@@ -93,6 +87,21 @@ if Meteor.isClient
 
         'click .recalc_projects': ->
             Meteor.call 'recalc_projects', ->
+
+    Template.latest_project_updates.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'project_update'
+
+    Template.latest_project_updates.helpers
+        latest_updates: ->
+            Docs.find {
+                model:'project_update'
+            },
+                limit:5
+                sort:_timestamp:-1
+
+
+
+
 
 
 if Meteor.isServer

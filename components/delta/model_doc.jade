@@ -43,8 +43,7 @@ template(name='model_doc_view')
                     +user_list_toggle key='bookmark_ids' icon='bookmark' label='bookmark' color='red'
                     div
                     .ui.small.header #{views} views
-                    div
-                    .ui.small.inline.header viewed by
+                    .ui.small.inline.header by
                     each viewer_usernames
                         .ui.small.basic.label #{this}
                     
@@ -79,6 +78,7 @@ template(name='model_doc_view')
                         unless header
                             .item
                                 +Template.dynamic template=view_template 
+                    +comments
                     //- div
                     //- if watson
                     //-     +watson_view
