@@ -42,6 +42,11 @@ template(name='user_people')
 template(name='user_requests')
     .ui.header requests
 
+template(name='user_dashboard')
+    .ui.header 
+        +i name='dashboard' 
+        |dashboard
+
 
 template(name='user_votes')
     .ui.header 
@@ -134,11 +139,11 @@ template(name='user_wall')
                             span.date #{when}
                         .text.large120 #{body}
                         .actions
-                            +voting
+                            +voting_small
                             //- i.remove.link.icon.remove_comment(title='Vote Down')
                             //- i.thumbs.up.link.icon.vote_up_comment(title='Vote Up')
                             //- |#{points}
-                            i.message.link.icon.mark_comment_read(title='Mark Read')        
+                            i.message.link.icon.mark_comment_read(title='mark read')        
 
 
 
@@ -151,6 +156,26 @@ template(name='user_gallery')
     .ui.header uploaded photos
     .ui.header photos tagged in
 
+template(name='user_connections')
+    .ui.header 
+        +i name='connect'
+        |connections
+    .ui.header connected to
+    each connections
+        +user_info
+        
+template(name='user_connect_button')
+    .ui.compact.small.button.toggle_connection
+        if connected
+            +i name='share-2' classes='ui mini image'
+            .ui.inline.header 
+                |connected
+        else
+            +iios name='share-2' classes='ui mini image'
+            .ui.inline.header connect
+            
+
+        
 template(name='user_contact')
     .ui.header 
         +i name='contact'
@@ -259,8 +284,9 @@ template(name='user_tags')
                 |tag #{user_from_username_param.first_name}
     each user_tag_reviews
         .ui.secondary.segment
+            +i name='tag' classes='ui inline mini image'
             if can_edit
-                +array_edit key='tags' label='your tags' direct=true
+                +array_edit key='tags' label='your tags' icon='tag-window'  direct=true
             else 
-                +array_view key='tags' label='review tags' direct=true
+                +array_view key='tags' label='review tags' icon='price-tag' direct=true
             +author_info

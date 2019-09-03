@@ -12,6 +12,7 @@ template(name='nav')
                 if is_resident
                     a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}")
                         +i name='home' classes='ui mini inline image'
+                        |resident portal
                     each bookmarked_models
                         a.ui.item.set_model(href="/m/#{slug}/" title=title)
                             +i name=icon classes='ui mini inline image'
@@ -25,8 +26,10 @@ template(name='nav')
                     //-     +i name='gallery' classes='ui mini inline image'
                     a.ui.item(href='/profiles' class="{{isActivePath '/profiles'}}")
                         +i name='groups' classes='ui mini inline image'
+                        |profiles
                     a.ui.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
                         +i name='dashboard' classes='ui mini inline image'
+                        |dashboard
                 if is_manager
                     a.ui.item(href='/manager' class="{{isActivePath '/manager'}}")
                         +i name='user-shield' classes='ui mini inline image'

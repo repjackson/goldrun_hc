@@ -94,6 +94,16 @@ template(name='vote_edit')
                     +activity
                 .six.wide.column
                     +boolean_edit key='true_false' label='true/false' direct=true 
+                    unless true_false
+                        .ui.header options
+                        .ui.button.add_option
+                            |add option
+                        each options
+                            .ui.segment 
+                                +text_edit key='title' direct=true
+                                +remove_button
+                     
+                     
                      
 template(name='vote_view')
     with current_doc
@@ -125,6 +135,12 @@ template(name='vote_view')
                             .column
                                 .ui.massive.icon.fluid.button.vote_no
                                     i.thumbs.down.red.big.outline.icon 
+                    else
+                        each options
+                            .ui.segment 
+                                +text_view key='title' direct=true
+                                .ui.button vote
+                    .ui.header votes
                     each votes
                         .ui.segment
                             .ui.header vote

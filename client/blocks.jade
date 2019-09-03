@@ -247,12 +247,10 @@ template(name='voting')
 template(name='voting_small')
     if points
         strong #{points}
-    .ui.icon.button.upvote(title='upvote')
-        i.thumbs.up.icon(class=upvote_class)
+    i.thumbs.up.link.icon.upvote(class=upvote_class)
     //- each upvoter_ids
     //-     +user_info
-    .ui.icon.button.downvote(title='downvote')
-        i.thumbs.down.icon(class=downvote_class)
+    i.thumbs.down.link.icon.downvote(class=downvote_class)
     //- each downvoter_ids
     //-     +user_info
 

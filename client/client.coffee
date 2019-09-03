@@ -291,7 +291,10 @@ Template.registerHelper 'is_current_user', () ->
     if Meteor.user().username is Router.current().params.username
         true
     else
-        false
+        if Meteor.user().roles and 'admin' in Meteor.user().roles
+            true
+        else
+            false
 Template.registerHelper 'view_template', -> "#{@field_type}_view"
 Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
 Template.registerHelper 'is_model', -> @model is 'model'

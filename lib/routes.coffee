@@ -148,6 +148,10 @@ Router.route '/user/:username/residency', (->
     @layout 'user_layout'
     @render 'user_residency'
     ), name:'user_residency'
+Router.route '/user/:username/connections', (->
+    @layout 'user_layout'
+    @render 'user_connections'
+    ), name:'user_connections'
 Router.route '/user/:username/karma', (->
     @layout 'user_layout'
     @render 'user_karma'

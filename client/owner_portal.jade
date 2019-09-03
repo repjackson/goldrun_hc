@@ -41,7 +41,7 @@ template(name='board_member_small')
     .ui.large.link.list
         each board_members
             a.active.item(href="/user/#{username}") #{first_name} #{last_name} - #{title}
-                //- .ui.basic.label(title='approval rating') #{approval_rating}%
+                .ui.basic.label(title='approval rating') #{approval_rating}%
             div
 
 

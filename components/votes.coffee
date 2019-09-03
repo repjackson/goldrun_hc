@@ -13,9 +13,6 @@ if Meteor.isClient
 
     Template.vote_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.vote_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'users_by_role', 'board_member'
 
     Template.vote_card_template.onRendered ->
         Meteor.setTimeout ->
@@ -34,7 +31,11 @@ if Meteor.isClient
     Template.vote_view.onCreated ->
         @autorun => Meteor.subscribe 'children', 'vote_update', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'ballot_votes', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'vote_options', Router.current().params.doc_id
     Template.vote_view.helpers
+        options: ->
+            Docs.find
+                model:'vote_option'    
         votes: ->
             Docs.find
                 model:'vote'
@@ -52,9 +53,7 @@ if Meteor.isClient
                 Docs.insert
                     model:'vote'
                     ballot_id: Router.current().params.doc_id
-                    $set:value:'yes'
-
-
+                    value:'yes'
         'click .vote_no': ->
             my_vote = Docs.findOne
                 model:'vote'
@@ -69,16 +68,18 @@ if Meteor.isClient
                     ballot_id: Router.current().params.doc_id
                     value:'no'
 
-
-
-
-
+    Template.vote_edit.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'vote_options', Router.current().params.doc_id
+    Template.vote_edit.events
+        'click .add_option': ->
+            Docs.insert
+                model:'vote_option'
+                ballot_id: Router.current().params.doc_id
     Template.vote_edit.helpers
-        board_members: ->
-            Meteor.users.find
-                roles:$in:['board_member']
-
-
+        options: ->
+            Docs.find
+                model:'vote_option'
 
 
     Template.votes.helpers
@@ -126,21 +127,25 @@ if Meteor.isServer
         Docs.find
             model:'vote'
             ballot_id:ballot_id
-    Meteor.methods
-        recalc_votes: ->
-            vote_stat_doc = Docs.findOne(model:'vote_stats')
-            unless vote_stat_doc
-                new_id = Docs.insert
-                    model:'vote_stats'
-                vote_stat_doc = Docs.findOne(model:'vote_stats')
-            console.log vote_stat_doc
-            total_count = Docs.find(model:'vote').count()
-            complete_count = Docs.find(model:'vote', complete:true).count()
-            incomplete_count = Docs.find(model:'vote', complete:$ne:true).count()
-            total_updates_count = Docs.find(model:'vote_update').count()
-            Docs.update vote_stat_doc._id,
-                $set:
-                    total_count:total_count
-                    complete_count:complete_count
-                    incomplete_count:incomplete_count
-                    total_updates_count:total_updates_count
+    Meteor.publish 'vote_options', (ballot_id)->
+        Docs.find
+            model:'vote_option'
+            ballot_id:ballot_id
+    # Meteor.methods
+        # recalc_votes: ->
+        #     vote_stat_doc = Docs.findOne(model:'vote_stats')
+        #     unless vote_stat_doc
+        #         new_id = Docs.insert
+        #             model:'vote_stats'
+        #         vote_stat_doc = Docs.findOne(model:'vote_stats')
+        #     console.log vote_stat_doc
+        #     total_count = Docs.find(model:'vote').count()
+        #     complete_count = Docs.find(model:'vote', complete:true).count()
+        #     incomplete_count = Docs.find(model:'vote', complete:$ne:true).count()
+        #     total_updates_count = Docs.find(model:'vote_update').count()
+        #     Docs.update vote_stat_doc._id,
+        #         $set:
+        #             total_count:total_count
+        #             complete_count:complete_count
+        #             incomplete_count:incomplete_count
+        #             total_updates_count:total_updates_count
