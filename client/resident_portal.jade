@@ -3,18 +3,26 @@ template(name='resident_portal')
     .ui.padded.stackable.grid
         .three.column.row
             .column
+                +i name='dashboard' classes='ui inline image'
+                .ui.inline.header
+                    | resident portal
+        .four.column.row
+            .column
                 +events_small
             .column
                 +posts_small
             .column
-                +marketplace_small
-        .three.column.row
+                +market_small
             .column
-                .ui.segment
-                    .ui.header
-                        +i name='treadmill'
-                        |healthclub
-                    +health_club_status
+                .ui.header 
+                    +i name='billboard'
+                    |advertisement
+        .four.column.row
+            .column
+                .ui.header
+                    +i name='treadmill'
+                    |healthclub
+                +health_club_status
             .column
                 .ui.header
                     +i name='google-alerts'
@@ -29,6 +37,9 @@ template(name='resident_portal')
                 .ui.list
                     each event_logs
                         .item #{text}
+            .column
+                .ui.header subscriptions
+                    
         .four.column.row
             .column
                 +published_resident_small
@@ -69,76 +80,76 @@ template(name='resident_portal')
 
 
 template(name='karma_leaderboard')
-    .ui.segment
-        .ui.header 
-            +i name='leaderboard'
-            |karma leaderboard
-        .mediumscroll
-            each top_karma_users
-                .ui.small.header #{username} 
-                    .ui.small.basic.teal.label #{points} #{karma}
+    .ui.header 
+        +i name='leaderboard'
+        |karma leaderboard
+    .mediumscroll
+        each top_karma_users
+            .ui.small.header #{username} 
+                .ui.small.basic.teal.label #{points} #{karma}
                 each five_tags
                     .ui.small.basic.label #{this}
         
 template(name='most_viewed_posts')
-    .ui.segment
-        .ui.header 
-            +i name='eye'
-            |most viewed posts
-        .ui.animated.list.mediumscroll
-            each most_viewed_posts
-                a.item.pointer(href="/m/#{model}/#{_id}/view")
-                    .ui.small.header #{title} 
-                        .ui.basic.teal.label(title='model') #{model}
-                        .ui.basic.blue.label(title='views') #{views}
-                    each five_tags
-                        .ui.small.basic.label #{this}
+    .ui.header 
+        +i name='eye'
+        |most viewed posts
+    .ui.animated.list.mediumscroll
+        each most_viewed_posts
+            a.item.pointer(href="/m/#{model}/#{_id}/view")
+                .ui.small.header #{title} 
+                    .ui.basic.teal.label(title='model') #{model}
+                    .ui.basic.blue.label(title='views') #{views}
+                each five_tags
+                    .ui.small.basic.label #{this}
             
         
 template(name='most_viewed_models')
-    .ui.segment
-        .ui.header 
-            +i name='cube'
-            |most viewed models
-        .ui.animated.list.mediumscroll
-            each most_viewed
-                a.item(href="/m/#{slug}") 
-                    .header 
-                        +ismall name=icon
-                        |#{title}
-                    | #{views} views
+    .ui.header 
+        +i name='cube'
+        |most viewed models
+    .ui.animated.list.mediumscroll
+        each most_viewed
+            a.item(href="/m/#{slug}") 
+                .inline.header 
+                    +ismall name=icon
+                    |#{title}
+                span 
+                    | #{views}
+                    i.eye.grey.icon
                 
         
         
 template(name='events_small')
-    .ui.segment
-        .ui.header 
-            +i name='calendar'
-            |events
-        .ui.animated.list
-            each gr_events
-                a.item(href="/m/#{model}/#{_id}/view")
-                    a.ui.small.header(href="/event/#{_id}/view") #{title}
-                    .content
-                        |#{views}
-                        i.eye.icon
-                        |#{points} pts
-            
+    .ui.header 
+        +i name='calendar'
+        |events
+    .ui.animated.large.link.list
+        each gr_events
+            a.active.item(href="/event/#{_id}/view") #{title}
+            .content
+                span(title='views and points')
+                    |#{views}
+                    i.eye.grey.icon
+                    |#{points}
+                    i.thumbs.up.outline.grey.icon
+                    
+            //- a.active.item(href="/m/#{model}/#{_id}/view")
             
             
 template(name='posts_small')
-    .ui.segment
-        a.ui.header(href="/m/post")
-            +i name='blog'
-            |posts
-        .ui.animated.list
-            each posts
-                a.item(href="/m/#{model}/#{_id}/view")
-                    .ui.small.header #{title}
-                    .content
-                        |#{views}
-                        i.eye.icon
-                        |#{points} pts
+    a.ui.header(href="/m/post")
+        +i name='blog'
+        |posts
+    .ui.animated.list
+        each posts
+            a.item(href="/m/#{model}/#{_id}/view")
+                .ui.small.header #{title}
+                span(title='views and points')
+                    |#{views}
+                    i.eye.grey.icon
+                    |#{points}
+                    i.thumbs.up.outline.grey.icon
                         
 
 template(name='chat_small')
@@ -146,22 +157,22 @@ template(name='chat_small')
         .ui.header chat
     
 
-template(name='marketplace_small')
-    .ui.segment
-        .ui.header 
-            +i name='shop'
-            |marketplace
-        each market_items
-            .ui.small.header #{title}
+template(name='market_small')
+    .ui.header 
+        +i name='shop'
+        |market
+    each market_items
+        .ui.small.header #{title}
 
 
 template(name='published_resident_small')
-    .ui.segment
-        .ui.header
-            +i name='groups'
-            |published profiles
-        each published_residents
-            .ui.small.header #{first_name} #{last_name}
+    .ui.header
+        +i name='groups'
+        |published profiles
+    each published_residents
+        .ui.small.header #{first_name} #{last_name}
+            each five_tags
+                .ui.small.basic.label #{this}
 
 
 

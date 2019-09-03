@@ -58,9 +58,9 @@ if Meteor.isClient
 
 
 
-    Template.marketplace_small.onCreated ->
+    Template.market_small.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'market'
-    Template.marketplace_small.helpers
+    Template.market_small.helpers
         market_items: ->
             Docs.find {model:'shop'},
                 sort: timestamp: -1

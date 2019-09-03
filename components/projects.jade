@@ -63,7 +63,7 @@ template(name='project_card_template')
             +i name='approval' title='approved'
         else
             i.large.circle.outline.icon(title='not approved')
-        i.tags.icon
+        +ismall name='tags' classes='ui inline image'
         each tags
             .ui.basic.label #{this}
         div

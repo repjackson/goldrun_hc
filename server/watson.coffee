@@ -1,7 +1,7 @@
 NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1.js');
 
-console.log Meteor.settings.private.language.apikey
-console.log Meteor.settings.private.language.url
+# console.log Meteor.settings.private.language.apikey
+# console.log Meteor.settings.private.language.url
 natural_language_understanding = new NaturalLanguageUnderstandingV1(
     version: '2019-07-12'
     iam_apikey: Meteor.settings.private.language.apikey

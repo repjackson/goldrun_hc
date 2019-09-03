@@ -33,11 +33,42 @@ if Meteor.isClient
 
     Template.vote_view.onCreated ->
         @autorun => Meteor.subscribe 'children', 'vote_update', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'ballot_votes', Router.current().params.doc_id
     Template.vote_view.helpers
-        updates: ->
+        votes: ->
             Docs.find
-                model:'vote_update'
-                parent_id: Router.current().params.doc_id
+                model:'vote'
+                ballot_id: Router.current().params.doc_id
+    Template.vote_view.events
+        'click .vote_yes': ->
+            my_vote = Docs.findOne
+                model:'vote'
+                _author_id: Meteor.userId()
+                ballot_id: Router.current().params.doc_id
+            if my_vote
+                Docs.update my_vote._id,
+                    $set:value:'yes'
+            else
+                Docs.insert
+                    model:'vote'
+                    ballot_id: Router.current().params.doc_id
+                    $set:value:'yes'
+
+
+        'click .vote_no': ->
+            my_vote = Docs.findOne
+                model:'vote'
+                _author_id: Meteor.userId()
+                ballot_id: Router.current().params.doc_id
+            if my_vote
+                Docs.update my_vote._id,
+                    $set:value:'no'
+            else
+                Docs.insert
+                    model:'vote'
+                    ballot_id: Router.current().params.doc_id
+                    value:'no'
+
 
 
 
@@ -91,6 +122,10 @@ if Meteor.isClient
 
 
 if Meteor.isServer
+    Meteor.publish 'ballot_votes', (ballot_id)->
+        Docs.find
+            model:'vote'
+            ballot_id:ballot_id
     Meteor.methods
         recalc_votes: ->
             vote_stat_doc = Docs.findOne(model:'vote_stats')
