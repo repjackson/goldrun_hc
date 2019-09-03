@@ -90,7 +90,6 @@ if Meteor.isClient
 
     Template.latest_project_updates.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'project_update'
-
     Template.latest_project_updates.helpers
         latest_updates: ->
             Docs.find {
@@ -98,6 +97,43 @@ if Meteor.isClient
             },
                 limit:5
                 sort:_timestamp:-1
+
+
+
+    Template.project_finance.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'project_payment'
+    Template.project_finance.events
+        'click .add_payment': ->
+            Docs.insert
+                model:'project_payment'
+                project_id: Router.current().params.doc_id
+        'click .refresh': ->
+            Meteor.call 'calculate_project_payment_totals', Router.current().params.doc_id
+    Template.project_finance.helpers
+        payments: ->
+            Docs.find {
+                model:'project_payment'
+            },
+                limit:10
+                sort:payment_date:-1
+
+
+
+
+    Template.project_files.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'file'
+    Template.project_files.events
+        'click .add_file': ->
+            Docs.insert
+                model:'file'
+                project_id: Router.current().params.doc_id
+    Template.project_files.helpers
+        files: ->
+            Docs.find {
+                model:'file'
+            },
+                limit:10
+                sort:file_date:-1
 
 
 
@@ -110,6 +146,19 @@ if Meteor.isServer
             model:'comment'
             parent_model:parent_model
     Meteor.methods
+        calculate_project_payment_totals: (project_id)->
+            project = Docs.findOne project_id
+            payments = Docs.find(
+                model:'project_payment'
+                project_id:project_id
+            ).fetch()
+            payment_total = 0
+            for payment in payments
+                payment_total+=payment.amount
+            console.log 'payment total', payment_total
+            Docs.update project_id,
+                $set:payment_total:payment_total
+
         recalc_projects: ->
             project_stat_doc = Docs.findOne(model:'project_stats')
             unless project_stat_doc

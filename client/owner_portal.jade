@@ -52,14 +52,14 @@ template(name='projects_small')
     .ui.link.large.list
         each projects
             a.active.item.log_view(href="/project/#{_id}/view") 
-                +ismall name=icon
+                +ismall name=icon classes='ui middle aligned image'
                 |#{title}
-                span
-                    |#{views} 
-                    i.grey.eye.icon
-                span
-                    |#{comment_count}
-                    i.grey.comment.icon
+                //- span
+                //-     |#{views} 
+                //-     i.grey.eye.icon
+                //- span
+                //-     |#{comment_count}
+                //-     i.grey.comment.icon
 
 
 template(name='minutes_small')            
