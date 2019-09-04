@@ -300,7 +300,7 @@ if Meteor.isClient
         'click .send_enrollment_email': (e,t)->
             current_user = Meteor.users.findOne username:Router.current().params.username
             Meteor.call 'send_enrollment_email', current_user._id, @address, ->
-                alert 'Enrollment Email Sent'
+                alert 'enrollment email sent'
 
 
 

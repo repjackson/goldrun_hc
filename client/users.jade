@@ -1,5 +1,5 @@
 template(name='residents') 
-    .ui.left.icon.large.fluid.input
+    .ui.left.icon.fluid.input
         i.search.icon
         input.username_search(type='text' placeholder='lookup resident...' autofocus='autofocus')
     .ui.centered.four.stackable.cards
@@ -7,21 +7,18 @@ template(name='residents')
             +resident
             
 template(name='profiles') 
-    .ui.padded.grid
-        .row
-            .sixteen.wide.column
-                .ui.left.icon.large.fluid.input
-                    i.search.icon
-                    input.username_search(type='text' placeholder='lookup profiles...' autofocus='autofocus')
-                .ui.centered.four.stackable.cards
-                    each profiles
-                        +profile
-                
+    .ui.left.icon.fluid.input
+        i.search.icon
+        input.username_search(type='text' placeholder='lookup profiles...' autofocus='autofocus')
+    .ui.centered.five.stackable.cards
+        each profiles
+            +profile
+    
 template(name='owners') 
     .ui.padded.grid
         .row
             .sixteen.wide.column
-                .ui.left.icon.large.fluid.input
+                .ui.left.icon.fluid.input
                     i.search.icon
                     input.username_search(type='text' placeholder='lookup owner...' autofocus='autofocus')
                 .ui.centered.five.stackable.cards
@@ -36,7 +33,7 @@ template(name='users')
                 //-     +i name='groups'
                 //-     //- i.users.icon
                 //-     |users
-                .ui.left.icon.large.fluid.input
+                .ui.left.icon.fluid.input
                     i.search.icon
                     input.username_search(type='text' placeholder='lookup user...' autofocus='autofocus')
                 .ui.centered.five.stackable.cards

@@ -37,11 +37,6 @@ template(name='user_edit')
                                 //- +text_edit key='building_code' label='building code' icon='building' direct=true
                                 //- +number_edit key='healthclub_code' label='keycard code' icon='barcode' direct=true
                                 +boolean_edit key='owner' icon='rent' label='owner' direct=true
-                                .ui.basic.segment
-                                    .ui.header 
-                                        i.envelope.outline.icon
-                                        |emails
-                                    +emails_edit
                             else
                                 +text_view key='first_name' label='first name' direct=true
                                 +text_view key='last_name' label='last name' direct=true
@@ -52,6 +47,12 @@ template(name='user_edit')
                                 +boolean_edit key='profile_published' label='publish profile' direct=true
                         //- +text_edit key='email' label='email' direct=true
                         div
+                        .ui.basic.segment
+                            .ui.header 
+                                i.envelope.outline.icon
+                                |emails
+                            +emails_edit
+            
                         +phone_edit key='phone' label='phone' icon='phone' direct=true
                         +array_edit key='tags' label='tags' direct=true
                         +image_edit key='banner_image_id' label='banner image' direct=true

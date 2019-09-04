@@ -45,13 +45,16 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'task', ->
                 Session.set 'loading', false
 
-
         'click .set_model': ->
             Session.set 'loading', true
             Docs.update @_id,
                 $inc:views:1
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
+
+
+        'click .spinning': ->
+            Session.set 'loading', false
 
     Template.nav.onRendered ->
         # @autorun =>

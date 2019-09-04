@@ -3,16 +3,24 @@ template(name='nav')
         #topnav.topnav.ui.attached.borderless.menu
             if is_loading
                 .icon.item
-                    i.big.spinning.yin.yang.icon
+                    i.big.spinning.yin.yang.pointer.icon
             else
+                if is_resident
+                    a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}" title='resident portal')
+                        +i name='home' classes='ui mini inline image'
+                        //- |resident portal                
+                if is_staff
+                    a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
+                        +i name='home' classes='ui mini inline image'            
+                if is_owner
+                    a.ui.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}")
+                        +i name='rent' classes='ui mini inline image'
+                        .mobile.hidden.inline &nbsp; dashboard                
                 a.ui.item(href='/grid' class="{{isActivePath '/grid'}}")
                     +i name='activity-grid-2' classes='ui mini inline image'    
                 a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
                     +i name='active-directory' classes='ui mini inline image'
                 if is_resident
-                    a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}")
-                        +i name='home' classes='ui mini inline image'
-                        |resident portal
                     each bookmarked_models
                         a.ui.item.set_model(href="/m/#{slug}/" title=title)
                             +i name=icon classes='ui mini inline image'
@@ -27,9 +35,6 @@ template(name='nav')
                     a.ui.item(href='/profiles' class="{{isActivePath '/profiles'}}")
                         +i name='groups' classes='ui mini inline image'
                         |profiles
-                    a.ui.item(href='/dashboard' class="{{isActivePath '/dashboard'}}")
-                        +i name='dashboard' classes='ui mini inline image'
-                        |dashboard
                 if is_manager
                     a.ui.item(href='/manager' class="{{isActivePath '/manager'}}")
                         +i name='user-shield' classes='ui mini inline image'
@@ -38,9 +43,6 @@ template(name='nav')
                         +i name='project' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; projects
                 if is_owner
-                    a.ui.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}")
-                        +i name='rent' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; dashboard
                     a.ui.item(href='/owners' class="{{isActivePath '/owners'}}")
                         +i name='groups' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; owners
@@ -58,8 +60,6 @@ template(name='nav')
                         .mobile.hidden.inline &nbsp; votes
             
                 if is_staff
-                    a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
-                        +i name='home' classes='ui mini inline image'
                     //- a.ui.item(href='/stats' class="{{isActivePath '/stats'}}")
                     //-     +i name='line chart' classes='ui mini inline image'
                     a.ui.item(href='/staff' class="{{isActivePath '/staff'}}")
@@ -86,6 +86,8 @@ template(name='nav')
                         +i name='groups' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; users
             .right.menu
+                a.ui.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}" title='storefront')
+                    +i name='shop' classes='ui mini inline image'                
                 if is_dev
                     a.ui.item(href='/dev' class="{{isActivePath '/dev'}}" title='dev')
                         +i name='code' classes='ui mini inline image'
@@ -143,14 +145,16 @@ template(name='footer')
                 //-     | keyboard shortcuts
                 +add_button label='report bug' model='bug' icon='bug'
                 //- else
-                //-     form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                //-         input(type='hidden', name='cmd', value='_s-xclick')
-                //-         input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
-                //-         //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                //-         //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                //-         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                //-         button.ui.icon.button(type='submit' title='donate')
-                //-             +i name='donate'
+                unless is_staff
+                    form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                        input(type='hidden', name='cmd', value='_s-xclick')
+                        input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
+                        //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                        //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                        button.ui.button(type='submit' title='donate')
+                            +i name='donate' classes='ui inline mini image'
+                            |donate
                 if is_dev    
                     with current_user
                         +role_switcher

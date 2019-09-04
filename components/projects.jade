@@ -153,7 +153,7 @@ template(name='project_view')
                     +voting_full
                     .ui.small.header #{views} views
                     +viewing
-                    +project_files
+                    +project_files_small
                 .six.wide.column 
                     +activity
                 .six.wide.column 
@@ -161,9 +161,19 @@ template(name='project_view')
                     +project_finance
                     +project_photos
                     +comments
+            .row
+                .sixteen.wide.column
+                    +project_files
+                    
+
+template(name='project_files')                    
+    .ui.header 
+        +i name='file'
+        |files
+                
 
 
-template(name='project_files')
+template(name='project_files_small')
     .ui.header 
         +i name='file'
         | documents

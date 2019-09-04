@@ -120,6 +120,23 @@ if Meteor.isClient
 
 
 
+    Template.project_files_small.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'file'
+    Template.project_files_small.events
+        'click .add_file': ->
+            Docs.insert
+                model:'file'
+                project_id: Router.current().params.doc_id
+    Template.project_files_small.helpers
+        files: ->
+            Docs.find {
+                model:'file'
+            },
+                limit:10
+                sort:file_date:-1
+
+
+
     Template.project_files.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'file'
     Template.project_files.events

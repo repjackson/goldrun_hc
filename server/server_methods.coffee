@@ -240,25 +240,16 @@ Meteor.methods
 
 
     rename: (old, newk)->
-
         old_count = Docs.find({"#{old}":$exists:true}).count()
-
         new_count = Docs.find({"#{newk}":$exists:true}).count()
-
-
         result = Docs.update({"#{old}":$exists:true}, {$rename:"#{old}":"#{newk}"}, {multi:true})
         result2 = Docs.update({"#{old}":$exists:true}, {$rename:"_#{old}":"_#{newk}"}, {multi:true})
 
         # > Docs.update({doc_sentiment_score:{$exists:true}},{$rename:{doc_sentiment_score:"sentiment_score"}},{multi:true})
-
-
         cursor = Docs.find({newk:$exists:true}, { fields:_id:1 })
 
         for doc in cursor.fetch()
             Meteor.call 'key', doc._id
-
-
-
 
 
 
@@ -366,3 +357,9 @@ Meteor.methods
         #     $set:_detected:1
 
         return doc_id
+
+
+    send_enrollment_email: (user_id, email)->
+        user = Meteor.users.findOne(user_id)
+        console.log 'sending enrollment email to username', user.username
+        Accounts.sendEnrollmentEmail(user_id)
