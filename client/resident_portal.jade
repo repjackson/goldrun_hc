@@ -124,15 +124,15 @@ template(name='events_small')
     .ui.header 
         +i name='calendar'
         |events
-    .ui.animated.large.link.list
+    .ui.animated.large.list
         each gr_events
-            a.active.item(href="/event/#{_id}/view") #{title}
-            .content
-                span(title='views and points')
-                    |#{views}
-                    i.eye.grey.icon
-                    |#{points}
-                    i.thumbs.up.outline.grey.icon
+            a.active.item(href="/event/#{_id}/view") 
+                .ui.small.header #{title}
+                //- span(title='views and points')
+                //-     |#{views}
+                //-     i.eye.grey.icon
+                //-     |#{points}
+                //-     i.thumbs.up.outline.grey.icon
                     
             //- a.active.item(href="/m/#{model}/#{_id}/view")
             
@@ -141,15 +141,15 @@ template(name='posts_small')
     a.ui.header(href="/m/post")
         +i name='blog'
         |posts
-    .ui.animated.list
+    .ui.animated.large.list
         each posts
             a.item(href="/m/#{model}/#{_id}/view")
                 .ui.small.header #{title}
-                span(title='views and points')
-                    |#{views}
-                    i.eye.grey.icon
-                    |#{points}
-                    i.thumbs.up.outline.grey.icon
+                //- span(title='views and points')
+                //-     |#{views}
+                //-     i.eye.grey.icon
+                //-     |#{points}
+                //-     i.thumbs.up.outline.grey.icon
                         
 
 template(name='chat_small')
@@ -249,6 +249,14 @@ template(name='health_club_status')
     .ui.header Lower Hot Tub
         +water_status slug='lower_hot_tub'
     .ui.header Pool
+        +water_status slug='pool'
+
+template(name='health_club_status_small')
+    .ui.small.inline.header upper hot tub
+        +water_status slug='upper_hot_tub'
+    .ui.small.inline.header lower hot tub
+        +water_status slug='lower_hot_tub'
+    .ui.small.inline.header pool
         +water_status slug='pool'
 
 

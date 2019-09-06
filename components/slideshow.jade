@@ -87,34 +87,16 @@ template(name='slide_view')
 
 
 
-template(name='view_slideshow')
-    .ui.header hi
-    .ui.shape   
-        .sides
-            each slides
-                .side
-                    .ui.header hi
-                    .ui.padded.grid
-                        .two.column.row
-                            .column
-                                img.ui.rounded.image(src="{{c.url image gravity='face' crop='fit'}}" class=classes)
-                            .column
-                                .ui.inline.large.header #{title}
-                                |!{description}
-
-
-
-
 template(name='slider')
-    #layerslider(style='width:909px; height: 600px;')
+    #layerslider(style='width:909px; height: 450px;')
         each slides
             .ls-slide(data-ls='slidedelay: 3000;')
                 if image_url
                     img.ls-bg(src=image_url)
-                img.ls-bg(src="{{c.url image }}", alt='Slide background' )
+                img.ls-bg(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}", alt='Slide background' )
                 .ls-l(style="top: 20%; height: 170px; width: 170px; left: 20%;" )
-                    // a(href='/join')
-                    h1: title
+                    h1
+                        |title
                 .ls-l(style="top: 50%; height: 170px; width: 170px; left: 20%;" )
                     h2.slider-subheader: subtitle
                     // h2.slider-subheader
@@ -127,12 +109,12 @@ template(name='slides')
         .three.wide.column
             a.ui.button(href='/') Home
         .twelve.wide.column
-            h1.ui.header Slides
+            h1.ui.header alides
     .row
         .four.wide.column
             #add_slide.ui.compact.basic.fluid.button
                 i.green.plus.icon
-                |Add slide
+                |add slide
         .twelve.wide.column
             .ui.cards
                 each slides
@@ -147,9 +129,9 @@ template(name='slide_card')
                 img.ui.centered.image(src=image_url)
         .content
             .ui.header 
-                |Title: #{title}
+                |title: #{title}
             .ui.subheader 
-                |Subtitle: #{subtitle}
+                |subtitle: #{subtitle}
             a.ui.icon.button(href="/slide/#{_id}")
                 i.right.arrow.icon
 
@@ -163,9 +145,9 @@ template(name='slide')
                 .four.wide.column
                     a.ui.basic.button(href="/slides")
                         i.arrow.left.icon
-                        | Slides
+                        | slides
                 .twelve.wide.center.aligned.column
-                    h1.ui.header View Slide
+                    h1.ui.header view slide
             .row
                 .ten.wide.column
                     img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
@@ -175,7 +157,7 @@ template(name='slide')
                     +edit_button
         else
             .centered.row
-                h1.ui.center.aligned.header Edit Slide
+                h1.ui.center.aligned.header edit slide
             .row
                 .twelve.wide.column
                     .ui.form

@@ -30,3 +30,9 @@ if Meteor.isServer
                     resident_count:resident_count
             # role_owners = Meteor.users.find(roles:$in:['owner'])
             # Meteor.users.update({roles:$in:['owner']}, {$set:owner:true}, {multi:true})
+
+
+
+        calc_completed_tasks: ->
+            task_count = Docs.find(model:'task').count()
+            console.log task_count

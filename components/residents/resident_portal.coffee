@@ -59,11 +59,21 @@ if Meteor.isClient
 
 
     Template.market_small.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'market'
+        @autorun -> Meteor.subscribe 'model_docs', 'shop'
     Template.market_small.helpers
         market_items: ->
             Docs.find {model:'shop'},
                 sort: timestamp: -1
+                limit:10
+
+
+    Template.tasks_small.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'task'
+    Template.tasks_small.helpers
+        tasks: ->
+            Docs.find {model:'task'},
+                sort: timestamp: -1
+                limit:10
 
 
 

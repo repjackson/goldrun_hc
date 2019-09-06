@@ -210,7 +210,7 @@ body {
 
 .result:hover{
     box-shadow: inset 0 0 5px 5px rgba(200,200,200,0.5), inset 0 2px 1px 1px rgba(255,255,255,0.9), inset 0 -2px 1px 0 rgba(200,200,200,0.5) !important;
-    background-color: rgba(250,250,250,0.1) !important;
+    background-color: rgba(250,250,250,0.9) !important;
     cursor: pointer !important;
 }
 

@@ -23,14 +23,115 @@ template(name='grid')
                                 .ui.basic.label #{this}
 
 
-//- 
-//- template(name='home')
-//-     .ui.grid
-//-         .eight.wide.column
-//-             .ui.header marketplace
-//-             each marketplace_items
-//-                 +marketplace_item
-//-         .eight.wide.column
-//-             .ui.header posts
-//-             each posts
-//-                 +post
+template(name='home')
+    .ui.padded.stackable.grid
+        .row
+            .eight.wide.column
+                img.ui.tiny.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
+                //- +i name='home' classes='ui inline image'
+                .ui.inline.header
+                    | gold run online
+            .eight.wide.column
+                +health_club_status_small
+        .four.column.row
+            .column
+                +leaderboard_small 
+            //-     +events_small
+            .column
+                +tasks_small
+            //-     +posts_small
+            .column
+                +market_small
+            .column
+                .ui.header 
+                    +i name='billboard'
+                    |advertisement
+                with current_ad
+                    .ui.header #{title}
+        .four.column.row
+            //- .column
+            //-     .ui.header
+            //-         +i name='google-alerts'
+            //-         |notifications
+            //-     .ui.list
+            //-         each notifications
+            //-             .item #{text}
+            .column
+                .ui.header
+                    +i name='rss'
+                    |activity
+                .ui.list
+                    each event_logs
+                        .item #{text}
+            //- .column
+            //-     .ui.header subscriptions
+        //- if is_dev
+        //-     .four.column.row
+        //-         .column
+        //-             +published_resident_small
+        //-         .column
+        //-             +karma_leaderboard
+        //-         .column
+        //-             +most_viewed_posts
+        //-         .column
+        //-             +most_viewed_models
+                    //- +meal_widget
+                    //- +marketplace_widget
+                    //- .ui.header chat
+                    //- +model_scroller model='for_rent' header='For Rent' icon='business'
+                    //- +model_scroller model='event' header='Events' icon='calendar'
+                //- .column
+                //-     +cal
+                    //- +model_scroller model='photo' header='Photos' icon='image'
+            //- .two.column.row    
+            //-     .column
+            //-         +model_scroller model='shop' header='marketplace' icon='shop'
+            //-     .column
+            //-         +model_scroller model='gr_post' header='posts' icon='post'
+            //- .one.column.row    
+            //-     .column
+            //-         iframe(src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.41414983186405!2d-105.2554393150354!3d40.00847065387155!2m3!1f357.8823529411765!2f37.27633198895564!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x0%3A0x710555f334428f65!2sGold+Run+Health+Club!5e1!3m2!1sen!2sus!4v1559922280502!5m2!1sen!2sus" width="1200" height="450" frameborder="0" style="border:0" allowfullscreen)
+            //- .three.column.row    
+            //-     .column
+            //-         +model_scroller model='group' header='groups' icon='groups'
+            //-     .column
+            //-         +model_scroller model='company' header='businesses' icon='business'
+            //- .three.column.row    
+            //-     .column
+            //-         +model_scroller model='library' header='library' icon='library'
+            //-     .column
+            //-         +model_scroller model='ad' header='resident ads' icon='presentation'
+            //-     .column
+            //-         +model_scroller model='for_rent' header='for rent' icon='business'
+
+            
+        //- .eight.wide.column
+        //-     .ui.header marketplace
+        //-     each marketplace_items
+        //-         +marketplace_item
+        //- .eight.wide.column
+        //-     .ui.header posts
+        //-     each posts
+        //-         +post
+
+
+
+template(name='tasks_small')
+    .ui.header 
+        +i name='tasks' classes='ui inline image'
+        |recent tasks
+    each tasks
+        .ui.small.header #{title}
+
+
+
+template(name='leaderboard_small')
+    .ui.header
+        +i name='leaderboard'
+        |leaderboard
+    .ui.small.header most tasks completed
+    if is_dev
+        +call_method name='calc_completed_tasks'
+    .ui.small.header most assigned tasks completed
+    .ui.small.header most money earned
+    

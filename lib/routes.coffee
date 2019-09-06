@@ -13,7 +13,7 @@ force_loggedin =  ()->
 Router.onBeforeAction(force_loggedin, {
   # only: ['admin']
   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
-  except: ['register', 'front','forgot_password','reset_password','delta','doc_view','dev','verify-email','download_rules_pdf']
+  except: ['register', 'home','front','forgot_password','reset_password','delta','doc_view','dev','verify-email','download_rules_pdf']
 });
 
 Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
@@ -105,11 +105,17 @@ Router.route '/login', -> @render 'login'
 
 # Router.route '/', -> @redirect '/m/model'
 # Router.route '/', -> @redirect "/user/#{Meteor.user().username}"
-Router.route '/home', -> @render 'home'
+# Router.route '/', -> @render 'home'
 Router.route '/', (->
     @layout 'layout'
-    @render 'resident_portal'
-    ), name:'root'
+    @render 'home'
+    ), name:'home'
+
+
+# Router.route '/resident_portal', (->
+#     @layout 'layout'
+#     @render 'resident_portal'
+#     ), name:'root'
 
 Router.route '/staff_home', (->
     @layout 'layout'

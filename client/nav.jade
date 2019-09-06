@@ -3,8 +3,12 @@ template(name='nav')
         #topnav.topnav.ui.attached.borderless.large.menu
             if is_loading
                 .icon.item
-                    i.big.spinning.yin.yang.cancel.icon
+                    i.big.spinning.yin.yang.grey.cancel.icon
             else
+                a.ui.item(href='/' class="{{isActivePath '/'}}")
+                    //- .ui.header GRO
+                    +i name='home' classes='ui mini inline image'  
+                    //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
                 if is_resident
                     a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}" title='resident portal')
                         +i name='home' classes='ui mini inline image'
@@ -20,9 +24,10 @@ template(name='nav')
                         +i name='activity-grid-2' classes='ui mini inline image'    
                     a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
                         +i name='active-directory' classes='ui mini inline image'
-                a.ui.item(href='/tasks' class="{{isActivePath '/tasks'}}")
-                    +i name='tasks' classes='ui mini inline image'
-                    .mobile.hidden.inline &nbsp; tasks
+                if currentUser
+                    a.ui.item(href='/work' class="{{isActivePath '/work'}}")
+                        +i name='work' classes='ui mini inline image'
+                        .mobile.hidden.inline &nbsp; work
                 //- if is_resident
                     //- each bookmarked_models
                     //-     a.ui.item.set_model(href="/m/#{slug}/" title=title)
@@ -53,9 +58,9 @@ template(name='nav')
                     a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
                         +i name='project' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; projects
-                    a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
-                        +i name='work' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; work orders
+                    //- a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
+                    //-     +i name='work' classes='ui mini inline image'
+                    //-     .mobile.hidden.inline &nbsp; work orders
                     a.ui.item(href='/minutes' class="{{isActivePath '/minutes'}}")
                         +i name='checklist' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; minutes
@@ -69,9 +74,6 @@ template(name='nav')
                     a.ui.item(href='/staff' class="{{isActivePath '/staff'}}")
                         +i name='manager' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; staff
-                    a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
-                        +i name='work' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; work orders
                     a.ui.item(href='/buildings' class="{{isActivePath '/buildings'}}")
                         +i name='building' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; buildings
@@ -96,8 +98,9 @@ template(name='nav')
                         +i name='groups' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; users
             .right.menu
-                a.ui.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}" title='storefront')
-                    +i name='shop' classes='ui mini inline image'                
+                //- .ui
+                //- a.ui.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}" title='storefront')
+                //-     +i name='shop' classes='ui mini inline image'                
                 if is_dev
                     a.ui.item(href='/dev' class="{{isActivePath '/dev'}}" title='dev')
                         +i name='code' classes='ui mini inline image'

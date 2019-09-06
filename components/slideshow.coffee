@@ -56,37 +56,6 @@ if Meteor.isClient
                 limit:10
 
 
-    Template.view_slideshow.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'slide'
-    Template.view_slideshow.onRendered ->
-        Meteor.setTimeout ->
-            # $('.slide').transition('fade right')
-            $('.shape').shape();
-        , 1000
-
-        # Session.set 'skip',0
-        Meteor.setInterval (->
-            $('.shape').shape('flip up')
-            # new_skip  = Session.get('skip')+1
-            # slide_count = Docs.find(model:'slide').count()
-            # Session.set('skip',new_skip)
-            # if new_skip is slide_count
-            #     Session.set('skip',0)
-        ), 5000
-    Template.view_slideshow.helpers
-        slides: ->
-            Docs.find
-                mode:'slide'
-        # current_slide: ->
-        #     skip = Session.get('skip')
-        #
-        #     Docs.findOne {
-        #         model:'slide'
-        #     }, skip:skip
-
-
-
-
 
 
     Template.slider.onRendered ->
@@ -96,7 +65,7 @@ if Meteor.isClient
                 # firstLayer: 1
                 # skin: 'borderlesslight'
                 # skinsPath: '/static/layerslider/skins/'
-            ), 1000
+            ), 5000
 
 
     Router.route '/slider', (->
@@ -140,14 +109,14 @@ if Meteor.isClient
     Template.slide.events
         'click #delete': ->
             swal {
-                title: 'Delete slide?'
+                title: 'delete slide?'
                 # text: 'Confirm delete?'
                 type: 'error'
                 animation: false
                 showCancelButton: true
                 closeOnConfirm: true
-                cancelButtonText: 'Cancel'
-                confirmButtonText: 'Delete'
+                cancelButtonText: 'cancel'
+                confirmButtonText: 'delete'
                 confirmButtonColor: '#da5347'
             }, ->
                 doc = Docs.findOne Router.current().params.doc_id
@@ -170,7 +139,7 @@ if Meteor.isClient
     Template.slide.events
         'click #delete_slide': ->
             swal {
-                title: 'Delete?'
+                title: 'delete?'
                 # text: 'Confirm delete?'
                 type: 'error'
                 animation: false
