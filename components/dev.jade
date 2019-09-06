@@ -1,7 +1,58 @@
 template(name='dev')
-    .ui.header dev
-    .ui.small.header find user by email
-    .ui.input
-        input.enter_email(type='text')
-    .ui.button.lookup_email
-        |submit
+    .ui.container.padded.grid
+        .row
+            .sixteen.wide.column
+                .ui.input
+                    value key
+                    input(type='text' placeholder='key')
+                .ui.input
+                    label value
+                    input(type='text' placeholder='value')
+                .ui.input
+                    label operator
+                    input(type='text' placeholder='value')
+                each omegas
+                    .ui.button.select_omega(class=selected_omega_class)
+                        |omega doc
+                .ui.header omega config
+                +set_omega_setting label='config mode' key='view_mode' value='config'
+                +set_omega_setting label='docs mode' key='view_mode' value='docs'
+                with omega_doc
+                    .ui.header view mode: #{view_mode}
+                .ui.button.print_omega 
+                    |print
+        .row
+            .sixteen.center.aligned.column
+                unless omega_doc 
+                    .ui.button.make_omega
+                        |make omega
+        .row
+            .sixteen.center.aligned.column
+                .ui.button
+                    with model_model
+                        .ui.header slug: #{slug}
+                        .ui.header model: #{model}
+                        each keys
+                            .ui.label #{this}
+                div
+                .ui.center.aligned.header relationship #{relationship}
+                div
+                if selected_child
+                    with selected_child_doc
+                        .ui.button.active.deselect_child
+                            .ui.header #{title}
+                            |model: #{model}
+                else 
+                    each child_docs
+                        .ui.button.select_child(class=child_doc_class)
+                            +ismall name=icon
+                            .ui.inline.header 
+                                |#{title}
+                            |model: #{model}
+
+
+
+
+template(name='set_omega_setting')
+    .ui.button.set_setting
+        |#{label}

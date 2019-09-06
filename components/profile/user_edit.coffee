@@ -288,14 +288,20 @@ if Meteor.isClient
                 if err
                     alert err.reason
                 else
-                    alert 'Password Changed'
+                    alert 'password changed'
                     # $('.amSuccess').html('<p>Password Changed</p>').fadeIn().delay('5000').fadeOut();
 
         'click .set_password': (e, t) ->
             new_password = $('#new_password').val()
             current_user = Meteor.users.findOne username:Router.current().params.username
             Meteor.call 'set_password', current_user._id, new_password, ->
-                alert "Password set to #{new_password}."
+                alert "password set to #{new_password}."
+
+        'click .send_password_reset_email': (e,t)->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Meteor.call 'send_password_reset_email', current_user._id, @address, ->
+                alert 'password reset email sent'
+
 
         'click .send_enrollment_email': (e,t)->
             current_user = Meteor.users.findOne username:Router.current().params.username

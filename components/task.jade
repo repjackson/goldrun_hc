@@ -1,31 +1,63 @@
-template(name='work_orders')
+template(name='tasks')
     //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")    
+    .ui.fluid.accordion
+        .title
+            .ui.inline.header 
+                +i name='tasks' classes='ui avatar image'
+                |tasks
+                .ui.large.basic.label #{task_stats_doc.total_count} total
+                .ui.large.basic.label #{task_stats_doc.complete_count} complete 
+                .ui.large.basic.label #{task_stats_doc.incomplete_count} incomplete 
+                .ui.large.basic.label #{task_stats_doc.total_updates_count} total updates 
+                i.dropdown.large.icon
+        .content
+            .ui.grid
+                .three.column.row
+                    .column
+                        .ui.icon.button.recalc_tasks(title='recalculate')
+                            i.refresh.icon
+                        with task_stats_doc
+                            .ui.mini.header tasks completed time
+                            .ui.mini.header task estimated time
+                            .ui.mini.header task monthly completion rate
+                            .ui.large.basic.label #{task_stats_doc.total_count} total
+                            .ui.large.basic.label #{task_stats_doc.complete_count} complete 
+                            .ui.large.basic.label #{task_stats_doc.incomplete_count} incomplete 
+                            .ui.large.basic.label #{task_stats_doc.total_updates_count} total updates 
+                        
+                    .column
+                        //- +latest_task_updates
+                    .column
+                        .ui.header 
+                            +i name='comments'
+                            |latest comments
+                        .ui.large.link.bulleted.list
+                            each latest_comments
+                                a.active.item(href="/task/#{parent_id}/view") 
+                                    strong #{body}
+                                |#{when}
+    
     .ui.padded.stackable.grid
         .row
             .twelve.wide.column
                 .ui.inline.header
-                    +i name='work'
-                    |work orders
+                    +i name='tasklist'
+                    |tasks
                 .ui.inline.grey.header
                     |your unit
                     |##{currentUser.unit_number}
                     |at ##{currentUser.building_number}
-                .ui.header response time
-                .ui.header total requests
-                .ui.header total diverted
-                .ui.header total complete
-                .ui.header total incomplete
-            .four.wide.column
-                .ui.button.add_work_order
+            .four.wide.column   
+                .ui.button.add_task
                     i.large.plus.icon
-                    |work order
+                    |task
         .three.column.row
             .column
-                +my_unit_work_orders
+                +my_unit_tasks
             .column
-                +my_building_work_orders
+                +my_building_tasks
             .column
-                +all_work_orders
+                +all_tasks
         .three.column.row
             .column
                 .ui.header
@@ -51,34 +83,34 @@ template(name='work_orders')
                 +view_chats
 
 
-template(name='my_unit_work_orders')
+template(name='my_unit_tasks')
     .ui.header 
-        +i name='work'
-        |my unit work orders
+        +i name='room'
+        |my unit tasks
     .ui.animated.list
-        each my_unit_work_orders
-            +work_order_item
+        each my_unit_tasks
+            +task_item
         
         
-template(name='all_work_orders')
+template(name='all_tasks')
     .ui.header 
-        +i name='work'
-        |work orders
+        +i name='tasklist'
+        |tasks
     .ui.animated.list
-        each all_work_orders
-            +work_order_item
+        each all_tasks
+            +task_item
         
         
-template(name='my_building_work_orders')
+template(name='my_building_tasks')
     .ui.header 
-        +i name='work'
-        |building #{my_building.code} work orders
+        +i name='building'
+        |building #{my_building.code} tasks
     .ui.animated.list
-        each my_building_work_orders
-            +work_order_item
+        each my_building_tasks
+            +task_item
 
-template(name='work_order_item')
-    a.item(href="/work_order/#{_id}/view")
+template(name='task_item')
+    a.item(href="/task/#{_id}/view")
         .ui.small.header #{title}
         .content
             |#{when} by #{_author_username} #{building_number} #{unit_number}
@@ -86,27 +118,28 @@ template(name='work_order_item')
 
 
 
-template(name='work_order_edit')
+template(name='task_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .row
-                .four.wide.column 
+            .three.column.row
+                .column 
                     .ui.header 
                         i.pencil.icon
-                        |edit work_order
-                    a.ui.big.icon.fluid.button(href="/work_order/#{_id}/view" title='save')
+                        |edit task
+                    a.ui.big.icon.fluid.button(href="/task/#{_id}/view" title='save')
                         i.green.checkmark.icon
                     +remove_button
                     +number_edit key='unit_number' label='unit_number' direct=true
                     +number_edit key='building_number' label='building_number' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +boolean_edit key='need_to_schedule' label='need to schedule' direct=true
                     +single_user_edit key='reported_by' label='reported by' direct=true
-                .eight.wide.column 
+                .column 
                     +text_edit key='title' label='title' icon='title' direct=true
                     +image_edit key='image' label='image' icon='image' direct=true
                     +html_edit key='description' label='description' icon='content' direct=true
-                .four.wide.column 
+                .column 
                     .ui.header stats
                     .ui.small.header #{views} views
                     .ui.small.header #{points} points
@@ -114,17 +147,17 @@ template(name='work_order_edit')
                     .ui.small.header status: #{status}
                     
                      
-template(name='work_order_view')
+template(name='task_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .four.wide.column 
-                    a.ui.fluid.button(href="/work_orders")
+                    a.ui.fluid.button(href="/tasks")
                         i.left.chevron.icon
-                        +i name='work' classes='ui avatar image'
-                        |work orders
-                    .ui.header view work order
-                    a.ui.big.icon.button(href="/work_order/#{_id}/edit")
+                        +i name='tasklist' classes='ui avatar image'
+                        |tasks
+                    .ui.header view task
+                    a.ui.big.icon.button(href="/task/#{_id}/edit")
                         i.pencil.large.icon
                     +voting_full
                     .ui.header submitted #{_timestamp_long}

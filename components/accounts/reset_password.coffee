@@ -63,7 +63,7 @@ if Meteor.isClient
         'click .submit_username': (e, t) ->
             e.preventDefault()
             username = $('.username').val().trim()
-
+            console.log 'submitting username', username
             user = Meteor.users.findOne username:username
             email = user.emails[0].address
             if not email

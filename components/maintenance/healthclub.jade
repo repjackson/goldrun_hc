@@ -10,15 +10,16 @@ template(name='healthclub')
         //- +Template.dynamic template=kiosk_view
         //- .row
         //-     .six.wide.center.aligned.column
+
         img.ui.medium.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
         .row
             .sixteen.wide.center.aligned.column
                 .ui.massive.fluid.left.icon.input
-                    input.username_search(type='text' placeholder='resident name' autofocus)
+                    input.username_search(type='text' placeholder='resident first or last name' autofocus)
                     if is_query
                         i.remove.link.icon.clear_results
                     else 
-                        i.user.grey.outline.icon
+                        i.user.grey.outline.large.icon
         .row
             .sixteen.wide.column
                 .ui.grid
@@ -47,6 +48,11 @@ template(name='healthclub')
                     +inline_doc slug='health_club_notices' classes='ui large header'
                     .two.column.row
                         .column
+                            if is_staff
+                                a.ui.fluid.button(href='/staff')
+                                    i.left.chevron.large.icon
+                                    +i name='user-shield' classes='ui inline image'
+                                    |staff
                             //- with latest_movie
                             //-     .smallscroll
                                     //- img.ui.rounded.image(src="{{c.url image_id height=600 gravity='face' crop='fill'}}")
@@ -74,11 +80,6 @@ template(name='healthclub')
                                             .item Sat 8a-9p
                                             .item Sun 8a-10p
                             +health_club_status
-                            if is_staff
-                                a.ui.compact.button(href='/staff')
-                                    i.left.chevron.icon
-                                    +i name='user-shield' classes='ui inline image'
-                                    |staff
 
 
 template(name='facet_doc_edit')

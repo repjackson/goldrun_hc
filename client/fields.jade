@@ -1116,13 +1116,13 @@ template(name='multi_doc_input')
         .ui.large.label
             |#{guest_name} #{first_name} #{last_name}
     if doc_results
-        .ui.attached.segment
+        .ui.attached.secondary.segment
             .ui.middle.aligned.selection.animated.list
                 each doc_results
                     .select_doc.item
-                        h3.ui.header
+                        h2.ui.header
                             //- img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-                            strong #{guest_name} #{first_name} #{last_name}
+                            strong + #{guest_name} #{first_name} #{last_name}
         //- +clear_value                
         //- .ui.list
         //-     each field_value

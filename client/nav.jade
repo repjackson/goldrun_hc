@@ -1,9 +1,9 @@
 template(name='nav')
     unless is_frontdesk
-        #topnav.topnav.ui.attached.borderless.menu
+        #topnav.topnav.ui.attached.borderless.large.menu
             if is_loading
                 .icon.item
-                    i.big.spinning.yin.yang.pointer.icon
+                    i.big.spinning.yin.yang.cancel.icon
             else
                 if is_resident
                     a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}" title='resident portal')
@@ -13,17 +13,21 @@ template(name='nav')
                     a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
                         +i name='home' classes='ui mini inline image'            
                 if is_owner
-                    a.ui.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}")
+                    a.ui.icon.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}" title='owner dashboard')
                         +i name='rent' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; dashboard                
-                a.ui.item(href='/grid' class="{{isActivePath '/grid'}}")
-                    +i name='activity-grid-2' classes='ui mini inline image'    
-                a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
-                    +i name='active-directory' classes='ui mini inline image'
-                if is_resident
-                    each bookmarked_models
-                        a.ui.item.set_model(href="/m/#{slug}/" title=title)
-                            +i name=icon classes='ui mini inline image'
+                if is_dev
+                    a.ui.item(href='/grid' class="{{isActivePath '/grid'}}" title='model grid view')
+                        +i name='activity-grid-2' classes='ui mini inline image'    
+                    a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
+                        +i name='active-directory' classes='ui mini inline image'
+                a.ui.item(href='/tasks' class="{{isActivePath '/tasks'}}")
+                    +i name='tasks' classes='ui mini inline image'
+                    .mobile.hidden.inline &nbsp; tasks
+                //- if is_resident
+                    //- each bookmarked_models
+                    //-     a.ui.item.set_model(href="/m/#{slug}/" title=title)
+                    //-         +i name=icon classes='ui mini inline image'
+                    
                     //- a.ui.item(href='/blog' class="{{isActivePath '/blog'}}")
                     //-     +i name='blog' classes='ui mini inline image'
                     //- a.ui.item(href='/events' class="{{isActivePath '/events'}}")
@@ -32,9 +36,9 @@ template(name='nav')
                     //-     +i name='shop' classes='ui mini inline image'
                     //- a.ui.item(href='/gallery' class="{{isActivePath '/gallery'}}")
                     //-     +i name='gallery' classes='ui mini inline image'
-                    a.ui.item(href='/profiles' class="{{isActivePath '/profiles'}}")
-                        +i name='groups' classes='ui mini inline image'
-                        |profiles
+                    //- a.ui.item(href='/profiles' class="{{isActivePath '/profiles'}}")
+                    //-     +i name='groups' classes='ui mini inline image'
+                    //-     |profiles
                 if is_manager
                     a.ui.item(href='/manager' class="{{isActivePath '/manager'}}")
                         +i name='user-shield' classes='ui mini inline image'
@@ -65,6 +69,9 @@ template(name='nav')
                     a.ui.item(href='/staff' class="{{isActivePath '/staff'}}")
                         +i name='manager' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; staff
+                    a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
+                        +i name='work' classes='ui mini inline image'
+                        .mobile.hidden.inline &nbsp; work orders
                     a.ui.item(href='/buildings' class="{{isActivePath '/buildings'}}")
                         +i name='building' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; buildings
@@ -77,6 +84,9 @@ template(name='nav')
                     a.ui.item(href='/readings' class="{{isActivePath '/readings'}}")
                         +i name='water' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; water
+                    a.ui.item(href='/slideshow' class="{{isActivePath '/slideshow'}}")
+                        +i name='channel-mosaic' classes='ui mini inline image'
+                        .mobile.hidden.inline &nbsp; slideshow
                 if is_admin
                     //- a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
                     //-     +i name='active-directory' classes='ui mini inline image'
@@ -143,18 +153,18 @@ template(name='footer')
                 //- .ui.button.shortcut_modal
                 //-     i.keyboard.icon
                 //-     | keyboard shortcuts
-                +add_button label='report bug' model='bug' icon='bug'
+                //- +add_button label='+ bug' model='bug' icon='bug'
                 //- else
-                unless is_staff
-                    form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                        input(type='hidden', name='cmd', value='_s-xclick')
-                        input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
-                        //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                        //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                        button.ui.button(type='submit' title='donate')
-                            +i name='donate' classes='ui inline mini image'
-                            |donate
+                //- unless is_staff
+                //-     form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                //-         input(type='hidden', name='cmd', value='_s-xclick')
+                //-         input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
+                //-         //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                //-         //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                //-         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                //-         button.ui.button(type='submit' title='donate')
+                //-             +i name='donate' classes='ui inline mini image'
+                //-             |donate
                 if is_dev    
                     with current_user
                         +role_switcher

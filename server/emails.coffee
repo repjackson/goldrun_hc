@@ -48,9 +48,15 @@ Meteor.methods
         Accounts.sendResetPasswordEmail Meteor.userId()
         Accounts.sendEnrollmentEmail Meteor.userId()
 
+
+    send_password_reset_email: (user_id)->
+        Accounts.sendResetPasswordEmail new_user_id
+
+
+        
 Mailer.config
-    from: 'Gold Run Rec Center <goldrunreccenter@gmail.com>',     # Default 'From:' address. Required.
-    replyTo: 'Gold Run Rec Center <goldrunreccenter@gmail.com>',  # Defaults to `from`.
+    from: 'Gold Run Online <goldrunreccenter@gmail.com>',     # Default 'From:' address. Required.
+    replyTo: 'Gold Run Online <goldrunreccenter@gmail.com>',  # Defaults to `from`.
     routePrefix: 'emails',              # Route prefix.
     baseUrl: "process.env.ROOT_URL",      # The base domain to build absolute link URLs from in the emails.
     testEmail: "repjackson@gmail.com",                    # Default address to send test emails to.

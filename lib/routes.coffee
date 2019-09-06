@@ -13,7 +13,7 @@ force_loggedin =  ()->
 Router.onBeforeAction(force_loggedin, {
   # only: ['admin']
   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
-  except: ['register', 'front','forgot_password','reset_password','delta','doc_view','verify-email','download_rules_pdf']
+  except: ['register', 'front','forgot_password','reset_password','delta','doc_view','dev','verify-email','download_rules_pdf']
 });
 
 Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
@@ -31,9 +31,6 @@ Router.route '/shift_checklist', -> @render 'shift_checklist'
 
 Router.route '/building/:building_code', -> @render 'building'
 
-Router.route '/tasks', -> @render 'tasks'
-Router.route '/task/:doc_id/view', -> @render 'task_view'
-Router.route '/task/:doc_id/edit', -> @render 'task_edit'
 
 Router.route('enroll', {
     path: '/enroll-account/:token'

@@ -145,7 +145,7 @@ Meteor.methods
         Docs.find({
             model:model_filter
             guest_name: {$regex:"#{guest_name}", $options: 'i'}
-            }).fetch()
+            },{limit:10}).fetch()
 
     lookup_project: (project_title)->
         Docs.find({

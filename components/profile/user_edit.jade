@@ -150,6 +150,9 @@ template(name='password_edit')
     if is_dev
         .ui.fluid.basic.button.send_enrollment_email
             |send enrollment email
+    if is_admin
+        .ui.fluid.basic.button.reset_password
+            |reset password
     .ui.fluid.large.basic.button.set_password
         +i name='password' classes='ui mini inline image'
         | set password

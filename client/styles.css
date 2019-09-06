@@ -176,6 +176,11 @@ body {
     /* -webkit-filter: drop-shadow(5px 5px 5px rgba(250,250,250, 0.5); */
     /* filter:         drop-shadow(5px 5px 5px rgba(250,250,250, 0.5); */
 }
+.cancel:hover{
+    cursor: cancel !important;
+    /* -webkit-filter: drop-shadow(5px 5px 5px rgba(250,250,250, 0.5); */
+    /* filter:         drop-shadow(5px 5px 5px rgba(250,250,250, 0.5); */
+}
 
 .profile_grid {
     position: absolute !important;

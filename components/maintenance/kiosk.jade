@@ -79,27 +79,32 @@ template(name='healthclub_session')
                 .column
                     h1.ui.huge.header.f11
                         |#{user.first_name} #{user.last_name} 
+                    unless adding_guests
+                        with user
+                            +user_check_steps
                     if user.public_staff_notes
                         h2
                             small staff notes:
                             strong !{user.public_staff_notes}
                     if adding_guests
-                        .ui.header 
-                            i.users.teal.icon
-                            |guests
-                        .ui.small.inline.header recent guests
+                        //- .ui.header 
+                        //-     //- i.users.icon
+                        //-     |session guests
+                        if resident_guests
+                            .ui.small.inline.header recent guests
                         each resident_guests
                             .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
                         div
                         .ui.big.basic.button.add_guest
                             //- i.plus.icon
-                            +i name='add-user-group-man-man--v2' classes='ui inline image'
+                            //- +i name='add-user-group-man-man--v2' classes='ui inline image'
                             strong new guest
+                        .ui.inline.header or
                         +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
                         div
                         with checking_in_doc
                             if checking_in_doc.guest_ids
-                                .ui.inline.header guests for this session
+                                .ui.inline.header session guests
                                 each checking_in_doc.guest_ids
                                     +resident_guest
                     else
@@ -107,8 +112,6 @@ template(name='healthclub_session')
                             i.plus.large.icon
                             //- +i name='add-user-group-man' classes='ui inline image'                
                             .ui.inline.big.header guest
-                    with user
-                        +user_check_steps
             .row
                 .sixteen.wide.column
                     unless user.kiosk_photo
@@ -118,13 +121,13 @@ template(name='healthclub_session')
                         //-     |please click 'Choose File' above, switch the camera to the front, and take photo to proceed 
                     unless user.member_waiver_signed
                         .ui.massive.fluid.red.basic.button.sign_guidelines
+                            +i name='signature' classes='ui middle aligned image'
                             .ui.inline.header 
-                                +i name='signature'
                                 | sign member waiver            
                     unless user.rules_and_regulations_signed
                         .ui.massive.fluid.red.basic.button.sign_rules
+                            +i name='signature' classes='ui middle aligned image'
                             .ui.inline.header 
-                                +i name='signature'
                                 | sign rules and regs
                     if user.email_red_flagged
                         .ui.disabled.massive.fluid.button
@@ -137,13 +140,13 @@ template(name='healthclub_session')
                             if user.member_waiver_signed
                                 if user.rules_and_regulations_signed
                                     unless user.email_red_flagged
-                                        .ui.massive.fluid.basic.button.submit_checkin
-                                            .ui.inline.inverted.header 
-                                                //- | check in
-                                                i.checkmark.green.icon
+                                        .ui.massive.fluid.button.submit_checkin
+                                            .ui.inline.inverted.green.header 
+                                                | check in
+                                                //- i.checkmark.green.icon
                                                 //- if timer_engaged
                                                     //- small (auto in #{timer})                    
-                                                //- i.right.chevron.icon
+                                                i.right.chevron.icon
                 //- if timer_engaged
                 //-     //- .ui.small.grey.header auto check in #{timer} seconds
                 //-     .ui.button.cancel_auto_checkin
@@ -152,6 +155,6 @@ template(name='healthclub_session')
                 
 template(name='resident_guest')
     with guest_doc
-        .ui.big.teal.basic.button.remove_guest 
+        .ui.big.basic.button.remove_guest 
             i.remove.icon
-            |#{guest_name} #{first_name} #{last_name}
+            .ui.inline.header #{guest_name} #{first_name} #{last_name}

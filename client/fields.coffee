@@ -1080,7 +1080,7 @@ Template.multi_doc_input.events
             Meteor.call 'lookup_doc', search_value, 'guest', (err,res)=>
                 if err then console.error err
                 else
-                    console.log res
+                    # console.log res
                     t.doc_results.set res
     'click .select_doc': (e,t) ->
         # session_document = Docs.findOne Session.get('session_document')

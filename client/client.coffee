@@ -66,7 +66,7 @@ Template.registerHelper 'last_initial', (user) ->
     @last_name[0]+'.'
     # moment(input).fromNow()
 Template.registerHelper 'first_initial', (user) ->
-    @first_name[..1]+'.'
+    @first_name[..2]+'.'
     # moment(input).fromNow()
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
 Template.registerHelper 'is_event', () -> @shop_type is 'event'

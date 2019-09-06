@@ -1,0 +1,190 @@
+template(name='slideshow')
+    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")    
+    .ui.padded.stackable.grid
+        .row
+            .twelve.wide.column
+                .ui.inline.header
+                    +i name='channel-mosaic'
+                    |slideshow
+                a.ui.big.button(href="/slider")
+                    +i name='channel-mosaic' classes='ui inline image'
+                    |view slideshow
+            .four.wide.column   
+                .ui.button.add_slide
+                    i.large.plus.icon
+                    |slide
+        .row
+            .four.wide.column
+                .ui.header
+                    +i name='slide-layout'
+                    |slides
+                .ui.large.vertical.menu
+                    each slides
+                        .item.pointer.select_slide(class=slide_menu_item_class) #{title}
+            .twelve.wide.column
+                with current_slide
+                    .ui.inline.large.header #{title}
+                    a.ui.button(href="/slide/#{_id}/edit")
+                        i.pencil.icon
+                    .ui.padded.grid
+                        .two.column.row
+                            .column
+                                img.ui.rounded.image(src="{{c.url image gravity='face' crop='fit'}}" class=classes)
+                            .column
+                                .ui.inline.large.header #{title}
+                                |!{description}
+        .three.column.row
+            .sixteen.wide.column
+                +view_chats
+
+
+
+template(name='slide_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header 
+                        i.pencil.icon
+                        |edit slide
+                    a.ui.big.icon.fluid.button(href="/slide/#{_id}/view" title='save')
+                        i.green.checkmark.icon
+                    +remove_button
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                .six.wide.column 
+                    +image_edit key='image' label='image' icon='image' direct=true
+                .six.wide.column 
+                    +text_edit key='title' label='title' icon='title' direct=true
+                    +html_edit key='description' label='description' icon='content' direct=true
+                    
+                     
+template(name='slide_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    a.ui.fluid.button(href="/slideshow")
+                        i.left.chevron.icon
+                        +i name='channel-mosaic' classes='ui avatar image'
+                        |slideshow
+                    .ui.header view slide
+                    a.ui.big.icon.button(href="/slide/#{_id}/edit")
+                        i.pencil.large.icon
+                    +voting_full
+                    .ui.header submitted #{_timestamp_long}
+                    each _timestamp_tags
+                        .ui.basic.label #{this}
+                    +viewing
+                .eight.wide.column 
+                    +text_view key='title' label='title' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    .large150
+                        +html_view key='description' icon='content' label='description' direct=true
+                    +image_view key='image' icon='image' label='image' direct=true
+                    +boolean_view key='published' label='published' direct=true
+                    +comments
+
+
+
+
+template(name='view_slideshow')
+    .ui.header hi
+    .ui.shape   
+        .sides
+            each slides
+                .side
+                    .ui.header hi
+                    .ui.padded.grid
+                        .two.column.row
+                            .column
+                                img.ui.rounded.image(src="{{c.url image gravity='face' crop='fit'}}" class=classes)
+                            .column
+                                .ui.inline.large.header #{title}
+                                |!{description}
+
+
+
+
+template(name='slider')
+    #layerslider(style='width:909px; height: 600px;')
+        each slides
+            .ls-slide(data-ls='slidedelay: 3000;')
+                if image_url
+                    img.ls-bg(src=image_url)
+                img.ls-bg(src="{{c.url image }}", alt='Slide background' )
+                .ls-l(style="top: 20%; height: 170px; width: 170px; left: 20%;" )
+                    // a(href='/join')
+                    h1: title
+                .ls-l(style="top: 50%; height: 170px; width: 170px; left: 20%;" )
+                    h2.slider-subheader: subtitle
+                    // h2.slider-subheader
+                    //     | My goal is to spread light to others to help them navigate their own journey through life.
+                    
+                    
+                    
+template(name='slides')
+    .centered.row
+        .three.wide.column
+            a.ui.button(href='/') Home
+        .twelve.wide.column
+            h1.ui.header Slides
+    .row
+        .four.wide.column
+            #add_slide.ui.compact.basic.fluid.button
+                i.green.plus.icon
+                |Add slide
+        .twelve.wide.column
+            .ui.cards
+                each slides
+                    +slide_card
+                    
+                    
+template(name='slide_card')
+    .ui.card
+        .image
+            img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
+            if image_url
+                img.ui.centered.image(src=image_url)
+        .content
+            .ui.header 
+                |Title: #{title}
+            .ui.subheader 
+                |Subtitle: #{subtitle}
+            a.ui.icon.button(href="/slide/#{_id}")
+                i.right.arrow.icon
+
+
+
+
+template(name='slide')
+    with slide
+        unless editing
+            .row
+                .four.wide.column
+                    a.ui.basic.button(href="/slides")
+                        i.arrow.left.icon
+                        | Slides
+                .twelve.wide.center.aligned.column
+                    h1.ui.header View Slide
+            .row
+                .ten.wide.column
+                    img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
+                    if image_url
+                        img.ui.centered.image(src=image_url)
+                .five.wide.column
+                    +edit_button
+        else
+            .centered.row
+                h1.ui.center.aligned.header Edit Slide
+            .row
+                .twelve.wide.column
+                    .ui.form
+                        +title
+                        +subtitle
+                        +link
+                        +image_id
+                        +image_url
+                .four.wide.column
+                    +edit_button
+                    #delete_slide.ui.red.icon.button
+                        i.trash.icon

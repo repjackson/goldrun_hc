@@ -31,23 +31,17 @@ globalHotkeys.add
 	callback: ->
         if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
             if 'admin' in Meteor.user().roles
-                Meteor.users.update Meteor.userId(),
-                    $pull:roles:'admin'
+                Meteor.users.update Meteor.userId(), $pull:roles:'admin'
             else
-                Meteor.users.update Meteor.userId(),
-                    $addToSet:roles:'admin'
-
-
+                Meteor.users.update Meteor.userId(), $addToSet:roles:'admin'
 globalHotkeys.add
 	combo: "r s"
 	callback: ->
         if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
             if 'staff' in Meteor.user().roles
-                Meteor.users.update Meteor.userId(),
-                    $pull:roles:'staff'
+                Meteor.users.update Meteor.userId(), $pull:roles:'staff'
             else
-                Meteor.users.update Meteor.userId(),
-                    $addToSet:roles:'staff'
+                Meteor.users.update Meteor.userId(), $addToSet:roles:'staff'
 
 
 globalHotkeys.add
@@ -55,11 +49,19 @@ globalHotkeys.add
 	callback: ->
         if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
             if 'dev' in Meteor.user().roles
-                Meteor.users.update Meteor.userId(),
-                    $pull:roles:'dev'
+                Meteor.users.update Meteor.userId(), $pull:roles:'dev'
             else
-                Meteor.users.update Meteor.userId(),
-                    $addToSet:roles:'dev'
+                Meteor.users.update Meteor.userId(), $addToSet:roles:'dev'
+
+
+globalHotkeys.add
+	combo: "r o"
+	callback: ->
+        if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
+            if 'owner' in Meteor.user().roles
+                Meteor.users.update Meteor.userId(), $pull:roles:'owner'
+            else
+                Meteor.users.update Meteor.userId(), $addToSet:roles:'owner'
 
 
 

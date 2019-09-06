@@ -126,15 +126,15 @@ template(name='user_layout')
 
 template(name='user_check_steps')
     each user_check
-        unless user_check_completed
-            .ui.compact.small.button.recheck
-                if user_check_completed
-                    i.large.green.checkmark.icon
-                else 
-                    i.large.circle.outline.icon 
-                //- i.icon(name=icon)
-                //- +i name=icon classes='ui avatar image'
-                |#{title}
+        //- unless user_check_completed
+        .ui.compact.small.button.recheck
+            if user_check_completed
+                i.large.green.checkmark.icon
+            else 
+                i.large.circle.outline.icon 
+            //- i.icon(name=icon)
+            //- +i name=icon classes='ui avatar image'
+            |#{title}
     if checkins_without_gov_id
         if is_staff
             .ui.tiny.header #{checkins_left_without_gov_id} check in's left without government ID

@@ -378,6 +378,7 @@ if Meteor.isClient
                 $(e.currentTarget).closest('.card').transition('fly right')
                 $(e.currentTarget).closest('.item').transition('fly right')
                 $(e.currentTarget).closest('tr').transition('fly right')
+                $(e.currentTarget).closest('.event').transition('fly right')
                 Meteor.setTimeout =>
                     Docs.remove @_id
                 , 1000
