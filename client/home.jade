@@ -4,31 +4,49 @@ template(name='home')
             .four.wide.column
                 img.ui.tiny.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
                 //- +i name='home' classes='ui inline image'
-                .ui.inline.large.grtext.header
-                    | gold run online
+                .ui.inline.large.grtext.header(title='it stands for gold run online')
+                    |gro
+                    //- | gold run online
             .eight.wide.column
                 +health_club_status_small
             .four.wide.column
-                .ui.big.button.submit_work_order
-                    i.large.green.plus.icon
-                    |work order
-        .three.column.row
-            .column
+                i.lightbulb.big.yellow.link.icon.toggle_lights
+        .row
+            .four.wide.column
                 +stats_small
+                +gallery_small
                 //- +leaderboard_small 
             //-     +events_small
-            .column
+            .eight.wide.column
                 +work_order_small
                 //- +work_small
             //-     +posts_small
             //- .column
             //-     +market_small
-            .column
-                .ui.header 
-                    +i name='billboard'
+            .four.wide.column
+                +ismall name='billboard'
+                .ui.inline.header(title='its all about the economy')
                     |ad
                 with current_ad
                     .ui.header #{title}
+                    a(href=link) #{link}
+                    +voting
+                .ui.hidden.divider
+                +ismall name='poll'
+                .ui.inline.header poll
+                .ui.small.header do you like living at gold run?
+                .ui.large.icon.button.happy
+                    i.green.outline.thumbs.up.large.icon
+                    |#{hsd.happy_votes}
+                .ui.large.icon.button.unhappy
+                    i.red.outline.thumbs.down.large.icon
+                    | #{hsd.unhappy_votes}
+                .ui.small.header what movie for next movie night?
+                each movie_options
+                    .ui.large.button.vote_movie
+                        | #{title}
+                .ui.divider
+                +footer_chat
         .four.column.row
             //- .column
             //-     .ui.header
@@ -37,15 +55,17 @@ template(name='home')
             //-     .ui.list
             //-         each notifications
             //-             .item #{text}
-            .column
-                .ui.header
-                    +i name='rss'
-                    |activity
-                .ui.list
-                    each event_logs
-                        .item #{text}
             //- .column
             //-     .ui.header subscriptions
+            form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                input(type='hidden', name='cmd', value='_s-xclick')
+                input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
+                //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                button.ui.icon.button(type='submit' title='donate')
+                    +i name='donate' classes='ui inline mini image'
+            
         //- if is_dev
         //-     .four.column.row
         //-         .column
@@ -96,19 +116,24 @@ template(name='home')
         //-         +post
 
 template(name='stats_small')
+    +call_method name='calc_home_stats'
     .ui.header 
         +i name='line-chart' classes='ui inline image'
         |stats
-    .ui.header #{current_hc_sessions} people at health club
-    .ui.header total health club sessions
-    .ui.header total health club sessions this month
-    .ui.header 
+    .ui.small.grey.header #{hsd.current_hc_members} people at health club
+    .ui.small.grey.header #{hsd.current_hc_members} total health club sessions
+    //- .ui.small.grey.header total health club sessions this month
+    .ui.small.grey.header #{hsd.owners} owners
+    .ui.small.grey.header #{hsd.owners} residents
     
+    
+template(name='gallery_small')
+    .ui.header gallery
 
 
 template(name='work_small')
     .ui.header 
-        +i name='work' classes='ui inline image'
+        +i name='maintenance' classes='ui inline image'
         |recent completed work
     each work
         .ui.small.header #{title}
@@ -117,15 +142,21 @@ template(name='work_small')
 
 
 template(name='work_order_small')
-    .ui.header 
-        +i name='work' classes='ui inline image'
-        |recent work orders
+    .ui.inline.header 
+        +i name='maintenance'
+        |work orders
+    .ui.large.icon.button.submit_work_order(title='add work order')
+        i.large.green.plus.icon
+
+    +cloud filter='work_order'
     each work_order
         .ui.secondary.segment
-            .ui.small.header #{body} #{content} #{text}
+            .ui.small.header #{body} #{content} #{text} #{notes}
             each tags
                 .ui.tiny.basic.label #{this}
             |#{when}
+            +voting
+            .ui.small.header #{points} points
 
 
 

@@ -198,7 +198,8 @@ template(name='footer_chat')
     .ui.list.smallscroll
         each chat_messages
             .item(title="by #{author.first_name} #{author.last_name} #{when}")
-                img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
+                if author
+                    img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
                 |#{text}
                 //- small #{when}
                 if is_author
