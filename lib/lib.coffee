@@ -67,7 +67,7 @@ Docs.helpers
     author: -> Meteor.users.findOne @_author_id
     when: -> moment(@_timestamp).fromNow()
     five_tags: -> if @tags then @tags[..4]
-        
+
     upvoters: ->
         if @upvoter_ids
             upvoters = []
@@ -140,7 +140,7 @@ Meteor.methods
 if Meteor.isServer
     Docs.allow
         insert: (userId, doc) -> doc._author_id is userId
-        update: (userId, doc) -> userId
+        update: (userId, doc) -> doc._author_id is userId
         # update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
         remove: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
 

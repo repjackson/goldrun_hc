@@ -67,15 +67,6 @@ if Meteor.isClient
                 limit:10
 
 
-    Template.tasks_small.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'task'
-    Template.tasks_small.helpers
-        tasks: ->
-            Docs.find {model:'task'},
-                sort: timestamp: -1
-                limit:10
-
-
 
 
 if Meteor.isServer

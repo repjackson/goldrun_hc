@@ -261,7 +261,7 @@ if Meteor.isServer
             # console.log total_top_ten
             found_in_ranking = _.findWhere(sorted_session_count,{username:user.username})
             console.log 'found', found_in_ranking
-            global_rank = _.indexOf(sorted_session_count,found_in_ranking)
+            global_rank = _.indexOf(sorted_session_count,found_in_ranking)+1
             if global_rank > 0
                 Meteor.users.update user._id,
                     $set:global_rank:global_rank

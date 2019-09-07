@@ -1,0 +1,71 @@
+template(name='work_orders')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column
+            .ui.inline.header 
+                +i name='maintenance'
+                |work_orders
+            .ui.button.add_work_order
+                i.plus.icon
+                | work_order
+        .row
+            .six.wide.column
+                +cloud filter='work_order'
+            .ten.wide.column
+                each work_orders
+                    +work_order
+                    
+                    
+template(name='work_order')
+    .ui.fluid.segment
+        .ui.header #{title}
+        |!{content} #{body} #{notes}
+        each tags
+            .ui.basic.label #{this}
+        a.ui.icon.button(href="/work_order/#{_id}/edit")
+            i.pencil.icon
+        a.ui.icon.button(href="/work_order/#{_id}/view")
+            i.right.chevron.icon
+        +voting_small
+        //- +comments
+
+
+
+
+
+template(name='work_order_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header 
+                        +ismall name='add'
+                        |add work order
+                    a.ui.big.icon.fluid.button(href="/work_order/#{_id}/view" title='save')
+                        i.green.checkmark.icon
+                    +remove_button
+                .twelve.wide.column 
+                    +textarea_edit key='content' label='content' icon='content' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                     
+                     
+template(name='work_order_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    a.ui.fluid.button(href="/work_orders")
+                        +i name='maintenance' classes='ui avatar image'
+                        |work_orders
+                    .ui.header view work_order
+                    if currentUser
+                        a.ui.big.icon.button(href="/work_order/#{_id}/edit")
+                            i.pencil.icon
+                    +voting_full
+                    +viewing
+                .twelve.wide.column 
+                    +text_view key='title' label='title' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    .ui.segment
+                        +html_view key='content' icon='content' label='content' direct=true
+                    +boolean_view key='published' label='published' direct=true
+                    +comments

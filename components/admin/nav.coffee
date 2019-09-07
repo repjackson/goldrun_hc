@@ -152,17 +152,18 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'my_latest_activity'
     Template.my_latest_activity.helpers
         my_latest_activity: ->
-            Docs.find
+            Docs.find {
                 model:'log_event'
                 _author_id:Meteor.userId()
+            }, sort:_timestamp:-1
 
     Template.latest_activity.onCreated ->
         @autorun -> Meteor.subscribe 'latest_activity'
     Template.latest_activity.helpers
         latest_activity: ->
-            Docs.find
+            Docs.find {
                 model:'log_event'
-                _author_id:Meteor.userId()
+            }, sort:_timestamp:-1
 
 
 if Meteor.isServer

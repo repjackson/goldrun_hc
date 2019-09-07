@@ -168,9 +168,9 @@ template(name='healthclub_stats')
     if is_staff
         .ui.button.recalc recalc #{user.username}
     div
-    +ismall name='line-chart'
-    .ui.grey.inline.header 
-        |hc stats
-    .ui.bulleted.list
+    .ui.list
+        +ismall name='line-chart'
+        .ui.grey.inline.header 
+            |hc stats
         .item #{user.total_session_count} sessions
         .item gr rank ##{user.global_rank}
