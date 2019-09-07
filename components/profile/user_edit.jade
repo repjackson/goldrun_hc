@@ -187,11 +187,12 @@ template(name='emails_edit')
                             i.green.checkmark.icon
                     else
                         .ui.big.basic.label
-                            i.ban.icon
+                            //- i.ban.icon
                             | #{address}
-                        .send_verification_email.ui.basic.button 
-                            |verify
-                            i.caret.right.icon
+                        if is_staff
+                            .send_verification_email.ui.basic.button 
+                                |verify
+                                i.caret.right.icon
                     .ui.small.icon.basic.button.remove_email
                         i.red.remove.icon
     .ui.action.big.fluid.icon.action.input

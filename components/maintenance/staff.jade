@@ -115,6 +115,7 @@ template(name='hc_session')
                 .ui.inline.header
                     |#{session_resident.first_name} #{session_resident.last_name}
             .ui.small.grey.header #{when}
+            +healthclub_stats user=session_resident 
             with session_resident
                 if address
                     div

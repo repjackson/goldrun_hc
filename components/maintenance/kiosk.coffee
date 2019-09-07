@@ -88,7 +88,7 @@ if Meteor.isClient
         #                 # t.timer.set(t.timer.get()-1)
         #             ,1000)
         # , 4000
-        Session.set 'loading_checkin', false
+        # Session.set 'loading_checkin', false
         # alert 'stop loading'
 
 
@@ -225,6 +225,12 @@ if Meteor.isClient
             Docs.findOne Template.currentData()
 
 
+    Template.healthclub_stats.events
+        'click .recalc': ->
+            console.log @
+            Meteor.call 'recalc_healthclub_stats', @user
+
+
 
 if Meteor.isServer
     Meteor.publish 'kiosk_document', ()->
@@ -232,6 +238,33 @@ if Meteor.isServer
             model:'kiosk'
 
 
+    Meteor.methods
+        recalc_healthclub_stats: (user)->
+            # console.log user
+            session_count =
+                Docs.find(
+                    model:'healthclub_session'
+                    user_id:user._id
+                ).count()
+            # console.log session_count
+            Meteor.users.update user._id,
+                $set:total_session_count:session_count
+            sorted_session_count =
+                Meteor.users.find({
+                    total_session_count:$exists:1
+                },
+                    sort:total_session_count:-1
+                    fields:
+                        username:1
+                        total_session_count:1
+                ).fetch()
+            # console.log total_top_ten
+            found_in_ranking = _.findWhere(sorted_session_count,{username:user.username})
+            console.log 'found', found_in_ranking
+            global_rank = _.indexOf(sorted_session_count,found_in_ranking)
+            if global_rank > 0
+                Meteor.users.update user._id,
+                    $set:global_rank:global_rank
 
     publishComposite 'healthclub_session', (doc_id)->
         {

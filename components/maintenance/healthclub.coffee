@@ -120,10 +120,12 @@ if Meteor.isClient
                 else
                     Meteor.users.update @_id,
                         $set: gov_red_flagged:false
-
-            $('.username_search').val('')
+            Session.set 'loading_checkin', false
+            Meteor.call 'recalc_healthclub_stats', @
             Router.go "/healthclub_session/#{session_document}"
             Session.set 'displaying_profile',@_id
+
+            $('.username_search').val('')
             # , 750
 
         'click .checkout': (e,t)->
@@ -198,8 +200,36 @@ if Meteor.isClient
         'keyup #last_name': (e,t)->
             first_name = $('#first_name').val()
             last_name = $('#last_name').val()
-            $('#username').val("#{first_name.toLowerCase()}_#{last_name.toLowerCase()}")
+            # $('#username').val("#{first_name.toLowerCase()}_#{last_name.toLowerCase()}")
+            username = "#{first_name.toLowerCase()}_#{last_name.toLowerCase()}"
             Session.set 'permission',true
+            if e.which is 13
+                Meteor.call 'add_user', username, (err,res)=>
+                    if err
+                        alert err
+                    else
+                        Meteor.users.update res,
+                            $set:
+                                first_name:first_name
+                                last_name:last_name
+                                added_by_username:Meteor.user().username
+                                added_by_user_id:Meteor.userId()
+                                roles:['resident']
+                                # healthclub_checkedin:true
+                        Docs.insert
+                            model: 'log_event'
+                            object_id: res
+                            body: "#{username} was created"
+                        # Docs.insert
+                        #     model:'log_event'
+                        #     object_id:res
+                        #     body: "#{username} checked in."
+                        new_user = Meteor.users.findOne res
+                        Session.set 'username_query',null
+                        $('.username_search').val('')
+                        Meteor.call 'email_verified',new_user
+                        Router.go "/user/#{username}/edit"
+
 
         'click .create_resident': ->
             first_name = $('#first_name').val()
@@ -421,7 +451,7 @@ if Meteor.isServer
         }, sort: _timestamp:-1
 
     Meteor.publish 'latest_reading', (slug)->
-        console.log slug
+        # console.log slug
         Docs.find {
             model:"#{slug}_reading"
         }, {sort:_timestamp:-1, limit:1}

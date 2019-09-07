@@ -64,6 +64,7 @@ template(name='resident')
             +phone_view key='phone' label='phone' direct=true
             +date_view key='start_date' label='start date' direct=true
             +date_view key='expiration_date' label='expiration date' direct=true
+            +healthclub_stats user=this    
             each roles
                 .ui.large.label #{this}
             +user_check_steps            

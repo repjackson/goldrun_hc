@@ -217,7 +217,10 @@ body {
 
 .grgold {
     background-color: rgba(43, 33, 0, .9) !important;
+}
 
+.grtext {
+    color: rgba(43, 33, 0, .9) !important;
 }
 
 
@@ -248,7 +251,7 @@ input.username_search{
     background: rgba(250, 250, 250, 0.9) !important;
     opacity: 1;
     border-width: 3px !important;
-    /* border-color: #a67c00 !important; */
+    border-color: #a67c00 !important;
     box-shadow: 0 2px 5px 2px rgba(50, 50, 100, 0.1) !important;
 }
 

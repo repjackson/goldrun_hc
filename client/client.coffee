@@ -137,7 +137,11 @@ Meteor.methods
         Router.go "/healthclub"
         $('body').toast({
             title: "#{resident.first_name} #{resident.last_name} checked in"
+            position: 'top center'
             class: 'success'
+            className: {
+                toast: 'ui big message'
+            }
             transition:
                 showMethod   : 'zoom',
                 showDuration : 250,

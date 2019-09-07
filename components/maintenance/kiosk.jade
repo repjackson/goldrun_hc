@@ -77,7 +77,7 @@ template(name='healthclub_session')
                     //- .meta @#{user.username}
                     //- +camera
                 .column
-                    h1.ui.huge.header.f11
+                    h1.ui.huge.header.f11.grtext
                         |#{user.first_name} #{user.last_name} 
                     unless adding_guests
                         with user
@@ -86,6 +86,8 @@ template(name='healthclub_session')
                         h2
                             small staff notes:
                             strong !{user.public_staff_notes}
+                    //- if is_staff
+                    +healthclub_stats user=user
                     if adding_guests
                         //- .ui.header 
                         //-     //- i.users.icon
@@ -109,8 +111,8 @@ template(name='healthclub_session')
                                     +resident_guest
                     else
                         .ui.big.basic.compact.fluid.button.toggle_adding_guest 
-                            i.plus.large.icon
-                            //- +i name='add-user-group-man' classes='ui inline image'                
+                            //- i.plus.large.icon
+                            +i name='add' classes='ui inline image'                
                             .ui.inline.big.header guest
             .row
                 .sixteen.wide.column
@@ -121,12 +123,12 @@ template(name='healthclub_session')
                         //-     |please click 'Choose File' above, switch the camera to the front, and take photo to proceed 
                     unless user.member_waiver_signed
                         .ui.massive.fluid.red.basic.button.sign_guidelines
-                            +i name='signature' classes='ui middle aligned image'
+                            +i name='hand-with-pen' classes='ui middle aligned image'
                             .ui.inline.header 
                                 | sign member waiver            
                     unless user.rules_and_regulations_signed
                         .ui.massive.fluid.red.basic.button.sign_rules
-                            +i name='signature' classes='ui middle aligned image'
+                            +i name='hand-with-pen' classes='ui middle aligned image'
                             .ui.inline.header 
                                 | sign rules and regs
                     if user.email_red_flagged
@@ -135,6 +137,8 @@ template(name='healthclub_session')
                     if user.gov_red_flagged
                         .ui.disabled.massive.fluid.button
                             |Government Id verification required
+                            
+                
                     unless user.gov_red_flagged
                         if user.kiosk_photo
                             if user.member_waiver_signed
@@ -158,3 +162,15 @@ template(name='resident_guest')
         .ui.big.basic.button.remove_guest 
             i.remove.icon
             .ui.inline.header #{guest_name} #{first_name} #{last_name}
+
+
+template(name='healthclub_stats')
+    if is_staff
+        .ui.button.recalc recalc #{user.username}
+    div
+    +ismall name='line-chart'
+    .ui.grey.inline.header 
+        |hc stats
+    .ui.bulleted.list
+        .item #{user.total_session_count} sessions
+        .item gr rank ##{user.global_rank}

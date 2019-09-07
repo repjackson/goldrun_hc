@@ -216,7 +216,9 @@ template(name='my_latest_activity')
     .ui.header your latest activity
     .ui.list
         each my_latest_activity
-            .item #{text} 
+            .item 
+                img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
+                |#{text} #{body}
                 small #{when}
 
 
@@ -224,7 +226,9 @@ template(name='latest_activity')
     .ui.header latest activity
     .ui.list
         each latest_activity
-            .item #{text} 
+            .item 
+                img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
+                |#{text} #{body}
                 small #{when}
 
 

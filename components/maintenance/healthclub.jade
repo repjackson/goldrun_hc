@@ -96,7 +96,7 @@ template(name='add_resident')
         .centered.row
             .eight.wide.column
                 h1.ui.center.aligned.header
-                    +i name='add user male'
+                    +i name='add'
                     | resident
                 .ui.big.form
                     .field
@@ -132,7 +132,7 @@ template(name='checkin_button')
     unless is_staff
         //- unless healthclub_checkedin
         .ui.massive.compact.button.checkin.new_hc_session
-            strong #{first_initial} #{last_name}
+            strong.grtext #{first_initial} #{last_name}
         //- if healthclub_checkedin
         //- if is_staff
         //- else
@@ -147,13 +147,8 @@ template(name='checkin_button')
                 //- +i name='exit-sign' classes='ui avatar image'
                 |health club check out
         else
-            .ui.massive.fade.animated.button.new_hc_session(title='sign in')
-                .visible.content
-                    strong #{first_initial} #{last_name}
-                .hidden.content
-                    i.sign.in.alternate.icon
-                    //- +i name='internal' classes='ui inline mini image'
-                    //- |check in
+            .ui.massive.button.new_hc_session.grtext(title='sign in')
+                strong.grtext #{first_initial} #{last_name}
 
 
 template(name='health_club_info')

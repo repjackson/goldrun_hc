@@ -63,6 +63,15 @@ globalHotkeys.add
             else
                 Meteor.users.update Meteor.userId(), $addToSet:roles:'owner'
 
+globalHotkeys.add
+	combo: "r f"
+	callback: ->
+        if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
+            if 'frontdesk' in Meteor.user().roles
+                Meteor.users.update Meteor.userId(), $pull:roles:'frontdesk'
+            else
+                Meteor.users.update Meteor.userId(), $addToSet:roles:'frontdesk'
+
 
 
 globalHotkeys.add
