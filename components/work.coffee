@@ -84,7 +84,32 @@ if Meteor.isClient
                 assigned_to_username: Meteor.user().username
                 },
                 sort: _timestamp: -1
-                limit:10
+                limit:5
+
+
+    Template.most_missed_people.onCreated ->
+        @autorun => Meteor.subscribe 'most_unanswered'
+    Template.most_missed_people.helpers
+        unanswering_people: ->
+            Meteor.users.find {},
+                sort: unanswered:-1
+                limit:5
+
+
+    Template.most_unanswering_people.onCreated ->
+        @autorun => Meteor.subscribe 'most_unanswering_people'
+    Template.most_unanswering_people.helpers
+        unanswering_people: ->
+            Meteor.users.find {},
+                sort: unanswered:-1
+                limit:5
+    Template.most_unanswering_people.events
+        'click .recalc_unanswered': ->
+            Meteor.call 'recalc_unanswered', ->
+
+
+
+
 
 
     Template.highest_bounty.onCreated ->
@@ -138,6 +163,12 @@ if Meteor.isServer
         }
 
     Meteor.methods
+        recalc_unanswered: ->
+            unanswered_count = Docs.find(
+                model:'work'
+                response_requested:true
+                responded:false
+            ).count()
         recalc_work: ->
             work_stat_doc = Docs.findOne(model:'work_stats')
             unless work_stat_doc

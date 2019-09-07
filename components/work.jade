@@ -15,21 +15,24 @@ template(name='work')
                 .ui.icon.big.button.add_work
                     i.large.plus.green.icon
                     //- |work
-        .four.column.row
+        .five.column.row
             .column
                 +my_assignments
-            //- .column
-            //-     +my_unit_work
-            //- .column
+            .column
+                +most_unanswering_people
+            .column
+                +most_missed_people
             //-     +my_building_work
             .column
                 +highest_bounty
             .column
                 +latest_work
-            .column
-                +most_viewed_work
+            //- .column
+            //-     +most_viewed_work
 
-        .four.column.row
+        .five.column.row
+            .column
+                +fasted_responders
             .column
                 +my_projects
             //- .column
@@ -48,6 +51,35 @@ template(name='my_projects')
     +ismall name='project'
     .ui.inline.header 
         |my projects
+    
+
+template(name='most_unanswering_people')
+    +ismall name='cancel'
+    .ui.inline.header.recalc_unanswered
+        |most unanswered
+    each unanswering_people
+        .ui.small.header #{first_name} #{last_name}
+        |#{unanswered} unanswered
+        
+    
+
+template(name='most_missed_people')
+    +ismall name='close-window'
+    .ui.inline.header.recalc_unanswered
+        |most missed
+    each unanswering_people
+        .ui.small.header #{first_name} #{last_name}
+        |#{unanswered} unanswered
+        
+    
+template(name='fasted_responders')
+    +ismall name='running-rabbit'
+    .ui.inline.header
+        |fastest responders
+    each fastest_responders
+        .ui.small.header #{first_name} #{last_name}
+        |#{unanswered} response time
+        
     
 
 template(name='latest_work_comments')

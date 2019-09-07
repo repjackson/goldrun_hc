@@ -151,7 +151,7 @@ template(name='nav')
 
 template(name='footer')
     .ui.fluid.basic.attached.basic.segment.footer
-        .ui.container.stackable.grid
+        .ui.stackable.grid
             .four.wide.column
                 +latest_activity
             .four.wide.column
@@ -176,22 +176,41 @@ template(name='footer')
                 if is_dev    
                     with current_user
                         +role_switcher
-            .eight.wide.column
-                //- unless currentUser
-                //-     a.ui.big.basic.button(href='/login')
-                //-         i.sign.in.icon
-                //-         |login
+            .four.wide.column
+                unless currentUser
+                    a.ui.big.basic.button(href='/login')
+                        i.sign.in.icon
+                        |login
                 if is_eric
                     with currentUser
                         +role_switcher
                 else if is_dev
                     with currentUser
                         +role_switcher
-        //- if is_user
-        //-     .row
-        //-         .ui.center.aligned.inverted.header
-        //-             i.copyright.outline.icon
-        //-             |
+            .four.wide.column
+                +footer_chat
+
+                
+                
+template(name='footer_chat')
+    +ismall name='comments'
+    .ui.small.inline.header chat
+    .ui.list.smallscroll
+        each chat_messages
+            .item(title="by #{author.first_name} #{author.last_name} #{when}")
+                img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
+                |#{text}
+                //- small #{when}
+                if is_author
+                    span
+                        i.remove.link.icon.remove_message
+    .ui.bottom.attached.fluid.icon.input
+        i.plus.icon
+        input.new_footer_chat_message(type='text' placeholder='add message')
+
+
+
+
 
 template(name='my_latest_activity')
     .ui.header your latest activity

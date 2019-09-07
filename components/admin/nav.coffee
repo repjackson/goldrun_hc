@@ -53,6 +53,28 @@ if Meteor.isClient
         'click .spinning': ->
             Session.set 'loading', false
 
+    Template.footer_chat.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'footer_chat'
+    Template.footer_chat.helpers
+        chat_messages: ->
+            Docs.find
+                model:'footer_chat'
+    Template.footer_chat.events
+        'keyup .new_footer_chat_message': (e,t)->
+            if e.which is 13
+                new_message = $('.new_footer_chat_message').val()
+                Docs.insert
+                    model:'footer_chat'
+                    text:new_message
+                $('.new_footer_chat_message').val('')
+
+        'click .remove_message': (e,t)->
+            # if confirm 'remove message?'
+            $(e.currentTarget).closest('.item').transition('fade right')
+            Meteor.setTimeout =>
+                Docs.remove @_id
+            , 750
+
     Template.nav.onRendered ->
         # @autorun =>
         #     if @subscriptionsReady()

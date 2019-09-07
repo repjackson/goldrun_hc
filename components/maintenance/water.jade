@@ -1,8 +1,7 @@
 template(name='readings')
-    .ui.container
-        +lower_hot_tub_readings
-        +upper_hot_tub_readings
-        +pool_readings
+    +lower_hot_tub_readings
+    +upper_hot_tub_readings
+    +pool_readings
 
 
 template(name='edit_pool_reading')
@@ -67,6 +66,7 @@ template(name='lower_hot_tub_readings')
                 th temp
                 th notes
                 th staff
+                th when
                 th actions
         tbody
             each lower_hot_tub_readings
@@ -79,6 +79,7 @@ template(name='lower_hot_tub_readings')
                         .ui.large.basic.label #{chlorine_message}
                     td 
                         +author_info
+                    td 
                         | #{when}
                     td 
                         a.ui.large.icon.button(href="/lower_hot_tub_reading/edit/#{_id}")
@@ -101,6 +102,7 @@ template(name='upper_hot_tub_readings')
                 th temp
                 th notes
                 th staff
+                th when
                 th actions
         tbody
             each upper_hot_tub_readings
@@ -113,6 +115,7 @@ template(name='upper_hot_tub_readings')
                         .ui.large.basic.label #{ph_message}
                     td 
                         +author_info
+                    td 
                         | #{when}
                     td 
                         a.ui.large.icon.button(href="/upper_hot_tub_reading/edit/#{_id}")
@@ -135,6 +138,7 @@ template(name='pool_readings')
                 th temp
                 th notes
                 th staff
+                th when
                 th actions
         tbody
             each pool_readings
@@ -147,6 +151,7 @@ template(name='pool_readings')
                         .ui.large.basic.label #{chlorine_message}
                     td 
                         +author_info
+                    td 
                         | #{when}
                     td 
                         a.ui.large.icon.button(href="/pool_reading/edit/#{_id}")

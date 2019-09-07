@@ -20,9 +20,9 @@ template(name='staff')
                 //- +add_button model='frontdesk_hourly_checklist' label='hourly checklist'
                 //- +add_button model='front_desk_opening_closing_checklist' label='opening/closing checklist'
                 +unit_key_widget
-                a.ui.compact.fluid.button(href='readings')
+                a.ui.compact.fluid.large.button(href='readings')
                     +i name='water' classes='ui inline image'                
-                    |water readings
+                    strong water readings
                 div
                 +ismall name='swim'
                 .ui.inline.header 
@@ -72,7 +72,7 @@ template(name='staff')
                         +i name='to-do' classes='ui inline mini image'
                         |checklist not completed
             .twelve.wide.column
-                .ui.fluid.styled.accordion
+                .ui.fluid.accordion
                     .active.title
                         +i name='groups' classes='ui inline mini image'
                         .ui.inline.header #{checkedin_members.count} checked in members
@@ -140,7 +140,7 @@ template(name='hc_session')
                         i.clipboard.icon(title='staff notes')
                         |#{staff_notes}       
             if checkin_guest_docs.count
-                .ui.small.grey.header Guests
+                .ui.small.grey.inline.header guests
                 each checkin_guest_docs
                     .ui.large.basic.label 
                         |#{guest_name} #{first_name} #{last_name}
@@ -162,7 +162,7 @@ template(name='hc_session')
                     
                 .ui.fluid.button.sign_out
                     +i name='exit' classes='ui mini inline image'
-                    |hc check out
+                    |check out
             //- +boolean_edit key='active' direct=true
             //- +boolean_edit key='submitted' direct=true
             //- +boolean_edit key='approved' direct=true
@@ -175,19 +175,22 @@ template(name='hc_session')
 
 
 template(name='unit_key_widget')
-    .ui.secondary.segment 
-        .ui.header 
-            //- i.yellow.key.icon
-            +i name='key'
-            |unit key lookup
-        .ui.icon.large.fluid.input
-            i.building.icon
-            input.building_number(type='number' placeholder='building number')
-        .ui.icon.large.fluid.input
-            i.home.icon
-            input.unit_number(type='number' placeholder='unit number')
-        .ui.fluid.button.lookup_key
-            |lookup key
+    .ui.header 
+        //- i.yellow.key.icon
+        +i name='key'
+        |key lookup
+    .ui.grid
+        .two.column.row
+            .column
+                .ui.icon.large.fluid.input(title='building number')
+                    i.building.icon
+                    input.building_number(type='number' placeholder='#')
+                .ui.icon.large.fluid.input(title='unit number')
+                    i.home.icon
+                    input.unit_number(type='number' placeholder='#')
+            .column
+                .ui.icon.huge.button.lookup_key(title='lookup key')
+                    i.right.chevron.large.icon
 
 
 template(name='task_widget')
