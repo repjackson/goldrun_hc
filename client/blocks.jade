@@ -1,7 +1,9 @@
 template(name='comments')
-    .ui.header
-        +i name='chat'
+    div
+    +ismall name='comments' classes='ui middle aligned image'
+    .ui.inline.header
         |comments
+    div
     if currentUser
         .ui.fluid.icon.input
             i.plus.icon
@@ -20,14 +22,14 @@ template(name='comments')
 
 template(name='viewing')
     div
-    .ui.inline.header viewed by
     unless viewed_by
-        .ui.button.mark_read
-            +ismall name='hide'
+        .ui.icon.button.mark_read
+            i.eye.icon
     else 
-        .ui.button.mark_unread
-            +ismall name='visible'
-    each viewers
+        .ui.icon.button.mark_unread
+            i.cancel.icon
+    .ui.inline.header viewed by
+    each read_ids
         +user_info
 
 
@@ -102,22 +104,24 @@ template(name='user_status')
 
 template(name='user_card')
     with user
-        .ui.grid.secondary.segment
-            .four.wide.column
+        .ui.horizontal.card
+            .image
                 if kiosk_photo
                     img.ui.rounded.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
                 else if image_id
                     img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
-            .twelve.wide.column
+            .content    
                 if is_frontdesk
                     .header #{first_name} #{last_name} 
                 else
                     a.header(href="/user/#{username}") #{first_name} #{last_name} 
                     //- .meta @#{username}
-                    +text_view key='address' direct=true label='address'
-                    +text_view key='building_code' direct=true label='building code'
-                    +number_view key='unit_number' direct=true label='unit #'
-                    +number_view key='building_number' direct=true label='building #'
+                    .ui.list
+                        .item #{address}
+                        //- .item #{building_code}
+                        //- .item #{unit_number}
+                        //- .item #{building_number}
+                    |#{points} points
                     if is_admin
                         div
                         +user_email
@@ -198,7 +202,9 @@ template(name='user_info')
 
 template(name='username_info')
     a.ui.small.compact.basic.button(href="/user/#{user.username}/")
-        if user.image_id
+        if user.kiosk_photo
+            img.ui.avatar.image(src="{{c.url user.kiosk_photo width=100 height=100}}")
+        else if user.image_id
             img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100}}")
         |#{user.first_name} #{user.last_name}
         |@#{user.username}
@@ -258,8 +264,8 @@ template(name='voting_small')
 
 template(name='voting_full')
     div
+    +ismall name='elections'
     .ui.inline.header 
-        +i name='elections'
         |voting
     .ui.large.icon.button.upvote(title='upvote')
         i.thumbs.up.icon(class=upvote_class)

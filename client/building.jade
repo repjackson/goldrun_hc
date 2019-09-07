@@ -19,20 +19,20 @@ template(name='building')
                 a.ui.big.button(href="/buildings")
                     i.chevron.left.icon
                     //- i.building.icon
-                    +i name='apartment' classes='ui inline mini image'
+                    +i name='building' classes='ui inline mini image'
                     |buildings
                 if is_dev
                     .ui.icon.input
-                        //- i.home.icon
-                        +i name='home' classes='ui inline mini image'
+                        i.home.icon
+                        //- +ismall name='home' classes='ui inline mini image'
                         input.unit_number(type='number' placeholder='unit number')
                     .ui.icon.input
-                        //- i.building.icon
-                        +i name='building' classes='ui inline mini image'
+                        i.building.icon
+                        //- +ismall name='building' classes='ui inline mini image'
                         input.building_number(type='number' placeholder='unit building number')
                     .ui.icon.input
-                        //- i.header.icon
-                        +i name='building' classes='ui inline mini image'
+                        i.header.icon
+                        //- +ismall name='building' classes='ui inline mini image'
                         input.building_label(type='text' placeholder='unit building label')
                 .ui.large.inline.header 
                     small building

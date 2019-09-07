@@ -1,5 +1,6 @@
 body {
-    font-family: 'Raleway', sans-serif !important;
+    /* font-family: 'Raleway', sans-serif !important; */
+    font-family: 'Ubuntu', sans-serif !important;
     /* font-size: 110% !important; */
     /*line-height: 200% !important;*/
     /*background: #3d3d3d !important;*/
@@ -57,7 +58,7 @@ body {
 }
 
 .menu {
-    border-radius: 10px !important;
+    border-radius: 8px !important;
 }
 
 .card {
@@ -86,7 +87,7 @@ body {
 }
 
 .accordion {
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     /* opacity: .8 !important; */
     background-color: rgba(255,255,255, 0.3) !important;
     padding:5px !important;
@@ -221,8 +222,8 @@ body {
 
 
 input{
-    -webkit-border-radius: 10px !important; */
-    border-radius: 10px !important;
+    -webkit-border-radius: 8px !important; */
+    border-radius: 8px !important;
     margin-bottom: 3px !important;
     margin-top: 3px !important;
     /* font-size: 120% !important; */
@@ -235,8 +236,8 @@ input{
 }
 
 textarea{
-    -webkit-border-radius: 10px !important; */
-    border-radius: 10px !important;
+    -webkit-border-radius: 8px !important; */
+    border-radius: 8px !important;
 }
 input.username_search{
     -webkit-border-radius: 25px !important; */
@@ -268,14 +269,14 @@ input.username_search{
     /* -moz-border-radius: 5px !important; */
     opacity:.9 !important;
     font-family: 'Raleway', sans-serif !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
 }
 
 .disabled.button, .disabled.segment, .disabled.label{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
     opacity:.4 !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
 }
 
 /* .segment {
@@ -285,15 +286,16 @@ input.username_search{
 .button {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
+    margin:5px !important;
     background-color: rgba(0,0,0,.01) !important;
-    border-radius: 20px !important;
+    border-radius: 15px !important;
     /* transform: translate(0, 4px); */
 }
 
 .button.active {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
-    background-color: rgba(100, 100, 100, .8) !important;
+    background-color: rgba(150, 150, 150, .6) !important;
     color: white !important;
     /* transform: translate(0, 4px); */
 }
@@ -401,8 +403,8 @@ input.username_search{
 }
 
 .ui.header{
-    font-family: 'Raleway', sans-serif !important;
-    /* font-family: 'Ubuntu', sans-serif !important; */
+    /* font-family: 'Raleway', sans-serif !important; */
+    font-family: 'Ubuntu', sans-serif !important;
 }
 h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */

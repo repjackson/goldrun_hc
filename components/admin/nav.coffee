@@ -44,15 +44,12 @@ if Meteor.isClient
             Session.set 'loading', true
             Meteor.call 'set_facets', 'task', ->
                 Session.set 'loading', false
-
         'click .set_model': ->
             Session.set 'loading', true
             Docs.update @_id,
                 $inc:views:1
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
-
-
         'click .spinning': ->
             Session.set 'loading', false
 
@@ -128,26 +125,22 @@ if Meteor.isClient
                     model:'model'
                     bookmark_ids:$in:[Meteor.userId()]
 
-    # Template.nav.onRendered ->
-    #     Meteor.setTimeout ->
-    #         $('.context .ui.sidebar')
-    #             .sidebar({
-    #                 context: $('.context .segment')
-    #                 dimPage: false
-    #                 transition:  'push'
-    #             })
-    #             .sidebar('attach events', '.context .menu .toggle_sidebar.item')
-    #     , 1000
 
-    # Template.nav.events
-    #     'click .sidebar_on': ->
-    #         $('.context .ui.sidebar')
-    #             .sidebar({
-    #                 context: $('.context .segment')
-    #                 dimPage: false
-    #                 transition:  'push'
-    #             })
-    #             .sidebar('attach events', '.context .menu .toggle_sidebar.item')
+    Template.my_latest_activity.onCreated ->
+        @autorun -> Meteor.subscribe 'my_latest_activity'
+    Template.my_latest_activity.helpers
+        my_latest_activity: ->
+            Docs.find
+                model:'log_event'
+                _author_id:Meteor.userId()
+
+    Template.latest_activity.onCreated ->
+        @autorun -> Meteor.subscribe 'latest_activity'
+    Template.latest_activity.helpers
+        latest_activity: ->
+            Docs.find
+                model:'log_event'
+                _author_id:Meteor.userId()
 
 
 if Meteor.isServer
@@ -155,6 +148,21 @@ if Meteor.isServer
         Docs.find
             model:'notification'
             user_id: Meteor.userId()
+
+    Meteor.publish 'my_latest_activity', ->
+        Docs.find {
+            model:'log_event'
+            _author_id: Meteor.userId()
+        },
+            limit:5
+            sort:_timestamp:-1
+
+    Meteor.publish 'latest_activity', ->
+        Docs.find {
+            model:'log_event'
+        },
+            limit:5
+            sort:_timestamp:-1
 
     Meteor.publish 'bookmarked_models', ->
         if Meteor.userId()

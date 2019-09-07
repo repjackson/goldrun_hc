@@ -33,7 +33,7 @@ template(name='color_icon_edit')
     div
     .ui.inline.header
         if icon
-            +i name=icon
+            +ismall name=icon
         if title
             |#{title}
         else if key
@@ -77,7 +77,7 @@ template(name='icon_view')
 
 
 template(name='i')
-    img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/plasticine/48/000000/#{name}.png" class=classes title=title)
 template(name='ioffice')
     img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
 template(name='iios')
@@ -85,7 +85,7 @@ template(name='iios')
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
-    img(src="https://img.icons8.com/color/24/000000/#{name}.png" class=classes title=title)
+    img.ui.middle.aligned.image(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ios/24/000000/#{name}.png" class=classes title=title) 
@@ -140,7 +140,7 @@ template(name='image_view')
 template(name='pdf_edit')
     .ui.form
         if icon
-            +i name=icon
+            +ismall name=icon
         .ui.inline.header
             if title
                 |#{title}
@@ -170,7 +170,7 @@ template(name='pdf_edit')
 template(name='pdf_view')
     if field_value
         if icon
-            +i name=icon
+            +ismall name=icon
         if title
             |#{title}
         //- else if key
@@ -335,6 +335,7 @@ template(name='document_view')
     |!{referenced_document.content}
         
 template(name='text_edit')
+    div
     if icon
         +ismall name=icon classes='ui middle aligned image'
     .ui.inline.header
@@ -470,7 +471,7 @@ template(name='phone_view')
         unless header
             div
             if icon
-                +ismall name=icon                
+                +ismall name=icon classes='ui middle aligned image'          
             .ui.inline.header
                 if title
                     |#{title}
@@ -522,7 +523,7 @@ template(name='float_edit')
     div
     .ui.inline.header(title=tip)
         if icon
-            +i name=icon
+            +ismall name=icon
             //- i.grey.icon(class=icon)
         if title
             |#{title}
@@ -590,17 +591,17 @@ template(name='date_view')
 
 
 template(name='time_edit')
+    .ui.inline.header
+        if icon
+            i.grey.icon(class=icon)            
+        if title
+            |#{title}
+        else if label
+            |#{label}
+        //- else
+        //-     |#{key}
+    //- +clear_value                
     .ui.fluid.input
-        .ui.inline.header
-            if icon
-                i.grey.icon(class=icon)            
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            //- else
-            //-     |#{key}
-        //- +clear_value                
         input.edit_time(type='time' value=field_value placeholder=placeholder autocomplete="off")
                 
                 
@@ -676,17 +677,17 @@ template(name='array_view')
         div
         if icon
             +ismall name=icon classes='ui middle aligned image'
-        //- .ui.inline.header
-        //-     if title
-        //-         |#{title}
-        //-     else if label
-        //-         |#{label}
-        //-     else if key
-        //-         |#{key}
-        //-     else
-        //-         |#{this}
+        .ui.inline.header
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
         each field_value
-            .ui.large.label #{this}
+            .ui.large.basic.label #{this}
 
 
 template(name='children_edit')
@@ -788,7 +789,7 @@ template(name='youtube_edit')
 template(name='youtube_view')
     if field_value
         if icon
-            +i name=icon
+            +ismall name=icon
         .ui.embed(data-source="youtube" data-id=field_value)
 
         //- // iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
@@ -812,7 +813,7 @@ template(name='signature_edit')
 template(name='signature_view')
     .ui.header
         if icon
-            +i name=icon
+            +ismall name=icon
         | #{title}    
     img.ui.fluid.centered.rounded.image(src=field_value)
     if is_admin
@@ -827,30 +828,32 @@ template(name='signature_view')
 
 template(name='boolean_edit')
     div
-    if icon
-        +ismall name=icon classes='ui middle aligned image'
-    .ui.inline.header
-        if title
-            |#{title}
-        else if label
-            |#{label}
-        else if key
-            |#{key}
-        else
-            |#{this}
-    |&nbsp;
-    //- .ui.icon.button.toggle_boolean
     .ui.circular.button.toggle_boolean(class=boolean_toggle_class)
-        if field_value
-            if true_icon
-                i.large.green.icon(class=true_icon)
+        if icon
+            +ismall name=icon classes='ui middle aligned image'
+        .ui.inline.small.header
+            //- if field_value
+            //-     i.checkmark.icon
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
             else
-                |yes
-        else
-            if false_icon
-                i.large.red.icon(class=false_icon)
-            else
-                |no
+                |#{this}
+        div
+        //- 
+        //- if field_value
+        //-     if true_icon
+        //-         i.large.green.icon(class=true_icon)
+        //-     else
+        //-         |yes
+        //- else
+        //-     if false_icon
+        //-         i.large.red.icon(class=false_icon)
+        //-     else
+        //-         |no
 
 
 template(name='boolean_view')
@@ -875,7 +878,7 @@ template(name='single_doc_view')
     div
     if field_value
         if icon
-            +i name=icon
+            +ismall name=icon
         .ui.inline.header(title=key)
             |#{title}
         .ui.basic.label
@@ -888,7 +891,7 @@ template(name='single_doc_edit')
     div
     .ui.inline.header(title=key) 
         if icon
-            +i name=icon
+            +ismall name=icon
         |#{label} #{title}
     each choices
         .ui.circular.compact.button.select_choice(class=choice_class)
@@ -956,9 +959,9 @@ template(name='multi_doc_view')
 
 template(name='single_user_edit')
     div
+    if icon
+        +ismall name=icon
     .ui.inline.header 
-        if icon
-            +i name=icon
         |#{label} #{title}
     if field_value
         .pull_user.ui.button(title='remove user')
@@ -993,14 +996,16 @@ template(name='single_user_edit')
 
 
 template(name='single_user_view')
-    .ui.inline.header 
+    if field_value
+        div
         if icon
-            +i name=icon    
-        |#{title}
-        |#{label}
-    with field_value
-        .ui.inline.header #{field_value}
-        +username_info
+            +ismall name=icon    
+        .ui.inline.header 
+            |#{title}
+            |#{label}
+        with field_value
+            .ui.inline.header #{field_value}
+            +username_info
             
 
 
@@ -1056,7 +1061,7 @@ template(name='multi_user_edit')
     div
     .ui.inline.header
         if icon
-            +i name=icon
+            +ismall name=icon
         if title
             |#{title}
         else if label

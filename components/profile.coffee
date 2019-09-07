@@ -134,8 +134,12 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'user_unit', Router.current().params.username
     Template.user_unit.helpers
         unit: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            console.log
             Docs.findOne
                 model:'unit'
+                building_number:current_user.building_number
+                unit_number:current_user.unit_number
 
 
     # Template.user_unit.onCreated ->
@@ -213,7 +217,8 @@ if Meteor.isServer
         if user.unit_number
             Docs.find
                 model:'unit'
-                building_code:user.building_code
+                # building_code:user.building_code
+                building_number:user.building_number
                 unit_number:user.unit_number
 
 

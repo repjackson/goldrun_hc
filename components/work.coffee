@@ -31,6 +31,20 @@ if Meteor.isClient
             Docs.findOne
                 model:'work_stats'
 
+    Template.work_view.events
+        'click .mark_complete': ->
+            if confirm 'mark complete?'
+                # console.log @
+                Docs.update @_id,
+                    $set:complete:true
+                Docs.insert
+                    model:'log_event'
+                    parent_id: @_id
+                    text: "#{Meteor.user().username} marked work complete."
+                    log_type:'work complete'
+
+
+
     Template.work.events
         'click .add_work': ->
             new_id = Docs.insert
@@ -72,6 +86,32 @@ if Meteor.isClient
                 sort: _timestamp: -1
                 limit:10
 
+
+    Template.highest_bounty.onCreated ->
+        @autorun => Meteor.subscribe 'highest_bounty'
+    Template.highest_bounty.helpers
+        work_with_bounty: ->
+            Docs.find {
+                model:'work'
+                bounty:true
+                },
+                sort: bounty_amount: -1
+                limit:10
+
+
+    Template.work_activity_full.onCreated ->
+        @autorun => Meteor.subscribe 'work_activity_full', Router.current().params.doc_id
+    Template.work_activity_full.helpers
+        work_activity: ->
+            Docs.find {
+                model:'log_event'
+                parent_id: Router.current().params.doc_id
+                },
+                sort: _timestamp: -1
+                limit:10
+
+
+
     Template.latest_work.onCreated ->
         @autorun => Meteor.subscribe 'latest_work'
     Template.latest_work.helpers
@@ -80,7 +120,7 @@ if Meteor.isClient
                 model:'work'
             },
                 sort: _timestamp: -1
-                limit:10
+                limit:5
 
 
 
@@ -89,6 +129,12 @@ if Meteor.isServer
         Docs.find {
             model:'work'
             assigned_to_username: Meteor.user().username
+        }
+
+    Meteor.publish 'work_activity_full', (work_id)->
+        Docs.find {
+            model:'log_event'
+            parent_id:work_id
         }
 
     Meteor.methods

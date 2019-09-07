@@ -5,17 +5,18 @@ template(name='nav')
                 .icon.item
                     i.big.spinning.yin.yang.grey.cancel.icon
             else
-                a.ui.item(href='/' class="{{isActivePath '/'}}")
-                    //- .ui.header GRO
-                    +i name='home' classes='ui mini inline image'  
-                    //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
+                unless is_staff
+                    a.ui.item(href='/' class="{{isActivePath '/'}}")
+                        //- .ui.header GRO
+                        +i name='home' classes='ui mini inline image'  
+                        //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
                 if is_resident
                     a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}" title='resident portal')
-                        +i name='home' classes='ui mini inline image'
+                        +i name='dashboard' classes='ui mini inline image'
                         //- |resident portal                
                 if is_staff
                     a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
-                        +i name='home' classes='ui mini inline image'            
+                        +i name='dashboard' classes='ui mini inline image'            
                 if is_owner
                     a.ui.icon.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}" title='owner dashboard')
                         +i name='rent' classes='ui mini inline image'
@@ -106,8 +107,8 @@ template(name='nav')
                         +i name='code' classes='ui mini inline image'
                         //- i.code.large.icon
                 if is_admin
-                    a.ui.item.set_task(href='/m/task' class="{{isActivePath '/m/task'}}" title='tasks')
-                        +i name='tasks' classes='ui mini inline image'
+                    a.ui.item.set_work(href='/m/work' class="{{isActivePath '/m/work'}}" title='tasks')
+                        +i name='work' classes='ui mini inline image'
                         //- i.tasks.large.icon
                     //- a.ui.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
                     //-     i.tasks.large.icon
@@ -151,11 +152,15 @@ template(name='nav')
 template(name='footer')
     .ui.fluid.basic.attached.basic.segment.footer
         .ui.container.stackable.grid
-            .eight.wide.column
+            .four.wide.column
+                +latest_activity
+            .four.wide.column
+                if currentUser 
+                    +my_latest_activity
                 //- if is_staff
-                //- .ui.button.shortcut_modal
-                //-     i.keyboard.icon
-                //-     | keyboard shortcuts
+                .ui.button.shortcut_modal
+                    i.keyboard.icon
+                    | keyboard shortcuts
                 //- +add_button label='+ bug' model='bug' icon='bug'
                 //- else
                 //- unless is_staff
@@ -187,6 +192,21 @@ template(name='footer')
         //-         .ui.center.aligned.inverted.header
         //-             i.copyright.outline.icon
         //-             |
+
+template(name='my_latest_activity')
+    .ui.header your latest activity
+    .ui.list
+        each my_latest_activity
+            .item #{text} 
+                small #{when}
+
+
+template(name='latest_activity')
+    .ui.header latest activity
+    .ui.list
+        each latest_activity
+            .item #{text} 
+                small #{when}
 
 
 template(name='role_switcher')
