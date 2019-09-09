@@ -41,6 +41,8 @@ template(name='user_layout')
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' classes='ui inline mini image'
                             |edit
+                    if is_dev
+                        +boolean_edit key='disabled' label='disabled' icon='user shield' direct='true'
                     //- else
                     //-     .ui.button.direct_message(title='new message')
                     //-         +i name='envelope'

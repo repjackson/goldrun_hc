@@ -73,7 +73,10 @@ if Meteor.isServer
 
         find_username: (username)->
             res = Accounts.findUserByUsername(username)
-            return res
+            if res
+                console.log res
+                unless res.disabled
+                    return res
 
         new_demo_user: ->
             current_user_count = Meteor.users.find().count()

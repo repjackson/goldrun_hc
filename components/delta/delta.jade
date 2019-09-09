@@ -140,35 +140,36 @@ template(name='set_view_mode')
         |#{title}
 
 template(name='facet')
+    div
     if filtering_res
         //- .ui.hidden.divider
-        .ui.accordion
-            .active.title
-                if icon
-                    //- i.small.icon(class=icon)
-                    +i name=icon classes='ui avatar image'   
-                .ui.inline.header 
-                    if title
-                        |#{title}
-                    else 
-                        |#{key}
-                        //- i.dropdown.icon
-                .ui.icon.small.transparent.input
-                    i.search.icon
-                    input.add_filter(type='text')
-            .active.content
-                //- div
-                each filtering_res
-                    if name
-                        .selector.ui.large.compact.button.toggle_selection(class=toggle_value_class)
-                            strong #{name}
-                            if is_admin
-                                small #{cal_count} #{count}
-                    else
-                        .selector.ui.button.toggle_selection(class=toggle_value_class)
-                            strong [null]
-                            //- small #{cal_count}
-                .ui.hidden.divider
+        //- .ui.accordion
+        //-     .active.title
+        if icon
+            //- i.small.icon(class=icon)
+            +i name=icon classes='ui avatar image'   
+        .ui.inline.header 
+            if title
+                |#{title}
+            else 
+                |#{key}
+                //- i.dropdown.icon
+        .ui.icon.small.transparent.input
+            i.search.icon
+            input.add_filter(type='text')
+            //- .active.content
+        //- div
+        each filtering_res
+            if name
+                .selector.ui.large.compact.button.toggle_selection(class=toggle_value_class)
+                    strong #{name}
+                    if is_admin
+                        small #{cal_count} #{count}
+            else
+                .selector.ui.button.toggle_selection(class=toggle_value_class)
+                    strong [null]
+                    //- small #{cal_count}
+        .ui.hidden.divider
 
 template(name='toggle_delta_config')
     if boolean_true

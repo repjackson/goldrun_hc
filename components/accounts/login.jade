@@ -23,9 +23,9 @@ template(name='login')
                 if logging_in
                     .ui.fluid.big.basic.button.enter(title="login #{username}" class=enter_class)
                         //- i.sign.in.alternate.icon
-                        +i name='enter-2' classes='ui mini inline image'
                         |login
-                        | #{username}
+                        strong #{username}
+                        +i name='enter-2' classes='ui mini inline image'
                         //- i.right.chevron.icon
                 else
                     if username
