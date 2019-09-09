@@ -10,10 +10,12 @@ template(name='nav')
                         +i name='home' classes='ui mini inline image'  
                         | gro
                         //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
-                a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
-                    +i name='work' classes='ui mini inline image'
+                //- a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
+                //-     +i name='work' classes='ui mini inline image'
+                a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}" title='delta work orders')
+                    +i name='invoice' classes='ui mini inline image'
                     .mobile.hidden.inline &nbsp; work orders
-            
+
                 if is_resident
                     a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}" title='resident portal')
                         +i name='dashboard' classes='ui mini inline image'

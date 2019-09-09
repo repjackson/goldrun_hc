@@ -15,9 +15,9 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'model', ->
                 Session.set 'loading', false
 
-        'click .set_note': ->
+        'click .set_work_order': ->
             Session.set 'loading', true
-            Meteor.call 'set_facets', 'note', ->
+            Meteor.call 'set_facets', 'work_order', ->
                 Session.set 'loading', false
 
         'click .set_units': ->

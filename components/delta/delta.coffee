@@ -167,8 +167,6 @@ if Meteor.isClient
             Meteor.call 'fum', delta._id, ->
                 Session.set 'loading', false
 
-
-
     Template.set_view_mode.events
         'click .set_view_mode': ->
             console.log @
@@ -183,10 +181,10 @@ if Meteor.isClient
 
 
 
-    Template.facet.onRendered ->
-        Meteor.setTimeout ->
-            $('.accordion').accordion()
-        , 1500
+    # Template.facet.onRendered ->
+    #     Meteor.setTimeout ->
+    #         $('.accordion').accordion()
+    #     , 1500
 
     Template.facet.events
         # 'click .ui.accordion': ->
@@ -234,9 +232,6 @@ if Meteor.isClient
                     else if filter.name in @filters
                         filtering_res.push filter
                 filtering_res
-
-
-
         toggle_value_class: ->
             facet = Template.parentData()
             delta = Docs.findOne model:'delta'

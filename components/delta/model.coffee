@@ -40,6 +40,32 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'upvoters', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'downvoters', Router.current().params.doc_id
 
+    Template.model_doc_edit.helpers
+        template_exists: ->
+            current_model = Docs.findOne(Router.current().params.doc_id).model
+            if Template["#{current_model}_edit"]
+                # console.log 'true'
+                return true
+            else
+                # console.log 'false'
+                return false
+        model_template: ->
+            current_model = Docs.findOne(Router.current().params.doc_id).model
+            "#{current_model}_edit"
+
+    Template.model_doc_view.helpers
+        template_exists: ->
+            current_model = Docs.findOne(Router.current().params.doc_id).model
+            if Template["#{current_model}_edit"]
+                # console.log 'true'
+                return true
+            else
+                # console.log 'false'
+                return false
+        model_template: ->
+            current_model = Docs.findOne(Router.current().params.doc_id).model
+            "#{current_model}_view"
+
     Template.model_doc_edit.events
         'click #delete_doc': ->
             if confirm 'Confirm delete doc'
