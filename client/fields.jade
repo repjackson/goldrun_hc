@@ -77,7 +77,9 @@ template(name='icon_view')
 
 
 template(name='i')
-    img(src="https://img.icons8.com/plasticine/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/plasticine/48/000000/#{name}.png" class=classes title=title)
 template(name='ioffice')
     img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
 template(name='iios')
@@ -85,7 +87,8 @@ template(name='iios')
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
-    img.ui.middle.aligned.image(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=classes title=title)
+    img.ui.middle.aligned.image(src="https://img.icons8.com/color/24/000000/#{name}.png" class=classes title=title)
+    //- img.ui.middle.aligned.image(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ios/24/000000/#{name}.png" class=classes title=title) 
@@ -831,7 +834,7 @@ template(name='boolean_edit')
     .ui.circular.button.toggle_boolean(class=boolean_toggle_class)
         if icon
             +ismall name=icon classes='ui middle aligned image'
-        .ui.inline.small.header
+        .inline.f7 
             //- if field_value
             //-     i.checkmark.icon
             if title
@@ -964,9 +967,9 @@ template(name='single_user_edit')
     .ui.inline.header 
         |#{label} #{title}
     if field_value
-        .pull_user.ui.button(title='remove user')
-            i.user.remove.icon
-            |clear #{field_value}
+        .pull_user.ui.icon.button(title='remove user')
+            i.remove.icon
+            //- |clear #{field_value}
     unless field_value
         .ui.input
             input#single_user_select_input(type='text' placeholder='lookup user...')
@@ -979,7 +982,7 @@ template(name='single_user_edit')
                     each user_results
                         .select_user.item
                             h4.ui.header
-                                img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                img.ui.avatar.image(src="{{c.url kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
                                 |#{first_name} #{last_name} #{username}
     if field_value
         +user_card field_value

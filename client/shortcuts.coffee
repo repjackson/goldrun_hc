@@ -76,11 +76,7 @@ globalHotkeys.add
 
 globalHotkeys.add
 	combo: "g h"
-	callback: ->
-        Router.go '/'
-        Meteor.setTimeout ->
-            $('.model_filter').focus()
-        , 1000
+	callback: -> Router.go '/'
 globalHotkeys.add
 	combo: "g g"
 	callback: ->
@@ -88,6 +84,9 @@ globalHotkeys.add
         Meteor.setTimeout ->
             $('.model_filter').focus()
         , 1000
+globalHotkeys.add
+	combo: "g w"
+	callback: -> Router.go '/work_orders'
 globalHotkeys.add
 	combo: "s d"
 	callback: ->
@@ -113,23 +112,18 @@ globalHotkeys.add
 globalHotkeys.add
 	combo: "g i"
 	callback: -> Router.go "/inbox"
-
 globalHotkeys.add
 	combo: "g u"
 	callback: -> Router.go "/users"
-
 globalHotkeys.add
 	combo: "g s"
 	callback: -> Router.go "/staff"
-
 globalHotkeys.add
 	combo: "g c"
 	callback: -> Router.go "/chat"
-
 globalHotkeys.add
 	combo: "g t"
 	callback: -> Router.go "/tasks"
-
 globalHotkeys.add
 	combo: "s s"
 	callback: ->

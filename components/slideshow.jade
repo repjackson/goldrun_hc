@@ -88,28 +88,30 @@ template(name='slide_view')
 
 
 template(name='slider')
-    #layerslider(style='width:909px; height: 450px;')
+    //- #layerslider(style='width:100%; height: 400px;')
+    #layerslider(style='width:100%; height: 200px')
         each slides
-            .ls-slide(data-ls='slidedelay: 3000;')
-                if image_url
-                    img.ls-bg(src=image_url)
-                img.ls-bg(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}", alt='Slide background' )
-                .ls-l(style="top: 20%; height: 170px; width: 170px; left: 20%;" )
-                    h1
-                        |title
-                .ls-l(style="top: 50%; height: 170px; width: 170px; left: 20%;" )
-                    h2.slider-subheader: subtitle
-                    // h2.slider-subheader
-                    //     | My goal is to spread light to others to help them navigate their own journey through life.
+            .ls-slide(data-ls='slidedelay: 10000;')
+                //- if image_url
+                //-     img.ls-bg(src=image_url)
+                img.ui.rounded.image.ls-bg(src="{{c.url image height=300 width=400 crop='fill'}}", alt='Slide background' )
+                //- img.ls-bg(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}", alt='Slide background' )
+                //- .ls-l(style="top: 20%; height: 170px; width: 170px; left: 20%;" )
+                //-     h1
+                //-         |title
+                //- .ls-l(style="top: 50%; height: 170px; width: 170px; left: 20%;" )
+                //-     h2.slider-subheader: subtitle
+                //-     // h2.slider-subheader
+                //-     //     | My goal is to spread light to others to help them navigate their own journey through life.
                     
                     
                     
 template(name='slides')
     .centered.row
         .three.wide.column
-            a.ui.button(href='/') Home
+            a.ui.button(href='/') home
         .twelve.wide.column
-            h1.ui.header alides
+            h1.ui.header slides
     .row
         .four.wide.column
             #add_slide.ui.compact.basic.fluid.button

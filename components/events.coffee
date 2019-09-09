@@ -1,8 +1,12 @@
-# Router.route '/tasks', -> @render 'tasks'
-Router.route '/events/', -> @render 'events'
-Router.route '/event/:doc_id/view', -> @render 'event_view'
-Router.route '/event/:doc_id/edit', -> @render 'event_edit'
-
+Router.route '/events', (->
+    @render 'events'
+    ), name:'events'
+Router.route '/event/:doc_id/view', (->
+    @render 'event_view'
+    ), name:'event_view'
+Router.route '/event/:doc_id/edit', (->
+    @render 'event_edit'
+    ), name:'event_edit'
 
 if Meteor.isClient
     Template.events.onCreated ->

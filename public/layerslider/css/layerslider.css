@@ -931,6 +931,7 @@
 	.ls-slide > a > .ls-bg {
 		position: absolute !important;
 		white-space: nowrap;
+        border-radius: 10px !important;
 	}
 
 	.ls-fullscreen {
@@ -1060,7 +1061,7 @@
 		background: none !important;
 		min-width: 0 !important;
 		max-width: none !important;
-		border-radius: 0;
+		border-radius: 10px !important;
 		box-shadow: none;
 		border: 0;
 		padding: 0;

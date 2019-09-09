@@ -409,8 +409,8 @@ input.username_search{
 }
 
 .ui.header{
-    /* font-family: 'Raleway', sans-serif !important; */
-    font-family: 'Ubuntu', sans-serif !important;
+    font-family: 'Raleway', sans-serif !important;
+    /* font-family: 'Ubuntu', sans-serif !important; */
 }
 h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */
@@ -745,8 +745,16 @@ h1.ui.header{
     margin:0px !important;
 }
 
-.f11 {
+.f13 {
   font-size: 400% !important;
+  line-height: 120% !important;
+  margin-bottom: 10px !important; }
+.f13 {
+  font-size: 300% !important;
+  line-height: 120% !important;
+  margin-bottom: 10px !important; }
+.f11 {
+  font-size: 250% !important;
   line-height: 120% !important;
   margin-bottom: 10px !important; }
 .f10 {

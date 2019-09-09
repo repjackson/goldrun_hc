@@ -1,7 +1,16 @@
 # Router.route '/tasks', -> @render 'tasks'
 Router.route '/projects/', -> @render 'projects'
-Router.route '/project/:doc_id/view', -> @render 'project_view'
-Router.route '/project/:doc_id/edit', -> @render 'project_edit'
+Router.route '/projects', (->
+    @render 'projects'
+    ), name:'projects'
+
+Router.route '/project/:doc_id/view', (->
+    @render 'project_view'
+    ), name:'project_view'
+
+Router.route '/project/:doc_id/edit', (->
+    @render 'project_edit'
+    ), name:'project_edit'
 
 
 if Meteor.isClient
@@ -90,6 +99,7 @@ if Meteor.isClient
 
     Template.latest_project_updates.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'project_update'
+        @autorun => Meteor.subscribe 'model_docs', 'project'
     Template.latest_project_updates.helpers
         latest_updates: ->
             Docs.find {

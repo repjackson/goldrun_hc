@@ -41,8 +41,8 @@ if Meteor.isClient
             Meteor.logoutOtherClients()
 
         'click .logout': ->
-            Meteor.logout()
             Router.go '/login'
+            Meteor.logout()
 
 
 

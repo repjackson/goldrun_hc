@@ -137,8 +137,9 @@ template(name='project_view')
                         if icon
                             +i name=icon
                         +text_view key='title' label='title' direct=true
-                    a.ui.big.icon.button(href="/project/#{_id}/edit")
-                        i.pencil.icon
+                    if can_edit
+                        a.ui.big.icon.button(href="/project/#{_id}/edit")
+                            i.pencil.icon
             .row
                 .four.wide.column 
                     +date_view key='start_date' label='start date' direct=true
@@ -272,8 +273,8 @@ template(name='activity')
 
 
 template(name='latest_project_updates')
-    .ui.header 
-        +i name='clock'
+    +ismall name='clock'
+    a.ui.inline.header(href="/projects")
         |latest project updates
     .ui.link.list
         each latest_updates

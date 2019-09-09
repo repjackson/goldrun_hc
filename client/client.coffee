@@ -45,6 +45,7 @@ Session.setDefault 'invert', false
 Template.registerHelper 'loading_checkin', () -> Session.get 'loading_checkin'
 Template.registerHelper 'parent', () -> Template.parentData()
 Template.registerHelper 'invert_class', () -> if Session.equals('dark_mode',true) then 'invert' else ''
+Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 Template.registerHelper 'is_author', () ->
@@ -78,6 +79,9 @@ Template.registerHelper 'current_month', () -> moment(Date.now()).format("MMMM")
 Template.registerHelper 'current_day', () -> moment(Date.now()).format("DD")
 Template.registerHelper 'current_delta', () -> Docs.findOne model:'delta'
 
+Template.registerHelper 'hsd', () ->
+    Docs.findOne
+        model:'home_stats'
 
 Template.registerHelper 'project', () ->
     Docs.findOne

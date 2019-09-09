@@ -267,6 +267,36 @@ if Meteor.isClient
 
 
 
+    Template.health_club_status_small.onCreated ->
+        Meteor.subscribe 'latest_reading', 'lower_hot_tub'
+        Meteor.subscribe 'latest_reading', 'upper_hot_tub'
+        Meteor.subscribe 'latest_reading', 'pool'
+
+
+
+    Template.health_club_status_small.helpers
+        latest_uht_reading: ->
+            found = Docs.findOne {
+                model:"upper_hot_tub_reading"
+            }, {sort:_timestamp:-1, limit:1}
+            # console.log found
+            found
+        latest_lht_reading: ->
+            found = Docs.findOne {
+                model:"lower_hot_tub_reading"
+            }, {sort:_timestamp:-1, limit:1}
+            # console.log found
+            found
+
+        latest_pool_reading: ->
+            found = Docs.findOne {
+                model:"pool_reading"
+            }, {sort:_timestamp:-1, limit:1}
+            # console.log found
+            found
+
+
+
     Template.water_status.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'water_status'
         Meteor.subscribe 'latest_reading', @data.slug
@@ -451,7 +481,7 @@ if Meteor.isServer
         }, sort: _timestamp:-1
 
     Meteor.publish 'latest_reading', (slug)->
-        # console.log slug
+        console.log slug
         Docs.find {
             model:"#{slug}_reading"
         }, {sort:_timestamp:-1, limit:1}

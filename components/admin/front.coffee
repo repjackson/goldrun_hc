@@ -34,10 +34,15 @@ if Meteor.isClient
             }, sort:_timestamp:1
 
 
-
     Template.model_scroller.onCreated ->
         @skip = new ReactiveVar 0
         @autorun => Meteor.subscribe 'model_docs_with_skip', @data.model, @skip.get()
+
+    Template.model_scroller.onRendered ->
+        current_skip = Template.instance().skip.get()
+        Meteor.setInterval =>
+            Template.instance().skip.set(current_skip+1)
+        , 1000
     Template.model_scroller.helpers
         user_results: -> Template.instance().user_results.get()
         current_doc: ->

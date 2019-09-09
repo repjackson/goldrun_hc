@@ -1,31 +1,58 @@
 template(name='work_orders')
     .ui.stackable.padded.grid
-        .sixteen.wide.column
+        .six.wide.column
             .ui.inline.header 
                 +i name='maintenance'
-                |work_orders
+                |work orders
             .ui.button.add_work_order
-                i.plus.icon
-                | work_order
-        .row
-            .six.wide.column
-                +cloud filter='work_order'
-            .ten.wide.column
-                each work_orders
-                    +work_order
+                i.plus.large.green.icon
+                | work order
+            div
+            +ismall name='tags'
+            .ui.inline.header tags
+            +cloud filter='work_order'
+            .ui.header my work orders
+            .ui.header my building work orders
+            .ui.header total
+            .ui.header view incomplete
+            .ui.header view incomplete
+                
+        .ten.wide.column.scrolling
+            each work_orders
+                +work_order
                     
                     
 template(name='work_order')
     .ui.fluid.segment
-        .ui.header #{title}
-        |!{content} #{body} #{notes}
-        each tags
-            .ui.basic.label #{this}
-        a.ui.icon.button(href="/work_order/#{_id}/edit")
-            i.pencil.icon
+        //- .ui.header #{title}
+        if complete
+            i.large.green.checkmark.icon
+        else
+            i.large.circle.outline.icon
+        .ui.inline.header !{content} #{body} #{notes}
+        .ui.divider
+        +image_view key='image' label='image' direct=true
+        +array_view key='location_tags' label='location tags (eg. pavlion, 3rd floor window)' icon='marker' direct=true
+        +array_view key='tags' label='tags' icon='tags' direct=true
+        +boolean_view key='response_requested' label='response requested' icon='phone' direct=true
+        if response_requested
+            +single_user_view key='resident' label='resident' direct=true
+            +text_view key='contact_info' label='contact info' icon='info' direct=true
+    
+        if is_staff
+            +boolean_view key='complete' label='complete' direct=true
+        +number_view key='building_number' key='building #' icon='building' direct=true
+        +number_view key='unit_number' label='unit #' icon='room' direct=true
+        if can_edit
+            a.ui.icon.button(href="/work_order/#{_id}/edit")
+                i.pencil.large.blue.icon
         a.ui.icon.button(href="/work_order/#{_id}/view")
-            i.right.chevron.icon
-        +voting_small
+            i.right.chevron.large.yellow.icon
+        +author_info
+        div
+        |#{when} #{_timestamp_long}
+        .ui.divider
+        .ui.header viewed by maintenance #{maintenance_view_timestamp}
         //- +comments
 
 
@@ -43,10 +70,21 @@ template(name='work_order_edit')
                     a.ui.big.icon.fluid.button(href="/work_order/#{_id}/view" title='save')
                         i.green.checkmark.icon
                     +remove_button
-                .twelve.wide.column 
+                    if is_staff
+                        +date_edit key='date_action_taken' label='date action taken' direct=true
+                .eight.wide.column 
                     +textarea_edit key='content' label='content' icon='content' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                     
+                    +image_edit key='image' label='image' direct=true
+                    +array_edit key='tags' label='tags (eg. leak, wasps, hot tub)' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags (eg. pavlion, 3rd floor window)' icon='marker' direct=true
+                    +boolean_edit key='response_requested' label='response requested' icon='phone' direct=true
+                    if response_requested
+                        +single_user_edit key='resident' label='user lookup (if you have a health club account)' direct=true
+                        +text_edit key='contact_info' label='contact info' icon='info' direct=true
+                .four.wide.column 
+                    +number_edit key='building_number' key='building #' icon='building' direct=true
+                    +number_edit key='unit_number' label='unit #' icon='room' direct=true
+                    
                      
 template(name='work_order_view')
     with current_doc
@@ -56,16 +94,26 @@ template(name='work_order_view')
                     a.ui.fluid.button(href="/work_orders")
                         +i name='maintenance' classes='ui avatar image'
                         |work_orders
-                    .ui.header view work_order
+                    .ui.header view work order
                     if currentUser
                         a.ui.big.icon.button(href="/work_order/#{_id}/edit")
                             i.pencil.icon
                     +voting_full
                     +viewing
-                .twelve.wide.column 
-                    +text_view key='title' label='title' direct=true
-                    +array_view key='tags' label='tags' icon='tags' direct=true
+                .eight.wide.column 
                     .ui.segment
-                        +html_view key='content' icon='content' label='content' direct=true
-                    +boolean_view key='published' label='published' direct=true
+                        +textarea_view key='content' icon='content' label='content' direct=true
+                    +image_view key='image' label='image' direct=true
+                    +array_view key='location_tags' label='location tags (eg. pavlion, 3rd floor window)' icon='marker' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    +boolean_view key='response_requested' label='response requested' icon='phone' direct=true
+                    if response_requested
+                        +single_user_view key='resident' label='resident' direct=true
+                        +text_view key='contact_info' label='contact info' icon='info' direct=true
+                
+                    if is_staff
+                        +boolean_view key='complete' label='complete' direct=true
                     +comments
+                .four.wide.column 
+                    +number_view key='building_number' key='building #' icon='building' direct=true
+                    +number_view key='unit_number' label='unit #' icon='room' direct=true

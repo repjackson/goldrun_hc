@@ -1,36 +1,44 @@
 template(name='home')
     .ui.padded.stackable.grid
-        .middle.aligned.row
-            .four.wide.column
-                img.ui.tiny.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
+        .centered.row
+            .three.wide.column
+                img.ui.centered.small.circular.image.pointer.toggle_lights(src="{{c.url 'gold_run_logo' }}")
                 //- +i name='home' classes='ui inline image'
-                .ui.inline.large.grtext.header(title='it stands for gold run online')
-                    |gro
-                    //- | gold run online
-            .eight.wide.column
+                .ui.center.aligned.basic.segment
+                    .ui.inline.grtext.center.aligned.pointer.header.toggle_display
+                        //- |gro
+                        | www.goldrun.online
+                div
                 +health_club_status_small
-            .four.wide.column
-                i.lightbulb.big.yellow.link.icon.toggle_lights
-        .row
-            .four.wide.column
+                div
                 +stats_small
+            .three.wide.column
                 +gallery_small
-                //- +leaderboard_small 
-            //-     +events_small
-            .eight.wide.column
+                .ui.hidden.divider
+                +events_small
+                
+            .five.wide.column
                 +work_order_small
+                .ui.hidden.divider
+                +latest_project_updates
+                unless display_mode
+                    +projects_small             
                 //- +work_small
             //-     +posts_small
             //- .column
             //-     +market_small
             .four.wide.column
                 +ismall name='billboard'
-                .ui.inline.header(title='its all about the economy')
-                    |ad
-                with current_ad
-                    .ui.header #{title}
-                    a(href=link) #{link}
-                    +voting
+                .ui.inline.header
+                    |resident services
+                +service_slider            
+                //- with current_ad
+                //-     .ui.header #{title}
+                //-     img(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}")
+                //-     |!{content}
+                //-     unless display_mode
+                //-         a(href=link) #{link}
+                //-         +voting
                 .ui.hidden.divider
                 +ismall name='poll'
                 .ui.inline.header poll
@@ -41,30 +49,22 @@ template(name='home')
                 .ui.large.icon.button.unhappy
                     i.red.outline.thumbs.down.large.icon
                     | #{hsd.unhappy_votes}
-                .ui.small.header what movie for next movie night?
+                //- .ui.small.header next movie night movie?
                 each movie_options
                     .ui.large.button.vote_movie
                         | #{title}
                 .ui.divider
                 +footer_chat
-        .four.column.row
-            //- .column
-            //-     .ui.header
-            //-         +i name='google-alerts'
-            //-         |notifications
-            //-     .ui.list
-            //-         each notifications
-            //-             .item #{text}
-            //- .column
-            //-     .ui.header subscriptions
-            form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                input(type='hidden', name='cmd', value='_s-xclick')
-                input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
-                //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.icon.button(type='submit' title='donate')
-                    +i name='donate' classes='ui inline mini image'
+            unless display_mode
+                .four.column.row
+                    form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                        input(type='hidden', name='cmd', value='_s-xclick')
+                        input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
+                        //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                        //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                        button.ui.icon.button(type='submit' title='donate')
+                            +ismall name='donate' classes='ui inline mini image'
             
         //- if is_dev
         //-     .four.column.row
@@ -116,24 +116,36 @@ template(name='home')
         //-         +post
 
 template(name='stats_small')
-    +call_method name='calc_home_stats'
-    .ui.header 
-        +i name='line-chart' classes='ui inline image'
+    +ismall name='line-chart' classes='ui inline image'
+    .ui.inline.header.calc_home_stats
         |stats
-    .ui.small.grey.header #{hsd.current_hc_members} people at health club
-    .ui.small.grey.header #{hsd.current_hc_members} total health club sessions
-    //- .ui.small.grey.header total health club sessions this month
-    .ui.small.grey.header #{hsd.owners} owners
-    .ui.small.grey.header #{hsd.owners} residents
+    .ui.grey.header 
+        strong #{hsd.home_views}
+        small website views
+    .ui.grey.header
+        strong #{hsd.current_hc_members}
+        small people at health club
+    .ui.grey.header
+        strong #{hsd.total_hc_sessions}
+        small total health club sessions
+    //- .ui.grey.header total health club sessions this month
+    .ui.grey.header
+        strong #{hsd.registered_owners}
+        small owners
+    .ui.grey.header
+        strong #{hsd.registered_residents}
+        small residents
     
     
 template(name='gallery_small')
-    .ui.header gallery
+    +ismall name='gallery'
+    .ui.inline.header gallery
+    +slider
 
 
 template(name='work_small')
-    .ui.header 
-        +i name='maintenance' classes='ui inline image'
+    +ismall name='maintenance' classes='ui inline image'
+    .ui.inline.header 
         |recent completed work
     each work
         .ui.small.header #{title}
@@ -142,27 +154,38 @@ template(name='work_small')
 
 
 template(name='work_order_small')
-    .ui.inline.header 
-        +i name='maintenance'
-        |work orders
-    .ui.large.icon.button.submit_work_order(title='add work order')
-        i.large.green.plus.icon
-
-    +cloud filter='work_order'
-    each work_order
-        .ui.secondary.segment
-            .ui.small.header #{body} #{content} #{text} #{notes}
-            each tags
-                .ui.tiny.basic.label #{this}
-            |#{when}
-            +voting
-            .ui.small.header #{points} points
+    a.ui.fluid.button(href="/work_orders")
+        +ismall name='maintenance'
+        .ui.inline.header
+            |work orders
+    unless display_mode
+        .ui.large.icon.button.submit_work_order(title='add work order')
+            i.large.green.plus.icon
+        +cloud filter='work_order'
+    .ui.divided.list
+        each work_order
+            .item
+                if complete
+                    span
+                        i.green.checkmark.icon
+                else 
+                    span
+                        i.circle.outline.icon
+                .ui.small.inline.header #{body} #{content} #{text} #{notes}
+                each tags
+                    .ui.tiny.basic.label #{this}
+                |#{when}
+                unless display_mode
+                    +voting
+                | #{points} 
+                span 
+                    i.thumbs.up.outline.grey.icon
 
 
 
 template(name='leaderboard_small')
     .ui.header
-        +i name='leaderboard'
+        +ismall name='leaderboard'
         |leaderboard
     .ui.small.header most tasks completed
     if is_dev
@@ -170,3 +193,117 @@ template(name='leaderboard_small')
     .ui.small.header most assigned tasks completed
     .ui.small.header most money earned
     
+
+
+
+
+template(name='service_slider')
+    //- #layerslider(style='width:100%; height: 400px;')
+    #service_slider(style='width:100%; height: 250px')
+        each slides
+            .ls-slide(data-ls='slidedelay: 10000;')
+                //- if image_url
+                //-     img.ls-bg(src=image_url)
+                .ls-l(style="top: 5px; left: 10px;" )
+                    .ui.header #{title}
+                .ls-l(style="top: 25px; left: 10px; width:200px; height:20px;" )
+                    .ui.small.header !{description}
+                img.ui.centered.image.ls-l(src="{{c.url image height=180 width=300 crop='fill'}}" style="top: 50px; left: 0%;")
+                //- img.ls-bg(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}", alt='Slide background' )
+                //- .ls-l(style="top: 50%; height: 170px; width: 170px; left: 20%;" )
+                //-     h2.slider-subheader: subtitle
+                //-     // h2.slider-subheader
+                //-     //     | My goal is to spread light to others to help them navigate their own journey through life.
+                    
+                    
+template(name='event_slider')
+    //- #layerslider(style='width:100%; height: 400px;')
+    #event_slider(style='width:100%; height: 250px')
+        each slides
+            .ls-slide(data-ls='slidedelay: 10000;')
+                //- if image_url
+                //-     img.ls-bg(src=image_url)
+                .ls-l(style="top: 5px; left: 10px;" )
+                    .ui.header #{title}
+                .ls-l(style="top: 25px; left: 10px; width:200px; height:20px;" )
+                    .ui.small.header !{description}
+                img.ui.centered.image.ls-l(src="{{c.url image_id height=180 width=300 crop='fill'}}" style="top: 50px; left: 0%;")
+                //- img.ls-bg(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}", alt='Slide background' )
+                //- .ls-l(style="top: 50%; height: 170px; width: 170px; left: 20%;" )
+                //-     h2.slider-subheader: subtitle
+                //-     // h2.slider-subheader
+                //-     //     | My goal is to spread light to others to help them navigate their own journey through life.
+                    
+                    
+template(name='events_small')
+    +ismall name='calendar'
+    .ui.inline.header 
+        |events
+    +event_slider
+    //- +model_scroller model='event' header='events' icon='calendar'
+
+    //- .ui.animated.large.list
+    //-     each gr_events
+    //-         a.active.item(href="/event/#{_id}/view") 
+    //-             .ui.small.header #{title}
+    //-             each tags
+    //-                 .ui.small.basic.label #{this}
+    //-             //- span(title='views and points')
+    //-             //-     |#{views}
+    //-             //-     i.eye.grey.icon
+    //-             //-     |#{points}
+    //-             //-     i.thumbs.up.outline.grey.icon
+    //- 
+    //-         //- a.active.item(href="/m/#{model}/#{_id}/view")
+
+
+
+template(name='health_club_status_small')
+    .ui.header 
+        |upper hot tub
+        +water_status slug='upper_hot_tub'
+        //- div
+    .ui.small.horizontal.list
+        .item
+            |#{latest_uht_reading.temperature}&#8457;
+        .item
+            |#{latest_uht_reading.ph} ph 
+        .item
+            |#{latest_uht_reading.chlorine} chl
+    .ui.header lower hot tub
+        +water_status slug='lower_hot_tub'
+        //- div
+    .ui.small.horizontal.list
+        .item
+            |#{latest_lht_reading.temperature}&#8457;
+        .item
+            |#{latest_lht_reading.ph} ph 
+        .item
+            |#{latest_lht_reading.chlorine} chl
+    .ui.header
+        | pool
+        +water_status slug='pool'
+        //- div
+    .ui.small.horizontal.list
+        .item
+            |#{latest_pool_reading.temperature}&#8457;
+        .item
+            |#{latest_pool_reading.ph} ph 
+        .item
+            |#{latest_pool_reading.chlorine} chl
+
+
+template(name='water_status')
+    if is_staff
+        if on
+            i.green.checkmark.link.large.icon.toggle_status
+        else    
+            i.red.ban.link.large.icon.toggle_status
+    else
+        if on
+            i.green.checkmark.large.icon
+        else    
+            i.red.ban.large.icon
+    //- with latest_reading
+    //-     | #{temperature}&#8457;
+    //- div

@@ -11,15 +11,13 @@ Router.route '/slide/:doc_id/edit', -> @render 'slide_edit'
 
 if Meteor.isClient
     Template.slideshow.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'slide'
+        @autorun -> Meteor.subscribe 'model_docs', 'image'
 
 
     Template.slideshow.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1000
-
-
 
 
     Template.slide_view.onCreated ->
@@ -51,10 +49,14 @@ if Meteor.isClient
         current_slide: ->
             Docs.findOne Session.get('current_slide_id')
         slides: ->
-            Docs.find {model:'slide'},
+            Docs.find {model:'image'},
                 sort: _timestamp: -1
                 limit:10
 
+            # Docs.find {model:'slide'},
+            #     sort: _timestamp: -1
+            #     limit:10
+            #
 
 
 
@@ -79,17 +81,14 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe('facet', selected_tags.array(), 'slide')
 
     Template.slider.onCreated ->
-        @autorun -> Meteor.subscribe('model_docs', 'slide')
-
+        @autorun -> Meteor.subscribe('model_docs', 'image')
     Template.slider.helpers
         slides: ->
             Docs.find
-                model: 'slide'
+                model: 'image'
 
     Template.slides.helpers
         slides: -> Docs.find {model: 'slide'}
-
-
     Template.slides.events
         'click #add_slide': ->
             id = Docs.insert

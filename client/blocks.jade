@@ -105,23 +105,26 @@ template(name='user_status')
 template(name='user_card')
     with user
         .ui.horizontal.card
-            .image
-                if kiosk_photo
-                    img.ui.rounded.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
-                else if image_id
-                    img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+            if is_staff
+                .image
+                    if kiosk_photo
+                        img.ui.rounded.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
+                    else if image_id
+                        img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .content    
                 if is_frontdesk
-                    .header #{first_name} #{last_name} 
+                    .header 
+                        |#{first_name} #{last_name}
                 else
-                    a.header(href="/user/#{username}") #{first_name} #{last_name} 
+                    a.header(href="/user/#{username}") #{first_initial} #{last_name} 
                     //- .meta @#{username}
-                    .ui.list
-                        .item #{address}
-                        //- .item #{building_code}
-                        //- .item #{unit_number}
-                        //- .item #{building_number}
-                    |#{points} points
+                    if is_staff
+                        .ui.list
+                            .item #{address}
+                            //- .item #{building_code}
+                            //- .item #{unit_number}
+                            //- .item #{building_number}
+                        |#{points} points
                     if is_admin
                         div
                         +user_email

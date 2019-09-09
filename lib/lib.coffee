@@ -140,7 +140,13 @@ Meteor.methods
 if Meteor.isServer
     Docs.allow
         insert: (userId, doc) -> doc._author_id is userId
-        update: (userId, doc) -> doc._author_id is userId
+        update: (userId, doc) ->
+            if doc.model is 'work_order'
+                true
+            else if Meteor.user() and Meteor.user().roles and 'staff' in Meteor.user().roles
+                true
+            else
+                doc._author_id is userId
         # update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
         remove: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
 
@@ -153,8 +159,8 @@ if Meteor.isServer
             Meteor.users.find id
     Meteor.publish 'docs', (selected_tags, filter)->
         # user = Meteor.users.findOne @userId
-        console.log selected_tags
-        console.log filter
+        # console.log selected_tags
+        # console.log filter
         self = @
         match = {}
         # if filter is 'shop'

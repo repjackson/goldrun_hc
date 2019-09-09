@@ -30,8 +30,9 @@ template(name='timecard')
 
 
 template(name='call_method')
-    .ui.button.call_method
-        |#{name}
+    if currentUser
+        .ui.button.call_method
+            |#{name}
 
 
 template(name='check_in_button')

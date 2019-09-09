@@ -120,21 +120,6 @@ template(name='most_viewed_models')
                 
         
         
-template(name='events_small')
-    .ui.header 
-        +i name='calendar'
-        |events
-    .ui.animated.large.list
-        each gr_events
-            a.active.item(href="/event/#{_id}/view") 
-                .ui.small.header #{title}
-                //- span(title='views and points')
-                //-     |#{views}
-                //-     i.eye.grey.icon
-                //-     |#{points}
-                //-     i.thumbs.up.outline.grey.icon
-                    
-            //- a.active.item(href="/m/#{model}/#{_id}/view")
             
             
 template(name='posts_small')
@@ -211,11 +196,13 @@ template(name='business_doc_view')
     +image_view key='image' direct=true
     +html_view key='content' direct=true
     //- +array_view key='tags' direct=true
+    
 template(name='event_doc_view')
     +text_view key='title' direct=true
-    +image_view key='image' direct=true
+    +image_view key='image_id' direct=true
     +html_view key='description' direct=true
     //- +array_view key='tags' direct=true
+    
 template(name='shop_doc_view')
     +image_view key='picture' direct=true
     +html_view key='description' direct=true
@@ -232,12 +219,13 @@ template(name='model_scroller')
                 +i name=icon
                 //- i.ico/n(class=icon)
             |#{header}
-        //- if can_go_left            
+        //- if can_go_left 
         .ui.icon.button.go_left(class="{{#unless can_go_left}}disabled{{/unless}}")
             i.left.chevron.icon
         //- if can_go_right
         .ui.icon.button.go_right(class="{{#unless can_go_right}}disabled{{/unless}}")
             i.right.chevron.icon
+        div           
         with current_doc
             +Template.dynamic template=model_doc_template
             //- if currentUser
@@ -250,27 +238,3 @@ template(name='health_club_status')
         +water_status slug='lower_hot_tub'
     .ui.header Pool
         +water_status slug='pool'
-
-template(name='health_club_status_small')
-    .ui.small.inline.grey.header upper hot tub
-        +water_status slug='upper_hot_tub'
-    .ui.small.inline.grey.header lower hot tub
-        +water_status slug='lower_hot_tub'
-    .ui.small.inline.grey.header pool
-        +water_status slug='pool'
-
-
-template(name='water_status')
-    if is_staff
-        if on
-            i.green.checkmark.link.big.icon.toggle_status
-        else    
-            i.red.ban.link.big.icon.toggle_status
-    else
-        if on
-            i.green.checkmark.big.icon
-        else    
-            i.red.ban.big.icon
-    //- with latest_reading
-    //-     | #{temperature}&#8457;
-    //- div

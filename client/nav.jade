@@ -10,13 +10,20 @@ template(name='nav')
                         +i name='home' classes='ui mini inline image'  
                         | gro
                         //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
+                a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
+                    +i name='work' classes='ui mini inline image'
+                    .mobile.hidden.inline &nbsp; work orders
+            
                 if is_resident
                     a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}" title='resident portal')
                         +i name='dashboard' classes='ui mini inline image'
                         //- |resident portal                
                 if is_staff
                     a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
-                        +i name='dashboard' classes='ui mini inline image'            
+                        +i name='dashboard' classes='ui mini inline image'          
+                    a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
+                        +i name='work' classes='ui mini inline image'
+                        .mobile.hidden.inline &nbsp; work orders                  
                 if is_owner
                     a.ui.icon.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}" title='owner dashboard')
                         +i name='rent' classes='ui mini inline image'
@@ -59,9 +66,6 @@ template(name='nav')
                     a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
                         +i name='project' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; projects
-                    //- a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
-                    //-     +i name='work' classes='ui mini inline image'
-                    //-     .mobile.hidden.inline &nbsp; work orders
                     a.ui.item(href='/minutes' class="{{isActivePath '/minutes'}}")
                         +i name='checklist' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; minutes
@@ -87,9 +91,9 @@ template(name='nav')
                     a.ui.item(href='/readings' class="{{isActivePath '/readings'}}")
                         +i name='water' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; water
-                    a.ui.item(href='/slideshow' class="{{isActivePath '/slideshow'}}")
-                        +i name='channel-mosaic' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; slideshow
+                    //- a.ui.item(href='/slideshow' class="{{isActivePath '/slideshow'}}")
+                    //-     +i name='channel-mosaic' classes='ui mini inline image'
+                    //-     .mobile.hidden.inline &nbsp; slideshow
                 if is_admin
                     //- a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
                     //-     +i name='active-directory' classes='ui mini inline image'
