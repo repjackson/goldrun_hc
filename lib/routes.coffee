@@ -25,6 +25,7 @@ Router.onBeforeAction(force_loggedin, {
       'work_order_edit',
       'work_order_view',
       'events,'
+      'grid'
       'event_edit',
       'event_view',
       'projects'

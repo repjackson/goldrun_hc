@@ -5,16 +5,16 @@ template(name='nav')
                 .icon.item
                     i.big.spinning.yin.yang.grey.cancel.icon
             else
-                unless is_staff
-                    a.ui.header.item(href='/' class="{{isActivePath '/'}}")
-                        +i name='home' classes='ui mini inline image'  
-                        | gro
-                        //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
+                a.ui.header.item(href='/' class="{{isActivePath '/'}}")
+                    +i name='home' classes='ui mini inline image'  
+                    | gro
+                    //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
                 if is_dev
                     a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
                         +i name='active-directory' classes='ui mini inline image'
-                a.ui.item(href='/grid' class="{{isActivePath '/grid'}}" title='model grid view')
-                    +i name='activity-grid-2' classes='ui mini inline image'    
+                if currentUser
+                    a.ui.item(href='/grid' class="{{isActivePath '/grid'}}" title='model grid view')
+                        +i name='activity-grid-2' classes='ui mini inline image'    
                 //- a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
                 //-     +i name='work' classes='ui mini inline image'
                 a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")

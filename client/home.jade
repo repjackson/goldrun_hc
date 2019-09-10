@@ -10,24 +10,32 @@ template(name='home')
                         | www.goldrun.online
                 div
                 +health_club_status_small
-                div
+                .ui.hidden.divider
                 +stats_small
-            .three.wide.column
+            .five.wide.column
+                .ui.inline.header
+                    +i name='poll'
+                    |polls
+                each polls
+                    +poll_results
+                    
+            .four.wide.column
                 +gallery_small
                 .ui.hidden.divider
                 +events_small
                 
-            .five.wide.column
-                +work_order_small
-                .ui.hidden.divider
-                +latest_project_updates
-                unless display_mode
-                    +projects_small             
+                //- +work_order_small
+                //- .ui.hidden.divider
+                //- +latest_project_updates
+                //- unless display_mode
+                //-     +projects_small             
                 //- +work_small
             //-     +posts_small
             //- .column
             //-     +market_small
             .four.wide.column
+                +footer_chat
+    
                 +ismall name='billboard'
                 .ui.inline.header
                     |resident services
@@ -39,22 +47,21 @@ template(name='home')
                 //-     unless display_mode
                 //-         a(href=link) #{link}
                 //-         +voting
-                .ui.hidden.divider
-                +ismall name='poll'
-                .ui.inline.header poll
-                .ui.small.header do you like living at gold run?
-                .ui.large.icon.button.happy
-                    i.green.outline.thumbs.up.large.icon
-                    |#{hsd.happy_votes}
-                .ui.large.icon.button.unhappy
-                    i.red.outline.thumbs.down.large.icon
-                    | #{hsd.unhappy_votes}
+                //- .ui.hidden.divider
+                //- +ismall name='poll'
+                //- .ui.inline.header poll
+                //- .ui.small.header do you like living at gold run?
+                //- .ui.large.icon.button.happy
+                //-     i.green.outline.thumbs.up.large.icon
+                //-     |#{hsd.happy_votes}
+                //- .ui.large.icon.button.unhappy
+                //-     i.red.outline.thumbs.down.large.icon
+                //-     | #{hsd.unhappy_votes}
                 //- .ui.small.header next movie night movie?
-                each movie_options
-                    .ui.large.button.vote_movie
-                        | #{title}
-                .ui.divider
-                +footer_chat
+                //- each movie_options
+                //-     .ui.large.button.vote_movie
+                //-         | #{title}
+                //- .ui.divider
             unless display_mode
                 .four.column.row
                     form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
@@ -119,20 +126,25 @@ template(name='stats_small')
     +ismall name='line-chart' classes='ui inline image'
     .ui.inline.header.calc_home_stats
         |stats
-    .ui.grey.header 
+    div
+    .ui.inline.grey.header 
         strong #{hsd.home_views}
         small website views
-    .ui.grey.header
+    div
+    .ui.inline.grey.header
         strong #{hsd.current_hc_members}
         small people at health club
-    .ui.grey.header
+    div
+    .ui.inline.grey.header
         strong #{hsd.total_hc_sessions}
         small total health club sessions
     //- .ui.grey.header total health club sessions this month
-    .ui.grey.header
+    div
+    .ui.inline.grey.header
         strong #{hsd.registered_owners}
         small owners
-    .ui.grey.header
+    div
+    .ui.inline.grey.header
         strong #{hsd.registered_residents}
         small residents
     
@@ -259,7 +271,8 @@ template(name='events_small')
 
 
 template(name='health_club_status_small')
-    .ui.header 
+    div
+    .ui.inline.header 
         |upper hot tub
         +water_status slug='upper_hot_tub'
         //- div
@@ -270,7 +283,10 @@ template(name='health_club_status_small')
             |#{latest_uht_reading.ph} ph 
         .item
             |#{latest_uht_reading.chlorine} chl
-    .ui.header lower hot tub
+        .item
+            |#{latest_uht_reading.when}
+    div
+    .ui.inline.header lower hot tub
         +water_status slug='lower_hot_tub'
         //- div
     .ui.small.horizontal.list
@@ -280,7 +296,10 @@ template(name='health_club_status_small')
             |#{latest_lht_reading.ph} ph 
         .item
             |#{latest_lht_reading.chlorine} chl
-    .ui.header
+        .item
+            |#{latest_lht_reading.when}
+    div
+    .ui.inline.header
         | pool
         +water_status slug='pool'
         //- div
@@ -291,6 +310,8 @@ template(name='health_club_status_small')
             |#{latest_pool_reading.ph} ph 
         .item
             |#{latest_pool_reading.chlorine} chl
+        .item
+            |#{latest_pool_reading.when}
 
 
 template(name='water_status')
@@ -307,3 +328,20 @@ template(name='water_status')
     //- with latest_reading
     //-     | #{temperature}&#8457;
     //- div
+
+
+
+template(name='poll_results')
+    .ui.hidden.divider
+    a.ui.inline.small.grey.header(href="/vote/#{_id}/view") #{title}
+    span 
+        i.thumbs.up.outline.green.icon
+        |#{upvoter_ids.length}
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    span 
+        i.thumbs.down.outline.red.icon
+        | #{downvoter_ids.length}

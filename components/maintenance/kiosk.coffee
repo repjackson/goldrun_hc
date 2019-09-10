@@ -99,17 +99,15 @@ if Meteor.isClient
             $('.poll_area').transition('fade out', 500)
             Meteor.setTimeout =>
                 healthclub_session_document = Docs.findOne Router.current().params.doc_id
-                Docs.update @_id,
-                    $addToSet: upvoter_ids:healthclub_session_document.user_id
+                Meteor.call 'kiosk_vote_yes', @_id, healthclub_session_document.user_id
             , 500
             $('.poll_area').transition('fade in', 500)
 
         'click .vote_no': ->
             $('.poll_area').transition('fade out', 500)
-            healthclub_session_document = Docs.findOne Router.current().params.doc_id
             Meteor.setTimeout =>
-                Docs.update @_id,
-                    $addToSet: downvoter_ids:healthclub_session_document.user_id
+                healthclub_session_document = Docs.findOne Router.current().params.doc_id
+                Meteor.call 'kiosk_vote_no', @_id, healthclub_session_document.user_id
             , 500
             $('.poll_area').transition('fade in', 500)
 
@@ -268,8 +266,17 @@ if Meteor.isServer
         Docs.find
             model:'kiosk'
 
-
     Meteor.methods
+        kiosk_vote_no: (poll_id, user_id)->
+            console.log poll_id, user_id
+            Docs.update poll_id,
+                $addToSet: downvoter_ids: user_id
+        kiosk_vote_yes: (poll_id, user_id)->
+            console.log poll_id, user_id
+            Docs.update poll_id,
+                $addToSet: upvoter_ids: user_id
+
+
         recalc_healthclub_stats: (user)->
             # console.log user
             session_count =

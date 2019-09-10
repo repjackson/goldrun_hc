@@ -57,6 +57,7 @@ template(name='vote_card_template')
         each tags
             .ui.basic.label #{this}
         div
+        +voting_full
         a.ui.button(href="/vote/#{_id}/view")
             |view
             i.right.chevron.icon
@@ -110,7 +111,7 @@ template(name='vote_view')
         .ui.stackable.padded.grid
             .row
                 .sixteen.wide.column 
-                    a.ui.icon.button(href="/votes" title='view votes')
+                    a.ui.icon.button(href="/m/vote" title='view votes')
                         +i name='elections' classes='ui avatar image'
                     .ui.inline.header
                         if icon
@@ -123,28 +124,28 @@ template(name='vote_view')
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     +html_view key='description' icon='content' label='description' direct=true
                     +image_view key='image' icon='image' label='image' direct=true
-                    +voting_full
                     +viewing
                 .six.wide.column
-                    .ui.header options
-                    if true_false
-                        .ui.two.column.grid
-                            .column
-                                .ui.massive.icon.fluid.button.vote_yes
-                                    i.thumbs.up.green.big.outline.icon 
-                            .column
-                                .ui.massive.icon.fluid.button.vote_no
-                                    i.thumbs.down.red.big.outline.icon 
-                    else
-                        each options
-                            .ui.segment 
-                                +text_view key='title' direct=true
-                                .ui.button vote
-                    .ui.header votes
-                    each votes
-                        .ui.segment
-                            .ui.header vote
-                            .ui.header value #{value}
+                    +voting_full
+                    //- .ui.header options
+                    //- if true_false
+                    //-     .ui.two.column.grid
+                    //-         .column
+                    //-             .ui.massive.icon.fluid.button.vote_yes
+                    //-                 i.thumbs.up.green.big.outline.icon 
+                    //-         .column
+                    //-             .ui.massive.icon.fluid.button.vote_no
+                    //-                 i.thumbs.down.red.big.outline.icon 
+                    //- else
+                    //-     each options
+                    //-         .ui.segment 
+                    //-             +text_view key='title' direct=true
+                    //-             .ui.button vote
+                    //- .ui.header votes
+                    //- each votes
+                    //-     .ui.segment
+                    //-         .ui.header vote
+                    //-         .ui.header value #{value}
                 .six.wide.column 
                     .ui.header 
                         +i name='rss'

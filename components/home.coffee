@@ -2,6 +2,7 @@ if Meteor.isClient
     Template.home.onCreated ->
         @autorun -> Meteor.subscribe 'home_stats'
         @autorun -> Meteor.subscribe 'model_docs', 'ad'
+        @autorun -> Meteor.subscribe 'model_docs', 'vote'
     Template.home.onRendered ->
         if Meteor.isProduction
             Meteor.call 'log_home_view', ->
@@ -57,7 +58,9 @@ if Meteor.isClient
             Docs.findOne
                 model:'movie_option'
 
-
+        polls: ->
+            Docs.find
+                model:'vote'
 
 
     Template.home.events
