@@ -22,7 +22,6 @@ if Meteor.isClient
         wos_doc: ->
             Docs.findOne
                 model:'work_order_stats'
-
         work_orders: ->
             Docs.find
                 model:'work_order'
@@ -32,7 +31,40 @@ if Meteor.isClient
                 model:'work_order'
             Router.go "/work_order/#{new_id}/edit"
 
+    Template.work_order_history.onCreated ->
+        @autorun => Meteor.subscribe 'children', 'log_event', Router.current().params.doc_id
+    Template.work_order_history.helpers
+        work_order_events: ->
+            Docs.find
+                model:'log_event'
+                parent_id:Router.current().params.doc_id
 
+
+    Template.wo_subscription.onCreated ->
+        # @autorun => Meteor.subscribe 'children', 'log_event', Router.current().params.doc_id
+    Template.wo_subscription.events
+        'click .subscribe': ->
+            Docs.insert
+                model:'log_event'
+                log_type:'subscribe'
+                parent_id:Router.current().params.doc_id
+                text: "#{Meteor.user().username} subscribed to work order."
+
+
+    Template.wo_time.onCreated ->
+        # @autorun => Meteor.subscribe 'children', 'log_event', Router.current().params.doc_id
+    Template.wo_time.events
+        'click .mark_complete': ->
+            if confirm 'mark complete?'
+                Docs.update Router.current().params.doc_id,
+                    $set:
+                        complete:true
+                        complete_timestamp: Date.now()
+            Docs.insert
+                model:'log_event'
+                log_type:'complete'
+                parent_id:Router.current().params.doc_id
+                text: "#{Meteor.user().username} marked work order complete."
 
 
 if Meteor.isServer

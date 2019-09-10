@@ -114,6 +114,22 @@ template(name='healthclub_session')
                             //- i.plus.large.icon
                             +i name='add' classes='ui inline image'                
                             .ui.inline.big.header guest
+                    .poll_area
+                        with current_poll
+                            .ui.hidden.divider
+                            .ui.small.grey.header poll (optional)
+                            .ui.inline.header #{title}
+                            //- each upvoter_ids
+                            //-     .ui.label #{this}
+                            //- each downvoter_ids
+                            //-     .ui.label #{this}
+                            //- //- each options
+                            //-     .ui.button.choose_this #{this}
+                            .ui.center.aligned.basic.segment
+                                .ui.icon.big.button.vote_yes
+                                    i.thumbs.up.green.outline.big.icon
+                                .ui.icon.big.button.vote_no
+                                    i.thumbs.down.red.outline.big.icon
             .row
                 .sixteen.wide.column
                     unless user.kiosk_photo
@@ -144,8 +160,8 @@ template(name='healthclub_session')
                             if user.member_waiver_signed
                                 if user.rules_and_regulations_signed
                                     unless user.email_red_flagged
-                                        .ui.massive.fluid.button.submit_checkin
-                                            .ui.inline.inverted.green.header 
+                                        .ui.massive.fluid.green.button.submit_checkin
+                                            .ui.inline.inverted.header 
                                                 | check in
                                                 //- i.checkmark.green.icon
                                                 //- if timer_engaged
@@ -168,9 +184,9 @@ template(name='healthclub_stats')
     if is_dev
         .ui.button.recalc recalc #{user.username}
     div
-    .ui.list
-        +ismall name='line-chart'
-        .ui.grey.inline.header 
-            |hc stats
+    +ismall name='line-chart'
+    .ui.grey.inline.header 
+        |hc stats
+    .ui.horizontal.list
         .item #{user.total_session_count} sessions
-        .item gr rank ##{user.global_rank}
+        .item ##{user.global_rank}

@@ -1,35 +1,57 @@
 # Router.route '/tasks', -> @render 'tasks'
-Router.route '/projects/', -> @render 'projects'
+# Router.route '/projects/', -> @render 'projects'
 Router.route '/projects', (->
     @render 'projects'
     ), name:'projects'
 
-Router.route '/project/:doc_id/view', (->
-    @render 'project_view'
-    ), name:'project_view'
+Router.route '/project/:doc_id/view', -> @redirect '/project/:doc_id/feed'
+
 
 Router.route '/project/:doc_id/edit', (->
+    # @layout 'project_layout'
     @render 'project_edit'
     ), name:'project_edit'
+Router.route '/project/:doc_id/feed', (->
+    @layout 'project_layout'
+    @render 'project_feed'
+    ), name:'project_feed'
+Router.route '/project/:doc_id/finance', (->
+    @layout 'project_layout'
+    @render 'project_finance'
+    ), name:'project_finance'
+Router.route '/project/:doc_id/photos', (->
+    @layout 'project_layout'
+    @render 'project_photos'
+    ), name:'project_photos'
+Router.route '/project/:doc_id/chat', (->
+    @layout 'project_layout'
+    @render 'project_chat'
+    ), name:'project_chat'
+Router.route '/project/:doc_id/files', (->
+    @layout 'project_layout'
+    @render 'project_files'
+    ), name:'project_files'
 
 
 if Meteor.isClient
-    Template.projects.onCreated ->
+    Template.project_stats.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'project_stats'
         @autorun => Meteor.subscribe 'model_docs', 'project_update'
         @autorun => Meteor.subscribe 'model_comments', 'project'
-        @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'project'
+        # @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'project'
 
-    Template.project_view.onCreated ->
+    Template.project_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    # Template.project_view.onCreated ->
+    #     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.project_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'users_by_role', 'board_member'
 
-    Template.project_card_template.onRendered ->
-        Meteor.setTimeout ->
-            $('.accordion').accordion()
-        , 1000
+    # Template.project_card_template.onRendered ->
+    #     Meteor.setTimeout ->
+    #         $('.accordion').accordion()
+    #     , 1000
 
     Template.project_card_template.onCreated ->
         @autorun => Meteor.subscribe 'children', 'project_update', @data._id
@@ -39,25 +61,33 @@ if Meteor.isClient
                 model:'project_update'
                 parent_id: @_id
 
-
-    Template.project_view.onCreated ->
-        @autorun => Meteor.subscribe 'children', 'project_update', Router.current().params.doc_id
-    Template.project_view.helpers
-        updates: ->
+    Template.projects.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'project'
+    Template.projects.helpers
+        projects: ->
             Docs.find
-                model:'project_update'
-                parent_id: Router.current().params.doc_id
+                model:'project'
 
 
-    Template.activity.onCreated ->
+
+    # Template.project_view.onCreated ->
+    #     @autorun => Meteor.subscribe 'children', 'project_update', Router.current().params.doc_id
+    # Template.project_view.helpers
+    #     updates: ->
+    #         Docs.find
+    #             model:'project_update'
+    #             parent_id: Router.current().params.doc_id
+
+
+    Template.project_feed.onCreated ->
         @autorun => Meteor.subscribe 'children', 'project_update', Template.currentData()._id
         # @autorun => Meteor.subscribe 'model_docs', 'project_update'
-    Template.activity.helpers
+    Template.project_feed.helpers
         updates: ->
             Docs.find
                 model:'project_update'
                 parent_id: Template.currentData()._id
-    Template.activity.events
+    Template.project_feed.events
         'click .add_update': ->
             new_update_id = Docs.insert
                 model:'project_update'
@@ -73,7 +103,7 @@ if Meteor.isClient
 
 
 
-    Template.projects.helpers
+    Template.project_stats.helpers
         projects: ->
             Docs.find
                 model:'project'
@@ -88,7 +118,7 @@ if Meteor.isClient
             Docs.findOne
                 model:'project_stats'
 
-    Template.projects.events
+    Template.project_stats.events
         'click .add_project': ->
             new_id = Docs.insert
                 model:'project'
@@ -123,27 +153,11 @@ if Meteor.isClient
         payments: ->
             Docs.find {
                 model:'project_payment'
+                project_id: Router.current().params.doc_id
             },
                 limit:10
                 sort:payment_date:-1
 
-
-
-
-    Template.project_files_small.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'file'
-    Template.project_files_small.events
-        'click .add_file': ->
-            Docs.insert
-                model:'file'
-                project_id: Router.current().params.doc_id
-    Template.project_files_small.helpers
-        files: ->
-            Docs.find {
-                model:'file'
-            },
-                limit:10
-                sort:file_date:-1
 
 
 

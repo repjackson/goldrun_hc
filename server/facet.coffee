@@ -1,8 +1,13 @@
 Meteor.methods
     set_facets: (model_slug)->
-        delta = Docs.findOne
-            model:'delta'
-            _author_id:Meteor.userId()
+        if Meteor.userId()
+            delta = Docs.findOne
+                model:'delta'
+                _author_id:Meteor.userId()
+        else
+            delta = Docs.findOne
+                model:'delta'
+                _author_id:null
         model = Docs.findOne
             model:'model'
             slug:model_slug
@@ -10,6 +15,8 @@ Meteor.methods
             Docs.find
                 model:'field'
                 parent_id:model._id
+
+        # console.log 'fields', fields.fetch()
 
         Docs.update delta._id,
             $set:model_filter:model_slug
@@ -27,20 +34,20 @@ Meteor.methods
         for field in fields.fetch()
             if field.faceted is true
                 # console.log field
-                if Meteor.user()
-                    console.log _.intersection(Meteor.user().roles,field.view_roles)
-                    if _.intersection(Meteor.user().roles,field.view_roles).length > 0
-                        Docs.update delta._id,
-                            $addToSet:
-                                facets: {
-                                    title:field.title
-                                    icon:field.icon
-                                    key:field.key
-                                    rank:field.rank
-                                    field_type:field.field_type
-                                    filters:[]
-                                    res:[]
-                                }
+                # if Meteor.user()
+                # console.log _.intersection(Meteor.user().roles,field.view_roles)
+                # if _.intersection(Meteor.user().roles,field.view_roles).length > 0
+                Docs.update delta._id,
+                    $addToSet:
+                        facets: {
+                            title:field.title
+                            icon:field.icon
+                            key:field.key
+                            rank:field.rank
+                            field_type:field.field_type
+                            filters:[]
+                            res:[]
+                        }
         Meteor.call 'fum', delta._id
 
 
@@ -73,7 +80,7 @@ Meteor.methods
             total = Meteor.users.find(built_query).count()
         else
             total = Docs.find(built_query).count()
-
+        # console.log 'built query', built_query
         # response
         for facet in delta.facets
             values = []
@@ -88,7 +95,7 @@ Meteor.methods
 
 
         if delta.sort_key
-            console.log 'found sort key', delta.sort_key
+            # console.log 'found sort key', delta.sort_key
             sort_by = delta.sort_key
         else
             sort_by = 'views'
@@ -140,7 +147,7 @@ Meteor.methods
         # delta = Docs.findOne delta_id
 
     agg: (query, key, collection)->
-        limit=42
+        limit=20
         options = { explain:false }
         pipe =  [
             { $match: query }

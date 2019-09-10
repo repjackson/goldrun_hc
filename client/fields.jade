@@ -77,9 +77,10 @@ template(name='icon_view')
 
 
 template(name='i')
-    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
+    //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
-    //- img(src="https://img.icons8.com/plasticine/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/plasticine/48/000000/#{name}.png" class=classes title=title)
 template(name='ioffice')
     img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
 template(name='iios')
@@ -87,9 +88,10 @@ template(name='iios')
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
-    img.ui.middle.aligned.image(src="https://img.icons8.com/color/24/000000/#{name}.png" class=classes title=title)
-    //- img.ui.middle.aligned.image(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=classes title=title)
+    //- img.ui.middle.aligned.image(src="https://img.icons8.com/color/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=classes title=title)
+    //- img.ui.middle.aligned.image(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ios/24/000000/#{name}.png" class=classes title=title) 
     |&nbsp;
@@ -510,7 +512,7 @@ template(name='number_view')
         div
         if icon
             +i name=icon classes='ui inline mini image'
-        .ui.inline.header
+        .ui.inline.small.grey.header
             if title
                 |#{title}
             else if label
@@ -519,7 +521,7 @@ template(name='number_view')
                 |#{key}
             else
                 |#{this}
-        .ui.inline.large.header &nbsp; #{field_value}
+        .ui.inline.header &nbsp; #{field_value}
 
 
 template(name='float_edit')
@@ -580,7 +582,7 @@ template(name='date_view')
         div
         if icon
             +ismall name=icon classes='ui middle aligned image'
-        .ui.inline.header
+        .ui.small.grey.header
             if title
                 |#{title}
             else if label
@@ -589,7 +591,7 @@ template(name='date_view')
                 |#{key}
             else
                 |#{this}
-        strong &nbsp; #{field_value}
+        .ui.inline.header &nbsp; #{field_value}
 
 
 
@@ -861,7 +863,7 @@ template(name='boolean_edit')
 
 template(name='boolean_view')
     div
-    .ui.inline.header
+    .ui.inline.small.grey.header
         if icon
             +i name=icon classes='ui inline mini image'
         if title
@@ -875,7 +877,7 @@ template(name='boolean_view')
     if field_value
         i.large.green.checkmark.icon
     else
-        i.large.cancel.icon
+        i.cancel.grey.icon
 
 template(name='single_doc_view')
     div

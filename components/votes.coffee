@@ -35,7 +35,7 @@ if Meteor.isClient
     Template.vote_view.helpers
         options: ->
             Docs.find
-                model:'vote_option'    
+                model:'vote_option'
         votes: ->
             Docs.find
                 model:'vote'
@@ -123,6 +123,10 @@ if Meteor.isClient
 
 
 if Meteor.isServer
+    Meteor.publish 'current_poll', ()->
+        Docs.find
+            model:'vote'
+            # current:true
     Meteor.publish 'ballot_votes', (ballot_id)->
         Docs.find
             model:'vote'

@@ -3,11 +3,11 @@ template(name='grid')
     //-     each currentUser.roles
     //-         strong #{this} &nbsp;
     //-     |portal
-    .ui.left.icon.fluid.input
+    .ui.left.icon.input
         i.search.icon
         input.model_filter(type='text' placeholder='filter...' autofocus='autofocus')
     +cloud filter='model'
-    .ui.stackable.four.column.padded.grid.scrolling
+    .ui.stackable.four.column.padded.grid
         each role_models
             .column
                 a(href="/m/#{slug}")

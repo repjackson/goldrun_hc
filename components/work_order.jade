@@ -11,9 +11,6 @@ template(name='work_orders')
             +ismall name='tags'
             .ui.inline.header tags
             +cloud filter='work_order'
-            +building_facet
-            +unit_facet
-            +location_tags_facet
             if is_dev
                 +call_method name='calc_work_order_stats'
             with wos_doc
@@ -28,18 +25,18 @@ template(name='work_orders')
             .ui.button view incomplete
             .scrolling
                 each work_orders
-                    +work_order
+                    +work_order_card_template
                     
                     
 template(name='work_order_card_template')
     .ui.fluid.segment
-        //- .ui.header #{title}
-        if complete
-            i.large.green.checkmark.icon
-        else
-            i.large.circle.outline.icon
-        .ui.inline.header !{content} #{body} #{notes}
-        .ui.divider
+        .ui.basic.segment.result
+            //- .ui.header #{title}
+            if complete
+                i.large.green.checkmark.icon
+            else
+                i.large.circle.outline.icon
+            .ui.inline.header !{content} #{body} #{notes}
         +image_view key='image' label='image' direct=true
         +array_view key='location_tags' label='location tags (eg. pavlion, 3rd floor window)' icon='marker' direct=true
         +array_view key='tags' label='tags' icon='tags' direct=true
@@ -92,6 +89,7 @@ template(name='work_order_edit')
                         +single_user_edit key='resident' label='user lookup (if you have a health club account)' direct=true
                         +text_edit key='contact_info' label='contact info' icon='info' direct=true
                 .four.wide.column 
+                    +number_edit key='building_code' key='building code' icon='building' direct=true
                     +number_edit key='building_number' key='building #' icon='building' direct=true
                     +number_edit key='unit_number' label='unit #' icon='room' direct=true
                     
@@ -101,9 +99,10 @@ template(name='work_order_view')
         .ui.stackable.padded.grid
             .row
                 .four.wide.column 
-                    a.ui.fluid.button(href="/work_orders")
+                    a.ui.fluid.button(href="/m/work_order")
+                        i.left.chevron.icon
                         +i name='maintenance' classes='ui avatar image'
-                        |work_orders
+                        |work orders
                     .ui.header view work order
                     if currentUser
                         a.ui.big.icon.button(href="/work_order/#{_id}/edit")
@@ -111,8 +110,15 @@ template(name='work_order_view')
                     +voting_full
                     +viewing
                 .eight.wide.column 
+                    if complete 
+                        i.large.green.checkmark.icon
+                        |complete
+                    else
+                        i.large.circle.outline.icon
+                        |incomplete
                     .ui.segment
                         +textarea_view key='content' icon='content' label='content' direct=true
+                        |#{body} #{notes}
                     +image_view key='image' label='image' direct=true
                     +array_view key='location_tags' label='location tags (eg. pavilion, 3rd floor window)' icon='marker' direct=true
                     +array_view key='tags' label='tags' icon='tags' direct=true
@@ -127,3 +133,36 @@ template(name='work_order_view')
                 .four.wide.column 
                     +number_view key='building_number' key='building #' icon='building' direct=true
                     +number_view key='unit_number' label='unit #' icon='room' direct=true
+                    +work_order_history
+                    +wo_subscription
+                    +wo_time
+                    
+template(name='work_order_history')
+    +ismall name='rss'
+    .ui.inline.header
+        |activity
+    .ui.list
+        each work_order_events
+            .item #{text} #{when}
+            
+template(name='wo_subscription')
+    +ismall name='renew-subscription'
+    .ui.inline.header
+        |subscription settings
+    .ui.button.subscribe subscribe to updates
+        
+    .ui.list
+        each subscribers
+            .item #{text} #{when}
+            
+template(name='wo_time')
+    +ismall name='clock'
+    .ui.inline.header
+        |time calculations
+    .ui.button.subscribe subscribe to updates
+    .ui.header #{when}
+    .ui.header estimated time to complete
+    .ui.button.mark_complete mark complete
+    if complete
+        .ui.header complete date/time {{ long_date complete_timestamp}}
+    .ui.header actual work order duration

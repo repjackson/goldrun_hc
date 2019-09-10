@@ -42,8 +42,14 @@ globalHotkeys.add
                 Meteor.users.update Meteor.userId(), $pull:roles:'staff'
             else
                 Meteor.users.update Meteor.userId(), $addToSet:roles:'staff'
-
-
+globalHotkeys.add
+	combo: "r m"
+	callback: ->
+        if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
+            if 'manager' in Meteor.user().roles
+                Meteor.users.update Meteor.userId(), $pull:roles:'manager'
+            else
+                Meteor.users.update Meteor.userId(), $addToSet:roles:'manager'
 globalHotkeys.add
 	combo: "r d"
 	callback: ->
@@ -52,8 +58,6 @@ globalHotkeys.add
                 Meteor.users.update Meteor.userId(), $pull:roles:'dev'
             else
                 Meteor.users.update Meteor.userId(), $addToSet:roles:'dev'
-
-
 globalHotkeys.add
 	combo: "r o"
 	callback: ->
@@ -62,6 +66,15 @@ globalHotkeys.add
                 Meteor.users.update Meteor.userId(), $pull:roles:'owner'
             else
                 Meteor.users.update Meteor.userId(), $addToSet:roles:'owner'
+
+globalHotkeys.add
+	combo: "r r"
+	callback: ->
+        if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
+            if 'resident' in Meteor.user().roles
+                Meteor.users.update Meteor.userId(), $pull:roles:'resident'
+            else
+                Meteor.users.update Meteor.userId(), $addToSet:roles:'resident'
 
 globalHotkeys.add
 	combo: "r f"

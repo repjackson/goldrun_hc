@@ -24,18 +24,12 @@ Template.body.events
         Docs.update @_id,
             $inc: views: 1
 
-# Template.healthclub.events
-#     'click .button': ->
-#         $('.global_container')
-#         .transition('fade out', 5000)
-#         .transition('fade in', 5000)
+Template.healthclub.events
+    'click .button': ->
+        $('.global_container')
+        .transition('fade out', 5000)
+        .transition('fade in', 5000)
 
-
-# Template.healthclub_session.events
-#     'click .button': ->
-#         $('.global_container')
-#         .transition('fade out', 5000)
-#         .transition('fade in', 5000)
 
 
 
@@ -198,11 +192,13 @@ Template.registerHelper 'fields', () ->
         model:'model'
         slug:Router.current().params.model_slug
     if model
-        Docs.find {
-            model:'field'
-            parent_id:model._id
-            view_roles:$in:Meteor.user().roles
-        }, sort:rank:1
+        match = {}
+        if Meteor.user()
+            match.view_roles = $in:Meteor.user().roles
+        match.model = 'field'
+        match.parent_id = model._id
+        Docs.find match,
+            sort:rank:1
 
 Template.registerHelper 'edit_fields', () ->
     model = Docs.findOne
@@ -313,9 +309,12 @@ Template.registerHelper 'is_model', -> @model is 'model'
 #     'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
 
 Template.registerHelper 'is_editing', () -> Session.equals 'editing_id', @_id
+Template.registerHelper 'editing_doc', () ->
+    Docs.findOne Session.get('editing_id')
 
-
-Template.registerHelper 'can_edit', () -> Meteor.userId() is @_author_id or 'admin' in Meteor.user().roles
+Template.registerHelper 'can_edit', () ->
+    if Meteor.user()
+        Meteor.userId() is @_author_id or 'admin' in Meteor.user().roles
 
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 

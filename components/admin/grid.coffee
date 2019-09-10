@@ -72,10 +72,9 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'role_models', ()->
-        if 'dev' in Meteor.user().roles
-            Docs.find
-                model:'model'
-        else
-            Docs.find
-                model:'model'
-                view_roles:$in:Meteor.user().roles
+        match = {}
+        match.model = 'model'
+        if Meteor.user()
+            unless 'dev' in Meteor.user().roles
+                match.view_roles = $in:Meteor.user().roles
+        Docs.find match

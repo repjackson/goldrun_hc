@@ -15,6 +15,16 @@ template(name='staff')
                 //- .ui.header
                 //-     |#{checkedin_members.count} checked in members
                 +inline_doc slug='staff_notices' classes='ui small grey header'
+                a.ui.fluid.compact.button(href='/buildings')
+                    +i name='building' classes='ui mini inline image'
+                    .mobile.hidden.inline &nbsp; buildings
+                a.ui.fluid.compact.button(href='/residents')
+                    +i name='groups' classes='ui mini inline image'
+                    .mobile.hidden.inline &nbsp; residents
+                a.ui.fluid.compact.button(href='/healthclub')
+                    +i name='android-tablet' classes='ui mini inline image'
+                    .mobile.hidden.inline &nbsp; kiosk view
+    
                 //- +add_button model='work_order' label='work order'
                 //- +add_button model='communication' label='communication'
                 //- +add_button model='frontdesk_hourly_checklist' label='hourly checklist'
@@ -71,6 +81,7 @@ template(name='staff')
                     a.ui.fluid.big.button(href='/shift_checklist')
                         +i name='to-do' classes='ui inline mini image'
                         |checklist not completed
+
             .twelve.wide.column
                 .ui.fluid.accordion
                     .active.title

@@ -29,6 +29,16 @@ if Meteor.isClient
             count = delta.result_ids.length
             if count is 1 then true else false
 
+        model_stats_exists: ->
+            current_model = Router.current().params.model_slug
+            if Template["#{current_model}_stats"]
+                return true
+            else
+                return false
+        model_stats: ->
+            current_model = Router.current().params.model_slug
+            "#{current_model}_stats"
+
 
     Template.delta.events
         'click .set_sort_key': ->
@@ -52,8 +62,6 @@ if Meteor.isClient
             Session.set 'loading', true
             Meteor.call 'fum', delta._id, ->
                 Session.set 'loading', false
-
-
 
         'click .create_delta': (e,t)->
             Docs.insert

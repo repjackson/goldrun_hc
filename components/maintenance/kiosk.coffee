@@ -56,6 +56,7 @@ if Meteor.isClient
 
 
     Template.healthclub_session.onCreated ->
+        @autorun => Meteor.subscribe 'current_poll'
         @autorun => Meteor.subscribe 'doc', Session.get('new_guest_id')
         @autorun => Meteor.subscribe 'checkin_guests',Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'resident_from_healthclub_session', Router.current().params.doc_id
@@ -94,6 +95,25 @@ if Meteor.isClient
 
 
     Template.healthclub_session.events
+        'click .vote_yes': ->
+            $('.poll_area').transition('fade out', 500)
+            Meteor.setTimeout =>
+                healthclub_session_document = Docs.findOne Router.current().params.doc_id
+                Docs.update @_id,
+                    $addToSet: upvoter_ids:healthclub_session_document.user_id
+            , 500
+            $('.poll_area').transition('fade in', 500)
+
+        'click .vote_no': ->
+            $('.poll_area').transition('fade out', 500)
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+            Meteor.setTimeout =>
+                Docs.update @_id,
+                    $addToSet: downvoter_ids:healthclub_session_document.user_id
+            , 500
+            $('.poll_area').transition('fade in', 500)
+
+
         'click .cancel_checkin': ->
             healthclub_session_document = Docs.findOne Router.current().params.doc_id
             if healthclub_session_document
@@ -103,7 +123,6 @@ if Meteor.isClient
                     $inc:
                         checkins_without_email_verification:-1
                         checkins_without_gov_id:-1
-
 
             Router.go "/healthclub"
 
@@ -182,6 +201,18 @@ if Meteor.isClient
             Session.set 'timer_engaged',false
 
     Template.healthclub_session.helpers
+        current_poll: ->
+            healthclub_session_document = Docs.findOne Router.current().params.doc_id
+            # console.log @
+            # healthclub_session_document.user_id
+
+            Docs.findOne
+                model:'vote'
+                upvoter_ids: $nin:[healthclub_session_document.user_id]
+                downvoter_ids: $nin:[healthclub_session_document.user_id]
+
+
+
         timer_engaged: ->
             Session.get 'timer_engaged'
         timer: ->

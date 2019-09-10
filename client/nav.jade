@@ -1,6 +1,6 @@
 template(name='nav')
     unless is_frontdesk
-        #topnav.topnav.ui.attached.borderless.large.menu
+        #topnav.topnav.ui.attached.borderless.menu
             if is_loading
                 .icon.item
                     i.big.spinning.yin.yang.grey.cancel.icon
@@ -10,30 +10,36 @@ template(name='nav')
                         +i name='home' classes='ui mini inline image'  
                         | gro
                         //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
+                if is_dev
+                    a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
+                        +i name='active-directory' classes='ui mini inline image'
+                a.ui.item(href='/grid' class="{{isActivePath '/grid'}}" title='model grid view')
+                    +i name='activity-grid-2' classes='ui mini inline image'    
                 //- a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
                 //-     +i name='work' classes='ui mini inline image'
-                a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}" title='delta work orders')
-                    +i name='invoice' classes='ui mini inline image'
-                    .mobile.hidden.inline &nbsp; work orders
+                a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
+                    +i name='project' classes='ui mini inline image'
+                    .mobile.hidden.inline &nbsp; projects
+                //- a.ui.item.set_projects(href='/m/project' class="{{isActivePath '/m/project'}}")
+                //-     +i name='project' classes='ui mini inline image'
+                //-     .mobile.hidden.inline &nbsp; projects
+                //- a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}" title='delta work orders')
+                //-     +i name='invoice' classes='ui mini inline image'
+                //-     .mobile.hidden.inline &nbsp; work orders
 
                 if is_resident
                     a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}" title='resident portal')
                         +i name='dashboard' classes='ui mini inline image'
                         //- |resident portal                
-                if is_staff
-                    a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
-                        +i name='dashboard' classes='ui mini inline image'          
-                    a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
-                        +i name='work' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; work orders                  
+                //- if is_staff
+                //-     //- a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
+                //-     //-     +i name='dashboard' classes='ui mini inline image'          
+                //-     a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
+                //-         +i name='work' classes='ui mini inline image'
+                //-         .mobile.hidden.inline &nbsp; work orders                  
                 if is_owner
                     a.ui.icon.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}" title='owner dashboard')
                         +i name='rent' classes='ui mini inline image'
-                if is_dev
-                    a.ui.item(href='/grid' class="{{isActivePath '/grid'}}" title='model grid view')
-                        +i name='activity-grid-2' classes='ui mini inline image'    
-                    a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
-                        +i name='active-directory' classes='ui mini inline image'
                 if currentUser
                     a.ui.item(href='/work' class="{{isActivePath '/work'}}")
                         +i name='work' classes='ui mini inline image'
@@ -58,44 +64,38 @@ template(name='nav')
                     a.ui.item(href='/manager' class="{{isActivePath '/manager'}}")
                         +i name='user-shield' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; manager
-                    a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
-                        +i name='project' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; projects
-                if is_owner
-                    a.ui.item(href='/owners' class="{{isActivePath '/owners'}}")
-                        +i name='groups' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; owners
-                    a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
-                        +i name='project' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; projects
-                    a.ui.item(href='/minutes' class="{{isActivePath '/minutes'}}")
-                        +i name='checklist' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; minutes
-                    a.ui.item(href='/votes' class="{{isActivePath '/votes'}}")
-                        +i name='elections' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; votes
+                //- if is_owner
+                //-     a.ui.item(href='/owners' class="{{isActivePath '/owners'}}")
+                //-         +i name='groups' classes='ui mini inline image'
+                //-         .mobile.hidden.inline &nbsp; owners
+                    //- a.ui.item(href='/minutes' class="{{isActivePath '/minutes'}}")
+                    //-     +i name='checklist' classes='ui mini inline image'
+                    //-     .mobile.hidden.inline &nbsp; minutes
+                    //- a.ui.item(href='/votes' class="{{isActivePath '/votes'}}")
+                    //-     +i name='elections' classes='ui mini inline image'
+                    //-     .mobile.hidden.inline &nbsp; votes
             
-                if is_staff
-                    //- a.ui.item(href='/stats' class="{{isActivePath '/stats'}}")
-                    //-     +i name='line chart' classes='ui mini inline image'
-                    a.ui.item(href='/staff' class="{{isActivePath '/staff'}}")
-                        +i name='manager' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; staff
-                    a.ui.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                        +i name='building' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; buildings
-                    a.ui.item(href='/residents' class="{{isActivePath '/residents'}}")
-                        +i name='groups' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; residents
-                    a.ui.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
-                        +i name='kindle' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; kiosk
-                    a.ui.item(href='/readings' class="{{isActivePath '/readings'}}")
-                        +i name='water' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; water
-                    //- a.ui.item(href='/slideshow' class="{{isActivePath '/slideshow'}}")
-                    //-     +i name='channel-mosaic' classes='ui mini inline image'
-                    //-     .mobile.hidden.inline &nbsp; slideshow
+                //- if is_staff
+                //-     //- a.ui.item(href='/stats' class="{{isActivePath '/stats'}}")
+                //-     //-     +i name='line chart' classes='ui mini inline image'
+                //-     a.ui.item(href='/staff' class="{{isActivePath '/staff'}}")
+                //-         +i name='manager' classes='ui mini inline image'
+                //-         .mobile.hidden.inline &nbsp; staff
+                //-     //- a.ui.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+                //-     //-     +i name='building' classes='ui mini inline image'
+                //-     //-     .mobile.hidden.inline &nbsp; buildings
+                //-     //- a.ui.item(href='/residents' class="{{isActivePath '/residents'}}")
+                //-     //-     +i name='groups' classes='ui mini inline image'
+                //-     //-     .mobile.hidden.inline &nbsp; residents
+                //-     a.ui.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
+                //-         +i name='kindle' classes='ui mini inline image'
+                //-         .mobile.hidden.inline &nbsp; kiosk
+                //-     //- a.ui.item(href='/readings' class="{{isActivePath '/readings'}}")
+                //-     //-     +i name='water' classes='ui mini inline image'
+                //-     //-     .mobile.hidden.inline &nbsp; water
+                //-     //- a.ui.item(href='/slideshow' class="{{isActivePath '/slideshow'}}")
+                //-     //-     +i name='channel-mosaic' classes='ui mini inline image'
+                //-     //-     .mobile.hidden.inline &nbsp; slideshow
                 if is_admin
                     //- a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
                     //-     +i name='active-directory' classes='ui mini inline image'
@@ -105,6 +105,13 @@ template(name='nav')
                         +i name='groups' classes='ui mini inline image'
                         .mobile.hidden.inline &nbsp; users
             .right.menu
+                if is_staff
+                    //- a.ui.item(href='/stats' class="{{isActivePath '/stats'}}")
+                    //-     +i name='line chart' classes='ui mini inline image'
+                    a.ui.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
+                        +i name='user-shield' classes='ui mini inline image'
+                        .mobile.hidden.inline &nbsp; staff
+            
                 //- .ui
                 //- a.ui.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}" title='storefront')
                 //-     +i name='shop' classes='ui mini inline image'                
@@ -156,7 +163,7 @@ template(name='nav')
 
 
 template(name='footer')
-    .ui.fluid.basic.attached.basic.segment.footer
+    .ui.fluid.basic.attached.secondary.segment.footer
         .ui.stackable.grid
             .four.wide.column
                 +latest_activity
@@ -182,19 +189,18 @@ template(name='footer')
                 if is_dev    
                     with current_user
                         +role_switcher
-            .four.wide.column
+            .eight.wide.column
                 //- unless currentUser
                 //-     a.ui.big.basic.button(href='/login')
                 //-         i.sign.in.icon
                 //-         |login
+                +footer_chat
                 if is_eric
                     with currentUser
                         +role_switcher
                 else if is_dev
                     with currentUser
                         +role_switcher
-            .four.wide.column
-                +footer_chat
 
                 
                 
