@@ -10,34 +10,53 @@ Router.route '/request/:doc_id/edit', (->
 
 
 if Meteor.isClient
-    Template.requests.onCreated ->
-        @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'request'
-        @autorun => Meteor.subscribe 'model_docs', 'request_stats'
-
     Template.request_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.request_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.requests.helpers
-        requests_doc: ->
-            Docs.findOne
-                model:'request_stats'
-        requests: ->
-            Docs.find
-                model:'request'
 
 
     Template.request_card_template.events
         'click .grab': ->
-            console.log @
+            if confirm 'grab this?'
+                Docs.update @_id,
+                    $set:
+                        grabber_id:Meteor.userId()
+                        grab_timestamp: Date.now()
+                Docs.insert
+                    model:'log_event'
+                    log_type: 'grab'
+                    text: "#{Meteor.user().name()} grabbed this."
+                    parent_id: @_id
 
+        'click .join_waitlist': ->
+            if confirm 'join waitlist?'
+                Docs.update @_id,
+                    $addToSet:
+                        waitlist: {
+                            user_id: Meteor.userId()
+                            add_timestamp: Date.now()
+                            position: @waitlist.length
+                        }
 
+                Docs.insert
+                    model:'log_event'
+                    log_type: 'join_waitlist'
+                    text: "#{Meteor.user().name()} joined waitlist at ."
+                    parent_id: @_id
 
-    Template.requests.events
-        'click .add_request': ->
-            new_id = Docs.insert
-                model:'request'
-            Router.go "/request/#{new_id}/edit"
+        'click .release': ->
+            if confirm 'release this?'
+                Docs.update @_id,
+                    $set:
+                        grabber_id:null
+                        release_timestamp: Date.now()
+                Docs.insert
+                    model:'log_event'
+                    log_type: 'release'
+                    text: "#{Meteor.user().name()} released this."
+                    parent_id: @_id
+
 
     Template.request_history.onCreated ->
         @autorun => Meteor.subscribe 'children', 'log_event', Router.current().params.doc_id

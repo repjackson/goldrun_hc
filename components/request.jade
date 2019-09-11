@@ -1,35 +1,5 @@
-template(name='requests')
-    .ui.stackable.padded.grid
-        .six.wide.column
-            .ui.inline.header 
-                +i name='maintenance'
-                |requests
-            .ui.button.add_request
-                i.plus.large.icon
-                | request
-            div
-            +ismall name='tags'
-            .ui.inline.header tags
-            +cloud filter='request'
-            if is_dev
-                +call_method name='calc_request_stats'
-            with requests_doc
-                .ui.header #{total_count} total
-                .ui.header #{complete_count} complete
-                .ui.header #{incomplete_count} incomplete
-                
-        .ten.wide.column
-            .ui.button my requests
-            .ui.button my building requests
-            .ui.button view complete
-            .ui.button view incomplete
-            .scrolling
-                each request
-                    +request_card_template
-                    
-                    
 template(name='request_card_template')
-    .ui.fluid.segment.grid
+    .ui.fluid.secondary.segment.grid
         .row
             .sixteen.wide.column
                 h1.ui.inline.grey.header #{title}
@@ -64,7 +34,20 @@ template(name='request_card_template')
                     //- i.right.chevron.icon
                 +author_info
             .four.wide.column
-                .ui.large.button.grab grab
+                if grabber_id
+                    .ui.small.grey.header grabbed by #{grabber.name} {{ from_now grab_timestamp }}
+                    if is_grabber
+                        .ui.button.release release
+                    else 
+                        .ui.button.join_waitlist(title='auto grab if released') join waitlist
+                else 
+                    .ui.large.button.grab grab
+                .ui.header waitlist
+                each waitlist
+                    .ui.small.header #{user_id}
+                    .ui.small.header #{add_timestamp}
+                    .ui.small.header #{position }
+                    
                 .ui.small.grey.header #{views} views
                 .ui.small.grey.header #{points} points
                 .ui.small.grey.header #{comment_count} comments
@@ -133,6 +116,8 @@ template(name='request_history')
     .ui.list
         each request_events
             .item #{text} #{when}
+            if can_edit 
+                +remove_button
             
             
 template(name='request_time')

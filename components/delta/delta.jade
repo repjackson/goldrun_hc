@@ -197,7 +197,7 @@ template(name='delta_result')
         if template_exists
             +Template.dynamic template=model_template
         else
-            .ui.result.cloud.fluid.segment(class=loading_class tabindex="0")
+            .ui.result.cloud.fluid.secondary.segment(class=loading_class tabindex="0")
                 .content
                     each fields
                         +Template.dynamic template=view_template 
