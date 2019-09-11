@@ -8,8 +8,8 @@ template(name='user_edit')
                         | #{user_from_username_param.first_name} #{user_from_username_param.last_name}
                     //- +i name='pencil'
                     .ui.small.inline.header @#{user_from_username_param.username}
-                    a.ui.big.icon.basic.button(href="/user/#{user_from_username_param.username}/") 
-                        i.checkmark.green.big.icon
+                    a.ui.big.basic.button(href="/user/#{user_from_username_param.username}/") 
+                        i.checkmark.big.icon
                         strong save
                     .ui.hidden.divider
                     if is_staff
@@ -184,7 +184,7 @@ template(name='emails_edit')
                     if verified
                         .ui.big.basic.label(title='verified')
                             | #{address}
-                            i.green.checkmark.icon
+                            i.checkmark.icon
                     else
                         .ui.big.basic.label
                             //- i.ban.icon
@@ -194,7 +194,7 @@ template(name='emails_edit')
                                 |verify
                                 i.caret.right.icon
                     .ui.small.icon.basic.button.remove_email
-                        i.red.remove.icon
+                        i.remove.icon
     .ui.action.big.fluid.icon.action.input
         input#new_email(type='email' placeholder='add new email address' autocomplete="off")
         #add_email.ui.submit.icon.button 

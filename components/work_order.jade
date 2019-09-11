@@ -5,7 +5,7 @@ template(name='work_orders')
                 +i name='maintenance'
                 |work orders
             .ui.button.add_work_order
-                i.plus.large.green.icon
+                i.plus.large.icon
                 | work order
             div
             +ismall name='tags'
@@ -29,38 +29,40 @@ template(name='work_orders')
                     
                     
 template(name='work_order_card_template')
-    .ui.fluid.segment
-        .ui.basic.segment.result
-            //- .ui.header #{title}
-            if complete
-                i.large.green.checkmark.icon
-            else
-                i.large.circle.outline.icon
-            .ui.inline.header !{content} #{body} #{notes}
-        +image_view key='image' label='image' direct=true
-        +array_view key='location_tags' label='location tags (eg. pavlion, 3rd floor window)' icon='marker' direct=true
-        +array_view key='tags' label='tags' icon='tags' direct=true
-        +boolean_view key='response_requested' label='response requested' icon='phone' direct=true
-        if response_requested
-            +single_user_view key='resident' label='resident' direct=true
-            +text_view key='contact_info' label='contact info' icon='info' direct=true
-    
-        if is_staff
-            +boolean_view key='complete' label='complete' direct=true
-        +number_view key='building_number' key='building #' icon='building' direct=true
-        +number_view key='unit_number' label='unit #' icon='room' direct=true
-        if currentUser
-            if can_edit
-                a.ui.icon.button(href="/work_order/#{_id}/edit")
-                    i.pencil.large.blue.icon
-        a.ui.icon.button(href="/work_order/#{_id}/view")
-            i.right.chevron.large.yellow.icon
-        +author_info
-        div
-        |#{when} #{_timestamp_long}
-        .ui.divider
-        .ui.header viewed by maintenance #{maintenance_view_timestamp}
-        //- +comments
+    .ui.fluid.segment.grid
+        .row
+            .sixteen.wide.column
+                if complete
+                    i.large.checkmark.icon
+                else
+                    i.large.circle.outline.icon
+                .ui.inline.header !{content} #{body} #{notes}
+        .row
+            .four.wide.column
+                +image_view key='image' label='image' direct=true
+            .twelve.wide.column
+                +array_view key='location_tags' label='location tags (eg. pavlion, 3rd floor window)' icon='marker' direct=true
+                +array_view key='tags' label='tags' icon='tags' direct=true
+                +boolean_view key='response_requested' label='response requested' icon='phone' direct=true
+                if response_requested
+                    +single_user_view key='resident' label='resident' direct=true
+                    +text_view key='contact_info' label='contact info' icon='info' direct=true
+                if is_staff
+                    +boolean_view key='complete' label='complete' direct=true
+                +number_view key='building_number' key='building #' icon='building' direct=true
+                +number_view key='unit_number' label='unit #' icon='room' direct=true
+                if currentUser
+                    if can_edit
+                        a.ui.icon.button(href="/work_order/#{_id}/edit")
+                            i.pencil.large.icon
+                a.ui.icon.button(href="/work_order/#{_id}/view")
+                    i.right.chevron.large.icon
+                +author_info
+                div
+                |#{when} #{_timestamp_long}
+                .ui.divider
+                .ui.header viewed by maintenance #{maintenance_view_timestamp}
+                //- +comments
 
 
 
@@ -75,7 +77,7 @@ template(name='work_order_edit')
                         +ismall name='add'
                         |add work order
                     a.ui.big.icon.fluid.button(href="/work_order/#{_id}/view" title='save')
-                        i.green.checkmark.icon
+                        i.checkmark.icon
                     +remove_button
                     if is_staff
                         +date_edit key='date_action_taken' label='date action taken' direct=true
@@ -111,7 +113,7 @@ template(name='work_order_view')
                     +viewing
                 .eight.wide.column 
                     if complete 
-                        i.large.green.checkmark.icon
+                        i.large.checkmark.icon
                         |complete
                     else
                         i.large.circle.outline.icon

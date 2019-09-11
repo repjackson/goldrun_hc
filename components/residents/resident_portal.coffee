@@ -24,7 +24,9 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'karma_leaderboard'
     Template.karma_leaderboard.helpers
         top_karma_users: ->
-            Meteor.users.find {},
+            Meteor.users.find {
+                roles:$in:['resident']
+                },
                 sort:points:-1
                 limit:10
 

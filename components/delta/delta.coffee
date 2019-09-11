@@ -3,8 +3,17 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_fields', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'my_delta'
+        Session.set 'loading', true
+        Meteor.call 'set_facets', Router.current().params.model_slug, ->
+            Session.set 'loading', false
 
     Template.delta.helpers
+        sorting_up: ->
+            delta = Docs.findOne model:'delta'
+            if delta
+                if delta.sort_direction is 1 then true
+
+
         selected_tags: -> selected_tags.list()
         view_mode_template: ->
             # console.log @
@@ -167,7 +176,7 @@ if Meteor.isClient
 
     Template.set_limit.events
         'click .set_limit': ->
-            console.log @
+            # console.log @
             delta = Docs.findOne model:'delta'
             Docs.update delta._id,
                 $set:limit:@amount
@@ -244,10 +253,10 @@ if Meteor.isClient
             facet = Template.parentData()
             delta = Docs.findOne model:'delta'
             if Session.equals 'loading', true
-                 'disabled basic'
+                 'disabled'
             else if facet.filters.length > 0 and @name in facet.filters
                 'active'
-            else 'basic'
+            else ''
 
     Template.delta_result.onRendered ->
         # Meteor.setTimeout ->
@@ -275,10 +284,10 @@ if Meteor.isClient
             facet = Template.parentData()
             delta = Docs.findOne model:'delta'
             if Session.equals 'loading', true
-                 'disabled basic'
+                 'disabled'
             else if facet.filters.length > 0 and @name in facet.filters
                 'active'
-            else 'basic'
+            else ''
 
         result: ->
             if Docs.findOne @_id

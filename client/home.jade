@@ -1,30 +1,31 @@
 template(name='home')
     .ui.padded.stackable.grid
-        .centered.row
+        .cent.row
             .three.wide.column
-                img.ui.centered.small.circular.image.pointer.toggle_lights(src="{{c.url 'gold_run_logo' }}")
+                //- img.ui.cent.small.circular.image.pointer.toggle_lights(src="{{c.url 'gold_run_logo' }}")
                 //- +i name='home' classes='ui inline image'
-                .ui.center.aligned.basic.segment
-                    .ui.inline.grtext.center.aligned.pointer.header.toggle_display
-                        //- |gro
-                        | www.goldrun.online
-                div
+                //- .ui.center.aligned.basic.segment
+                //-     .ui.inline.grtext.center.aligned.pointer.header.toggle_display
+                //-         |gro
+                        //- | www.goldrun.online
+                //- div
                 +health_club_status_small
                 .ui.hidden.divider
                 +stats_small
-            .five.wide.column
-                .ui.inline.header
-                    +i name='poll'
-                    |polls
-                each polls
-                    +poll_results
-                    
             .four.wide.column
-                +gallery_small
-                .ui.hidden.divider
-                +events_small
-                
-                //- +work_order_small
+                div
+                .ui.inline.grey.header
+                    i.poll.grey.icon
+                    |polls
+                .mediumscroll
+                    each polls
+                        +poll_results
+                    
+            .five.wide.column
+                +requests_small
+                +services_small
+                +karma_leaderboard
+                +work_order_small
                 //- .ui.hidden.divider
                 //- +latest_project_updates
                 //- unless display_mode
@@ -34,12 +35,14 @@ template(name='home')
             //- .column
             //-     +market_small
             .four.wide.column
+                +latest_activity
                 +footer_chat
+                //- +gallery_small
+                .ui.hidden.divider
+                //- +events_small
     
-                +ismall name='billboard'
-                .ui.inline.header
-                    |resident services
-                +service_slider            
+                //- +service_list
+                //- +service_slider            
                 //- with current_ad
                 //-     .ui.header #{title}
                 //-     img(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}")
@@ -49,29 +52,27 @@ template(name='home')
                 //-         +voting
                 //- .ui.hidden.divider
                 //- +ismall name='poll'
-                //- .ui.inline.header poll
+                //- .ui.inline.grey.header poll
                 //- .ui.small.header do you like living at gold run?
                 //- .ui.large.icon.button.happy
-                //-     i.green.outline.thumbs.up.large.icon
+                //-     i.outline.thumbs.up.large.icon
                 //-     |#{hsd.happy_votes}
                 //- .ui.large.icon.button.unhappy
-                //-     i.red.outline.thumbs.down.large.icon
+                //-     i.outline.thumbs.down.large.icon
                 //-     | #{hsd.unhappy_votes}
                 //- .ui.small.header next movie night movie?
                 //- each movie_options
                 //-     .ui.large.button.vote_movie
                 //-         | #{title}
                 //- .ui.divider
-            unless display_mode
-                .four.column.row
-                    form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                        input(type='hidden', name='cmd', value='_s-xclick')
-                        input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
-                        //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                        //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                        button.ui.icon.button(type='submit' title='donate')
-                            +ismall name='donate' classes='ui inline mini image'
+    //- form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+    //-     input(type='hidden', name='cmd', value='_s-xclick')
+    //-     input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
+    //-     //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+    //-     //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+    //-     img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+    //-     button.ui.icon.button(type='submit' title='donate')
+    //-         +ismall name='donate' classes='ui inline mini image'
             
         //- if is_dev
         //-     .four.column.row
@@ -122,9 +123,16 @@ template(name='home')
         //-     each posts
         //-         +post
 
+template(name='requests_small')
+    .ui.grey.header 
+        i.hand.holding.usd.icon
+        |requests
+
+
+
 template(name='stats_small')
     +ismall name='line-chart' classes='ui inline image'
-    .ui.inline.header.calc_home_stats
+    .ui.inline.grey.header.calc_home_stats
         |stats
     div
     .ui.inline.grey.header 
@@ -141,23 +149,25 @@ template(name='stats_small')
     //- .ui.grey.header total health club sessions this month
     div
     .ui.inline.grey.header
-        strong #{hsd.registered_owners}
+        strong #{hsd.regist_owners}
         small owners
     div
     .ui.inline.grey.header
-        strong #{hsd.registered_residents}
+        strong #{hsd.regist_residents}
         small residents
     
     
 template(name='gallery_small')
-    +ismall name='gallery'
-    .ui.inline.header gallery
+    //- .ui.inline.grey.header 
+    //-     +i name='gallery'
+    //-     |gallery
     +slider
 
 
+
 template(name='work_small')
-    +ismall name='maintenance' classes='ui inline image'
-    .ui.inline.header 
+    //- +ismall name='maintenance' classes='ui inline image'
+    .ui.inline.grey.header 
         |recent completed work
     each work
         .ui.small.header #{title}
@@ -167,19 +177,23 @@ template(name='work_small')
 
 template(name='work_order_small')
     a.ui.fluid.button(href="/m/work_order")
-        +ismall name='maintenance'
-        .ui.inline.header
-            |work orders
-    unless display_mode
-        .ui.large.icon.button.submit_work_order(title='add work order')
-            i.large.green.plus.icon
-        +cloud filter='work_order'
+        //- +ismall name='maintenance'
+        .ui.inline.grey.header
+            |maintenance
+    //- unless display_mode
+    //-     .ui.large.icon.button.submit_work_order(title='add work order')
+    //-         i.large.plus.icon
+    //-     +cloud filter='work_order'
+    .ui.small.grey.header average response time #{msd.avg_response_time}
+    .ui.small.grey.header average complete time #{msd.avg_complete_time}
+    .ui.small.grey.header incomplete work orders #{msd.incomplete_work_orders}
+    .ui.small.grey.header complete work orders #{msd.complete_work_orders}
     .ui.divided.list
         each work_order
             .item
                 if complete
                     span
-                        i.green.checkmark.icon
+                        i.checkmark.icon
                 else 
                     span
                         i.circle.outline.icon
@@ -187,8 +201,8 @@ template(name='work_order_small')
                 each tags
                     .ui.tiny.basic.label #{this}
                 |#{when}
-                unless display_mode
-                    +voting
+                //- unless display_mode
+                //-     +voting
                 | #{points} 
                 span 
                     i.thumbs.up.outline.grey.icon
@@ -207,7 +221,13 @@ template(name='leaderboard_small')
     
 
 
-
+template(name='services_small')
+    a.ui.grey.header(href="/m/service")
+        i.wrench.icon 
+        |services
+    .ui.list
+        each services 
+            .item #{title}
 
 template(name='service_slider')
     //- #layerslider(style='width:100%; height: 400px;')
@@ -220,7 +240,7 @@ template(name='service_slider')
                     .ui.header #{title}
                 .ls-l(style="top: 25px; left: 10px; width:200px; height:20px;" )
                     .ui.small.header !{description}
-                img.ui.centered.image.ls-l(src="{{c.url image height=180 width=300 crop='fill'}}" style="top: 50px; left: 0%;")
+                img.ui.cent.image.ls-l(src="{{c.url image height=180 width=300 crop='fill'}}" style="top: 50px; left: 0%;")
                 //- img.ls-bg(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}", alt='Slide background' )
                 //- .ls-l(style="top: 50%; height: 170px; width: 170px; left: 20%;" )
                 //-     h2.slider-subheader: subtitle
@@ -239,7 +259,7 @@ template(name='event_slider')
                     .ui.header #{title}
                 .ls-l(style="top: 25px; left: 10px; width:200px; height:20px;" )
                     .ui.small.header !{description}
-                img.ui.centered.image.ls-l(src="{{c.url image_id height=180 width=300 crop='fill'}}" style="top: 50px; left: 0%;")
+                img.ui.cent.image.ls-l(src="{{c.url image_id height=180 width=300 crop='fill'}}" style="top: 50px; left: 0%;")
                 //- img.ls-bg(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}", alt='Slide background' )
                 //- .ls-l(style="top: 50%; height: 170px; width: 170px; left: 20%;" )
                 //-     h2.slider-subheader: subtitle
@@ -248,9 +268,9 @@ template(name='event_slider')
                     
                     
 template(name='events_small')
-    +ismall name='calendar'
-    .ui.inline.header 
-        |events
+    //- .ui.inline.grey.header 
+    //-     +i name='calendar'
+    //-     |events
     +event_slider
     //- +model_scroller model='event' header='events' icon='calendar'
 
@@ -272,7 +292,7 @@ template(name='events_small')
 
 template(name='health_club_status_small')
     div
-    .ui.inline.header 
+    .ui.inline.grey.header 
         |upper hot tub
         +water_status slug='upper_hot_tub'
         //- div
@@ -286,7 +306,7 @@ template(name='health_club_status_small')
         .item
             |#{latest_uht_reading.when}
     div
-    .ui.inline.header lower hot tub
+    .ui.inline.grey.header lower hot tub
         +water_status slug='lower_hot_tub'
         //- div
     .ui.small.horizontal.list
@@ -299,7 +319,7 @@ template(name='health_club_status_small')
         .item
             |#{latest_lht_reading.when}
     div
-    .ui.inline.header
+    .ui.inline.grey.header
         | pool
         +water_status slug='pool'
         //- div
@@ -317,14 +337,14 @@ template(name='health_club_status_small')
 template(name='water_status')
     if is_staff
         if on
-            i.green.checkmark.link.large.icon.toggle_status
+            i.checkmark.link.large.icon.toggle_status
         else    
-            i.red.ban.link.large.icon.toggle_status
+            i.ban.link.large.icon.toggle_status
     else
         if on
-            i.green.checkmark.large.icon
+            i.checkmark.large.icon
         else    
-            i.red.ban.large.icon
+            i.ban.large.icon
     //- with latest_reading
     //-     | #{temperature}&#8457;
     //- div
@@ -332,16 +352,13 @@ template(name='water_status')
 
 
 template(name='poll_results')
-    .ui.hidden.divider
     a.ui.inline.small.grey.header(href="/vote/#{_id}/view") #{title}
-    span 
-        i.thumbs.up.outline.green.icon
-        |#{upvoter_ids.length}
+    i.thumbs.up.outline.inline.icon
+    |#{upvoter_ids.length}
     &nbsp;
     &nbsp;
     &nbsp;
     &nbsp;
-    &nbsp;
-    span 
-        i.thumbs.down.outline.red.icon
-        | #{downvoter_ids.length}
+    i.thumbs.down.outline.inline.icon
+    | #{downvoter_ids.length}
+    .ui.hidden.divider

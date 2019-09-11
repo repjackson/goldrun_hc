@@ -1,13 +1,14 @@
 template(name='comments')
     div
-    +ismall name='comments' classes='ui middle aligned image'
-    .ui.inline.header
+    //- +ismall name='comments' classes='ui middle aligned image'
+    //- i.comments.icon
+    .ui.inline.grey.header
         |comments
     div
     if currentUser
-        .ui.fluid.icon.input
+        .ui.fluid.icon.large.transparent.input
             i.plus.icon
-            input.add_comment(model='text' placeholder='add comment')
+            input.add_comment(model='text' placeholder='add')
     .ui.comments
         each doc_comments
             .comment
@@ -17,7 +18,7 @@ template(name='comments')
                         |by 
                         a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
                         if currentUser
-                            +voting
+                            +voting_small
                             if can_edit
                                 +remove_button
 
@@ -236,8 +237,11 @@ template(name='creation_info')
 
 template(name='user_list_toggle')
     if currentUser
-        .ui.icon.compact.small.button.toggle(class=user_list_toggle_class title=label)
-            i.large.icon(class=icon)
+        .ui.icon.compact.button.toggle(class=user_list_toggle_class title=label)
+            if in_list
+                i.large.icon(class=remove_icon)
+            else
+                i.large.icon(class=add_icon)
             //- +ismall name=icon
             //- |#{label}
         //- each list_users
@@ -245,16 +249,19 @@ template(name='user_list_toggle')
 
 
 template(name='voting')
-    if points
-        strong #{points}
     .ui.icon.button.upvote(title='upvote')
         i.thumbs.up.icon(class=upvote_class)
-    each upvoter_ids
-        +user_info
+    //- each upvoter_ids
+    //-     +user_info
     .ui.icon.button.downvote(title='downvote')
         i.thumbs.down.icon(class=downvote_class)
-    each downvoter_ids
-        +user_info
+    //- each downvoter_ids
+    //-     +user_info
+    if points
+        strong #{points} pts
+    if anon_points
+        strong #{anon_points} anon pts
+    
 
 template(name='voting_small')
     if points
@@ -280,7 +287,8 @@ template(name='voting_full')
         i.thumbs.down.icon(class=downvote_class)
         //- |dislike
     if points
-        .ui.lareg.basic.label(title='points') #{points}
+        .ui.large.black.label(title='points') #{points} pts
+        .ui.large.black.label(title='anon points') #{anon_points} anon pts
     if upvoter_ids
         .ui.small.header 
             i.chevron.up.icon
@@ -304,7 +312,7 @@ template(name='view_button')
 
 template(name='remove_button')
     .ui.icon.basic.button.remove_doc(title='delete')
-        i.remove.red.icon
+        i.remove.icon
         //- |Delete
 
 template(name='add_button')
@@ -361,7 +369,8 @@ template(name='email_validation_check')
     //-         |email validated
     unless email_verified
         .ui.basic.fluid.button.send_verification
-            +i name='user-shield' classes='ui inline image'
+            i.user.shield.icon
+            //- +i name='user-shield' classes='ui inline image'
             |resend verification email
         if times
             .ui.label
@@ -376,7 +385,8 @@ template(name='email_validation_check')
 template(name='lease_expiration_check')
     div
     if expiration_date
-        +i name='clock' classes='ui avatar image'
+        i.grey.clock.icon
+        //- +i name='clock' classes='ui avatar image'
         |lease expiring 
         |#{lease_expiring}
         
@@ -388,12 +398,12 @@ template(name='rules_and_regs_check')
                 i.signature.large.icon
                 |rules and regs signed 
         else
-            .ui.red.basic.button
+            .ui.basic.button
                 i.signature.large.icon
                 | rules+regs unsigned
     //- else
     //-     unless rules_signed
-    //-         .ui.large.red.basic.button.sign_rules
+    //-         .ui.large.basic.button.sign_rules
     //-             i.signature.icon
     //-             |click to sign rules and regulations
         //- else if is_staff
@@ -410,12 +420,12 @@ template(name='member_guidelines_check')
                 i.signature.icon
                 |member guidelines signed 
         else
-            .ui.red.basic.fluid.button
+            .ui.basic.fluid.button
                 i.signature.icon
                 | member guidelines not signed
     else
         unless guidelines_signed
-            .ui.large.red.basic.fluid.button.sign_guidelines
+            .ui.large.basic.fluid.button.sign_guidelines
                 i.signature.icon
                 | sign member guidelines
     //-     else if is_staff
@@ -437,7 +447,7 @@ template(name='resident_key_check')
         
 template(name='guest_waiver_check')
     unless waiver_signed
-        .ui.large.red.basic.button
+        .ui.large.basic.button
             i.signature.icon
             |Guest Waiver Not Signed 
         

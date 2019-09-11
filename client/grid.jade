@@ -3,21 +3,22 @@ template(name='grid')
     //-     each currentUser.roles
     //-         strong #{this} &nbsp;
     //-     |portal
-    .ui.left.icon.input
+    .ui.left.icon.transparent.input
         i.search.icon
-        input.model_filter(type='text' placeholder='filter...' autofocus='autofocus')
+        input.model_filter(type='text' autofocus='autofocus')
     +cloud filter='model'
     .ui.stackable.four.column.padded.grid
         each role_models
             .column
-                a(href="/m/#{slug}")
+                a.grid_seg(href="/m/#{slug}" tabindex="0")
                     .ui.segment.home_segment.set_model
                         .ui.header 
                             +i name=icon
                             |#{title}
-                        span(title='views')
-                            |#{views}
-                            i.eye.icon
+                        .ui.small.grey.header #{description}
+                        //- span(title='views')
+                        //-     |#{views}
+                        //-     i.eye.icon
                         if is_dev
                             each view_roles
-                                .ui.basic.label #{this}
+                                .ui.black.small.label #{this}

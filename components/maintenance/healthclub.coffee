@@ -481,7 +481,7 @@ if Meteor.isServer
         }, sort: _timestamp:-1
 
     Meteor.publish 'latest_reading', (slug)->
-        console.log slug
+        # console.log slug
         Docs.find {
             model:"#{slug}_reading"
         }, {sort:_timestamp:-1, limit:1}

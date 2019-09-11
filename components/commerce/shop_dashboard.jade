@@ -147,7 +147,7 @@ template(name='add_to_tab')
 
 
 template(name='shop_card_template')
-    .ui.card
+    .ui.fluid.horizontal.card
         a.pointer(href="/shop/#{_id}/view")
             img.ui.centered.rounded.image(src="{{c.url picture width=300 height=200 crop='fit'}}")
         .content

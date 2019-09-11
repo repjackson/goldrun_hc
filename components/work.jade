@@ -5,15 +5,15 @@ template(name='work')
                 .ui.inline.header 
                     +i name='work' classes='ui avatar image'
                     |work
-                .ui.large.label #{work_stats_doc.total_count} total
-                .ui.large.label #{work_stats_doc.complete_count} complete 
-                .ui.large.label #{work_stats_doc.incomplete_count} incomplete 
-                .ui.large.label #{work_stats_doc.total_updates_count} total updates 
+                .ui.black.label #{work_stats_doc.total_count} total
+                .ui.black.label #{work_stats_doc.complete_count} complete 
+                .ui.black.label #{work_stats_doc.incomplete_count} incomplete 
+                .ui.black.label #{work_stats_doc.total_updates_count} total updates 
                 .ui.icon.button.recalc_work(title='recalculate')
                     i.refresh.icon
             .four.wide.column   
                 .ui.icon.big.button.add_work
-                    i.large.plus.green.icon
+                    i.large.plus.icon
                     //- |work
         .five.column.row
             .column
@@ -164,7 +164,7 @@ template(name='work_item')
     a.item(href="/work/#{_id}/view")
         .ui.small.header 
             if complete
-                i.green.checkmark.small.icon(title='incomplete')
+                i.checkmark.small.icon(title='incomplete')
             else
                 i.circle.outline.small.icon(title="completed on {{short_date completed_date}}")
             |#{title}
@@ -190,7 +190,7 @@ template(name='work_edit')
                         i.pencil.icon
                         |edit work '#{title}'
                     a.ui.big.fluid.button(href="/work/#{_id}/view" title='save')
-                        i.green.checkmark.green.large.icon
+                        i.checkmark.large.icon
                         |save
                     +remove_button
                     +boolean_edit key='residence' icon='room' direct=true
@@ -254,13 +254,13 @@ template(name='work_view')
         .ui.stackable.padded.grid
             .row
                 .sixteen.wide.column 
-                    a.ui.button(href="/work")
+                    a.ui.large.button(href="/work")
                         i.left.chevron.icon
-                        +i name='work' classes='ui avatar image'
+                        //- +i name='work' classes='ui avatar image'
                         |work
                     h1.ui.inline.header 
                         if complete 
-                            i.green.checkmark.icon
+                            i.checkmark.icon
                         else
                             i.circle.outline.grey.pointer.icon.mark_complete(title='mark complete')
                         |#{title}
@@ -271,7 +271,7 @@ template(name='work_view')
                     +voting_full
                     .ui.header submitted #{_timestamp_long}
                     each _timestamp_tags
-                        .ui.basic.label #{this}
+                        .ui.black.label #{this}
                     +viewing
                     +array_view key='view_roles' label='visible to' direct=true
                     +array_view key='acceptance_roles' label='acceptable roles' direct=true

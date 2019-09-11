@@ -3,10 +3,24 @@ body {
     font-family: 'Ubuntu', sans-serif !important;
     /* font-size: 110% !important; */
     /*line-height: 200% !important;*/
-    /*background: #3d3d3d !important;*/
-    background: rgba(200, 200, 200, .1) !important
+    background: rgba(0,0,0,.82) !important;
+    filter: invert(1) !important;
+    /* background: rgba(200, 200, 200, .1) !important */
     /* background: #0e0e44 !important; */
 }
+
+.ui.image:not(.avatar), .label,  img:not(.avatar) {
+    filter: invert(1) !important;
+
+}
+
+
+.filter_row {
+    padding: 0 !important;
+    margin: 0 !important;
+    z-index: 10000 !important;
+}
+
 
 .pulsing
 {
@@ -53,6 +67,11 @@ body {
 #topnav {
     border-radius: 0px 0px 20px 20px !important;
 }
+.grid_seg:focus-visible {
+    outline: lightgreen solid 2px !important;
+    filter: drop-shadow(2px 2px 5px rgba(100,100,100,.7)) !important;
+    transform: scale(1.01) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
 
 .menu {
     border-radius: 8px !important;
@@ -77,7 +96,7 @@ body {
 }
 .zoom:hover {
     filter: drop-shadow(2px 2px 5px rgba(100,100,100,.7)) !important;
-    transform: scale(1.05) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: scale(1.01) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .checking_in_area {
@@ -134,7 +153,7 @@ body {
 /* .button:active {
     color: black !important;
     /* background-color: darkgrey !important; */
-    box-shadow: inset 5px 5px 10px #333 !important;
+    /* box-shadow: inset 5px 5px 10px #333 !important; */
 }} */
 
 .home_segment{
@@ -175,9 +194,10 @@ body {
 
 .pointer:hover{
     cursor: pointer !important;
-    /* -webkit-filter: drop-shadow(5px 5px 5px rgba(250,250,250, 0.5); */
-    /* filter:         drop-shadow(5px 5px 5px rgba(250,250,250, 0.5); */
+    -webkit-filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
+    filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
 }
+
 .cancel:hover{
     cursor: cancel !important;
     /* -webkit-filter: drop-shadow(5px 5px 5px rgba(250,250,250, 0.5); */
@@ -200,6 +220,7 @@ body {
     max-height: 100% !important;
     /* max-height: 1000px !important; */
     /* top:0px; */
+    filter: invert(1);
     opacity: 0.08;
     -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
@@ -211,7 +232,7 @@ body {
 
 
 .result:hover{
-    box-shadow: inset 0 0 5px 5px rgba(200,200,200,0.5), inset 0 2px 1px 1px rgba(255,255,255,0.9), inset 0 -2px 1px 0 rgba(200,200,200,0.5) !important;
+    box-shadow: inset 0 0 3px 3px rgba(200,200,200,0.5), inset 0 2px 1px 1px rgba(255,255,255,0.9), inset 0 -2px 1px 0 rgba(200,200,200,0.5) !important;
     background-color: rgba(250,250,250,0.9) !important;
     cursor: pointer !important;
 }
@@ -289,30 +310,37 @@ input.username_search{
 
 .button {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
-    box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
+    /* box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important; */
     margin:5px !important;
-    background-color: rgba(200,200,200,.1) !important;
+    /* background-color: rgba(250,250,250,1) !important; */
     border-radius: 10px !important;
     /* transform: translate(0, 4px); */
 }
 
 .button.active {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
-    box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
+    /* box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important; */
     background-color: rgba(43, 33, 0, .9) !important;
     color: white !important;
     /* transform: translate(0, 4px); */
 }
 .button.green {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
-    box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
+    /* box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important; */
     background-color: green !important;
+    color: white !important;
+    /* transform: translate(0, 4px); */
+}
+.button.pink {
+    /* background-color: rgba(200, 200, 200, 0.5) !important; */
+    /* box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important; */
+    background-color: pink !important;
     color: white !important;
     /* transform: translate(0, 4px); */
 }
 .button.blue {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
-    box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
+    /* box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important; */
     background-color: navy !important;
     color: white !important;
     /* transform: translate(0, 4px); */
@@ -320,9 +348,9 @@ input.username_search{
 
 .button:hover {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
-    box-shadow: 0 2px 2px 2px rgba(50, 50, 100, 0.1) !important;
-    background-color: rgba(43, 33, 0, .9) !important;
-    color: white !important;
+    box-shadow: 0 0px 5px 2px rgba(50, 50, 100, 0.2) !important;
+    /* background-color: rgba(43, 33, 0, .9) !important; */
+    /* color: white !important; */
     /* transform: translate(0, 4px); */
 }
 
@@ -403,6 +431,7 @@ input.username_search{
 .inline {
   display:inline !important;
   padding-right: 5px !important;
+  margin-right: 0px !important;
   /* margin: .5em !important;2 */
 }
 
@@ -578,7 +607,7 @@ h1.ui.header{
   color: #fff;
   padding: 10px;
 }
-@font-face {
+/* @font-face {
   font-family: imogen;
   src: url("/fonts/ImogenAgnes.ttf");
 }
@@ -593,7 +622,7 @@ h1.ui.header{
 @font-face {
   font-family: bat_black;
   src: url("/bat_black.ttf");
-}
+} */
 .big-header {
   font-size: 800% !important;
   padding: 20px;
@@ -715,6 +744,12 @@ h1.ui.header{
 .scrolling::-webkit-scrollbar {
     display: none;
 }
+.smallscroll::-webkit-scrollbar {
+    width: 2px;
+}
+.mediumscroll::-webkit-scrollbar {
+    display: none;
+}
 /*
 .smallscroll::-webkit-scrollbar {
     display: none;
@@ -736,7 +771,9 @@ h1.ui.header{
 }
 
 .secnav::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
+    /* color:white !important;
+    height:1px !important; */
 }
 
 .ui.progress {

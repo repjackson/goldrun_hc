@@ -5,7 +5,8 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'model_docs', 'vote'
     Template.home.onRendered ->
         if Meteor.isProduction
-            Meteor.call 'log_home_view', ->
+            unless Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId()
+                Meteor.call 'log_home_view', ->
 
     Template.work_small.onCreated ->
         # @autorun -> Meteor.subscribe 'completed_work'
@@ -29,6 +30,20 @@ if Meteor.isClient
             Docs.find {
                 model:'work'
                 complete:true
+            },
+                sort: _timestamp: -1
+                limit:10
+
+
+    Template.services_small.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'service'
+    Template.services_small.events
+        # 'click .calc_home_stats': ->
+        #     Meteor.call 'calc_home_stats'
+    Template.services_small.helpers
+        services: ->
+            Docs.find {
+                model:'service'
             },
                 sort: _timestamp: -1
                 limit:10
@@ -95,10 +110,10 @@ if Meteor.isClient
 
 
     Template.service_slider.onRendered ->
-        Meteor.setTimeout (->
-            $('#service_slider').layerSlider
-                autoStart: true
-            ), 3000
+        # Meteor.setTimeout (->
+        #     $('#service_slider').layerSlider
+        #         autoStart: true
+        #     ), 3000
     Template.service_slider.onCreated ->
         @autorun -> Meteor.subscribe('model_docs', 'service')
     Template.service_slider.helpers
@@ -109,10 +124,10 @@ if Meteor.isClient
 
 
     Template.event_slider.onRendered ->
-        Meteor.setTimeout (->
-            $('#event_slider').layerSlider
-                autoStart: true
-            ), 3000
+        # Meteor.setTimeout (->
+        #     $('#event_slider').layerSlider
+        #         autoStart: true
+        #     ), 3000
     Template.event_slider.onCreated ->
         @autorun -> Meteor.subscribe('model_docs', 'event')
     Template.event_slider.helpers

@@ -59,15 +59,15 @@ template(name='healthclub_session')
             .ui.massive.header running checks and loading profile
     else 
         .ui.padded.middle.aligned.grid.header-wrapper
-            .two.column.row
-                .column
+            .row
+                .six.wide.column
                     //- if is_staff
                     //- a.ui.header(href="/user/#{user.username}")
                     .ui.large.icon.basic.button.cancel_checkin
                         i.big.left.chevron.icon
                     if user.kiosk_photo
                         with user
-                            +image_view key='kiosk_photo' label='photo' direct=true classes='medium circular shadowed'
+                            +image_view key='kiosk_photo' label='photo' direct=true classes='small circular shadowed'
                     else
                         //- h1.ui.header click below to add photo
                         //- .ui.header (switch camera to front)
@@ -76,7 +76,7 @@ template(name='healthclub_session')
                     //- img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
                     //- .meta @#{user.username}
                     //- +camera
-                .column
+                .ten.wide.column
                     h1.ui.huge.header.f11.grtext
                         |#{user.first_name} #{user.last_name} 
                     unless adding_guests
@@ -111,13 +111,13 @@ template(name='healthclub_session')
                                     +resident_guest
                     else
                         .ui.big.basic.compact.fluid.button.toggle_adding_guest 
-                            //- i.plus.large.icon
-                            +i name='add' classes='ui inline image'                
+                            i.plus.large.icon
+                            //- +i name='add' classes='ui inline image'                
                             .ui.inline.big.header guest
                     .poll_area
                         with current_poll
                             .ui.hidden.divider
-                            .ui.small.grey.header poll (optional)
+                            .ui.small.grey.inline.header optional
                             .ui.inline.header #{title}
                             //- each upvoter_ids
                             //-     .ui.label #{this}
@@ -127,9 +127,20 @@ template(name='healthclub_session')
                             //-     .ui.button.choose_this #{this}
                             .ui.center.aligned.basic.segment
                                 .ui.icon.big.button.vote_yes
-                                    i.thumbs.up.green.outline.big.icon
+                                    i.thumbs.up.outline.big.icon
                                 .ui.icon.big.button.vote_no
-                                    i.thumbs.down.red.outline.big.icon
+                                    i.thumbs.down.outline.big.icon
+                    .hc_visit_purpose
+                        with checking_in_doc    
+                            .ui.hidden.divider
+                            .ui.small.grey.inline.header purpose of visit (optional)
+                            div
+                            +boolean_edit key='weight_lifting' label='weight lifting' direct=true
+                            +boolean_edit key='cardio' label='cardio' direct=true
+                            +boolean_edit key='hot tub' label='hot tub' direct=true
+                            +boolean_edit key='pool' label='pool' direct=true
+                            +boolean_edit key='sauna_steamroom' label='sauna/steamroom' direct=true
+                            +boolean_edit key='garden_key' label='garden key' direct=true
             .row
                 .sixteen.wide.column
                     unless user.kiosk_photo
@@ -160,8 +171,8 @@ template(name='healthclub_session')
                             if user.member_waiver_signed
                                 if user.rules_and_regulations_signed
                                     unless user.email_red_flagged
-                                        .ui.massive.fluid.green.button.submit_checkin
-                                            .ui.inline.inverted.header 
+                                        .ui.massive.fluid.pink.button.submit_checkin
+                                            .ui.inline.header 
                                                 | check in
                                                 //- i.checkmark.green.icon
                                                 //- if timer_engaged
@@ -184,7 +195,7 @@ template(name='healthclub_stats')
     if is_dev
         .ui.button.recalc recalc #{user.username}
     div
-    +ismall name='line-chart'
+    //- +ismall name='line-chart'
     .ui.grey.inline.header 
         |hc stats
     .ui.horizontal.list

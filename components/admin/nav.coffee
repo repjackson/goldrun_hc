@@ -15,40 +15,45 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'model', ->
                 Session.set 'loading', false
 
-        'click .set_work_order': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'work_order', ->
-                Session.set 'loading', false
-
-        'click .set_units': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'unit', ->
-                Session.set 'loading', false
-
-        'click .set_projects': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'project', ->
-                Session.set 'loading', false
-
-        'click .set_shop': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'shop', ->
-                Session.set 'loading', false
-
-        'click .set_library': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'library', ->
-                Session.set 'loading', false
-
-        'click .set_event': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'event', ->
-                Session.set 'loading', false
-
-        'click .set_task': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'task', ->
-                Session.set 'loading', false
+        # 'click .set_work_order': ->
+        #     Session.set 'loading', true
+        #     Meteor.call 'set_facets', 'work_order', ->
+        #         Session.set 'loading', false
+        #
+        # 'click .set_units': ->
+        #     Session.set 'loading', true
+        #     Meteor.call 'set_facets', 'unit', ->
+        #         Session.set 'loading', false
+        #
+        # 'click .set_projects': ->
+        #     Session.set 'loading', true
+        #     Meteor.call 'set_facets', 'project', ->
+        #         Session.set 'loading', false
+        #
+        # 'click .set_shop': ->
+        #     Session.set 'loading', true
+        #     Meteor.call 'set_facets', 'shop', ->
+        #         Session.set 'loading', false
+        #
+        # 'click .set_work_order': ->
+        #     Session.set 'loading', true
+        #     Meteor.call 'set_facets', 'work_order', ->
+        #         Session.set 'loading', false
+        #
+        # 'click .set_library': ->
+        #     Session.set 'loading', true
+        #     Meteor.call 'set_facets', 'library', ->
+        #         Session.set 'loading', false
+        #
+        # 'click .set_event': ->
+        #     Session.set 'loading', true
+        #     Meteor.call 'set_facets', 'event', ->
+        #         Session.set 'loading', false
+        #
+        # 'click .set_task': ->
+        #     Session.set 'loading', true
+        #     Meteor.call 'set_facets', 'task', ->
+        #         Session.set 'loading', false
         'click .set_model': ->
             Session.set 'loading', true
             Docs.update @_id,
@@ -160,7 +165,10 @@ if Meteor.isClient
             Docs.find {
                 model:'log_event'
                 _author_id:Meteor.userId()
-            }, sort:_timestamp:-1
+            },
+                sort:_timestamp:-1
+                limit:5
+
 
     Template.latest_activity.onCreated ->
         @autorun -> Meteor.subscribe 'latest_activity'
@@ -168,8 +176,9 @@ if Meteor.isClient
         latest_activity: ->
             Docs.find {
                 model:'log_event'
-            }, sort:_timestamp:-1
-
+            },
+                sort:_timestamp:-1
+                limit:5
 
 if Meteor.isServer
     Meteor.publish 'my_notifications', ->

@@ -3,8 +3,8 @@ template(name='votes')
         .ui.fluid.accordion
             .title
                 .ui.inline.header 
-                    +i name='line chart' classes='ui avatar image'
-                    |vote stats
+                    //- +i name='line chart' classes='ui avatar image'
+                    |stats
                     .ui.basic.large.label #{vote_stats_doc.total_count} total
                     .ui.basic.large.label #{vote_stats_doc.complete_count} complete 
                     .ui.basic.large.label #{vote_stats_doc.incomplete_count} incomplete 
@@ -49,8 +49,8 @@ template(name='votes')
 template(name='vote_card_template')
     .ui.fluid.segment
         a.ui.inline.header(href="/vote/#{_id}/view")
-            if icon
-                +i name=icon
+            //- if icon
+            //-     +i name=icon
             |#{title}
         |!{description}
         +ismall name='tags' classes='ui inline image'
@@ -112,7 +112,9 @@ template(name='vote_view')
             .row
                 .sixteen.wide.column 
                     a.ui.icon.button(href="/m/vote" title='view votes')
-                        +i name='elections' classes='ui avatar image'
+                        //- +i name='elections' classes='ui avatar image'
+                        i.left.chevron.icon
+                        |votes
                     .ui.inline.header
                         if icon
                             +i name=icon

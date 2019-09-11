@@ -20,6 +20,7 @@ Router.onBeforeAction(force_loggedin, {
       'reset_password',
       'delta',
       'projects',
+      'shop',
       'project_view',
       'doc_view',
       'work_order_edit',
@@ -45,7 +46,6 @@ Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
 
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'
-Router.route '/shop', -> @render 'shop_dashboard'
 Router.route '/grid', -> @render 'grid'
 Router.route '/admin', -> @render 'admin'
 Router.route '/timecard', -> @render 'timecard'

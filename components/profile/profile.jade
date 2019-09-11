@@ -1,5 +1,5 @@
 template(name='user_layout')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
+    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
     with user_from_username_param
         .ui.stackable.grid.global_container
@@ -9,9 +9,9 @@ template(name='user_layout')
                     if user_is_resident
                         if is_staff
                             if kiosk_photo
-                                img.ui.centered.circular.shadowed.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
+                                img.ui.centered.circular.invert.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
                             else if image_id
-                                img.ui.centered.circular.shadowed.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                                img.ui.centered.circular.invert.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         else
                             img.ui.centered.circular.shadowed.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
@@ -26,7 +26,8 @@ template(name='user_layout')
                     if user_is_resident
                         if is_staff
                             a.ui.big.compact.button.item(href="/user/#{user_from_username_param.username}/edit")
-                                +i name='settings' classes='ui inline mini image'
+                                //- +i name='settings' classes='ui inline mini image'
+                                i.cog.icon
                                 |edit
                             +resident_info         
                             +user_check_steps
@@ -35,11 +36,13 @@ template(name='user_layout')
                             .ui.small.header #{tagline}
                     if is_current_user
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
-                            +i name='settings' classes='ui inline mini image'
+                            //- +i name='settings' classes='ui inline mini image'
+                            i.cog.icon
                             |edit
                     else if is_admin
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
-                            +i name='settings' classes='ui inline mini image'
+                            //- +i name='settings' classes='ui inline mini image'
+                            i.cog.icon
                             |edit
                     if is_dev
                         +boolean_edit key='disabled' label='disabled' icon='user shield' direct='true'
@@ -48,15 +51,18 @@ template(name='user_layout')
                     //-         +i name='envelope'
                     if is_current_user
                         a.ui.large.button.logout(href="#" title='logout')
-                            +i name='exit-sign' classes='ui inline mini image'
+                            //- +i name='exit-sign' classes='ui inline mini image'
+                            i.sign.out.alternate.icon
                             |log out
                         a.ui.large.button.logout_other_clients(href="#" title='logout other clients')
-                            +i name='feed-out' classes='ui inline mini image'
+                            //- +i name='feed-out' classes='ui inline mini image'
+                            i.globe.icon
                             |log out other clients
                     if is_admin
                         .ui.basic.segment
                             .ui.header 
-                                +i name='user shield'
+                                //- +i name='user shield'
+                                i.user.shield.icon
                                 |roles
                             each roles
                                 .ui.basic.label #{this}
@@ -64,64 +70,65 @@ template(name='user_layout')
                     if is_staff
                         if user_is_resident
                             a.ui.button(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
-                                +ismall name='treadmill' classes='ui inline image'
+                                //- +ismall name='treadmill' classes='ui inline image'
                                 |healthclub
                     if is_resident
-                        a.ui.compact.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}")
-                            +ismall name='dashboard' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}")
+                            //- +ismall name='dashboard' classes='ui inline image'
                             |dashboard
-                        a.ui.compact.button(href="/user/#{username}/about" class="{{isActiveRoute 'user_about'}}")
-                            +ismall name='info' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/about" class="{{isActiveRoute 'user_about'}}")
+                            //- +ismall name='info' classes='ui inline image'
                             |info
-                        a.ui.compact.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}")
-                            +ismall name='collaboration' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}")
+                            //- +ismall name='collaboration' classes='ui inline image'
                             |social
-                        a.ui.compact.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}")
-                            +ismall name='gallery' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}")
+                            //- +ismall name='gallery' classes='ui inline image'
                             |gallery
-                        a.ui.compact.button(href="/user/#{username}/connections" class="{{isActiveRoute 'user_connections'}}")
-                            +ismall name='star' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/connections" class="{{isActiveRoute 'user_connections'}}")
+                            //- +ismall name='star' classes='ui inline image'
                             |connections
-                        a.ui.compact.button(href="/user/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}")
-                            +ismall name='star' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}")
+                            //- +ismall name='star' classes='ui inline image'
                             |bookmarks
-                        a.ui.compact.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
-                            +ismall name='phone' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
+                            //- +ismall name='phone' classes='ui inline image'
                             |contact
-                        a.ui.compact.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}")
-                            +ismall name='calendar' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}")
+                            //- +ismall name='calendar' classes='ui inline image'
                             |calendar
-                        a.ui.compact.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
-                            +ismall name='scales' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
+                            //- +ismall name='scales' classes='ui inline image'
                             |comparison
-                        a.ui.compact.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
-                            +ismall name='tags' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
+                            //- +ismall name='tags' classes='ui inline image'
                             |tags
-                        a.ui.compact.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}")
-                            +ismall name='tasks' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}")
+                            //- +ismall name='tasks' classes='ui inline image'
                             |tasks
-                        a.ui.compact.button(href="/user/#{username}/messages" class="{{isActiveRoute 'user_messages'}}")
-                            +ismall name='envelope' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/messages" class="{{isActiveRoute 'user_messages'}}")
+                            //- +ismall name='envelope' classes='ui inline image'
                             |mail
-                        a.ui.compact.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
-                            +ismall name='yin-yang' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
+                            //- +ismall name='yin-yang' classes='ui inline image'
                             |karma
-                        a.ui.compact.button(href="/user/#{username}/workhistory" class="{{isActiveRoute 'user_workhistory'}}")
-                            +ismall name='resume' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/workhistory" class="{{isActiveRoute 'user_workhistory'}}")
+                            //- +ismall name='resume' classes='ui inline image'
                             |work history
-                        a.ui.compact.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
-                            +ismall name='line-chart' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
+                            //- +ismall name='line-chart' classes='ui inline image'
                             |stats
-                        a.ui.compact.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}")
-                            +ismall name='elections' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}")
+                            //- +ismall name='elections' classes='ui inline image'
                             |votes
-                        a.ui.compact.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}")
-                            +ismall name='appointment-reminders' classes='ui inline image'
+                        a.ui.compact.large.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}")
+                            //- +ismall name='appointment-reminders' classes='ui inline image'
                             |notifications
                         div
                     +yield
     unless is_frontdesk
-        +footer 
+        unless is_staff
+            +footer 
 
 
 template(name='user_check_steps')
@@ -202,9 +209,9 @@ template(name='user_healthclub')
         svg#barcode
     
 template(name='profile_home')
-    if user_is_owner
-        +owner_profile
-    else if user_is_resident
+    //- if user_is_owner
+    //-     +owner_profile
+    if user_is_resident
         +resident_about    
     
     
@@ -263,9 +270,9 @@ template(name='resident_info')
         div
         each emails
             if verified
-                .ui.green.large.label(title='verified') #{address}
+                .ui.green.large.basic.inverted.label(title='verified') #{address}
             else
-                .ui.orange.large.label(title='unverified') #{address}
+                .ui.orange.large.basic.label(title='unverified') #{address}
 
     
             
@@ -474,10 +481,9 @@ template(name='user_string_toggle')
             
 template(name='membership_status')
     .ui.basic.segment
-        .active.title
-            .ui.inline.center.aligned.header 
-                +i name='membership-card' classes='ui inline image'
-                |membership status
+        .ui.inline.center.aligned.header 
+            +i name='membership-card' classes='ui inline image'
+            |membership status
         +email_validation_check
         +lease_expiration_check
         +rules_and_regs_check

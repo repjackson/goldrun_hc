@@ -52,81 +52,29 @@ if Meteor.isClient
             Docs.update @_id,
                 $pull:follower_ids:Meteor.userId()
 
-    Template.voting.helpers
-        upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else 'outline'
-        downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else 'outline'
+    # Template.voting.helpers
+    #     upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then '' else 'outline'
+    #     downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then '' else 'outline'
     Template.voting.events
-        'click .upvote': ->
-            if @downvoter_ids and Meteor.userId() in @downvoter_ids
-                Docs.update @_id,
-                    $pull: downvoter_ids:Meteor.userId()
-                    $addToSet: upvoter_ids:Meteor.userId()
-                    $inc:points:2
-            else if @upvoter_ids and Meteor.userId() in @upvoter_ids
-                Docs.update @_id,
-                    $pull: upvoter_ids:Meteor.userId()
-                    $inc:points:-1
-            else
-                Docs.update @_id,
-                    $addToSet: upvoter_ids:Meteor.userId()
-                    $inc:points:1
-            # Meteor.users.update @_author_id,
-            #     $inc:karma:1
+        'click .upvote': (e,t)->
+            $(e.currentTarget).closest('.button').transition('pulse')
+            Meteor.call 'upvote', @
+        'click .downvote': (e,t)->
+            $(e.currentTarget).closest('.button').transition('pulse')
+            Meteor.call 'downvote', @
 
-        'click .downvote': ->
-            if @upvoter_ids and Meteor.userId() in @upvoter_ids
-                Docs.update @_id,
-                    $pull: upvoter_ids:Meteor.userId()
-                    $addToSet: downvoter_ids:Meteor.userId()
-                    $inc:points:-2
-            else if @downvoter_ids and Meteor.userId() in @downvoter_ids
-                Docs.update @_id,
-                    $pull: downvoter_ids:Meteor.userId()
-                    $inc:points:1
-            else
-                Docs.update @_id,
-                    $addToSet: downvoter_ids:Meteor.userId()
-                    $inc:points:-1
-            # Meteor.users.update @_author_id,
-            #     $inc:karma:-1
 
-    Template.voting_small.helpers
-        upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else 'outline'
-        downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else 'outline'
+    # Template.voting_small.helpers
+    #     upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then '' else 'outline'
+    #     downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then '' else 'outline'
     Template.voting_small.events
-        'click .upvote': ->
-            if @downvoter_ids and Meteor.userId() in @downvoter_ids
-                Docs.update @_id,
-                    $pull: downvoter_ids:Meteor.userId()
-                    $addToSet: upvoter_ids:Meteor.userId()
-                    $inc:points:2
-            else if @upvoter_ids and Meteor.userId() in @upvoter_ids
-                Docs.update @_id,
-                    $pull: upvoter_ids:Meteor.userId()
-                    $inc:points:-1
-            else
-                Docs.update @_id,
-                    $addToSet: upvoter_ids:Meteor.userId()
-                    $inc:points:1
-            # Meteor.users.update @_author_id,
-            #     $inc:karma:1
+        'click .upvote': (e,t)->
+            $(e.currentTarget).closest('.button').transition('pulse')
+            Meteor.call 'upvote', @
+        'click .downvote': (e,t)->
+            $(e.currentTarget).closest('.button').transition('pulse')
+            Meteor.call 'downvote', @
 
-        'click .downvote': ->
-            if @upvoter_ids and Meteor.userId() in @upvoter_ids
-                Docs.update @_id,
-                    $pull: upvoter_ids:Meteor.userId()
-                    $addToSet: downvoter_ids:Meteor.userId()
-                    $inc:points:-2
-            else if @downvoter_ids and Meteor.userId() in @downvoter_ids
-                Docs.update @_id,
-                    $pull: downvoter_ids:Meteor.userId()
-                    $inc:points:1
-            else
-                Docs.update @_id,
-                    $addToSet: downvoter_ids:Meteor.userId()
-                    $inc:points:-1
-            # Meteor.users.update @_author_id,
-            #     $inc:karma:-1
 
 
     Template.doc_card.onCreated ->
@@ -149,59 +97,17 @@ if Meteor.isClient
             Meteor.call 'call_watson', doc._id, @key, @mode
 
 
-    Template.voting_full.helpers
-        upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else 'outline'
-        downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else 'outline'
+    # Template.voting_full.helpers
+    #     upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then '' else 'outline'
+    #     downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then '' else 'outline'
 
     Template.voting_full.events
-        'click .upvote': ->
-            if @downvoter_ids and Meteor.userId() in @downvoter_ids
-                Docs.update @_id,
-                    $pull: downvoter_ids:Meteor.userId()
-                    $addToSet: upvoter_ids:Meteor.userId()
-                    $inc:
-                        points:2
-                        upvotes:1
-                        downvotes:-1
-            else if @upvoter_ids and Meteor.userId() in @upvoter_ids
-                Docs.update @_id,
-                    $pull: upvoter_ids:Meteor.userId()
-                    $inc:
-                        points:-1
-                        upvotes:-1
-            else
-                Docs.update @_id,
-                    $addToSet: upvoter_ids:Meteor.userId()
-                    $inc:
-                        upvotes:1
-                        points:1
-            # Meteor.users.update @_author_id,
-            #     $inc:karma:1
-
-        'click .downvote': ->
-            if @upvoter_ids and Meteor.userId() in @upvoter_ids
-                Docs.update @_id,
-                    $pull: upvoter_ids:Meteor.userId()
-                    $addToSet: downvoter_ids:Meteor.userId()
-                    $inc:
-                        points:-2
-                        downvotes:1
-                        upvotes:-1
-            else if @downvoter_ids and Meteor.userId() in @downvoter_ids
-                Docs.update @_id,
-                    $pull: downvoter_ids:Meteor.userId()
-                    $inc:
-                        points:1
-                        downvotes:-1
-            else
-                Docs.update @_id,
-                    $addToSet: downvoter_ids:Meteor.userId()
-                    $inc:
-                        points:-1
-                        downvotes:1
-            # Meteor.users.update @_author_id,
-            #     $inc:karma:-1
-
+        'click .upvote': (e,t)->
+            $(e.currentTarget).closest('.button').transition('pulse')
+            Meteor.call 'upvote', @
+        'click .downvote': (e,t)->
+            $(e.currentTarget).closest('.button').transition('pulse')
+            Meteor.call 'downvote', @
 
 
 
@@ -286,16 +192,31 @@ if Meteor.isClient
 
     Template.user_list_toggle.onCreated ->
         @autorun => Meteor.subscribe 'user_list', Template.parentData(),@key
-
     Template.user_list_toggle.events
         'click .toggle': (e,t)->
             parent = Template.parentData()
+            $(e.currentTarget).closest('.button').transition('pulse')
             if parent["#{@key}"] and Meteor.userId() in parent["#{@key}"]
                 Docs.update parent._id,
                     $pull:"#{@key}":Meteor.userId()
             else
                 Docs.update parent._id,
                     $addToSet:"#{@key}":Meteor.userId()
+    Template.user_list_toggle.helpers
+        user_list_toggle_class: ->
+            if Meteor.user()
+                parent = Template.parentData()
+                if parent["#{@key}"] and Meteor.userId() in parent["#{@key}"] then '' else 'basic'
+            else
+                'disabled'
+        in_list: ->
+            parent = Template.parentData()
+            if parent["#{@key}"] and Meteor.userId() in parent["#{@key}"] then true else false
+        list_users: ->
+            parent = Template.parentData()
+            Meteor.users.find _id:$in:parent["#{@key}"]
+
+
 
 
     Template.viewing.events
@@ -321,23 +242,6 @@ if Meteor.isClient
                     unless reader_id is @author_id
                         readers.push Meteor.users.findOne reader_id
             readers
-
-    Template.user_list_toggle.helpers
-        user_list_toggle_class: ->
-            if Meteor.user()
-                parent = Template.parentData()
-                if parent["#{@key}"] and Meteor.userId() in parent["#{@key}"] then 'blue' else 'basic'
-            else
-                'disabled'
-
-        in_list: ->
-            parent = Template.parentData()
-            if parent["#{@key}"] and Meteor.userId() in parent["#{@key}"] then true else false
-
-        list_users: ->
-            parent = Template.parentData()
-            Meteor.users.find _id:$in:parent["#{@key}"]
-
 
 
 

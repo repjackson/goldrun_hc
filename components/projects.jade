@@ -96,7 +96,7 @@ template(name='project_card_template')
         div
         a.ui.large.button(href="/project/#{_id}/feed")
             |view
-            i.right.chevron.yellow.icon
+            i.right.chevron.icon
 
 
 template(name='project_update_small')
@@ -117,7 +117,7 @@ template(name='project_edit')
                             +i name=icon
                         |#{title}
                     a.ui.big.fluid.button(href="/project/#{_id}/feed" title='save')
-                        i.green.checkmark.icon
+                        i.checkmark.icon
                         |save
                     +remove_button
                     +icon_edit key='icon' label='icon' direct=true

@@ -19,17 +19,9 @@ head
     script(src='tablesort.js')
     script(src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js")
     //- /* script(src='https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js') */
-    //- // LayerSlider stylesheet
-    link(rel='stylesheet', href='/layerslider/css/layerslider.css', type='text/css')
-    //- // External libraries: GreenSock
-    //- /* script(src='/layerslider/js/jquery.js', type='text/javascript') */
-    script(src='/layerslider/js/greensock.js', type='text/javascript')
-    //- // LayerSlider script files
-    script(src='/layerslider/js/layerslider.transitions.js', type='text/javascript')
-    script(src='/layerslider/js/layerslider.kreaturamedia.jquery.js', type='text/javascript')
 
 template(name='layout')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
+    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
     .context
         .ui.stackable.grid.global_container(class=invert_class)
@@ -42,7 +34,8 @@ template(name='layout')
                                 //- .ui.basic.fluid.segment
                     +yield
         unless is_frontdesk
-            +footer 
+            unless is_staff
+                +footer 
         +shortcut_modal
 
 template(name='mlayout')

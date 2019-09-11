@@ -59,7 +59,8 @@ Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'last_initial', (user) ->
     @last_name[0]+'.'
-    # moment(input).fromNow()
+Template.registerHelper 'first_letter', (user) ->
+    @first_name[..0]+'.'
 Template.registerHelper 'first_initial', (user) ->
     @first_name[..2]+'.'
     # moment(input).fromNow()
@@ -67,7 +68,14 @@ Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
 Template.registerHelper 'is_event', () -> @shop_type is 'event'
 Template.registerHelper 'is_service', () -> @shop_type is 'service'
 Template.registerHelper 'is_product', () -> @shop_type is 'product'
-
+Template.registerHelper 'upvote_class', () ->
+    if Meteor.userId()
+        if @upvoter_ids and Meteor.userId() in @upvoter_ids then '' else 'outline'
+    else ''
+Template.registerHelper 'downvote_class', () ->
+    if Meteor.userId()
+        if @downvoter_ids and Meteor.userId() in @downvoter_ids then '' else 'outline'
+    else ''
 
 Template.registerHelper 'current_month', () -> moment(Date.now()).format("MMMM")
 Template.registerHelper 'current_day', () -> moment(Date.now()).format("DD")
@@ -136,7 +144,7 @@ Meteor.methods
         $('body').toast({
             title: "#{resident.first_name} #{resident.last_name} checked in"
             position: 'top center'
-            class: 'success'
+            # class: 'success'
             className: {
                 toast: 'ui big message'
             }

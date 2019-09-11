@@ -1,36 +1,59 @@
 template(name='nav')
     unless is_frontdesk
-        #topnav.topnav.ui.attached.borderless.menu
+        #topnav.topnav.ui.attached.menu
             if is_loading
                 .icon.item
                     i.big.spinning.yin.yang.grey.cancel.icon
             else
-                a.ui.header.item(href='/' class="{{isActivePath '/'}}")
-                    +i name='home' classes='ui mini inline image'  
-                    | gro
-                    //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
-                if is_dev
-                    a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
-                        +i name='active-directory' classes='ui mini inline image'
-                if currentUser
+                unless is_staff
                     a.ui.item(href='/grid' class="{{isActivePath '/grid'}}" title='model grid view')
-                        +i name='activity-grid-2' classes='ui mini inline image'    
-                //- a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
-                //-     +i name='work' classes='ui mini inline image'
-                a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
-                    +i name='project' classes='ui mini inline image'
-                    .mobile.hidden.inline &nbsp; projects
-                //- a.ui.item.set_projects(href='/m/project' class="{{isActivePath '/m/project'}}")
-                //-     +i name='project' classes='ui mini inline image'
-                //-     .mobile.hidden.inline &nbsp; projects
+                        i.th.large.icon
+                    a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
+                        //- +i name='home' classes='ui mini inline image' 
+                        i.home.large.icon 
+                        //- | gro
+                        //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
+                if is_dev
+                    a.ui.item(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
+                        //- +i name='active-directory' classes='ui mini inline image'
+                        i.fork.large.icon
+                unless is_staff 
+                    //- a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}")
+                    //-     //- +i name='work' classes='ui mini inline image'
+                    //-     i.tasks.large.icon
+                    //-     .mobile.hidden.inline &nbsp; work-orders
+                    //- a.ui.item(href='/projects' class="{{isActivePath '/projects'}}")
+                    //-     //- +i name='project' classes='ui mini inline image'
+                    //-     i.line.chart.large.icon
+                    //-     .mobile.hidden.inline &nbsp; projects
+                    //- a.ui.item.set_projects(href='/projects' class="{{isActivePath '/projects'}}")
+                    //-     +i name='project' classes='ui mini inline image'
+                    //-     .mobile.hidden.inline &nbsp; projects
+                    a.ui.item(href='/shop' class="{{isActivePath '/shop'}}")
+                        //- +i name='shop' classes='ui mini inline image'
+                        i.store.large.icon
+                        .mobile.hidden.inline &nbsp; market
+                    a.ui.item(href='/work' class="{{isActivePath '/work'}}")
+                        i.tasks.large.icon
+                        .mobile.hidden.inline &nbsp; work
+                    
+                    a.ui.item(href='/m/service' class="{{isActivePath '/m/service'}}")
+                        i.wrench.large.icon
+                        .mobile.hidden.inline &nbsp; services
+                    a.ui.item(href='/m/request' class="{{isActivePath '/m/request'}}")
+                        i.hand.holding.usd.icon
+                        .mobile.hidden.inline &nbsp; requests
+                    
+                
                 //- a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}" title='delta work orders')
                 //-     +i name='invoice' classes='ui mini inline image'
                 //-     .mobile.hidden.inline &nbsp; work orders
 
-                if is_resident
-                    a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}" title='resident portal')
-                        +i name='dashboard' classes='ui mini inline image'
-                        //- |resident portal                
+                //- if is_resident
+                //-     a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}" title='resident portal')
+                //-         //- +i name='dashboard' classes='ui mini inline image'
+                //-         i.dashboard.icon
+                //-         //- |resident portal                
                 //- if is_staff
                 //-     //- a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
                 //-     //-     +i name='dashboard' classes='ui mini inline image'          
@@ -39,18 +62,14 @@ template(name='nav')
                 //-         .mobile.hidden.inline &nbsp; work orders                  
                 if is_owner
                     a.ui.icon.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}" title='owner dashboard')
-                        +i name='rent' classes='ui mini inline image'
-                if currentUser
-                    a.ui.item(href='/work' class="{{isActivePath '/work'}}")
-                        +i name='work' classes='ui mini inline image'
-                        .mobile.hidden.inline &nbsp; work
+                        i.money.large.icon
                 //- if is_resident
                     //- each bookmarked_models
                     //-     a.ui.item.set_model(href="/m/#{slug}/" title=title)
                     //-         +i name=icon classes='ui mini inline image'
                     
-                    //- a.ui.item(href='/blog' class="{{isActivePath '/blog'}}")
-                    //-     +i name='blog' classes='ui mini inline image'
+                    a.ui.item(href='/blog' class="{{isActivePath '/blog'}}")
+                        +i name='blog' classes='ui mini inline image'
                     //- a.ui.item(href='/events' class="{{isActivePath '/events'}}")
                     //-     +i name='calendar' classes='ui mini inline image'
                     //- a.ui.item(href='/shop' class="{{isActivePath '/shop'}}")
@@ -62,103 +81,71 @@ template(name='nav')
                     //-     |profiles
                 if is_manager
                     a.ui.item(href='/manager' class="{{isActivePath '/manager'}}")
-                        +i name='user-shield' classes='ui mini inline image'
+                        //- +i name='user-shield' classes='ui mini inline image'
+                        i.user.shield.icon
                         .mobile.hidden.inline &nbsp; manager
-                //- if is_owner
-                //-     a.ui.item(href='/owners' class="{{isActivePath '/owners'}}")
-                //-         +i name='groups' classes='ui mini inline image'
-                //-         .mobile.hidden.inline &nbsp; owners
-                    //- a.ui.item(href='/minutes' class="{{isActivePath '/minutes'}}")
-                    //-     +i name='checklist' classes='ui mini inline image'
-                    //-     .mobile.hidden.inline &nbsp; minutes
-                    //- a.ui.item(href='/votes' class="{{isActivePath '/votes'}}")
-                    //-     +i name='elections' classes='ui mini inline image'
-                    //-     .mobile.hidden.inline &nbsp; votes
-            
-                //- if is_staff
-                //-     //- a.ui.item(href='/stats' class="{{isActivePath '/stats'}}")
-                //-     //-     +i name='line chart' classes='ui mini inline image'
-                //-     a.ui.item(href='/staff' class="{{isActivePath '/staff'}}")
-                //-         +i name='manager' classes='ui mini inline image'
-                //-         .mobile.hidden.inline &nbsp; staff
-                //-     //- a.ui.item(href='/buildings' class="{{isActivePath '/buildings'}}")
-                //-     //-     +i name='building' classes='ui mini inline image'
-                //-     //-     .mobile.hidden.inline &nbsp; buildings
-                //-     //- a.ui.item(href='/residents' class="{{isActivePath '/residents'}}")
-                //-     //-     +i name='groups' classes='ui mini inline image'
-                //-     //-     .mobile.hidden.inline &nbsp; residents
-                //-     a.ui.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
-                //-         +i name='kindle' classes='ui mini inline image'
-                //-         .mobile.hidden.inline &nbsp; kiosk
-                //-     //- a.ui.item(href='/readings' class="{{isActivePath '/readings'}}")
-                //-     //-     +i name='water' classes='ui mini inline image'
-                //-     //-     .mobile.hidden.inline &nbsp; water
-                //-     //- a.ui.item(href='/slideshow' class="{{isActivePath '/slideshow'}}")
-                //-     //-     +i name='channel-mosaic' classes='ui mini inline image'
-                //-     //-     .mobile.hidden.inline &nbsp; slideshow
                 if is_admin
-                    //- a.ui.item.set_models(href='/m/model' class="{{isActivePath '/m/model'}}")
-                    //-     +i name='active-directory' classes='ui mini inline image'
-                    //- a.ui.item(href='/grid' class="{{isActivePath '/grid'}}")
-                    //-     +i name='activity-grid-2' classes='ui mini inline image'
                     a.ui.item(href='/users' class="{{isActivePath '/users'}}")
-                        +i name='groups' classes='ui mini inline image'
+                        //- +i name='groups' classes='ui mini inline image'
+                        i.users.icon
                         .mobile.hidden.inline &nbsp; users
-            .right.menu
                 if is_staff
                     //- a.ui.item(href='/stats' class="{{isActivePath '/stats'}}")
                     //-     +i name='line chart' classes='ui mini inline image'
                     a.ui.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
-                        +i name='user-shield' classes='ui mini inline image'
+                        i.user.shield.large.icon
                         .mobile.hidden.inline &nbsp; staff
             
                 //- .ui
                 //- a.ui.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}" title='storefront')
                 //-     +i name='shop' classes='ui mini inline image'                
+            .right.menu
                 if is_dev
                     a.ui.item(href='/dev' class="{{isActivePath '/dev'}}" title='dev')
-                        +i name='code' classes='ui mini inline image'
-                        //- i.code.large.icon
-                if is_admin
-                    a.ui.item.set_work(href='/m/work' class="{{isActivePath '/m/work'}}" title='tasks')
-                        +i name='work' classes='ui mini inline image'
-                        //- i.tasks.large.icon
+                        //- +i name='code' classes='ui mini inline image'
+                        i.code.icon
+                unless is_staff
+                    a.ui.item(href='/m/work' class="{{isActivePath '/m/work'}}" title='tasks')
+                        i.tasks.large.icon
                     //- a.ui.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
-                    //-     i.tasks.large.icon
-                    //- a.ui.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
-                    //-     +i name='inbox' classes='ui mini inline image'
-                    //-     //- i.inbox.large.icon
+                    //-     i.tasks.icon
+                    if currentUser
+                        a.ui.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
+                            i.inbox.large.icon
                     a.ui.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
-                        +i name='chat' classes='ui mini inline image'
-                        //- i.chat.large.outline.icon
+                        i.chat.large.outline.icon
                 if currentUser
                     unless logging_out
                         //- if is_dev
                         unless is_frontdesk
-                            a.ui.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_chat'}}")
+                            a.ui.item(href="/user/#{currentUser.username}/dashboard" class="{{isActiveRoute regex='user_chat'}}")
                                 if currentUser.image_id
                                     img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 else
-                                    +i name='user'
+                                    //- +i name='user'
+                                    i.user.icon
                                 | #{currentUser.username}
                     if logging_out
                         .ui.item
-                            i.large.loading.circle.notch.icon
+                            i.loading.circle.notch.icon
                     //- else
                     //-     a#logout.ui.mobile.hidden.inline.icon.ui.item(href='#' title='Log Out')
-                    //-         i.sign.out.large.icon
+                    //-         i.sign.out.icon
                 else
-                    unless is_resident
-                        a.ui.item(href='/login' title='login') 
-                            +ismall name='internal' 
-                            |login
+                    unless currentUser
+                        a.ui.icon.item(href='/login' title='login') 
+                            //- +i name='internal' 
+                            i.sign.in.alternate.large.icon
+                            //- |login
                             //- .secnav
-        //- .ui.attached.borderless.small.menu.topnav
-        //-     each role_models
-        //-         a.item.secnav.set_model(href="/m/#{slug}/" title="#{views} views")
-        //-             +i name=icon classes='ui mini inline image'
-        //-             //- i.large.icon(class=icon)
-        //-             |#{title}
+        //- if currentUser
+        //-     unless is_staff
+        //-         .ui.attached.menu.topnav
+        //-             each role_models
+        //-                 a.item.secnav.set_model(href="/m/#{slug}/")
+        //-                     //- +i name=icon classes='ui mini inline image'
+        //-                     //- i.icon(class=icon)
+        //-                     |#{title}
 
 
 
@@ -205,9 +192,9 @@ template(name='footer')
                 
                 
 template(name='footer_chat')
-    +ismall name='comments'
-    .ui.small.inline.header chat
-    .ui.list.smallscroll
+    //- +ismall name='comments'
+    //- .ui.small.inline.header chat
+    .ui.list.scroll
         each chat_messages
             .item(title="by #{author.first_name} #{author.last_name} #{when}")
                 if author
@@ -217,7 +204,7 @@ template(name='footer_chat')
                 if is_author
                     span
                         i.remove.link.icon.remove_message
-    .ui.bottom.attached.fluid.icon.input
+    .ui.bottom.attached.fluid.icon.transparent.input
         i.plus.icon
         input.new_footer_chat_message(type='text' placeholder='add message')
 
@@ -236,7 +223,9 @@ template(name='my_latest_activity')
 
 
 template(name='latest_activity')
-    .ui.header latest activity
+    .ui.header 
+        i.grey.rss.icon
+        |latest activity
     .ui.list
         each latest_activity
             .item 

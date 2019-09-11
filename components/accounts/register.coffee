@@ -74,7 +74,7 @@ if Meteor.isServer
         find_username: (username)->
             res = Accounts.findUserByUsername(username)
             if res
-                console.log res
+                # console.log res
                 unless res.disabled
                     return res
 
