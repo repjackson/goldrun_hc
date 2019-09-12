@@ -50,9 +50,12 @@ template(name='nav')
                     a.ui.item.set_rental(href='/m/rental' class="{{isActivePath '/m/rental'}}")
                         //- i.hand.holding.usd.icon
                         .mobile.hidden.inline &nbsp; rentals
-                    a.ui.item.set_product(href='/m/shop' class="{{isActivePath '/m/shop'}}")
+                    a.ui.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                         //- i.hand.holding.usd.icon
                         .mobile.hidden.inline &nbsp; shop
+                    a.ui.item.set_food(href='/m/food' class="{{isActivePath '/m/food'}}")
+                        //- i.hand.holding.usd.icon
+                        .mobile.hidden.inline &nbsp; food
                     
                 
                 //- a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}" title='delta work orders')
@@ -125,19 +128,19 @@ template(name='nav')
                 if is_dev
                     a.ui.item(href='/dev' class="{{isActivePath '/dev'}}" title='dev')
                         //- +i name='code' classes='ui mini inline image'
-                        i.code.icon
+                        i.code.large.icon
                 unless is_staff
                     a.ui.item(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
-                        i.cart.icon
+                        i.cart.large.icon
                     a.ui.item(href='/transactions' class="{{isActivePath '/transactions'}}" title='transactions')
-                        i.list.icon
+                        i.list.large.icon
                     a.ui.item(href='/m/work' class="{{isActivePath '/m/work'}}" title='tasks')
-                        i.tasks.icon
+                        i.tasks.large.icon
                     //- a.ui.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
-                    //-     i.tasks.icon
+                    //-     i.tasks.large.icon
                     if currentUser
                         a.ui.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
-                            i.inbox.icon
+                            i.inbox.large.icon
                     a.ui.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
                         i.chat.large.outline.icon
                 if currentUser

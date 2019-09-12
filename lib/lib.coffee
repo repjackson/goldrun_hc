@@ -240,7 +240,7 @@ if Meteor.isServer
         update: (userId, doc) ->
             if doc.model is 'work_order'
                 true
-            else if Meteor.user() and Meteor.user().roles and 'staff' in Meteor.user().roles
+            else if Meteor.user() and Meteor.user().roles and 'admin' in Meteor.user().roles
                 true
             else
                 doc._author_id is userId

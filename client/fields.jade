@@ -28,7 +28,7 @@ template(name='color_view')
                     |#{key}
                 else
                     |#{this}
-            .ui.large.label(style="background:#{field_value}")
+            .ui.large.basic.label(style="background:#{field_value}")
             |#{field_value}
 
 template(name='color_icon_edit')
@@ -693,7 +693,7 @@ template(name='array_edit')
         //- +clear_value                
     if field_value
         each field_value
-            .ui.large.label
+            .ui.large.basic.label
                 i.delete.icon.remove_element
                 |#{this}
                 
@@ -712,7 +712,7 @@ template(name='array_view')
             else
                 |#{this}
         each field_value
-            .ui.large.label #{this}
+            .ui.large.basic.label #{this}
 
 
 template(name='children_edit')
@@ -855,10 +855,10 @@ template(name='signature_view')
 
 template(name='boolean_edit')
     //- div
-    .ui.circular.button.toggle_boolean(class=boolean_toggle_class)
+    .ui.compact.button.toggle_boolean(class=boolean_toggle_class)
         //- if icon
         //-     +i name=icon classes='ui middle aligned image'
-        .inline.f5
+        .inline.f4
             //- if field_value
             //-     i.checkmark.icon
             if title
@@ -985,7 +985,7 @@ template(name='multi_doc_view')
         .ui.inline.header(title=key)
             |#{title}
         each field_value
-            .ui.large.label
+            .ui.large.basic.label
                 |#{this}
 
 
@@ -1004,7 +1004,7 @@ template(name='single_user_edit')
         .ui.input
             input#single_user_select_input(type='text' placeholder='lookup user..')
             each selections
-                .ui.large.label
+                .ui.large.basic.label
                     |#{first_name} #{last_name} #{username} 
         if user_results
             .ui.attached.smoothed.segment
@@ -1107,7 +1107,7 @@ template(name='multi_user_edit')
     .ui.input
         input#multi_user_select_input(type='text' placeholder="lookup #{role_filter}..")
     each selections
-        a.ui.large.label(href="/user/#{username}")
+        a.ui.large.basic.label(href="/user/#{username}")
             |#{first_name} #{last_name} @#{username}
     if user_results
         .ui.top.attached.segment
@@ -1152,7 +1152,7 @@ template(name='multi_doc_input')
         input#multi_doc_select_input(type='text' placeholder=title autocomplete="off")
         //- input#multi_doc_select_input(type='text' placeholder="Lookup #{ref_model}.." autocomplete="off")
     each selections
-        .ui.large.label
+        .ui.large.basic.label
             |#{guest_name} #{first_name} #{last_name}
     if doc_results
         .ui.attached.secondary.segment
@@ -1198,7 +1198,7 @@ template(name='project_lookup')
             input.project_title_lookup(type='text' placeholder='lookup project' autocomplete="off")
         //- input#multi_doc_select_input(type='text' placeholder="Lookup #{ref_model}.." autocomplete="off")
     each selections
-        .ui.large.label
+        .ui.large.basic.label
             |#{title}
     if doc_results
         .ui.attached.segment

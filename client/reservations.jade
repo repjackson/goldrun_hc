@@ -2,14 +2,14 @@ template(name='reservation_slot_view')
     .ui.stackable.padded.grid
         .eight.wide.column
             .ui.header reservation slot view
-            with reservation_product
-                +reservation_product_template
+            with reservation_rental
+                +reservation_rental_template
         .eight.wide.column
             with reservation
                 .ui.segment
                     .ui.header reservation
                     .ui.header #{date}
-                    .ui.header #{product_id}
+                    .ui.header #{rental_id}
                     +author_info
                     if is_author
                         +remove_button
@@ -40,7 +40,7 @@ template(name='reservation_slot_view')
                                     .ui.header reservation ended {{long_date reservation_ended_timestamp}}
             with reservation_slot
                 .ui.header #{date}
-                //- .ui.header product id:#{product_id}
+                //- .ui.header rental id:#{rental_id}
                 .ui.header parent slot:#{parent_slot}
             unless reservation
                 .ui.header no reservation 
@@ -51,7 +51,7 @@ template(name='reservation_slot_view')
         //-         .ui.header author
 
 
-template(name='reservation_product_template')
+template(name='reservation_rental_template')
     .ui.segment
         a.ui.header(href="/shop/#{_id}/info") 
             i.left.chevron.icon

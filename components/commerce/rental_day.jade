@@ -1,10 +1,10 @@
-template(name='product_day')
+template(name='rental_day')
     .ui.padded.stackable.grid
         .row
             .four.wide.column
-                a.ui.large.button(href="/shop/#{product._id}/view")
+                a.ui.large.button(href="/shop/#{rental._id}/view")
                     i.left.chevron.icon
-                    | #{product.title}
+                    | #{rental.title}
                 .ui.header #{month}/#{day}/#{year} reservations
             .twelve.wide.column
                 each hours

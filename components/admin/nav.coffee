@@ -45,16 +45,14 @@ if Meteor.isClient
             Session.set 'loading', true
             Meteor.call 'set_facets', 'request', ->
                 Session.set 'loading', false
-        #
-        # 'click .set_shop': ->
-        #     Session.set 'loading', true
-        #     Meteor.call 'set_facets', 'shop', ->
-        #         Session.set 'loading', false
-        #
-        # 'click .set_work_order': ->
-        #     Session.set 'loading', true
-        #     Meteor.call 'set_facets', 'work_order', ->
-        #         Session.set 'loading', false
+        'click .set_shop': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'shop', ->
+                Session.set 'loading', false
+        'click .set_food': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'food', ->
+                Session.set 'loading', false
         #
         # 'click .set_library': ->
         #     Session.set 'loading', true

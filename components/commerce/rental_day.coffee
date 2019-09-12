@@ -1,11 +1,11 @@
 if Meteor.isClient
-    Template.product_day.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.product_id
-        @autorun => Meteor.subscribe 'reservations', Router.current().params.product_id,Router.current().params.month,Router.current().params.day,Router.current().params.year
+    Template.rental_day.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'reservations', Router.current().params.doc_id,Router.current().params.month,Router.current().params.day,Router.current().params.year
 
-    Template.product_day.helpers
-        product:->
-            Docs.findOne Router.current().params.product_id
+    Template.rental_day.helpers
+        rental:->
+            Docs.findOne Router.current().params.doc_id
 
         hours: -> [7..17]
         month:-> Router.current().params.month
@@ -13,35 +13,35 @@ if Meteor.isClient
         year:-> Router.current().params.year
 
         reservations:->
-            product = Docs.findOne Router.current().params.product_id
+            rental = Docs.findOne Router.current().params.doc_id
             month = Router.current().params.month
             day = Router.current().params.day
             year = Router.current().params.year
             Docs.find
                 model:'reservation'
-                product_id:product._id
+                rental_id_id:rental._id
                 date:"#{month}-#{day}-#{year}"
 
         reservation_exists:->
-            product = Docs.findOne Router.current().params.product_id
+            rental = Docs.findOne Router.current().params.doc_id
             month = Router.current().params.month
             day = Router.current().params.day
             year = Router.current().params.year
             Docs.findOne
                 model:'reservation'
-                product_id:product._id
+                rental_id_id:rental._id
                 date:"#{month}-#{day}-#{year}"
                 hour:parseInt(@)
 
-        reservation_product:->
+        reservation_rental:->
             slot = Docs.findOne Router.current().params.doc_id
             Docs.findOne
                 model:'shop'
-                # _id:slot.product_id
+                # _id:slot.doc_id
 
 
 
-    Template.product_day.events
+    Template.rental_day.events
         'click .confirm_delivery': ->
             if confirm 'confirm delivery?'
                 # console.log 'your credits', Meteor.user().credits
@@ -64,14 +64,14 @@ if Meteor.isClient
                         delivery_started:true
 
         'click .new_reservation': ->
-            product = Docs.findOne Router.current().params.product_id
+            rental = Docs.findOne Router.current().params.doc_id
             month = Router.current().params.month
             day = Router.current().params.day
             year = Router.current().params.year
             # console.log @
             Docs.insert
                 model:'reservation'
-                product_id:product._id
+                rental_id_id:rental._id
                 date:"#{month}-#{day}-#{year}"
                 hour:parseInt(@)
             # console.log Template.parentData()
@@ -94,23 +94,23 @@ if Meteor.isClient
                         reservation_ended:true
 
 
-    Template.reservation_product_template.onCreated ->
+    Template.reservation_rental_template.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.reservation_product_template.helpers
+    Template.reservation_rental_template.helpers
         s: ->
             console.log @
-        reservation_product:->
+        reservation_rental:->
             Docs.findOne Router.current().params.doc_id
 
 if Meteor.isServer
-    Meteor.publish 'reservations', (product_id, month, day, year)->
-        product = Docs.findOne product_id
+    Meteor.publish 'reservations', (doc_id, month, day, year)->
+        rental = Docs.findOne doc_id
         console.log month
         console.log day
         console.log year
         Docs.find
             model:'reservation'
-            product_id:product_id
+            doc_id:doc_id
             date:"#{month}-#{day}-#{year}"
 
     # Meteor.publish 'reservation_slot_reservation', (slot_id)->

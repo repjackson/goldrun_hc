@@ -222,6 +222,8 @@ template(name='shop_card_template')
                 .hidden.content
                     //- i.cart.plus.green.large.icon
             //- +number_viez
+            if is_admin
+                +text_edit key='model' direct=true
             a.ui.basic.small.icon.button(href="/shop/#{_id}/view")
             //-     +i name='chevron right' classes='ui mini image'
             //- if can_edit
