@@ -32,41 +32,41 @@ template(name='staff')
                 //- +add_button model='communication' label='communication'
                 //- +add_button model='frontdesk_hourly_checklist' label='hourly checklist'
                 //- +add_button model='front_desk_opening_closing_checklist' label='opening/closing checklist'
-                +unit_key_widget
-                a.ui.compact.fluid.large.button(href='readings')
-                    //- +i name='water' classes='ui inline image'                
-                    strong water
-                div
-                //- +ismall name='swim'
-                .ui.inline.grey.header 
-                    |pool
-                each shift_pool_readings
-                    .item #{ph}ph #{br}br #{temperature}deg #{when}
-                        if ph_message
-                            .ui.basic.label #{ph_message}
-                        if chlorine_message
-                            .ui.basic.label #{chlorine_message}
-                div
-                //- +ismall name='jacuzzi'
-                .ui.inline.grey.header 
-                    |upper hot tub
-                each shift_upper_hot_tub_readings
-                    .item #{ph}ph #{br}br #{temperature}deg #{when}
-                        if ph_message
-                            .ui.basic.label #{ph_message}
-                        if chlorine_message
-                            .ui.basic.label #{chlorine_message}
-                div
-                //- +ismall name='jacuzzi'
-                .ui.inline.grey.header 
-                    |lower hot tub
-                each shift_lower_hot_tub_readings
-                    .item #{ph}ph #{br}br #{temperature}deg #{when}
-                        if ph_message
-                            .ui.basic.label #{ph_message}
-                        if chlorine_message
-                            .ui.basic.label #{chlorine_message}
-                .ui.hidden.divider
+                //- +unit_key_widget
+                //- a.ui.compact.fluid.large.button(href='readings')
+                //-     //- +i name='water' classes='ui inline image'                
+                //-     strong water
+                //- div
+                //- //- +ismall name='swim'
+                //- .ui.inline.grey.header 
+                //-     |pool
+                //- each shift_pool_readings
+                //-     .item #{ph}ph #{br}br #{temperature}deg #{when}
+                //-         if ph_message
+                //-             .ui.basic.label #{ph_message}
+                //-         if chlorine_message
+                //-             .ui.basic.label #{chlorine_message}
+                //- div
+                //- //- +ismall name='jacuzzi'
+                //- .ui.inline.grey.header 
+                //-     |upper hot tub
+                //- each shift_upper_hot_tub_readings
+                //-     .item #{ph}ph #{br}br #{temperature}deg #{when}
+                //-         if ph_message
+                //-             .ui.basic.label #{ph_message}
+                //-         if chlorine_message
+                //-             .ui.basic.label #{chlorine_message}
+                //- div
+                //- //- +ismall name='jacuzzi'
+                //- .ui.inline.grey.header 
+                //-     |lower hot tub
+                //- each shift_lower_hot_tub_readings
+                //-     .item #{ph}ph #{br}br #{temperature}deg #{when}
+                //-         if ph_message
+                //-             .ui.basic.label #{ph_message}
+                //-         if chlorine_message
+                //-             .ui.basic.label #{chlorine_message}
+                //- .ui.hidden.divider
                 .ui.inline.grey.header 
                     //- i.hiking.icon
                     //- +i name='walking' classes='ui inline image'                

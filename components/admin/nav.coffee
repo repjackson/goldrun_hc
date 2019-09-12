@@ -25,10 +25,26 @@ if Meteor.isClient
         #     Meteor.call 'set_facets', 'unit', ->
         #         Session.set 'loading', false
         #
-        # 'click .set_projects': ->
-        #     Session.set 'loading', true
-        #     Meteor.call 'set_facets', 'project', ->
-        #         Session.set 'loading', false
+        'click .set_offer': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'offer', ->
+                Session.set 'loading', false
+        'click .set_service': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'service', ->
+                Session.set 'loading', false
+        'click .set_product': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'product', ->
+                Session.set 'loading', false
+        'click .set_rental': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'rental', ->
+                Session.set 'loading', false
+        'click .set_request': ->
+            Session.set 'loading', true
+            Meteor.call 'set_facets', 'request', ->
+                Session.set 'loading', false
         #
         # 'click .set_shop': ->
         #     Session.set 'loading', true

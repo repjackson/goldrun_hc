@@ -10,26 +10,10 @@ Router.route '/service/:doc_id/edit', (->
 
 
 if Meteor.isClient
-    Template.services.onCreated ->
-        @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'service'
-        @autorun => Meteor.subscribe 'model_docs', 'service_stats'
-
     Template.service_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.service_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.services.helpers
-        services_doc: ->
-            Docs.findOne
-                model:'service_stats'
-        services: ->
-            Docs.find
-                model:'service'
-    Template.services.events
-        'click .add_service': ->
-            new_id = Docs.insert
-                model:'service'
-            Router.go "/service/#{new_id}/edit"
 
     Template.service_history.onCreated ->
         @autorun => Meteor.subscribe 'children', 'log_event', Router.current().params.doc_id

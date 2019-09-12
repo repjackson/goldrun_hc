@@ -1,38 +1,11 @@
-template(name='services')
-    .ui.stackable.padded.grid
-        .six.wide.column
-            .ui.inline.header 
-                +i name='maintenance'
-                |services
-            .ui.button.add_service
-                i.plus.large.green.icon
-                | service
-            div
-            +ismall name='tags'
-            .ui.inline.header tags
-            +cloud filter='service'
-            if is_dev
-                +call_method name='calc_service_stats'
-            with services_doc
-                .ui.header #{total_count} total
-                .ui.header #{complete_count} complete
-                .ui.header #{incomplete_count} incomplete
-                
-        .ten.wide.column
-            .ui.button my services
-            .ui.button my building services
-            .ui.button view complete
-            .ui.button view incomplete
-            .scrolling
-                each service
-                    +service_card_template
-                    
-                    
 template(name='service_card_template')
     .ui.fluid.segment.grid
         .row
             .sixteen.wide.column
-                .ui.inline.header #{title}
+                a.ui.inline.header(href="/service/#{_id}/view") #{title} 
+                    if variable_price
+                        |~
+                    |$#{hourly_rate}/hr
         .row
             .four.wide.column
                 +image_view key='image' label='image' direct=true
@@ -75,8 +48,9 @@ template(name='service_edit')
                     .ui.header 
                         +ismall name='add'
                         |add service
-                    a.ui.big.icon.fluid.button(href="/service/#{_id}/view" title='save')
-                        i.green.checkmark.icon
+                    a.ui.big.fluid.button(href="/service/#{_id}/view" title='save')
+                        //- i.checkmark.icon
+                        |save
                     +remove_button
                     +image_edit key='image' label='image' direct=true
                 .eight.wide.column 
@@ -87,6 +61,12 @@ template(name='service_edit')
                     +single_user_edit key='resident' label='resident' direct=true
                     +text_edit key='contact_info' label='contact info' icon='info' direct=true
                 .four.wide.column 
+                    +boolean_edit key='set_duration' label='set duration' direct=true
+                    if set_duration
+                        +number_edit key='duration_hours' label='duration hours' direct=true
+            
+                    +number_edit key='hourly_rate' label='hourly rate' direct=true
+                    +boolean_edit key='variable_price' label='variable price' direct=true
                     +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
                         
                      
@@ -100,23 +80,28 @@ template(name='service_view')
                         +i name='maintenance' classes='ui avatar image'
                         |services
                     .ui.header view service
-                    if currentUser
-                        a.ui.big.icon.button(href="/service/#{_id}/edit")
-                            i.pencil.icon
+                    if can_edit
+                        a.ui.big.button(href="/service/#{_id}/edit")
+                            //- i.pencil.icon
+                            |edit
                     +image_view key='image' label='image' direct=true
                     +voting_full
                     +viewing
                 .eight.wide.column
                     h1.ui.header #{title} 
-                    .ui.segment
-                        +textarea_view key='content' icon='content' label='content' direct=true
-                        |#{body} #{notes}
+                    +textarea_view key='description' icon='content' label='description' direct=true
                     +array_view key='location_tags' label='location tags' icon='marker' direct=true
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     +single_user_view key='resident' label='resident' direct=true
                     +text_view key='contact_info' label='contact info' icon='info' direct=true
                     +comments
                 .four.wide.column 
+                    +boolean_view key='set_duration' label='set duration' direct=true
+                    if set_duration
+                        +number_view key='duration_hours' label='duration hours' direct=true
+                    +number_view key='hourly_rate' label='hourly rate' direct=true
+                    +boolean_view key='variable_price' label='variable price' direct=true
+                    div
                     +service_history
                     +service_subscription
                     +service_time
@@ -130,9 +115,9 @@ template(name='service_history')
             .item #{text} #{when}
             
 template(name='service_subscription')
-    +ismall name='renew-subscription'
-    .ui.inline.header
-        |subscription settings
+    //- +ismall name='renew-subscription'
+    //- .ui.inline.header
+    //-     |subscription settings
     .ui.button.subscribe subscribe to updates
         
     .ui.list
@@ -143,7 +128,4 @@ template(name='service_time')
     +ismall name='clock'
     .ui.inline.header
         |time calculations
-    .ui.button.subscribe subscribe to updates
     .ui.header #{when}
-    .ui.header estimated time to complete
-    .ui.header actual service duration

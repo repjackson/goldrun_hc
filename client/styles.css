@@ -3,13 +3,14 @@ body {
     font-family: 'Ubuntu', sans-serif !important;
     /* font-size: 110% !important; */
     /*line-height: 200% !important;*/
-    background: rgba(0,0,0,.8) !important;
+    background: rgba(0,0,0,.78) !important;
     filter: invert(.9) !important;
     /* background: rgba(200, 200, 200, .1) !important */
     /* background: #0e0e44 !important; */
 }
 
-.ui.image:not(.avatar), .label,  img:not(.avatar) {
+/* .ui.image:not(.avatar), .label,  img:not(.avatar) { */
+.ui.image, .label,  img:not(.avatar) {
     filter: invert(1) !important;
 
 }
@@ -63,6 +64,9 @@ body {
 }
 .menu > .item {
     border-radius:10px !important;
+}
+.menu > .item:hover {
+    filter: drop-shadow(0px 0px 5px rgba(100,100,100,.9)) !important;
 }
 #topnav {
     border-radius: 0px 0px 20px 20px !important;
@@ -316,6 +320,8 @@ input.username_search{
     font-size: 110% !important;
     /* background-color: rgba(250,250,250,1) !important; */
     border-radius: 10px !important;
+    /* border-width: thin !important; */
+    /* border-color: white !important; */
     /* transform: translate(0, 4px); */
 }
 
@@ -393,7 +399,7 @@ input.username_search{
 }
 
 
-.button, .selector, .card, body{
+.button, .selector, .card, body, .item{
     animation: fadein 1s;
     /* -webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout 1s; */
@@ -795,37 +801,37 @@ h1.ui.header{
   line-height: 120% !important;
   margin-bottom: 10px !important; }
 .f10 {
-  font-size: 200%;
-  line-height: 120%;
-  margin-bottom: 10px; }
+  font-size: 200% !important;
+  line-height: 120% !important;
+  margin-bottom: 10px !important; }
 .f9 {
-  font-size: 180%;
-  line-height: 120%;
-  margin-bottom: 5px; }
+  font-size: 180% !important;
+  line-height: 120% !important;
+  margin-bottom: 5px !important; }
 .f8 {
-  font-size: 160%;
-  line-height: 160%; }
+  font-size: 160% !important;
+  line-height: 160% !important; }
 .f7 {
-  font-size: 140%;
-  line-height: 140%; }
+  font-size: 140% !important;
+  line-height: 140% !important; }
 .f6 {
-  font-size: 120%;
-  line-height: 120%; }
+  font-size: 120% !important;
+  line-height: 120% !important; }
 .f5 {
-  font-size: 110%;
-  line-height: 110%; }
+  font-size: 110% !important;
+  line-height: 110% !important; }
 .f4 {
-  font-size: 100%;
-  line-height: 100%; }
+  font-size: 100% !important;
+  line-height: 100% !important; }
 .f3 {
-  font-size: 90%;
-  line-height: 90%; }
+  font-size: 90% !important;
+  line-height: 90% !important; }
 .f2 {
-  font-size: 70%;
-  line-height: 70%; }
+  font-size: 70% !important;
+  line-height: 70% !important; }
 .f1 {
-  font-size: 50%;
-  line-height: 50%; }
+  font-size: 50% !important;
+  line-height: 50% !important; }
 .f0 { display:none; }
 
 

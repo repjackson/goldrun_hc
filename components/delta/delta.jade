@@ -2,7 +2,7 @@ template(name='delta')
     with current_model
         .ui.stackable.padded.grid
             .row
-                .five.wide.column
+                .four.wide.column
                     if is_loading
                         .ui.inline.header
                             +i name=icon classes='ui avatar image'
@@ -51,7 +51,7 @@ template(name='delta')
                     div
                     each sorted_facets
                         +facet
-                .eleven.wide.column
+                .twelve.wide.column
                     .filter_row.ui.basic.segment(class=loading_class)
                         .ui.inline.small.header
                             |sort by
@@ -87,22 +87,25 @@ template(name='delta')
                         //-     |search
                         //- .ui.small.input
                         //-     input(type='text' val=search_value)
-                        &nbsp;
-                        &nbsp;
-                        .ui.inline.small.header view
-                        .ui.compact.menu
-                            .ui.simple.dropdown.item
-                                |#{current_delta.view_mode}
-                                i.dropdown.icon
-                                .menu
-                                    +set_view_mode title='table' icon='table'
-                                    +set_view_mode title='list' icon='list'
-                                    +set_view_mode title='cards' icon='cards'
-                                    +set_view_mode title='items' icon='list'
-                                    +set_view_mode title='map' icon='map'
-                                    +set_view_mode title='graph' icon='graph'
+                        //- &nbsp;
+                        //- &nbsp;
+                        //- .ui.inline.small.header view
+                        //- .ui.compact.menu
+                        //-     .ui.simple.dropdown.item
+                        //-         |#{current_delta.view_mode}
+                        //-         i.dropdown.icon
+                        //-         .menu
+                        //-             +set_view_mode title='table' icon='table'
+                        //-             +set_view_mode title='list' icon='list'
+                        //-             +set_view_mode title='cards' icon='cards'
+                        //-             +set_view_mode title='items' icon='list'
+                        //-             +set_view_mode title='map' icon='map'
+                        //-             +set_view_mode title='graph' icon='graph'
                         //- .ui.stackable.four.column.grid
-                    +Template.dynamic template=view_mode_template
+                        each current_delta.result_ids
+                            //- .column
+                            +delta_result
+                    //- +Template.dynamic template=view_mode_template
             .row 
                 .sixteen.wide.column
                     if model_stats_exists

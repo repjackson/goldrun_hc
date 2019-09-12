@@ -8,8 +8,8 @@ template(name='user_edit')
                         | #{user_from_username_param.first_name} #{user_from_username_param.last_name}
                     //- +i name='pencil'
                     .ui.small.inline.header @#{user_from_username_param.username}
-                    a.ui.big.basic.button(href="/user/#{user_from_username_param.username}/") 
-                        i.checkmark.big.icon
+                    a.ui.big.button(href="/user/#{user_from_username_param.username}/") 
+                        //- i.checkmark.big.icon
                         strong save
                     .ui.hidden.divider
                     if is_staff
@@ -198,5 +198,5 @@ template(name='emails_edit')
     .ui.action.big.fluid.icon.action.input
         input#new_email(type='email' placeholder='add new email address' autocomplete="off")
         #add_email.ui.submit.icon.button 
-            i.plus.big.icon
+            i.plus.icon
             //- |email

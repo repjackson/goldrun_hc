@@ -16,47 +16,19 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
 
 
-    Template.request_card_template.events
+    Template.grab_button.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.grab_button.events
         'click .grab': ->
-            if confirm 'grab this?'
-                Docs.update @_id,
-                    $set:
-                        grabber_id:Meteor.userId()
-                        grab_timestamp: Date.now()
-                Docs.insert
-                    model:'log_event'
-                    log_type: 'grab'
-                    text: "#{Meteor.user().name()} grabbed this."
-                    parent_id: @_id
-
-        'click .join_waitlist': ->
-            if confirm 'join waitlist?'
-                Docs.update @_id,
-                    $addToSet:
-                        waitlist: {
-                            user_id: Meteor.userId()
-                            add_timestamp: Date.now()
-                            position: @waitlist.length
-                        }
-
-                Docs.insert
-                    model:'log_event'
-                    log_type: 'join_waitlist'
-                    text: "#{Meteor.user().name()} joined waitlist at ."
-                    parent_id: @_id
+            # if confirm 'grab this?'
+            Meteor.call 'grab', @
+        'click .get_on_deck': ->
+            # if confirm 'get on deck?'
+            Meteor.call 'get_on_deck', @
 
         'click .release': ->
-            if confirm 'release this?'
-                Docs.update @_id,
-                    $set:
-                        grabber_id:null
-                        release_timestamp: Date.now()
-                Docs.insert
-                    model:'log_event'
-                    log_type: 'release'
-                    text: "#{Meteor.user().name()} released this."
-                    parent_id: @_id
-
+            # if confirm 'release this?'
+            Meteor.call 'release', @
 
     Template.request_history.onCreated ->
         @autorun => Meteor.subscribe 'children', 'log_event', Router.current().params.doc_id
@@ -87,6 +59,48 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.methods
+        grab: (request)->
+            Docs.update request._id,
+                $set:
+                    grabber_id:Meteor.userId()
+                    grab_timestamp: Date.now()
+            Docs.insert
+                model:'log_event'
+                log_type: 'grab'
+                text: "#{Meteor.user().name()} grabbed this."
+                parent_id: request._id
+
+        release: (request)->
+            Docs.update request._id,
+                $set:
+                    grabber_id:null
+                    release_timestamp: Date.now()
+            Docs.insert
+                model:'log_event'
+                log_type: 'release'
+                text: "#{Meteor.user().name()} released this."
+                parent_id: request._id
+
+        get_on_deck: (request)->
+            position = if request.waitlist then request.waitlist.length else 0
+            Docs.update request._id,
+                $set:
+                    on_deck_id: Meteor.userId()
+                    # waitlist: {
+                    #     user_id: Meteor.userId()
+                    #     add_timestamp: Date.now()
+                    #     position: position
+                    # }
+
+            Docs.insert
+                model:'log_event'
+                log_type: 'join_waitlist'
+                text: "#{Meteor.user().name()} joined waitlist at ."
+                parent_id: request._id
+
+
+
+
         calc_request_stats: ->
             request_stat_doc = Docs.findOne(model:'request_stats')
             unless request_stat_doc

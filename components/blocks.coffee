@@ -301,15 +301,15 @@ if Meteor.isClient
 
     Template.remove_button.events
         'click .remove_doc': (e,t)->
-            if confirm "Remove #{@model}?"
+            if confirm "remove #{@model}?"
                 $(e.currentTarget).closest('.segment').transition('fly right')
                 $(e.currentTarget).closest('.card').transition('fly right')
-                $(e.currentTarget).closest('.item').transition('fly right')
+                $(e.currentTarget).closest('.item').transition('fly right', 5000)
                 $(e.currentTarget).closest('tr').transition('fly right')
                 $(e.currentTarget).closest('.event').transition('fly right')
                 Meteor.setTimeout =>
                     Docs.remove @_id
-                , 1000
+                , 5000
 
 
     Template.add_model_button.events
