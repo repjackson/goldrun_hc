@@ -30,10 +30,10 @@ template(name='nav')
                     //- a.ui.item.set_projects(href='/projects' class="{{isActivePath '/projects'}}")
                     //-     +i name='project' classes='ui mini inline image'
                     //-     .mobile.hidden.inline &nbsp; projects
-                    a.ui.item(href='/shop' class="{{isActivePath '/shop'}}")
-                        //- +i name='shop' classes='ui mini inline image'
-                        i.store.icon
-                        .mobile.hidden.inline &nbsp; market
+                    //- a.ui.item(href='/shop' class="{{isActivePath '/shop'}}")
+                    //-     //- +i name='shop' classes='ui mini inline image'
+                    //-     i.store.icon
+                    //-     .mobile.hidden.inline &nbsp; market
                     //- a.ui.item(href='/work' class="{{isActivePath '/work'}}")
                     //-     i.tasks.icon
                     //-     .mobile.hidden.inline &nbsp; work
@@ -127,7 +127,8 @@ template(name='nav')
                         //- +i name='code' classes='ui mini inline image'
                         i.code.icon
                 unless is_staff
-                    
+                    a.ui.item(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
+                        i.cart.icon
                     a.ui.item(href='/transactions' class="{{isActivePath '/transactions'}}" title='transactions')
                         i.list.icon
                     a.ui.item(href='/m/work' class="{{isActivePath '/m/work'}}" title='tasks')

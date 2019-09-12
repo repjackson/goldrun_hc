@@ -298,8 +298,8 @@ template(name='html_edit')
         +call_watson mode='html' key=key
     div
     //- +tone mode='html'
-    if watson
-        +watson_view
+    //- if watson
+    //-     +watson_view
         
         
 template(name='html_view')
@@ -316,8 +316,8 @@ template(name='html_view')
         //-     |#{this}
     |!{field_value}
     //- +call_watson mode='html'
-    if watson
-        +watson_view
+    //- if watson
+    //-     +watson_view
 
 
 template(name='document_edit')

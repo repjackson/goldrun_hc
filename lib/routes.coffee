@@ -260,3 +260,6 @@ Router.route '/user/:username/notifications', (->
     @layout 'user_layout'
     @render 'user_notifications'
     ), name:'user_notifications'
+
+
+Router.route '/shop/:product_id/daily_calendar/:month/:day/:year/', -> @render 'product_day'

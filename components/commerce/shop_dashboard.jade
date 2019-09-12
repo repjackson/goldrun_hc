@@ -1,20 +1,20 @@
 template(name='shop_dashboard')
     .ui.stackable.padded.grid
-        .three.wide.column
-            .ui.header 
-                +i name='shop'
-                |shop
-            .ui.fluid.button.add_item
+        //- .three.wide.column
+        //-     .ui.header 
+        //-         +i name='shop'
+        //-         |shop
+        //-     .ui.fluid.button.add_item
                 i.plus.icon
-                |add item
-            +cloud filter='shop'
-        .thirteen.wide.column
+        //-         |add item
+            //- +cloud filter='shop'
+        .sixteen.wide.column
             .ui.stackable.grid
                 .row
                     .four.wide.column
                         .ui.segment
                             .ui.header 
-                                i.box.icon
+                                //- i.box.icon
                                 |top selling products
                             each top_selling_products
                                 +product_header
@@ -22,7 +22,7 @@ template(name='shop_dashboard')
                     .four.wide.column
                         .ui.segment
                             .ui.header 
-                                i.users.icon
+                                //- i.users.icon
                                 |top selling people
                             each top_selling_people
                                 img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
@@ -31,7 +31,7 @@ template(name='shop_dashboard')
                     .four.wide.column
                         .ui.segment
                             .ui.header 
-                                i.clock.icon
+                                //- i.clock.icon
                                 |most rented
                             each most_rented
                                 +product_header
@@ -39,13 +39,13 @@ template(name='shop_dashboard')
                     .four.wide.column
                         .ui.segment
                             .ui.header 
-                                i.bullhorn.icon
+                                //- i.bullhorn.icon
                                 |ad
                 .row
                     .four.wide.column
                         .ui.segment
                             .ui.header 
-                                i.cubes.icon
+                                //- i.cubes.icon
                                 |top grossing products
                             each top_grossing_products
                                 +product_header
@@ -54,7 +54,7 @@ template(name='shop_dashboard')
                     .four.wide.column
                         .ui.segment
                             .ui.header 
-                                i.users.icon
+                                //- i.users.icon
                                 |top grossing people
                             each top_grossing_people
                                 img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
@@ -63,7 +63,7 @@ template(name='shop_dashboard')
                     .four.wide.column
                         .ui.segment
                             .ui.header 
-                                i.thumbs.up.icon
+                                //- i.thumbs.up.icon
                                 |most liked
                             each top_voted
                                 +product_header
@@ -71,7 +71,7 @@ template(name='shop_dashboard')
                     .four.wide.column
                         .ui.segment
                             .ui.header 
-                                i.diamond.ring.icon
+                                //- i.diamond.ring.icon
                                 |most expensive rentals
                             each most_expensive_rentals
                                 +product_header
@@ -85,14 +85,14 @@ template(name='shop_dashboard')
                     //- .four.wide.column
                     //-     .ui.segment
                     //-         .ui.header 
-                    //-             i.building.icon
+                                i.building.icon
                     //-             |top grossing buildings
-                    //-         .ui.icon.button.calculate_top_grossing_buildings 
-                    //-             i.refresh.icon
+                            .ui.icon.button.calculate_top_grossing_buildings 
+                                i.refresh.icon
                     .four.wide.column
                         .ui.segment
                             .ui.header 
-                                i.eye.icon
+                                //- i.eye.icon
                                 |most viewed
                             each most_viewed
                                 +product_header
@@ -100,7 +100,7 @@ template(name='shop_dashboard')
                     .four.wide.column
                         .ui.segment
                             .ui.header 
-                                i.clock.icon
+                                //- i.clock.icon
                                 |newest products
                             each newest_products
                                 +product_header
@@ -117,7 +117,7 @@ template(name='shop_dashboard')
                 //-                         |!{description}
                 //-                     unless rentable
                 //-                         +add_to_tab
-                //-                     a.ui.basic.icon.button(href="/shop/#{_id}/view")
+                                    a.ui.basic.icon.button(href="/shop/#{_id}/view")
                 //-                         +i name='chevron right' classes='ui mini image'
                 //-                     if can_edit
                 //-                         a.ui.basic.button(href="/shop/#{_id}/edit")
@@ -134,7 +134,7 @@ template(name='product_header')
 template(name='add_to_tab')
     .ui.segment
         .add_to_tab.ui.green.button
-            i.cart.plus.icon
+            //- i.cart.plus.icon
             |Add to Tab
         if current_tab_additions
             div Current Tab Additions
@@ -142,7 +142,7 @@ template(name='add_to_tab')
                 each current_tab_additions
                     .item
                         |#{when}
-                        i.remove.link.icon.remove_tab_item
+                        //- i.remove.link.icon.remove_tab_item
 
 
 
@@ -164,25 +164,25 @@ template(name='shop_card_template')
             //-     .visible.content
             //-         .ui.header #{karma_price}k
             //-     .hidden.content
-            //-         i.cart.plus.green.large.icon
+                    i.cart.plus.green.large.icon
             if rentable
                 .ui.small.inline.header
-                    i.clock.grey.small.icon
+                    //- i.clock.grey.small.icon
                     |$#{daily_rate}/day
                 div
             //- if hourly_rate
             //-     .ui.header $#{hourly_rate}/hour
             //- unless rentable
             .ui.inline.header 
-                i.shop.grey.small.icon
+                //- i.shop.grey.small.icon
                 |$#{dollar_price}
             div
-            i.grey.marker.icon
+            //- i.grey.marker.icon
             each location_tags
                 .ui.small.basic.label #{this}
             //- div
             //- .ui.small.inline.header(title='completed transactions') 
-            //-     i.grey.checkmark.icon
+                i.grey.checkmark.icon
             //-     if completed_transaction_amount
             //-         |#{completed_transaction_amount} 
             //-     else 
@@ -190,14 +190,14 @@ template(name='shop_card_template')
             //- div
             //- div
             //- .ui.small.inline.header(title='comments') 
-            //-     i.grey.chat.icon
+                i.grey.chat.icon
             //-     if chat_message_amount
             //-         |#{chat_message_amount} 
             //-     else 
             //-         |0
             //- div
             //- .ui.small.inline.header(title='likes') 
-            //-     i.grey.thumbs.up.icon
+                i.grey.thumbs.up.icon
             //-     if likes
             //-         |#{likes} 
             //-     else 
@@ -205,7 +205,7 @@ template(name='shop_card_template')
             //- div
             //- div
             //- .ui.small.inline.header(title='dislikes') 
-            //-     i.grey.thumbs.down.icon
+                i.grey.thumbs.down.icon
             //-     if dislikes
             //-         |#{dislikes} 
             //-     else 
@@ -220,12 +220,12 @@ template(name='shop_card_template')
             //-             else
             //-                 |free
                 .hidden.content
-                    i.cart.plus.green.large.icon
+                    //- i.cart.plus.green.large.icon
             //- +number_viez
-            //- a.ui.basic.small.icon.button(href="/shop/#{_id}/view")
+            a.ui.basic.small.icon.button(href="/shop/#{_id}/view")
             //-     +i name='chevron right' classes='ui mini image'
             //- if can_edit
-            //-     a.ui.basic.small.icon.button(href="/shop/#{_id}/edit")
+                a.ui.basic.small.icon.button(href="/shop/#{_id}/edit")
             //-         +i name='pencil' classes='ui mini image'
                 //- +edit_button
         //- .four.wide.column
