@@ -1,19 +1,19 @@
 body {
-    /* font-family: 'Raleway', sans-serif !important; */
-    font-family: 'Ubuntu', sans-serif !important;
+    font-family: 'Raleway', sans-serif !important;
+    /* font-family: 'Ubuntu', sans-serif !important; */
     /* font-size: 110% !important; */
     /*line-height: 200% !important;*/
-    background: rgba(0,0,0,.78) !important;
-    filter: invert(.9) !important;
+    background: rgba(0,0,0,.03) !important;
+    /* filter: invert(.9) !important; */
     /* background: rgba(200, 200, 200, .1) !important */
     /* background: #0e0e44 !important; */
 }
 
 /* .ui.image:not(.avatar), .label,  img:not(.avatar) { */
-.ui.image, .label,  img:not(.avatar) {
+/* .ui.image, .label,  img:not(.avatar) {
     filter: invert(1) !important;
 
-}
+} */
 
 
 .filter_row {
@@ -63,13 +63,13 @@ body {
     font-size: 4em !important;
 }
 .menu > .item {
-    border-radius:10px !important;
+    border-radius:5px !important;
 }
-.menu > .item:hover {
-    filter: drop-shadow(0px 0px 5px rgba(100,100,100,.9)) !important;
-}
+/* .menu > .item:hover { */
+    /* filter: drop-shadow(0px 0px 5px rgba(100,100,100,.9)) !important; */
+/* } */
 #topnav {
-    border-radius: 0px 0px 20px 20px !important;
+    border-radius: 0px 0px 10px 10px !important;
 }
 .grid_seg:focus-visible {
     outline: lightgreen solid 2px !important;
@@ -276,7 +276,7 @@ input.username_search{
     margin-top: 5px !important; */
     background: rgba(250, 250, 250, 0.9) !important;
     opacity: 1;
-    border-width: 3px !important;
+    border-width: 1px !important;
     border-color: #a67c00 !important;
     box-shadow: 0 2px 5px 2px rgba(50, 50, 100, 0.1) !important;
 }
@@ -318,10 +318,10 @@ input.username_search{
     font-weight: bold !important;
     text-size: bold !important;
     font-size: 110% !important;
-    /* background-color: rgba(250,250,250,1) !important; */
+    background-color: rgba(250,250,250,1) !important;
     border-radius: 10px !important;
-    /* border-width: thin !important; */
-    /* border-color: white !important; */
+    border-width: 3px !important;
+    border-color: grey !important;
     /* transform: translate(0, 4px); */
 }
 

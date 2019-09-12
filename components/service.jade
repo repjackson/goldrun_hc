@@ -14,12 +14,12 @@ template(name='service_card_template')
                 i.grey.marker.icon
                 //- .ui.grey.inline.header location
                 each location_tags
-                    .ui.black.label #{this}
+                    .ui.label #{this}
                 div
                 i.grey.tags.icon
                 //- .ui.grey.inline.header tags
                 each tags
-                    .ui.black.label #{this}
+                    .ui.label #{this}
                 +single_user_view key='resident' label='resident' direct=true
                 div
                 +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true

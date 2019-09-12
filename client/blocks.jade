@@ -287,8 +287,8 @@ template(name='voting_full')
         i.thumbs.down.icon(class=downvote_class)
         //- |dislike
     if points
-        .ui.large.black.label(title='points') #{points} pts
-        .ui.large.black.label(title='anon points') #{anon_points} anon pts
+        .ui.large.label(title='points') #{points} pts
+        .ui.large.label(title='anon points') #{anon_points} anon pts
     if upvoter_ids
         .ui.small.header 
             i.chevron.up.icon
@@ -369,7 +369,7 @@ template(name='email_validation_check')
     //-         |email validated
     unless email_verified
         .ui.basic.fluid.button.send_verification
-            i.user.shield.icon
+            //- i.user.shield.icon
             //- +i name='user-shield' classes='ui inline image'
             |resend verification email
         if times

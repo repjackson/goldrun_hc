@@ -101,10 +101,12 @@ if Meteor.isClient
             #
             # console.log @
             # if confirm "Check Out #{@first_name} #{@last_name}?"
-            $(e.currentTarget).closest('.card').transition('fade up',500)
+            $(e.currentTarget).closest('.card').transition('fade right',500)
             Meteor.setTimeout =>
                 Docs.update @_id,
-                    $set: active: false
+                    $set:
+                        active: false
+                        checkout_timestamp: Date.now()
             , 500
 
         'click .garden_key_checkout': (e,t)->

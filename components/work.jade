@@ -5,10 +5,10 @@ template(name='work')
                 .ui.inline.header 
                     +i name='work' classes='ui avatar image'
                     |work
-                .ui.black.label #{work_stats_doc.total_count} total
-                .ui.black.label #{work_stats_doc.complete_count} complete 
-                .ui.black.label #{work_stats_doc.incomplete_count} incomplete 
-                .ui.black.label #{work_stats_doc.total_updates_count} total updates 
+                .ui.label #{work_stats_doc.total_count} total
+                .ui.label #{work_stats_doc.complete_count} complete 
+                .ui.label #{work_stats_doc.incomplete_count} incomplete 
+                .ui.label #{work_stats_doc.total_updates_count} total updates 
                 .ui.icon.button.recalc_work(title='recalculate')
                     i.refresh.icon
             .four.wide.column   
@@ -271,7 +271,7 @@ template(name='work_view')
                     +voting_full
                     .ui.header submitted #{_timestamp_long}
                     each _timestamp_tags
-                        .ui.black.label #{this}
+                        .ui.label #{this}
                     +viewing
                     +array_view key='view_roles' label='visible to' direct=true
                     +array_view key='acceptance_roles' label='acceptable roles' direct=true

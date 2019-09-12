@@ -1,8 +1,8 @@
 template(name='request_card_template')
-    .ui.fluid.secondary.segment.grid
+    .ui.fluid.segment.grid
         .row
             .sixteen.wide.column
-                a.ui.inline.grey.f10.header(href="/request/#{_id}/view") #{title}
+                a.ui.inline.f9.header(href="/request/#{_id}/view") #{title}
         .row
             //- .four.wide.column
                 
@@ -13,12 +13,12 @@ template(name='request_card_template')
                 //- i.grey.marker.icon
                 .ui.grey.inline.header location
                 each location_tags
-                    .ui.black.large.label #{this}
+                    .ui.large.label #{this}
                 div
                 //- i.grey.tags.icon
                 .ui.grey.inline.header tags
                 each tags
-                    .ui.black.large.label #{this}
+                    .ui.large.label #{this}
                 div
                 +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
                 +voting

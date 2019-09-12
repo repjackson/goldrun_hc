@@ -9,9 +9,9 @@ template(name='user_layout')
                     if user_is_resident
                         if is_staff
                             if kiosk_photo
-                                img.ui.centered.circular.invert.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
+                                img.ui.centered.circular.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
                             else if image_id
-                                img.ui.centered.circular.invert.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                                img.ui.centered.circular.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         else
                             img.ui.centered.circular.shadowed.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
@@ -25,9 +25,9 @@ template(name='user_layout')
                                 small @#{user.username}        
                     if user_is_resident
                         if is_staff
-                            a.ui.big.compact.button.item(href="/user/#{user_from_username_param.username}/edit")
+                            a.ui.big.button.item(href="/user/#{user_from_username_param.username}/edit")
                                 //- +i name='settings' classes='ui inline mini image'
-                                i.cog.icon
+                                //- i.cog.icon
                                 |edit
                             +resident_info         
                             +user_check_steps
@@ -37,12 +37,12 @@ template(name='user_layout')
                     if is_current_user
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             //- +i name='settings' classes='ui inline mini image'
-                            i.cog.icon
+                            //- i.cog.icon
                             |edit
                     else if is_admin
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             //- +i name='settings' classes='ui inline mini image'
-                            i.cog.icon
+                            //- i.cog.icon
                             |edit
                     if is_dev
                         +boolean_edit key='disabled' label='disabled' icon='user shield' direct='true'
@@ -52,11 +52,11 @@ template(name='user_layout')
                     if is_current_user
                         a.ui.large.button.logout(href="#" title='logout')
                             //- +i name='exit-sign' classes='ui inline mini image'
-                            i.sign.out.alternate.icon
+                            //- i.sign.out.alternate.icon
                             |log out
                         a.ui.large.button.logout_other_clients(href="#" title='logout other clients')
                             //- +i name='feed-out' classes='ui inline mini image'
-                            i.globe.icon
+                            //- i.globe.icon
                             |log out other clients
                     if is_admin
                         .ui.basic.segment
@@ -73,62 +73,62 @@ template(name='user_layout')
                                 //- +ismall name='treadmill' classes='ui inline image'
                                 |healthclub
                     if is_resident
-                        a.ui.compact.large.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}")
+                        a.ui.large.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}")
                             //- +ismall name='dashboard' classes='ui inline image'
                             |dashboard
-                        a.ui.compact.large.button(href="/user/#{username}/about" class="{{isActiveRoute 'user_about'}}")
+                        a.ui.large.button(href="/user/#{username}/about" class="{{isActiveRoute 'user_about'}}")
                             //- +ismall name='info' classes='ui inline image'
                             |info
-                        a.ui.compact.large.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}")
+                        a.ui.large.button(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}")
                             //- +ismall name='collaboration' classes='ui inline image'
                             |social
-                        a.ui.compact.large.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}")
+                        a.ui.large.button(href="/user/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}")
                             //- +ismall name='gallery' classes='ui inline image'
                             |gallery
-                        a.ui.compact.large.button(href="/user/#{username}/connections" class="{{isActiveRoute 'user_connections'}}")
+                        a.ui.large.button(href="/user/#{username}/connections" class="{{isActiveRoute 'user_connections'}}")
                             //- +ismall name='star' classes='ui inline image'
                             |connections
-                        a.ui.compact.large.button(href="/user/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}")
+                        a.ui.large.button(href="/user/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}")
                             //- +ismall name='star' classes='ui inline image'
                             |bookmarks
-                        a.ui.compact.large.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
+                        a.ui.large.button(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
                             //- +ismall name='phone' classes='ui inline image'
                             |contact
-                        a.ui.compact.large.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}")
+                        a.ui.large.button(href="/user/#{username}/events" class="{{isActiveRoute 'user_events'}}")
                             //- +ismall name='calendar' classes='ui inline image'
                             |calendar
-                        a.ui.compact.large.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
+                        a.ui.large.button(href="/user/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
                             //- +ismall name='scales' classes='ui inline image'
                             |comparison
-                        a.ui.compact.large.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
+                        a.ui.large.button(href="/user/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
                             //- +ismall name='tags' classes='ui inline image'
                             |tags
-                        a.ui.compact.large.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}")
+                        a.ui.large.button(href="/user/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}")
                             //- +ismall name='tasks' classes='ui inline image'
                             |tasks
-                        a.ui.compact.large.button(href="/user/#{username}/messages" class="{{isActiveRoute 'user_messages'}}")
+                        a.ui.large.button(href="/user/#{username}/messages" class="{{isActiveRoute 'user_messages'}}")
                             //- +ismall name='envelope' classes='ui inline image'
                             |mail
-                        a.ui.compact.large.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
+                        a.ui.large.button(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
                             //- +ismall name='yin-yang' classes='ui inline image'
                             |karma
-                        a.ui.compact.large.button(href="/user/#{username}/workhistory" class="{{isActiveRoute 'user_workhistory'}}")
+                        a.ui.large.button(href="/user/#{username}/workhistory" class="{{isActiveRoute 'user_workhistory'}}")
                             //- +ismall name='resume' classes='ui inline image'
                             |work history
-                        a.ui.compact.large.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
+                        a.ui.large.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
                             //- +ismall name='line-chart' classes='ui inline image'
                             |stats
-                        a.ui.compact.large.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}")
+                        a.ui.large.button(href="/user/#{username}/votes" class="{{isActiveRoute 'user_votes'}}")
                             //- +ismall name='elections' classes='ui inline image'
                             |votes
-                        a.ui.compact.large.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}")
+                        a.ui.large.button(href="/user/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}")
                             //- +ismall name='appointment-reminders' classes='ui inline image'
                             |notifications
                         div
                     +yield
     unless is_frontdesk
-        unless is_staff
-            +footer 
+        //- unless is_staff
+        +footer 
 
 
 template(name='user_check_steps')
@@ -137,11 +137,12 @@ template(name='user_check_steps')
             .ui.compact.small.button.recheck
                 if user_check_completed
                     i.large.green.checkmark.icon
+                    |#{title}
                 else 
                     i.large.circle.outline.icon 
+                    |#{fail_text}
                 //- i.icon(name=icon)
                 //- +i name=icon classes='ui avatar image'
-                |#{title}
     if checkins_without_gov_id
         if is_staff
             .ui.tiny.header #{checkins_left_without_gov_id} check in's left without government ID
@@ -270,7 +271,7 @@ template(name='resident_info')
         div
         each emails
             if verified
-                .ui.green.large.basic.inverted.label(title='verified') #{address}
+                .ui.green.large.basic.label(title='verified') #{address}
             else
                 .ui.orange.large.basic.label(title='unverified') #{address}
 

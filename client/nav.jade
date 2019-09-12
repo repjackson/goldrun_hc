@@ -5,14 +5,15 @@ template(name='nav')
                 .icon.item
                     i.big.spinning.yin.yang.grey.cancel.icon
             else
-                unless is_staff
+                if currentUser
                     a.ui.item(href='/grid' class="{{isActivePath '/grid'}}" title='model grid view')
                         i.th.icon
-                    a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
-                        //- +i name='home' classes='ui mini inline image' 
-                        i.home.icon 
-                        //- | gro
-                        //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
+                a.ui.item(href='/' class="{{isActivePath '/'}}")
+                    //- +i name='home' classes='ui mini inline image' 
+                    //- i.home.icon 
+                    |home
+                    //- | gro
+                    //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
                 if is_dev
                     a.ui.item(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
                         //- +i name='active-directory' classes='ui mini inline image'
@@ -29,10 +30,10 @@ template(name='nav')
                     //- a.ui.item.set_projects(href='/projects' class="{{isActivePath '/projects'}}")
                     //-     +i name='project' classes='ui mini inline image'
                     //-     .mobile.hidden.inline &nbsp; projects
-                    //- a.ui.item(href='/shop' class="{{isActivePath '/shop'}}")
-                    //-     //- +i name='shop' classes='ui mini inline image'
-                    //-     i.store.icon
-                    //-     .mobile.hidden.inline &nbsp; market
+                    a.ui.item(href='/shop' class="{{isActivePath '/shop'}}")
+                        //- +i name='shop' classes='ui mini inline image'
+                        i.store.icon
+                        .mobile.hidden.inline &nbsp; market
                     //- a.ui.item(href='/work' class="{{isActivePath '/work'}}")
                     //-     i.tasks.icon
                     //-     .mobile.hidden.inline &nbsp; work
@@ -49,9 +50,9 @@ template(name='nav')
                     a.ui.item.set_rental(href='/m/rental' class="{{isActivePath '/m/rental'}}")
                         //- i.hand.holding.usd.icon
                         .mobile.hidden.inline &nbsp; rentals
-                    a.ui.item.set_product(href='/m/for_sale' class="{{isActivePath '/m/for_sale'}}")
+                    a.ui.item.set_product(href='/m/shop' class="{{isActivePath '/m/shop'}}")
                         //- i.hand.holding.usd.icon
-                        .mobile.hidden.inline &nbsp; for sale
+                        .mobile.hidden.inline &nbsp; shop
                     
                 
                 //- a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}" title='delta work orders')
@@ -63,12 +64,19 @@ template(name='nav')
                 //-         //- +i name='dashboard' classes='ui mini inline image'
                 //-         i.dashboard.icon
                 //-         //- |resident portal                
-                //- if is_staff
-                //-     //- a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
-                //-     //-     +i name='dashboard' classes='ui mini inline image'          
-                //-     a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
-                //-         +i name='work' classes='ui mini inline image'
-                //-         .mobile.hidden.inline &nbsp; work orders                  
+                if is_staff
+                    a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
+                        //- +i name='dashboard' classes='ui mini inline image'    
+                        |dashboard      
+                    //- a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
+                    //-     //- +i name='work' classes='ui mini inline image'
+                    //-     .mobile.hidden.inline &nbsp; work orders                  
+                    a.ui.item(href='/residents' class="{{isActivePath '/residents'}}")
+                        //- +i name='work' classes='ui mini inline image'
+                        |residents                  
+                    a.ui.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
+                        //- +i name='work' classes='ui mini inline image'
+                        |kiosk                  
                 if is_owner
                     a.ui.icon.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}" title='owner dashboard')
                         //- i.money.icon
@@ -98,13 +106,17 @@ template(name='nav')
                     a.ui.item(href='/users' class="{{isActivePath '/users'}}")
                         //- +i name='groups' classes='ui mini inline image'
                         //- i.users.icon
-                        .mobile.hidden.inline &nbsp; users
+                        | users
                 if is_staff
-                    //- a.ui.item(href='/stats' class="{{isActivePath '/stats'}}")
-                    //-     +i name='line chart' classes='ui mini inline image'
+                    a.ui.item(href='/buildings' class="{{isActivePath '/buildings'}}")
+                        //- +i name='line chart' classes='ui mini inline image'
+                        |buildings
+                    a.ui.item(href='/readings' class="{{isActivePath '/readings'}}")
+                        //- +i name='line chart' classes='ui mini inline image'
+                        |readings
                     a.ui.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                         //- i.user.shield.icon
-                        .mobile.hidden.inline &nbsp; staff
+                        | staff
             
                 //- .ui
                 //- a.ui.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}" title='storefront')
@@ -115,6 +127,9 @@ template(name='nav')
                         //- +i name='code' classes='ui mini inline image'
                         i.code.icon
                 unless is_staff
+                    
+                    a.ui.item(href='/transactions' class="{{isActivePath '/transactions'}}" title='transactions')
+                        i.list.icon
                     a.ui.item(href='/m/work' class="{{isActivePath '/m/work'}}" title='tasks')
                         i.tasks.icon
                     //- a.ui.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
@@ -149,18 +164,18 @@ template(name='nav')
                             //- |login
                             //- .secnav
         //- if currentUser
-        //-     unless is_staff
-        //-         .ui.attached.menu.topnav
-        //-             each role_models
-        //-                 a.item.secnav.set_model(href="/m/#{slug}/")
-        //-                     //- +i name=icon classes='ui mini inline image'
-        //-                     //- i.icon(class=icon)
-        //-                     |#{title}
+        //-     //- unless is_staff
+        //-     .ui.attached.borderless.menu.topnav
+        //-         each role_models
+        //-             a.item.secnav.set_model(href="/m/#{slug}/")
+        //-                 //- +i name=icon classes='ui mini inline image'
+        //-                 //- i.icon(class=icon)
+        //-                 |#{title}
 
 
 
 template(name='footer')
-    .ui.fluid.basic.attached.tertiary.segment.footer
+    .ui.fluid.basic.attached.secondary.segment.footer
         .ui.stackable.grid
             .four.wide.column
                 +latest_activity
@@ -214,7 +229,7 @@ template(name='footer_chat')
                 if is_author
                     span
                         i.remove.link.icon.remove_message
-    .ui.bottom.attached.fluid.icon.transparent.input
+    .ui.bottom.attached.fluid.icon.transparent.big.input
         i.plus.icon
         input.new_footer_chat_message(type='text' placeholder='add message')
 

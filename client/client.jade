@@ -34,15 +34,14 @@ template(name='layout')
                                 //- .ui.basic.fluid.segment
                     +yield
         unless is_frontdesk
-            unless is_staff
-                +footer 
+            +footer 
         +shortcut_modal
 
 template(name='mlayout')
     .global_container(class=invert_class)
         if currentUser
             +nav
-        img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")    
+        //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")    
         +yield
 
 

@@ -5,8 +5,8 @@ template(name='kiosk_container')
 
 template(name='healthclub')
     //- img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
-    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")
-    .ui.padded.grid.header-wrapper
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")
+    .ui.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
         //- .row
         //-     .six.wide.center.aligned.column
@@ -14,8 +14,8 @@ template(name='healthclub')
         img.ui.medium.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
         .row
             .sixteen.wide.center.aligned.column
-                .ui.massive.fluid.left.icon.input
-                    input.username_search(type='text' placeholder='first or last name' autofocus)
+                .ui.big.fluid.left.icon.input
+                    input.username_search(type='text' placeholder='resident first or last name' autofocus)
                     if is_query
                         i.remove.link.icon.clear_results
                     else 
@@ -44,43 +44,38 @@ template(name='healthclub')
                                     if is_query
                                         .ui.center.aligned.header no members found
                                         .ui.center.aligned.header see staff to add
-                .ui.padded.grid
-                    +inline_doc slug='health_club_notices' classes='ui large header'
-                    .two.column.row
-                        .column
-                            if is_staff
-                                a.ui.fluid.button(href='/staff')
-                                    i.left.chevron.large.icon
-                                    i.user.shield.icon
-                                    |staff
-                            //- with latest_movie
-                            //-     .smallscroll
-                                    //- img.ui.rounded.image(src="{{c.url image_id height=600 gravity='face' crop='fill'}}")
-                                    //- img.ui.image(src="{{c.url image_id }}")
-                                    //- .movie_image(title='pavilion at 6:30')
-                                    //-     +image_view key='image_id' direct=true
-                            //- .ui.center.aligned.inline.small.header monday @ 8:30 in the pavilion    
-                            div
-                            +health_club_info
-                        .column
-                            //- h1.ui.header www.goldrun.online
-                            .ui.header health club hours
-                            .ui.grid
-                                .row
-                                    .eight.wide.column
-                                        .ui.large.list
-                                            .item mon 7a-10p
-                                            .item tues 7a-10p
-                                            .item wed 7a-10p
-                                            .item thur 7a-10p
-                                    .eight.wide.column
-                                        //- .ui.hidden.divider 
-                                        //- .three.wide.column
-                                        .ui.large.list
-                                            .item fri 7a-9p
-                                            .item sat 8a-9p
-                                            .item sun 8a-10p
-                            +health_club_status
+                        .ui.padded.grid
+                            +inline_doc slug='health_club_notices' classes='ui large header'
+                            .row
+                                .nine.wide.column
+                                    if is_staff
+                                        a.ui.fluid.button(href='/staff')
+                                            i.left.chevron.large.icon
+                                            i.user.shield.icon
+                                            |staff
+                                    //- with latest_movie
+                                    //-     .smallscroll
+                                            //- img.ui.rounded.image(src="{{c.url image_id height=600 gravity='face' crop='fill'}}")
+                                            //- img.ui.image(src="{{c.url image_id }}")
+                                            //- .movie_image(title='pavilion at 6:30')
+                                            //-     +image_view key='image_id' direct=true
+                                    //- .ui.center.aligned.inline.small.header monday @ 8:30 in the pavilion    
+                                    div
+                                    +health_club_info
+                                .seven.wide.column
+                                    //- .ui.grey.small.inline.header view poll results and community info at
+                                    .ui.inline.header www.goldrun.online
+                                    .ui.header health club hours
+                                    .ui.large.list
+                                        .item mon 7a-10p
+                                        .item tues 7a-10p
+                                        .item wed 7a-10p
+                                        .item thur 7a-10p
+                                        .item fri 7a-9p
+                                        .item sat 8a-9p
+                                        .item sun 8a-10p
+                                    +health_club_status               
+                                    //- +health_club_status_small                    
 
 
 template(name='facet_doc_edit')
@@ -156,19 +151,16 @@ template(name='health_club_info')
     .ui.stackable.grid.f5
         .two.column.inverted.row
             .column
-                .ui.large.relaxed.list
-                    .item
-                        .content
-                            .header wifi
-                            .description Gold Run Health Club / goldrun1
-                    .item
-                        .content
-                            .header upstairs code: 4589
+                .ui.grey.small.inline.header wifi
+                .ui.inline.header Gold Run Health Club / goldrun1
+                div
+                .ui.grey.small.inline.header upstairs code
+                .ui.inline.header 4589
             .column
-                .ui.big.relaxed.list
+                .ui.relaxed.large.list
                     .item
                         .content
-                            .header onsite manager
+                            .header manager
                     .item Rick Hamp 
                     .item 303-545-1787
                     .item goldruncondos@gmail.com

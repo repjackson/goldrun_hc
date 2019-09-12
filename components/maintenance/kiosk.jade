@@ -52,7 +52,7 @@ template(name='kiosk_away')
 
 
 template(name='healthclub_session')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
+    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     if loading_checkin
         .ui.center.aligned.basic.segment
             i.massive.loading.refresh.icon
@@ -111,13 +111,13 @@ template(name='healthclub_session')
                                     +resident_guest
                     else
                         .ui.big.basic.compact.fluid.button.toggle_adding_guest 
-                            i.plus.large.icon
+                            //- i.plus.large.icon
                             //- +i name='add' classes='ui inline image'                
-                            .ui.inline.big.header guest
+                            .ui.inline.big.header add guest
                     .poll_area
                         with current_poll
                             .ui.hidden.divider
-                            .ui.small.grey.inline.header optional
+                            .ui.tiny.grey.inline.header optional
                             .ui.inline.header #{title}
                             //- each upvoter_ids
                             //-     .ui.label #{this}
@@ -133,14 +133,16 @@ template(name='healthclub_session')
                     .hc_visit_purpose
                         with checking_in_doc    
                             .ui.hidden.divider
-                            .ui.small.grey.inline.header purpose of visit (optional)
+                            .ui.tiny.grey.inline.header optional
+                            .ui.inline.header purpose of visit
                             div
-                            +boolean_edit key='weight_lifting' label='weight lifting' direct=true
+                            +boolean_edit key='weight_lifting' label='weights' direct=true
                             +boolean_edit key='cardio' label='cardio' direct=true
                             +boolean_edit key='hot tub' label='hot tub' direct=true
                             +boolean_edit key='pool' label='pool' direct=true
                             +boolean_edit key='sauna_steamroom' label='sauna/steamroom' direct=true
                             +boolean_edit key='garden_key' label='garden key' direct=true
+                            +boolean_edit key='other' label='other' direct=true
             .row
                 .sixteen.wide.column
                     unless user.kiosk_photo
@@ -171,13 +173,13 @@ template(name='healthclub_session')
                             if user.member_waiver_signed
                                 if user.rules_and_regulations_signed
                                     unless user.email_red_flagged
-                                        .ui.massive.fluid.pink.button.submit_checkin
+                                        .ui.massive.fluid.green.button.submit_checkin
                                             .ui.inline.header 
                                                 | check in
                                                 //- i.checkmark.green.icon
                                                 //- if timer_engaged
                                                     //- small (auto in #{timer})                    
-                                                i.right.chevron.icon
+                                                i.right.chevron.large.icon
                 //- if timer_engaged
                 //-     //- .ui.small.grey.header auto check in #{timer} seconds
                 //-     .ui.button.cancel_auto_checkin

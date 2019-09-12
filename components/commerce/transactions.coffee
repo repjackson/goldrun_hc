@@ -1,4 +1,8 @@
 if Meteor.isClient
+    Router.route '/transactions', (->
+        @render 'transactions'
+        ), name:'transactions'
+
     Template.transactions.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'transaction'
         @autorun -> Meteor.subscribe 'model_docs', 'shop'

@@ -88,6 +88,8 @@ template(name='shop_view_layout')
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
                 .four.wide.column
+                    img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
+                
                     .ui.large.header #{title}
                     if can_edit
                         a.ui.fluid.button(href="/shop/#{_id}/edit")
@@ -122,7 +124,6 @@ template(name='shop_view_layout')
                         a.item(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}")
                             |ads
                             i.bullhorn.grey.icon
-                    img.ui.centered.rounded.shadowed.image(src="{{c.url picture width=1000 height=400 crop='fit'}}")
                     .ui.header added by #{_author_username}
                     |#{when}
                     with _author_id

@@ -2,6 +2,66 @@ if Meteor.isClient
     Router.route '/shop', (->
         @render 'shop_dashboard'
         ), name:'shop'
+    # Router.route '/shop/:doc_id/view', (->
+    #     @layout 'shop_view_layout'
+    #     @render 'shop_view'
+    #     ), name:'shop_view'
+    # Router.route '/shop/:doc_id/edit', (->
+    #     @layout 'shop_view_layout'
+    #     @render 'shop_edit'
+    #     ), name:'shop_edit'
+
+    Router.route "/shop/:doc_id/view", (->
+        @layout 'shop_view_layout'
+        @render 'shop_info'
+        ), name:'shop_view'
+    Router.route "/shop/:doc_id/info", (->
+        @layout 'shop_view_layout'
+        @render 'shop_info'
+        ), name:'shop_info'
+    Router.route "/shop/:doc_id/rentals", (->
+        @layout 'shop_view_layout'
+        @render 'shop_rentals'
+        ), name:'shop_rentals'
+    Router.route "/shop/:doc_id/earnings", (->
+        @layout 'shop_view_layout'
+        @render 'shop_earnings'
+        ), name:'shop_earnings'
+    Router.route "/shop/:doc_id/chat", (->
+        @layout 'shop_view_layout'
+        @render 'shop_chat'
+        ), name:'shop_chat'
+    Router.route "/shop/:doc_id/projections", (->
+        @layout 'shop_view_layout'
+        @render 'shop_projections'
+        ), name:'shop_projections'
+    Router.route "/shop/:doc_id/ownership", (->
+        @layout 'shop_view_layout'
+        @render 'product_ownership'
+        ), name:'product_ownership'
+    Router.route "/shop/:doc_id/ads", (->
+        @layout 'shop_view_layout'
+        @render 'product_ads'
+        ), name:'product_ads'
+    Router.route "/shop/:doc_id/tasks", (->
+        @layout 'shop_view_layout'
+        @render 'shop_tasks'
+        ), name:'shop_tasks'
+    Router.route "/shop/:doc_id/stats", (->
+        @layout 'shop_view_layout'
+        @render 'shop_stats'
+        ), name:'shop_stats'
+    Router.route "/shop/:doc_id/edit", (->
+        @render 'shop_edit'
+        ), name:'shop_edit'
+
+
+
+
+
+
+
+
 
     Template.shop_view_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
