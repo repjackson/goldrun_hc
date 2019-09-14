@@ -58,7 +58,8 @@ if Meteor.isClient
 
 
     Template.service_small.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'service'
+        @autorun -> Meteor.subscribe 'service_docs', selected_service_tags.array()
+        # @autorun -> Meteor.subscribe 'model_docs', 'service'
     Template.service_small.helpers
         services: ->
             Docs.find {

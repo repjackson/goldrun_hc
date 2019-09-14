@@ -3,21 +3,17 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe('tags', selected_tags.array(), Template.currentData().filter)
         @autorun -> Meteor.subscribe 'me'
 
-
     Template.cloud.helpers
         all_tags: ->
             doc_count = Docs.find().count()
             if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find({},{limit:20})
-
         cloud_tag_class: ->
             button_class = switch
                 when @index <= 5 then 'large'
                 when @index <= 12 then ''
                 when @index <= 20 then 'small'
             return button_class
-
         selected_tags: -> selected_tags.array()
-
         settings: -> {
             position: 'bottom'
             limit: 10
@@ -28,16 +24,14 @@ if Meteor.isClient
                     matchAll: true
                     template: Template.tag_result
                 }
-                ]
+            ]
         }
-
 
 
     Template.cloud.events
         'click .select_tag': -> selected_tags.push @name
         'click .unselect_tag': -> selected_tags.remove @valueOf()
         'click #clear_tags': -> selected_tags.clear()
-
 
         'keyup #search': (e,t)->
             e.preventDefault()

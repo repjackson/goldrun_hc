@@ -208,7 +208,7 @@ template(name='work_order_small')
     .ui.small.grey.header average complete time #{msd.avg_complete_time}
     .ui.small.grey.header incomplete work orders #{msd.incomplete_work_orders}
     .ui.small.grey.header complete work orders #{msd.complete_work_orders}
-    .ui.divided.list
+    .ui.relaxed.list.smallscroll
         each work_order
             .item
                 if complete

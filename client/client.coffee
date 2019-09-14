@@ -1,4 +1,5 @@
 @selected_tags = new ReactiveArray []
+@selected_service_tags = new ReactiveArray []
 
 # Meteor.startup ->
 #     scheduler.init "scheduler_here", new Date()
@@ -26,10 +27,10 @@ Template.body.events
             $inc: views: 1
 
 Template.healthclub.events
-    'click .button': ->
-        $('.global_container')
-        .transition('fade out', 5000)
-        .transition('fade in', 5000)
+    # 'click .button': ->
+    #     $('.global_container')
+    #     .transition('fade out', 5000)
+    #     .transition('fade in', 5000)
 
 
 

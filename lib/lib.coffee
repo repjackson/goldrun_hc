@@ -1,5 +1,8 @@
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
+@Service_tags = new Meteor.Collection 'service_tags'
+@Request_tags = new Meteor.Collection 'request_tags'
+@Rental_tags = new Meteor.Collection 'rental_tags'
 
 # Meteor.users.helpers
 #     name: ->

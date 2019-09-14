@@ -36,9 +36,6 @@ template(name='service_card_template')
                 +author_info
 
 
-
-
-
 template(name='service_edit')
     with current_doc
         .ui.stackable.padded.grid
@@ -135,9 +132,6 @@ template(name='kiosk_service_view')
                 +kiosk_send_message
                 
                 
-                
-                    
-                    
 template(name='service_history')
     +ismall name='rss'
     .ui.inline.header
@@ -161,6 +155,22 @@ template(name='service_time')
         |time calculations
     .ui.header #{when}
 
+template(name='service_cloud')
+    //- #cloud
+        //- .ui.left.icon.input
+        //-     i.search.icon
+        //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
+        // .ui.hidden.fitted.divider
+    if selected_service_tags
+        #clear_tags.ui.active.icon.button
+            i.remove.icon
+        each selected_service_tags
+            .unselect_service_tag.ui.active.button
+                strong #{this}
+    each all_service_tags
+        .ui.compact.tiny.circular.basic.button.select_service_tag(class=cloud_tag_class) 
+            strong #{this.name}
+
 
 
 template(name='service_small')
@@ -168,6 +178,8 @@ template(name='service_small')
         //- +i name='work'
         i.wrench.grey.icon
         |services
+    +service_cloud filter='service'
+        
     .ui.relaxed.list.smallscroll
         each services
             .item.log_service_view
