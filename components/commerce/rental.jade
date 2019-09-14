@@ -173,6 +173,7 @@ template(name='kiosk_rental_view')
                 |back
             .eight.wide.column
                 +image_view key='image' direct=true
+                +image_view key='picture' direct=true
             .eight.wide.column
                 h1.ui.header #{title}
                 |!{description}
@@ -180,10 +181,40 @@ template(name='kiosk_rental_view')
                 .ui.header $#{daily_rate}/day
                 .ui.header #{views} views
                 +voting
-                .ui.big.button.send_message send message
+                div
+                .ui.big.fluid.button.send_message 
+                    +i name='send-comment' classes='ui inline mini image'
+                    |send message
                 if sending_message
                     .ui.header sending message
                     .ui.input 
                         input(type='text' placeholder='hi')
                     .ui.big.button.cancel_message cancel
                     
+
+
+template(name='rental_small')
+    .ui.header
+        +i name='rent'
+        |rentals
+    .ui.big.relaxed.list
+        each rentals 
+            .item.log_rental_view
+                a(href="/kiosk_rental_view/#{_id}")
+                    if image
+                        img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
+                    if picture
+                        img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
+                    .ui.grey.inline.small.header 
+                        |#{title}
+            //- div
+            //- .ui.horizontal.list
+            //-     .item
+            //-         span(title='transactions')
+            //-             i.route.icon
+            //-             |#{transaction_count}
+            //-     .item
+            //-         span(title='money earned')
+            //-             i.money.icon
+            //-             |#{money_earned}
+            

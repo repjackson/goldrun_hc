@@ -57,6 +57,14 @@ if Meteor.isClient
                 text: "#{Meteor.user().username} marked servicerk order complete."
 
 
+
+    Template.service_small.events
+        'click .log_service_view': ->
+            console.log 'hi'
+            # Docs.update @_id,
+            #     $inc: views: 1
+
+
 if Meteor.isServer
     Meteor.methods
         calc_service_stats: ->

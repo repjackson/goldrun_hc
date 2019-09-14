@@ -1,11 +1,14 @@
 template(name='inbox')
     .ui.padded.stackable.grid
         .row
-            .sixteen.wide.column
+            .four.wide.column
                 +i name='inbox' classes='ui inline image'
                 .ui.inline.header inbox
-            +view_notifications
-
+                //- +view_notifications
+            .twelve.wide.column
+                each messages
+                    .ui.header #{title} #{when}
+                    .ui.header #{body}
 template(name='view_notifications')
     .centered.row
         .four.wide.column

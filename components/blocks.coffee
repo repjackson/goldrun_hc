@@ -317,13 +317,77 @@ if Meteor.isClient
         'click .view_user': ->
             Router.go "/user/#{username}"
 
+    Template.kiosk_send_message.onCreated ->
+        Session.set('sending_message',false)
+        # @sending_message = new ReactiveVar false
+        Session.set('sending_message_id', '')
+    Template.sending_kiosk_message.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Session.get('sending_message_id')
+        @autorun => Meteor.subscribe 'type', 'kiosk_message'
+
+    Template.kiosk_send_message.events
+        'click .send_message': (e,t)->
+            # t.sending_message.set true
+            Session.set('sending_message', true)
+            # console.log @
+            new_message_id = Docs.insert
+                model:'message'
+                type:'kiosk_message'
+                parent_id: @_id
+            Session.set('sending_message_id',new_message_id)
+            # t.sending_message_id.set new_message_id
+
+    Template.sending_kiosk_message.events
+        'click .cancel_message': (e,t)->
+            #     # t.sending_message.set false
+            # console.log @
+            # console.log Session.get('sending_message_id')
+            # console.log Session.get('sending_message_id')
+            # console.log @
+            Docs.remove Session.get('sending_message_id')
+            Session.set 'sending_message', null
+            Session.set 'sending_message_id', null
+        'click .send_message': ->
+            console.log @
+            Meteor.call 'send_kiosk_message', @, (err,res)->
+                alert 'kiosk message sent'
+                Session.set 'sending_message', null
+                Session.set 'sending_message_id', null
+
+    Template.kiosk_send_message.helpers
+        sending_message: ->
+            Session.get('sending_message')
+            # Template.instance().sending_message.get()
+    Template.sending_kiosk_message.helpers
+        sending_message_doc: ->
+            Docs.findOne
+                type:'kiosk_message'
+            # Docs.findOne Session.get('sending_message_id')
+            # Docs.findOne Template.instance().sending_message_id.get()
 
 if Meteor.isServer
+    Meteor.methods
+        'send_kiosk_message': (message)->
+            parent = Docs.findOne message.parent._id
+            Docs.update message._id,
+                $set:
+                    sent: true
+                    sent_timestamp: Date.now()
+            Docs.insert
+                model:'log_event'
+                log_type:'kiosk_message_sent'
+                text:"kiosk message sent"
+
+
     Meteor.publish 'rules_signed_username', (username)->
         Docs.find
             model:'rules_and_regs_signing'
             resident:username
             # agree:true
+
+    Meteor.publish 'type', (type)->
+        Docs.find
+            type:type
 
     Meteor.publish 'member_guidelines_username', (username)->
         Docs.find

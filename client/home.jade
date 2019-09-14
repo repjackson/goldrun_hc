@@ -147,58 +147,6 @@ template(name='shop_small')
                     |#{title}
     
 
-template(name='rental_small')
-    .ui.header
-        +i name='rent'
-        |rentals
-    .ui.big.relaxed.list
-        each rentals 
-            .item
-                a(href="/kiosk_rental_view/#{_id}")
-                    if image
-                        img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
-                    if picture
-                        img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
-                    .ui.grey.inline.small.header 
-                        |#{title}
-            //- div
-            //- .ui.horizontal.list
-            //-     .item
-            //-         span(title='transactions')
-            //-             i.route.icon
-            //-             |#{transaction_count}
-            //-     .item
-            //-         span(title='money earned')
-            //-             i.money.icon
-            //-             |#{money_earned}
-            
-
-template(name='service_small')
-    .ui.header
-        +i name='service'
-        |services
-    .ui.big.relaxed.list
-        each services
-            .item
-                if image
-                    img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
-                if picture
-                    img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
-                .content
-                    .header
-                        a(href="/kiosk_service_view/#{_id}")
-                            .ui.small.grey.inline.header 
-                                |#{title}
-                    //- .description
-                    //-     .ui.horizontal.list
-                    //-         .item
-                    //-             span(title='transactions')
-                    //-                 i.route.icon
-                    //-                 |#{transaction_count}
-                    //-         .item
-                    //-             span(title='money earned')
-                    //-                 i.money.icon
-                    //-                 |#{money_earned}
 
 
 

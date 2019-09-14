@@ -109,12 +109,24 @@ template(name='service_view')
 template(name='kiosk_service_view')
     with current_doc
         .ui.padded.stackable.grid
-            .sixteen.wide.column
-                a.ui.fluid.button(href="/healthclub")
-                    i.left.chevron.icon
-                    |back
-                .ui.header title #{title}
-                    
+            a.ui.fluid.big.button(href="/healthclub")
+                i.left.chevron.large.icon
+                |back
+            .eight.wide.column
+                +image_view key='image' direct=true
+                +image_view key='picture' direct=true
+            .eight.wide.column
+                h1.ui.header #{title}
+                |!{description}
+                .ui.header $#{hourly_rate}/hr
+                .ui.header $#{daily_rate}/day
+                .ui.header #{views} views
+                +voting
+                div
+                +kiosk_send_message
+                
+                
+                
                     
                     
 template(name='service_history')
@@ -140,3 +152,32 @@ template(name='service_time')
     .ui.inline.header
         |time calculations
     .ui.header #{when}
+
+
+
+template(name='service_small')
+    .ui.header
+        +i name='service'
+        |services
+    .ui.big.relaxed.list
+        each services
+            .item.log_service_view
+                if image
+                    img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
+                if picture
+                    img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
+                .content
+                    .header
+                        a(href="/kiosk_service_view/#{_id}")
+                            .ui.small.grey.inline.header 
+                                |#{title}
+                    //- .description
+                    //-     .ui.horizontal.list
+                    //-         .item
+                    //-             span(title='transactions')
+                    //-                 i.route.icon
+                    //-                 |#{transaction_count}
+                    //-         .item
+                    //-             span(title='money earned')
+                    //-                 i.money.icon
+                    //-                 |#{money_earned}

@@ -206,21 +206,10 @@ if Meteor.isClient
     # chips placeholder
     # check weater pressure at chips place with pressure gauge on faucet
 
-    Template.kiosk_rental_view.onCreated ->
-        @sending_message = new ReactiveVar false
-
     Template.kiosk_rental_view.events
-        'click .send_message': (e,t)->
-            t.sending_message.set true
-            # t.sending_message.set(!t.sending_message.get())
-        'click .cancel_message': (e,t)->
-            t.sending_message.set false
-
-
-    Template.kiosk_rental_view.helpers
-        sending_message: ->
-            Template.instance().sending_message.get()
-
+        'click .log_rental_view': ->
+            Docs.update @_id,
+                $inc: views: 1
 
 
     Template.rental.events
