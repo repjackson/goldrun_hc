@@ -455,7 +455,7 @@ template(name='guest_waiver_check')
             
         
 template(name='kiosk_send_message')                
-    .ui.big.fluid.button.send_message 
+    .ui.big.fluid.button.create_message 
         +i name='send-comment' classes='ui inline mini image'
         |send message
     if sending_message
@@ -465,6 +465,6 @@ template(name='sending_kiosk_message')
     .ui.header sending message
     with sending_message_doc
         +textarea_edit key='body' direct=true
-        .ui.big.green.button.send_message send
+        .ui.big.fluid.green.button.send_message send
     .ui.big.button.cancel_message cancel
                     

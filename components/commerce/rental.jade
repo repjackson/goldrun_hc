@@ -184,10 +184,11 @@ template(name='kiosk_rental_view')
 
 
 template(name='rental_small')
-    .ui.header
-        +i name='rent'
+    .ui.large.header
+        //- +i name='rent'
+        i.clock.grey.icon
         |rentals
-    .ui.big.relaxed.list
+    .ui.relaxed.list.smallscroll
         each rentals 
             .item.log_rental_view
                 a(href="/kiosk_rental_view/#{_id}")
@@ -197,6 +198,7 @@ template(name='rental_small')
                         img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
                     .ui.grey.inline.small.header 
                         |#{title}
+                        .ui.basic.label $#{daily_rate}/day
             //- div
             //- .ui.horizontal.list
             //-     .item

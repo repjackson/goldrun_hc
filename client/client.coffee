@@ -45,6 +45,14 @@ Template.registerHelper 'parent_doc', () ->
 Template.registerHelper 'gs', () ->
     Docs.findOne
         model:'global_settings'
+Template.registerHelper 'rick_mode', () ->
+    gs = Docs.findOne
+        model:'global_settings'
+    if Meteor.user() and 'dev' in Meteor.user().roles
+        true
+    else
+        if gs
+            gs.rick_mode
 Template.registerHelper 'invert_class', () -> if Session.equals('dark_mode',true) then 'invert' else ''
 Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'

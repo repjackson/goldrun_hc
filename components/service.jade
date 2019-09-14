@@ -108,7 +108,7 @@ template(name='service_view')
                     
 template(name='kiosk_service_view')
     with current_doc
-        .ui.padded.stackable.grid
+        .ui.padded.grid
             a.ui.fluid.big.button(href="/healthclub")
                 i.left.chevron.large.icon
                 |back
@@ -117,11 +117,20 @@ template(name='kiosk_service_view')
                 +image_view key='picture' direct=true
             .eight.wide.column
                 h1.ui.header #{title}
-                |!{description}
-                .ui.header $#{hourly_rate}/hr
-                .ui.header $#{daily_rate}/day
+                .f7 !{description}
+                .ui.hidden.divider
+                if hourly_rate
+                    .ui.inline.header $#{hourly_rate}/hr
+                if daily_rate
+                    .ui.inline.header $#{daily_rate}/day
+                if is_admin
+                    +number_edit key='daily_rate' direct=true
+                    +number_edit key='hourly_rate' direct=true
+                    +boolean_edit key='variable_price' direct=true
+                +boolean_view key='variable_price' label='variable price' direct=true
                 .ui.header #{views} views
-                +voting
+                
+                //- +voting
                 div
                 +kiosk_send_message
                 
@@ -142,7 +151,6 @@ template(name='service_subscription')
     //- .ui.inline.header
     //-     |subscription settings
     .ui.button.subscribe subscribe to updates
-        
     .ui.list
         each subscribers
             .item #{text} #{when}
@@ -156,21 +164,23 @@ template(name='service_time')
 
 
 template(name='service_small')
-    .ui.header
-        +i name='service'
+    .ui.large.header
+        //- +i name='work'
+        i.wrench.grey.icon
         |services
-    .ui.big.relaxed.list
+    .ui.relaxed.list.smallscroll
         each services
             .item.log_service_view
-                if image
-                    img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
-                if picture
-                    img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
+                //- if image
+                //-     img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
+                //- if picture
+                //-     img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
                 .content
                     .header
                         a(href="/kiosk_service_view/#{_id}")
                             .ui.small.grey.inline.header 
-                                |#{title}
+                                |#{title} 
+                                .ui.basic.label $#{hourly_rate}/hr
                     //- .description
                     //-     .ui.horizontal.list
                     //-         .item

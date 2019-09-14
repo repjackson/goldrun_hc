@@ -57,7 +57,15 @@ if Meteor.isClient
                 text: "#{Meteor.user().username} marked servicerk order complete."
 
 
-
+    Template.service_small.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'service'
+    Template.service_small.helpers
+        services: ->
+            Docs.find {
+                model:'service'
+            },
+                sort: _timestamp: -1
+                # limit:7
     Template.service_small.events
         'click .log_service_view': ->
             console.log 'hi'

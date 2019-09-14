@@ -11,7 +11,7 @@ template(name='healthclub')
         //- .row
         //-     .six.wide.center.aligned.column
 
-        //- img.ui.medium.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
+        img.ui.small.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
         .row
             .sixteen.wide.center.aligned.column
                 .ui.big.fluid.left.icon.input
@@ -47,43 +47,54 @@ template(name='healthclub')
                     .row    
                         .ui.padded.grid
                             //- +inline_doc slug='health_club_notices' classes='ui large header'
-                            .row
-                                if in_dev
-                                    .five.wide.column
+                            unless rick_mode
+                                .three.column.row
+                                    .column
                                         +service_small
-                                    .five.wide.column
+                                    .column
                                         +rental_small
-                                    .five.wide.column
+                                    .column
                                         +shop_small
-                                else 
-                                    unless gs.rick_mode
-                                        .five.wide.column
-                                            +service_small
-                                        .five.wide.column
-                                            +rental_small
-                                        .five.wide.column
-                                            +shop_small
-
-                                    else
-                                        .eight.wide.column
-                                            if is_staff
-                                                a.ui.fluid.button(href='/staff')
-                                                    i.left.chevron.large.icon
-                                                    i.user.shield.icon
-                                                    |staff
-                                            +health_club_info
-                                        .eight.wide.column
-                                            //- .ui.inline.header www.goldrun.online
-                                            .ui.header health club hours
-                                            .ui.large.list
-                                                .item mon 7a-10p
-                                                .item tues 7a-10p
-                                                .item wed 7a-10p
-                                                .item thur 7a-10p
-                                                .item fri 7a-9p
-                                                .item sat 8a-9p
-                                                .item sun 8a-10p
-                                            +health_club_status               
+                                .three.column.row
+                                    .column
+                                        +request_small
+                                    .column
+                                        +event_small
+                                    .column
+                                        .ui.large.header 
+                                            i.grey.info.icon
+                                            |hc info
+                                        .ui.header health club hours
+                                        .ui.large.list
+                                            .item mon 7a-10p
+                                            .item tues 7a-10p
+                                            .item wed 7a-10p
+                                            .item thur 7a-10p
+                                            .item fri 7a-9p
+                                            .item sat 8a-9p
+                                            .item sun 8a-10p
+                                        +health_club_status               
+                            else
+                                .row
+                                    .eight.wide.column
+                                        if is_staff
+                                            a.ui.fluid.button(href='/staff')
+                                                i.left.chevron.large.icon
+                                                i.user.shield.icon
+                                                |staff
+                                        +health_club_info
+                                    .eight.wide.column
+                                        //- .ui.inline.header www.goldrun.online
+                                        .ui.header health club hours
+                                        .ui.large.list
+                                            .item mon 7a-10p
+                                            .item tues 7a-10p
+                                            .item wed 7a-10p
+                                            .item thur 7a-10p
+                                            .item fri 7a-9p
+                                            .item sat 8a-9p
+                                            .item sun 8a-10p
+                                        +health_club_status               
 
 template(name='facet_doc_edit')
     with facet_doc

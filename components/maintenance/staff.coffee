@@ -112,10 +112,11 @@ if Meteor.isClient
         'click .garden_key_checkout': (e,t)->
             # healthclub_session_document = Docs.findOne
             #     model:'healthclub_session'
+
             Docs.update @_id,
                 $set:
-                    garden_key:true
-                    submitted:true
+                    garden_key:!@garden_key
+                    # submitted:true
 
 
         'click .check_in_garden_key': (e,t)->

@@ -41,12 +41,12 @@ if Meteor.isClient
 
 
 
-    Template.events_small.onCreated ->
+    Template.event_small.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'event'
-    Template.events_small.helpers
+    Template.event_small.helpers
         gr_events: ->
             Docs.find {model:'event'},
-                sort: timestamp: -1
+                sort: start_date: -1
 
 
 

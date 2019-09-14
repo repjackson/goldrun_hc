@@ -17,7 +17,7 @@ if Meteor.isClient
                 complete:true
             },
                 sort: _timestamp: -1
-                limit:7
+                # limit:7
 
     Template.rental_small.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'rental'
@@ -27,7 +27,7 @@ if Meteor.isClient
                 model:'rental'
             },
                 sort: _timestamp: -1
-                limit:7
+                # limit:7
 
 
     Template.shop_small.onCreated ->
@@ -40,16 +40,6 @@ if Meteor.isClient
                 sort: _timestamp: -1
                 limit:5
 
-
-    Template.service_small.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'service'
-    Template.service_small.helpers
-        services: ->
-            Docs.find {
-                model:'service'
-            },
-                sort: _timestamp: -1
-                limit:7
 
 
     Template.stats_small.onCreated ->
@@ -76,7 +66,7 @@ if Meteor.isClient
                 model:'work_order'
             },
                 sort: _timestamp: -1
-                limit:7
+                # limit:7
 
 
     Template.home.helpers

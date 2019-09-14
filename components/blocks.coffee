@@ -326,7 +326,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'type', 'kiosk_message'
 
     Template.kiosk_send_message.events
-        'click .send_message': (e,t)->
+        'click .create_message': (e,t)->
             # t.sending_message.set true
             Session.set('sending_message', true)
             # console.log @
