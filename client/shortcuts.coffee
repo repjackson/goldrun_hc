@@ -2,13 +2,10 @@ globalHotkeys = new Hotkeys();
 
 Template.shortcut_modal.onCreated ->
     Meteor.subscribe 'model_docs', 'keyboard_shortcut'
-
 Template.shortcut_modal.helpers
     shortcuts: ->
         Docs.find
             model:'keyboard_shortcut'
-
-
 globalHotkeys.add
 	combo: "d r"
 	callback: ->
@@ -16,7 +13,6 @@ globalHotkeys.add
         Session.set 'loading', true
         Meteor.call 'set_facets', model_slug, ->
             Session.set 'loading', false
-
 globalHotkeys.add
 	combo: "d c"
 	callback: ->
@@ -24,8 +20,6 @@ globalHotkeys.add
             model:'model'
             slug: Router.current().params.model_slug
         Router.go "/model/edit/#{model._id}"
-
-
 globalHotkeys.add
 	combo: "r a"
 	callback: ->
@@ -75,7 +69,6 @@ globalHotkeys.add
                 Meteor.users.update Meteor.userId(), $pull:roles:'resident'
             else
                 Meteor.users.update Meteor.userId(), $addToSet:roles:'resident'
-
 globalHotkeys.add
 	combo: "r f"
 	callback: ->
@@ -101,13 +94,21 @@ globalHotkeys.add
 	combo: "g w"
 	callback: -> Router.go '/work_orders'
 globalHotkeys.add
+	combo: "g d"
+	callback: ->
+        if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
+            Router.go '/dev'
+
+globalHotkeys.add
+	combo: "g k"
+	callback: -> Router.go '/healthclub'
+globalHotkeys.add
 	combo: "s d"
 	callback: ->
         current_model = Docs.findOne
             model:'model'
             slug: Router.current().params.model_slug
         Router.go "/m/#{current_model.slug}/#{Router.current().params.doc_id}/view"
-
 globalHotkeys.add
 	combo: "g m"
 	callback: ->
@@ -115,13 +116,10 @@ globalHotkeys.add
         Session.set 'loading', true
         Meteor.call 'set_facets', model_slug, ->
             Session.set 'loading', false
-
         Router.go "/m/#{model_slug}/"
-
 globalHotkeys.add
 	combo: "g p"
 	callback: -> Router.go "/user/#{Meteor.user().username}"
-
 globalHotkeys.add
 	combo: "g i"
 	callback: -> Router.go "/inbox"

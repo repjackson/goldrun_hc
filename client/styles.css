@@ -69,12 +69,12 @@ body {
     /* filter: drop-shadow(0px 0px 5px rgba(100,100,100,.9)) !important; */
 /* } */
 #topnav {
-    border-radius: 0px 0px 10px 10px !important;
+    border-radius: 0px 0px 15px 15px !important;
 }
 .grid_seg:focus-visible {
     outline: lightgreen solid 2px !important;
-    filter: drop-shadow(2px 2px 5px rgba(100,100,100,.7)) !important;
-    transform: scale(1.01) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    filter: drop-shadow(2px 2px 5px rgba(200,200,200,.7)) !important;
+    transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .menu {
@@ -91,7 +91,7 @@ body {
 
 
 .zoom{
-    transition: transform .1s; /* Animation */
+    transition: transform .2s; /* Animation */
     /* box-shadow: 0 2px 2px 2px rgba(50, 50, 100, 0.1) !important; */
 }
 .global_container{
@@ -99,8 +99,8 @@ body {
     /* box-shadow: 0 2px 2px 2px rgba(50, 50, 100, 0.1) !important; */
 }
 .zoom:hover {
-    filter: drop-shadow(2px 2px 5px rgba(100,100,100,.7)) !important;
-    transform: scale(1.01) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    filter: drop-shadow(2px 2px 5px rgba(200,200,200,.7)) !important;
+    transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .checking_in_area {
@@ -318,17 +318,19 @@ input.username_search{
     font-weight: bold !important;
     text-size: bold !important;
     font-size: 110% !important;
+
     background-color: rgba(250,250,250,1) !important;
-    border-radius: 10px !important;
-    border-width: 3px !important;
-    border-color: grey !important;
+    border-radius: 15px !important;
+    border: solid !important;
+    border-width: 1px !important;
+    border-color: lightgrey !important;
     /* transform: translate(0, 4px); */
 }
 
 .button.active {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     /* box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important; */
-    background-color: rgba(43, 33, 0, .9) !important;
+    background-color: rgba(50, 50, 50, .9) !important;
     color: white !important;
     /* transform: translate(0, 4px); */
 }
@@ -356,7 +358,7 @@ input.username_search{
 
 .button:hover {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
-    box-shadow: 0 0px 5px 2px rgba(50, 50, 100, 0.2) !important;
+    box-shadow: 0 0px 2px 1px rgba(50, 50, 100, 0.2) !important;
     /* background-color: rgba(43, 33, 0, .9) !important; */
     /* color: white !important; */
     /* transform: translate(0, 4px); */

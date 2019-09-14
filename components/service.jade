@@ -8,18 +8,17 @@ template(name='service_card_template')
                     |$#{hourly_rate}/hr
         .row
             .four.wide.column
-                +image_view key='image' label='image' direct=true
+                +image_view key='image' direct=true
+                +image_view key='picture' direct=true
             .twelve.wide.column
                 div
-                i.grey.marker.icon
-                //- .ui.grey.inline.header location
+                .ui.grey.inline.header location
                 each location_tags
-                    .ui.label #{this}
+                    .ui.basic.label #{this}
                 div
-                i.grey.tags.icon
-                //- .ui.grey.inline.header tags
+                .ui.grey.inline.header tags
                 each tags
-                    .ui.label #{this}
+                    .ui.basic.label #{this}
                 +single_user_view key='resident' label='resident' direct=true
                 div
                 +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
@@ -105,6 +104,18 @@ template(name='service_view')
                     +service_history
                     +service_subscription
                     +service_time
+                    
+                    
+template(name='kiosk_service_view')
+    with current_doc
+        .ui.padded.stackable.grid
+            .sixteen.wide.column
+                a.ui.fluid.button(href="/healthclub")
+                    i.left.chevron.icon
+                    |back
+                .ui.header title #{title}
+                    
+                    
                     
 template(name='service_history')
     +ismall name='rss'

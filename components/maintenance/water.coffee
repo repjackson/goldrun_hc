@@ -9,9 +9,9 @@ Router.route '/upper_hot_tub_reading/edit/:doc_id', -> @render 'edit_upper_hot_t
 
 if Meteor.isClient
     Template.readings.onRendered ->
-        Meteor.setTimeout (->
-            $('table').tablesort()
-        ), 500
+        # Meteor.setTimeout (->
+        #     $('table').tablesort()
+        # ), 500
 
     Template.readings.onCreated ->
         @autorun -> Meteor.subscribe('users_by_role','staff')

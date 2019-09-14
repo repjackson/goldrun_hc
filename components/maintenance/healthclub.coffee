@@ -2,6 +2,7 @@ if Meteor.isClient
     Template.healthclub.onCreated ->
         @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
         @autorun -> Meteor.subscribe 'me'
+        @autorun -> Meteor.subscribe 'global_settings'
 
         # @autorun => Meteor.subscribe 'current_session'
         # @autorun => Meteor.subscribe 'latest_movie'
@@ -26,9 +27,9 @@ if Meteor.isClient
         # Meteor.setTimeout ->
         #     $('.item').popup()
         # , 3000
-        Meteor.setInterval ->
-              $('.username_search').focus();
-        , 5000
+        # Meteor.setInterval ->
+        #       $('.username_search').focus();
+        # , 5000
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 3000
@@ -478,6 +479,11 @@ if Meteor.isServer
         Docs.find {
             model:'event'
             tags:$in:['movie']
+        }, sort: _timestamp:-1
+
+    Meteor.publish 'global_settings', ->
+        Docs.find {
+            model:'global_settings'
         }, sort: _timestamp:-1
 
     Meteor.publish 'latest_reading', (slug)->

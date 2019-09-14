@@ -52,27 +52,21 @@ if Meteor.isClient
             Docs.update @_id,
                 $pull:follower_ids:Meteor.userId()
 
-    # Template.voting.helpers
-    #     upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then '' else 'outline'
-    #     downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then '' else 'outline'
     Template.voting.events
         'click .upvote': (e,t)->
-            $(e.currentTarget).closest('.button').transition('pulse')
+            $(e.currentTarget).closest('.button').transition('pulse',200)
             Meteor.call 'upvote', @
         'click .downvote': (e,t)->
-            $(e.currentTarget).closest('.button').transition('pulse')
+            $(e.currentTarget).closest('.button').transition('pulse',200)
             Meteor.call 'downvote', @
 
 
-    # Template.voting_small.helpers
-    #     upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then '' else 'outline'
-    #     downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then '' else 'outline'
     Template.voting_small.events
         'click .upvote': (e,t)->
-            $(e.currentTarget).closest('.button').transition('pulse')
+            $(e.currentTarget).closest('.button').transition('pulse',200)
             Meteor.call 'upvote', @
         'click .downvote': (e,t)->
-            $(e.currentTarget).closest('.button').transition('pulse')
+            $(e.currentTarget).closest('.button').transition('pulse',200)
             Meteor.call 'downvote', @
 
 
@@ -96,17 +90,12 @@ if Meteor.isClient
 
             Meteor.call 'call_watson', doc._id, @key, @mode
 
-
-    # Template.voting_full.helpers
-    #     upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then '' else 'outline'
-    #     downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then '' else 'outline'
-
     Template.voting_full.events
         'click .upvote': (e,t)->
-            $(e.currentTarget).closest('.button').transition('pulse')
+            $(e.currentTarget).closest('.button').transition('pulse',200)
             Meteor.call 'upvote', @
         'click .downvote': (e,t)->
-            $(e.currentTarget).closest('.button').transition('pulse')
+            $(e.currentTarget).closest('.button').transition('pulse',200)
             Meteor.call 'downvote', @
 
 
@@ -195,7 +184,7 @@ if Meteor.isClient
     Template.user_list_toggle.events
         'click .toggle': (e,t)->
             parent = Template.parentData()
-            $(e.currentTarget).closest('.button').transition('pulse')
+            $(e.currentTarget).closest('.button').transition('pulse',200)
             if parent["#{@key}"] and Meteor.userId() in parent["#{@key}"]
                 Docs.update parent._id,
                     $pull:"#{@key}":Meteor.userId()
@@ -290,8 +279,15 @@ if Meteor.isClient
                     $set:"emails.0.verified":true
 
 
-
-
+    Template.add_button.onCreated ->
+        # console.log @
+        Meteor.subscribe 'model_from_slug', @data.model
+    Template.add_button.helpers
+        model: ->
+            data = Template.currentData()
+            Docs.findOne
+                model: 'model'
+                slug: data.model
     Template.add_button.events
         'click .add': ->
             new_id = Docs.insert

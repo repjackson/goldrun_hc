@@ -7,10 +7,16 @@ Router.route '/service/:doc_id/view', (->
 Router.route '/service/:doc_id/edit', (->
     @render 'service_edit'
     ), name:'service_edit'
+Router.route '/kiosk_service_view/:doc_id', (->
+    @layout 'mlayout'
+    @render 'kiosk_service_view'
+    ), name:'kiosk_service_view'
 
 
 if Meteor.isClient
     Template.service_view.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.kiosk_service_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.service_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id

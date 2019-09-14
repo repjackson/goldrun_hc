@@ -1,27 +1,34 @@
 template(name='dev')
     .ui.container.padded.grid
         .row
-            a.ui.button(href="/owners") owners
             .sixteen.wide.column
-                .ui.input
-                    value key
-                    input(type='text' placeholder='key')
-                .ui.input
-                    label value
-                    input(type='text' placeholder='value')
-                .ui.input
-                    label operator
-                    input(type='text' placeholder='value')
-                each omegas
-                    .ui.button.select_omega(class=selected_omega_class)
-                        |omega doc
-                .ui.header omega config
-                +set_omega_setting label='config mode' key='view_mode' value='config'
-                +set_omega_setting label='docs mode' key='view_mode' value='docs'
-                with omega_doc
-                    .ui.header view mode: #{view_mode}
-                .ui.button.print_omega 
-                    |print
+                .ui.header global settings
+                unless gs
+                    .ui.button.make_gs make global settings
+                with gs
+                    .ui.header rick_mode #{rick_mode}
+                    +boolean_edit key='rick_mode' direct=true
+                a.ui.button(href="/owners") owners
+                .sixteen.wide.column
+                    .ui.input
+                        .ui.label key
+                        input(type='text' placeholder='key')
+                    .ui.input
+                        .ui.label value
+                        input(type='text' placeholder='value')
+                    .ui.input
+                        .ui.label operator
+                        input(type='text' placeholder='value')
+                    each omegas
+                        .ui.button.select_omega(class=selected_omega_class)
+                            |omega session
+                    .ui.header omega config
+                    +set_omega_setting label='config mode' key='view_mode' value='config'
+                    +set_omega_setting label='docs mode' key='view_mode' value='docs'
+                    with omega_doc
+                        .ui.header view mode: #{view_mode}
+                    .ui.button.print_omega 
+                        |print
         .row
             .sixteen.center.aligned.column
                 unless omega_doc 
@@ -50,7 +57,6 @@ template(name='dev')
                             .ui.inline.header 
                                 |#{title}
                             |model: #{model}
-
 
 
 

@@ -9,6 +9,7 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'event'
         @autorun => Meteor.subscribe 'model_docs', 'model'
         @autorun => Meteor.subscribe 'omega'
+        @autorun => Meteor.subscribe 'global_settings'
 
     Template.dev.helpers
         model_model: ->
@@ -68,6 +69,10 @@ if Meteor.isClient
         'click .make_omega': ->
             Docs.insert
                 model:'omega'
+
+        'click .make_global_settings': ->
+            Docs.insert
+                model:'global_settings'
 
 
         'click .print_omega': ->

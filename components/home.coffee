@@ -17,7 +17,39 @@ if Meteor.isClient
                 complete:true
             },
                 sort: _timestamp: -1
-                limit:10
+                limit:7
+
+    Template.rental_small.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'rental'
+    Template.rental_small.helpers
+        rentals: ->
+            Docs.find {
+                model:'rental'
+            },
+                sort: _timestamp: -1
+                limit:7
+
+
+    Template.shop_small.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'shop'
+    Template.shop_small.helpers
+        products: ->
+            Docs.find {
+                model:'shop'
+            },
+                sort: _timestamp: -1
+                limit:5
+
+
+    Template.service_small.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'service'
+    Template.service_small.helpers
+        services: ->
+            Docs.find {
+                model:'service'
+            },
+                sort: _timestamp: -1
+                limit:7
 
 
     Template.stats_small.onCreated ->
@@ -35,20 +67,6 @@ if Meteor.isClient
                 limit:10
 
 
-    Template.services_small.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'service'
-    Template.services_small.events
-        # 'click .calc_home_stats': ->
-        #     Meteor.call 'calc_home_stats'
-    Template.services_small.helpers
-        services: ->
-            Docs.find {
-                model:'service'
-            },
-                sort: _timestamp: -1
-                limit:10
-
-
     Template.work_order_small.onCreated ->
         # @autorun -> Meteor.subscribe 'model_docs', 'work_order', 10
         @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'work_order'
@@ -58,7 +76,7 @@ if Meteor.isClient
                 model:'work_order'
             },
                 sort: _timestamp: -1
-                limit:5
+                limit:7
 
 
     Template.home.helpers

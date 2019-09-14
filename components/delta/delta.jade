@@ -1,6 +1,6 @@
 template(name='delta')
     with current_model
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
                 .five.wide.column
                     if is_loading
@@ -15,13 +15,13 @@ template(name='delta')
                             | #{title}
                     unless is_loading
                         if currentUser
-                            .ui.icon.large.basic.button.add_model_doc(title="add #{title}")
+                            .ui.icon.large.button.add_model_doc(title="add #{title}")
                                 //- +i name='plus' classes='ui avatar image'
                                 i.plus.icon
                         +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' label="bookmark"
-                        if is_dev
-                            .ui.icon.large.button.edit_model
-                                i.large.cog.icon
+                        //- if is_dev
+                        //-     .ui.icon.large.button.edit_model
+                        //-         i.large.cog.icon
                                 //- +i name='settings'
                                 //- | Configure #{plural}
                         // .ui.divider
@@ -42,7 +42,7 @@ template(name='delta')
                                 i.plus.icon
                                 |session
                         if description
-                            .ui.segment
+                            .ui.basic.segment
                                 |#{description}
                         //- if is_dev
                         //-     .ui.input
@@ -105,7 +105,20 @@ template(name='delta')
                         .scrolling    
                             each current_delta.result_ids
                                 //- .column
-                                +delta_result
+                                if is_loading
+                                    .ui.segment
+                                        .ui.placeholder
+                                            .line
+                                            .line
+                                            .line
+                                            .line
+                                            .line
+                                            .line
+                                            .line
+                                            .line
+                                            .line
+                                else 
+                                    +delta_result
                     //- +Template.dynamic template=view_mode_template
             //- .row 
             //-     .sixteen.wide.column
@@ -158,9 +171,8 @@ template(name='facet')
         //- .ui.hidden.divider
         //- .ui.accordion
         //-     .active.title
-        //- if icon
-        //-     //- i.small.icon(class=icon)
-        //-     +i name=icon classes='ui avatar image'   
+        if icon
+            +i name=icon classes='ui avatar image'   
         .ui.inline.small.grey.header 
             if title
                 |#{title}
@@ -176,8 +188,8 @@ template(name='facet')
             if name
                 .selector.ui.large.compact.button.toggle_selection(class=toggle_value_class)
                     strong #{name}
-                    //- if is_admin
-                    small #{cal_count} #{count}
+                    if is_admin
+                        small #{cal_count} #{count}
             else
                 .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
                     strong [null]
@@ -228,7 +240,7 @@ template(name='delta_result')
                         .ui.small.inline.header #{views} views
                             //- i.eye.icon
                             each viewer_usernames
-                                .ui.small.basic.label #{this}
+                                .ui.small.label #{this}
                         //- +comments
                     if is_admin
                         +remove_button

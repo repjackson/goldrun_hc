@@ -12,7 +12,7 @@ template(name='model_edit')
                     .ui.form
                         +text_edit key='title' label='title' direct=true
                         +text_edit key='slug' label='slug' direct=true
-                        //- +icon_edit key='icon' label='icon' direct=true
+                        +icon_edit key='icon' label='icon' direct=true
                         +textarea_edit key='description' label='description' direct=true
                         +array_edit key='tags' label='tags' direct=true
                         +text_edit key='collection' label='collection' direct=true
@@ -30,7 +30,8 @@ template(name='model_edit')
                         each fields
                             .title 
                                 |#{rank}
-                                //- +i name=icon classes='ui avatar image'
+                                if icon
+                                    +i name=icon classes='ui avatar image'
                                 |#{title} (#{field_type})
                                 if faceted
                                     i.filter.icon

@@ -47,7 +47,7 @@ template(name='events_column')
     .ui.accordion
         h4.active.title
             // +i name='edit-property' classes='ui inline image'
-            i.rss.icon
+            //- i.rss.icon
             | log
             i.dropdown.icon
         .active.content
@@ -287,8 +287,8 @@ template(name='voting_full')
         i.thumbs.down.icon(class=downvote_class)
         //- |dislike
     if points
-        .ui.large.label(title='points') #{points} pts
-        .ui.large.label(title='anon points') #{anon_points} anon pts
+        .ui.large.basic.label(title='points') #{points} pts
+        .ui.large.basic.label(title='anon points') #{anon_points} anon pts
     if upvoter_ids
         .ui.small.header 
             i.chevron.up.icon
@@ -316,12 +316,12 @@ template(name='remove_button')
         //- |Delete
 
 template(name='add_button')
-    a.ui.large.button.add(title="add #{model}")
-        if icon
+    a.ui.large.basic.button.add(title="add #{model}")
+        //- |#{model.icon}
+        if model.icon
             //- i.icon(class=icon)
-            +ismall name=icon classes='ui inline image'
-        else        
-            i.plus.icon
+            +ismall name=model.icon classes='ui inline image'
+        i.plus.icon
         if label
             |#{label}
         //- |#{model}

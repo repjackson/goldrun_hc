@@ -5,17 +5,17 @@ template(name='kiosk_container')
 
 template(name='healthclub')
     //- img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")
+    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")
     .ui.grid.header-wrapper
         //- +Template.dynamic template=kiosk_view
         //- .row
         //-     .six.wide.center.aligned.column
 
-        img.ui.medium.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
+        //- img.ui.medium.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
         .row
             .sixteen.wide.center.aligned.column
                 .ui.big.fluid.left.icon.input
-                    input.username_search(type='text' placeholder='resident first or last name' autofocus)
+                    input.username_search(type='text' placeholder='check in resident' autofocus)
                     if is_query
                         i.remove.link.icon.clear_results
                     else 
@@ -44,39 +44,46 @@ template(name='healthclub')
                                     if is_query
                                         .ui.center.aligned.header no members found
                                         .ui.center.aligned.header see staff to add
+                    .row    
                         .ui.padded.grid
-                            +inline_doc slug='health_club_notices' classes='ui large header'
+                            //- +inline_doc slug='health_club_notices' classes='ui large header'
                             .row
-                                .nine.wide.column
-                                    if is_staff
-                                        a.ui.fluid.button(href='/staff')
-                                            i.left.chevron.large.icon
-                                            i.user.shield.icon
-                                            |staff
-                                    //- with latest_movie
-                                    //-     .smallscroll
-                                            //- img.ui.rounded.image(src="{{c.url image_id height=600 gravity='face' crop='fill'}}")
-                                            //- img.ui.image(src="{{c.url image_id }}")
-                                            //- .movie_image(title='pavilion at 6:30')
-                                            //-     +image_view key='image_id' direct=true
-                                    //- .ui.center.aligned.inline.small.header monday @ 8:30 in the pavilion    
-                                    div
-                                    +health_club_info
-                                .seven.wide.column
-                                    //- .ui.grey.small.inline.header view poll results and community info at
-                                    .ui.inline.header www.goldrun.online
-                                    .ui.header health club hours
-                                    .ui.large.list
-                                        .item mon 7a-10p
-                                        .item tues 7a-10p
-                                        .item wed 7a-10p
-                                        .item thur 7a-10p
-                                        .item fri 7a-9p
-                                        .item sat 8a-9p
-                                        .item sun 8a-10p
-                                    +health_club_status               
-                                    //- +health_club_status_small                    
+                                if in_dev
+                                    .five.wide.column
+                                        +service_small
+                                    .five.wide.column
+                                        +rental_small
+                                    .five.wide.column
+                                        +shop_small
+                                else 
+                                    unless gs.rick_mode
+                                        .five.wide.column
+                                            +service_small
+                                        .five.wide.column
+                                            +rental_small
+                                        .five.wide.column
+                                            +shop_small
 
+                                    else
+                                        .eight.wide.column
+                                            if is_staff
+                                                a.ui.fluid.button(href='/staff')
+                                                    i.left.chevron.large.icon
+                                                    i.user.shield.icon
+                                                    |staff
+                                            +health_club_info
+                                        .eight.wide.column
+                                            //- .ui.inline.header www.goldrun.online
+                                            .ui.header health club hours
+                                            .ui.large.list
+                                                .item mon 7a-10p
+                                                .item tues 7a-10p
+                                                .item wed 7a-10p
+                                                .item thur 7a-10p
+                                                .item fri 7a-9p
+                                                .item sat 8a-9p
+                                                .item sun 8a-10p
+                                            +health_club_status               
 
 template(name='facet_doc_edit')
     with facet_doc

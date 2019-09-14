@@ -7,25 +7,25 @@ template(name='staff')
                 //-     +i name='user-shield'
                 //-     |staff
                 //- i.massive.loading.brown.poo.icon
-                a.ui.large.compact.fluid.basic.button(href='/add_resident')
+                a.ui.large.fluid.basic.button(href='/add_resident')
                     //- i.user.add.large.icon
-                    //- +i name='plus' classes='ui inline mini image'
+                    +i name='plus' classes='ui inline mini image'
                     strong
-                        |add resident
+                        |resident
                 //- .ui.header
                 //-     |#{checkedin_members.count} checked in members
                 +inline_doc slug='staff_notices' classes='ui small grey header'
-                a.ui.fluid.compact.button(href='/buildings')
+                a.ui.fluid.basic.button(href='/buildings')
                     //- i.building.large.icon
-                    //- +i name='building' classes='ui mini inline image'
+                    +i name='building' classes='ui mini inline image'
                     | buildings
-                a.ui.fluid.compact.button(href='/residents')
+                a.ui.fluid.basic.button(href='/residents')
                     //- i.large.users.icon
-                    //- +i name='groups' classes='ui mini inline image'
+                    +i name='groups' classes='ui mini inline image'
                     | residents
-                a.ui.fluid.compact.button(href='/healthclub')
+                a.ui.fluid.basic.button(href='/healthclub')
                     //- i.large.tablet.icon
-                    //- +i name='android-tablet' classes='ui mini inline image'
+                    +i name='android-tablet' classes='ui mini inline image'
                     | kiosk view
     
                 +add_button model='work_order' label='work order'
@@ -34,10 +34,10 @@ template(name='staff')
                 +add_button model='shift_checklist' label='shift checklist'
                 +unit_key_widget
                 a.ui.compact.fluid.large.button(href='readings')
-                    //- +i name='water' classes='ui inline image'                
+                    +ismall name='water' classes='ui inline image'                
                     strong water
                 div
-                //- +ismall name='swim'
+                +ismall name='swim'
                 .ui.inline.grey.header 
                     |pool
                 each shift_pool_readings
@@ -47,7 +47,7 @@ template(name='staff')
                         if chlorine_message
                             .ui.basic.label #{chlorine_message}
                 div
-                //- +ismall name='jacuzzi'
+                +ismall name='jacuzzi'
                 .ui.inline.grey.header 
                     |upper hot tub
                 each shift_upper_hot_tub_readings
@@ -57,7 +57,7 @@ template(name='staff')
                         if chlorine_message
                             .ui.basic.label #{chlorine_message}
                 div
-                //- +ismall name='jacuzzi'
+                +ismall name='jacuzzi'
                 .ui.inline.grey.header 
                     |lower hot tub
                 each shift_lower_hot_tub_readings
@@ -69,7 +69,7 @@ template(name='staff')
                 .ui.hidden.divider
                 .ui.inline.grey.header 
                     //- i.hiking.icon
-                    //- +i name='walking' classes='ui inline image'                
+                    +i name='walking' classes='ui inline image'                
                     |shift walks
                 .ui.icon.button.log_staff_walked(title='log hourly shift walk')
                     i.plus.icon    
@@ -78,20 +78,20 @@ template(name='staff')
                         .ui.header #{when}
                             i.remove.small.link.circular.icon.remove_walk(title='remove walk entry')
                 if checklist_completed
-                    //- +i name='todo-list' classes='ui inline image'
+                    +i name='todo-list' classes='ui inline image'
                     //- i.big.green.checkmark.icon
                     |shift checklist completed
                 else 
                     a.ui.fluid.big.button(href='/shift_checklist')
                         //- i.large.tasks.icon
-                        //- +i name='to-do' classes='ui inline mini image'
+                        +i name='to-do' classes='ui inline mini image'
                         |checklist not completed
 
             .twelve.wide.column
                 .ui.fluid.accordion
                     .active.title
                         //- i.users.large.grey.icon
-                        //- +i name='groups' classes='ui inline mini image'
+                        +i name='groups' classes='ui inline mini image'
                         .ui.inline.grey.header #{checkedin_members.count} checked in members
                         i.dropdown.grey.icon
                     .active.content
@@ -100,20 +100,20 @@ template(name='staff')
                                 +hc_session
                     //- .grey.title 
                     //-     i.grey.desktop.icon
-                    //-     //- +i name='android-tablet' classes='ui inline mini image'
+                        //- +i name='android-tablet' classes='ui inline mini image'
                     //-     .ui.grey.inline.header kiosk management
                     //-     i.dropdown.grey.icon
                     //- .content
                     //-     +kiosk_settings
                     .grey.title 
                         //- i.large.calendar.grey.icon
-                        //- +i name='calendar' classes='ui inline mini image'
+                        +i name='calendar' classes='ui inline mini image'
                         .ui.grey.inline.header staff schedule
                         i.dropdown.grey.icon
                     .content
                         +schedule
                     .title
-                        //- +i name='chat' classes='ui inline mini image'
+                        +i name='chat' classes='ui inline mini image'
                         .ui.grey.inline.header chat
                         i.dropdown.icon
                     .content
@@ -138,17 +138,19 @@ template(name='hc_session')
             with session_resident
                 if address
                     div
-                    //- +ismall name='marker'
+                    +ismall name='marker'
                     //- i.grey.marker.icon
                     |#{address}
-                div
-                    //- i.grey.building.icon
-                    //- +ismall name='building'
-                    |#{building_number}
-                div
-                    //- i.home.grey.icon
-                    //- +ismall name='home'
-                    | #{unit_number}
+                if building
+                    div
+                        //- i.grey.building.icon
+                        +ismall name='building'
+                        |#{building_number}
+                if unit_number
+                    div
+                        //- i.home.grey.icon
+                        +ismall name='home'
+                        | #{unit_number}
                 //- +number_edit key='checkins_without_gov_id' label='alter checkins without gov id' direct=true
                 //- +number_edit key='checkins_without_email_verification' label='alter checkins without email verification' direct=true
                 //- +number_view key='unit_number' label='unit #' direct=true
@@ -178,16 +180,16 @@ template(name='hc_session')
                     strong garden key
                 .ui.fluid.large.button.check_in_garden_key
                     //- i.sign.in.alternate.icon
-                    //- +i name='internal' classes='ui mini inline image'
+                    +i name='internal' classes='ui mini inline image'
                     |check in garden key
             else
                 .ui.compact.fluid.button.garden_key_checkout
-                    //- +i name='plant' classes='ui mini inline image'
+                    +i name='plant' classes='ui mini inline image'
                     //- i.tree.icon
                     strong garden key
                 .ui.fluid.button.sign_out
                     //- i.sign.out.alternate.icon
-                    //- +i name='exit' classes='ui mini inline image'
+                    +i name='exit' classes='ui mini inline image'
                     |check out
             //- +boolean_edit key='active' direct=true
             //- +boolean_edit key='submitted' direct=true
@@ -203,7 +205,7 @@ template(name='hc_session')
 template(name='unit_key_widget')
     .ui.grey.header 
         //- i.key.icon
-        //- +i name='key'
+        +i name='key'
         |key lookup
     .ui.grid
         .two.column.row
@@ -458,7 +460,7 @@ template(name='shift_checklist')
                                                 i.large.checkmark.icon
                                             .hidden.content
                                                 i.large.ban.icon
-                                                //- +i name='cancel' classes='ui inline image'
+                                                +i name='cancel' classes='ui inline image'
                                                 //- |mark incomplete
                         if all_completed
                             .ui.fluid.big.button.submit_checklist

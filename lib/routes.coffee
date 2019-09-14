@@ -29,6 +29,7 @@ Router.onBeforeAction(force_loggedin, {
       'grid'
       'event_edit',
       'event_view',
+      'service_view',
       'projects'
       'project_feed'
       'project_finance'

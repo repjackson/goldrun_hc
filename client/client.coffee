@@ -38,6 +38,9 @@ Template.healthclub.events
 Session.setDefault 'invert', false
 Template.registerHelper 'loading_checkin', () -> Session.get 'loading_checkin'
 Template.registerHelper 'parent', () -> Template.parentData()
+Template.registerHelper 'gs', () ->
+    Docs.findOne
+        model:'global_settings'
 Template.registerHelper 'invert_class', () -> if Session.equals('dark_mode',true) then 'invert' else ''
 Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'

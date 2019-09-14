@@ -1,4 +1,11 @@
 if Meteor.isClient
+    Router.route '/kiosk_rental_view/:doc_id', (->
+        @layout 'mlayout'
+        @render 'kiosk_rental_view'
+        ), name:'kiosk_rental_view'
+
+    Template.kiosk_rental_view.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.rentals.onCreated ->
         @autorun => Meteor.subscribe 'rentals',Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'model_docs','reservation'
@@ -198,6 +205,22 @@ if Meteor.isClient
                 product_id: product._id
     # chips placeholder
     # check weater pressure at chips place with pressure gauge on faucet
+
+    Template.kiosk_rental_view.onCreated ->
+        @sending_message = new ReactiveVar false
+
+    Template.kiosk_rental_view.events
+        'click .send_message': (e,t)->
+            t.sending_message.set true
+            # t.sending_message.set(!t.sending_message.get())
+        'click .cancel_message': (e,t)->
+            t.sending_message.set false
+
+
+    Template.kiosk_rental_view.helpers
+        sending_message: ->
+            Template.instance().sending_message.get()
+
 
 
     Template.rental.events

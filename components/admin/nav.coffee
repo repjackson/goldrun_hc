@@ -4,6 +4,10 @@ if Meteor.isClient
             $('.ui.shortcut.modal').modal('show')
 
     Template.nav.events
+        # 'mouseenter .item': (e,t)->
+        #     $(e.currentTarget).closest('.item').transition('pulse')
+
+
         'click #logout': ->
             Session.set 'logging_out', true
             Meteor.logout ->

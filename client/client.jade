@@ -39,7 +39,7 @@ template(name='layout')
 
 template(name='mlayout')
     .global_container(class=invert_class)
-        if currentUser
+        unless is_frontdesk
             +nav
         //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")    
         +yield

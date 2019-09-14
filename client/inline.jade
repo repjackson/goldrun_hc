@@ -26,8 +26,9 @@ template(name='inline_doc')
                         label edit
                         textarea#body(rows='3') #{body}
             else
-                div(class=doc_classes)
-                    |{{nl2br body}}
+                if body
+                    div(class=doc_classes)
+                        |{{nl2br body}}
             if is_staff
                 +session_edit_icon
     else
