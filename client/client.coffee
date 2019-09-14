@@ -39,6 +39,9 @@ Template.healthclub.events
 Session.setDefault 'invert', false
 Template.registerHelper 'loading_checkin', () -> Session.get 'loading_checkin'
 Template.registerHelper 'parent', () -> Template.parentData()
+Template.registerHelper 'parent_doc', () ->
+    Docs.findOne @parent_id
+    # Template.parentData()
 Template.registerHelper 'gs', () ->
     Docs.findOne
         model:'global_settings'

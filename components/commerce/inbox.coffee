@@ -6,3 +6,9 @@ if Meteor.isClient
             Docs.find {
                 model:'message'
             }, sort: _timestamp: -1
+
+
+
+    Template.message_segment.onCreated ->
+        # console.log @
+        @autorun => Meteor.subscribe 'doc', @data.parent_id

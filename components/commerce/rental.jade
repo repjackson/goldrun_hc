@@ -180,17 +180,7 @@ template(name='kiosk_rental_view')
                 .ui.header $#{hourly_rate}/hr
                 .ui.header $#{daily_rate}/day
                 .ui.header #{views} views
-                +voting
-                div
-                .ui.big.fluid.button.send_message 
-                    +i name='send-comment' classes='ui inline mini image'
-                    |send message
-                if sending_message
-                    .ui.header sending message
-                    .ui.input 
-                        input(type='text' placeholder='hi')
-                    .ui.big.button.cancel_message cancel
-                    
+                +kiosk_send_message                    
 
 
 template(name='rental_small')

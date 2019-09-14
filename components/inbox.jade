@@ -7,8 +7,17 @@ template(name='inbox')
                 //- +view_notifications
             .twelve.wide.column
                 each messages
-                    .ui.header #{title} #{when}
-                    .ui.header #{body}
+                    +message_segment
+
+template(name='message_segment')                    
+    .ui.segment
+        .ui.header #{title} #{when}
+        .ui.header #{body}
+        +author_info
+        .ui.header parent #{parent_id} #{parent_doc.model}
+        +remove_button
+        
+        
 template(name='view_notifications')
     .centered.row
         .four.wide.column
