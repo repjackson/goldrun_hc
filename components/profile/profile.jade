@@ -26,8 +26,7 @@ template(name='user_layout')
                     if user_is_resident
                         if is_staff
                             a.ui.big.button.item(href="/user/#{user_from_username_param.username}/edit")
-                                +i name='settings' classes='ui inline mini image'
-                                //- i.cog.icon
+                                i.cog.icon
                                 |edit
                             +resident_info         
                             +user_check_steps
@@ -36,13 +35,11 @@ template(name='user_layout')
                             .ui.small.header #{tagline}
                     if is_current_user
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
-                            +i name='settings' classes='ui inline mini image'
-                            //- i.cog.icon
+                            i.cog.icon
                             |edit
                     else if is_admin
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
-                            +i name='settings' classes='ui inline mini image'
-                            //- i.cog.icon
+                            i.cog.icon
                             |edit
                     if is_dev
                         +boolean_edit key='disabled' label='disabled' icon='user shield' direct='true'
@@ -51,18 +48,15 @@ template(name='user_layout')
                     //-         +i name='envelope'
                     if is_current_user
                         a.ui.large.button.logout(href="#" title='logout')
-                            +i name='exit-sign' classes='ui inline mini image'
-                            //- i.sign.out.alternate.icon
+                            i.sign.out.alternate.icon
                             |log out
                         a.ui.large.button.logout_other_clients(href="#" title='logout other clients')
-                            +i name='feed-out' classes='ui inline mini image'
-                            //- i.globe.icon
+                            i.globe.icon
                             |log out other clients
                     if is_admin
                         .ui.basic.segment
                             .ui.header 
-                                +i name='user shield'
-                                //- i.user.shield.icon
+                                i.user.shield.icon
                                 |roles
                             each roles
                                 .ui.basic.label #{this}
@@ -72,7 +66,7 @@ template(name='user_layout')
                             a.ui.button(href="/user/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
                                 +ismall name='treadmill' classes='ui inline image'
                                 |healthclub
-                    if is_resident
+                    if is_member
                         a.ui.large.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}")
                             +ismall name='dashboard' classes='ui inline image'
                             |dashboard
@@ -136,7 +130,7 @@ template(name='user_check_steps')
         unless user_check_completed
             .ui.compact.small.button.recheck
                 if user_check_completed
-                    i.large.green.checkmark.icon
+                    i.large.checkmark.icon
                     |#{title}
                 else 
                     i.large.circle.outline.icon 
@@ -200,14 +194,14 @@ template(name='user_residency')
     
 template(name='user_healthclub')
     .ui.basic.segment
-        .ui.header 
-            +i name='token-card-code'
-            |hc card
-        .ui.circular.button.generate_barcode
-            +i name='barcode' classes='ui inline image'
-            |generate health club checkin barcode
-        div
-        svg#barcode
+        //- .ui.header 
+        //-     +i name='token-card-code'
+        //-     |hc card
+        //- .ui.circular.button.generate_barcode
+        //-     +i name='barcode' classes='ui inline image'
+        //-     |generate health club checkin barcode
+        //- div
+        //- svg#barcode
     
 template(name='profile_home')
     //- if user_is_owner
@@ -226,9 +220,9 @@ template(name='resident_about')
     img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
     .ui.stackable.grid
         .three.column.row
-            if user_from_username_param.healthclub_code
-                .column
-                    +user_healthclub                        
+            //- if user_from_username_param.healthclub_code
+            //-     .column
+            //-         +user_healthclub                        
             if user_is_resident
                 if is_staff
                     each staff_resident_widgets
@@ -238,8 +232,8 @@ template(name='resident_about')
                         +user_checkins
                     .column
                         +user_guests
-                    .column
-                        +user_violations
+                    //- .column
+                    //-     +user_violations
                     //- .column
                     //-     +user_signatures
                     .column
@@ -271,7 +265,7 @@ template(name='resident_info')
         div
         each emails
             if verified
-                .ui.green.large.basic.label(title='verified') #{address}
+                .ui.large.basic.label(title='verified') #{address}
             else
                 .ui.orange.large.basic.label(title='unverified') #{address}
 
@@ -280,7 +274,6 @@ template(name='resident_info')
 template(name='user_permit')
     .ui.basic.segment
         .ui.inline.center.aligned.header 
-            +i name='badge'
             |permit
         +goto_model slug='parking_permit'
         
@@ -306,15 +299,12 @@ template(name='user_permits')
             .ui.inline.center.aligned.header 
                 i.id.card.alternate.icon
                 +goto_model slug='parking_permit'
-            
-                //- +i name='badge'
-                |Permits
+                |permits
 
             
 template(name='user_signatures')
     .ui.basic.segment
         .ui.inline.center.aligned.header 
-            //- +i name='signature'
             i.pencil.icon
             | Signatures
         .ui.link.large.list
@@ -336,7 +326,6 @@ template(name='user_notes')
 template(name='user_checkins')
     .ui.basic.segment
         .ui.inline.center.aligned.header 
-            +i name='internal'
             |health club check ins
         if is_staff
             +checkin_button
@@ -349,7 +338,7 @@ template(name='user_checkins')
 template(name='user_guests')
     .ui.basic.segment
         .ui.inline.center.aligned.header 
-            +i name='groups'
+            i.users.icon
             |guests
         +goto_model slug='guest'
         //- +add_button model='guest'
@@ -370,8 +359,7 @@ template(name='user_guests')
 template(name='user_unit')
     .ui.basic.segment
         .ui.inline.center.aligned.header 
-            //- i.home.icon
-            +i name='interior'
+            i.home.icon
             |unit
         +goto_model slug='unit'
         with unit
@@ -393,11 +381,10 @@ template(name='user_section')
 template(name='user_violations')
     .ui.basic.segment
         .ui.inline.center.aligned.header 
-            +i name='foul'
             |violations
         +goto_model slug='violation'
         .ui.icon.button.add_inline_violation(title='add violation')
-            i.large.green.plus.icon
+            i.large.plus.icon
             //- |add violation
         if editing_violation
             .ui.basic.segment
@@ -439,7 +426,7 @@ template(name='user_log')
         .ui.inline.center.aligned.header 
             //- +i name='overview-pages-4'
             i.list.icon
-            |Log
+            |log
         scroll
             .ui.list
                 each user_log_events
@@ -483,7 +470,6 @@ template(name='user_string_toggle')
 template(name='membership_status')
     .ui.basic.segment
         .ui.inline.center.aligned.header 
-            +i name='membership-card' classes='ui inline image'
             |membership status
         +email_validation_check
         +lease_expiration_check

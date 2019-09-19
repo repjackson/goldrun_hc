@@ -1,33 +1,168 @@
 template(name='admin')
-    //- +models
-    +user_table
+    .ui.stackable.padded.grid
+        .four.column.row
+            .column
+                h1.ui.header
+                    i.shield.icon
+                    |gr+ admin
+                with gs
+                    +boolean_edit key='rick_mode' direct=true
+            .column
+                +transactions_small
+            .column
+                +admin_chat
+            .column
+                +earnings_small
+            .column
+                +rentals_small
+            .column
+                +latest_activity
+            .column
+                +rental_small
+            .column
+                +admin_tasks
+            .column
+                +my_earnings_small
+            .column
+                +admin_wiki
+            .column
+                +online_users
+        .row
+            .ui.header 
+                i.grey.users.icon
+                |gr+ members
+            .scrolling
+                +member_table
 
 
+template(name='admin_wiki')
+    a.ui.header(href="/m/wiki")
+        i.wikipedia.icon
+        |admin wiki
+    .ui.link.bulleted.list
+        each wiki
+            a.item(href="/m/wiki/#{_id}/view") #{title}
 
-template(name='user_table')
-    a#add_user.ui.basic.button(href='/user/add')
+
+template(name='admin_tasks')
+    a.ui.header(href="/m/task")
+        i.tasks.icon
+        |admin tasks
+
+template(name='my_earnings_small')
+    .ui.header 
+        i.money.icon
+        |my earnings_small
+    
+    
+template(name='online_users')
+    .ui.header 
+        i.globe.icon
+        |online users
+    each online_users
+        div
+        .ui.inline.header 
+            |#{username}
+        if profile.idle
+            .ui.basic.small.yellow.label idle
+        else 
+            .ui.basic.small.green.label online
+        div
+        |last login {{from_now profile.lastLogin}}
+        a.ui.label(href="https://whatismyipaddress.com/ip/#{profile.location.ip}" target="_window") ip: #{profile.location.ip}
+    
+template(name='earnings_small')
+    .ui.header
+        i.line.chart.grey.icon
+        |earnings
+    .ui.small.header total
+    .ui.small.header last week
+    .ui.small.header this week (projected)
+    .ui.small.header this week (projected)
+
+template(name='rentals_small')
+    .ui.header
+        i.clock.grey.icon
+        |rentals
+    .ui.small.header total
+    .ui.small.header last week
+    .ui.small.header this week (projected)
+    .ui.small.header this week (projected)
+
+//- template(name='rental_small')
+//-     .ui.header
+//-         i.clock.grey.icon
+//-         |rentals
+//-     .ui.small.header total
+//-     .ui.small.header last week
+//-     .ui.small.header this week (projected)
+//-     .ui.small.header this week (projected)
+
+template(name='transactions_small')
+    a.ui.compact.button(href='/transactions')
+        .ui.small.header
+            i.exchange.icon
+            | recent transactions
+    .smallscroll
+        .ui.list
+            each transactions
+                .item
+                    .header #{title} #{when}
+                        .ui.label #{transaction_type}
+
+template(name='admin_chat')
+    .ui.inline.header 
+        i.chat.outline.icon
+        |admin chat
+    .ui.list.scroll
+        each chat_messages
+            .item(title="by #{author.first_name} #{author.last_name} #{when}")
+                if author
+                    img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
+                |#{text}
+                //- small #{when}
+                if is_author
+                    span
+                        i.remove.link.icon.remove_message
+    .ui.bottom.attached.fluid.icon.transparent.big.input
         i.plus.icon
-        |Add User
-    table.ui.sortable.striped.table
+        input.new_admin_chat_message(type='text' placeholder='add message')
+
+template(name='plus_members')
+    .ui.header gr+ members
+    each members 
+        .ui.header #{username}
+        
+template(name='member_table')
+    //- a#add_user.ui.basic.button(href='/user/add')
+    //-     i.plus.icon
+    //-     |add member
+    table.ui.sortable.striped.very.basic.table
         thead
             tr
-                th Image
-                th Profile
-                th Roles
-                th Actions
+                th image
+                th profile
+                th roles
+                th actions
         tbody
-            each users
+            each members
                 tr
                     td 
-                        img.ui.small.image(src="{{c.url image_id width=1000 height=1000 gravity='face' crop='crop'}}")
+                        img.ui.small.image(src="{{c.url kiosk_photo width=400 height=600 gravity='face' crop='crop'}}")
                     td 
                         a.ui.header(href="/user/#{username}")
                             |#{first_name} #{last_name}
+                            if user_is_admin
+                                i.blue.shield.icon
                         .ui.small.header @#{username}
                         each emails
                             |#{address}
                     td 
-                        +multi_doc_edit key='roles' ref_model='role' direct=true
+                        +array_view key='tags' label='tags' icon='tags' direct=true
+                        if is_dev
+                            +multi_doc_edit key='roles' ref_model='role' direct=true
+                        if is_admin
+                            +multi_doc_view key='roles' label='roles' ref_model='role' direct=true
                         //- +user_role_toggle role='admin'
                         //- +user_role_toggle role='staff'
                         //- +user_role_toggle role='resident'

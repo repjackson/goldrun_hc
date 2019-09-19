@@ -29,6 +29,14 @@ globalHotkeys.add
             else
                 Meteor.users.update Meteor.userId(), $addToSet:roles:'admin'
 globalHotkeys.add
+	combo: "r m"
+	callback: ->
+        if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
+            if 'member' in Meteor.user().roles
+                Meteor.users.update Meteor.userId(), $pull:roles:'member'
+            else
+                Meteor.users.update Meteor.userId(), $addToSet:roles:'member'
+globalHotkeys.add
 	combo: "r s"
 	callback: ->
         if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
@@ -36,14 +44,14 @@ globalHotkeys.add
                 Meteor.users.update Meteor.userId(), $pull:roles:'staff'
             else
                 Meteor.users.update Meteor.userId(), $addToSet:roles:'staff'
-globalHotkeys.add
-	combo: "r m"
-	callback: ->
-        if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
-            if 'manager' in Meteor.user().roles
-                Meteor.users.update Meteor.userId(), $pull:roles:'manager'
-            else
-                Meteor.users.update Meteor.userId(), $addToSet:roles:'manager'
+# globalHotkeys.add
+# 	combo: "r m"
+# 	callback: ->
+#         if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
+#             if 'manager' in Meteor.user().roles
+#                 Meteor.users.update Meteor.userId(), $pull:roles:'manager'
+#             else
+#                 Meteor.users.update Meteor.userId(), $addToSet:roles:'manager'
 globalHotkeys.add
 	combo: "r d"
 	callback: ->
@@ -77,6 +85,16 @@ globalHotkeys.add
                 Meteor.users.update Meteor.userId(), $pull:roles:'frontdesk'
             else
                 Meteor.users.update Meteor.userId(), $addToSet:roles:'frontdesk'
+
+
+# globalHotkeys.add
+# 	combo: "m r "
+# 	callback: ->
+#         if Meteor.userId()
+#             Meteor.call ''
+#                 Meteor.users.update Meteor.userId(), $pull:roles:'frontdesk'
+#             else
+#                 Meteor.users.update Meteor.userId(), $addToSet:roles:'frontdesk'
 
 
 
@@ -124,8 +142,11 @@ globalHotkeys.add
 	combo: "g i"
 	callback: -> Router.go "/inbox"
 globalHotkeys.add
-	combo: "g u"
-	callback: -> Router.go "/users"
+	combo: "g m"
+	callback: -> Router.go "/members"
+globalHotkeys.add
+	combo: "g a"
+	callback: -> Router.go "/admin"
 globalHotkeys.add
 	combo: "g s"
 	callback: -> Router.go "/staff"

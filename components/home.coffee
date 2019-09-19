@@ -19,19 +19,12 @@ if Meteor.isClient
                 sort: _timestamp: -1
                 # limit:7
 
-    Template.rental_small.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'rental'
-    Template.rental_small.helpers
-        rentals: ->
-            Docs.find {
-                model:'rental'
-            },
-                sort: _timestamp: -1
-                # limit:7
 
 
     Template.shop_small.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'shop'
+        # @autorun -> Meteor.subscribe 'model_docs', 'shop'
+        @autorun -> Meteor.subscribe 'shop_docs', selected_shop_tags.array()
+
     Template.shop_small.helpers
         products: ->
             Docs.find {

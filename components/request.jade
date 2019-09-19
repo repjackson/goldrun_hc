@@ -1,3 +1,20 @@
+template(name='requests')
+    .ui.padded.grid
+        .row
+            a.ui.big.fluid.button(href='/healthclub')
+                i.left.chevron.icon
+                .ui.inline.header back
+        .row
+            .four.wide.column
+                .ui.header 
+                    |requests
+                +cloud filter='request'
+            .twelve.wide.column
+                .ui.stackable.three.cards
+                    each requests
+                        +request_card_template
+
+
 template(name='request_card_template')
     .ui.fluid.segment.grid
         .row
@@ -144,10 +161,11 @@ template(name='request_time')
 
 
 template(name='request_small')
-    .ui.large.header
-        i.hand.holding.heart.grey.icon 
-        |requests
-    +cloud filter='request'
+    a.ui.fluid.button(href="/requests")
+        .ui.inline.header
+            //- i.hand.holding.heart.grey.icon 
+            |requests
+    //- +cloud filter='request'
     .ui.relaxed.grey.list.smallscroll
         each requests 
             .grey.item

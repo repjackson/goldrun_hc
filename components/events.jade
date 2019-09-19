@@ -2,7 +2,6 @@ template(name='events')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             .ui.inline.header 
-                +i name='calendar'
                 |events
             .ui.icon.button.add_event(title='add event')
                 i.plus.icon
@@ -70,7 +69,6 @@ template(name='event_view')
             .row
                 .four.wide.column 
                     a.ui.fluid.button(href="/events")
-                        +i name='calendar' classes='ui avatar image'
                         |events
                     .ui.header view event
                     a.ui.big.icon.button(href="/event/#{_id}/edit")
@@ -105,10 +103,9 @@ template(name='event_slider')
                     
                     
 template(name='event_small')
-    .ui.large.header 
-        //- +i name='calendar'
-        i.calendar.grey.icon
-        |events
+    .ui.fluid.button
+        .ui.header 
+            |events
     //- +event_slider
     //- +model_scroller model='event' header='events' icon='calendar'
 

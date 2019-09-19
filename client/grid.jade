@@ -13,7 +13,8 @@ template(name='grid')
                 a.grid_seg(href="/m/#{slug}" tabindex="0")
                     .ui.segment.home_segment.set_model
                         .ui.header 
-                            +i name=icon
+                            //- +i name=icon
+                            i.icon(class=icon)
                             |#{title}
                         .ui.small.grey.header #{description}
                         //- span(title='views')

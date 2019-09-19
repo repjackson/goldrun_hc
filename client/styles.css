@@ -147,6 +147,7 @@ body {
 
 .upload-btn-wrapper input[type=file] {
   font-size: 100px;
+  height: 100% !important;
   position: absolute;
   left: 0;
   top: 0;
@@ -311,15 +312,15 @@ input.username_search{
     padding:40px!important;
 } */
 
-.button.select_service_tag {
-    margin:5px !important;
+.button.kiosk_facet_button {
+    margin:2px !important;
 }
 
 
-.button:not(.select_service_tag) {
+.button:not(.kiosk_facet_button) {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     /* box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important; */
-    margin:5px !important;
+    margin:2px !important;
     font-weight: bold !important;
     text-size: bold !important;
     font-size: 110% !important;

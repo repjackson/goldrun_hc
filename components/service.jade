@@ -1,3 +1,23 @@
+template(name='services')
+    .ui.padded.grid
+        .row
+            a.ui.big.fluid.button(href='/healthclub')
+                i.left.chevron.icon
+                strong back
+        .row
+            .four.wide.column
+                .ui.header 
+                    i.wrench.grey.icon
+                    |services
+                +service_cloud
+            .twelve.wide.column.scrolling
+                .ui.stackable.three.cards
+                    each services
+                        +service_card_template
+
+
+
+
 template(name='service_card_template')
     .ui.fluid.segment.grid
         .row
@@ -12,68 +32,39 @@ template(name='service_card_template')
                 +image_view key='picture' direct=true
             .twelve.wide.column
                 div
-                .ui.grey.inline.header location
-                each location_tags
-                    .ui.basic.label #{this}
+                //- .ui.grey.inline.header location
+                //- each location_tags
+                //-     .ui.basic.label #{this}
                 div
                 .ui.grey.inline.header tags
                 each tags
                     .ui.basic.label #{this}
                 +single_user_view key='resident' label='resident' direct=true
                 div
-                +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
+                    
+                //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
     
-                +voting
+                //- +voting
                 div
-                if currentUser
-                    if can_edit
-                        a.ui.button(href="/service/#{_id}/edit")
-                            i.pencil.icon
-                            |edit
+                //- if currentUser
+                //-     if can_edit
+                //-         a.ui.button(href="/service/#{_id}/edit")
+                //-             i.pencil.icon
+                //-             |edit
                 a.ui.button(href="/service/#{_id}/view")
                     |view
                     i.right.chevron.icon
-                +author_info
+                unless is_frontdesk
+                    +author_info
 
 
-template(name='service_edit')
-    with current_doc
-        .ui.stackable.padded.grid
-            .row
-                .four.wide.column 
-                    .ui.header 
-                        +ismall name='add'
-                        |add service
-                    a.ui.big.fluid.button(href="/service/#{_id}/view" title='save')
-                        //- i.checkmark.icon
-                        |save
-                    +remove_button
-                    +image_edit key='image' label='image' direct=true
-                .eight.wide.column 
-                    +text_edit key='title' direct=true
-                    +textarea_edit key='description' label='content' icon='content' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                    +single_user_edit key='resident' label='resident' direct=true
-                    +text_edit key='contact_info' label='contact info' icon='info' direct=true
-                .four.wide.column 
-                    +boolean_edit key='set_duration' label='set duration' direct=true
-                    if set_duration
-                        +number_edit key='duration_hours' label='duration hours' direct=true
-            
-                    +number_edit key='hourly_rate' label='hourly rate' direct=true
-                    +boolean_edit key='variable_price' label='variable price' direct=true
-                    +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
-                        
-                     
 template(name='service_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .four.wide.column 
-                    a.ui.fluid.button(href="/m/service")
+                    a.ui.fluid.button(href="/services")
                         i.left.chevron.icon
-                        +i name='maintenance' classes='ui avatar image'
                         |services
                     .ui.header view service
                     if can_edit
@@ -102,6 +93,35 @@ template(name='service_view')
                     +service_subscription
                     +service_time
                     
+template(name='service_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header 
+                        +ismall name='add'
+                        |add service
+                    a.ui.big.fluid.button(href="/service/#{_id}/view" title='save')
+                        //- i.checkmark.icon
+                        |save
+                    +remove_button
+                    +image_edit key='image' label='image' direct=true
+                .eight.wide.column 
+                    +text_edit key='title' direct=true
+                    +textarea_edit key='description' label='content' icon='content' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +single_user_edit key='resident' label='resident' direct=true
+                    +text_edit key='contact_info' label='contact info' icon='info' direct=true
+                .four.wide.column 
+                    +boolean_edit key='set_duration' label='set duration' direct=true
+                    if set_duration
+                        +number_edit key='duration_hours' label='duration hours' direct=true
+            
+                    +number_edit key='hourly_rate' label='hourly rate' direct=true
+                    +boolean_edit key='variable_price' label='variable price' direct=true
+                    +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
+                    
                     
 template(name='kiosk_service_view')
     with current_doc
@@ -112,7 +132,7 @@ template(name='kiosk_service_view')
             .eight.wide.column
                 +image_view key='image' direct=true
                 +image_view key='picture' direct=true
-            .eight.wide.column
+            .eight.wide.column.scrolling
                 h1.ui.header #{title}
                 .f7 !{description}
                 .ui.hidden.divider
@@ -126,7 +146,8 @@ template(name='kiosk_service_view')
                     +boolean_edit key='variable_price' direct=true
                 +boolean_view key='variable_price' label='variable price' direct=true
                 .ui.header #{views} views
-                
+                if is_admin
+                    +edit_button
                 //- +voting
                 div
                 +kiosk_send_message
@@ -162,24 +183,25 @@ template(name='service_cloud')
         //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
         // .ui.hidden.fitted.divider
     if selected_service_tags
-        #clear_tags.ui.active.icon.button
+        #clear_tags.ui.active.icon.tiny.circular.big.button
             i.remove.icon
         each selected_service_tags
-            .unselect_service_tag.ui.active.button
+            .unselect_service_tag.ui.active.circular.kiosk_facet_button.big.button
                 strong #{this}
     each all_service_tags
-        .ui.compact.tiny.circular.basic.button.select_service_tag(class=cloud_tag_class) 
+        .ui.compact.circular.basic.big.button.kiosk_facet_button.select_service_tag(class=cloud_tag_class) 
             strong #{this.name}
 
 
 
 template(name='service_small')
-    .ui.large.header
-        //- +i name='work'
-        i.wrench.grey.icon
-        |services
-    +service_cloud filter='service'
-        
+    div
+    a.ui.fluid.button(href="/services")
+        .ui.inline.header
+            //- +i name='work'
+            //- i.wrench.grey.icon
+            |services
+    //- +service_cloud filter='service'
     .ui.relaxed.list.smallscroll
         each services
             .item.log_service_view
@@ -191,8 +213,8 @@ template(name='service_small')
                     .header
                         a(href="/kiosk_service_view/#{_id}")
                             .ui.small.grey.inline.header 
-                                |#{title} 
-                                .ui.basic.label $#{hourly_rate}/hr
+                                |#{title}
+                                small $#{hourly_rate}/hr
                     //- .description
                     //-     .ui.horizontal.list
                     //-         .item

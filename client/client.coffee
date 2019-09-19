@@ -1,5 +1,8 @@
 @selected_tags = new ReactiveArray []
 @selected_service_tags = new ReactiveArray []
+@selected_rental_tags = new ReactiveArray []
+@selected_request_tags = new ReactiveArray []
+@selected_shop_tags = new ReactiveArray []
 
 # Meteor.startup ->
 #     scheduler.init "scheduler_here", new Date()
@@ -49,11 +52,11 @@ Template.registerHelper 'gs', () ->
 Template.registerHelper 'rick_mode', () ->
     gs = Docs.findOne
         model:'global_settings'
-    if Meteor.user() and 'dev' in Meteor.user().roles
-        true
-    else
-        if gs
-            gs.rick_mode
+    # if Meteor.user() and 'dev' in Meteor.user().roles
+    #     false
+    # else
+    if gs
+        gs.rick_mode
 Template.registerHelper 'invert_class', () -> if Session.equals('dark_mode',true) then 'invert' else ''
 Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
@@ -300,9 +303,9 @@ Template.registerHelper 'is_resident', () ->
     if Meteor.user() and Meteor.user().roles
         if 'resident' in Meteor.user().roles then true else false
 
-Template.registerHelper 'is_user', () ->
+Template.registerHelper 'is_member', () ->
     if Meteor.user() and Meteor.user().roles
-        if 'user' in Meteor.user().roles then true else false
+        if 'member' in Meteor.user().roles then true else false
 
 Template.registerHelper 'is_resident_or_user', () ->
     if Meteor.user() and Meteor.user().roles
@@ -320,7 +323,8 @@ Template.registerHelper 'is_staff_or_manager', () ->
 Template.registerHelper 'user_is_resident', () -> if @roles and 'resident' in @roles then true else false
 Template.registerHelper 'user_is_owner', () -> if @roles and 'owner' in @roles then true else false
 Template.registerHelper 'user_is_staff', () -> if @roles and 'staff' in @roles then true else false
-Template.registerHelper 'user_is_user', () -> if @roles and 'user' in @roles then true else false
+Template.registerHelper 'user_is_admin', () -> if @roles and 'admin' in @roles then true else false
+Template.registerHelper 'user_is_member', () -> if @roles and 'member' in @roles then true else false
 Template.registerHelper 'user_is_resident_or_owner', () -> if @roles and _.intersection(@roles,['resident','owner']) then true else false
 
 

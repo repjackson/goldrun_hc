@@ -1,23 +1,24 @@
 template(name='delta')
     with current_model
-        .ui.stackable.grid
+        .ui.grid
             .row
                 .five.wide.column
                     if is_loading
-                        .ui.inline.header
-                            +i name=icon classes='ui avatar image'
-                            //- i.icon(class=icon)
+                        .ui.hidden.divider
+                        .ui.header
+                            //- +i name=icon classes='ui avatar image'
+                            i.icon(class=icon)
                             |loading #{title}...
                     else 
                         .ui.inline.header
-                            +i name=icon classes='ui avatar image'
-                            //- i.icon(class=icon)
+                            //- +i name=icon classes='ui avatar image'
+                            i.icon(class=icon)
                             | #{title}
                     unless is_loading
                         if currentUser
                             .ui.icon.large.button.add_model_doc(title="add #{title}")
                                 //- +i name='plus' classes='ui avatar image'
-                                i.plus.icon
+                                i.plus.large.icon
                         +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' label="bookmark"
                         //- if is_dev
                         //-     .ui.icon.large.button.edit_model
@@ -172,8 +173,9 @@ template(name='facet')
         //- .ui.accordion
         //-     .active.title
         if icon
-            +i name=icon classes='ui avatar image'   
-        .ui.inline.small.grey.header 
+            i.grey.icon(class=icon)
+            //- +i name=icon classes='ui avatar image'   
+        .ui.small.grey.inline.header 
             if title
                 |#{title}
             else 

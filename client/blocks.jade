@@ -15,8 +15,9 @@ template(name='comments')
                 .content
                     .ui.header #{body}
                     .meta #{when}
-                        |by 
-                        a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
+                        unless is_frontdesk
+                            |by 
+                            a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
                         if currentUser
                             +voting_small
                             if can_edit
@@ -311,17 +312,19 @@ template(name='view_button')
 
 
 template(name='remove_button')
-    .ui.icon.basic.button.remove_doc(title='delete')
-        i.remove.icon
-        //- |Delete
+    unless is_frontdesk
+        .ui.icon.basic.button.remove_doc(title='delete')
+            i.remove.icon
+            //- |Delete
 
 template(name='add_button')
     a.ui.large.basic.button.add(title="add #{model}")
         //- |#{model.icon}
         if model.icon
-            //- i.icon(class=icon)
-            +ismall name=model.icon classes='ui inline image'
-        i.plus.icon
+            i.icon(class=icon)
+            //- +ismall name=model.icon classes='ui inline image'
+        else 
+            i.plus.icon
         if label
             |#{label}
         //- |#{model}
@@ -457,14 +460,43 @@ template(name='guest_waiver_check')
 template(name='kiosk_send_message')                
     .ui.big.fluid.button.create_message 
         +i name='send-comment' classes='ui inline mini image'
-        |send message
+        |send private message
     if sending_message
         +sending_kiosk_message
 
 template(name='sending_kiosk_message')
-    .ui.header sending message
+    .ui.header include contact info
     with sending_message_doc
         +textarea_edit key='body' direct=true
         .ui.big.fluid.green.button.send_message send
     .ui.big.button.cancel_message cancel
                     
+
+
+
+template(name='suggestion_box')
+    .ui.inline.header 
+        |suggestion box
+    .ui.icon.button.add_suggestion
+        i.plus.icon
+    .ui.bulleted.list
+        each public_suggestions
+            .item 
+                |#{content}
+                small #{when}
+                if is_admin
+                    +remove_button
+    
+    
+    .ui.new_suggestion_modal.modal 
+        i.close.icon
+        .header add suggestion
+        .content
+            with editing_suggestion
+                +textarea_edit key='content' direct=true
+                +boolean_edit key='public' direct=true
+        .actions    
+            .ui.deny.circular.button cancel
+            .ui.green.positive.labeled.icon.circular.button
+                i.checkmark.icon
+                |submit

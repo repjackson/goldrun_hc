@@ -1,15 +1,110 @@
+template(name='rentals')
+    .ui.grid
+        .row
+            a.ui.big.fluid.button(href='/healthclub')
+                i.left.chevron.icon
+                .ui.inline.header back
+        .row
+            .four.wide.column
+                .ui.header 
+                    i.clock.grey.icon        
+                    |rentals
+                +rental_cloud
+            .twelve.wide.column.scrolling
+                .ui.stackable.three.cards
+                    each rentals
+                        +rental_card_template
+
+
+template(name='rental_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header 
+                        i.plus.icon
+                        |rental edit
+                    a.ui.big.fluid.button(href="/rental/#{_id}/view" title='save')
+                        i.checkmark.large.green.icon
+                        |save
+                    +remove_button
+                    +image_edit key='image' label='image' direct=true
+                .eight.wide.column 
+                    +text_edit key='title' direct=true
+                    +html_edit key='description' label='content' icon='content' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +single_user_edit key='resident' label='resident' direct=true
+                    +text_edit key='contact_info' label='contact info' icon='info' direct=true
+                .four.wide.column 
+                    +boolean_edit key='set_duration' label='set duration' direct=true
+                    if set_duration
+                        +number_edit key='duration_hours' label='duration hours' direct=true
+                    +number_edit key='hourly_rate' label='hourly rate' direct=true
+                    +boolean_edit key='variable_price' label='variable price' direct=true
+                    +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
+                    +boolean_edit key='available' label='currently available' direct=true
+
+template(name='rental_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    a.ui.fluid.button(href="/rentals")
+                        i.left.chevron.icon
+                        |rentals
+                    .ui.header viewing rental
+                    if can_edit
+                        a.ui.big.button(href="/rental/#{_id}/edit")
+                            i.pencil.icon
+                            |edit
+                    +image_view key='image' label='image' direct=true
+                    +voting_full
+                    +viewing
+                    +comments
+                .eight.wide.column
+                    h1.ui.header #{title} 
+                    +textarea_view key='description' icon='content' label='description' direct=true
+                    +array_view key='location_tags' label='location tags' icon='marker' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    +single_user_view key='resident' label='resident' direct=true
+                    +text_view key='contact_info' label='contact info' icon='info' direct=true
+                    +rental_transactions
+                .four.wide.column 
+                    +boolean_view key='set_duration' label='set duration' direct=true
+                    if set_duration
+                        +number_view key='duration_hours' label='duration hours' direct=true
+                    +number_view key='hourly_rate' label='hourly rate' direct=true
+                    +boolean_view key='variable_price' label='variable price' direct=true
+                    div
+                    +rental_status
+                    //- +rental
+                    //- +rental_history
+                    //- +rental_subscription
+                    //- +rental_time
+
+
+template(name='rental_status')
+    div
+    .ui.inline.header status
+    if available 
+        .ui.green.label available
+        div
+        .ui.big.green.fluid.button.new_reservation reserve/rent 
+
+
 template(name='rental_card_template')
     .ui.fluid.segment.grid
         .row
             .sixteen.wide.column
-                a.ui.inline.header(href="/service/#{_id}/view") #{title} 
+                a.ui.inline.header(href="/kiosk_rental_view/#{_id}") #{title} 
                     if variable_price
                         |~
-                    .ui.basic.label $#{hourly_rate}/hr
-                    .ui.basic.label $#{daily_rate}/day
+                    .ui.label $#{hourly_rate}/hr
+                    .ui.label $#{daily_rate}/day
         .row
             .four.wide.column
-                a.zoom(href="/service/#{_id}/view")
+                a.zoom(href="/rental/#{_id}/view")
                     if image
                         +image_view key='image' direct=true classes='zoom'
                     if picture
@@ -18,30 +113,49 @@ template(name='rental_card_template')
                 div
                 .ui.grey.inline.header location
                 each location_tags
-                    .ui.basic.label #{this}
+                    .ui.label #{this}
                 div
                 .ui.grey.inline.header tags
                 each tags
-                    .ui.basic.label #{this}
+                    .ui.label #{this}
                 +single_user_view key='resident' label='resident' direct=true
-                div
-                +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
+                //- div
+                //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
     
                 +voting
                 div
                 if currentUser
                     if can_edit
-                        a.ui.button(href="/service/#{_id}/edit")
+                        a.ui.button(href="/rental/#{_id}/edit")
                             i.pencil.icon
                             |edit
-                a.ui.button(href="/service/#{_id}/view")
+                a.ui.button(href="/kiosk_rental_view/#{_id}")
                     |view
                     i.right.chevron.icon
                 +author_info
 
 
+template(name='rental_cloud')
+    //- #cloud
+        //- .ui.left.icon.input
+        //-     i.search.icon
+        //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
+        // .ui.hidden.fitted.divider
+    if selected_rental_tags
+        #clear_tags.ui.active.icon.tiny.circular.button
+            i.remove.icon
+        each selected_rental_tags
+            .unselect_rental_tag.ui.active.large.circular.kiosk_facet_button.button
+                strong #{this}
+    each all_rental_tags
+        .ui.compact.large.circular.basic.button.kiosk_facet_button.select_rental_tag(class=cloud_tag_class) 
+            strong #{this.name}
 
-template(name='rentals')
+
+
+
+
+template(name='rental_cal')
     .ui.header 
         i.clock.icon
         |rentals
@@ -80,7 +194,7 @@ template(name='rentals')
 template(name='month_day_template')
     .column
         a(href="/shop/#{product._id}/daily_calendar/#{month}/#{day}/#{year}") #{this}
-        .ui.basic.label(title='reservations') #{reservation_count}
+        .ui.label(title='reservations') #{reservation_count}
         //- if reservation_exists
         //-     //- with reservation_exists
         //-         |#{_id}
@@ -167,27 +281,36 @@ template(name='rental')
 
 template(name='kiosk_rental_view')
     with current_doc
-        .ui.padded.stackable.grid
+        .ui.padded.grid
             a.ui.fluid.big.button(href="/healthclub")
                 i.left.chevron.large.icon
                 |back
             .eight.wide.column
                 +image_view key='image' direct=true
                 +image_view key='picture' direct=true
+                if is_admin
+                    a.ui.button(href="/m/rental/#{_id}/view") main view
             .eight.wide.column
                 h1.ui.header #{title}
                 |!{description}
-                .ui.header $#{hourly_rate}/hr
-                .ui.header $#{daily_rate}/day
-                .ui.header #{views} views
+                .ui.big.horizontal.list
+                    .item $#{hourly_rate}/hr
+                    .item $#{daily_rate}/day
+                    .item #{views} views
+                if is_admin
+                    +edit_button
+                +comments
                 +kiosk_send_message                    
 
 
 template(name='rental_small')
-    .ui.large.header
-        //- +i name='rent'
-        i.clock.grey.icon
-        |rentals
+    div
+    a.ui.fluid.compact.button(href="/rentals")
+        .ui.inline.header
+            //- +i name='rent'
+            //- i.clock.grey.icon
+            |rentals
+    //- +rental_cloud
     .ui.relaxed.list.smallscroll
         each rentals 
             .item.log_rental_view
@@ -198,7 +321,7 @@ template(name='rental_small')
                         img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
                     .ui.grey.inline.small.header 
                         |#{title}
-                        .ui.basic.label $#{daily_rate}/day
+                        small $#{daily_rate}/day
             //- div
             //- .ui.horizontal.list
             //-     .item
@@ -210,3 +333,9 @@ template(name='rental_small')
             //-             i.money.icon
             //-             |#{money_earned}
             
+
+
+template(name='rental_transactions')
+    .ui.header 
+        i.transaction.icon
+        |rental transactions

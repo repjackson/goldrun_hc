@@ -3,11 +3,25 @@ if Meteor.isClient
         @layout 'mlayout'
         @render 'kiosk_rental_view'
         ), name:'kiosk_rental_view'
+    Router.route '/rentals', (->
+        @render 'rentals'
+        ), name:'rentals'
+    Router.route '/rental/:doc_id/view', (->
+        @render 'rental_view'
+        ), name:'rental_view'
+    Router.route '/rental/:doc_id/edit', (->
+        @render 'rental_edit'
+        ), name:'rental_edit'
+
 
     Template.kiosk_rental_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.rental_view.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.rental_edit.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.rentals.onCreated ->
-        @autorun => Meteor.subscribe 'rentals',Router.current().params.doc_id
+        @autorun -> Meteor.subscribe 'rental_docs', selected_rental_tags.array()
         # @autorun => Meteor.subscribe 'model_docs','reservation'
         # @autorun => Meteor.subscribe 'model_docs','reservation_slot'
         # @autorun -> Meteor.subscribe 'shop'
@@ -211,11 +225,9 @@ if Meteor.isClient
             Docs.update @_id,
                 $inc: views: 1
 
-
     Template.rental.events
         'click .delete_rental': ->
             Docs.remove @_id
-
         'click .calculate_diff': ->
             product = Template.parentData()
             console.log product
@@ -231,6 +243,29 @@ if Meteor.isClient
                     'rental_days':rental_days
                     hourly_rental_price:hourly_rental_price
                     daily_rental_price:daily_rental_price
+
+
+    Template.rental_small.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'rental'
+    Template.rental_small.helpers
+        rentals: ->
+            Docs.find {
+                model:'rental'
+            },
+                sort: _timestamp: -1
+                # limit:7
+
+    Template.rental_status.events
+        'click .new_reservation': (e,t)->
+            console.log @
+            new_reservation_id = Docs.insert
+                model:'reservation'
+                rental_id: @_id
+            Router.go "/reservation/#{new_reservation_id}/edit"
+
+
+
+
 
 if Meteor.isServer
     Meteor.publish 'rentals', (product_id)->

@@ -92,7 +92,8 @@ if Meteor.isClient
             new_update_id = Docs.insert
                 model:'project_update'
                 parent_id: @_id
-            Router.go "/m/project_update/#{new_update_id}/edit"
+            Session.set 'editing_id', new_update_id
+            # Router.go "/m/project_update/#{new_update_id}/edit"
 
 
     Template.project_edit.helpers

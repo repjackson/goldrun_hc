@@ -11,6 +11,11 @@ if Meteor.isClient
     #     @render 'shop_edit'
     #     ), name:'shop_edit'
 
+    Router.route '/products', (->
+        @layout 'mlayout'
+        @render 'products'
+        ), name:'products'
+
     Router.route "/shop/:doc_id/view", (->
         @layout 'shop_view_layout'
         @render 'shop_info'

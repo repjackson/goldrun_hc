@@ -63,3 +63,23 @@ template(name='reservation_rental_template')
         
 
     
+template(name='reservation_view')
+template(name='reservation_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header 
+                        |edit reservation
+                    a.ui.big.fluid.button(href="/rental/#{_id}/view" title='save')
+                        i.checkmark.large.green.icon
+                        |save
+                    +remove_button
+                    with rental
+                        +image_edit key='image' label='image' direct=true
+                .eight.wide.column 
+                    .ui.header reserve #{rental.title}
+                    .ui.big.button now
+                    .ui.big.button later
+
+                    .ui.big.button complete

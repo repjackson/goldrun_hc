@@ -1,24 +1,24 @@
 if Meteor.isClient
-    Template.service_cloud.onCreated ->
-        @autorun -> Meteor.subscribe('service_tags', selected_service_tags.array())
+    Template.rental_cloud.onCreated ->
+        @autorun -> Meteor.subscribe('rental_tags', selected_rental_tags.array())
 
-    Template.service_cloud.helpers
-        all_service_tags: ->
-            service_count = Docs.find(model:'service').count()
-            if 0 < service_count < 3 then Service_tags.find { count: $lt: service_count } else Service_tags.find({},{limit:10})
+    Template.rental_cloud.helpers
+        all_rental_tags: ->
+            rental_count = Docs.find(model:'rental').count()
+            if 0 < rental_count < 3 then Rental_tags.find { count: $lt: rental_count } else Rental_tags.find({},{limit:10})
         # cloud_tag_class: ->
         #     button_class = switch
         #         when @index <= 5 then 'large'
         #         when @index <= 12 then ''
         #         when @index <= 20 then 'small'
         #     return button_class
-        selected_service_tags: -> selected_service_tags.array()
+        selected_rental_tags: -> selected_rental_tags.array()
         # settings: -> {
         #     position: 'bottom'
         #     limit: 10
         #     rules: [
         #         {
-        #             collection: Service_tags
+        #             collection: Rental_tags
         #             field: 'name'
         #             matchAll: true
         #             template: Template.tag_result
@@ -27,10 +27,10 @@ if Meteor.isClient
         # }
 
 
-    Template.service_cloud.events
-        'click .select_service_tag': -> selected_service_tags.push @name
-        'click .unselect_service_tag': -> selected_service_tags.remove @valueOf()
-        'click #clear_tags': -> selected_service_tags.clear()
+    Template.rental_cloud.events
+        'click .select_rental_tag': -> selected_rental_tags.push @name
+        'click .unselect_rental_tag': -> selected_rental_tags.remove @valueOf()
+        'click #clear_tags': -> selected_rental_tags.clear()
 
         # 'keyup #search': (e,t)->
         #     e.preventDefault()
@@ -39,46 +39,46 @@ if Meteor.isClient
         #         when 13 #enter
         #             switch val
         #                 when 'clear'
-        #                     selected_service_tags.clear()
+        #                     selected_rental_tags.clear()
         #                     $('#search').val ''
         #                 else
         #                     unless val.length is 0
-        #                         selected_service_tags.push val.toString()
+        #                         selected_rental_tags.push val.toString()
         #                         $('#search').val ''
         #         when 8
         #             if val.length is 0
-        #                 selected_service_tags.pop()
+        #                 selected_rental_tags.pop()
         #
         # 'autocompleteselect #search': (event, template, doc) ->
-        #     selected_service_tags.push doc.name
+        #     selected_rental_tags.push doc.name
         #     $('#search').val ''
 
 
 if Meteor.isServer
-    Meteor.publish 'service_tags', (selected_service_tags)->
+    Meteor.publish 'rental_tags', (selected_rental_tags)->
         # user = Meteor.users.finPdOne @userId
         # current_herd = user.profile.current_herd
 
         self = @
         match = {}
 
-        # selected_service_tags.push current_herd
+        # selected_rental_tags.push current_herd
 
-        if selected_service_tags.length > 0 then match.tags = $all: selected_service_tags
-        match.model = 'service'
+        if selected_rental_tags.length > 0 then match.tags = $all: selected_rental_tags
+        match.model = 'rental'
         cloud = Docs.aggregate [
             { $match: match }
             { $project: tags: 1 }
             { $unwind: "$tags" }
             { $group: _id: '$tags', count: $sum: 1 }
-            { $match: _id: $nin: selected_service_tags }
+            { $match: _id: $nin: selected_rental_tags }
             { $sort: count: -1, _id: 1 }
             { $limit: 10 }
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
 
         cloud.forEach (tag, i) ->
-            self.added 'service_tags', Random.id(),
+            self.added 'rental_tags', Random.id(),
                 name: tag.name
                 count: tag.count
                 index: i
@@ -86,14 +86,14 @@ if Meteor.isServer
         self.ready()
 
 
-    Meteor.publish 'service_docs', (selected_service_tags)->
+    Meteor.publish 'rental_docs', (selected_rental_tags)->
         # user = Meteor.users.findOne @userId
-        console.log selected_service_tags
+        console.log selected_rental_tags
         # console.log filter
         self = @
         match = {}
         # if filter is 'shop'
         #     match.active = true
-        if selected_service_tags.length > 0 then match.tags = $all: selected_service_tags
-        match.model = 'service'
+        if selected_rental_tags.length > 0 then match.tags = $all: selected_rental_tags
+        match.model = 'rental'
         Docs.find match, sort:_timestamp:-1

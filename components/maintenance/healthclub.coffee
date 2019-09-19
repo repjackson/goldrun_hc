@@ -3,7 +3,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
         @autorun -> Meteor.subscribe 'me'
         @autorun -> Meteor.subscribe 'global_settings'
-
+        @autorun -> Meteor.subscribe 'users_by_role', 'staff'
         # @autorun => Meteor.subscribe 'current_session'
         # @autorun => Meteor.subscribe 'latest_movie'
         # @autorun => Meteor.subscribe 'model_docs', 'log_event'

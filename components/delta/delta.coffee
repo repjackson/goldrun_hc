@@ -13,7 +13,6 @@ if Meteor.isClient
             if delta
                 if delta.sort_direction is 1 then true
 
-
         selected_tags: -> selected_tags.list()
         view_mode_template: ->
             # console.log @

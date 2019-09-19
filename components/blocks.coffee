@@ -365,6 +365,39 @@ if Meteor.isClient
             # Docs.findOne Session.get('sending_message_id')
             # Docs.findOne Template.instance().sending_message_id.get()
 
+
+
+    Template.suggestion_box.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'suggestion'
+    Template.suggestion_box.events
+        'click .add_suggestion': (e,t)->
+            new_suggestion_id =
+                Docs.insert
+                    model:'suggestion'
+            Session.set 'current_suggestion_id', new_suggestion_id
+            $('.ui.modal').modal('show')
+
+    Template.suggestion_box.helpers
+        editing_suggestion: ->
+            Docs.findOne Session.get('current_suggestion_id')
+        public_suggestions: ->
+            Docs.find
+                model:'suggestion'
+                public:true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if Meteor.isServer
     Meteor.methods
         'send_kiosk_message': (message)->

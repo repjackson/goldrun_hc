@@ -86,63 +86,83 @@ template(name='healthclub_session')
                         h2
                             small staff notes:
                             strong !{user.public_staff_notes}
-                    //- if is_staff
-                    +healthclub_stats user=user
-                    if adding_guests
-                        //- .ui.header 
-                        //-     //- i.users.icon
-                        //-     |session guests
-                        if resident_guests
-                            .ui.small.inline.header recent guests
-                        each resident_guests
-                            .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
-                        div
-                        .ui.big.basic.button.add_guest
-                            //- i.plus.icon
-                            //- +i name='add-user-group-man-man--v2' classes='ui inline image'
-                            strong new guest
-                        .ui.inline.header or
-                        +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
-                        div
-                        with checking_in_doc
-                            if checking_in_doc.guest_ids
-                                .ui.inline.header session guests
-                                each checking_in_doc.guest_ids
-                                    +resident_guest
-                    else
-                        .ui.big.basic.compact.fluid.button.toggle_adding_guest 
-                            //- i.plus.large.icon
-                            //- +i name='add' classes='ui inline image'                
-                            .ui.inline.big.header add guest
-                    .poll_area
-                        with current_poll
-                            .ui.hidden.divider
-                            .ui.tiny.grey.inline.header optional
-                            .ui.inline.header #{title}
-                            //- each upvoter_ids
-                            //-     .ui.label #{this}
-                            //- each downvoter_ids
-                            //-     .ui.label #{this}
-                            //- //- each options
-                            //-     .ui.button.choose_this #{this}
-                            .ui.center.aligned.basic.segment
-                                .ui.icon.big.button.vote_yes
-                                    i.thumbs.up.outline.big.icon
-                                .ui.icon.big.button.vote_no
-                                    i.thumbs.down.outline.big.icon
-                    .hc_visit_purpose
-                        with checking_in_doc    
-                            .ui.hidden.divider
-                            .ui.tiny.grey.inline.header optional
-                            .ui.inline.header purpose of visit
-                            div
-                            +boolean_edit key='weight_lifting' label='weights' direct=true
-                            +boolean_edit key='cardio' label='cardio' direct=true
-                            +boolean_edit key='hot tub' label='hot tub' direct=true
-                            +boolean_edit key='pool' label='pool' direct=true
-                            +boolean_edit key='sauna_steamroom' label='sauna/steamroom' direct=true
-                            +boolean_edit key='garden_key' label='garden key' direct=true
-                            +boolean_edit key='other' label='other' direct=true
+                    if is_staff
+                        +healthclub_stats user=user
+                    if user.kiosk_photo
+                        if user.member_waiver_signed
+                            if user.rules_and_regulations_signed
+                                if adding_guests
+                                    //- .ui.header 
+                                    //-     //- i.users.icon
+                                    //-     |session guests
+                                    if resident_guests
+                                        .ui.small.inline.header recent guests
+                                    each resident_guests
+                                        .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
+                                    div
+                                    .ui.big.basic.button.add_guest
+                                        //- i.plus.icon
+                                        //- +i name='add-user-group-man-man--v2' classes='ui inline image'
+                                        strong new guest
+                                    .ui.inline.header or
+                                    +multi_doc_input key='guests' ref_model='guest' title='lookup previous...' direct=true
+                                    div
+                                    with checking_in_doc
+                                        if checking_in_doc.guest_ids
+                                            .ui.inline.header session guests
+                                            each checking_in_doc.guest_ids
+                                                +resident_guest
+                                else
+                                    .ui.big.basic.compact.fluid.button.toggle_adding_guest 
+                                        //- i.plus.large.icon
+                                        //- +i name='add' classes='ui inline image'                
+                                        .ui.inline.big.header
+                                            i.plus.grey.icon
+                                            |guest
+                                //- .poll_area
+                                //-     with current_poll
+                                //-         .ui.hidden.divider
+                                //-         .ui.tiny.grey.inline.header optional
+                                //-         .ui.inline.header #{title}
+                                //-         //- each upvoter_ids
+                                //-         //-     .ui.label #{this}
+                                //-         //- each downvoter_ids
+                                //-         //-     .ui.label #{this}
+                                //-         //- //- each options
+                                //-         //-     .ui.button.choose_this #{this}
+                                //-         .ui.center.aligned.basic.segment
+                                //-             .ui.icon.big.button.vote_yes
+                                //-                 i.thumbs.up.outline.big.icon
+                                //-             .ui.icon.big.button.vote_no
+                                //-                 i.thumbs.down.outline.big.icon
+                    if user.kiosk_photo
+                        if user.member_waiver_signed
+                            if user.rules_and_regulations_signed
+                                .hc_visit_purpose
+                                    with checking_in_doc    
+                                        .ui.hidden.divider
+                                        .ui.tiny.grey.inline.header optional
+                                        .ui.inline.header purpose of visit
+                                        +boolean_edit key='weight_lifting' label='weights' direct=true
+                                        +boolean_edit key='cardio' label='cardio' direct=true
+                                        +boolean_edit key='hot tub' label='hot tub' direct=true
+                                        +boolean_edit key='pool' label='pool' direct=true
+                                        +boolean_edit key='sauna_steamroom' label='sauna/steamroom' direct=true
+                                        +boolean_edit key='garden_key' label='garden key' direct=true
+                                        +boolean_edit key='other' label='other' direct=true
+                            //- +boolean_edit key='weight_lifting' label='weights' direct=true
+                            //- div
+                            //- +boolean_edit key='cardio' label='cardio' direct=true
+                            //- div
+                            //- +boolean_edit key='hot tub' label='hot tub' direct=true
+                            //- div
+                            //- +boolean_edit key='pool' label='pool' direct=true
+                            //- div
+                            //- +boolean_edit key='sauna_steamroom' label='sauna/steamroom' direct=true
+                            //- div
+                            //- +boolean_edit key='garden_key' label='garden key' direct=true
+                            //- div
+                            //- +boolean_edit key='other' label='other' direct=true
             .row
                 .sixteen.wide.column
                     unless user.kiosk_photo
@@ -173,8 +193,8 @@ template(name='healthclub_session')
                             if user.member_waiver_signed
                                 if user.rules_and_regulations_signed
                                     unless user.email_red_flagged
-                                        .ui.massive.fluid.green.button.submit_checkin
-                                            .ui.inline.header 
+                                        .ui.massive.fluid.basic.green.button.submit_checkin
+                                            .ui.inline.inverted.header 
                                                 | check in
                                                 //- i.checkmark.green.icon
                                                 //- if timer_engaged

@@ -57,6 +57,16 @@ if Meteor.isClient
                 text: "#{Meteor.user().username} marked servicerk order complete."
 
 
+    Template.services.onCreated ->
+        @autorun -> Meteor.subscribe 'service_docs', selected_service_tags.array()
+        # @autorun -> Meteor.subscribe 'model_docs', 'service'
+    Template.services.helpers
+        services: ->
+            Docs.find {
+                model:'service'
+            },
+                sort: _timestamp: -1
+                # limit:7
     Template.service_small.onCreated ->
         @autorun -> Meteor.subscribe 'service_docs', selected_service_tags.array()
         # @autorun -> Meteor.subscribe 'model_docs', 'service'

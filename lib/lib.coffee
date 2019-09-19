@@ -3,6 +3,7 @@
 @Service_tags = new Meteor.Collection 'service_tags'
 @Request_tags = new Meteor.Collection 'request_tags'
 @Rental_tags = new Meteor.Collection 'rental_tags'
+@Shop_tags = new Meteor.Collection 'shop_tags'
 
 # Meteor.users.helpers
 #     name: ->
