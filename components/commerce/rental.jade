@@ -31,19 +31,19 @@ template(name='set_market_type')
 
 template(name='rental_kiosk_card')
     .ui.card
-        a.image.zoom(href="/kiosk_rental_view/#{_id}")
+        a.image.zoom.log_view(href="/kiosk_rental_view/#{_id}")
             img.ui.image(src="{{c.url image width=200 height=200 crop='lpad'}}")
 
         //- +image_view key='image' direct=true classes='zoom'
         .content
-            a.ui.inline.header(href="/kiosk_rental_view/#{_id}") #{title} 
+            a.ui.header.log_view(href="/kiosk_rental_view/#{_id}") #{title} 
                 if variable_price
                     |~
-                .ui.basic.label $#{hourly_rate}/hr
-                .ui.basic.label $#{daily_rate}/day
-            a.ui.button(href="/kiosk_rental_view/#{_id}")
-                |view
-                i.right.chevron.yellow.icon
+                .ui.basic.large.label $#{hourly_rate}/hr
+                .ui.basic.large.label $#{daily_rate}/day
+            //- a.ui.button.log_view(href="/kiosk_rental_view/#{_id}")
+            //-     |view
+            //-     i.right.chevron.yellow.icon
 
 
 
@@ -370,9 +370,10 @@ template(name='rental')
 template(name='kiosk_rental_view')
     with current_doc
         .ui.padded.grid
-            a.ui.fluid.big.button(href="/healthclub")
+            a.ui.fluid.big.button(href="/market")
                 i.left.chevron.large.icon
-                |kiosk
+                i.shopping.bag.large.icon
+                |market
             .eight.wide.column
                 +image_view key='image' direct=true
                 a.ui.large.fluid.button(href="/rental/#{_id}/view/info") 
@@ -386,6 +387,12 @@ template(name='kiosk_rental_view')
                 .ui.small.statistic
                     .value $#{daily_rate}
                     .label /day
+                .ui.small.statistic
+                    .value #{views}
+                    .label views
+                .ui.small.statistic
+                    .value #{transaction_count}
+                    .label transactions
                 .ui.large.fluid.accordion
                     .title
                         |description 

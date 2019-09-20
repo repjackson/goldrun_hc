@@ -112,6 +112,9 @@ globalHotkeys.add
 	combo: "g w"
 	callback: -> Router.go '/work_orders'
 globalHotkeys.add
+	combo: "g m"
+	callback: -> Router.go '/market'
+globalHotkeys.add
 	combo: "g d"
 	callback: ->
         if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
@@ -128,7 +131,7 @@ globalHotkeys.add
             slug: Router.current().params.model_slug
         Router.go "/m/#{current_model.slug}/#{Router.current().params.doc_id}/view"
 globalHotkeys.add
-	combo: "g m"
+	combo: "g u"
 	callback: ->
         model_slug =  Router.current().params.model_slug
         Session.set 'loading', true
@@ -141,9 +144,9 @@ globalHotkeys.add
 globalHotkeys.add
 	combo: "g i"
 	callback: -> Router.go "/inbox"
-globalHotkeys.add
-	combo: "g m"
-	callback: -> Router.go "/members"
+# globalHotkeys.add
+# 	combo: "g m"
+# 	callback: -> Router.go "/members"
 globalHotkeys.add
 	combo: "g a"
 	callback: -> Router.go "/admin"

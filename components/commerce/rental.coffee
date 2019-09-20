@@ -188,6 +188,12 @@ if Meteor.isClient
                 upcoming_days.push {moment_ob:moment_ob,long_form:long_form}
             upcoming_days
 
+    Template.rental_kiosk_card.events
+        'click .log_view': ->
+            console.log @
+            Docs.update @_id,
+                $inc: views: 1
+
     Template.rentals.events
         'click .rent': ->
             new_id = Docs.insert
