@@ -267,7 +267,7 @@ template(name='health_club_status_small')
         .item
             |#{latest_uht_reading.when}
         div
-        |by #{latest_uht_reading.author.username}
+        |by #{latest_uht_reading.author.name}
     div
     .ui.inline.header lower hot tub
         +water_status slug='lower_hot_tub'
@@ -282,7 +282,7 @@ template(name='health_club_status_small')
         .item
             |#{latest_lht_reading.when}
         div
-        |by #{latest_lht_reading.author.username}
+        |by #{latest_lht_reading.author.name}
             
     div
     .ui.inline.header
@@ -299,7 +299,7 @@ template(name='health_club_status_small')
         .item
             |#{latest_pool_reading.when}
         div
-        |by #{latest_pool_reading.author.username}
+        |by #{latest_pool_reading.author.name}
 
 
 template(name='water_status')

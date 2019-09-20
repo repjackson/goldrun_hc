@@ -19,6 +19,8 @@ template(name='admin')
             .column
                 +latest_activity
             .column
+                +market_small
+            .column
                 +rental_small
             .column
                 +admin_tasks
@@ -50,6 +52,11 @@ template(name='admin_tasks')
     a.ui.header(href="/m/task")
         i.tasks.icon
         |admin tasks
+
+template(name='market_small')
+    a.ui.header(href="/market")
+        i.shopping.bag.icon
+        |market
 
 template(name='my_earnings_small')
     .ui.header 

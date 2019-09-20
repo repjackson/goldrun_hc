@@ -3,6 +3,7 @@
 @selected_rental_tags = new ReactiveArray []
 @selected_request_tags = new ReactiveArray []
 @selected_shop_tags = new ReactiveArray []
+@selected_market_tags = new ReactiveArray []
 
 # Meteor.startup ->
 #     scheduler.init "scheduler_here", new Date()
@@ -256,9 +257,6 @@ Template.registerHelper 'current_user', (input) ->
     Meteor.user() and Meteor.user().username is Router.current().params.username
 
 
-Template.registerHelper 'user_is_client', (input) ->
-    user = Meteor.users.findOne username:Router.current().params.username
-    if user and user.roles and 'client' in user.roles then true else false
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
@@ -282,7 +280,6 @@ Template.registerHelper 'is_admin', () ->
     if Meteor.user() and Meteor.user().roles
         # if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
         if 'admin' in Meteor.user().roles then true else false
-
 Template.registerHelper 'is_staff', () ->
     if Meteor.user() and Meteor.user().roles
         # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
@@ -301,7 +298,9 @@ Template.registerHelper 'is_dev', () ->
 Template.registerHelper 'is_manager', () ->
     if Meteor.user() and Meteor.user().roles
         if 'manager' in Meteor.user().roles then true else false
-
+Template.registerHelper 'is_handler', () ->
+    if Meteor.user() and Meteor.user().roles
+        if 'handler' in Meteor.user().roles then true else false
 Template.registerHelper 'is_resident', () ->
     if Meteor.user() and Meteor.user().roles
         if 'resident' in Meteor.user().roles then true else false
@@ -328,6 +327,7 @@ Template.registerHelper 'user_is_owner', () -> if @roles and 'owner' in @roles t
 Template.registerHelper 'user_is_staff', () -> if @roles and 'staff' in @roles then true else false
 Template.registerHelper 'user_is_admin', () -> if @roles and 'admin' in @roles then true else false
 Template.registerHelper 'user_is_member', () -> if @roles and 'member' in @roles then true else false
+Template.registerHelper 'user_is_handler', () -> if @roles and 'handler' in @roles then true else false
 Template.registerHelper 'user_is_resident_or_owner', () -> if @roles and _.intersection(@roles,['resident','owner']) then true else false
 
 

@@ -1,18 +1,97 @@
 template(name='rentals')
     .ui.grid
         .row
-            a.ui.big.fluid.button(href='/healthclub')
-                i.left.chevron.icon
-                .ui.inline.header back
-        .row
             .six.wide.column
-                .ui.header 
-                    i.clock.grey.icon        
-                    |rentals
+                a.ui.big.fluid.button(href='/healthclub')
+                    i.left.chevron.icon
+                    .ui.inline.header back
+                h1.ui.header 
+                    |market
+                //- .ui.inline.header type
+                +set_market_type label='for sale' icon='shopping bag'
+                +set_market_type label='free' icon='thumbs up outline'
+                +set_market_type label='service' icon='wrench'
+                +set_market_type label='rental' icon='clock outline'
+                +set_market_type label='seeking' icon='hand holding'
+                +set_market_type label='casual encounters' icon='fire alternate'
+                +set_market_type label='missed connections' icon='heart broken'
+                +set_market_type label='events' icon='calendar'
+                div
                 +rental_cloud
-            .ten.wide.column
-                each rentals
-                    +rental_card_template
+            .ten.wide.column.scrolling
+                .ui.two.cards
+                    each rentals
+                        +rental_kiosk_card
+
+template(name='set_market_type')
+    .ui.large.button 
+        if icon
+            i.icon(class=icon)
+        |#{label}
+
+template(name='rental_kiosk_card')
+    .ui.card
+        a.image.zoom(href="/kiosk_rental_view/#{_id}")
+            img.ui.image(src="{{c.url image width=200 height=200 crop='lpad'}}")
+
+        //- +image_view key='image' direct=true classes='zoom'
+        .content
+            a.ui.inline.header(href="/kiosk_rental_view/#{_id}") #{title} 
+                if variable_price
+                    |~
+                .ui.basic.label $#{hourly_rate}/hr
+                .ui.basic.label $#{daily_rate}/day
+            a.ui.button(href="/kiosk_rental_view/#{_id}")
+                |view
+                i.right.chevron.yellow.icon
+
+
+
+
+
+template(name='rental_kiosk_segment')
+    .ui.fluid.segment.grid
+        .row
+            .sixteen.wide.column
+                a.ui.inline.header(href="/kiosk_rental_view/#{_id}") #{title} 
+                    if variable_price
+                        |~
+                    .ui.basic.label $#{hourly_rate}/hr
+                    .ui.basic.label $#{daily_rate}/day
+        .row
+            .four.wide.column
+                a.zoom(href="/kiosk_rental_view/#{_id}")
+                    if image
+                        +image_view key='image' direct=true classes='zoom'
+                    //- if picture
+                    //-     +image_view key='picture' direct=true classes='zoom'
+            .twelve.wide.column
+                div
+                //- .ui.grey.inline.header location
+                //- each location_tags
+                //-     .ui.basic.label #{this}
+                //- div
+                //- .ui.grey.inline.header tags
+                //- each tags
+                //-     .ui.basic.label #{this}
+                //- +single_user_view key='resident' label='resident' direct=true
+                //- div
+                //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
+    
+                //- +voting
+                div
+                //- if currentUser
+                //-     if can_edit
+                //-         a.ui.button(href="/rental/#{_id}/edit/info")
+                //-             i.pencil.blue.icon
+                //-             |edit
+                a.ui.button(href="/kiosk_rental_view/#{_id}")
+                    |view
+                    i.right.chevron.yellow.icon
+                //- +author_info
+
+
+
 
 
 template(name='rental_view')
@@ -59,7 +138,6 @@ template(name='rental_view')
 
 
 template(name='rental_finance')
-    div
     .ui.inline.header 
         i.money.grey.icon
         |rental finance
@@ -114,8 +192,8 @@ template(name='rental_card_template')
                 a.zoom(href="/rental/#{_id}/view")
                     if image
                         +image_view key='image' direct=true classes='zoom'
-                    if picture
-                        +image_view key='picture' direct=true classes='zoom'
+                    //- if picture
+                    //-     +image_view key='picture' direct=true classes='zoom'
             .twelve.wide.column
                 div
                 .ui.grey.inline.header location
@@ -133,12 +211,13 @@ template(name='rental_card_template')
                 div
                 if currentUser
                     if can_edit
-                        a.ui.button(href="/rental/#{_id}/edit")
-                            i.pencil.icon
+                        a.ui.button(href="/rental/#{_id}/edit/info")
+                            i.pencil.blue.icon
                             |edit
-                a.ui.button(href="/kiosk_rental_view/#{_id}")
+                //- a.ui.button(href="/kiosk_rental_view/#{_id}")
+                a.ui.button(href="/rental/#{_id}/view/info")
                     |view
-                    i.right.chevron.icon
+                    i.right.chevron.yellow.icon
                 +author_info
 
 
@@ -148,6 +227,8 @@ template(name='rental_cloud')
         //-     i.search.icon
         //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
         // .ui.hidden.fitted.divider
+    i.grey.tags.icon
+    //- .ui.inline.header tags
     if selected_rental_tags
         #clear_tags.ui.active.icon.tiny.circular.button
             i.remove.icon
@@ -291,21 +372,36 @@ template(name='kiosk_rental_view')
         .ui.padded.grid
             a.ui.fluid.big.button(href="/healthclub")
                 i.left.chevron.large.icon
-                |back
+                |kiosk
             .eight.wide.column
                 +image_view key='image' direct=true
-                +image_view key='picture' direct=true
-                if is_admin
-                    a.ui.button(href="/m/rental/#{_id}/view") main view
+                a.ui.large.fluid.button(href="/rental/#{_id}/view/info") 
+                    i.external.grey.icon
+                    |full view
             .eight.wide.column
                 h1.ui.header #{title}
-                |!{description}
-                .ui.big.horizontal.list
-                    .item $#{hourly_rate}/hr
-                    .item $#{daily_rate}/day
-                    .item #{views} views
-                +rental_transactions
-                +rental_reservations
+                .ui.small.statistic
+                    .value $#{hourly_rate}
+                    .label /hour
+                .ui.small.statistic
+                    .value $#{daily_rate}
+                    .label /day
+                .ui.large.fluid.accordion
+                    .title
+                        |description 
+                        i.dropdown.icon
+                    .content
+                        |!{description}
+                    .title
+                        |reservations 
+                        i.dropdown.icon
+                    .content
+                        +rental_reservations
+                    .title
+                        |transactions 
+                        i.dropdown.icon
+                    .content
+                        +rental_transactions
                 if is_admin
                     +edit_button
                 +comments
@@ -347,12 +443,12 @@ template(name='rental_small')
 template(name='rental_transactions')
     .ui.header 
         i.exchange.icon
-        |rental transactions
+        |transactions
     each transactions
         a.ui.header(href="/transaction/#{_id}/view") #{when} by #{_author_username}
 template(name='rental_reservations')
     .ui.header 
         i.clock.icon
-        |rental reservations
+        |reservations
     each reservations
         a.ui.header(href="/reservation/#{_id}/view") #{when} by #{_author_username}

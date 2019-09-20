@@ -3,9 +3,14 @@ template(name='rental_view_layout')
     with current_doc
         .ui.stackable.padded.grid
             .row
+                a.ui.fluid.big.button(href="/rentals")
+                    i.left.chevron.large.icon
+                    |rentals
+            .row
                 .four.wide.column 
                     .ui.header 
                         |rental view
+                    +image_view key='image' classes='zoom' direct=true
                     if can_edit
                         a.ui.fluid.button(href="/rental/#{_id}/edit" title='save')
                             i.pencil.large.icon
@@ -40,6 +45,7 @@ template(name='rental_view_layout')
                             i.bullhorn.grey.icon
                 .twelve.wide.column 
                     +yield
+            +footer
 
 
 template(name='rental_view_info')      

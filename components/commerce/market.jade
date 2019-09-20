@@ -1,0 +1,44 @@
+template(name='market')
+    .ui.grid
+        .row
+            .six.wide.column
+                a.ui.big.fluid.button(href='/healthclub')
+                    i.left.chevron.icon
+                    .ui.inline.header back
+                h1.ui.header 
+                    |market
+                //- .ui.inline.header type
+                div
+                +market_cloud
+            .ten.wide.column.scrolling
+                //- +set_market_type label='for sale' icon='shopping bag'
+                //- +set_market_type label='free' icon='thumbs up outline'
+                //- +set_market_type label='service' icon='wrench'
+                //- +set_market_type label='market' icon='clock outline'
+                //- +set_market_type label='seeking' icon='hand holding'
+                //- +set_market_type label='casual encounters' icon='fire alternate'
+                //- +set_market_type label='missed connections' icon='heart broken'
+                //- +set_market_type label='events' icon='calendar'
+                .ui.two.cards
+                    each market_items
+                        +rental_kiosk_card
+
+
+
+template(name='market_cloud')
+    //- #cloud
+        //- .ui.left.icon.input
+        //-     i.search.icon
+        //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
+        // .ui.hidden.fitted.divider
+    i.grey.tags.icon
+    //- .ui.inline.header tags
+    if selected_market_tags
+        #clear_tags.ui.active.icon.tiny.circular.button
+            i.remove.icon
+        each selected_market_tags
+            .unselect_market_tag.ui.active.large.circular.kiosk_facet_button.button
+                strong #{this}
+    each all_market_tags
+        .ui.compact.large.circular.basic.button.kiosk_facet_button.select_market_tag(class=cloud_tag_class) 
+            strong #{this.name}

@@ -1,7 +1,8 @@
 template(name='residents') 
     .ui.left.icon.fluid.input
         i.search.icon
-        input.username_search(type='text' placeholder='lookup resident...' autofocus='autofocus')
+        input.username_search(type='text' placeholder='lookup resident' autofocus='autofocus')
+    .ui.hidden.divider
     .ui.centered.five.stackable.cards
         each residents
             +resident
@@ -9,7 +10,8 @@ template(name='residents')
 template(name='profiles')
     .ui.left.icon.fluid.input
         i.search.icon
-        input.username_search(type='text' placeholder='lookup profiles...' autofocus='autofocus')
+        input.username_search(type='text' placeholder='lookup profiles' autofocus='autofocus')
+    .ui.hidden.divider
     .ui.centered.five.stackable.cards
         each profiles
             +profile
@@ -20,7 +22,8 @@ template(name='owners')
             .sixteen.wide.column
                 .ui.left.icon.fluid.input
                     i.search.icon
-                    input.username_search(type='text' placeholder='lookup owner...' autofocus='autofocus')
+                    input.username_search(type='text' placeholder='lookup owner' autofocus='autofocus')
+                .ui.hidden.divider
                 .ui.centered.five.stackable.cards
                     each owners
                         +owner
@@ -35,7 +38,8 @@ template(name='users')
                 //-     |users
                 .ui.left.icon.fluid.input
                     i.search.icon
-                    input.username_search(type='text' placeholder='lookup user...' autofocus='autofocus')
+                    input.username_search(type='text' placeholder='lookup user' autofocus='autofocus')
+                .ui.hidden.divider
                 .ui.centered.five.stackable.cards
                     each users
                         +user

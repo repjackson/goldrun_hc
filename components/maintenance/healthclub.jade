@@ -57,13 +57,13 @@ template(name='healthclub')
                                             //-     |hc info
                                             .ui.header hours
                                             .ui.large.list
-                                                .item Mon 7a-10p
-                                                .item Tues 7a-10p
-                                                .item Wed 7a-10p
-                                                .item Thur 7a-10p
-                                                .item Fri 7a-9p
-                                                .item Sat 8a-9p
-                                                .item Sun 8a-10p
+                                                .item mon 7a-10p
+                                                .item tues 7a-10p
+                                                .item wed 7a-10p
+                                                .item thur 7a-10p
+                                                .item fri 7a-9p
+                                                .item sat 8a-9p
+                                                .item sun 8a-10p
                                             .ui.header Onsite Manager 
                                             .ui.small.header Rick Hamp 
                                             .ui.relaxed.large.list
@@ -89,7 +89,7 @@ template(name='healthclub')
                                                 .item fri 7a-9p
                                                 .item sat 8a-9p
                                                 .item sun 8a-10p
-                                            .ui.header Onsite Manager 
+                                            .ui.header onsite manager 
                                             .ui.small.header Rick Hamp 
                                             .ui.relaxed.list
                                                 .item 303-545-1787
@@ -102,7 +102,8 @@ template(name='healthclub')
                                         //- .column
                                         //-     +service_small
                                         .column
-                                            +rental_small
+                                            a.ui.big.fluid.button(href="/market") market
+                                            //- +rental_small
                                         //- .column
                                         //-     +request_small
                                     //- .three.column.row

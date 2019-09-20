@@ -9,6 +9,12 @@ template(name='nav')
                     a.ui.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='models')
                         i.th.grey.large.icon
                         //- +i name='grid-view'
+            a.ui.icon.item(href='/market' class="{{isActivePath '/market'}}" title='market')
+                i.shopping.bag.large.grey.icon
+            //- a.ui.item.set_rental(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
+            //-     i.clock.large.icon
+            //-     .mobile.hidden.inline &nbsp; rentals
+                        
             a.ui.icon.item(href='/' class="{{isActivePath '/'}}" title='home')
                 i.home.large.grey.icon 
                 //- |home
@@ -19,7 +25,7 @@ template(name='nav')
                     i.fork.large.grey.icon
                 //- a.ui.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}" title='hcc')
                 //-     i.tablet.large.grey.icon
-            unless is_staff 
+            //- unless is_staff 
                 //- a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}")
                 //-     //- +i name='work' classes='ui mini inline image'
                 //-     i.tasks.icon
@@ -44,9 +50,6 @@ template(name='nav')
                 //- a.ui.item.set_offer(href='/m/offer' class="{{isActivePath '/m/offer'}}" title='offer')
                 //-     i.hand.holding.usd.icon
                 //-     .mobile.hidden.inline &nbsp; offers
-                a.ui.item.set_rental(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
-                    i.clock.large.icon
-                    .mobile.hidden.inline &nbsp; rentals
                     //- .mobile.hidden.inline &nbsp; market
                 //- a.ui.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='shop')
                 //-     i.shop.icon
@@ -136,9 +139,9 @@ template(name='nav')
                     a.ui.icon.item(href='/admin' class="{{isActivePath '/admin'}}" title='admin')
                         //- +i name='code' classes='ui mini inline image'
                         i.large.shield.icon
-                    a.ui.icon.item(href='/shop' class="{{isActivePath '/shop'}}")
-                        //- +i name='shop' classes='ui mini inline image'
-                        i.store.large.grey.icon
+                    //- a.ui.icon.item(href='/shop' class="{{isActivePath '/shop'}}")
+                    //-     //- +i name='shop' classes='ui mini inline image'
+                    //-     i.store.large.grey.icon
                 
                     //- a.ui.icon.item(href='/karma' class="{{isActivePath '/karma'}}" title='karma')
                     //-     i.yin.yang.icon
