@@ -7,13 +7,14 @@ if Meteor.isClient
                 model:'user_check'
 
         user_check_completed: ->
-            if Meteor.user().roles and 'dev' in Meteor.user().roles
-                false
-            else
-                context_user = Template.parentData()
-                check = Template.currentData()
-                context_user["#{check.slug}"]
-                # console.log @slug
+            if Meteor.user().roles
+                if 'dev' in Meteor.user().roles
+                    false
+                else
+                    context_user = Template.parentData()
+                    check = Template.currentData()
+                    context_user["#{check.slug}"]
+                    # console.log @slug
 
         checkins_left_without_email_verification: ->
             6-@checkins_without_email_verification

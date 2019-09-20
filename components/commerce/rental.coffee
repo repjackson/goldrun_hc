@@ -7,18 +7,98 @@ if Meteor.isClient
         @render 'rentals'
         ), name:'rentals'
     Router.route '/rental/:doc_id/view', (->
-        @render 'rental_view'
+        @layout 'rental_view_layout'
+        @render 'rental_view_info'
         ), name:'rental_view'
+    Router.route '/rental/:doc_id/view/info', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_info'
+        ), name:'rental_view_info'
+    Router.route '/rental/:doc_id/view/stats', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_stats'
+        ), name:'rental_view_stats'
+    Router.route '/rental/:doc_id/view/finance', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_finance'
+        ), name:'rental_view_finance'
+    Router.route '/rental/:doc_id/view/ads', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_ads'
+        ), name:'rental_view_ads'
+    Router.route '/rental/:doc_id/view/availability', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_availability'
+        ), name:'rental_view_availability'
+    Router.route '/rental/:doc_id/view/tasks', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_tasks'
+        ), name:'rental_view_tasks'
+    Router.route '/rental/:doc_id/view/audience', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_audience'
+        ), name:'rental_view_audience'
+    Router.route '/rental/:doc_id/view/ownership', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_ownership'
+        ), name:'rental_view_ownership'
+    Router.route '/rental/:doc_id/view/chat', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_chat'
+        ), name:'rental_view_chat'
+
+
+
+
+
     Router.route '/rental/:doc_id/edit', (->
-        @render 'rental_edit'
+        @layout 'rental_edit_layout'
+        @render 'rental_edit_info'
         ), name:'rental_edit'
+    Router.route '/rental/:doc_id/edit/info', (->
+        @layout 'rental_edit_layout'
+        @render 'rental_edit_info'
+        ), name:'rental_edit_info'
+    Router.route '/rental/:doc_id/edit/finance', (->
+        @layout 'rental_edit_layout'
+        @render 'rental_edit_finance'
+        ), name:'rental_edit_finance'
+    Router.route '/rental/:doc_id/edit/chat', (->
+        @layout 'rental_edit_layout'
+        @render 'rental_edit_chat'
+        ), name:'rental_edit_chat'
+    Router.route '/rental/:doc_id/edit/ads', (->
+        @layout 'rental_edit_layout'
+        @render 'rental_edit_ads'
+        ), name:'rental_edit_ads'
+
+    Router.route '/rental/:doc_id/edit/ownership', (->
+        @layout 'rental_edit_layout'
+        @render 'rental_edit_ownership'
+        ), name:'rental_edit_ownership'
+    Router.route '/rental/:doc_id/edit/availability', (->
+        @layout 'rental_edit_layout'
+        @render 'rental_edit_availability'
+        ), name:'rental_edit_availability'
+    Router.route '/rental/:doc_id/edit/stats', (->
+        @layout 'rental_edit_layout'
+        @render 'rental_edit_stats'
+        ), name:'rental_edit_stats'
+    Router.route '/rental/:doc_id/edit/tasks', (->
+        @layout 'rental_edit_layout'
+        @render 'rental_edit_tasks'
+        ), name:'rental_edit_tasks'
+    Router.route '/rental/:doc_id/edit/audience', (->
+        @layout 'rental_edit_layout'
+        @render 'rental_edit_audience'
+        ), name:'rental_edit_audience'
 
 
     Template.kiosk_rental_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.rental_view.onCreated ->
+    Template.rental_view_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.rental_edit.onCreated ->
+    Template.rental_edit_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.rentals.onCreated ->
         @autorun -> Meteor.subscribe 'rental_docs', selected_rental_tags.array()

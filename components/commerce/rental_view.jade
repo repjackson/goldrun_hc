@@ -1,0 +1,166 @@
+template(name='rental_view_layout')
+    +nav
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header 
+                        |rental view
+                    if can_edit
+                        a.ui.fluid.button(href="/rental/#{_id}/edit" title='save')
+                            i.pencil.large.icon
+                            |edit
+                    .ui.vertical.large.fluid.menu
+                        a.item(href="/rental/#{_id}/view/info" class="{{isActiveRoute 'rental_view_info'}}")
+                            |info
+                            i.info.grey.icon
+                        a.item(href="/rental/#{_id}/view/finance" class="{{isActiveRoute 'rental_view_finance'}}")
+                            |finance
+                            i.money.grey.icon
+                        a.item(href="/rental/#{_id}/view/availability" class="{{isActiveRoute 'rental_view_availability'}}")
+                            |availability
+                            i.clock.grey.icon
+                        a.item(href="/rental/#{_id}/view/audience" class="{{isActiveRoute 'rental_view_audience'}}") 
+                            |audience
+                            i.users.grey.icon
+                        a.item(href="/rental/#{_id}/view/chat" class="{{isActiveRoute 'rental_view_chat'}}")
+                            |chat
+                            i.chat.outline.grey.icon
+                        a.item(href="/rental/#{_id}/view/tasks" class="{{isActiveRoute 'rental_view_tasks'}}")
+                            |tasks                    
+                            i.tasks.grey.icon
+                        a.item(href="/rental/#{_id}/view/ownership" class="{{isActiveRoute 'rental_view_ownership'}}")
+                            |ownership
+                            i.pie.chart.grey.icon
+                        a.item(href="/rental/#{_id}/view/stats" class="{{isActiveRoute 'rental_view_stats'}}")
+                            |stats
+                            i.line.chart.grey.icon
+                        a.item(href="/rental/#{_id}/view/ads" class="{{isActiveRoute 'rental_view_ads'}}")
+                            |ads
+                            i.bullhorn.grey.icon
+                .twelve.wide.column 
+                    +yield
+
+
+template(name='rental_view_info')      
+    h1.ui.header 
+        i.info.grey.icon
+        |info
+    +text_view key='title' direct=true
+    .ui.two.column.grid
+        .column
+            +image_view key='picture' label='image' direct=true
+        .column
+            +html_view key='description' label='content' icon='content' direct=true
+    +array_view key='tags' label='tags' icon='tags' direct=true
+    +array_view key='location_tags' label='location tags' icon='marker' direct=true
+    +single_user_view key='resident' label='resident' direct=true
+    +text_view key='contact_info' label='contact info' icon='info' direct=true
+    +link_view key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
+
+
+template(name='rental_view_finance')  
+    h1.ui.header 
+        i.money.grey.icon
+        |finance
+    +number_view key='hourly_rate' label='hourly rate' direct=true
+    +number_view key='daily_rate' label='daily rate' direct=true
+    div
+    +boolean_view key='variable_price' label='variable price' direct=true tooltip='allow system to increase/decrease price based on performance and popularity'
+    div
+    +boolean_view key='negotiable_price' label='negotiable price' tooltip='allow people to make bids' direct=true
+    div
+    +number_view key='retail_value' label='original retail value' tooltip='general info, helpful to renters to decide, also for price recommendations, and sorting' direct=true
+    .ui.header 
+        |pricing
+    +boolean_view key='cash_accepted' label='cash accepted' direct=true
+    +boolean_view key='prepay' label='prepayment required' direct=true
+    +boolean_view key='security_deposit_required' label='security deposit required' direct=true
+    if security_deposit_required
+        +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar' direct=true
+    +boolean_view key='friend_discount' label='friend discount' direct=true
+    if friend_discount
+        +number_view key='friend_discount_amount' label='security deposit amount' icon='dollar' direct=true
+
+            
+                  
+template(name='rental_view_audience')
+    h1.ui.header 
+        i.users.icon
+        |audience
+    .ui.header visibility
+    +boolean_view key='visible_to_friends' label='friends' direct=true
+    +boolean_view key='visible_to_building' label='building' direct=true
+    +boolean_view key='visible_to_residents' label='residents' direct=true
+    +boolean_view key='visible_to_public' label='public' direct=true
+
+    
+template(name='rental_view_ownership')
+    h1.ui.header 
+        i.pie.chart.icon
+        |ownership
+    .ui.header visibility
+    +boolean_view key='visible_to_friends' label='friends' direct=true
+    +boolean_view key='visible_to_building' label='building' direct=true
+    +boolean_view key='visible_to_residents' label='residents' direct=true
+    +boolean_view key='visible_to_public' label='public' direct=true
+
+    
+    
+template(name='rental_view_tasks')
+    h1.ui.header 
+        i.tasks.icon
+        |rental tasks
+    .ui.header visibility
+    +boolean_view key='visible_to_friends' label='friends' direct=true
+    +boolean_view key='visible_to_building' label='building' direct=true
+    +boolean_view key='visible_to_residents' label='residents' direct=true
+    +boolean_view key='visible_to_public' label='public' direct=true
+
+template(name='rental_view_ads')
+    h1.ui.header 
+        i.bullhorn.icon
+        |ads
+    .ui.header visibility
+    +boolean_view key='visible_to_friends' label='friends' direct=true
+    +boolean_view key='visible_to_building' label='building' direct=true
+    +boolean_view key='visible_to_residents' label='residents' direct=true
+    +boolean_view key='visible_to_public' label='public' direct=true
+
+    
+template(name='rental_view_chat')
+    h1.ui.header 
+        i.chat.icon
+        |chat
+    .ui.header visibility
+    +boolean_view key='visible_to_friends' label='friends' direct=true
+    +boolean_view key='visible_to_building' label='building' direct=true
+    +boolean_view key='visible_to_residents' label='residents' direct=true
+    +boolean_view key='visible_to_public' label='public' direct=true
+
+template(name='rental_view_stats')
+    h1.ui.header 
+        i.chat.icon
+        |stats
+    .ui.header visibility
+    +boolean_view key='visible_to_friends' label='friends' direct=true
+    +boolean_view key='visible_to_building' label='building' direct=true
+    +boolean_view key='visible_to_residents' label='residents' direct=true
+    +boolean_view key='visible_to_public' label='public' direct=true
+
+    
+    
+    
+template(name='rental_view_availability')  
+    +array_view key='availability_tags' label='availability tags' icon='clock' direct=true
+    +boolean_view key='available' label='currently available' direct=true
+    +multi_doc_view key='available_days' label='available days' ref_model='day_of_week' direct=true
+    .ui.header
+        |delivery
+    +boolean_view key='pickup_delivery' label='pickup' direct=true
+    +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
+    +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
+    +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
+    .ui.header
+        | visibility
+    +boolean_view key='published' label='published' direct=true

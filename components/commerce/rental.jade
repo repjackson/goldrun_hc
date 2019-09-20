@@ -15,35 +15,6 @@ template(name='rentals')
                     +rental_card_template
 
 
-template(name='rental_edit')
-    with current_doc
-        .ui.stackable.padded.grid
-            .row
-                .four.wide.column 
-                    .ui.header 
-                        i.plus.icon
-                        |rental edit
-                    a.ui.big.fluid.button(href="/rental/#{_id}/view" title='save')
-                        i.checkmark.large.green.icon
-                        |save
-                    +remove_button
-                    +image_edit key='picture' label='image' direct=true
-                .eight.wide.column 
-                    +text_edit key='title' direct=true
-                    +html_edit key='description' label='content' icon='content' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                    +single_user_edit key='resident' label='resident' direct=true
-                    +text_edit key='contact_info' label='contact info' icon='info' direct=true
-                .four.wide.column 
-                    +boolean_edit key='set_duration' label='set duration' direct=true
-                    if set_duration
-                        +number_edit key='duration_hours' label='duration hours' direct=true
-                    +number_edit key='hourly_rate' label='hourly rate' direct=true
-                    +boolean_edit key='variable_price' label='variable price' direct=true
-                    +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
-                    +boolean_edit key='available' label='currently available' direct=true
-
 template(name='rental_view')
     with current_doc
         .ui.stackable.padded.grid
@@ -229,7 +200,7 @@ template(name='rental_cal')
 
 template(name='month_day_template')
     .column
-        a(href="/shop/#{product._id}/daily_calendar/#{month}/#{day}/#{year}") #{this}
+        a(href="/rental/#{rental._id}/daily_calendar/#{month}/#{day}/#{year}") #{this}
         .ui.basic.label(title='reservations') #{reservation_count}
         //- if reservation_exists
         //-     //- with reservation_exists

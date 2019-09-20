@@ -113,21 +113,22 @@ template(name='iflat')
 
 template(name='link_edit')
     div
-    //- if icon
-    //-     +i name=icon classes='ui mini inline image'
+    if icon
+        i.grey.icon(class=icon)
+        //- +i name=icon classes='ui mini inline image'
     .ui.inline.header
-        |#{title}
-    .ui.input
+        |#{title} #{label}
+    .ui.fluid.input
         input.edit_url(type='url' value=field_value placeholder='url' autocomplete="off")
 
 
 template(name='link_view')
     if field_value
         div
-        //- if icon
-        //-     +i name=icon classes='ui middle aligned image'
+        if icon
+            +i name=icon classes='ui middle aligned image'
         .ui.inline.header 
-            |#{title}
+            |#{title} #{label}
         a(href=field_value target='_window') #{field_value}
         //- img.ui.fluid.image(src=field_value)
 
@@ -136,7 +137,7 @@ template(name='image_view')
         //- .ui.inline.header
         //-     if icon
         //-         +i name=icon
-        //-         //- i.grey.icon(class=icon)
+                //- i.grey.icon(class=icon)
         //-     if title
         //-         |#{title}
         //- else if key
@@ -351,8 +352,8 @@ template(name='document_view')
         
 template(name='text_edit')
     div
-    //- if icon
-    //-     //- i.grey.icon(class=icon)
+    if icon
+        i.grey.icon(class=icon)
     //-     +i name=icon classes='ui middle aligned image'
     .ui.inline.header
         if title
@@ -367,8 +368,8 @@ template(name='text_edit')
         
 
 template(name='slug_edit')
-    //- if icon
-    //-     //- i.grey.icon(class=icon)
+    if icon
+        i.grey.icon(class=icon)
     //-     +i name=icon classes='ui middle aligned image'
     .ui.inline.header.pointer.slugify_title
         if title
@@ -505,10 +506,9 @@ template(name='phone_view')
 
 template(name='number_edit')
     div
-    //- if icon
-    //-     //- i.grey.icon(class=icon)
+    if icon
+        i.grey.icon(class=icon)
     //-     +i name=icon classes='ui middle aligned image'
-        //- i.grey.icon(class=icon)
     .ui.small.inline.grey.header(title=tip)
         if title
             |#{title}
@@ -516,6 +516,8 @@ template(name='number_edit')
             |#{label}
         else
             |#{key}
+    if tooltip
+        .ui.tiny.grey.inline.header #{tooltip}
     //- +clear_value  
     div  
     .ui.input            
@@ -549,7 +551,6 @@ template(name='float_edit')
         if icon
             i.grey.icon(class=icon)
             //- +i name=icon
-            //- i.grey.icon(class=icon)
         if title
             |#{title}
         else if label
@@ -681,8 +682,8 @@ template(name='datetime_view')
 
 template(name='array_edit')
     div
-    //- if icon
-    //-     //- i.grey.icon(class=icon)
+    if icon
+        i.grey.icon(class=icon)
     //-     +i name=icon classes='ui middle aligned image'
     .ui.inline.header
         if title
