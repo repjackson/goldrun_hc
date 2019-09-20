@@ -44,6 +44,24 @@ if Meteor.isClient
 
 
 
+    Template.reservations_small.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'reservation'
+        @autorun -> Meteor.subscribe 'model_docs', 'rental'
+        @autorun -> Meteor.subscribe 'model_docs', 'reservation_stats'
+    Template.reservations_small.helpers
+        reservations: ->
+            Docs.find {
+                model:'reservation'
+            }, sort:_timestamp:-1
+        res_stat: ->
+            Docs.findOne
+                model:'reservation_stats'
+    Template.reservations_small.events
+        'click .refresh_res_stats': ->
+            Meteor.call 'calc_reservation_stats',(err,res)->
+
+
+
 
     Template.admin_wiki.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'wiki'

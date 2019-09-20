@@ -61,9 +61,47 @@ template(name='reservation_rental_template')
             .ui.large.label #{this}
         |!{description}
         
+template(name='reservations_small')
+    div
+    .ui.inline.header
+        i.clock.grey.icon
+        |reservations
+    i.circular.refresh.link.icon.refresh_res_stats
+    .ui.small.inline.header total #{res_stat.total_count}
+    .ui.small.inline.header current #{res_stat.current_count}
+    .ui.link.list.smallscroll
+        each reservations 
+            a.item(href="/reservation/#{_id}/view") 
+                .header #{rental.title}
+                .description #{_author_username} #{when}
+            
+            
 
     
 template(name='reservation_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header 
+                        |viewing reservation
+                    a.ui.big.fluid.button(href="/reservation/#{_id}/edit" title='edit reservation')
+                        i.pencil.icon
+                        |edit
+                    +remove_button
+                    with rental
+                        +image_view key='image' label='image' direct=true
+                .eight.wide.column 
+                    .ui.header rental: #{rental.title} $#{rental.hourly_rate}/hr
+                    .ui.small.header start date #{start_date}
+                    .ui.small.header start date #{start_time}
+                    .ui.small.header submitted #{submitted}
+                    +reservation_events
+
+template(name='reservation_events')
+    .ui.header reservation events
+
+    
 template(name='reservation_edit')
     with current_doc
         .ui.stackable.padded.grid
@@ -76,10 +114,20 @@ template(name='reservation_edit')
                         |save
                     +remove_button
                     with rental
-                        +image_edit key='image' label='image' direct=true
+                        +image_view key='image' label='image' direct=true
                 .eight.wide.column 
                     .ui.header reserve #{rental.title}
                     .ui.big.button now
                     .ui.big.button later
-
-                    .ui.big.button complete
+                    .ui.header duration
+                    .ui.button 1/2 hour
+                    .ui.button 1 hour
+                    .ui.button 2 hours
+                    .ui.button 3 hours
+                    +date_edit key='start_date' label='start date' direct=true
+                    +time_edit key='start_time' label='start time' direct=true
+                    +number_edit key='minute_duration' label='minute duration' direct=true
+                    +number_edit key='hour_duration' label='hour duration' direct=true
+                    .ui.header estimated cost #{hour_duration}*#{rental.hourly_rate} = $#{estimated_cost}
+                    .ui.header final cost will be based on actual checked out time.  
+                    .ui.big.button.submit_reservation submit

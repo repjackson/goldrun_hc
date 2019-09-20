@@ -17,8 +17,8 @@ template(name='nav')
             if is_dev
                 a.ui.icon.item(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
                     i.fork.large.grey.icon
-                a.ui.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}" title='hcc')
-                    i.tablet.large.grey.icon
+                //- a.ui.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}" title='hcc')
+                //-     i.tablet.large.grey.icon
             unless is_staff 
                 //- a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}")
                 //-     //- +i name='work' classes='ui mini inline image'
@@ -73,14 +73,12 @@ template(name='nav')
                 //- a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
                 //-     //- +i name='work' classes='ui mini inline image'
                 //-     .mobile.hidden.inline &nbsp; work orders                  
-                a.ui.item(href='/residents' class="{{isActivePath '/residents'}}")
-                    //- +i name='groups' classes='ui mini inline image'
+                a.ui.icon.item(href='/residents' class="{{isActivePath '/residents'}}" title='resident lookup')
                     i.users.large.grey.icon
-                    |residents                  
-                a.ui.item(href='/healthclub' class="{{isActivePath '/healthclub'}}")
-                    //- +i name='layout' classes='ui mini inline image'
+                    //- |residents                  
+                a.ui.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}" title='kiosk')
                     i.tablet.large.grey.icon
-                    |kiosk                  
+                    //- |kiosk                  
             if is_owner
                 a.ui.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}" title='owner dashboard')
                     i.money.icon
@@ -98,12 +96,8 @@ template(name='nav')
                 //-     +i name='shop' classes='ui mini inline image'
                 //- a.ui.item(href='/gallery' class="{{isActivePath '/gallery'}}")
                 //-     +i name='gallery' classes='ui mini inline image'
-                //- a.ui.item(href='/profiles' class="{{isActivePath '/profiles'}}")
-                //-     +i name='groups' classes='ui mini inline image'
-                //-     |profiles
             if is_manager
                 a.ui.item(href='/manager' class="{{isActivePath '/manager'}}")
-                    //- +i name='user-shield' classes='ui mini inline image'
                     i.user.shield.icon
                     .mobile.hidden.inline &nbsp; manager
                 a.ui.item(href='/m/projects' class="{{isActivePath '/m/projects'}}")

@@ -7,10 +7,11 @@ template(name='admin')
                     |gr+ admin
                 with gs
                     +boolean_edit key='rick_mode' direct=true
+                +admin_chat
             .column
                 +transactions_small
             .column
-                +admin_chat
+                +reservations_small
             .column
                 +earnings_small
             .column
@@ -80,6 +81,8 @@ template(name='earnings_small')
     .ui.small.header this week (projected)
     .ui.small.header this week (projected)
 
+
+
 template(name='rentals_small')
     .ui.header
         i.clock.grey.icon
@@ -89,17 +92,10 @@ template(name='rentals_small')
     .ui.small.header this week (projected)
     .ui.small.header this week (projected)
 
-//- template(name='rental_small')
-//-     .ui.header
-//-         i.clock.grey.icon
-//-         |rentals
-//-     .ui.small.header total
-//-     .ui.small.header last week
-//-     .ui.small.header this week (projected)
-//-     .ui.small.header this week (projected)
+
 
 template(name='transactions_small')
-    a.ui.compact.button(href='/transactions')
+    a.ui.compact.fluid.button(href='/transactions')
         .ui.small.header
             i.exchange.icon
             | recent transactions
@@ -111,6 +107,7 @@ template(name='transactions_small')
                         .ui.label #{transaction_type}
 
 template(name='admin_chat')
+    div
     .ui.inline.header 
         i.chat.outline.icon
         |admin chat

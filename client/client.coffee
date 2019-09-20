@@ -46,6 +46,9 @@ Template.registerHelper 'parent', () -> Template.parentData()
 Template.registerHelper 'parent_doc', () ->
     Docs.findOne @parent_id
     # Template.parentData()
+Template.registerHelper 'rental', () ->
+    Docs.findOne @rental_id
+    # Template.parentData()
 Template.registerHelper 'gs', () ->
     Docs.findOne
         model:'global_settings'
