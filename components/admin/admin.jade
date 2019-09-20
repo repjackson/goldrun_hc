@@ -29,11 +29,12 @@ template(name='admin')
             .column
                 +online_users
         .row
-            .ui.header 
-                i.grey.users.icon
-                |gr+ members
-            .scrolling
-                +member_table
+            .sixteen.wide.column
+                .ui.header 
+                    i.grey.users.icon
+                    |gr+ members
+                .scrolling
+                    +member_table
 
 
 template(name='admin_wiki')

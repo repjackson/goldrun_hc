@@ -66,8 +66,6 @@ if Meteor.isClient
                 ).count()
             # console.log result
             result
-
-
     Template.month_day_template.events
         'click .new_reservation': ->
             console.log parseInt @
@@ -264,10 +262,38 @@ if Meteor.isClient
             Router.go "/reservation/#{new_reservation_id}/edit"
 
 
+    Template.rental_transactions.onCreated ->
+        @autorun -> Meteor.subscribe 'rental_transactions', Template.currentData()
+    Template.rental_transactions.helpers
+        transactions: ->
+            Docs.find
+                model:'transaction'
+
+
+
+    Template.rental_reservations.onCreated ->
+        @autorun -> Meteor.subscribe 'rental_reservations', Template.currentData()
+    Template.rental_reservations.helpers
+        reservations: ->
+            Docs.find
+                model:'reservation'
+
 
 
 
 if Meteor.isServer
+    Meteor.publish 'rental_transactions', (rental)->
+        console.log rental
+        Docs.find
+            model:'transactions'
+            rental_id: rental._id
+
+    Meteor.publish 'rental_reservations', (rental)->
+        console.log rental
+        Docs.find
+            model:'reservation'
+            rental_id: rental._id
+
     Meteor.publish 'rentals', (product_id)->
         Docs.find
             model:'rental'
