@@ -14,12 +14,10 @@ template(name='home')
                 +stats_small
             .four.wide.column
                 div
-                .ui.grey.header
-                    |offers
-                .ui.grey.header
-                    |for sale
+                +shop_small
                 +rental_small
                 .ui.grey.header
+                    i.poll.icon
                     |polls
                 .mediumscroll
                     each polls
@@ -28,8 +26,8 @@ template(name='home')
             .five.wide.column
                 +request_small
                 +service_small
-                +karma_leaderboard
-                +work_order_small
+                //- +karma_leaderboard
+                //- +work_order_small
                 //- .ui.hidden.divider
                 //- +latest_project_updates
                 //- unless display_mode
@@ -40,7 +38,6 @@ template(name='home')
             //-     +market_small
             .four.wide.column
                 +latest_activity
-                .ui.grey.header chat
                 +footer_chat
                 //- +gallery_small
                 .ui.hidden.divider
@@ -133,8 +130,8 @@ template(name='home')
 
 
 template(name='stats_small')
-    +ismall name='line-chart' classes='ui inline image'
     .ui.inline.grey.header.calc_home_stats
+        i.bar.chart.icon
         |stats
     div
     .ui.inline.grey.header 

@@ -390,6 +390,23 @@ Template.registerHelper 'field_value', () ->
         parent["#{@key}"]
 
 
+Template.registerHelper 'sorted_field_values', () ->
+    # console.log @
+    parent = Template.parentData()
+    parent5 = Template.parentData(5)
+    parent6 = Template.parentData(6)
+
+
+    if @direct
+        parent = Template.parentData()
+    else if parent5._id
+        parent = Template.parentData(5)
+    else if parent6._id
+        parent = Template.parentData(6)
+    if parent
+        _.sortBy parent["#{@key}"], 'number'
+
+
 Template.registerHelper 'is_marketplace', () -> @model is 'marketplace'
 Template.registerHelper 'is_post', () -> @model is 'post'
 Template.registerHelper 'is_meal', () -> @model is 'meal'

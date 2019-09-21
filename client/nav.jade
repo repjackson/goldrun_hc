@@ -9,14 +9,15 @@ template(name='nav')
                     a.ui.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='models')
                         i.th.grey.large.icon
                         //- +i name='grid-view'
-            a.ui.icon.item(href='/market' class="{{isActivePath '/market'}}" title='market')
-                i.shopping.bag.large.grey.icon
+                
             //- a.ui.item.set_rental(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
             //-     i.clock.large.icon
             //-     .mobile.hidden.inline &nbsp; rentals
                         
             a.ui.icon.item(href='/' class="{{isActivePath '/'}}" title='home')
                 i.home.large.grey.icon 
+            a.ui.icon.item(href='/market' class="{{isActivePath '/market'}}" title='market')
+                i.store.large.grey.icon
                 //- |home
                 //- | gro
                 //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
@@ -165,24 +166,22 @@ template(name='nav')
                         unless is_frontdesk
                             a.ui.item(href="/user/#{currentUser.username}/dashboard" class="{{isActiveRoute regex='user_chat'}}")
                                 if currentUser.image_id
-                                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                    img.ui.avatar.image(src="{{c.url currentUser.kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
                                 else
                                     //- +i name='user'
                                     i.user.icon
-                                | #{currentUser.username}
+                                | #{currentUser.name}
                     if logging_out
                         .ui.item
                             i.loading.circle.notch.icon
-                    //- else
-                    //-     a#logout.ui.mobile.hidden.inline.icon.ui.item(href='#' title='Log Out')
-                    //-         i.sign.out.icon
+                    else
+                        a#logout.ui.mobile.hidden.icon.item(href='#' title='log out')
+                            i.sign.out.icon
                 else
                     unless currentUser
                         a.ui.item(href='/login' title='login') 
-                            //- +i name='internal' 
-                            //- i.sign.in.alternate.icon
+                            i.sign.in.alternate.grey.icon
                             |login
-                            //- .secnav
         //- if currentUser
         //-     //- unless is_staff
         //-     .ui.attached.borderless.menu.topnav
@@ -202,17 +201,17 @@ template(name='footer')
             .four.wide.column
                 if currentUser 
                     +my_latest_activity
-                if is_admin
-                    .ui.button.shortcut_modal
-                        i.keyboard.icon
-                        | keyboard shortcuts
+                //- if is_admin
+                //-     .ui.button.shortcut_modal
+                //-         i.keyboard.icon
+                //-         | keyboard shortcuts
                 +add_button label='bug' model='bug' icon='bug'
                 if is_dev    
                     with current_user
                         +role_switcher
             .eight.wide.column
                 unless currentUser
-                    a.ui.big.basic.button(href='/login')
+                    a.ui.big.button(href='/login')
                         i.sign.in.icon
                         |login
                 +footer_chat
@@ -226,7 +225,9 @@ template(name='footer')
                 
                 
 template(name='footer_chat')
-    .ui.small.inline.header chat
+    .ui.grey.inline.header 
+        i.outline.comments.icon
+        |chat
     .ui.list.scroll
         each chat_messages
             .item(title="by #{author.first_name} #{author.last_name} #{when}")
@@ -258,7 +259,7 @@ template(name='my_latest_activity')
 
 
 template(name='latest_activity')
-    .ui.header 
+    .ui.grey.header 
         i.grey.rss.icon
         |all activity
     .ui.list

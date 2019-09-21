@@ -70,7 +70,7 @@ template(name='online_users')
         |online users
     each online_users
         div
-        .ui.inline.header 
+        a.ui.inline.header(href="/user/#{username}")
             |#{username}
         if profile.idle
             .ui.basic.small.yellow.label idle

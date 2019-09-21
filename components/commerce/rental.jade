@@ -1,21 +1,13 @@
 template(name='rentals')
-    .ui.grid
+    .ui.stackable.grid
         .row
             .six.wide.column
                 a.ui.big.fluid.button(href='/healthclub')
                     i.left.chevron.icon
                     .ui.inline.header back
                 h1.ui.header 
-                    |market
+                    |rentals
                 //- .ui.inline.header type
-                +set_market_type label='for sale' icon='shopping bag'
-                +set_market_type label='free' icon='thumbs up outline'
-                +set_market_type label='service' icon='wrench'
-                +set_market_type label='rental' icon='clock outline'
-                +set_market_type label='seeking' icon='hand holding'
-                +set_market_type label='casual encounters' icon='fire alternate'
-                +set_market_type label='missed connections' icon='heart broken'
-                +set_market_type label='events' icon='calendar'
                 div
                 +rental_cloud
             .ten.wide.column.scrolling
@@ -367,60 +359,13 @@ template(name='rental')
 
 
 
-template(name='kiosk_rental_view')
-    with current_doc
-        .ui.padded.grid
-            a.ui.fluid.big.button(href="/market")
-                i.left.chevron.large.icon
-                i.shopping.bag.large.icon
-                |market
-            .eight.wide.column
-                +image_view key='image' direct=true
-                a.ui.large.fluid.button(href="/rental/#{_id}/view/info") 
-                    i.external.grey.icon
-                    |full view
-            .eight.wide.column
-                h1.ui.header #{title}
-                .ui.small.statistic
-                    .value $#{hourly_rate}
-                    .label /hour
-                .ui.small.statistic
-                    .value $#{daily_rate}
-                    .label /day
-                .ui.small.statistic
-                    .value #{views}
-                    .label views
-                .ui.small.statistic
-                    .value #{transaction_count}
-                    .label transactions
-                .ui.large.fluid.accordion
-                    .title
-                        |description 
-                        i.dropdown.icon
-                    .content
-                        |!{description}
-                    .title
-                        |reservations 
-                        i.dropdown.icon
-                    .content
-                        +rental_reservations
-                    .title
-                        |transactions 
-                        i.dropdown.icon
-                    .content
-                        +rental_transactions
-                if is_admin
-                    +edit_button
-                +comments
-                +kiosk_send_message                    
-
 
 template(name='rental_small')
     div
     a.ui.fluid.compact.button(href="/rentals")
-        .ui.inline.header
+        .ui.inline.grey.header
             //- +i name='rent'
-            //- i.clock.grey.icon
+            i.handshake.outline.icon
             |rentals
     //- +rental_cloud
     .ui.relaxed.list.smallscroll
@@ -448,13 +393,13 @@ template(name='rental_small')
 
 
 template(name='rental_transactions')
-    .ui.header 
+    .ui.grey.header 
         i.exchange.icon
         |transactions
     each transactions
         a.ui.header(href="/transaction/#{_id}/view") #{when} by #{_author_username}
 template(name='rental_reservations')
-    .ui.header 
+    .ui.grey.header 
         i.clock.icon
         |reservations
     each reservations

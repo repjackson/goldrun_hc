@@ -1,16 +1,23 @@
 template(name='market')
-    .ui.grid
+    .ui.stackable.grid
         .row
             .six.wide.column
-                a.ui.big.fluid.button(href='/healthclub')
-                    i.left.chevron.icon
-                    .ui.inline.header back
-                h1.ui.header 
+                if is_frontdesk
+                    a.ui.big.fluid.button(href='/healthclub')
+                        i.left.chevron.grey.icon
+                        .ui.inline.grey.header back
+                else 
+                    a.ui.big.fluid.button(href='/')
+                        i.left.chevron.grey.icon
+                        .ui.inline.grey.header back
+                h1.ui.grey.header 
+                    i.store.icon
                     |market
                 //- .ui.inline.header type
                 div
                 +market_cloud
             .ten.wide.column.scrolling
+                .ui.tiny.grey.center.aligned.header gold run + market is community run and not affiliated or endorsed by the Gold Run Condominiums HOA
                 //- +set_market_type label='for sale' icon='shopping bag'
                 //- +set_market_type label='free' icon='thumbs up outline'
                 //- +set_market_type label='service' icon='wrench'
@@ -21,7 +28,35 @@ template(name='market')
                 //- +set_market_type label='events' icon='calendar'
                 .ui.two.cards
                     each market_items
-                        +rental_kiosk_card
+                        +market_kiosk_card
+
+
+template(name='market_kiosk_card')
+    .ui.card(class=market_card_class)
+        a.image.log_view(href="/kiosk_rental_view/#{_id}")
+            img.ui.image(src="{{c.url image width=600 height=600 crop='lpad'}}")
+
+        //- +image_view key='image' direct=true classes='zoom'
+        .content
+            a.ui.header.log_view(href="/kiosk_rental_view/#{_id}") #{title} 
+                if variable_price
+                    |~
+                if available
+                    i.green.checkmark.icon
+                else 
+                    i.cancel.grey.icon
+            if hourly_rate
+                .ui.tiny.statistic
+                    .value $#{hourly_rate}
+                    .label /hr
+            if daily_rate
+                .ui.tiny.statistic
+                    .value $#{daily_rate}
+                    .label /day
+            //- a.ui.button.log_view(href="/kiosk_rental_view/#{_id}")
+            //-     |view
+            //-     i.right.chevron.yellow.icon
+
 
 
 

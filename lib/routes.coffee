@@ -13,33 +13,50 @@ force_loggedin =  ()->
 Router.onBeforeAction(force_loggedin, {
   # only: ['admin']
   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
-  except: ['register',
-      'home',
-      'front',
-      'forgot_password',
-      'reset_password',
-      'delta',
-      'projects',
-      'shop',
-      'project_view',
-      'doc_view',
-      'work_order_edit',
-      'work_order_view',
-      'events,'
-      'grid'
-      'event_edit',
-      'event_view',
-      'service_view',
-      'projects'
-      'project_feed'
-      'project_finance'
-      'project_files'
-      'project_chat'
-      'project_photos'
-      'work_orders',
-      'dev',
-      'verify-email',
-      'download_rules_pdf'
+  except: ['register'
+    'home'
+    'front'
+    'forgot_password'
+    'reset_password'
+    'products'
+    'delta'
+    'market'
+    'projects'
+    'shop'
+    'project_view'
+    'doc_view'
+    'work_order_edit'
+    'work_order_view'
+    'rental_view'
+    'rental_view_info'
+    'kiosk_rental_view'
+    'rentals'
+    'rental_view'
+    'rental_view_info'
+    'rental_view_stats'
+    'rental_view_finance'
+    'rental_view_ads'
+    'rental_view_availability'
+    'rental_view_tasks'
+    'rental_view_audience'
+    'rental_view_ownership'
+    'rental_view_chat'
+    'events'
+    'kiosk_rental_view'
+    'grid'
+    'event_edit'
+    'event_view'
+    'service_view'
+    'projects'
+    'project_feed'
+    'project_finance'
+    'project_files'
+    'project_chat'
+    'project_photos'
+    'work_orders'
+    'dev'
+    'verify-email'
+    'download_rules_pdf'
   ]
 });
 

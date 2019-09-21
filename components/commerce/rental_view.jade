@@ -1,51 +1,93 @@
-template(name='rental_view_layout')
-    +nav
+template(name='kiosk_rental_view')
     with current_doc
-        .ui.stackable.padded.grid
-            .row
-                a.ui.fluid.big.button(href="/rentals")
+        .ui.padded.grid
+            .eight.wide.column
+                a.ui.fluid.big.button(href="/market")
                     i.left.chevron.large.icon
-                    |rentals
-            .row
-                .four.wide.column 
-                    .ui.header 
-                        |rental view
-                    +image_view key='image' classes='zoom' direct=true
-                    if can_edit
-                        a.ui.fluid.button(href="/rental/#{_id}/edit" title='save')
-                            i.pencil.large.icon
-                            |edit
-                    .ui.vertical.large.fluid.menu
-                        a.item(href="/rental/#{_id}/view/info" class="{{isActiveRoute 'rental_view_info'}}")
-                            |info
-                            i.info.grey.icon
-                        a.item(href="/rental/#{_id}/view/finance" class="{{isActiveRoute 'rental_view_finance'}}")
-                            |finance
-                            i.money.grey.icon
-                        a.item(href="/rental/#{_id}/view/availability" class="{{isActiveRoute 'rental_view_availability'}}")
-                            |availability
-                            i.clock.grey.icon
-                        a.item(href="/rental/#{_id}/view/audience" class="{{isActiveRoute 'rental_view_audience'}}") 
-                            |audience
-                            i.users.grey.icon
-                        a.item(href="/rental/#{_id}/view/chat" class="{{isActiveRoute 'rental_view_chat'}}")
-                            |chat
-                            i.chat.outline.grey.icon
-                        a.item(href="/rental/#{_id}/view/tasks" class="{{isActiveRoute 'rental_view_tasks'}}")
-                            |tasks                    
-                            i.tasks.grey.icon
-                        a.item(href="/rental/#{_id}/view/ownership" class="{{isActiveRoute 'rental_view_ownership'}}")
-                            |ownership
-                            i.pie.chart.grey.icon
-                        a.item(href="/rental/#{_id}/view/stats" class="{{isActiveRoute 'rental_view_stats'}}")
-                            |stats
-                            i.line.chart.grey.icon
-                        a.item(href="/rental/#{_id}/view/ads" class="{{isActiveRoute 'rental_view_ads'}}")
-                            |ads
-                            i.bullhorn.grey.icon
-                .twelve.wide.column 
-                    +yield
-            +footer
+                    i.store.large.icon
+                    |market
+                h1.ui.center.aligned.header #{title}
+                +image_view key='image' direct=true
+                i.grey.tags.icon
+                each tags
+                    .ui.basic.label #{this}
+                //- if is_admin
+                //-     a.ui.large.fluid.button(href="/rental/#{_id}/view/info") 
+                //-         i.external.grey.icon
+                //-         |full view
+            .eight.wide.column
+                .ui.inline.header $#{hourly_rate}
+                .ui.small.grey.inline.header /hour
+                div
+                .ui.inline.header $#{daily_rate}
+                .ui.small.grey.inline.header /day
+                div
+                .ui.inline.header #{views}
+                .ui.small.grey.inline.header views
+                div
+                if available 
+                    i.green.large.checkmark.icon
+                    |available
+                else 
+                    .ui.grey.header 
+                        i.large.grey.ban.icon
+                        |available in 2 hours
+                div 
+                |!{description}
+                +rental_reservations
+                +rental_transactions
+                div
+                +number_view key='retail_value' label='original retail value' tooltip='general info, helpful to renters to decide, also for price recommendations, and sorting' direct=true
+                .ui.header 
+                    |payment
+                if cash_accepted
+                    i.green.money.icon 
+                    |cash accepted
+                if prepay
+                    .ui.header prepayment required
+                if security_deposit_required
+                    .ui.header #{security_deposit_amount} security depoist required
+                if friend_discount
+                    .ui.header #{friend_discount_amount} friend discount
+                .ui.header 
+                    //- i.marker.grey.icon(title='location')
+                    small location
+                    |#{location}
+                if is_admin
+                    +text_edit key='location' direct=true
+                +array_view key='availability_tags' label='availability tags' icon='clock' direct=true
+                +boolean_view key='available' label='currently available' direct=true
+                +multi_doc_view key='available_days' label='available days' ref_model='day_of_week' direct=true
+                .ui.grey.header
+                    i.dolly.icon
+                    |delivery
+                if pickup_delivery
+                    .ui.basic.large.label 
+                        i.dolly.icon
+                        |pickup
+                if home_dropoff_delivery
+                    .ui.basic.big.label
+                        i.truck.icon
+                        |delivery 
+                    if delivery_cost
+                        .ui.big.basic.label $#{delivery_cost} delivery cost 
+                if healthclub_drop_off_delivery
+                    .ui.big.basic.label 
+                        i.warehouse.icon
+                        |healthclub dropoff/pickup
+                    
+                +comments
+                if is_admin
+                    a.ui.icon.button(href="/rental/#{_id}/edit")
+                        i.blue.pencil.icon
+                    //- +edit_button
+                .ui.big.fluid.green.button.new_reservation
+                    .ui.inverted.inline.header
+                        |reserve
+                        i.right.chevron.icon
+                +kiosk_send_message                    
+
+
 
 
 template(name='rental_view_info')      
@@ -55,7 +97,7 @@ template(name='rental_view_info')
     +text_view key='title' direct=true
     .ui.two.column.grid
         .column
-            +image_view key='picture' label='image' direct=true
+            +image_view key='image' label='image' direct=true
         .column
             +html_view key='description' label='content' icon='content' direct=true
     +array_view key='tags' label='tags' icon='tags' direct=true
@@ -64,29 +106,6 @@ template(name='rental_view_info')
     +text_view key='contact_info' label='contact info' icon='info' direct=true
     +link_view key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
 
-
-template(name='rental_view_finance')  
-    h1.ui.header 
-        i.money.grey.icon
-        |finance
-    +number_view key='hourly_rate' label='hourly rate' direct=true
-    +number_view key='daily_rate' label='daily rate' direct=true
-    div
-    +boolean_view key='variable_price' label='variable price' direct=true tooltip='allow system to increase/decrease price based on performance and popularity'
-    div
-    +boolean_view key='negotiable_price' label='negotiable price' tooltip='allow people to make bids' direct=true
-    div
-    +number_view key='retail_value' label='original retail value' tooltip='general info, helpful to renters to decide, also for price recommendations, and sorting' direct=true
-    .ui.header 
-        |pricing
-    +boolean_view key='cash_accepted' label='cash accepted' direct=true
-    +boolean_view key='prepay' label='prepayment required' direct=true
-    +boolean_view key='security_deposit_required' label='security deposit required' direct=true
-    if security_deposit_required
-        +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar' direct=true
-    +boolean_view key='friend_discount' label='friend discount' direct=true
-    if friend_discount
-        +number_view key='friend_discount_amount' label='security deposit amount' icon='dollar' direct=true
 
             
                   
@@ -153,20 +172,3 @@ template(name='rental_view_stats')
     +boolean_view key='visible_to_building' label='building' direct=true
     +boolean_view key='visible_to_residents' label='residents' direct=true
     +boolean_view key='visible_to_public' label='public' direct=true
-
-    
-    
-    
-template(name='rental_view_availability')  
-    +array_view key='availability_tags' label='availability tags' icon='clock' direct=true
-    +boolean_view key='available' label='currently available' direct=true
-    +multi_doc_view key='available_days' label='available days' ref_model='day_of_week' direct=true
-    .ui.header
-        |delivery
-    +boolean_view key='pickup_delivery' label='pickup' direct=true
-    +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
-    +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
-    +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
-    .ui.header
-        | visibility
-    +boolean_view key='published' label='published' direct=true

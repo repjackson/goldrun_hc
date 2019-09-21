@@ -789,7 +789,7 @@ Template.multi_doc_view.helpers
     choices: ->
         Docs.find {
             model:@ref_model
-        }, sort:slug:-1
+        }, sort:number:-1
 
 # Template.multi_doc_edit.onRendered ->
 #     $('.ui.dropdown').dropdown(

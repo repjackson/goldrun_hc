@@ -459,7 +459,7 @@ template(name='guest_waiver_check')
         
 template(name='kiosk_send_message')                
     .ui.big.fluid.button.create_message 
-        +i name='send-comment' classes='ui inline mini image'
+        i.envelope.icon
         |send private message
     if sending_message
         +sending_kiosk_message

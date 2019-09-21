@@ -1,9 +1,14 @@
 template(name='products')
     .ui.padded.grid
         .row
-            a.ui.big.fluid.button(href='/healthclub')
-                i.left.chevron.icon
-                strong back
+            if is_frontdesk
+                a.ui.big.fluid.button(href='/healthclub')
+                    i.left.chevron.grey.icon
+                    .ui.inline.grey.header back
+            else 
+                a.ui.big.fluid.button(href='/')
+                    i.left.chevron.grey.icon
+                    .ui.inline.grey.header back
         .row
             .four.wide.column
                 .ui.header 
@@ -280,7 +285,8 @@ template(name='shop_cloud')
 template(name='shop_small')
     div
     a.ui.fluid.button(href="/products")
-        .ui.header
+        .ui.grey.header
+            i.shopping.bag.icon
             |for sale
     //- +shop_cloud
     .ui.relaxed.grey.list.smallscroll

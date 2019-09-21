@@ -1,7 +1,7 @@
 template(name='login')
     .ui.padded.stackable.grid
         .centered.row
-            .six.wide.column
+            .eight.wide.column
                 h1.ui.center.aligned.header gro login
                     //- i.massive.icons
                     //-     i.home.icon
@@ -20,9 +20,9 @@ template(name='login')
                 //- if username
                 if logging_in
                     .ui.fluid.big.basic.button.enter(title="login #{username}" class=enter_class)
+                        i.sign.in.alternate.icon
                         |login
                         strong #{username}
-                        //- i.sign.in.alternate.icon
                         //- +i name='enter-2' classes='ui mini inline image'
                         //- i.right.chevron.icon
                 else
@@ -36,10 +36,10 @@ template(name='login')
                 .ui.center.aligned.basic.segment    
                     a.ui.button(href='/forgot_password')
                         //- +i name='forgot-password' classes='ui mini inline image'                    
-                        //- i.refresh.icon
+                        i.refresh.icon
                         |forgot password
                     a.ui.large.button(href='/register') 
                         //- +i name='add-user-male' classes='ui mini inline image'                    
-                        //- i.user.plus.icon
+                        i.user.plus.icon
                         |register
                     //- .ui.center.aligned.inline.header see the front desk to register an account

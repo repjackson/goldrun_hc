@@ -12,6 +12,9 @@ if Meteor.isClient
     Router.route '/reservation/:doc_id/edit', (->
         @render 'reservation_edit'
         ), name:'reservation_edit'
+    Router.route '/new_reservation/:doc_id', (->
+        @render 'new_reservation'
+        ), name:'new_reservation'
 
 
     # Template.kiosk_reservation_view.onCreated ->

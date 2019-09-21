@@ -34,12 +34,12 @@ template(name='staff')
                 //- +add_button model='shift_checklist' label='shift checklist'
                 +unit_key_widget
                 a.ui.compact.fluid.large.button(href='readings')
-                    +ismall name='water' classes='ui inline image'                
+                    //- +ismall name='water' classes='ui inline image' 
+                    i.water.blue.icon               
                     strong water
                 div
-                //- +ismall name='swim'
-                i.swimmer.icon
-                .ui.inline.grey.header 
+                .ui.small.grey.header 
+                    i.swimmer.icon
                     |pool
                 each shift_pool_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
@@ -48,8 +48,8 @@ template(name='staff')
                         if chlorine_message
                             .ui.basic.label #{chlorine_message}
                 div
-                +ismall name='jacuzzi'
-                .ui.inline.grey.header 
+                .ui.small.grey.header 
+                    i.hot.tub.icon
                     |upper hot tub
                 each shift_upper_hot_tub_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
@@ -58,8 +58,8 @@ template(name='staff')
                         if chlorine_message
                             .ui.basic.label #{chlorine_message}
                 div
-                +ismall name='jacuzzi'
-                .ui.inline.grey.header 
+                .ui.small.grey.header 
+                    i.hot.tub.icon
                     |lower hot tub
                 each shift_lower_hot_tub_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
@@ -114,10 +114,9 @@ template(name='staff')
                     .content
                         +schedule
                     .title
-                        //- +i name='chat' classes='ui inline mini image'
-                        i.large.chat.icon
+                        i.large.chat.grey.icon
                         .ui.grey.inline.header chat
-                        i.dropdown.icon
+                        i.dropdown.grey.icon
                     .content
                         +view_chats
     
