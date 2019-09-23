@@ -25,43 +25,12 @@ if Meteor.isClient
     Template.reservation_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'rental_by_res_id', Router.current().params.doc_id
+    Template.new_reservation.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'rental_by_res_id', Router.current().params.doc_id
 
 
 
-    Template.reservation_edit.helpers
-        estimated_cost: ->
-            console.log @
-            rental = Docs.findOne @rental_id
-            if rental.hourly_rate
-                rental.hourly_rate*@hour_duration
-    Template.reservation_edit.events
-        'click .submit_reservation': ->
-            rental = Docs.findOne @rental_id
-            if rental.hourly_rate
-                estimated_cost = rental.hourly_rate*@hour_duration
-            Docs.update @_id,
-                $set:
-                    submitted:true
-                    submitted_timestamp:Date.now()
-                    estimated_cost:estimated_cost
-            Docs.insert
-                model:'log_event'
-                parent_id:Router.current().params.doc_id
-                log_type:'reservation_submission'
-                text:"reservation submitted by #{Meteor.user().username}"
-            # Router.go "/reservation/#{@_id}/view"
-
-        'click .unsubmit': ->
-            Docs.update @_id,
-                $set:
-                    submitted:false
-                    unsubmitted_timestamp:Date.now()
-            Docs.insert
-                model:'log_event'
-                parent_id:Router.current().params.doc_id
-                log_type:'reservation_unsubmission'
-                text:"reservation unsubmitted by #{Meteor.user().username}"
-            # Router.go "/reservation/#{@_id}/view"
 
 
 

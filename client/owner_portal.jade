@@ -46,12 +46,12 @@ template(name='board_member_small')
 
 
 template(name='projects_small')            
-    a.ui.header(href='/projects')
+    a.ui.header(href='/m/project')
         +i name='project'
         |projects
-    .ui.link.large.list
+    .ui.link.large.list.smallscroll
         each projects
-            a.active.item.log_view(href="/project/#{_id}/view") 
+            a.active.item(href="/project/#{_id}/view") 
                 +ismall name=icon classes='ui middle aligned image'
                 |#{title}
                 //- span

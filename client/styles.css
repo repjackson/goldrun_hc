@@ -1,7 +1,7 @@
 body {
     /* font-family: 'Raleway', sans-serif !important; */
     font-family: 'Ubuntu', sans-serif !important;
-    font-size: 110% !important;
+    /* font-size: 110% !important; */
     /*line-height: 200% !important;*/
     background: rgba(0,0,0,.01) !important;
     /* filter: invert(.9) !important; */
@@ -14,6 +14,16 @@ body {
     filter: invert(1) !important;
 
 } */
+
+.add_model_doc {
+    border-radius: 20px !important;
+}
+.add_model_doc > .icon:hover {
+    animation-name: spin;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
 
 
 .filter_row {
@@ -71,8 +81,18 @@ body {
 /* .menu > .item:hover { */
     /* filter: drop-shadow(0px 0px 5px rgba(100,100,100,.9)) !important; */
 /* } */
+.menu > .item > .image:hover {
+    filter: drop-shadow(0px 0px 5px rgba(250,250,250,.9)) !important;
+    -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+}
+
+.image {
+    transition: transform 1s !important;
+}
+
 #topnav {
-    border-radius: 0px 0px 15px 15px !important;
+    border-radius: 0px 0px 10px 10px !important;
 }
 .grid_seg:focus-visible {
     outline: lightgreen solid 2px !important;
@@ -82,6 +102,8 @@ body {
 
 .menu {
     border-radius: 10px !important;
+    transition: all 5s ease !important;
+
 }
 
 .card {
@@ -339,9 +361,10 @@ input.username_search{
 }
 
 .button.active {
-    /* background-color: rgba(200, 200, 200, 0.5) !important; */
-    /* box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important; */
-    background-color: rgba(50, 50, 50, .9) !important;
+    /* background-color: rgba(150, 150, 150, 1) !important; */
+    background-color: teal !important;
+    box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
+    /* background-color: rgba(50, 50, 50, .9) !important; */
     color: white !important;
     /* transform: translate(0, 4px); */
 }
@@ -433,6 +456,7 @@ input.username_search{
     animation-duration: 5000ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    border: thin white !important;
 }
 
 
@@ -464,8 +488,8 @@ input.username_search{
 }
 
 .ui.header{
-    font-family: 'Raleway', sans-serif !important;
-    /* font-family: 'Ubuntu', sans-serif !important; */
+    /* font-family: 'Raleway', sans-serif !important; */
+    font-family: 'Ubuntu', sans-serif !important;
 }
 h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */
@@ -524,11 +548,14 @@ h1.ui.header{
   }
 }
 
-/* .secnav {
-    border: 1px !important;
-    padding: 5px !important;
-    margin: 2em !important;
-} */
+.secnav {
+    opacity: .9 !important;
+    max-width: 100% !important;
+	overflow-y:hidden;
+	overflow-x:scroll;
+    margin-left: .3em !important;
+    margin-right: .3em !important;
+}
 
 /* .button {
     margin: 2em !important;
@@ -788,10 +815,14 @@ h1.ui.header{
 	overflow-x:scroll;
 	/*max-height:1000px;*/
 	/*max-height:85vh;*/
+    transition: background-color 5s; /* Animation */
+    transition: src 5s; /* Animation */
+    /* box-shadow: 0 2px 2px 2px rgba(50, 50, 100, 0.1) !important; */
+
     background-color: (250,250,250,.1) !important;
 	/* padding: 1em; */
-    /* -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.9)), to(rgba(0,0,0,1))); */
-    /* mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0)); */
+    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,.8)));
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 .topnav::-webkit-scrollbar {
@@ -799,7 +830,7 @@ h1.ui.header{
 }
 
 .secnav::-webkit-scrollbar {
-    /* display: none; */
+    display: none;
     /* color:white !important;
     height:1px !important; */
 }

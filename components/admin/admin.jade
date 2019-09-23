@@ -3,7 +3,8 @@ template(name='admin')
         .four.column.row
             .column
                 h1.ui.header
-                    i.shield.icon
+                    //- i.shield.icon
+                    +i name='shield'
                     |gr+ admin
                 with gs
                     +boolean_edit key='rick_mode' direct=true
@@ -33,7 +34,8 @@ template(name='admin')
         .row
             .sixteen.wide.column
                 .ui.header 
-                    i.grey.users.icon
+                    //- i.grey.users.icon
+                    +i name='groups'
                     |gr+ members
                 .scrolling
                     +member_table
@@ -41,7 +43,8 @@ template(name='admin')
 
 template(name='admin_wiki')
     a.ui.header(href="/m/wiki")
-        i.wikipedia.icon
+        //- i.wikipedia.icon
+        +i name='wikipedia'
         |admin wiki
     .ui.link.bulleted.list
         each wiki
@@ -50,23 +53,27 @@ template(name='admin_wiki')
 
 template(name='admin_tasks')
     a.ui.header(href="/m/task")
-        i.tasks.icon
+        //- i.tasks.icon
+        +i name='tasks'
         |admin tasks
 
 template(name='market_small')
     a.ui.header(href="/market")
-        i.shopping.bag.icon
+        //- i.shopping.bag.icon
+        +i name='shop'
         |market
 
 template(name='my_earnings_small')
     .ui.header 
-        i.money.icon
+        //- i.money.icon
+        +i name='money'
         |my earnings_small
     
     
 template(name='online_users')
     .ui.header 
-        i.globe.icon
+        //- i.globe.icon
+        +i name='globe'
         |online users
     each online_users
         div
@@ -82,7 +89,8 @@ template(name='online_users')
     
 template(name='earnings_small')
     .ui.header
-        i.line.chart.grey.icon
+        //- i.line.chart.grey.icon
+        +i name='line-chart'
         |earnings
     .ui.small.header total
     .ui.small.header last week
@@ -103,16 +111,16 @@ template(name='rentals_small')
 
 
 template(name='transactions_small')
-    a.ui.compact.fluid.button(href='/transactions')
-        .ui.small.header
-            i.exchange.icon
-            | recent transactions
+    a.ui.header(href='/transactions')
+        //- i.exchange.icon
+        +i name='invoice'
+        | recent transactions
     .smallscroll
         .ui.list
             each transactions
                 .item
                     .header #{title} #{when}
-                        .ui.label #{transaction_type}
+                        .ui.basic.label #{transaction_type}
 
 template(name='admin_chat')
     div

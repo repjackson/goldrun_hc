@@ -113,7 +113,7 @@ if Meteor.isClient
         Meteor.setTimeout ->
             $('.item').popup(
                 preserve:true;
-                hoverable:true;
+                hoverable:false;
             )
         , 3000
 
@@ -123,6 +123,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'me'
         @autorun -> Meteor.subscribe 'role_models'
         @autorun -> Meteor.subscribe 'users_by_role','staff'
+        @autorun => Meteor.subscribe 'global_settings'
 
         # @autorun -> Meteor.subscribe 'current_session'
         # @autorun -> Meteor.subscribe 'unread_messages'

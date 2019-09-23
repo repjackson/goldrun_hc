@@ -4,4 +4,4 @@ if Meteor.isClient
             new_reservation_id = Docs.insert
                 model:'reservation'
                 rental_id: @_id
-            Router.go "/reservation/#{new_reservation_id}/edit"
+            Router.go "/new_reservation/#{new_reservation_id}"

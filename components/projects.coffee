@@ -4,9 +4,10 @@ Router.route '/projects', (->
     @render 'projects'
     ), name:'projects'
 
-Router.route '/project/:doc_id/view', -> @redirect '/project/:doc_id/feed'
-
-
+Router.route '/project/:doc_id/view', (->
+    # @layout 'project_layout'
+    @render 'project_feed'
+    ), name:'project_view'
 Router.route '/project/:doc_id/edit', (->
     # @layout 'project_layout'
     @render 'project_edit'

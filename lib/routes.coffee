@@ -22,6 +22,7 @@ Router.onBeforeAction(force_loggedin, {
     'delta'
     'market'
     'projects'
+    'services'
     'shop'
     'project_view'
     'doc_view'

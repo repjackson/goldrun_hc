@@ -45,7 +45,6 @@ template(name='user_requests')
 template(name='user_dashboard')
     .ui.header 
         +i name='dashboard'
-        
         |dashboard
 
 
@@ -164,7 +163,7 @@ template(name='user_gallery')
 
 template(name='user_connections')
     .ui.header 
-        +i name='connect'
+        +i name='handshake'
         |connections
     .ui.header connected to
     each connections
@@ -207,18 +206,6 @@ template(name='user_events')
         +i name='calendar'
         |calendar
 
-
-template(name='user_karma')
-    .ui.header 
-        +i name='yin-yang'
-        |karma
-    .ui.header 
-        +i name='chevron up'
-        |upvoted documents
-    .ui.header 
-        +i name='chevron down'
-        |downvoted documents
-    +received_karma
 
 
 template(name='user_feed')

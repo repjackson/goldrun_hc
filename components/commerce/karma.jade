@@ -1,2 +1,90 @@
 template(name='karma')
-    .ui.header balance sheet
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                .ui.header 
+                    +i name='invoice'
+                    |karma balance sheet
+                .ui.header potential ways to earn
+                .ui.header how karma was earned
+                | how it was spent, projected earnings and expenditures
+                +earning_methods_small
+                +add_karma
+            .six.wide.column
+                .ui.header
+                    +i name='internal'
+                    |karma earned
+                each karma_received
+                    .ui.header #{amount_received} received #{when}
+                
+            .six.wide.column
+                .ui.header 
+                    +i name='bill'
+                    |purchases
+                each purchases
+                    .ui.header purchase #{when}
+            
+    
+    
+template(name='earning_methods_small')
+    a.ui.header(href='/m/earning_opportunities')
+        //- i.exchange.icon
+        +i name='invoice'
+        | earning opportunities
+    .smallscroll
+        .ui.large.link.list
+            each opportunities
+                a.item(href="/m/earning_opportunity/#{_id}/view")
+                    .content
+                        .ui.small.header 
+                            if task_completed
+                                i.circle.outline.icon
+                            else
+                                i.green.checkmark.icon
+                            |#{title} #{when}
+                        +number_view key='karam'
+
+
+
+template(name='add_karma')
+    .ui.header add karma
+    .ui.link.list
+        +add_karma_amount amount=1000 price=10
+        +add_karma_amount amount=2250 price=20
+        +add_karma_amount amount=5500 price=50
+        +add_karma_amount amount=1100 price=100
+            
+template(name='add_karma_amount')            
+    .item.pointer.add_karma_amount #{amount } karma for $#{price}
+
+
+
+
+template(name='new_karma_transaction')
+    with current_doc
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.header new karma transaction
+                +text_edit key='title' label='title' direct=true
+
+
+
+
+
+template(name='user_karma')
+    .ui.header 
+        +i name='yin-yang'
+        |karma
+    .ui.header 
+        +ismall name='chevron up'
+        |upvoted documents
+    .ui.header 
+        +ismall name='chevron down'
+        |downvoted documents
+    +received_karma
+    +send_user_karma
+    
+    
+template(name='send_user_karma')
+    .ui.button.send_karma
+        |send karma    

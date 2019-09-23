@@ -1,9 +1,14 @@
 template(name='services')
     .ui.padded.grid
         .row
-            a.ui.big.fluid.button(href='/healthclub')
-                i.left.chevron.icon
-                strong back
+            if is_frontdesk
+                a.ui.big.fluid.button(href='/healthclub')
+                    i.left.chevron.icon
+                    .ui.inline.header back
+            else
+                a.ui.big.fluid.button(href='/')
+                    i.left.chevron.icon
+                    .ui.inline.header back
         .row
             .four.wide.column
                 .ui.header 
@@ -183,38 +188,34 @@ template(name='service_cloud')
         //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
         // .ui.hidden.fitted.divider
     if selected_service_tags
-        #clear_tags.ui.active.icon.tiny.circular.big.button
+        #clear_tags.ui.active.icon.circular.tiny.kiosk_facet_button.button
             i.remove.icon
         each selected_service_tags
-            .unselect_service_tag.ui.active.circular.kiosk_facet_button.big.button
+            .unselect_service_tag.ui.active.circular.kiosk_facet_button.tiny.button
                 strong #{this}
     each all_service_tags
-        .ui.compact.circular.basic.big.button.kiosk_facet_button.select_service_tag(class=cloud_tag_class) 
+        .ui.compact.circular.basic.tiny.button.kiosk_facet_button.select_service_tag(class=cloud_tag_class) 
             strong #{this.name}
 
 
 
 template(name='service_small')
-    div
-    a.ui.fluid.button(href="/services")
-        .ui.inline.grey.header
-            //- +i name='work'
-            i.concierge.bell.grey.icon
-            |services
-    //- +service_cloud filter='service'
-    .ui.relaxed.list.smallscroll
+    a.ui.header(href="/m/service")
+        //- i.concierge.bell.icon
+        +i name='work'
+        &nbsp;
+        strong.f7 services
+    +service_cloud filter='service'
+    .ui.relaxed.link.large.list.smallscroll
         each services
-            .item.log_service_view
-                //- if image
-                //-     img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
-                //- if picture
-                //-     img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
-                .content
-                    .header
-                        a(href="/kiosk_service_view/#{_id}")
-                            .ui.small.grey.inline.header 
-                                |#{title}
-                                small $#{hourly_rate}/hr
+            a.item.log_service_view(href="/kiosk_service_view/#{_id}")
+                if image
+                    img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
+                if picture
+                    img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
+                |#{title}
+                small $#{hourly_rate}/hr
+                    //- .header
                     //- .description
                     //-     .ui.horizontal.list
                     //-         .item

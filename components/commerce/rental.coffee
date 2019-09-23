@@ -319,6 +319,7 @@ if Meteor.isClient
 
 
     Template.rental_reservations.onCreated ->
+        console.log @
         @autorun -> Meteor.subscribe 'rental_reservations', Template.currentData()
     Template.rental_reservations.helpers
         reservations: ->

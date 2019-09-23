@@ -5,7 +5,7 @@ if Meteor.isClient
     Template.rental_cloud.helpers
         all_rental_tags: ->
             rental_count = Docs.find(model:'rental').count()
-            if 0 < rental_count < 3 then Rental_tags.find { count: $lt: rental_count } else Rental_tags.find({},{limit:42})
+            if 0 < rental_count < 3 then Rental_tags.find { count: $lt: rental_count } else Rental_tags.find({},{limit:5})
         # cloud_tag_class: ->
         #     button_class = switch
         #         when @index <= 5 then 'large'

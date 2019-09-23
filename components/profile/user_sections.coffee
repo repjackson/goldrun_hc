@@ -61,6 +61,9 @@ if Meteor.isClient
                 # confirmed:true
 
 
+
+
+
     Template.user_connect_button.onCreated ->
         # @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
     Template.user_connect_button.helpers
@@ -79,27 +82,19 @@ if Meteor.isClient
 
 
 
-    Template.received_karma.onCreated ->
-        @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
-    Template.received_karma.helpers
-        received_karma: ->
-            Docs.find
-                model:'karma_transaction'
-                recipient:Router.current().params.username
-                # confirmed:true
-
-
     Template.user_tags.onCreated ->
         @autorun => Meteor.subscribe 'user_tag_reviews', Router.current().params.username
     Template.user_tags.helpers
         user_tag_reviews: ->
             Docs.find
                 model:'user_tag_review'
-
         my_tag_review: ->
             Docs.findOne
                 model:'user_tag_review'
                 _author_id: Meteor.userId()
+
+
+
 
 
     Template.user_tags.events

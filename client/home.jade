@@ -1,47 +1,49 @@
 template(name='home')
     .ui.padded.stackable.grid
-        .cent.row
-            .three.wide.column
-                //- img.ui.cent.small.circular.image.pointer.toggle_lights(src="{{c.url 'gold_run_logo' }}")
-                //- +i name='home' classes='ui inline image'
-                //- .ui.center.aligned.basic.segment
-                //-     .ui.inline.grtext.center.aligned.pointer.header.toggle_display
-                //-         |gro
-                        //- | www.goldrun.online
-                //- div
-                +health_club_status_small
-                .ui.hidden.divider
-                +stats_small
+        +home_slider
+        //- .centered.row
+        //-     .sixteen.wide.center.aligned.column
+                //- iframe(src="https://docs.google.com/presentation/d/e/2PACX-1vRfcMH9Chgsdum55ScQPW0z8JgKw8fzR662uCT97jk3X7Sl3VozVO0N6_J6z-fd4S4JHtDFDCK-_3i6/embed?start=true&loop=true&delayms=5000" frameborder="0" width="100%" height="400" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true")                
+        .centered.row
             .four.wide.column
-                div
                 +shop_small
+            .four.wide.column
                 +rental_small
-                .ui.grey.header
-                    i.poll.icon
-                    |polls
-                .mediumscroll
-                    each polls
-                        +poll_results
-                    
-            .five.wide.column
-                +request_small
+            .four.wide.column
                 +service_small
-                //- +karma_leaderboard
-                //- +work_order_small
+            .four.wide.column
+                +event_small
+        .centered.row
+            .four.wide.column
+                +karma_leaderboard
+            .four.wide.column
+                +work_order_small
                 //- .ui.hidden.divider
-                //- +latest_project_updates
+            .four.wide.column
+                +latest_project_updates
+            .four.wide.column
+                +projects_small             
                 //- unless display_mode
-                //-     +projects_small             
                 //- +work_small
             //-     +posts_small
             //- .column
             //-     +market_small
+        .centered.row
+            .four.wide.column
+                +request_small
             .four.wide.column
                 +latest_activity
+            .four.wide.column
                 +footer_chat
                 //- +gallery_small
-                .ui.hidden.divider
-                //- +event_small
+            .four.wide.column
+                .ui.header
+                    +i name='poll'
+                    //- i.poll.icon
+                    |polls
+                .smallscroll
+                    each polls
+                        +poll_results
     
                 //- +service_list
                 //- +service_slider            
@@ -53,67 +55,51 @@ template(name='home')
                 //-         a(href=link) #{link}
                 //-         +voting
                 //- .ui.hidden.divider
-                //- +ismall name='poll'
-                //- .ui.inline.grey.header poll
-                //- .ui.small.header do you like living at gold run?
-                //- .ui.large.icon.button.happy
-                //-     i.outline.thumbs.up.large.icon
-                //-     |#{hsd.happy_votes}
-                //- .ui.large.icon.button.unhappy
-                //-     i.outline.thumbs.down.large.icon
-                //-     | #{hsd.unhappy_votes}
-                //- .ui.small.header next movie night movie?
-                //- each movie_options
-                //-     .ui.large.button.vote_movie
-                //-         | #{title}
-                //- .ui.divider
-    //- form.inline(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-    //-     input(type='hidden', name='cmd', value='_s-xclick')
-    //-     input(type='hidden', name='hosted_button_id', value='BUX7ZDWUFLVDQ')
-    //-     //- // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-    //-     //- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-    //-     img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-    //-     button.ui.icon.button(type='submit' title='donate')
-    //-         +ismall name='donate' classes='ui inline mini image'
-            
-        //- if is_dev
-        //-     .four.column.row
-        //-         .column
-        //-             +published_resident_small
-        //-         .column
-        //-             +karma_leaderboard
-        //-         .column
-        //-             +most_viewed_posts
-        //-         .column
-        //-             +most_viewed_models
-                    //- +meal_widget
-                    //- +marketplace_widget
-                    //- .ui.header chat
-                    //- +model_scroller model='for_rent' header='For Rent' icon='business'
-                    //- +model_scroller model='event' header='Events' icon='calendar'
-                //- .column
-                //-     +cal
-                    //- +model_scroller model='photo' header='Photos' icon='image'
-            //- .two.column.row    
-            //-     .column
-            //-         +model_scroller model='shop' header='marketplace' icon='shop'
-            //-     .column
-            //-         +model_scroller model='gr_post' header='posts' icon='post'
-            //- .one.column.row    
-            //-     .column
-            //-         iframe(src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.41414983186405!2d-105.2554393150354!3d40.00847065387155!2m3!1f357.8823529411765!2f37.27633198895564!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x0%3A0x710555f334428f65!2sGold+Run+Health+Club!5e1!3m2!1sen!2sus!4v1559922280502!5m2!1sen!2sus" width="1200" height="450" frameborder="0" style="border:0" allowfullscreen)
-            //- .three.column.row    
-            //-     .column
-            //-         +model_scroller model='group' header='groups' icon='groups'
-            //-     .column
-            //-         +model_scroller model='company' header='businesses' icon='business'
-            //- .three.column.row    
-            //-     .column
-            //-         +model_scroller model='library' header='library' icon='library'
-            //-     .column
-            //-         +model_scroller model='ad' header='resident ads' icon='presentation'
-            //-     .column
-            //-         +model_scroller model='for_rent' header='for rent' icon='business'
+        .centered.row
+            //- .four.wide.column
+                //- +gallery_small
+            .four.wide.column
+                +health_club_status_small
+            .four.wide.column
+                +stats_small
+            .four.wide.column
+                //- +model_scroller model='group' header='groups' icon='groups'
+                +home_alerts
+        //- .four.column.row
+        //-     .column
+        //-         +published_resident_small
+        //-     .column
+        //-         //- +karma_leaderboard
+        //-     .column
+        //-         +most_viewed_posts
+        //-     .column
+        //-         +most_viewed_models
+        //- .four.column.row
+        //-     .column
+        //-         +meal_widget
+        //-     .column
+        //-         +model_scroller model='for_rent' header='For Rent' icon='business'
+        //-     .column
+        //-         +model_scroller model='event' header='Events' icon='calendar'
+        //- .four.column.row
+        //-     .column
+        //-         +cal
+        //-     .column
+        //-         +model_scroller model='photo' header='Photos' icon='image'
+        //-     .column
+        //-         +model_scroller model='shop' header='marketplace' icon='shop'
+        //-     .column
+        //-         +model_scroller model='gr_post' header='posts' icon='post'
+        //- .one.column.row    
+        //-     .column
+        //-         iframe(src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.41414983186405!2d-105.2554393150354!3d40.00847065387155!2m3!1f357.8823529411765!2f37.27633198895564!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x0%3A0x710555f334428f65!2sGold+Run+Health+Club!5e1!3m2!1sen!2sus!4v1559922280502!5m2!1sen!2sus" width="1200" height="450" frameborder="0" style="border:0" allowfullscreen)
+        //- .three.column.row    
+        //-     .column
+        //-         +model_scroller model='company' header='businesses' icon='business'
+        //-     .column
+        //-         +model_scroller model='library' header='library' icon='library'
+        //-     .column
+        //-         +model_scroller model='ad' header='resident ads' icon='presentation'
 
             
         //- .eight.wide.column
@@ -126,12 +112,34 @@ template(name='home')
         //-         +post
 
 
+//- template(name='home_slider')
+//-     .slider.slider1
+//-         .slides
+//-             each slides
+//-                 .slide-item
+//-                     .ui.header.slide-title #{title}
+//-                     img.slide_bg(src="{{c.url background_image width=500 height=500 crop='fill'}}")
+//-                     .content #{subtitle}
+//- 
+//- 
 
+
+template(name='home_alerts')
+    .ui.header 
+        +i name='alert'
+        |alerts
+
+
+template(name='home_posts')
+    .ui.header 
+        +i name='post'
+        |posts
 
 
 template(name='stats_small')
     .ui.inline.grey.header.calc_home_stats
-        i.bar.chart.icon
+        //- i.bar.chart.icon
+        +i name='bar-chart'
         |stats
     div
     .ui.inline.grey.header 

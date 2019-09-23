@@ -1,24 +1,30 @@
 template(name='rentals')
-    .ui.stackable.grid
+    .ui.stackable.padded.grid
         .row
-            .six.wide.column
-                a.ui.big.fluid.button(href='/healthclub')
-                    i.left.chevron.icon
-                    .ui.inline.header back
+            .four.wide.column
+                if is_frontdesk
+                    a.ui.big.fluid.button(href='/healthclub')
+                        i.left.chevron.icon
+                        .ui.inline.header back
+                else
+                    a.ui.big.fluid.button(href='/')
+                        i.left.chevron.icon
+                        .ui.inline.header back
                 h1.ui.header 
+                    +i name='handshake'
                     |rentals
                 //- .ui.inline.header type
                 div
                 +rental_cloud
-            .ten.wide.column.scrolling
-                .ui.two.cards
+            .twelve.wide.column.scrolling
+                .ui.three.cards
                     each rentals
                         +rental_kiosk_card
 
 template(name='set_market_type')
     .ui.large.button 
         if icon
-            i.icon(class=icon)
+            +ismall name=icon
         |#{label}
 
 template(name='rental_kiosk_card')
@@ -77,7 +83,7 @@ template(name='rental_kiosk_segment')
                 //-         a.ui.button(href="/rental/#{_id}/edit/info")
                 //-             i.pencil.blue.icon
                 //-             |edit
-                a.ui.button(href="/kiosk_rental_view/#{_id}")
+                a.ui.large.button(href="/kiosk_rental_view/#{_id}")
                     |view
                     i.right.chevron.yellow.icon
                 //- +author_info
@@ -179,9 +185,13 @@ template(name='rental_card_template')
                         |~
                     .ui.basic.label $#{hourly_rate}/hr
                     .ui.basic.label $#{daily_rate}/day
+                    if hourly_karma
+                        .ui.basic.blue.label $#{hourly_karma}/day
+                    if daily_karma
+                        .ui.basic.blue.label $#{daily_karma}/day
         .row
             .four.wide.column
-                a.zoom(href="/rental/#{_id}/view")
+                a.zoom(href="/kiosk_rental_view/#{_id}")
                     if image
                         +image_view key='image' direct=true classes='zoom'
                     //- if picture
@@ -207,28 +217,29 @@ template(name='rental_card_template')
                             i.pencil.blue.icon
                             |edit
                 //- a.ui.button(href="/kiosk_rental_view/#{_id}")
-                a.ui.button(href="/rental/#{_id}/view/info")
+                a.ui.button(href="/kiosk_rental_view/#{_id}")
                     |view
                     i.right.chevron.yellow.icon
                 +author_info
 
 
 template(name='rental_cloud')
+    div
     //- #cloud
         //- .ui.left.icon.input
         //-     i.search.icon
         //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
         // .ui.hidden.fitted.divider
-    i.grey.tags.icon
+    //- i.grey.tags.icon
     //- .ui.inline.header tags
     if selected_rental_tags
         #clear_tags.ui.active.icon.tiny.circular.button
             i.remove.icon
         each selected_rental_tags
-            .unselect_rental_tag.ui.active.large.circular.kiosk_facet_button.button
+            .unselect_rental_tag.ui.active.tiny.circular.kiosk_facet_button.button
                 strong #{this}
     each all_rental_tags
-        .ui.compact.large.circular.basic.button.kiosk_facet_button.select_rental_tag(class=cloud_tag_class) 
+        .ui.compact.tiny.circular.basic.button.kiosk_facet_button.select_rental_tag(class=cloud_tag_class) 
             strong #{this.name}
 
 
@@ -237,7 +248,8 @@ template(name='rental_cloud')
 
 template(name='rental_cal')
     .ui.header 
-        i.clock.icon
+        //- i.clock.icon
+        +i name='clock'
         |rentals
     unless is_author
         +view_rental
@@ -361,13 +373,12 @@ template(name='rental')
 
 
 template(name='rental_small')
-    div
-    a.ui.fluid.compact.button(href="/rentals")
-        .ui.inline.grey.header
-            //- +i name='rent'
-            i.handshake.outline.icon
-            |rentals
-    //- +rental_cloud
+    a.ui.header(href="/m/rental")
+        //- i.handshake.outline.icon
+        +i name='handshake'
+        &nbsp;
+        strong.f7 rentals
+    +rental_cloud
     .ui.relaxed.list.smallscroll
         each rentals 
             .item.log_rental_view
@@ -394,13 +405,17 @@ template(name='rental_small')
 
 template(name='rental_transactions')
     .ui.grey.header 
-        i.exchange.icon
+        +i name='refund-2'
         |transactions
     each transactions
         a.ui.header(href="/transaction/#{_id}/view") #{when} by #{_author_username}
+        
+        
 template(name='rental_reservations')
     .ui.grey.header 
-        i.clock.icon
+        //- i.clock.icon
+        +i name='clock'
         |reservations
-    each reservations
-        a.ui.header(href="/reservation/#{_id}/view") #{when} by #{_author_username}
+    .ui.bulleted.link.list
+        each reservations
+            a.item(href="/reservation/#{_id}/view") #{when} by #{_author_username}

@@ -86,8 +86,8 @@ template(name='healthclub_session')
                         h2
                             small staff notes:
                             strong !{user.public_staff_notes}
-                    if is_staff
-                        +healthclub_stats user=user
+                    //- if is_staff
+                    //-     +healthclub_stats user=user
                     if user.kiosk_photo
                         if user.member_waiver_signed
                             if user.rules_and_regulations_signed
@@ -135,21 +135,21 @@ template(name='healthclub_session')
                                 //-                 i.thumbs.up.outline.big.icon
                                 //-             .ui.icon.big.button.vote_no
                                 //-                 i.thumbs.down.outline.big.icon
-                    if user.kiosk_photo
-                        if user.member_waiver_signed
-                            if user.rules_and_regulations_signed
-                                .hc_visit_purpose
-                                    with checking_in_doc    
-                                        .ui.hidden.divider
-                                        .ui.tiny.grey.inline.header optional
-                                        .ui.inline.header purpose of visit
-                                        +boolean_edit key='weight_lifting' label='weights' direct=true
-                                        +boolean_edit key='cardio' label='cardio' direct=true
-                                        +boolean_edit key='hot tub' label='hot tub' direct=true
-                                        +boolean_edit key='pool' label='pool' direct=true
-                                        +boolean_edit key='sauna_steamroom' label='sauna/steamroom' direct=true
-                                        +boolean_edit key='garden_key' label='garden key' direct=true
-                                        +boolean_edit key='other' label='other' direct=true
+                    //- if user.kiosk_photo
+                    //-     if user.member_waiver_signed
+                    //-         if user.rules_and_regulations_signed
+                    //-             .hc_visit_purpose
+                    //-                 with checking_in_doc    
+                    //-                     .ui.hidden.divider
+                    //-                     .ui.tiny.grey.inline.header optional
+                    //-                     .ui.inline.header purpose of visit
+                    //-                     +boolean_edit key='weight_lifting' label='weights' direct=true
+                    //-                     +boolean_edit key='cardio' label='cardio' direct=true
+                    //-                     +boolean_edit key='hot tub' label='hot tub' direct=true
+                    //-                     +boolean_edit key='pool' label='pool' direct=true
+                    //-                     +boolean_edit key='sauna_steamroom' label='sauna/steamroom' direct=true
+                    //-                     +boolean_edit key='garden_key' label='garden key' direct=true
+                    //-                     +boolean_edit key='other' label='other' direct=true
                             //- +boolean_edit key='weight_lifting' label='weights' direct=true
                             //- div
                             //- +boolean_edit key='cardio' label='cardio' direct=true

@@ -1,7 +1,7 @@
 template(name='market')
     .ui.stackable.grid
         .row
-            .six.wide.column
+            .four.wide.column
                 if is_frontdesk
                     a.ui.big.fluid.button(href='/healthclub')
                         i.left.chevron.grey.icon
@@ -10,13 +10,13 @@ template(name='market')
                     a.ui.big.fluid.button(href='/')
                         i.left.chevron.grey.icon
                         .ui.inline.grey.header back
-                h1.ui.grey.header 
-                    i.store.icon
+                .ui.grey.inline.header 
+                    //- i.store.icon
+                    +i name='shop'
                     |market
                 //- .ui.inline.header type
-                div
                 +market_cloud
-            .ten.wide.column.scrolling
+            .twelve.wide.column.scrolling
                 .ui.tiny.grey.center.aligned.header gold run + market is community run and not affiliated or endorsed by the Gold Run Condominiums HOA
                 //- +set_market_type label='for sale' icon='shopping bag'
                 //- +set_market_type label='free' icon='thumbs up outline'
@@ -26,7 +26,7 @@ template(name='market')
                 //- +set_market_type label='casual encounters' icon='fire alternate'
                 //- +set_market_type label='missed connections' icon='heart broken'
                 //- +set_market_type label='events' icon='calendar'
-                .ui.two.cards
+                .ui.three.cards
                     each market_items
                         +market_kiosk_card
 
@@ -66,10 +66,10 @@ template(name='market_cloud')
         //-     i.search.icon
         //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
         // .ui.hidden.fitted.divider
-    i.grey.tags.icon
+    //- i.grey.tags.icon
     //- .ui.inline.header tags
     if selected_market_tags
-        #clear_tags.ui.active.icon.tiny.circular.button
+        #clear_tags.ui.active.icon.large.kiosk_facet_button.circular.button
             i.remove.icon
         each selected_market_tags
             .unselect_market_tag.ui.active.large.circular.kiosk_facet_button.button

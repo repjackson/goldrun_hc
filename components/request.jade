@@ -161,10 +161,10 @@ template(name='request_time')
 
 
 template(name='request_small')
-    a.ui.fluid.button(href="/requests")
-        .ui.inline.header
-            i.hand.holding.heart.grey.icon 
-            |requests
+    a.ui.large.header(href="/requests")
+        //- i.hand.holding.heart.grey.icon 
+        +i name='service-bell'
+        |requests
     //- +cloud filter='request'
     .ui.relaxed.grey.list.smallscroll
         each requests 

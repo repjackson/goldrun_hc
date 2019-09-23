@@ -58,8 +58,10 @@ if Meteor.isClient
             Meteor.call 'fum', delta._id, ->
                 Session.set 'loading', false
 
-        'click .set_sort_direction': ->
+        'click .set_sort_direction': (e,t)->
             # console.log @
+            $(e.currentTarget).closest('.button').transition('pulse', 500)
+
             delta = Docs.findOne model:'delta'
             if delta.sort_direction is -1
                 Docs.update delta._id,
@@ -98,6 +100,9 @@ if Meteor.isClient
             if delta
                 if confirm "delete  #{delta._id}?"
                     Docs.remove delta._id
+
+        # 'mouseenter .add_model_doc': (e,t)->
+    	# 	$(e.currentTarget).addClass('spinning')
 
         'click .add_model_doc': ->
             model = Docs.findOne

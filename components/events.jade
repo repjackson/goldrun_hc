@@ -40,6 +40,7 @@ template(name='event_edit')
                     +remove_button
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +image_edit key='image' label='image' icon='image' direct=true
+                    +price_edit key='price' label='price' icon='money' direct=true
                 .eight.wide.column 
                     +text_edit key='title' label='title' icon='title' direct=true
                     +html_edit key='description' label='description' icon='content' direct=true
@@ -75,6 +76,8 @@ template(name='event_view')
                         i.pencil.icon
                     +voting_full
                     +viewing
+                    +price_view key='price' label='price' icon='money' direct=true
+    
                 .twelve.wide.column 
                     +text_view key='title' label='title' direct=true
                     +array_view key='tags' label='tags' icon='tags' direct=true
@@ -103,9 +106,11 @@ template(name='event_slider')
                     
                     
 template(name='event_small')
-    .ui.fluid.button
-        .ui.header 
-            |events
+    a.ui.header(href="/events")
+        //- i.calendar.icon
+        +i name='calendar'
+        &nbsp;
+        strong.f7 events
     //- +event_slider
     //- +model_scroller model='event' header='events' icon='calendar'
 

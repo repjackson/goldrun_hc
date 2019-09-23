@@ -1,0 +1,48 @@
+template(name='new_reservation')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column 
+                    .ui.header 
+                        small new
+                        strong #{rental.title}
+                        small reservation
+                    with rental
+                        +image_view key='image' label='image' direct=true
+                .eight.wide.column 
+                    //- a.ui.header(href="/rental/#{rental._id}/view") reserve #{rental.title}
+                    +boolean_edit key='now' label='now' direct=true 
+                    unless now
+                        +date_edit key='start_date' label='start date' direct=true
+                        +time_edit key='start_time' label='start time' direct=true
+                    .ui.header duration
+                    +key_value_edit key='minute_duration' value=30 label='1/2'
+                    +key_value_edit key='minute_duration' value=60 label='1 hour'
+                    +key_value_edit key='minute_duration' value=120 label='2 hrs'
+                    +key_value_edit key='minute_duration' value=180 label='3 hrs'
+                    //- +number_edit key='minute_duration' label='minute duration' direct=true
+                .four.wide.column
+                    +date_view key='start_date' label='start date' direct=true
+                    +time_view key='start_time' label='start time' direct=true
+                    .ui.header estimated cost #{hour_duration}*#{rental.hourly_rate} = $#{estimated_cost}
+                    .ui.header final cost will be based on actual checked out time.  
+                    +number_view key='minute_duration' label='minute duration' direct=true
+                    unless submitted
+                        .ui.big.green.fluid.button.submit_reservation 
+                            i.sign.in.alternate.icon
+                            |submit
+                    else
+                        .ui.header submitted {{ from_now submitted_timestamp }}
+                        .ui.orange.button.unsubmit
+                            i.undo.icon
+                            |unsubmit
+                    a.ui.big.fluid.button(href="/reservation/#{_id}/view" title='save')
+                        i.checkmark.large.green.icon
+                        |save
+                    .ui.large.icon.button.button.cancel_reservation
+                        i.cancel.large.icon
+
+
+template(name='key_value_edit')
+    .ui.button.set_key_value(class=set_key_value_class)
+        |#{label}

@@ -8,6 +8,8 @@ template(name='dev')
                 with gs
                     .ui.header rick_mode #{rick_mode}
                     +boolean_edit key='rick_mode' direct=true
+                    +text_edit key='icon_theme' label='icon theme' direct=true
+                    +text_edit key='nav_color' label='nav color' direct=true
                 a.ui.button(href="/owners") owners
                 .sixteen.wide.column
                     .ui.input

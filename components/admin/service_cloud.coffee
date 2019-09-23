@@ -5,7 +5,7 @@ if Meteor.isClient
     Template.service_cloud.helpers
         all_service_tags: ->
             service_count = Docs.find(model:'service').count()
-            if 0 < service_count < 3 then Service_tags.find { count: $lt: service_count } else Service_tags.find({},{limit:10})
+            if 0 < service_count < 3 then Service_tags.find { count: $lt: service_count } else Service_tags.find({},{limit:5})
         # cloud_tag_class: ->
         #     button_class = switch
         #         when @index <= 5 then 'large'

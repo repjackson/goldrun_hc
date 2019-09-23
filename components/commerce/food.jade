@@ -54,7 +54,7 @@ template(name='food_card_template')
     .ui.stackable.grid.segment
         .four.wide.column
             //- img.ui.fluid.image(src="{{c.url image }}")
-            img.ui.fluid.rounded.image(src="{{c.url picture width=200 height=300 crop='fit'}}")
+            img.ui.fluid.rounded.image(src="{{c.url image width=400 height=600 crop='fit'}}")
         .twelve.wide.column
             .ui.header #{title}
             +ismall name='food'

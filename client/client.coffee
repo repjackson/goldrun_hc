@@ -17,19 +17,19 @@ $.cloudinary.config
 Template.body.events
     'click a': ->
         $('.global_container')
-        .transition('fade out', 250)
-        .transition('fade in', 250)
+        .transition('fade out', 300)
+        .transition('fade in', 300)
 
     'click .result': ->
         $('.global_container')
         .transition('fade out', 250)
         .transition('fade in', 250)
 
-    'click .log_view': ->
-        console.log Template.currentData()
-        console.log @
-        Docs.update @_id,
-            $inc: views: 1
+    # 'click .log_view': ->
+    #     console.log Template.currentData()
+    #     console.log @
+    #     Docs.update @_id,
+    #         $inc: views: 1
 
 Template.healthclub.events
     # 'click .button': ->
@@ -40,7 +40,7 @@ Template.healthclub.events
 
 
 
-# Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
+Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
 
 Session.setDefault 'invert', false
 Template.registerHelper 'loading_checkin', () -> Session.get 'loading_checkin'

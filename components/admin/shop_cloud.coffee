@@ -5,7 +5,7 @@ if Meteor.isClient
     Template.shop_cloud.helpers
         all_shop_tags: ->
             shop_count = Docs.find(model:'shop').count()
-            if 0 < shop_count < 3 then Shop_tags.find { count: $lt: shop_count } else Shop_tags.find({},{limit:10})
+            if 0 < shop_count < 3 then Shop_tags.find { count: $lt: shop_count } else Shop_tags.find({},{limit:5})
         # cloud_tag_class: ->
         #     button_class = switch
         #         when @index <= 5 then 'large'
