@@ -5,6 +5,8 @@ if Meteor.isClient
 
     Template.karma.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'shop'
+        @autorun -> Meteor.subscribe 'my_karma_sent'
+        @autorun -> Meteor.subscribe 'my_karma_received'
         # @autorun -> Meteor.subscribe 'shop'
 
     Template.karma.onRendered ->
@@ -42,6 +44,14 @@ if Meteor.isClient
 
 
     Template.karma.helpers
+        karma_received: ->
+            Docs.find
+                model:'karma_transaction'
+                to_username: Meteor.user().username
+        karma_sent: ->
+            Docs.find
+                model:'karma_transaction'
+                from_username: Meteor.user().username
         karma_items: ->
             Docs.find
                 model:'karma_item'
@@ -86,6 +96,16 @@ if Meteor.isClient
             Docs.find
                 model:'karma_transaction'
                 to_username:Router.current().params.username
+                # confirmed:true
+
+
+    Template.sent_karma.onCreated ->
+        @autorun => Meteor.subscribe 'username_sent_karma', Router.current().params.username
+    Template.sent_karma.helpers
+        sent: ->
+            Docs.find
+                model:'karma_transaction'
+                from_username:Router.current().params.username
                 # confirmed:true
 
 
@@ -149,3 +169,29 @@ if Meteor.isClient
                 from_username: Meteor.user().username
                 to_username: @username
             Router.go "/new_karma_transaction/#{new_transaction_id}"
+
+
+
+if Meteor.isServer
+    Meteor.publish 'user_confirmed_transactions', (username)->
+        Docs.find
+            model:'karma_transaction'
+            to_username:username
+            # confirmed:true
+
+    Meteor.publish 'username_sent_karma', (username)->
+        Docs.find
+            model:'karma_transaction'
+            from_username:username
+            # confirmed:true
+
+    Meteor.publish 'my_karma_received', ->
+        Docs.find
+            model:'karma_transaction'
+            to_username:Meteor.user().username
+            # confirmed:true
+    Meteor.publish 'my_karma_sent', ->
+        Docs.find
+            model:'karma_transaction'
+            from_username:Meteor.user().username
+            # confirmed:true

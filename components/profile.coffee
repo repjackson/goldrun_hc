@@ -233,12 +233,6 @@ if Meteor.isServer
             model:'violation'
             username:username
 
-    Meteor.publish 'user_confirmed_transactions', (username)->
-        Docs.find
-            model:'karma_transaction'
-            to_username:username
-            # confirmed:true
-
 
     Meteor.publish 'user_guests', (username)->
         user = Meteor.users.findOne username:username

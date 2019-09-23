@@ -15,13 +15,13 @@ template(name='karma')
                     +i name='internal'
                     |karma earned
                 each karma_received
-                    .ui.header #{amount_received} received #{when}
+                    .ui.header #{karma_amount} received from #{from_username} #{when}
             .six.wide.column
                 .ui.header 
                     +i name='bill'
                     |purchases
-                each purchases
-                    .ui.header purchase #{when}
+                each karma_sent
+                    .ui.header #{karma_amount} to #{to_username} #{karma_amount} #{when}
             
     
     
@@ -139,17 +139,37 @@ template(name='user_karma')
         +ismall name='chevron down'
         |downvoted documents
     +received_karma
+    +sent_karma
     +send_user_karma
     
 template(name='received_karma')
-    .ui.header received karma
+    .ui.header 
+        +i name='receive-cash'
+        |received karma
     each received_karma
         .ui.segment
             .ui.inline.header #{_author_username}
             |#{description}
             each tags
                 .ui.label #{this}
-            .ui.inline.header #{karma_amount} #{when}
+            .ui.inline.header #{karma_amount}
+                i.yin.yang.icon
+            .ui.small.header #{when}
+            
+template(name='sent_karma')
+    .ui.header 
+        +i name='donate'
+        |sent karma
+    each sent
+        .ui.segment
+            .ui.inline.header #{_author_username} to #{to_username}
+            |#{description}
+            each tags
+                .ui.label #{this}
+            .ui.inline.header #{karma_amount}
+                i.yin.yang.icon
+
+            .ui.small.header #{when}
             
         
     
