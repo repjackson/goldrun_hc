@@ -77,6 +77,13 @@ Docs.helpers
     is_published: -> @published is 1
     is_anonymous: -> @published is 0
     is_private: -> @published is -1
+    from_user: ->
+        if @from_user_id
+            Meteor.users.findOne @from_user_id
+    to_user: ->
+        if @to_user_id
+            Meteor.users.findOne @to_user_id
+
 
     upvoters: ->
         if @upvoter_ids

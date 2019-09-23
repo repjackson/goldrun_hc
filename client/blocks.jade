@@ -109,7 +109,7 @@ template(name='user_status')
 
 template(name='user_card')
     with user
-        .ui.horizontal.card
+        .ui.horizontal.fluid.card
             if is_staff
                 .image
                     if kiosk_photo
@@ -137,16 +137,38 @@ template(name='user_card')
         //- +user_status user
 
 
+template(name='member_card')
+    with user
+        .ui.fluid.card
+            .image
+                if kiosk_photo
+                    img.ui.rounded.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
+                else if image_id
+                    img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+            .content    
+                a.header(href="/user/#{username}") #{first_initial} #{last_name} 
+                //- .meta @#{username}
+                |#{points} pts
+                span(title='karma')
+                |#{karma} 
+                i.yin.yang.icon
+                if is_admin
+                    div
+                    +user_email
+                //- +emails_edit    
+        +user_status user
+
+
 template(name='user_email')
     .ui.small.inline.header #{email_address}
     if email_verified
-        .ui.label 
-            i.checkmark.icon
-            |Verified
+        .ui.basic.label 
+            i.green.checkmark.icon
+            |verified
     else
         .ui.orange.label 
             i.ban.icon
-            |Unverified
+            |unverified
         
 
 template(name='big_user_card')

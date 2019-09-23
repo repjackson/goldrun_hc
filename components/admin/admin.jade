@@ -20,7 +20,7 @@ template(name='admin')
             .column
                 +latest_activity
             .column
-                +market_small
+                +karma_transactions_small
             .column
                 +rental_small
             .column
@@ -101,8 +101,9 @@ template(name='earnings_small')
 
 template(name='rentals_small')
     .ui.header
-        i.clock.grey.icon
-        |rentals
+        //- i.clock.grey.icon
+        +i name='invoice'
+        |rental transactions
     .ui.small.header total
     .ui.small.header last week
     .ui.small.header this week (projected)

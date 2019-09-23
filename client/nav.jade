@@ -156,7 +156,7 @@ template(name='nav')
                     a.ui.icon.item(href='/karma' class="{{isActivePath '/karma'}}" title='karma')
                         //- i.yin.yang.icon
                         +i name='yin-yang' classes='ui mini inline image'
-                        |#{currentUser.karma}
+                        span.my_karma_amount #{currentUser.karma}
                     a.ui.icon.item(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
                         //- i.cart.icon
                         +i name='shopping-cart' classes='ui mini inline image'

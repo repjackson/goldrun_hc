@@ -1,6 +1,7 @@
 if Meteor.isClient
     Router.route '/karma', -> @render 'karma'
     Router.route '/new_karma_transaction/:doc_id', -> @render 'new_karma_transaction'
+    Router.route '/view_karma_transaction/:doc_id', -> @render 'view_karma_transaction'
 
     Template.karma.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'shop'
@@ -84,13 +85,55 @@ if Meteor.isClient
         received_karma: ->
             Docs.find
                 model:'karma_transaction'
-                recipient:Router.current().params.username
+                to_username:Router.current().params.username
                 # confirmed:true
 
 
 
     Template.new_karma_transaction.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.view_karma_transaction.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.new_karma_transaction.helpers
+    Template.new_karma_transaction.events
+        'click .uncomplete': (e,t)->
+            transaction = Docs.findOne Router.current().params.doc_id
+            Docs.update transaction._id,
+                $set:
+                    complete: false
+
+        'click .complete_transaction': (e,t)->
+            if confirm 'confirm transaction?'
+                transaction = Docs.findOne Router.current().params.doc_id
+                # Session.set 'taking', true
+                # Meteor.setTimeout ->
+                #     t.$(e.currentTarget).closest('.my_karma_amount').addClass('spinning')
+                # , 3000
+                # Session.set 'taking', false
+                # Session.set 'giving', true
+                # Meteor.setTimeout ->
+                # , 3000
+                # Session.set 'giving', false
+                # Session.set 'complete', true
+                # t.$(e.currentTarget).closest('.my_karma_amount').addClass('spinning')
+                Meteor.users.update transaction.from_user_id,
+                    $inc:karma:-transaction.karma_amount
+                Meteor.users.update transaction.to_user_id,
+                    $inc:karma:transaction.karma_amount
+                Docs.update transaction._id,
+                    $set:
+                        complete: true
+                        completed_timestamp: Date.now()
+                Router.go "/view_karma_transaction/#{transaction._id}"
+
+
+
+    Template.karma_transactions_small.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'karma_transaction'
+    Template.karma_transactions_small.helpers
+        transactions: ->
+            Docs.find
+                model:'karma_transaction'
 
 
 
@@ -105,5 +148,4 @@ if Meteor.isClient
                 to_user_id: @_id
                 from_username: Meteor.user().username
                 to_username: @username
-
             Router.go "/new_karma_transaction/#{new_transaction_id}"

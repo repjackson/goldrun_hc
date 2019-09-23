@@ -16,7 +16,6 @@ template(name='karma')
                     |karma earned
                 each karma_received
                     .ui.header #{amount_received} received #{when}
-                
             .six.wide.column
                 .ui.header 
                     +i name='bill'
@@ -60,31 +59,101 @@ template(name='add_karma_amount')
 
 
 
+
+
+template(name='karma_transactions_small')
+    .ui.header
+        +i name='yin-yang'
+        |karma transactions
+    .ui.link.list
+        each transactions
+            a.item(href="view_karma_transaction/#{_id}") #{from_username} to #{to_username} #{when}
+
+
+template(name='view_karma_transaction')
+    with current_doc
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.header view karma transaction
+                +text_view key='title' label='title' direct=true
+            .eight.wide.column
+                .ui.two.column.grid
+                    .column
+                        .ui.header
+                        +member_card from_username
+                    .column
+                        .ui.header
+                        +member_card to_username
+                +textarea_view key='description' label='description' direct=true
+                +array_view key='tags' label='tags' direct=true
+                
+            .four.wide.column
+                .ui.big.header 
+                    i.yin.yang.big.green.icon
+                    |completed at {{ from_now completed_timestamp }}
+
+
+
+
+
 template(name='new_karma_transaction')
     with current_doc
         .ui.stackable.padded.grid
             .four.wide.column
                 .ui.header new karma transaction
                 +text_edit key='title' label='title' direct=true
-
-
-
+                +float_edit key='karma_amount' label='karma amount' direct=true
+            .eight.wide.column
+                .ui.two.column.grid
+                    .column
+                        .ui.header from 
+                        +member_card from_username
+                    .column
+                        .ui.header to
+                        +member_card to_username
+                +textarea_edit key='description' label='description' direct=true
+                +array_edit key='tags' label='tags' direct=true
+            .four.wide.column
+                +float_view key='karma_amount' label='amount' direct=true
+                +text_view key='to_username' label='recipient' direct=true
+                +text_view key='from_username' label='sender' direct=true
+                if complete 
+                    .ui.big.header 
+                        i.yin.yang.big.green.icon
+                        |completed at {{ from_now completed_timestamp }}
+                    if is_dev
+                        .ui.button.uncomplete undo
+                else 
+                    .ui.big.fluid.green.button.complete_transaction
+                        |complete
 
 
 template(name='user_karma')
     .ui.header 
         +i name='yin-yang'
         |karma
-    .ui.header 
+    .ui.small.header 
         +ismall name='chevron up'
         |upvoted documents
-    .ui.header 
+    .ui.small.header 
         +ismall name='chevron down'
         |downvoted documents
     +received_karma
     +send_user_karma
     
+template(name='received_karma')
+    .ui.header received karma
+    each received_karma
+        .ui.segment
+            .ui.inline.header #{_author_username}
+            |#{description}
+            each tags
+                .ui.label #{this}
+            .ui.inline.header #{karma_amount} #{when}
+            
+        
     
 template(name='send_user_karma')
     .ui.button.send_karma
+        +i name='donation'
         |send karma    

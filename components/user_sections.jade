@@ -235,17 +235,6 @@ template(name='user_bookmarks')
 
 
 
-template(name='received_karma')
-    .ui.header received karma
-    each received_karma
-        .ui.segment
-            .ui.inline.header #{_author_username}
-            |#{description}
-            each tags
-                .ui.label #{this}
-            .ui.inline.header #{karma_amount}
-            
-        
 
 
 template(name='user_notifications')

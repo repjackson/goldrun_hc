@@ -463,15 +463,15 @@ template(name='text_view')
         //-     div
         //-     if icon
         //-         +i name=icon                
-        //-     .ui.inline.header
-        //-         if title
-        //-             |#{title}
-        //-         else if label
-        //-             |#{label}
-        //-         else if key
-        //-             |#{key}
-        //-         else
-        //-             |#{this}
+        .ui.inline.grey.header
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
         .ui.inline.header #{field_value}
 
 
@@ -596,8 +596,8 @@ template(name='float_edit')
     div
     .ui.small.grey.inline.header(title=tip)
         if icon
-            i.grey.icon(class=icon)
-            //- +i name=icon
+            //- i.grey.icon(class=icon)
+            +i name=icon
         if title
             |#{title}
         else if label
@@ -613,8 +613,8 @@ template(name='float_view')
     if field_value
         div
         if icon
-            i.grey.icon(class=icon)
-            //- +i name=icon classes='ui inline mini image'
+            //- i.grey.icon(class=icon)
+            +i name=icon classes='ui inline mini image'
         .ui.inline.header
             if title
                 |#{title}

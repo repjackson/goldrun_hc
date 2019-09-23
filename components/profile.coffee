@@ -236,7 +236,7 @@ if Meteor.isServer
     Meteor.publish 'user_confirmed_transactions', (username)->
         Docs.find
             model:'karma_transaction'
-            recipient:username
+            to_username:username
             # confirmed:true
 
 
