@@ -117,11 +117,10 @@ template(name='nav')
                     //- i.line.chart.icon
                     .mobile.hidden.inline &nbsp; projects
                 
-            //- if is_admin
-            //-     a.ui.item(href='/users' class="{{isActivePath '/users'}}")
-            //-         //- +i name='groups' classes='ui mini inline image'
-            //-         i.users.icon
-            //-         | users
+            if is_member
+                a.ui.item(href='/members' class="{{isActivePath '/members'}}")
+                    +i name='groups' classes='ui mini inline image'
+                    //- i.users.icon
             if is_staff
                 a.ui.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}" title='buildings')
                     +i name='building' classes='ui mini inline image'

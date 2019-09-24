@@ -171,6 +171,8 @@ template(name='member_table')
                         .ui.small.header @#{username}
                         each emails
                             |#{address}
+                        .ui.small.header #{points}pts 
+                        .ui.small.header #{karma}karma
                     td 
                         +array_view key='tags' label='tags' icon='tags' direct=true
                         if is_dev

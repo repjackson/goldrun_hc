@@ -27,7 +27,7 @@ template(name='user_layout')
                         if is_staff
                             a.ui.big.button.item(href="/user/#{user_from_username_param.username}/edit")
                                 //- i.cog.icon
-                                +i name='setting' 
+                                +i name='settings' 
                                 |edit
                             +resident_info         
                             +user_check_steps
@@ -36,12 +36,12 @@ template(name='user_layout')
                             .ui.small.header #{tagline}
                     if is_current_user
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
-                            +i name='setting' 
+                            +i name='settings' 
                             //- i.cog.icon
                             |edit
                     else if is_admin
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
-                            +i name='setting' 
+                            +i name='settings' 
                             //- i.cog.icon
                             |edit
                     if is_dev
@@ -52,11 +52,11 @@ template(name='user_layout')
                     if is_current_user
                         a.ui.large.button.logout(href="#" title='logout')
                             //- i.sign.out.alternate.icon
-                            +i name='exit' 
+                            +ismall name='exit' 
                             |log out
                         a.ui.large.button.logout_other_clients(href="#" title='logout other clients')
                             //- i.globe.icon
-                            +i name='globe' 
+                            +ismall name='globe' 
                             |log out other clients
                     if is_admin
                         .ui.basic.segment

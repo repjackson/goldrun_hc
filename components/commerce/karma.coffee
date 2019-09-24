@@ -152,8 +152,9 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'karma_transaction'
     Template.karma_transactions_small.helpers
         transactions: ->
-            Docs.find
+            Docs.find {
                 model:'karma_transaction'
+            }, sort:_timestamp:-1
 
 
 

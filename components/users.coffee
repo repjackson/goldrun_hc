@@ -83,6 +83,33 @@ if Meteor.isClient
                 Session.set 'username_query',username_query
 
 
+    Router.route '/members', -> @render 'members'
+    Template.members.onCreated ->
+        # @autorun -> Meteor.subscribe('members')
+        @autorun => Meteor.subscribe 'user_search', Session.get('username_query'), 'member'
+    Template.members.helpers
+        members: ->
+            username_query = Session.get('username_query')
+            Meteor.users.find({
+                username: {$regex:"#{username_query}", $options: 'i'}
+                roles:$in:['member']
+                },{ limit:20 }).fetch()
+    Template.members.events
+        # 'click #add_user': ->
+        #     id = Docs.insert model:'person'
+        #     Router.go "/person/edit/#{id}"
+        'keyup .member_search': (e,t)->
+            username_query = $('.member_search').val()
+            if e.which is 8
+                if username_query.length is 0
+                    Session.set 'username_query',null
+                    Session.set 'checking_in',false
+                else
+                    Session.set 'username_query',username_query
+            else
+                Session.set 'username_query',username_query
+
+
 
 
     Router.route '/owners', -> @render 'owners'

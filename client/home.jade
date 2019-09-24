@@ -20,7 +20,8 @@ template(name='home')
                 +work_order_small
                 //- .ui.hidden.divider
             .four.wide.column
-                +latest_project_updates
+                +karma_transactions_small
+                //- +latest_project_updates
             .four.wide.column
                 +projects_small             
                 //- unless display_mode
@@ -68,8 +69,6 @@ template(name='home')
         //- .four.column.row
         //-     .column
         //-         +published_resident_small
-        //-     .column
-        //-         //- +karma_leaderboard
         //-     .column
         //-         +most_viewed_posts
         //-     .column
@@ -183,18 +182,17 @@ template(name='work_small')
 
 
 template(name='work_order_small')
-    a.ui.fluid.button(href="/m/work_order")
-        //- +ismall name='maintenance'
-        .ui.inline.grey.header
-            |maintenance
+    a.ui.grey.header(href="/m/work_order")
+        +i name='maintenance'
+        |maintenance
     //- unless display_mode
     //-     .ui.large.icon.button.submit_work_order(title='add work order')
     //-         i.large.plus.icon
     //-     +cloud filter='work_order'
-    .ui.small.grey.header average response time #{msd.avg_response_time}
-    .ui.small.grey.header average complete time #{msd.avg_complete_time}
-    .ui.small.grey.header incomplete work orders #{msd.incomplete_work_orders}
-    .ui.small.grey.header complete work orders #{msd.complete_work_orders}
+    //- .ui.small.grey.header average response time #{msd.avg_response_time}
+    //- .ui.small.grey.header average complete time #{msd.avg_complete_time}
+    //- .ui.small.grey.header incomplete work orders #{msd.incomplete_work_orders}
+    //- .ui.small.grey.header complete work orders #{msd.complete_work_orders}
     .ui.relaxed.list.smallscroll
         each work_order
             .item

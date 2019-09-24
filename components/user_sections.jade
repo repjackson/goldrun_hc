@@ -260,13 +260,14 @@ template(name='user_tags')
         //-     input.tag_user(type='text' placeholder='tag yourself...')
     else
         +array_view key='tags' label='self tags' direct=true
-        .ui.header tag #{user_from_username_param.first_name} #{user_from_username_param.last_name}
+        .ui.header 
+            +i name='add-tag' classes='ui inline mini image'
+            |tag #{user_from_username_param.name}
         unless my_tag_review
             .ui.large.button.new_tag_review
                 |tag #{user_from_username_param.first_name}
     each user_tag_reviews
         .ui.secondary.segment
-            +i name='tag' classes='ui inline mini image'
             if can_edit
                 +array_edit key='tags' label='your tags' icon='tag-window'  direct=true
             else 
