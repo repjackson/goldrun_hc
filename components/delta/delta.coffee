@@ -309,6 +309,8 @@ if Meteor.isClient
     Template.delta_result.events
         'click .result': ->
             # console.log @
+            model_slug =  Router.current().params.model_slug
+
             if Meteor.user()
                 Docs.update @_id,
                     $inc: views: 1
@@ -316,7 +318,7 @@ if Meteor.isClient
             else
                 Docs.update @_id,
                     $inc: views: 1
-            Router.go "/m/#{@model}/#{@_id}/view"
+            Router.go "/m/#{model_slug}/#{@_id}/view"
 
         'click .set_model': ->
             Meteor.call 'set_delta_facets', @slug, Meteor.userId()

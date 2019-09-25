@@ -76,7 +76,7 @@ if Meteor.isClient
                 model:'service'
             },
                 sort: _timestamp: -1
-                # limit:7
+                limit:5
     Template.service_small.events
         'click .log_service_view': ->
             console.log 'hi'

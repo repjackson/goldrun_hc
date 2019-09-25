@@ -4,7 +4,6 @@ template(name='kiosk_container')
 
 
 template(name='healthclub')
-    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'willow' width=1000 height=1000 crop='crop'}}")
     img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=600 crop='crop'}}")
     .ui.hidden.divider
     .ui.grid.header-wrapper
@@ -69,7 +68,6 @@ template(name='healthclub')
                                             .ui.relaxed.large.list
                                                 .item 303-545-1787
                                                 .item goldruncondos@gmail.com
-                    
                                         .column
                                             +health_club_status_small
                                         //- .column
@@ -104,8 +102,8 @@ template(name='healthclub')
                                         .column
                                             a.ui.big.fluid.button(href="/market") 
                                                 .ui.grey.inline.header 
-                                                    i.shop.icon
-                                                    |market (beta)
+                                                    +i name='shop'
+                                                    |market
                                             //- +rental_small
                                         //- .column
                                         //-     +request_small

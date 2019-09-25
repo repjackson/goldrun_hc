@@ -374,12 +374,11 @@ template(name='rental')
 
 template(name='rental_small')
     a.ui.header(href="/m/rental")
-        //- i.handshake.outline.icon
         +i name='handshake'
         &nbsp;
         strong.f7 rentals
-    +rental_cloud
-    .ui.relaxed.list.smallscroll
+    //- +rental_cloud
+    .ui.large.link.list.smallcolumn
         each rentals 
             .item.log_rental_view
                 a(href="/kiosk_rental_view/#{_id}")
@@ -387,9 +386,9 @@ template(name='rental_small')
                         img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
                     if picture
                         img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
-                    .ui.grey.inline.small.header 
-                        |#{title}
-                        small $#{daily_rate}/day
+                    |#{title}
+                    small #{daily_karma}k/day
+                    //- small $#{daily_rate}/day
             //- div
             //- .ui.horizontal.list
             //-     .item

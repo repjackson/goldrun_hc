@@ -85,7 +85,9 @@ template(name='online_users')
             .ui.basic.small.green.label online
         div
         |last login {{from_now profile.lastLogin}}
-        a.ui.label(href="https://whatismyipaddress.com/ip/#{profile.location.ip}" target="_window") ip: #{profile.location.ip}
+        if is_dev
+            i.circular.sign.out.link.icon.sign_out
+        a.ui.basic.label(href="https://whatismyipaddress.com/ip/#{profile.location.ip}" target="_window") ip: #{profile.location.ip}
     
 template(name='earnings_small')
     .ui.header

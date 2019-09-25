@@ -298,7 +298,7 @@ if Meteor.isClient
                 model:'rental'
             },
                 sort: _timestamp: -1
-                # limit:7
+                limit:5
 
     Template.rental_status.events
         'click .new_reservation': (e,t)->

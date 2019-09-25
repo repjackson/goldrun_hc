@@ -23,6 +23,7 @@ Router.onBeforeAction(force_loggedin, {
     'market'
     'projects'
     'services'
+    'service_view'
     'shop'
     'project_view'
     'doc_view'

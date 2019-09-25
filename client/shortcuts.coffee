@@ -121,7 +121,7 @@ globalHotkeys.add
             Router.go '/dev'
 
 globalHotkeys.add
-	combo: "g h t"
+	combo: "g l"
 	callback: -> Router.go '/healthclub'
 globalHotkeys.add
 	combo: "g k"

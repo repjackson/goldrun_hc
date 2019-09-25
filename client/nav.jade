@@ -4,102 +4,37 @@ template(name='nav')
             if is_loading
                 .icon.item
                     //- i.big.spinning.yin.yang.cancel.icon
-                    i.big.white.spinning.pulse.plus.icon.cancel
+                    i.big.spinning.pulse.plus.icon.cancel
                     //- i.big.blue.spinning.pulse.plus.icon.cancel
-            unless is_loading
-                if is_dev
+            unless is_current_staff
+                unless is_loading
                     a.ui.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='models')
-                        //- i.th.grey.large.icon
                         +i name='grid-view' classes='ui mini inline image'
                 a.ui.icon.item(href='/' class="{{isActivePath '/'}}" title='home')
-                    //- i.home.large.grey.icon 
                     +i name='home' classes='ui mini inline image'
-
-            a.ui.icon.item(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
-                //- i.clock.large.icon
-                +i name='handshake' classes='ui mini inline image'
-                //- .mobile.hidden.inline &nbsp; rentals
-                        
-            a.ui.icon.item(href='/market' class="{{isActivePath '/market'}}" title='market')
-                +i name='shop' classes='ui mini inline image'
-                //- i.store.large.grey.icon
-                //- |home
-                //- | gro
-                //- img.ui.mini.inline.centered.circular.image(src="{{c.url 'gold_run_logo' }}")
-                //- a.ui.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}" title='hcc')
-                //-     i.tablet.large.grey.icon
-            //- unless is_staff 
-                //- a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}")
-                //-     //- +i name='work' classes='ui mini inline image'
-                //-     i.tasks.icon
-                //-     .mobile.hidden.inline &nbsp; work-orders
-                //- a.ui.item(href='/m/project' class="{{isActivePath '/m/project'}}")
-                //-     //- +i name='project' classes='ui mini inline image'
-                //-     i.line.chart.icon
-                //-     .mobile.hidden.inline &nbsp; projects
-                //- a.ui.item.set_projects(href='/projects' class="{{isActivePath '/projects'}}")
-                //-     +i name='project' classes='ui mini inline image'
-                //-     .mobile.hidden.inline &nbsp; projects
-                //- a.ui.item(href='/work' class="{{isActivePath '/work'}}")
-                //-     i.tasks.icon
-                //-     .mobile.hidden.inline &nbsp; work
-                
-            a.ui.icon.item.set_service(href='/m/service' class="{{isActivePath '/m/service'}}" title='services')
-                //- i.wrench.icon
-                +i name='work' classes='ui mini inline image'
-                //- .mobile.hidden.inline &nbsp; services
-            a.ui.icon.item.set_request(href='/m/request' class="{{isActivePath '/m/request'}}" title='request')
-                //- i.hand.holding.usd.icon
-                +i name='request-service' classes='ui mini inline image'
-                //- .mobile.hidden.inline &nbsp; requests
-            //- a.ui.icon.item.set_offer(href='/m/offer' class="{{isActivePath '/m/offer'}}" title='offer')
-            //-     i.hand.holding.usd.icon
-                //- .mobile.hidden.inline &nbsp; offers
-                //- .mobile.hidden.inline &nbsp; market
-            //- a.ui.icon.item.set_shop(href='/m/shop' class="{{isActivePath '/m/shop'}}" title='shop')
-            //-     i.shop.icon
-            //-     .mobile.hidden.inline &nbsp; shop
-            a.ui.icon.item.set_food(href='/m/food' class="{{isActivePath '/m/food'}}" title='food')
-                //- i.food.icon
-                +i name='food' classes='ui mini inline image'
-                //- .mobile.hidden.inline &nbsp; food
-                
-            
-            //- a.ui.item.set_work_order(href='/m/work_order' class="{{isActivePath '/m/work_order'}}" title='delta work orders')
-            //-     +i name='invoice' classes='ui mini inline image'
-            //-     .mobile.hidden.inline &nbsp; work orders
-
-            //- if is_resident
-            //-     a.ui.item(href='/resident_portal' class="{{isActivePath '/resident_portal'}}" title='resident portal')
-            //-         //- +i name='dashboard' classes='ui mini inline image'
-            //-         i.dashboard.icon
-            //-         //- |resident portal                
-            if is_staff
-                //- a.ui.item(href='/staff_home' class="{{isActivePath '/staff_home'}}")
-                //-     //- +i name='dashboard' classes='ui mini inline image'    
-                //-     i.dashboard.icon
-                //-     |dashboard      
-                //- a.ui.item(href='/work_orders' class="{{isActivePath '/work_orders'}}")
-                //-     //- +i name='work' classes='ui mini inline image'
-                //-     .mobile.hidden.inline &nbsp; work orders                  
-                a.ui.icon.item(href='/residents' class="{{isActivePath '/residents'}}" title='resident lookup')
-                    //- i.users.large.grey.icon
-                    +i name='groups' classes='ui mini inline image'
-                    //- |residents                  
-                a.ui.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}" title='kiosk')
-                    //- i.tablet.large.grey.icon
-                    +i name='android-tablet' classes='ui mini inline image'
-                    //- |kiosk                  
-            if is_owner
-                a.ui.icon.item(href='/owner_portal' class="{{isActivePath '/owner_portal'}}" title='owner dashboard')
-                    //- i.money.icon
-                    +i name='money'
-                    |owner portal
-            if is_resident
+                a.ui.icon.item(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
+                    +i name='handshake' classes='ui mini inline image'
+                a.ui.icon.item(href='/m/offer' class="{{isActivePath '/m/offer'}}" title='offer')
+                    +i name='sell' classes='ui mini inline image'
+                            
+                a.ui.icon.item(href='/market' class="{{isActivePath '/market'}}" title='market')
+                    +i name='shop' classes='ui mini inline image'
+                a.ui.icon.item.set_service(href='/m/service' class="{{isActivePath '/m/service'}}" title='services')
+                    +i name='work' classes='ui mini inline image'
+                a.ui.icon.item.set_request(href='/m/request' class="{{isActivePath '/m/request'}}" title='request')
+                    +i name='request-service' classes='ui mini inline image'
+                a.ui.icon.item(href='/m/food' class="{{isActivePath '/m/food'}}" title='food')
+                    +i name='food' classes='ui mini inline image'
+            //- if is_current_staff
+            //-     a.ui.icon.item(href='/residents' class="{{isActivePath '/residents'}}" title='resident lookup')
+            //-         +i name='groups' classes='ui mini inline image'
+            //-         //- |residents                  
+            //-     a.ui.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}" title='kiosk')
+            //-         +i name='android-tablet' classes='ui mini inline image'
+            if is_current_resident
                 each bookmarked_models
                     a.ui.item.set_model(href="/m/#{slug}/" title=title)
                         +i name=icon classes='ui mini inline image'
-                
                 a.ui.icon.item(href='/blog' class="{{isActivePath '/blog'}}")
                     +i name='blog' classes='ui mini inline image'
                 //- a.ui.item(href='/events' class="{{isActivePath '/events'}}")
@@ -108,31 +43,18 @@ template(name='nav')
                 //-     +i name='shop' classes='ui mini inline image'
                 //- a.ui.item(href='/gallery' class="{{isActivePath '/gallery'}}")
                 //-     +i name='gallery' classes='ui mini inline image'
-            if is_manager
-                a.ui.icon.item(href='/manager' class="{{isActivePath '/manager'}}")
-                    i.manager.icon
-                    //- .mobile.hidden.inline &nbsp; manager
-                a.ui.icon.item(href='/m/projects' class="{{isActivePath '/m/projects'}}")
-                    +i name='project' classes='ui mini inline image'
-                    //- i.line.chart.icon
-                    .mobile.hidden.inline &nbsp; projects
-                
-            if is_member
+            if is_current_member
                 a.ui.item(href='/members' class="{{isActivePath '/members'}}")
                     +i name='groups' classes='ui mini inline image'
-                    //- i.users.icon
-            if is_staff
+                a.ui.icon.item(href='/work' class="{{isActivePath '/work'}}")
+                    +i name='tasks'
+            if is_current_staff
                 a.ui.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}" title='buildings')
                     +i name='building' classes='ui mini inline image'
-                    //- i.building.large.grey.icon
-                    //- |buildings
                 a.ui.icon.item(href='/readings' class="{{isActivePath '/readings'}}" title='water readings')
                     +i name='water' classes='ui mini inline image'
-                    //- i.water.blue.large.icon
-                    //- |readings
                 a.ui.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                     +i name='user shield' classes='ui mini inline image'
-                    //- i.user.shield.large.grey.icon
                     | staff
         
             //- .ui
@@ -144,7 +66,7 @@ template(name='nav')
                         +i name='code' classes='ui mini inline image'
                     a.ui.icon.item(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
                         +i name='database' classes='ui mini inline image'
-                if is_admin
+                if is_current_admin
                     a.ui.icon.item(href='/admin' class="{{isActivePath '/admin'}}" title='admin')
                         +i name='shield' classes='ui mini inline image'
                         //- i.large.shield.icon
@@ -152,18 +74,15 @@ template(name='nav')
                     //-     //- +i name='shop' classes='ui mini inline image'
                     //-     i.store.large.grey.icon
                 
+                if is_current_member
                     a.ui.icon.item(href='/karma' class="{{isActivePath '/karma'}}" title='karma')
-                        //- i.yin.yang.icon
                         +i name='yin-yang' classes='ui mini inline image'
                         span.my_karma_amount #{currentUser.karma}
                     a.ui.icon.item(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
-                        //- i.cart.icon
                         +i name='shopping-cart' classes='ui mini inline image'
                     a.ui.icon.item(href='/transactions' class="{{isActivePath '/transactions'}}" title='transactions')
-                        //- i.list.large.grey.icon
                         +i name='invoice' classes='ui mini inline image'
                     a.ui.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
-                        //- i.inbox.grey.large.icon
                         +i name='inbox' classes='ui mini inline image'
                     a.ui.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
                         +i name='chat' classes='ui mini inline image'
@@ -179,8 +98,8 @@ template(name='nav')
                         //- if is_dev
                         unless is_frontdesk
                             a.ui.item(href="/user/#{currentUser.username}/dashboard" class="{{isActiveRoute regex='user_chat'}}")
-                                if currentUser.image_id
-                                    img.ui.avatar.image(src="{{c.url currentUser.kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
+                                if currentUser.profile_photo
+                                    img.ui.avatar.image(src="{{c.url currentUser.profile_photo width=100 height=100 gravity='face' crop='fill'}}")
                                 else
                                     +i name='user' classes='ui mini inline image'
                                     //- i.user.icon
@@ -194,7 +113,8 @@ template(name='nav')
                 else
                     unless currentUser
                         a.ui.item(href='/login' title='login') 
-                            i.sign.in.alternate.grey.icon
+                            //- i.sign.in.alternate.grey.icon
+                            +i name='internal' classes='ui mini inline image'
                             |login
         if currentUser
             //- unless is_staff
@@ -229,10 +149,7 @@ template(name='footer')
                         i.sign.in.icon
                         |login
                 +footer_chat
-                if is_eric
-                    with currentUser
-                        +role_switcher
-                else if is_dev
+                if is_admin
                     with currentUser
                         +role_switcher
 
@@ -290,16 +207,19 @@ template(name='latest_activity')
 template(name='role_switcher')
     .ui.inline.center.aligned.small.header 
         |#{username} role switcher
-    //- if is_eric
-    //-     +user_array_element_toggle key='roles' value='dev' user=currentUser
+    if is_eric
+        +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
+        div
+        //- +user_array_element_toggle key='roles' value='dev' user=currentUser
     //- if current_user
     //-     with current_user
-    //-         +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
     //- else if currentUser
     //-     with currentUser
-    +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
-    //- +user_array_element_toggle key='roles' value='admin' user=currentUser
-    //- +user_array_element_toggle key='roles' value='user' user=currentUser
-    //- +user_array_element_toggle key='roles' value='staff' user=currentUser
-    //- +user_array_element_toggle key='roles' value='resident' user=currentUser
-    //- +user_array_element_toggle key='roles' value='owner' user=currentUser
+    //- +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
+    if is_admin
+        //- +multi_doc_edit key='current_roles' label='current roles' ref_model='role' direct=true
+        +user_array_element_toggle key='current_roles' value='admin' user=currentUser
+        +user_array_element_toggle key='current_roles' value='member' user=currentUser
+        +user_array_element_toggle key='current_roles' value='staff' user=currentUser
+        //- +user_array_element_toggle key='roles' value='resident' user=currentUser
+        //- +user_array_element_toggle key='roles' value='owner' user=currentUser

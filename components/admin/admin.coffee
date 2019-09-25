@@ -75,6 +75,11 @@ if Meteor.isClient
 
     Template.online_users.onCreated ->
         @autorun -> Meteor.subscribe 'online_users'
+    Template.online_users.events
+        'click .sign_out': ->
+            console.log @services
+            Meteor.users.update @_id,
+                $set: "services.resume.loginTokens":[]
     Template.online_users.helpers
         online_users: ->
             Meteor.users.find {

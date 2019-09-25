@@ -288,8 +288,8 @@ template(name='shop_small')
         +i name='shop'
         &nbsp;
         strong.f7 for sale
-    +shop_cloud
-    .ui.relaxed.grey.link.large.list.smallscroll
+    //- +shop_cloud
+    .ui.relaxed.grey.link.large.list.smallcolumn
         each products 
             a.item(href="/product/#{_id}/view") 
                 if image
@@ -297,5 +297,6 @@ template(name='shop_small')
                 if picture
                     img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
                 |#{title}
-                small $#{dollar_price}
+                small #{karma_price}karma
+                //- small $#{dollar_price}
     

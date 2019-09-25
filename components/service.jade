@@ -1,16 +1,15 @@
 template(name='services')
     .ui.padded.grid
         .row
-            if is_frontdesk
-                a.ui.big.fluid.button(href='/healthclub')
-                    i.left.chevron.icon
-                    .ui.inline.header back
-            else
-                a.ui.big.fluid.button(href='/')
-                    i.left.chevron.icon
-                    .ui.inline.header back
-        .row
             .four.wide.column
+                if is_frontdesk
+                    a.ui.big.fluid.button(href='/healthclub')
+                        i.left.chevron.icon
+                        .ui.inline.header back
+                else
+                    a.ui.big.fluid.button(href='/')
+                        i.left.chevron.icon
+                        .ui.inline.header back
                 .ui.header 
                     i.wrench.grey.icon
                     |services
@@ -33,8 +32,8 @@ template(name='service_card_template')
                     |$#{hourly_rate}/hr
         .row
             .four.wide.column
-                +image_view key='image' direct=true
-                +image_view key='picture' direct=true
+                a(href="/service/#{_id}/view")
+                    +image_view key='image' direct=true
             .twelve.wide.column
                 div
                 //- .ui.grey.inline.header location
@@ -68,13 +67,14 @@ template(name='service_view')
         .ui.stackable.padded.grid
             .row
                 .four.wide.column 
-                    a.ui.fluid.button(href="/services")
+                    a.ui.fluid.button(href="/m/service")
                         i.left.chevron.icon
+                        +i name='wrench' 
                         |services
                     .ui.header view service
                     if can_edit
                         a.ui.big.button(href="/service/#{_id}/edit")
-                            //- i.pencil.icon
+                            i.pencil.icon
                             |edit
                     +image_view key='image' label='image' direct=true
                     +voting_full
@@ -86,6 +86,7 @@ template(name='service_view')
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     +single_user_view key='resident' label='resident' direct=true
                     +text_view key='contact_info' label='contact info' icon='info' direct=true
+                    div
                     +comments
                 .four.wide.column 
                     +boolean_view key='set_duration' label='set duration' direct=true
@@ -97,7 +98,8 @@ template(name='service_view')
                     +service_history
                     +service_subscription
                     +service_time
-                    
+                    +multi_user_view key='associated_members' label='associated members' icon='groups' direct=true
+
 template(name='service_edit')
     with current_doc
         .ui.stackable.padded.grid
@@ -107,13 +109,13 @@ template(name='service_edit')
                         +ismall name='add'
                         |add service
                     a.ui.big.fluid.button(href="/service/#{_id}/view" title='save')
-                        //- i.checkmark.icon
+                        i.checkmark.green.icon
                         |save
                     +remove_button
                     +image_edit key='image' label='image' direct=true
                 .eight.wide.column 
                     +text_edit key='title' direct=true
-                    +textarea_edit key='description' label='content' icon='content' direct=true
+                    +html_edit key='description' label='content' icon='content' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +single_user_edit key='resident' label='resident' direct=true
@@ -126,34 +128,36 @@ template(name='service_edit')
                     +number_edit key='hourly_rate' label='hourly rate' direct=true
                     +boolean_edit key='variable_price' label='variable price' direct=true
                     +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
-                    
+                    +multi_user_edit key='associated_members' label='associated members' icon='groups' direct=true
                     
 template(name='kiosk_service_view')
     with current_doc
         .ui.padded.grid
-            a.ui.fluid.big.button(href="/healthclub")
-                i.left.chevron.large.icon
-                |back
             .eight.wide.column
+                a.ui.fluid.big.button(href="/healthclub")
+                    i.left.chevron.large.icon
+                    |back
                 +image_view key='image' direct=true
                 +image_view key='picture' direct=true
             .eight.wide.column.scrolling
                 h1.ui.header #{title}
                 .f7 !{description}
                 .ui.hidden.divider
+                if hourly_karma
+                    .ui.inline.header $#{hourly_karma}/hr
                 if hourly_rate
                     .ui.inline.header $#{hourly_rate}/hr
                 if daily_rate
                     .ui.inline.header $#{daily_rate}/day
                 if is_admin
-                    +number_edit key='daily_rate' direct=true
-                    +number_edit key='hourly_rate' direct=true
-                    +boolean_edit key='variable_price' direct=true
-                +boolean_view key='variable_price' label='variable price' direct=true
+                    +number_edit key='hourly_karma' label='hourly karma cost' direct=true
+                    +number_edit key='hourly_rate' label='hourly dollar rate' direct=true
+                    //- +boolean_edit key='variable_price' direct=true
+                //- +boolean_view key='variable_price' label='variable price' direct=true
                 .ui.header #{views} views
                 if is_admin
                     +edit_button
-                //- +voting
+                +voting
                 div
                 +kiosk_send_message
                 
@@ -205,8 +209,8 @@ template(name='service_small')
         +i name='work'
         &nbsp;
         strong.f7 services
-    +service_cloud filter='service'
-    .ui.relaxed.link.large.list.smallscroll
+    //- +service_cloud filter='service'
+    .ui.relaxed.link.large.list.smallcolumn
         each services
             a.item.log_service_view(href="/kiosk_service_view/#{_id}")
                 if image
@@ -214,7 +218,8 @@ template(name='service_small')
                 if picture
                     img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
                 |#{title}
-                small $#{hourly_rate}/hr
+                small #{hourly_rate}k/hr
+                //- small #{hourly_karma}/hr
                     //- .header
                     //- .description
                     //-     .ui.horizontal.list

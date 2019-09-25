@@ -12,18 +12,21 @@ template(name='home')
             .four.wide.column
                 +service_small
             .four.wide.column
-                +event_small
+                //- +event_small
+                +earning_methods_small
         .centered.row
             .four.wide.column
                 +karma_leaderboard
             .four.wide.column
-                +work_order_small
+                +karma_this_week
+                //- +work_order_small
                 //- .ui.hidden.divider
             .four.wide.column
                 +karma_transactions_small
                 //- +latest_project_updates
             .four.wide.column
-                +projects_small             
+                +request_small
+                //- +projects_small             
                 //- unless display_mode
                 //- +work_small
             //-     +posts_small
@@ -31,7 +34,7 @@ template(name='home')
             //-     +market_small
         .centered.row
             .four.wide.column
-                +request_small
+                +home_alerts
             .four.wide.column
                 +latest_activity
             .four.wide.column
@@ -65,7 +68,6 @@ template(name='home')
                 +stats_small
             .four.wide.column
                 //- +model_scroller model='group' header='groups' icon='groups'
-                +home_alerts
         //- .four.column.row
         //-     .column
         //-         +published_resident_small

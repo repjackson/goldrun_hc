@@ -2,11 +2,16 @@ template(name='kiosk_rental_view')
     with current_doc
         .ui.padded.grid
             .eight.wide.column
-                a.ui.fluid.big.button(href="/market")
-                    i.left.chevron.large.icon
-                    //- i.store.large.icon
-                    +ismall name='shop'
-                    |market
+                if is_frontdesk
+                    a.ui.fluid.big.button(href="/healthclub")
+                        i.left.chevron.large.icon
+                        |back
+                else 
+                    a.ui.fluid.big.button(href="/m/rental")
+                        i.left.chevron.large.icon
+                        //- i.store.large.icon
+                        +ismall name='shop'
+                        |rentals 
                 h1.ui.center.aligned.header #{title}
                 +image_view key='image' direct=true
                 //- i.tags.icon
@@ -30,6 +35,9 @@ template(name='kiosk_rental_view')
 
             .eight.wide.column
                 .ui.inline.large.header $#{hourly_rate}
+                .ui.inline.header /hour
+                .ui.dividing.header or
+                .ui.inline.large.header #{hourly_karma}k
                 .ui.inline.header /hour
                 div
                 .ui.inline.large.header $#{daily_rate}
@@ -106,7 +114,6 @@ template(name='kiosk_rental_view')
                     |delivery
                 if pickup_delivery
                     .ui.basic.large.label 
-                        i.dolly.icon
                         +i name='delivery'
                         |pickup
                 if is_admin
@@ -115,9 +122,9 @@ template(name='kiosk_rental_view')
                         +number_edit key='delivery_cost' label='delivery_cost' icon='dollar' direct=true
                 else 
                     if delivery
-                        .ui.basic.big.label
-                            i.truck.icon
-                                |delivery 
+                        .ui.basic.large.label
+                            +i name='delivery'
+                            |delivery 
                         if delivery_cost
                             .ui.big.basic.label $#{delivery_cost} delivery cost 
                     if healthclub_drop_off_delivery

@@ -154,8 +154,9 @@ if Meteor.isClient
         transactions: ->
             Docs.find {
                 model:'karma_transaction'
-            }, sort:_timestamp:-1
-
+            },
+                sort:_timestamp:-1
+                limit: 5
 
 
 
