@@ -72,7 +72,7 @@ if Meteor.isClient
         #     Session.set 'loading', true
         #     Meteor.call 'set_facets', 'task', ->
         #         Session.set 'loading', false
-        'click .set_model': ->
+        'click .secnavitem': ->
             Session.set 'loading', true
             Docs.update @_id,
                 $inc:views:1
@@ -133,16 +133,22 @@ if Meteor.isClient
             Docs.find
                 model:'notification'
         role_models: ->
-            if Meteor.user() and Meteor.user().roles
-                if 'dev' in Meteor.user().roles
-                    Docs.find {
-                        model:'model'
-                    }, sort:title:1
-                else
-                    Docs.find {
-                        model:'model'
-                        view_roles:$in:Meteor.user().roles
-                    }, sort:title:1
+            if Meteor.user()
+                if Meteor.user() and Meteor.user().roles
+                    if 'dev' in Meteor.user().roles
+                        Docs.find {
+                            model:'model'
+                        }, sort:title:1
+                    else
+                        Docs.find {
+                            model:'model'
+                            view_roles:$in:Meteor.user().roles
+                        }, sort:title:1
+            else
+                Docs.find {
+                    model:'model'
+                    view_roles: $in:['public']
+                }, sort:title:1
 
         models: ->
             Docs.find

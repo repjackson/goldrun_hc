@@ -26,7 +26,7 @@ template(name='karma')
     
     
 template(name='earning_methods_small')
-    a.ui.header(href='/m/earning_opportunity')
+    a.ui.grey.header(href='/m/earning_opportunity')
         //- i.exchange.icon
         +i name='invoice'
         | earn karma
@@ -35,13 +35,12 @@ template(name='earning_methods_small')
             each opportunities
                 a.item(href="/m/earning_opportunity/#{_id}/view")
                     .content
-                        .ui.small.header 
-                            if task_completed
-                                i.circle.outline.icon
-                            else
-                                i.green.checkmark.icon
-                            |#{title} #{when}
-                        +number_view key='karam'
+                        if task_completed
+                            i.circle.outline.icon
+                        else
+                            i.green.checkmark.icon
+                        |#{title}
+                        +number_view key='karma_earned'
 
 
 

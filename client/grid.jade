@@ -1,26 +1,39 @@
 template(name='grid')
-    .ui.inline.grey.header 
-        |all 
-        each currentUser.roles
-            .ui.basic.label #{this}
-        |models
+    //- .ui.inline.grey.header 
+    //-     |all 
+    //-     each currentUser.roles
+    //-         .ui.basic.label #{this}
+    //-     |models
     .ui.left.icon.transparent.input
         i.search.icon
         input.model_filter(type='text' autofocus='autofocus')
-    +cloud filter='model'
+    //- +cloud filter='model'
     .ui.stackable.four.column.padded.grid
         each role_models
             .column
-                a.grid_seg(href="/m/#{slug}" tabindex="0")
-                    .ui.segment.home_segment.set_model
-                        .ui.header 
-                            +i name=icon
-                            //- i.icon(class=icon)
-                            |#{title}
-                        .ui.small.grey.header #{description}
-                        //- span(title='views')
-                        //-     |#{views}
-                        if is_dev
-                            i.eye.icon
-                            each view_roles
-                                .ui.small.basic.label #{this}
+                +grid_role_model
+                
+template(name='grid_role_model')
+    a.grid_seg(href="/m/#{slug}" tabindex="0")
+        //- .ui.segment.home_segment.set_model
+        .ui.grey.header(title=description)
+            +i name=icon
+            //- i.icon(class=icon)
+            |#{title}
+        .ui.link.list
+            each model_docs
+                +model_list_item_view
+        //- span(title='views')
+        //-     |#{views}
+        if is_dev
+            i.eye.icon
+            each view_roles
+                .ui.small.basic.label #{this}
+
+
+template(name='model_list_item_view')
+    a.item(href="/model/#{@model}/view") 
+        if image
+            img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
+        |#{title}
+        div

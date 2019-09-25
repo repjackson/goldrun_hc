@@ -18,12 +18,8 @@ if Meteor.isClient
             else
                 Docs.update @_id,
                     $inc: views: 1
-
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
-
-
-
         'keyup .model_filter': (e,t)->
             model_filter = $('.model_filter').val()
             if e.which is 8
@@ -33,8 +29,6 @@ if Meteor.isClient
                     Session.set 'model_filter',model_filter
             else
                 Session.set 'model_filter',model_filter
-
-
         'mouseenter .home_segment': (e,t)->
             t.$(e.currentTarget).closest('.home_segment').addClass('raised')
         'mouseleave .home_segment': (e,t)->
@@ -48,20 +42,17 @@ if Meteor.isClient
             model_filter = Session.get('model_filter')
             if model_filter
                 match.title = {$regex:"#{model_filter}", $options: 'i'}
-            unless Meteor.user() and Meteor.user().roles and 'dev' in Meteor.user().roles
-                match.view_roles = $in:Meteor.user().roles
+            if Meteor.user()
+                unless Meteor.user().roles and 'dev' in Meteor.user().roles
+                    match.view_roles = $in:Meteor.user().roles
+            else
+                match.view_roles = $in:['public']
             Docs.find match, sort:views:-1
-
-
-
-
-
         marketplace_items: ->
             # console.log Meteor.user().roles
             Docs.find {
                 model:'marketplace'
             }, sort:_timestamp:1
-
         posts: ->
             # console.log Meteor.user().roles
             Docs.find {
@@ -69,6 +60,16 @@ if Meteor.isClient
             }, sort:_timestamp:1
 
 
+    Template.grid_role_model.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', @slug, 5
+    Template.grid_role_model.helpers
+        model_docs: ->
+            # console.log Meteor.user().roles
+            Docs.find {
+                model:@slug
+            },
+                sort:_timestamp:1
+                limit:5
 
 if Meteor.isServer
     Meteor.publish 'role_models', ()->

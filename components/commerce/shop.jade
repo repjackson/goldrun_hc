@@ -283,11 +283,10 @@ template(name='shop_cloud')
 
 
 template(name='shop_small')
-    a.ui.header(href="/m/product")
+    a.ui.grey.header(href="/m/product")
         //- i.shopping.bag.icon
-        +i name='shop'
-        &nbsp;
-        strong.f7 for sale
+        +i name='shop' classes='ui tiny inline image'
+        | for sale
     //- +shop_cloud
     .ui.relaxed.grey.link.large.list.smallcolumn
         each products 

@@ -112,19 +112,6 @@ template(name='most_viewed_models')
         
             
             
-template(name='posts_small')
-    a.ui.header(href="/m/post")
-        +i name='blog'
-        |posts
-    .ui.animated.large.list
-        each posts
-            a.item(href="/m/#{model}/#{_id}/view")
-                .ui.small.header #{title}
-                //- span(title='views and points')
-                //-     |#{views}
-                //-     i.eye.grey.icon
-                //-     |#{points}
-                //-     i.thumbs.up.outline.grey.icon
                         
 
 template(name='chat_small')

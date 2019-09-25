@@ -71,6 +71,7 @@ if Meteor.isServer
 Docs.helpers
     author: -> Meteor.users.findOne @_author_id
     when: -> moment(@_timestamp).fromNow()
+    ten_tags: -> if @tags then @tags[..10]
     five_tags: -> if @tags then @tags[..4]
     three_tags: -> if @tags then @tags[..2]
     is_visible: -> @published in [0,1]
