@@ -236,12 +236,15 @@ Template.registerHelper 'fields', () ->
         slug:Router.current().params.model_slug
     if model
         match = {}
-        if Meteor.user()
-            match.view_roles = $in:Meteor.user().roles
+        # if Meteor.user()
+        #     match.view_roles = $in:Meteor.user().roles
         match.model = 'field'
         match.parent_id = model._id
-        Docs.find match,
+        # console.log model
+        cur = Docs.find match,
             sort:rank:1
+        # console.log cur.fetch()
+        cur
 
 Template.registerHelper 'edit_fields', () ->
     model = Docs.findOne

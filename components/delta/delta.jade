@@ -61,18 +61,18 @@ template(name='delta')
                             .ui.simple.dropdown.item
                                 strong #{current_delta.sort_key}
                                 i.dropdown.icon
-                                .fluid.menu
+                                .menu
                                     each fields
                                         .item.set_sort_key 
-                                            +ismall name=icon
+                                            //- +ismall name=icon
                                             |#{title}
                         .ui.compact.icon.button.set_sort_direction
                             if sorting_up
-                                +ismall name='generic-sorting-2'
-                                //- i.sort.amount.down.large.icon
+                                //- +ismall name='generic-sorting-2'
+                                i.sort.amount.down.icon
                             else
-                                +ismall name='generic-sorting'
-                                //- i.sort.amount.up.large.icon
+                                //- +ismall name='generic-sorting'
+                                i.sort.amount.up.icon
                         //- .ui.compact.button.set_sort_direction
                         //-     |#{current_delta.sort_direction}
                         &nbsp;
@@ -88,6 +88,7 @@ template(name='delta')
                                     +set_limit amount=5
                                     +set_limit amount=10
                                     +set_limit amount=20
+                                    +set_limit amount=50
                         .ui.inline.small.grey.header
                             |search
                         .ui.small.input
@@ -167,7 +168,7 @@ template(name='set_limit')
 template(name='set_view_mode')
     .item.set_view_mode 
         //- i.icon(class=icon)
-        +ismall name=icon
+        //- +ismall name=icon
         |#{title}
 
 template(name='facet')
@@ -192,7 +193,7 @@ template(name='facet')
         //- div
         each filtering_res
             if name
-                .selector.ui.large.compact.button.toggle_selection(class=toggle_value_class)
+                .selector.ui.large.compact.button.toggle_selection(class=toggle_value_class title=count)
                     strong #{name}
                     if is_admin
                         small #{cal_count} #{count}

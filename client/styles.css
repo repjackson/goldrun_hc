@@ -34,11 +34,6 @@ body {
 }
 
 
-.pulsing
-{
-     animation: pulse 1s infinite;
-     border-radius: 5%;
-}
 
 
 /* @keyframes shadow-pulse
@@ -74,7 +69,7 @@ body {
     font-size: 4em !important;
 }
 .menu > .item {
-    border-radius:5px !important;
+    border-radius:20px !important;
 }
 .ui.popup {
     border-radius:10px !important;
@@ -82,13 +77,22 @@ body {
 /* .menu > .item:hover { */
     /* filter: drop-shadow(0px 0px 5px rgba(100,100,100,.9)) !important; */
 /* } */
-.menu > .item > .image:hover {
+.topnav > .item:hover {
     filter: drop-shadow(0px 0px 5px rgba(250,250,250,.9)) !important;
-    transform: rotate(20deg) scale(1.3);
+    transform: scale(1.1);
 }
+.right.menu > .item:hover {
+    filter: drop-shadow(0px 0px 5px rgba(250,250,250,.9)) !important;
+    /* transform: rotate(10deg) scale(1.1); */
+    transform: scale(1.1);
+}
+/* .menu > .item > .image:hover {
+    filter: drop-shadow(0px 0px 5px rgba(250,250,250,.9)) !important;
+    transform: rotate(10deg) scale(1.1);
+} */
 
 .image {
-    transition: all .5s !important;
+    transition: all .25s !important;
 }
 
 #topnav {
@@ -101,8 +105,12 @@ body {
 }
 
 .menu {
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     transition: background-color 3s ease !important;
+}
+
+#topnav > .item {
+    transition: all .25s ease !important;
 }
 
 .card {
@@ -137,7 +145,7 @@ body {
 }
 
 .accordion {
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     /* opacity: .8 !important; */
     background-color: rgba(255,255,255, 0.3) !important;
     padding:5px !important;
@@ -165,7 +173,7 @@ body {
   color: green;
   background-color: white;
   padding: 30px 30px;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 30px;
   line-height: 130%;
   font-weight: bold;
@@ -192,7 +200,7 @@ body {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     margin: 0px !important;
 }
 
@@ -278,8 +286,8 @@ body {
 
 
 input{
-    -webkit-border-radius: 10px !important; */
-    border-radius: 10px !important;
+    -webkit-border-radius: 8px !important; */
+    border-radius: 8px !important;
     margin-bottom: 3px !important;
     margin-top: 3px !important;
     /* font-size: 120% !important; */
@@ -292,8 +300,8 @@ input{
 }
 
 textarea{
-    -webkit-border-radius: 10px !important; */
-    border-radius: 10px !important;
+    -webkit-border-radius: 8px !important; */
+    border-radius: 8px !important;
 }
 input.username_search{
     -webkit-border-radius: 25px !important; */
@@ -337,14 +345,14 @@ input.member_search{
     /* -moz-border-radius: 5px !important; */
     opacity:.9 !important;
     font-family: 'Raleway', sans-serif !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
 }
 
 .disabled.button, .disabled.segment, .disabled.label{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
     opacity:.4 !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
 }
 
 /* .segment {
@@ -455,7 +463,7 @@ input.member_search{
 
 
 .button, .selector, .card, body, .item{
-    animation: fadein 1s;
+    animation: fadein 2s;
     /* -webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout 1s; */
 }

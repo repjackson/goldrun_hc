@@ -1,75 +1,76 @@
 template(name='home')
-    +home_slider
+    unless is_dev
+        +home_slider
     +grid
-    .ui.padded.stackable.grid
-        .centered.row
-            .four.wide.column
-                +shop_small
-            .four.wide.column
-                +rental_small
-            .four.wide.column
-                +service_small
-            .four.wide.column
-                //- +event_small
-                +earning_methods_small
-        .centered.row
-            .four.wide.column
-                +karma_leaderboard
-            .four.wide.column
-                +karma_this_week
-                //- +work_order_small
-                //- .ui.hidden.divider
-            .four.wide.column
-                +karma_transactions_small
-                //- +latest_project_updates
-            .four.wide.column
-                +request_small
+    //- .ui.padded.stackable.grid
+        //- .centered.row
+        //-     .four.wide.column
+        //-         +shop_small
+        //-     .four.wide.column
+        //-         +rental_small
+        //-     .four.wide.column
+        //-         +service_small
+        //-     .four.wide.column
+        //-         //- +event_small
+        //-         +earning_methods_small
+        //- .centered.row
+        //-     .four.wide.column
+        //-         +karma_leaderboard
+        //-     .four.wide.column
+        //-         +karma_this_week
+        //-         //- +work_order_small
+        //-         //- .ui.hidden.divider
+        //-     .four.wide.column
+        //-         +karma_transactions_small
+        //-         //- +latest_project_updates
+        //-     .four.wide.column
+        //-         +request_small
                 //- +projects_small             
                 //- unless display_mode
                 //- +work_small
             //-     +posts_small
             //- .column
             //-     +market_small
-        .centered.row
-            .four.wide.column
-                +home_alerts
-            .four.wide.column
-                +latest_activity
-            .four.wide.column
-                +footer_chat
-                //- +gallery_small
-            .four.wide.column
-                .ui.header
-                    +i name='poll'
-                    //- i.poll.icon
-                    |polls
-                .smallscroll
-                    each polls
-                        +poll_results
-    
-                //- +service_list
-                //- +service_slider            
-            .four.wide.column
-                +posts_small
-            .four.wide.column
-                +groups_small
-            .four.wide.column
-                .ui.grey.header community ad
-                with current_ad
-                    .ui.header #{title}
-                    img(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}")
-                    |!{content}
-                    a(href=link) #{link}
-                    +voting
+        //- .centered.row
+        //-     .four.wide.column
+        //-         +home_alerts
+        //-     .four.wide.column
+        //-         +latest_activity
+        //-     .four.wide.column
+        //-         +footer_chat
+        //-         //- +gallery_small
+        //-     .four.wide.column
+        //-         .ui.header
+        //-             +i name='poll'
+        //-             //- i.poll.icon
+        //-             |polls
+        //-         .smallscroll
+        //-             each polls
+        //-                 +poll_results
+        //- 
+        //-         //- +service_list
+        //-         //- +service_slider            
+        //-     .four.wide.column
+        //-         +posts_small
+        //-     .four.wide.column
+        //-         +groups_small
+        //-     .four.wide.column
+        //-         .ui.grey.header community ad
+        //-         with current_ad
+        //-             .ui.header #{title}
+        //-             img(src="{{c.url image height=500 width=800 background='white' crop='lpad'}}")
+        //-             |!{content}
+        //-             a(href=link) #{link}
+        //-             +voting
                 //- .ui.hidden.divider
-        .row
-            //- .four.wide.column
-                //- +gallery_small
-            .four.wide.column
-                +health_club_status_small
-            .four.wide.column
-                +stats_small
-            .four.wide.column
+        //- .row
+        //-     //- .four.wide.column
+        //-         //- +gallery_small
+        //-     .four.wide.column
+        //-         +health_club_status_small
+        //-     .four.wide.column
+        //-         +stats_small
+        //-     .four.wide.column
                 //- +model_scroller model='group' header='groups' icon='groups'
         //- .four.column.row
         //-     .column

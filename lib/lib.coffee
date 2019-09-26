@@ -273,6 +273,12 @@ if Meteor.isServer
         # console.log filter
         self = @
         match = {}
+        if Meteor.user()
+            unless Meteor.user().roles and 'dev' in Meteor.user().roles
+                match.view_roles = $in:Meteor.user().roles
+        else
+            match.view_roles = $in:['public']
+
         # if filter is 'shop'
         #     match.active = true
         if selected_tags.length > 0 then match.tags = $all: selected_tags

@@ -7,7 +7,7 @@ template(name='grid')
     .ui.left.icon.transparent.input
         i.search.icon
         input.model_filter(type='text' autofocus='autofocus')
-    //- +cloud filter='model'
+    +cloud filter='model'
     .ui.stackable.four.column.padded.grid
         each role_models
             .column
@@ -32,7 +32,7 @@ template(name='grid_role_model')
 
 
 template(name='model_list_item_view')
-    a.item(href="/model/#{@model}/view") 
+    a.item(href="/m/#{model}/#{_id}/view") 
         if image
             img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
         |#{title}

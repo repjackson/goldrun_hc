@@ -26,13 +26,14 @@ template(name='comments')
 
 template(name='viewing')
     div
-    unless viewed_by
-        .ui.icon.button.mark_read
-            i.eye.icon
-    else 
-        if is_dev
-            .ui.icon.button.mark_unread
-                i.cancel.icon
+    if currentUser
+        unless viewed_by
+            .ui.icon.button.mark_read
+                i.eye.icon
+        else 
+            if is_dev
+                .ui.icon.button.mark_unread
+                    i.cancel.icon
     .ui.inline.header viewed by
     each read_ids
         +user_info
@@ -88,6 +89,7 @@ template(name='user_list_info')
 
 template(name='call_watson')
     .ui.button.autotag
+        i.chess.icon
         |call watson
 
 template(name='view_full_button')
@@ -109,7 +111,7 @@ template(name='user_status')
 
 template(name='user_card')
     with user
-        .ui.horizontal.fluid.card
+        .ui.horizontal.card
             if is_staff
                 .image
                     if kiosk_photo

@@ -62,6 +62,11 @@ if Meteor.isServer
 
         self = @
         match = {}
+        if Meteor.user()
+            unless Meteor.user().roles and 'dev' in Meteor.user().roles
+                match.view_roles = $in:Meteor.user().roles
+        else
+            match.view_roles = $in:['public']
 
         # selected_tags.push current_herd
 

@@ -35,6 +35,8 @@ template(name='model_edit')
                                 |#{title} (#{field_type})
                                 if faceted
                                     i.filter.icon
+                                if sortable
+                                    i.sort.amount.down.icon
                                 each view_roles
                                     .ui.basic.label #{this}
                                 i.large.dropdown.icon

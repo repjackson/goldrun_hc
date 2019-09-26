@@ -33,7 +33,7 @@ template(name='model_doc_view')
         with current_doc
             .ui.stackable.padded.grid
                 .row
-                    .six.wide.column
+                    .four.wide.column
                         .ui.basic.button.back_to_model
                             i.chevron.left.icon
                             +i name=current_model.icon classes='ui avatar image'
@@ -61,20 +61,9 @@ template(name='model_doc_view')
                             +creation_info
                         each current_model.actions
                             +Template.dynamic template=this data=current_doc
-                        //- .ui.cloud.segment
-                        //-     if is_marketplace
-                        //-         +karma_transaction
-                        //-     if is_post
-                        //-         +voting
-                        //-         .ui.header karma earned
-                        //-         |#{points} points
-                        //-         .ui.header upvoters
-                        //-         each upvoters
-                        //-             .ui.large.label #{username}
-                        //-         .ui.header downvoters
-                        //-         each downvoters
-                        //-             .ui.large.label #{username}
-                    .ten.wide.column
+                        +karma_transaction
+                        +voting
+                    .twelve.wide.column
                         .ui.header
                             each fields
                                 if header

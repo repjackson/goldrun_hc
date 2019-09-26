@@ -1,18 +1,3 @@
-template(name='events')
-    .ui.stackable.padded.grid
-        .sixteen.wide.column
-            .ui.inline.header 
-                |events
-            .ui.icon.button.add_event(title='add event')
-                i.plus.icon
-        .row
-            .six.wide.column
-                +cloud filter='event'
-            .ten.wide.column
-                each events
-                    +event
-                    
-                    
 template(name='event')
     .ui.fluid.segment
         .ui.header #{title}
@@ -21,10 +6,6 @@ template(name='event')
             .ui.basic.label #{this}
         +edit_button
         +view_button
-
-
-
-
 
 
 template(name='event_edit')
@@ -69,7 +50,8 @@ template(name='event_view')
         .ui.stackable.padded.grid
             .row
                 .four.wide.column 
-                    a.ui.fluid.button(href="/events")
+                    a.ui.fluid.button(href="/m/event")
+                        +i name='calendar'
                         |events
                     .ui.header view event
                     a.ui.big.icon.button(href="/event/#{_id}/edit")

@@ -8,15 +8,14 @@ template(name='nav')
                     //- i.big.blue.spinning.pulse.plus.icon.cancel
             unless is_current_staff
                 unless is_loading
-                    a.ui.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='models')
-                        +i name='grid-view' classes='ui mini inline image'
-                a.ui.icon.item(href='/' class="{{isActivePath '/'}}" title='home')
-                    +i name='home' classes='ui mini inline image'
+                    //- a.ui.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='models')
+                    //-     +i name='grid-view' classes='ui mini inline image'
+                    a.ui.icon.item(href='/' class="{{isActivePath '/'}}" title='home')
+                        +i name='home' classes='ui mini inline image'
                 a.ui.icon.item(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
                     +i name='handshake' classes='ui mini inline image'
                 a.ui.icon.item(href='/m/offer' class="{{isActivePath '/m/offer'}}" title='offer')
                     +i name='sell' classes='ui mini inline image'
-                            
                 a.ui.icon.item(href='/market' class="{{isActivePath '/market'}}" title='market')
                     +i name='shop' classes='ui mini inline image'
                 a.ui.icon.item.set_service(href='/m/service' class="{{isActivePath '/m/service'}}" title='services')
@@ -44,7 +43,7 @@ template(name='nav')
                 //- a.ui.item(href='/gallery' class="{{isActivePath '/gallery'}}")
                 //-     +i name='gallery' classes='ui mini inline image'
             if is_current_member
-                a.ui.item(href='/members' class="{{isActivePath '/members'}}")
+                a.ui.icon.item(href='/members' class="{{isActivePath '/members'}}")
                     +i name='groups' classes='ui mini inline image'
                 a.ui.icon.item(href='/work' class="{{isActivePath '/work'}}")
                     +i name='tasks'

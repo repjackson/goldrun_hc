@@ -47,7 +47,9 @@ if Meteor.isClient
                     match.view_roles = $in:Meteor.user().roles
             else
                 match.view_roles = $in:['public']
-            Docs.find match, sort:views:-1
+            Docs.find match,
+                sort:views:-1
+                limit:8
         marketplace_items: ->
             # console.log Meteor.user().roles
             Docs.find {
@@ -61,10 +63,9 @@ if Meteor.isClient
 
 
     Template.grid_role_model.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', @slug, 5
+        @autorun => Meteor.subscribe 'model_docs', @data.slug, 5
     Template.grid_role_model.helpers
         model_docs: ->
-            # console.log Meteor.user().roles
             Docs.find {
                 model:@slug
             },
