@@ -59,10 +59,8 @@ template(name='model_doc_view')
                             |by
                             +author_info
                             +creation_info
-                        each current_model.actions
-                            +Template.dynamic template=this data=current_doc
-                        +karma_transaction
-                        +voting
+                        //- +karma_transaction
+                        //- +voting
                     .twelve.wide.column
                         .ui.header
                             each fields
@@ -75,7 +73,9 @@ template(name='model_doc_view')
                             unless header
                                 .item
                                     +Template.dynamic template=view_template 
-                        +comments
+                        each current_model.actions
+                            +Template.dynamic template=this data=current_doc
+                        //- +comments
                         //- div
                         //- if watson
                         //-     +watson_view

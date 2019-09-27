@@ -74,8 +74,7 @@ if Meteor.isClient
         #         Session.set 'loading', false
         'click .secnavitem': ->
             Session.set 'loading', true
-            Docs.update @_id,
-                $inc:views:1
+            Meteor.call 'increment_view', @_id, ->
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
         'click .spinning': ->

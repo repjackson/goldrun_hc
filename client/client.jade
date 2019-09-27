@@ -60,8 +60,8 @@ template(name='verification_confirmation')
 
 
 template(name='not_found')
-    .ui.text.container
-        .ui.center.aligned.header not found
+    .ui.basic.center.aligned.padded.segment
+        .ui.center.aligned.header route not found
         if is_staff
             a.ui.button(href="/staff") 
                 +i name='user shield'

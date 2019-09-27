@@ -1,4 +1,9 @@
 Meteor.methods
+    increment_view: (doc_id)->
+        Docs.update @_id,
+            $inc:views:1
+
+
     add_user: (username)->
         options = {}
         options.username = username

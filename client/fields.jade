@@ -3,7 +3,7 @@ template(name='price_edit')
     .ui.fluid.input
         .ui.small.inline.header
             if icon
-                +i name=icon
+                +ismall name=icon
                 //- i.icon(class=icon)
             if title
                 |#{title}
@@ -20,7 +20,7 @@ template(name='price_view')
         div
         .ui.small.inline.header
             if icon
-                +i name=icon
+                +ismall name=icon
                 //- i.icon(class=icon)
             if title
                 |#{title}
@@ -92,7 +92,7 @@ template(name='icon_edit')
     div
     if icon
         //- i.grey.icon(class=icon)
-        +i name=icon classes='ui middle aligned image'
+        +ismall name=icon classes='ui middle aligned image'
     .ui.inline.header
         if title
             |#{title}
@@ -102,7 +102,7 @@ template(name='icon_edit')
             |#{this}    
     if field_value
         //- i.large.icon(class=field_value)
-        +i name=field_value
+        +ismall name=field_value
     .ui.right.icon.input
         input.icon_val(type='text' value=field_value placeholder='icon8 class' autocomplete="off")
 
@@ -115,7 +115,7 @@ template(name='color_icon_view')
 template(name='icon_view')
     if field_value
         span.inline.spaced
-            +i name=field_value
+            +ismall name=field_value
         //- i.icon(class=field_value)
         //- img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
         //- img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
@@ -173,7 +173,7 @@ template(name='link_view')
     if field_value
         div
         if icon
-            +i name=icon classes='ui middle aligned image'
+            +ismall name=icon classes='ui middle aligned image'
         .ui.inline.header 
             |#{title} #{label}
         a(href=field_value target='_window') #{field_value}
@@ -183,7 +183,7 @@ template(name='image_view')
     if field_value
         //- .ui.inline.header
         //-     if icon
-        //-         +i name=icon
+        //-         +ismall name=icon
                 //- i.grey.icon(class=icon)
         //-     if title
         //-         |#{title}
@@ -401,7 +401,7 @@ template(name='text_edit')
     div
     if icon
         //- i.grey.icon(class=icon)
-        +i name=icon classes='ui middle aligned image'
+        +ismall name=icon classes='ui middle aligned image'
     .ui.inline.header
         if title
             |#{title}
@@ -417,7 +417,7 @@ template(name='text_edit')
 template(name='slug_edit')
     if icon
         //- i.grey.icon(class=icon)
-        +i name=icon classes='ui middle aligned image'
+        +ismall name=icon classes='ui middle aligned image'
     .ui.inline.header.pointer.slugify_title
         if title
             |#{title}
@@ -462,7 +462,7 @@ template(name='text_view')
         //- unless header
         //-     div
         //-     if icon
-        //-         +i name=icon                
+        //-         +ismall name=icon                
         .ui.inline.grey.header
             if title
                 |#{title}
@@ -555,7 +555,7 @@ template(name='number_edit')
     div
     if icon
         //- i.grey.icon(class=icon)
-        +i name=icon classes='ui middle aligned image'
+        +ismall name=icon classes='ui middle aligned image'
     .ui.small.inline.grey.header(title=tip)
         if title
             |#{title}
@@ -597,7 +597,7 @@ template(name='float_edit')
     .ui.small.grey.inline.header(title=tip)
         if icon
             //- i.grey.icon(class=icon)
-            +i name=icon
+            +ismall name=icon
         if title
             |#{title}
         else if label
@@ -614,7 +614,7 @@ template(name='float_view')
         div
         if icon
             //- i.grey.icon(class=icon)
-            +i name=icon classes='ui inline mini image'
+            +ismall name=icon classes='ui inline mini image'
         .ui.inline.header
             if title
                 |#{title}
@@ -684,7 +684,7 @@ template(name='time_view')
     div
     if field_value
         if icon
-            +i name=icon classes='ui inline mini image'
+            +ismall name=icon classes='ui inline mini image'
         .ui.inline.header
             if title
                 |#{title}
@@ -731,7 +731,7 @@ template(name='array_edit')
     div
     if icon
         //- i.grey.icon(class=icon)
-        +i name=icon classes='ui middle aligned image'
+        +ismall name=icon classes='ui middle aligned image'
     .ui.inline.header
         if title
             |#{title}
@@ -944,7 +944,7 @@ template(name='boolean_view')
     .ui.inline.grey.small.header
         if icon
             //- i.grey.icon(class=icon)
-            +i name=icon classes='ui inline mini image'
+            +ismall name=icon classes='ui inline mini image'
         if title
             |#{title}
         else if label
@@ -963,13 +963,13 @@ template(name='single_doc_view')
     if field_value
         if icon
             //- i.grey.icon(class=icon)
-            +i name=icon
+            +ismall name=icon
         .ui.inline.header(title=key)
             |#{title}
         .ui.label
             if icon
                 //- i.grey.icon(class=icon)
-                +i name=icon classes='ui middle aligned image'
+                +ismall name=icon classes='ui middle aligned image'
             |#{field_value}
 
 
@@ -978,13 +978,13 @@ template(name='single_doc_edit')
     .ui.inline.header(title=key) 
         if icon
             //- i.grey.icon(class=icon)
-            +i name=icon
+            +ismall name=icon
         |#{label} #{title}
     each choices
         .ui.compact.button.select_choice(class=choice_class)
             if icon
                 //- i.grey.icon(class=icon)
-                +i name=icon classes='ui middle aligned mini image'
+                +ismall name=icon classes='ui middle aligned mini image'
                 //- +i name=icon classes='ui mini inline image'
             |#{calculated_label}
             |#{slug}
@@ -993,7 +993,7 @@ template(name='single_doc_edit')
 template(name='multi_doc_edit')
     div
     if icon
-        +i name=icon classes='ui mini inline image'
+        +ismall name=icon classes='ui mini inline image'
     .ui.inline.header(title=key)
         |#{title} #{label}    
     each choices
@@ -1068,7 +1068,7 @@ template(name='multi_doc_view')
 template(name='single_user_edit')
     div
     if icon
-        +i name=icon
+        +ismall name=icon
     .ui.inline.header 
         |#{label} #{title}
     if field_value
@@ -1107,7 +1107,7 @@ template(name='single_user_view')
     if field_value
         div
         if icon
-            +i name=icon    
+            +ismall name=icon    
         .ui.inline.header 
             |#{title}
             |#{label}
@@ -1280,7 +1280,7 @@ template(name='project_lookup')
             .ui.middle.aligned.selection.animated.list
                 each doc_results
                     .select_doc.item
-                        +i name=icon classes='ui middle aligned image'
+                        +ismall name=icon classes='ui middle aligned image'
                         .ui.inline.header
                             strong #{title}
                         div

@@ -6,6 +6,8 @@ if Meteor.isClient
         Session.set 'loading', true
         Meteor.call 'set_facets', Router.current().params.model_slug, ->
             Session.set 'loading', false
+    # Template.delta.onRendered ->
+    #     Meteor.call 'increment_view', @_id, ->
 
     Template.delta.helpers
         sorting_up: ->

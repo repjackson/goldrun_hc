@@ -4,9 +4,12 @@ template(name='grid')
     //-     each currentUser.roles
     //-         .ui.basic.label #{this}
     //-     |models
-    .ui.left.icon.transparent.input
-        i.search.icon
+    .ui.left.icon.input
         input.model_filter(type='text' autofocus='autofocus')
+        if model_filter_value
+            i.remove.link.icon
+        else 
+            i.search.icon
     +cloud filter='model'
     .ui.stackable.four.column.padded.grid
         each role_models
@@ -14,9 +17,8 @@ template(name='grid')
                 +grid_role_model
                 
 template(name='grid_role_model')
-    a.grid_seg(href="/m/#{slug}" tabindex="0")
-        //- .ui.segment.home_segment.set_model
-        .ui.grey.header(title=description)
+    .ui.segment
+        a.ui.header(href="/m/#{slug}" tabindex="0" title=description)
             +i name=icon
             //- i.icon(class=icon)
             |#{title}
@@ -25,10 +27,12 @@ template(name='grid_role_model')
                 +model_list_item_view
         //- span(title='views')
         //-     |#{views}
-        if is_dev
-            i.eye.icon
-            each view_roles
-                .ui.small.basic.label #{this}
+        //- if is_dev
+        span(title='views')
+            i.eye.grey.icon
+            |#{views}
+        each view_roles
+            .ui.small.basic.label(title='viewable by') #{this}
 
 
 template(name='model_list_item_view')

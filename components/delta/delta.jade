@@ -8,9 +8,9 @@ template(name='delta')
                             //- img(src='https://loading.io/spinners/hive/index.hexagon-grid-loader.gif')
                             +i name=icon classes='ui avatar image'
                             //- i.icon(class=icon)
-                            |loading #{title}...
+                            |loading #{title}
                     else 
-                        .ui.inline.header
+                        .ui.inline.header(title=description)
                             +i name=icon classes='ui avatar image'
                             //- i.icon(class=icon)
                             | #{title}
@@ -30,25 +30,21 @@ template(name='delta')
                         // //     .ui.icon.button.select_session(class=session_selector_class title='select session')
                         // //         i.play.icon
                         if current_delta
+                            i.refresh.circular.link.reset.icon(title='reload session')
                             if is_dev
-                                .ui.icon.large.button.print_delta(title='print session doc')
-                                    i.code.icon
-                                .ui.reset.icon.button(title='reload session')
-                                    //- +i name='refresh' classes='ui avatar image'
-                                    i.refresh.icon
-                                .ui.delete_delta.icon.button(title='delete session')
-                                    i.trash.icon
+                                i.circular.code.link.icon.print_delta(title='print session doc')
+                                i.circular.trash.delete_delta.icon(title='delete session')
                         else
                             .create_delta.ui.large.button(title='new session')
                                 i.plus.icon
                                 |session
-                        if description
-                            .ui.basic.segment
-                                |#{description}
                         //- if is_dev
                         //-     .ui.input
                         //-         input.import_subreddit(type='text' placeholder='import_subreddit')
                     // |did: #{session_delta_id}
+                    span(title='views')
+                        i.grey.eye.icon
+                        |#{views}
                     div
                     each sorted_facets
                         +facet
@@ -180,7 +176,7 @@ template(name='facet')
         if icon
             //- i.grey.icon(class=icon)
             +i name=icon classes='ui avatar image'   
-        .ui.small.grey.inline.header 
+        .ui.grey.inline.header 
             if title
                 |#{title}
             else 
@@ -201,7 +197,7 @@ template(name='facet')
                 .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
                     strong [null]
                     //- small #{cal_count}
-        //- .ui.hidden.divider
+        .ui.hidden.divider
 
 template(name='toggle_delta_config')
     if boolean_true

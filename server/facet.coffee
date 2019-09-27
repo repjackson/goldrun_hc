@@ -16,6 +16,9 @@ Meteor.methods
                 model:'field'
                 parent_id:model._id
 
+        Docs.update model._id,
+            $inc: views: 1
+
         # console.log 'fields', fields.fetch()
 
         Docs.update delta._id,

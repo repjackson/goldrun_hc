@@ -20,6 +20,10 @@ if Meteor.isClient
                     $inc: views: 1
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
+
+        # 'click .grid_seg': ->
+        #     Meteor.call 'increment_view', @_id, ->
+
         'keyup .model_filter': (e,t)->
             model_filter = $('.model_filter').val()
             if e.which is 8
@@ -50,6 +54,11 @@ if Meteor.isClient
             Docs.find match,
                 sort:views:-1
                 limit:8
+
+        model_filter_value: ->
+            Session.get 'model_filter'
+
+
         marketplace_items: ->
             # console.log Meteor.user().roles
             Docs.find {
