@@ -1,6 +1,11 @@
 template(name='home')
     unless is_dev
-        +home_slider
+        .ui.accordion
+            .active.title 
+                |slider
+                i.grey.dropdown.icon
+            .active.content
+                +home_slider
     +grid
     //- .ui.padded.stackable.grid
         //- .centered.row
@@ -272,7 +277,7 @@ template(name='service_slider')
 template(name='health_club_status_small')
     div
     .ui.inline.header 
-        |upper hot tub
+        |Upper Hot Tub
         +water_status slug='upper_hot_tub'
         //- div
     //- .ui.small.horizontal.list
@@ -287,7 +292,7 @@ template(name='health_club_status_small')
         //- div
         //- |by #{latest_uht_reading.author.name}
     div
-    .ui.inline.header lower hot tub
+    .ui.inline.header Lower Hot Tub
         +water_status slug='lower_hot_tub'
         //- div
     //- .ui.small.horizontal.list
@@ -304,7 +309,7 @@ template(name='health_club_status_small')
             
     div
     .ui.inline.header
-        | pool
+        | Pool
         +water_status slug='pool'
         //- div
     //- .ui.small.horizontal.list

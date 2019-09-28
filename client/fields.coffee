@@ -1,28 +1,28 @@
 Template.price_view.onCreated ->
 	# Session.set 'giveAmount', ''
-    if Meteor.isDevelopment
-        pub_key = Meteor.settings.public.stripe_test_publishable
-    else if Meteor.isProduction
-        pub_key = Meteor.settings.public.stripe_live_publishable
-    Template.instance().checkout = StripeCheckout.configure(
-        key: pub_key
-        image: 'http://res.cloudinary.com/facet/image/upload/c_fill,g_face,h_300,w_300/k2zt563boyiahhjb0run'
-        locale: 'auto'
-        # zipCode: true
-        token: (token) ->
-            console.log token
-            product = Docs.findOne Router.current().params.doc_id
-            console.log product
-            charge =
-                amount: product.dollar_price*100
-                currency: 'usd'
-                source: token.id
-                description: token.description
-                # receipt_email: token.email
-            Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
-                if error then alert error.reason, 'danger'
-                else alert 'Thanks for your payment.', 'success'
-	)
+    # if Meteor.isDevelopment
+    #     pub_key = Meteor.settings.public.stripe_test_publishable
+    # else if Meteor.isProduction
+    #     pub_key = Meteor.settings.public.stripe_live_publishable
+    # Template.instance().checkout = StripeCheckout.configure(
+    #     key: pub_key
+    #     image: 'http://res.cloudinary.com/facet/image/upload/c_fill,g_face,h_300,w_300/k2zt563boyiahhjb0run'
+    #     locale: 'auto'
+    #     # zipCode: true
+    #     token: (token) ->
+    #         console.log token
+    #         product = Docs.findOne Router.current().params.doc_id
+    #         console.log product
+    #         charge =
+    #             amount: product.dollar_price*100
+    #             currency: 'usd'
+    #             source: token.id
+    #             description: token.description
+    #             # receipt_email: token.email
+    #         Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
+    #             if error then alert error.reason, 'danger'
+    #             else alert 'Thanks for your payment.', 'success'
+	# )
 
 
 

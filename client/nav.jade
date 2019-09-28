@@ -116,13 +116,13 @@ template(name='nav')
                             +i name='internal' classes='ui mini inline image'
                             |login
         //- if currentUser
-            //- unless is_staff
-        .ui.attached.borderless.small.menu.secnav(class=gs.nav_color)
-            each role_models
-                a.item.secnavitem(href="/m/#{slug}/")
-                    +i name=icon classes='ui avatar image'
-                    //- i.icon(class=icon)
-                    |#{title}
+        unless is_current_staff
+            .ui.attached.borderless.small.menu.secnav(class=gs.nav_color)
+                each role_models
+                    a.item.secnavitem(href="/m/#{slug}/")
+                        +i name=icon classes='ui avatar image'
+                        //- i.icon(class=icon)
+                        |#{title}
 
 
 

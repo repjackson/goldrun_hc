@@ -32,7 +32,6 @@ if Meteor.isClient
         @layout 'rental_edit_layout'
         @render 'rental_edit_ads'
         ), name:'rental_edit_ads'
-
     Router.route '/rental/:doc_id/edit/ownership', (->
         @layout 'rental_edit_layout'
         @render 'rental_edit_ownership'
@@ -55,9 +54,49 @@ if Meteor.isClient
         ), name:'rental_edit_audience'
 
 
+    Router.route '/rental/:doc_id/view/info', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_info'
+        ), name:'rental_view_info'
+    Router.route '/rental/:doc_id/view/finance', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_finance'
+        ), name:'rental_view_finance'
+    Router.route '/rental/:doc_id/view/chat', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_chat'
+        ), name:'rental_view_chat'
+    Router.route '/rental/:doc_id/view/ads', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_ads'
+        ), name:'rental_view_ads'
+    Router.route '/rental/:doc_id/view/ownership', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_ownership'
+        ), name:'rental_view_ownership'
+    Router.route '/rental/:doc_id/view/availability', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_availability'
+        ), name:'rental_view_availability'
+    Router.route '/rental/:doc_id/view/stats', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_stats'
+        ), name:'rental_view_stats'
+    Router.route '/rental/:doc_id/view/tasks', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_tasks'
+        ), name:'rental_view_tasks'
+    Router.route '/rental/:doc_id/view/audience', (->
+        @layout 'rental_view_layout'
+        @render 'rental_view_audience'
+        ), name:'rental_view_audience'
+
+
     Template.kiosk_rental_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.rental_view.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.rental_view_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.rental_edit_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
@@ -289,16 +328,6 @@ if Meteor.isClient
                     hourly_rental_price:hourly_rental_price
                     daily_rental_price:daily_rental_price
 
-
-    Template.rental_small.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'rental'
-    Template.rental_small.helpers
-        rentals: ->
-            Docs.find {
-                model:'rental'
-            },
-                sort: _timestamp: -1
-                limit:5
 
     Template.rental_status.events
         'click .new_reservation': (e,t)->

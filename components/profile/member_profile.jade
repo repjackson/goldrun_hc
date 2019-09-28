@@ -1,0 +1,134 @@
+template(name='member_profile_layout')
+    //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
+    +nav
+    with user_from_username_param
+        .ui.stackable.grid.global_container
+            .row
+                img.ui.fluid.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
+                .four.wide.column
+                    a.item(href="/member/#{user_from_username_param.username}/")
+                        img.ui.centered.circular.shadowed.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
+                    .ui.center.aligned.basic.segment
+                        a(href="/member/#{user.username}")
+                            h1.ui.large.center.aligned.header
+                                strong #{user.first_name} #{user.last_name}
+                                small @#{user.username}        
+                    if user_is_resident
+                        if is_staff
+                            a.ui.big.button.item(href="/member/#{user_from_username_param.username}/edit")
+                                //- i.cog.icon
+                                +i name='settings' 
+                                |edit
+                            +resident_info         
+                            +user_check_steps
+                            +staff_verification
+                    else 
+                        .ui.small.header #{tagline}
+                        +ismall name='tags'
+                        each tags
+                            .ui.small.basic.label #{this}
+                    if is_current_user
+                        a.ui.large.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
+                            +i name='settings' 
+                            //- i.cog.icon
+                            |edit
+                    else if is_admin
+                        a.ui.large.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
+                            +i name='settings' 
+                            //- i.cog.icon
+                            |edit
+                    if is_dev
+                        +boolean_edit key='disabled' label='disabled' icon='user shield' direct='true'
+                    //- else
+                    //-     .ui.button.direct_message(title='new message')
+                    //-         +i name='envelope'
+                    if is_current_user
+                        a.ui.large.button.logout(href="#" title='logout')
+                            //- i.sign.out.alternate.icon
+                            +ismall name='exit' 
+                            |log out
+                        a.ui.large.button.logout_other_clients(href="#" title='logout other clients')
+                            //- i.globe.icon
+                            +ismall name='globe' 
+                            |log out other clients
+                    if is_admin
+                        .ui.basic.segment
+                            .ui.header 
+                                +i name='shield'
+                                |roles
+                            each roles
+                                .ui.basic.label #{this}
+                .twelve.wide.column.shadowed-box
+                    if is_staff
+                        if user_is_resident
+                            a.ui.button(href="/member/#{username}/healthclub" class="{{isActiveRoute 'user_healthclub'}}")
+                                +ismall name='treadmill' classes='ui inline image'
+                                |healthclub
+                    if is_member
+                        a.ui.compact.button(href="/member/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}")
+                            +ismall name='dashboard' classes='ui inline image'
+                            |dashboard
+                        a.ui.compact.button(href="/member/#{username}/about" class="{{isActiveRoute 'user_about'}}")
+                            +ismall name='info' classes='ui inline image'
+                            |info
+                        a.ui.compact.button(href="/member/#{username}/social" class="{{isActiveRoute 'user_social'}}")
+                            +ismall name='collaboration' classes='ui inline image'
+                            |social
+                        a.ui.compact.button(href="/member/#{username}/gallery" class="{{isActiveRoute 'user_gallery'}}")
+                            +ismall name='gallery' classes='ui inline image'
+                            |gallery
+                        a.ui.compact.button(href="/member/#{username}/connections" class="{{isActiveRoute 'user_connections'}}")
+                            +ismall name='handshake' classes='ui inline image'
+                            |connections
+                        a.ui.compact.button(href="/member/#{username}/bookmarks" class="{{isActiveRoute 'user_bookmarks'}}")
+                            +ismall name='star' classes='ui inline image'
+                            |bookmarks
+                        a.ui.compact.button(href="/member/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
+                            +ismall name='phone' classes='ui inline image'
+                            |contact
+                        a.ui.compact.button(href="/member/#{username}/events" class="{{isActiveRoute 'user_events'}}")
+                            +ismall name='calendar' classes='ui inline image'
+                            |calendar
+                        a.ui.compact.button(href="/member/#{username}/comparison" class="{{isActiveRoute 'user_comparison'}}")
+                            +ismall name='scales' classes='ui inline image'
+                            |comparison
+                        a.ui.compact.button(href="/member/#{username}/offers" class="{{isActiveRoute 'user_offers'}}")
+                            +ismall name='sell' classes='ui inline image'
+                            |offers
+                        a.ui.compact.button(href="/member/#{username}/tags" class="{{isActiveRoute 'user_tags'}}")
+                            +ismall name='tags' classes='ui inline image'
+                            |tags
+                        a.ui.compact.button(href="/member/#{username}/tasks" class="{{isActiveRoute 'user_tasks'}}")
+                            +ismall name='tasks' classes='ui inline image'
+                            |tasks
+                        a.ui.compact.button(href="/member/#{username}/messages" class="{{isActiveRoute 'user_messages'}}")
+                            +ismall name='new-message' classes='ui inline image'
+                            |mail
+                        a.ui.compact.button(href="/member/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
+                            +ismall name='yin-yang' classes='ui inline image'
+                            |karma
+                        a.ui.compact.button(href="/member/#{username}/workhistory" class="{{isActiveRoute 'user_workhistory'}}")
+                            +ismall name='resume' classes='ui inline image'
+                            |work history
+                        a.ui.compact.button(href="/member/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
+                            +ismall name='line-chart' classes='ui inline image'
+                            |stats
+                        a.ui.compact.button(href="/member/#{username}/votes" class="{{isActiveRoute 'user_votes'}}")
+                            +ismall name='elections' classes='ui inline image'
+                            |votes
+                        a.ui.compact.button(href="/member/#{username}/notifications" class="{{isActiveRoute 'user_notifications'}}")
+                            +ismall name='appointment-reminders' classes='ui inline image'
+                            |notifications
+                        div
+                    +yield
+    +footer 
+
+
+
+
+            
+template(name='user_comparison')
+    .ui.header user comparison
+    //- .ui.header simulate conversation between you and them using site stats
+
+            

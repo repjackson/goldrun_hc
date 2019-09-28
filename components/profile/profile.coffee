@@ -15,104 +15,12 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_residency'
         ), name:'user_residency'
-    Router.route '/user/:username/connections', (->
-        @layout 'user_layout'
-        @render 'user_connections'
-        ), name:'user_connections'
-    Router.route '/user/:username/karma', (->
-        @layout 'user_layout'
-        @render 'user_karma'
-        ), name:'user_karma'
-    Router.route '/user/:username/payment', (->
-        @layout 'user_layout'
-        @render 'user_payment'
-        ), name:'user_payment'
-    Router.route '/user/:username/workhistory', (->
-        @layout 'user_layout'
-        @render 'user_workhistory'
-        ), name:'user_workhistory'
-    Router.route '/user/:username/offers', (->
-        @layout 'user_layout'
-        @render 'user_offers'
-        ), name:'user_offers'
-    Router.route '/user/:username/contact', (->
-        @layout 'user_layout'
-        @render 'user_contact'
-        ), name:'user_contact'
-    Router.route '/user/:username/stats', (->
-        @layout 'user_layout'
-        @render 'user_stats'
-        ), name:'user_stats'
-    Router.route '/user/:username/votes', (->
-        @layout 'user_layout'
-        @render 'user_votes'
-        ), name:'user_votes'
-    Router.route '/user/:username/dashboard', (->
-        @layout 'user_layout'
-        @render 'user_dashboard'
-        ), name:'user_dashboard'
-    Router.route '/user/:username/requests', (->
-        @layout 'user_layout'
-        @render 'user_requests'
-        ), name:'user_requests'
-    Router.route '/user/:username/tags', (->
-        @layout 'user_layout'
-        @render 'user_tags'
-        ), name:'user_tags'
-    Router.route '/user/:username/tasks', (->
-        @layout 'user_layout'
-        @render 'user_tasks'
-        ), name:'user_tasks'
-    Router.route '/user/:username/transactions', (->
-        @layout 'user_layout'
-        @render 'user_transactions'
-        ), name:'user_transactions'
-    Router.route '/user/:username/gallery', (->
-        @layout 'user_layout'
-        @render 'user_gallery'
-        ), name:'user_gallery'
-    Router.route '/user/:username/messages', (->
-        @layout 'user_layout'
-        @render 'user_messages'
-        ), name:'user_messages'
-    Router.route '/user/:username/bookmarks', (->
-        @layout 'user_layout'
-        @render 'user_bookmarks'
-        ), name:'user_bookmarks'
-    Router.route '/user/:username/documents', (->
-        @layout 'user_layout'
-        @render 'user_documents'
-        ), name:'user_documents'
-    Router.route '/user/:username/social', (->
-        @layout 'user_layout'
-        @render 'user_social'
-        ), name:'user_social'
-    Router.route '/user/:username/events', (->
-        @layout 'user_layout'
-        @render 'user_events'
-        ), name:'user_events'
-    Router.route '/user/:username/products', (->
-        @layout 'user_layout'
-        @render 'user_products'
-        ), name:'user_products'
-    Router.route '/user/:username/comparison', (->
-        @layout 'user_layout'
-        @render 'user_comparison'
-        ), name:'user_comparison'
-    Router.route '/user/:username/notifications', (->
-        @layout 'user_layout'
-        @render 'user_notifications'
-        ), name:'user_notifications'
-
-
 
 
     Template.user_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
         @autorun -> Meteor.subscribe 'user_referenced_docs', Router.current().params.username
         @autorun -> Meteor.subscribe 'user_models', Router.current().params.username
-
-    Template.user_layout.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'staff_resident_widget'
 
     Template.user_layout.onRendered ->
@@ -215,10 +123,8 @@ if Meteor.isClient
         violations: ->
             Docs.find
                 model:'violation'
-
         editing_violation: ->
             Template.instance().editing_violation.get()
-
         editing_violation_doc: ->
             Docs.findOne Template.instance().editing_violation.get()
 
@@ -228,10 +134,8 @@ if Meteor.isClient
                 model:'violation'
                 username: Router.current().params.username
             Template.instance().editing_violation.set new_violation_id
-
         'click .edit_violation': ->
             Template.instance().editing_violation.set @_id
-
         'click .save_violation': ->
             Template.instance().editing_violation.set null
 
@@ -266,6 +170,7 @@ if Meteor.isClient
             Docs.find
                 model:'guest'
                 _id:$in:user.guest_ids
+
 
 
 

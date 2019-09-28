@@ -5,3 +5,7 @@ if Meteor.isClient
                 model:'reservation'
                 rental_id: @_id
             Router.go "/new_reservation/#{new_reservation_id}"
+
+
+    Template.rental_view_info.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id

@@ -45,73 +45,28 @@ template(name='healthclub')
                                         .ui.center.aligned.header no members found
                                         .ui.center.aligned.header see staff to add
                     unless is_query
-                        .row    
-                            .ui.padded.grid
-                                +inline_doc slug='health_club_notices' classes='ui large header'
-                                if rick_mode
-                                    .two.column.row
-                                        .column
-                                            //- .ui.header 
-                                            //-     i.blue.info.icon
-                                            //-     |hc info
-                                            .ui.header Hours
-                                            .ui.large.list
-                                                .item Mon 7a-10p
-                                                .item Tues 7a-10p
-                                                .item Wed 7a-10p
-                                                .item Thur 7a-10p
-                                                .item Fri 7a-9p
-                                                .item Sat 8a-9p
-                                                .item Sun 8a-10p
-                                            .ui.header Onsite Manager 
-                                            .ui.small.header Rick Hamp 
-                                            .ui.relaxed.large.list
-                                                .item 303-545-1787
-                                                .item goldruncondos@gmail.com
-                                        .column
-                                            +health_club_status_small
-                                        //- .column
-                                        //-     +suggestion_box
-                                else
-                                    .two.column.row
-                                        .column
-                                            .ui.header 
-                                                i.blue.info.icon
-                                                |hc info
-                                            .ui.header Hours
-                                            .ui.large.list
-                                                .item Mon 7a-10p
-                                                .item Tues 7a-10p
-                                                .item Wed 7a-10p
-                                                .item Thur 7a-10p
-                                                .item Fri 7a-9p
-                                                .item Sat 8a-9p
-                                                .item Sun 8a-10p
-                                            .ui.header Onsite Manager 
-                                            .ui.small.header Rick Hamp 
-                                            .ui.relaxed.list
-                                                .item 303-545-1787
-                                                .item goldruncondos@gmail.com
-                                        .column
-                                            +health_club_status_small
-                                        //- .column
-                                            //- +suggestion_box
-                                    .one.column.row
-                                        //- .column
-                                        //-     +service_small
-                                        .column
-                                            a.ui.big.fluid.button(href="/market") 
-                                                .ui.grey.inline.header 
-                                                    +i name='shop'
-                                                    |market
-                                            //- +rental_small
-                                        //- .column
-                                        //-     +request_small
-                                    //- .three.column.row
-                                    //-     .column
-                                    //-         +event_small
-                                    //-     .column
-                                    //-         +shop_small
+                        .centered.row    
+                            +inline_doc slug='health_club_notices' classes='ui large header'
+                            .seven.wide.column
+                                //- .ui.header 
+                                //-     i.blue.info.icon
+                                //-     |hc info
+                                .ui.header Hours
+                                .ui.large.list
+                                    .item Mon 7a-10p
+                                    .item Tues 7a-10p
+                                    .item Wed 7a-10p
+                                    .item Thur 7a-10p
+                                    .item Fri 7a-9p
+                                    .item Sat 8a-9p
+                                    .item Sun 8a-10p
+                                .ui.header Onsite Manager 
+                                .ui.small.header Rick Hamp 
+                                .ui.relaxed.large.list
+                                    .item 303-545-1787
+                                    .item goldruncondos@gmail.com
+                            .seven.wide.column
+                                +health_club_status_small
 
 template(name='facet_doc_edit')
     with facet_doc

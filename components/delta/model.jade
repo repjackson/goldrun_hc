@@ -124,10 +124,10 @@ template(name='field_edit')
     .content
         +text_edit key='title' direct=true label='title'        
         +text_edit key='key'  direct=true label='key'           
-        +text_edit key='field_type' direct=true label='Field Type'              
         +icon_edit key='icon' direct=true label='icon'              
         +number_edit key='rank' label='rank' direct=true             
         +textarea_edit key='description' label='description' direct=true
+        +text_edit key='field_type' direct=true label='field type'              
         +single_doc_edit key='field_type' ref_model='field_type' label='field type' direct=true                 
         +multi_doc_edit key='view_roles' ref_model='role' label='view roles' direct=true icon='eye'          
         +multi_doc_edit key='edit_roles' ref_model='role' label='edit roles' direct=true icon='pencil'        

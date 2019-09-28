@@ -32,8 +32,11 @@ template(name='user_layout')
                             +resident_info         
                             +user_check_steps
                             +staff_verification
-                        else 
-                            .ui.small.header #{tagline}
+                    else 
+                        .ui.small.header #{tagline}
+                        +ismall name='tags'
+                        each tags
+                            .ui.small.basic.label #{this}
                     if is_current_user
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 
@@ -457,12 +460,6 @@ template(name='user_array_list')
         each users
             .item
                 +user_info
-            
-template(name='user_comparison')
-    .ui.header user comparison
-    //- .ui.header simulate conversation between you and them using site stats
-
-            
 
             
 template(name='user_array_element_toggle')

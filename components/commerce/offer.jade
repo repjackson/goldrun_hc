@@ -31,3 +31,25 @@
 //-                     |view
 //-                     i.right.chevron.icon
 //-                 +author_info
+
+
+
+
+template(name='user_offers')
+    .ui.header 
+        +i name='sell' classes='ui inline image'
+        |offers
+    a.ui.button(href="/m/offer") 
+        i.external.icon
+        |view all
+    .ui.button.new_offer
+        i.green.plus.icon
+        | offer #{user_from_username_param.name} something
+    
+    each offers
+        .ui.segment
+            .ui.header #{title}
+            .ui.small.header #{status}
+            +author_info
+            +edit_button
+            +view_button

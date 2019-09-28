@@ -106,8 +106,8 @@ template(name='user_status')
     else if idle
         .ui.empty.yellow.label(title='idle')
         // .ui.label(class='{{labelClass}}') Idle
-        // else 
-        //     |Offline
+    // else 
+    //     |Offline
 
 template(name='user_card')
     with user
@@ -154,6 +154,32 @@ template(name='member_card')
                 span(title='karma')
                 |#{karma} 
                 i.yin.yang.icon
+                if is_admin
+                    div
+                    +user_email
+                //- +emails_edit    
+        +user_status user
+
+template(name='small_horizontal_member_card')
+    with user
+        .ui.fluid.small.horizontal.card
+            .image
+                if profile_photo
+                    img.ui.rounded.tiny.image(src="{{c.url profile_photo width=200 height=200 gravity='face' crop='fill'}}")
+                else if kiosk_photo
+                    img.ui.rounded.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
+                else if image_id
+                    img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+            .content    
+                a.header(href="/user/#{username}") #{first_initial} #{last_name} 
+                //- .meta @#{username}
+                span(title='points')
+                    |#{points} pts
+                span(title='karma')
+                    |#{karma} 
+                    i.yin.yang.icon
+                each tags
+                    .ui.small.basic.label #{this}
                 if is_admin
                     div
                     +user_email

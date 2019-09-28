@@ -8,6 +8,11 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'model_fields_from_child_id', Router.current().params.doc_id
         Session.set 'model_filter',null
 
+    Template.grid.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 1000
+
     Template.grid.events
         'click .set_model': ->
             Session.set 'loading', true
@@ -53,7 +58,7 @@ if Meteor.isClient
                 match.view_roles = $in:['public']
             Docs.find match,
                 sort:views:-1
-                limit:8
+                limit:12
 
         model_filter_value: ->
             Session.get 'model_filter'

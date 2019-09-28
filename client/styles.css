@@ -15,6 +15,55 @@ body {
 
 } */
 
+/* .beer_section {
+    border-radius: 10px !important;
+}
+.celled.grid {
+    border-radius: 10px !important;
+} */
+.beer_header {
+    vertical-align: middle !important;
+    /* margin: 0 !important; */
+    /* margin-top: 10px !important; */
+    /* padding-bottom: 1% !important; */
+    /* display: inline; */
+    text-transform: uppercase !important;
+    font-size: 120% !important;
+    /* background-color: black; */
+}
+.vertical-text {
+ writing-mode: vertical-rl;
+}
+
+.italic {
+    font-style: italic !important;
+}
+/* .negative td { */
+.neg td {
+  text-decoration: line-through;
+}
+.blacked {
+    background-color: black !important;
+    height: 100% !important;
+}
+
+.vertical-text span {
+  text-orientation: upright;
+}
+
+.beer_section {
+    border: 10px single black !important;
+}
+
+.rayback-header {
+    border-left: 10px double black;
+    border-right: 10px double black;
+    transform: rotate(180deg);
+    font-size: 400% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 .add_model_doc {
     border-radius: 20px !important;
@@ -47,7 +96,7 @@ body {
 } */
 
 
-@keyframes pulse {
+/* @keyframes pulse {
     0% {
         transform: scale(0.8);
         box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
@@ -60,7 +109,7 @@ body {
         transform: scale(0.8);
         box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
     }
-}
+} */
 
 
 
@@ -105,7 +154,7 @@ body {
 }
 
 .menu {
-    border-radius: 8px !important;
+    border-radius: 10px !important;
     transition: background-color 3s ease !important;
 }
 
@@ -145,7 +194,7 @@ body {
 }
 
 .accordion {
-    border-radius: 8px !important;
+    border-radius: 10px !important;
     /* opacity: .8 !important; */
     background-color: rgba(255,255,255, 0.3) !important;
     padding:5px !important;
@@ -173,7 +222,7 @@ body {
   color: green;
   background-color: white;
   padding: 30px 30px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 30px;
   line-height: 130%;
   font-weight: bold;
@@ -200,7 +249,7 @@ body {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
     margin: 0px !important;
 }
 
@@ -286,8 +335,8 @@ body {
 
 
 input{
-    -webkit-border-radius: 8px !important; */
-    border-radius: 8px !important;
+    -webkit-border-radius: 10px !important; */
+    border-radius: 10px !important;
     margin-bottom: 3px !important;
     margin-top: 3px !important;
     /* font-size: 120% !important; */
@@ -300,8 +349,8 @@ input{
 }
 
 textarea{
-    -webkit-border-radius: 8px !important; */
-    border-radius: 8px !important;
+    -webkit-border-radius: 10px !important; */
+    border-radius: 10px !important;
 }
 input.username_search{
     -webkit-border-radius: 25px !important; */
@@ -345,14 +394,14 @@ input.member_search{
     /* -moz-border-radius: 5px !important; */
     opacity:.9 !important;
     font-family: 'Raleway', sans-serif !important;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
 }
 
 .disabled.button, .disabled.segment, .disabled.label{
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
     opacity:.4 !important;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
 }
 
 /* .segment {
@@ -463,7 +512,7 @@ input.member_search{
 
 
 .button, .selector, .card, body, .item{
-    animation: fadein 2s;
+    animation: fadein 1s;
     /* -webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout 1s; */
 }
@@ -508,8 +557,8 @@ input.member_search{
 }
 
 .ui.header{
-    /* font-family: 'Raleway', sans-serif !important; */
-    font-family: 'Ubuntu', sans-serif !important;
+    font-family: 'Raleway', sans-serif !important;
+    /* font-family: 'Ubuntu', sans-serif !important; */
 }
 h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */
@@ -788,7 +837,7 @@ h1.ui.header{
 .scrolling{
 	overflow-y:scroll;
 	overflow-x:hidden;
-	max-height:100vh;
+	max-height:101vh;
 	/*max-height:85vh;*/
 	/* padding-top: 1em; */
 	/*padding-left: 1em;*/

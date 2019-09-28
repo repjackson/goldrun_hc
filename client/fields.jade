@@ -161,8 +161,8 @@ template(name='iflat')
 template(name='link_edit')
     div
     if icon
-        i.grey.icon(class=icon)
-        //- +i name=icon classes='ui mini inline image'
+        //- i.grey.icon(class=icon)
+        +i name=icon classes='ui mini inline image'
     .ui.inline.header
         |#{title} #{label}
     .ui.fluid.input
@@ -191,7 +191,7 @@ template(name='image_view')
         //-     |#{key}
         //- else
         //-     |#{this}
-        img.ui.centered.rounded.image(src="{{c.url field_value gravity='face' crop='fit'}}" class=classes)
+        img.ui.centered.rounded.medium.image(src="{{c.url field_value gravity='face' crop='fit'}}" class=classes)
         //- a(href="{{c.url field_value gravity='face' crop='fit'}}")
         //-     |download
     //- +call_visual
@@ -353,15 +353,15 @@ template(name='html_edit')
 template(name='html_view')
     if field_value
         div
-        //- if icon
-        //-     //- +i name=icon classes='ui mini inline image'
-        //-     i.grey.icon(class=icon)
-        //- if title
-        //-     |#{title}
-        //- else if key
-        //-     |#{key}
-        //- else
-        //-     |#{this}
+        if icon
+            +i name=icon classes='ui mini inline image'
+            //- i.grey.icon(class=icon)
+        if title
+            |#{title}
+        else if key
+            |#{key}
+        else
+            |#{this}
     |!{field_value}
     //- +call_watson mode='html'
     //- if watson

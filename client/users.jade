@@ -30,11 +30,17 @@ template(name='member')
                 h2.ui.center.aligned.header #{first_name} #{last_name} 
                 .ui.small.header @#{username}
             each five_tags
-                .ui.compact.small.circular.basic.button.person_tag(class=tag_class) 
+                .ui.small.basic.label(class=tag_class) 
                     strong #{this}
             +text_view key='first_name' label='First Name'
             +text_view key='last_name' label='Last Name'
-            
+            .ui.small.inline.header(title='karma')
+                |#{karma}
+                i.grey.yin.yang.icon
+            .ui.small.inline.header(title='points')
+                |#{points}
+                small pts
+            +user_connect_button
             
             
             

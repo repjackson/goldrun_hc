@@ -17,26 +17,6 @@ template(name='user_workhistory')
         if resume
             +pdf_view key='resume' label='resume' direct=true
     
-template(name='user_offers')
-    .ui.header 
-        +i name='sell' classes='ui inline image'
-        |offers
-    a.ui.button(href="/m/offer") 
-        i.external.icon
-        |view all
-    .ui.button.new_offer
-        i.green.plus.icon
-        | offer #{user_from_username_param.name} something
-    
-    each offers
-        .ui.segment
-            .ui.header #{title}
-            .ui.small.header #{status}
-            +author_info
-            +edit_button
-            +view_button
-
-
 
 template(name='user_payment')
     +text_view key='payment_preferences' label='payment preferences' icon='online-payment-with-a-credit-card' direct=true
@@ -188,22 +168,34 @@ template(name='user_gallery')
     .ui.header photos tagged in
 
 template(name='user_connections')
-    .ui.header 
+    .ui.large.header 
         +i name='handshake'
         |connections
-    .ui.header connected to
-    each connections
-        +user_info
+    .ui.header 
+        +i name='customer-insights-manager'
+        |connected to
+    each connected_to
+        .ui.segment
+            +small_horizontal_member_card username
+            if is_current_user
+                +user_connect_button
+    .ui.header 
+        +i name='customer-insights-manager'
+        |connected by
+    each connected_by
+        .ui.segment
+            +small_horizontal_member_card username
         
 template(name='user_connect_button')
     .ui.compact.small.button.toggle_connection
         if connected
-            +i name='share-2' classes='ui mini image'
-            .ui.inline.header 
+            +ismall name='share-2'
+            .ui.inline.blue.small.header 
                 |connected
         else
-            +iios name='share-2' classes='ui mini image'
-            .ui.inline.header connect
+            +ismall name='share-2'
+            .ui.inline.small.header
+                |connect
             
 
         

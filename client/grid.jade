@@ -18,10 +18,14 @@ template(name='grid')
                 
 template(name='grid_role_model')
     .ui.segment
-        a.ui.header(href="/m/#{slug}" tabindex="0" title=description)
+        a.ui.inline.header(href="/m/#{slug}" tabindex="0" title=description)
             +i name=icon
             //- i.icon(class=icon)
             |#{title}
+        i.grey.eye.icon
+        i.grey.thumbs.up.icon
+        i.grey.clock.icon
+        div
         .ui.link.list
             each model_docs
                 +model_list_item_view
@@ -38,6 +42,8 @@ template(name='grid_role_model')
 template(name='model_list_item_view')
     a.item(href="/m/#{model}/#{_id}/view") 
         if image
-            img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
+            img.ui.mini.inline.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+        if icon
+            +ismall name=icon
         |#{title}
         div

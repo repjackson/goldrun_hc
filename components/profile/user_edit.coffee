@@ -2,6 +2,8 @@
     # stripe = Stripe('pk_test_CqHTNF8uRfEHz8tB8JyJmSNs')
     # elements = stripe.elements()
 if Meteor.isClient
+    Router.route '/user/:username/edit', -> @render 'user_edit'
+
     Template.user_edit.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
 

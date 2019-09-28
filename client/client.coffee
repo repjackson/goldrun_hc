@@ -40,7 +40,7 @@ Template.healthclub.events
 
 
 
-Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
+# Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
 
 Session.setDefault 'invert', false
 Template.registerHelper 'loading_checkin', () -> Session.get 'loading_checkin'
@@ -418,10 +418,12 @@ Template.registerHelper 'field_value', () ->
 
     if @direct
         parent = Template.parentData()
-    else if parent5._id
-        parent = Template.parentData(5)
-    else if parent6._id
-        parent = Template.parentData(6)
+    else if parent5
+        if parent5._id
+            parent = Template.parentData(5)
+    else if parent6
+        if parent6._id
+            parent = Template.parentData(6)
     if parent
         parent["#{@key}"]
 

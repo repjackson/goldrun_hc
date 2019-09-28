@@ -97,7 +97,7 @@ template(name='rental_view')
         .ui.stackable.padded.grid
             .row
                 .four.wide.column 
-                    a.ui.fluid.button(href="/rentals")
+                    a.ui.fluid.button(href="/m/rental")
                         i.left.chevron.icon
                         |rentals
                     .ui.header viewing rental
@@ -180,18 +180,22 @@ template(name='rental_card_template')
     .ui.fluid.segment.grid
         .row
             .sixteen.wide.column
-                a.ui.inline.header(href="/kiosk_rental_view/#{_id}") #{title} 
+                //- a.ui.inline.header(href="/kiosk_rental_view/#{_id}") #{title} 
+                a.ui.inline.header(href="/rental/#{_id}/view") #{title} 
                     if variable_price
                         |~
-                    .ui.basic.label $#{hourly_rate}/hr
-                    .ui.basic.label $#{daily_rate}/day
+                    if hourly_dollars
+                        .ui.basic.label $#{hourly_dollars}/hr
+                    if daily_dollars
+                        .ui.basic.label $#{daily_dollars}/day
                     if hourly_karma
                         .ui.basic.blue.label $#{hourly_karma}/day
                     if daily_karma
                         .ui.basic.blue.label $#{daily_karma}/day
         .row
             .four.wide.column
-                a.zoom(href="/kiosk_rental_view/#{_id}")
+                //- a.zoom(href="/kiosk_rental_view/#{_id}")
+                a.zoom(href="/rental/#{_id}/view")
                     if image
                         +image_view key='image' direct=true classes='zoom'
                     //- if picture
@@ -208,7 +212,6 @@ template(name='rental_card_template')
                 +single_user_view key='resident' label='resident' direct=true
                 //- div
                 //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
-    
                 +voting
                 div
                 if currentUser
@@ -217,7 +220,7 @@ template(name='rental_card_template')
                             i.pencil.blue.icon
                             |edit
                 //- a.ui.button(href="/kiosk_rental_view/#{_id}")
-                a.ui.button(href="/kiosk_rental_view/#{_id}")
+                a.ui.button(href="/rental/#{_id}/view")
                     |view
                     i.right.chevron.yellow.icon
                 +author_info
@@ -372,34 +375,34 @@ template(name='rental')
 
 
 
-template(name='rental_small')
-    a.ui.header(href="/m/rental")
-        +i name='handshake'
-        &nbsp;
-        strong.f7 rentals
-    //- +rental_cloud
-    .ui.large.link.list.smallcolumn
-        each rentals 
-            .item.log_rental_view
-                a(href="/kiosk_rental_view/#{_id}")
-                    if image
-                        img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
-                    if picture
-                        img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
-                    |#{title}
-                    small #{daily_karma}k/day
-                    //- small $#{daily_rate}/day
-            //- div
-            //- .ui.horizontal.list
-            //-     .item
-            //-         span(title='transactions')
-            //-             i.route.icon
-            //-             |#{transaction_count}
-            //-     .item
-            //-         span(title='money earned')
-            //-             i.money.icon
-            //-             |#{money_earned}
-            
+//- template(name='rental_small')
+//-     a.ui.header(href="/m/rental")
+//-         +i name='handshake'
+//-         &nbsp;
+//-         strong.f7 rentals
+//-     //- +rental_cloud
+//-     .ui.large.link.list.smallcolumn
+//-         each rentals 
+//-             .item.log_rental_view
+//-                 a(href="/kiosk_rental_view/#{_id}")
+//-                     if image
+//-                         img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
+//-                     if picture
+//-                         img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
+//-                     |#{title}
+//-                     small #{daily_karma}k/day
+//-                     //- small $#{daily_rate}/day
+//-             //- div
+//-             //- .ui.horizontal.list
+//-             //-     .item
+//-             //-         span(title='transactions')
+//-             //-             i.route.icon
+//-             //-             |#{transaction_count}
+//-             //-     .item
+//-             //-         span(title='money earned')
+//-             //-             i.money.icon
+//-             //-             |#{money_earned}
+//- 
 
 
 template(name='rental_transactions')

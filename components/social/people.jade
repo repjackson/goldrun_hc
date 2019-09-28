@@ -1,35 +1,38 @@
 template(name='person_card_template')
     .ui.fluid.segment
-        img.ui.image(src="{{c.url image width=400 height=400}}")        
-        a.ui.inline.header(href="/m/person/#{_id}/view")
-            //- if icon
-            //-     +i name=icon
+        img.ui.inline.image(src="{{c.url image width=400 height=400}}")        
+        a.ui.header(href="/m/person/#{_id}/view")
+            |#{first_name} #{last_name}
+        a.ui.small.grey.header(href="/m/person/#{_id}/view")
             |#{title}
-        |!{description}
-        +ismall name='tags' classes='ui inline image'
         .ui.fluid.styled.accordion
             .title 
+                +ismall name='tags' classes='ui inline image'
                 |tags
                 i.dropdown.icon
             .content 
                 each tags
                     .ui.basic.label #{this}
             .title 
+                +ismall name='info' classes='ui inline image'
                 |bio
                 i.dropdown.icon
             .content 
                 |!{bio}                
             .title 
+                +ismall name='education' classes='ui inline image'
                 |education
                 i.dropdown.icon
             .content 
                 |!{education}                
             .title 
+                +ismall name='business' classes='ui inline image'
                 |work history
                 i.dropdown.icon
             .content 
                 |!{work_history}                
             .title 
+                +ismall name='wrench' classes='ui inline image'
                 |skills
                 i.dropdown.icon
             .content 

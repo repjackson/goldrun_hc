@@ -1,0 +1,125 @@
+
+template(name='rayback-layout')
+    .global_container(class=invert_class)
+        +yield
+
+
+template(name='rayback')
+    .ui.stackable.padded.centered.grid
+        .two.wide.column
+            img.ui.rounded.centered.rayback_logo.image(src="{{c.url 'rayback_logo' width=400 height=400 gravity='face' crop='fill'}}")
+            h1.vertical-text.rayback-header.mobile.hidden RAYBACK COLLECTIVE
+            .ui.header please remember everyone purchasing alcohol must be present at bar
+        .seven.wide.column
+            +menu_section title='brewery of the month' subtitle='Ratio Beerworks' icon='star' section='brewery_month'
+            +menu_section title='staff picks' subtitle="Drink what we're drinking!" icon='thumb-up' section='staff_picks'
+            +menu_section title='lagers, sessions, wheats, & blondes' icon='guinness-beer' section='lagers'
+            +menu_section title='cider & gluten free' icon='apple' section='cider'
+        .seven.wide.column
+            +menu_section title='sours, wild ales, & belgians' icon='barley' section='sours'
+            +menu_section title='hops & hops' icon='hops' section='hops'
+            +menu_section title='stouts, porters, ambers, reds, & browns' icon='bavarian-wheat-beer' filled=true section='stouts'
+            +menu_section title='cans' icon='beer-can' section='cans'
+
+
+template(name='menu_section')
+    .ui.center.aligned.celled.grid.beer_section
+        .row
+            .four.wide.column
+                if filled
+                    +iosfilled name=icon
+                else 
+                    +ios name=icon
+            .twelve.wide.black.blacked.middle.aligned.beer_header.column
+                .ui.inverted.inline.header
+                    span.beer_header #{title}
+                    //- |#{title}
+                .ui.small.inverted.grey.inline.header.italic #{subtitle}
+        .row
+            table.ui.celled.table
+                thead.mobile.hidden
+                    tr
+                        th BEER
+                        th TYPE
+                        th LOCATION
+                        th ABV
+                        th OUNCES
+                        th GLASS
+                tbody
+                    each beers
+                        tr(class=beer_row_class)
+                            td.uppercase.view_beer.pointer(data-label='name') 
+                                if image
+                                    img.ui.rounded.small.centered.mobile.only.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+                                    img.ui.avatar.mobile.hidden.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+                                |#{company}
+                                div
+                                strong #{name}
+                            td.uppercase(data-label='name') 
+                                small.mobile.only type
+                                |#{type}
+                                if is_admin
+                                    +text_edit key='type' direct=true
+                            td.uppercase(data-label='name')
+                                small.mobile.only 
+                                    i.grey.marker.icon
+                                |#{location}
+                                if is_admin
+                                    +text_edit key='location' direct=true
+                            td.uppercase(data-label='name') 
+                                small.mobile.only abv
+                                |#{abv}%
+                                if is_admin
+                                    +float_edit key='abv' direct=true
+                            td.uppercase(data-label='name')
+                                |#{ounces}
+                                small.mobile.only oz
+                                if is_admin
+                                    +number_edit key='ounces' direct=true
+                            td.uppercase(data-label='name')
+                                |$#{glass_price}
+                                small.mobile.only /glass
+                                if is_admin
+                                    +number_edit key='glass_price' direct=true
+
+
+template(name='iosfilled')
+    img.section_icon(src="https://img.icons8.com/ios-filled/50/000000/#{name}.png")
+template(name='ios')
+    img.section_icon(src="https://img.icons8.com/ios/50/000000/#{name}.png")
+
+
+
+template(name='beer_view')
+    with current_doc
+        .ui.center.aligned.basic.segment
+            a.ui.fluid.large.button(href='/rayback') 
+                i.left.chevron.icon
+                |back
+            img.ui.rounded.centered.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+            
+            .ui.header 
+                |company: #{company}
+            .ui.header 
+                strong #{name}
+            .ui.header
+                |type: #{type}
+                if is_admin
+                    +text_edit key='type' direct=true
+            .ui.header
+                i.grey.marker.icon
+                | #{location}
+                if is_admin
+                    +text_edit key='location' direct=true
+            .ui.header
+                |abv: #{abv}%
+                if is_admin
+                    +float_edit key='abv' direct=true
+            .ui.header
+                |#{ounces} oz
+                if is_admin
+                    +number_edit key='ounces' direct=true
+            .ui.header
+                |$#{glass_price}/glass
+                if is_admin
+                    +number_edit key='glass_price' direct=true

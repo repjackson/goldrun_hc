@@ -138,10 +138,6 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'current_poll', ()->
-        Docs.find
-            model:'post'
-            # current:true
     Meteor.publish 'ballot_posts', (ballot_id)->
         Docs.find
             model:'post'
