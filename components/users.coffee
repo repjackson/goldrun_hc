@@ -1,5 +1,8 @@
 if Meteor.isClient
     Router.route '/residents', -> @render 'residents'
+    Router.route '/users', -> @render 'users'
+    Router.route '/members', -> @render 'members'
+
     Template.residents.onCreated ->
         @autorun => Meteor.subscribe 'user_search', Session.get('username_query'), 'resident'
     Template.profiles.onCreated ->
@@ -55,7 +58,6 @@ if Meteor.isClient
                 Session.set 'username_query',username_query
 
 
-    Router.route '/users', -> @render 'users'
     Template.users.onCreated ->
         # @autorun -> Meteor.subscribe('users')
         @autorun => Meteor.subscribe 'user_search', Session.get('username_query'), 'user'
@@ -83,7 +85,6 @@ if Meteor.isClient
                 Session.set 'username_query',username_query
 
 
-    Router.route '/members', -> @render 'members'
     Template.members.onCreated ->
         # @autorun -> Meteor.subscribe('members')
         @autorun => Meteor.subscribe 'user_search', Session.get('username_query'), 'member'

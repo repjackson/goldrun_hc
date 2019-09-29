@@ -2,10 +2,31 @@ if Meteor.isClient
     Template.footer.events
         'click .shortcut_modal': ->
             $('.ui.shortcut.modal').modal('show')
+    Template.nav.onRendered ->
+        # @autorun =>
+        #     if @subscriptionsReady()
+        #         Meteor.setTimeout ->
+        #             $('.menu_dropdown').dropdown(
+        #                 on:'hover'
+        #             )
+        #         , 3000
+
+        Meteor.setTimeout ->
+            $('.item').popup(
+                preserve:true;
+                hoverable:false;
+            )
+        , 3000
+
+
 
     Template.nav.events
         # 'mouseenter .item': (e,t)->
         #     $(e.currentTarget).closest('.item').transition('pulse')
+        # 'click .menu_dropdown': ->
+            # $('.menu_dropdown').dropdown(
+                # on:'hover'
+            # )
 
 
         'click #logout': ->
@@ -19,64 +40,11 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'model', ->
                 Session.set 'loading', false
 
-        # 'click .set_work_order': ->
+        # 'click .secnavitem': ->
         #     Session.set 'loading', true
-        #     Meteor.call 'set_facets', 'work_order', ->
+        #     Meteor.call 'increment_view', @_id, ->
+        #     Meteor.call 'set_facets', @slug, ->
         #         Session.set 'loading', false
-        #
-        # 'click .set_units': ->
-        #     Session.set 'loading', true
-        #     Meteor.call 'set_facets', 'unit', ->
-        #         Session.set 'loading', false
-        #
-        'click .set_offer': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'offer', ->
-                Session.set 'loading', false
-        'click .set_service': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'service', ->
-                Session.set 'loading', false
-        'click .set_product': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'product', ->
-                Session.set 'loading', false
-        'click .set_rental': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'rental', ->
-                Session.set 'loading', false
-        'click .set_request': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'request', ->
-                Session.set 'loading', false
-        'click .set_shop': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'shop', ->
-                Session.set 'loading', false
-        'click .set_food': ->
-            Session.set 'loading', true
-            Meteor.call 'set_facets', 'food', ->
-                Session.set 'loading', false
-        #
-        # 'click .set_library': ->
-        #     Session.set 'loading', true
-        #     Meteor.call 'set_facets', 'library', ->
-        #         Session.set 'loading', false
-        #
-        # 'click .set_event': ->
-        #     Session.set 'loading', true
-        #     Meteor.call 'set_facets', 'event', ->
-        #         Session.set 'loading', false
-        #
-        # 'click .set_task': ->
-        #     Session.set 'loading', true
-        #     Meteor.call 'set_facets', 'task', ->
-        #         Session.set 'loading', false
-        'click .secnavitem': ->
-            Session.set 'loading', true
-            Meteor.call 'increment_view', @_id, ->
-            Meteor.call 'set_facets', @slug, ->
-                Session.set 'loading', false
         'click .spinning': ->
             Session.set 'loading', false
 
@@ -101,20 +69,6 @@ if Meteor.isClient
             Meteor.setTimeout =>
                 Docs.remove @_id
             , 750
-
-    Template.nav.onRendered ->
-        # @autorun =>
-        #     if @subscriptionsReady()
-        #         Meteor.setTimeout ->
-        #             $('.dropdown').dropdown()
-        #         , 3000
-
-        Meteor.setTimeout ->
-            $('.item').popup(
-                preserve:true;
-                hoverable:false;
-            )
-        , 3000
 
     Template.mlayout.onCreated ->
         @autorun -> Meteor.subscribe 'me'

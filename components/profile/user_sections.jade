@@ -1,4 +1,4 @@
-template(name='user_about')
+template(name='member_about')
     //- +text_view key='address' label='address' icon='marker' direct=true
     //- +phone_view key='phone' label='phone' icon='phone' direct=true
     +text_view key='tagline' label='tag line' icon='signature' direct=true
@@ -8,7 +8,7 @@ template(name='user_about')
     +link_view key='link' label='link' icon='link' direct=true
 
 
-template(name='user_workhistory')
+template(name='member_workhistory')
     +i name='resume' classes='ui inline image'
     .ui.inline.header work history
     if is_current_user
@@ -18,19 +18,19 @@ template(name='user_workhistory')
             +pdf_view key='resume' label='resume' direct=true
     
 
-template(name='user_payment')
+template(name='member_payment')
     +text_view key='payment_preferences' label='payment preferences' icon='online-payment-with-a-credit-card' direct=true
     +boolean_view key='accepts_venmo' label='accepts venmo' icon='online-payment-with-a-credit-card' direct=true
     +boolean_view key='accepts_cash' label='accepts cash' icon='cash' direct=true
     +boolean_view key='accepts_paypal' label='accepts paypal' icon='cash' direct=true
     +image_view key='venmo_qr' label='venmo qr code' direct=true
 
-template(name='user_social')
+template(name='member_social')
     +user_people
     +user_wall
 
 
-template(name='user_people')
+template(name='member_people')
     .ui.stackable.grid
         .eight.wide.column
             +user_following
@@ -38,10 +38,10 @@ template(name='user_people')
             +follow_user
 
                 
-template(name='user_requests')
+template(name='member_requests')
     .ui.header requests
 
-template(name='user_dashboard')
+template(name='member_dashboard')
     .ui.header 
         +i name='dashboard'
         |dashboard
@@ -54,17 +54,17 @@ template(name='user_dashboard')
     .ui.header user comments
 
 
-template(name='user_votes')
+template(name='member_votes')
     .ui.header 
         +i name='elections'
         |votes
 
-template(name='user_tasks')
+template(name='member_tasks')
     .ui.header 
         +i name='task'
         |tasks
 
-template(name='user_messages')
+template(name='member_messages')
     .ui.inline.header 
         +i name='envelope'
         |user messages
@@ -96,7 +96,7 @@ template(name='notify_message')
                 
                 
 
-template(name='user_transactions')
+template(name='member_transactions')
     .ui.segment
         .ui.header sent karma
         each sent_karma
@@ -111,7 +111,7 @@ template(name='user_transactions')
 
 
 
-template(name='user_following')    
+template(name='member_following')    
     .ui.basic.segment
         .ui.header 
             +i name='alarm'
@@ -131,7 +131,7 @@ template(name='follow_user')
         +user_array_list user=user_from_username_param array='followed_by_ids'
                 
 
-template(name='user_wall')
+template(name='member_wall')
     .ui.inline.center.aligned.header 
         +i name='my-topic'
         |wall
@@ -160,14 +160,14 @@ template(name='user_wall')
 
 
 
-template(name='user_gallery')
+template(name='member_gallery')
     .ui.header 
         +i name='gallery'
         |gallery
     .ui.header uploaded photos
     .ui.header photos tagged in
 
-template(name='user_connections')
+template(name='member_connections')
     .ui.large.header 
         +i name='handshake'
         |connections
@@ -178,7 +178,7 @@ template(name='user_connections')
         .ui.segment
             +small_horizontal_member_card username
             if is_current_user
-                +user_connect_button
+                +member_connect_button
     .ui.header 
         +i name='customer-insights-manager'
         |connected by
@@ -186,7 +186,7 @@ template(name='user_connections')
         .ui.segment
             +small_horizontal_member_card username
         
-template(name='user_connect_button')
+template(name='member_connect_button')
     .ui.compact.small.button.toggle_connection
         if connected
             +ismall name='share-2'
@@ -199,7 +199,7 @@ template(name='user_connect_button')
             
 
         
-template(name='user_contact')
+template(name='member_contact')
     .ui.header 
         +i name='contact'
         |contact
@@ -209,7 +209,7 @@ template(name='user_contact')
     else
         +textarea_view key='contact_info' direct=true
 
-template(name='user_stats')
+template(name='member_stats')
     .ui.header 
         +i name='line-chart'
         |stats
@@ -219,14 +219,14 @@ template(name='user_stats')
         
 
 
-template(name='user_events')
+template(name='member_events')
     .ui.header 
         +i name='calendar'
         |calendar
 
 
 
-template(name='user_feed')
+template(name='member_feed')
     .ui.basic.segment
         .ui.inline.header 
             +i name='feed'
@@ -238,7 +238,7 @@ template(name='user_feed')
                 
                 
                 
-template(name='user_bookmarks')
+template(name='member_bookmarks')
     .ui.header 
         +i name='star'
         |bookmarks
@@ -255,7 +255,7 @@ template(name='user_bookmarks')
 
 
 
-template(name='user_notifications')
+template(name='member_notifications')
     .ui.header 
         +i name='appointment-reminders'
         |notifications
@@ -263,7 +263,7 @@ template(name='user_notifications')
 
 
 
-template(name='user_tags')
+template(name='member_tags')
     .ui.header 
         +i name='tags'
         |tags

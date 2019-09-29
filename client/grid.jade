@@ -10,11 +10,13 @@ template(name='grid')
             i.remove.link.icon
         else 
             i.search.icon
-    +cloud filter='model'
-    .ui.stackable.four.column.padded.grid
-        each role_models
-            .column
-                +grid_role_model
+    unless model_filter_value
+        +cloud filter='model'
+    .ui.stackable.four.column.grid
+        .row
+            each role_models
+                .column
+                    +grid_role_model
                 
 template(name='grid_role_model')
     .ui.segment
@@ -22,28 +24,29 @@ template(name='grid_role_model')
             +i name=icon
             //- i.icon(class=icon)
             |#{title}
-        i.grey.eye.icon
-        i.grey.thumbs.up.icon
-        i.grey.clock.icon
+        //- i.grey.eye.icon
+        //- i.grey.thumbs.up.icon
+        //- i.grey.clock.icon
         div
-        .ui.link.list
+        .ui.list
             each model_docs
                 +model_list_item_view
         //- span(title='views')
         //-     |#{views}
-        //- if is_dev
-        span(title='views')
-            i.eye.grey.icon
-            |#{views}
-        each view_roles
-            .ui.small.basic.label(title='viewable by') #{this}
+        if is_dev
+            span(title='views')
+                i.eye.grey.icon
+                |#{views}
+            each view_roles
+                .ui.small.basic.label(title='viewable by') #{this}
 
 
 template(name='model_list_item_view')
-    a.item(href="/m/#{model}/#{_id}/view") 
+    //- a.item(href="/m/#{model}/#{_id}/view") 
+    .item.pointer.goto_doc
         if image
             img.ui.mini.inline.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
         if icon
             +ismall name=icon
-        |#{title}
+        |#{title} #{name}
         div

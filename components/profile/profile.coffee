@@ -3,10 +3,6 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'profile_home'
         ), name:'user_home'
-    Router.route '/user/:username/about', (->
-        @layout 'user_layout'
-        @render 'user_about'
-        ), name:'user_about'
     Router.route '/user/:username/healthclub', (->
         @layout 'user_layout'
         @render 'resident_about'
@@ -29,7 +25,7 @@ if Meteor.isClient
         , 2000
 
 
-    Template.user_about.helpers
+    Template.member_about.helpers
         staff_resident_widgets: ->
             Docs.find
                 model:'staff_resident_widget'

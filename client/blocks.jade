@@ -171,7 +171,7 @@ template(name='small_horizontal_member_card')
                 else if image_id
                     img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .content    
-                a.header(href="/user/#{username}") #{first_initial} #{last_name} 
+                a.header(href="/member/#{username}") #{first_initial} #{last_name} 
                 //- .meta @#{username}
                 span(title='points')
                     |#{points} pts

@@ -64,17 +64,9 @@ if Meteor.isClient
             Session.get 'model_filter'
 
 
-        marketplace_items: ->
-            # console.log Meteor.user().roles
-            Docs.find {
-                model:'marketplace'
-            }, sort:_timestamp:1
-        posts: ->
-            # console.log Meteor.user().roles
-            Docs.find {
-                model:'post'
-            }, sort:_timestamp:1
-
+    Template.model_list_item_view.events
+        'click .goto_doc': ->
+            Router.go "/m/#{@model}/#{@_id}/view"
 
     Template.grid_role_model.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', @data.slug, 5

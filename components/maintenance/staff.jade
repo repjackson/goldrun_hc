@@ -125,14 +125,14 @@ template(name='staff')
 
 template(name='hc_session')
     .ui.card
-        a.zoom(href="/user/#{session_resident.username}")
+        a.zoom(href="/user/#{session_resident.username}/healthclub")
             if session_resident.kiosk_photo
                 img.ui.image(src="{{c.url session_resident.kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
             else
                 //- |old photo
                     img.ui.image(src="{{c.url session_resident.image_id width=300 height=300 gravity='face' crop='fill'}}")
         .content
-            a(href="/user/#{session_resident.username}")
+            a(href="/user/#{session_resident.username}/healthclub")
                 .ui.inline.grey.header
                     |#{session_resident.first_name} #{session_resident.last_name}
             .ui.small.grey.header #{when}

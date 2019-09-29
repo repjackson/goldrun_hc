@@ -10,7 +10,7 @@ template(name='residents')
 template(name='members') 
     .ui.left.icon.fluid.input
         i.search.icon
-        input.member_search(type='text' placeholder='lookup gr+ member' autofocus='autofocus')
+        input.member_search(type='text' placeholder='lookup member' autofocus='autofocus')
     .ui.hidden.divider
     .ui.centered.five.stackable.cards
         each members
@@ -26,21 +26,19 @@ template(name='member')
             else if image_id
                 img.ui.image(src="{{c.url image_id width=400 height=400 crop='fit'}}")
         .content
-            a(href="/user/#{username}/")
-                h2.ui.center.aligned.header #{first_name} #{last_name} 
+            a(href="/member/#{username}/")
+                h2.ui.center.aligned.header #{name} 
                 .ui.small.header @#{username}
             each five_tags
                 .ui.small.basic.label(class=tag_class) 
                     strong #{this}
-            +text_view key='first_name' label='First Name'
-            +text_view key='last_name' label='Last Name'
             .ui.small.inline.header(title='karma')
                 |#{karma}
                 i.grey.yin.yang.icon
             .ui.small.inline.header(title='points')
                 |#{points}
                 small pts
-            +user_connect_button
+            +member_connect_button
             
             
             
@@ -197,5 +195,5 @@ template(name='owner')
             each roles
                 .ui.small.basic.label #{this}
             if currentUser
-                +user_connect_button
+                +member_connect_button
                 

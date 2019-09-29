@@ -218,7 +218,7 @@ if Meteor.isServer
         Docs.find {model:'upper_hot_tub_reading'},
             limit: 10
             sort:
-                timestamp: -1
+                _timestamp: -1
 
     Meteor.publish 'lower_hot_tub_readings', ()->
         self = @
@@ -226,7 +226,7 @@ if Meteor.isServer
         Docs.find {model:'lower_hot_tub_reading'},
             limit: 10
             sort:
-                timestamp: -1
+                _timestamp: -1
 
     Meteor.publish 'pool_readings', ()->
         self = @
@@ -234,4 +234,4 @@ if Meteor.isServer
         Docs.find {model:'pool_reading'},
             limit: 10
             sort:
-                timestamp: -1
+                _timestamp: -1

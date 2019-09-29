@@ -1,11 +1,14 @@
 template(name='home')
-    unless is_dev
-        .ui.accordion
-            .active.title 
-                |slider
-                i.grey.dropdown.icon
-            .active.content
-                +home_slider
+    //- unless is_dev
+    //- .ui.accordion
+    //-     .active.title 
+    //-         |slider
+    //-         i.grey.dropdown.icon
+    //-     .active.content
+    +home_slider
+    if is_dev
+        a.ui.button(href='/m/slide') slides
+                
     +grid
     //- .ui.padded.stackable.grid
         //- .centered.row

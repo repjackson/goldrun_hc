@@ -133,8 +133,8 @@ template(name='field_edit')
         +multi_doc_edit key='edit_roles' ref_model='role' label='edit roles' direct=true icon='pencil'        
         //- +text_edit key='ref_model' label='Reference Model' direct=true
         div
-        +boolean_edit key='faceted' label='faceted' direct=true
-        +boolean_edit key='sortable' label='sortable' direct=true
+        +boolean_edit key='faceted' label='faceted' icon='diamond' direct=true
+        +boolean_edit key='sortable' label='sortable' icon='down-chevron' direct=true
         if is_ref  
             +single_doc_edit key='ref_model' ref_model='model' label='reference model' direct=true
         else if is_user_ref  

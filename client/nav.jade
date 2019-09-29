@@ -1,6 +1,7 @@
 template(name='nav')
     unless is_frontdesk
-        #topnav.topnav.ui.borderless.large.attached.menu(class=gs.nav_color)
+        //- .ui.menu(class=gs.nav_color)
+        #topnav.topnav.ui.attached.borderless.menu(class=gs.nav_color)
             if is_loading
                 .icon.item
                     //- i.big.spinning.yin.yang.cancel.icon
@@ -8,28 +9,36 @@ template(name='nav')
                     //- i.big.blue.spinning.pulse.plus.icon.cancel
             unless is_current_staff
                 unless is_loading
-                    //- a.ui.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='models')
-                    //-     +i name='grid-view' classes='ui mini inline image'
-                    a.ui.icon.item(href='/' class="{{isActivePath '/'}}" title='home')
-                        +i name='home' classes='ui mini inline image'
-                a.ui.icon.item(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
-                    +i name='handshake' classes='ui mini inline image'
-                a.ui.icon.item(href='/m/offer' class="{{isActivePath '/m/offer'}}" title='offer')
-                    +i name='sell' classes='ui mini inline image'
-                a.ui.icon.item(href='/market' class="{{isActivePath '/market'}}" title='market')
-                    +i name='shop' classes='ui mini inline image'
-                a.ui.icon.item.set_service(href='/m/service' class="{{isActivePath '/m/service'}}" title='services')
-                    +i name='work' classes='ui mini inline image'
-                a.ui.icon.item.set_request(href='/m/request' class="{{isActivePath '/m/request'}}" title='request')
-                    +i name='request-service' classes='ui mini inline image'
-                a.ui.icon.item(href='/m/food' class="{{isActivePath '/m/food'}}" title='food')
-                    +i name='food' classes='ui mini inline image'
+                    if currentUser
+                        a.ui.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='models')
+                            +i name='grid-view' classes='ui mini inline image'
+                    else
+                        a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
+                            +i name='home' classes='ui mini inline image'
+                //- a.ui.icon.item(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
+                //-     +i name='handshake' classes='ui mini inline image'
+                //- a.ui.icon.item(href='/m/offer' class="{{isActivePath '/m/offer'}}" title='offer')
+                //-     +i name='sell' classes='ui mini inline image'
+                //- a.ui.icon.item(href='/market' class="{{isActivePath '/market'}}" title='market')
+                //-     +i name='shop' classes='ui mini inline image'
+                //- a.ui.icon.item.set_service(href='/m/service' class="{{isActivePath '/m/service'}}" title='services')
+                //-     +i name='work' classes='ui mini inline image'
+                //- a.ui.icon.item.set_request(href='/m/request' class="{{isActivePath '/m/request'}}" title='request')
+                //-     +i name='request-service' classes='ui mini inline image'
+                //- a.ui.icon.item(href='/m/food' class="{{isActivePath '/m/food'}}" title='food')
+                //-     +i name='food' classes='ui mini inline image'
             //- if is_current_staff
             //-     a.ui.icon.item(href='/residents' class="{{isActivePath '/residents'}}" title='resident lookup')
             //-         +i name='groups' classes='ui mini inline image'
             //-         //- |residents                  
             //-     a.ui.icon.item(href='/healthclub' class="{{isActivePath '/healthclub'}}" title='kiosk')
             //-         +i name='android-tablet' classes='ui mini inline image'
+                    //- each role_models
+                        //-     a.item.secnavitem(href="/m/#{slug}/")
+                        //-         +i name=icon classes='ui avatar image'
+                        //-         //- i.icon(class=icon)
+                        //-         |#{title}
+            
             if is_current_resident
                 each bookmarked_models
                     a.ui.item.set_model(href="/m/#{slug}/" title=title)
@@ -77,12 +86,12 @@ template(name='nav')
                     a.ui.icon.item(href='/karma' class="{{isActivePath '/karma'}}" title='karma')
                         +i name='yin-yang' classes='ui mini inline image'
                         span.my_karma_amount #{currentUser.karma}
-                    a.ui.icon.item(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
-                        +i name='shopping-cart' classes='ui mini inline image'
-                    a.ui.icon.item(href='/transactions' class="{{isActivePath '/transactions'}}" title='transactions')
-                        +i name='invoice' classes='ui mini inline image'
-                    a.ui.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
-                        +i name='inbox' classes='ui mini inline image'
+                    //- a.ui.icon.item(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
+                    //-     +i name='shopping-cart' classes='ui mini inline image'
+                    //- a.ui.icon.item(href='/transactions' class="{{isActivePath '/transactions'}}" title='transactions')
+                    //-     +i name='invoice' classes='ui mini inline image'
+                    //- a.ui.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
+                    //-     +i name='inbox' classes='ui mini inline image'
                     a.ui.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
                         +i name='chat' classes='ui mini inline image'
                         //- i.chat.large.grey.outline.icon
@@ -94,9 +103,16 @@ template(name='nav')
                     //- if currentUser
                 if currentUser
                     unless logging_out
-                        //- if is_dev
-                        unless is_frontdesk
-                            a.ui.item(href="/user/#{currentUser.username}/dashboard" class="{{isActiveRoute regex='user_chat'}}")
+                        if is_member
+                            a.ui.item(href="/member/#{currentUser.username}/dashboard" class="{{isActiveRoute regex='member_profile'}}")
+                                if currentUser.profile_image_id
+                                    img.ui.avatar.image(src="{{c.url currentUser.profile_image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                else
+                                    +i name='user' classes='ui mini inline image'
+                                    //- i.user.icon
+                                .mobile.hidden #{currentUser.name}
+                        else
+                            a.ui.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_profile'}}")
                                 if currentUser.profile_photo
                                     img.ui.avatar.image(src="{{c.url currentUser.profile_photo width=100 height=100 gravity='face' crop='fill'}}")
                                 else
@@ -113,16 +129,26 @@ template(name='nav')
                     unless currentUser
                         a.ui.item(href='/login' title='login') 
                             //- i.sign.in.alternate.grey.icon
-                            +i name='internal' classes='ui mini inline image'
+                            //- +i name='internal' classes='ui mini inline image'
                             |login
+        //- .ui.menu
+        //-     .ui.dropdown.item
+        //-         i.database.icon
+        //-         .menu.menuscroll
+        //-             each role_models
+        //-                 a.item.secnavitem(href="/m/#{slug}/")
+        //-                     +i name=icon classes='ui avatar image'
+        //-                     //- i.icon(class=icon)
+        //-                     |#{title}
+                    
         //- if currentUser
-        unless is_current_staff
-            .ui.attached.borderless.small.menu.secnav(class=gs.nav_color)
-                each role_models
-                    a.item.secnavitem(href="/m/#{slug}/")
-                        +i name=icon classes='ui avatar image'
-                        //- i.icon(class=icon)
-                        |#{title}
+        //- unless is_current_staff
+        //-     .ui.attached.borderless.small.menu.secnav(class=gs.nav_color)
+        //-         each role_models
+        //-             a.item.secnavitem(href="/m/#{slug}/")
+        //-                 +i name=icon classes='ui avatar image'
+        //-                 //- i.icon(class=icon)
+        //-                 |#{title}
 
 
 

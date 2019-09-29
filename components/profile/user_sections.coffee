@@ -1,11 +1,11 @@
 if Meteor.isClient
-    Template.user_wall.onCreated ->
+    Template.member_wall.onCreated ->
         @autorun => Meteor.subscribe 'wall_posts', Router.current().params.username
-    Template.user_wall.helpers
+    Template.member_wall.helpers
         wall_posts: ->
             Docs.find
                 model:'wall_post'
-    Template.user_wall.events
+    Template.member_wall.events
         'keyup .new_post': (e,t)->
             current_user = Meteor.users.findOne username:Router.current().params.username
             if e.which is 13
@@ -37,9 +37,9 @@ if Meteor.isClient
                 $addToSet:readers:Meteor.userId()
 
 
-    Template.user_bookmarks.onCreated ->
+    Template.member_bookmarks.onCreated ->
         @autorun => Meteor.subscribe 'user_bookmarks', Router.current().params.username
-    Template.user_bookmarks.helpers
+    Template.member_bookmarks.helpers
         bookmarks: ->
             current_user = Meteor.users.findOne username:Router.current().params.username
             Docs.find {
@@ -51,9 +51,9 @@ if Meteor.isClient
 
 
 
-    Template.user_transactions.onCreated ->
+    Template.member_transactions.onCreated ->
         @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
-    Template.user_transactions.helpers
+    Template.member_transactions.helpers
         user_transactions: ->
             Docs.find
                 model:'karma_transaction'
@@ -64,12 +64,12 @@ if Meteor.isClient
 
 
 
-    Template.user_connect_button.onCreated ->
+    Template.member_connect_button.onCreated ->
         # @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
-    Template.user_connect_button.helpers
+    Template.member_connect_button.helpers
         connected: ->
             Meteor.user().connected_ids and @_id in Meteor.user().connected_ids
-    Template.user_connect_button.events
+    Template.member_connect_button.events
         'click .toggle_connection': (e,t)->
             $(e.currentTarget).closest('.button').transition('pulse', 200)
 
@@ -83,9 +83,9 @@ if Meteor.isClient
 
 
 
-    Template.user_tags.onCreated ->
+    Template.member_tags.onCreated ->
         @autorun => Meteor.subscribe 'user_tag_reviews', Router.current().params.username
-    Template.user_tags.helpers
+    Template.member_tags.helpers
         user_tag_reviews: ->
             Docs.find
                 model:'user_tag_review'
@@ -98,7 +98,7 @@ if Meteor.isClient
 
 
 
-    Template.user_tags.events
+    Template.member_tags.events
         'click .new_tag_review': (e,t)->
             current_user = Meteor.users.findOne username:Router.current().params.username
             Docs.insert
@@ -106,6 +106,19 @@ if Meteor.isClient
                 user_id:current_user._id
 
 
+    Template.member_connections.onCreated ->
+        @autorun => Meteor.subscribe 'user_connected_to', Router.current().params.username
+        @autorun => Meteor.subscribe 'user_connected_by', Router.current().params.username
+    Template.member_connections.helpers
+        connected_to: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            if current_user.connected_ids
+                Meteor.users.find
+                    _id:$in:current_user.connected_ids
+        connected_by: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Meteor.users.find
+                connected_ids:$in:[current_user._id]
 
 
 

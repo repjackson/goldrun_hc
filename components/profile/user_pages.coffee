@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Template.user_tasks.onCreated ->
+    Template.member_tasks.onCreated ->
         @autorun => Meteor.subscribe 'assigned_tasks',
             Router.current().params.username
             Session.get 'view_complete'
@@ -8,7 +8,7 @@ if Meteor.isClient
             Router.current().params.username
             Session.get 'view_complete'
 
-    Template.user_tasks.helpers
+    Template.member_tasks.helpers
         view_complete_class: ->
             if Session.equals('view_complete',true) then 'grey' else ''
 
@@ -21,7 +21,7 @@ if Meteor.isClient
                 model:'task'
                 related_people:Router.current().params.username
 
-    Template.user_tasks.events
+    Template.member_tasks.events
         'click .view_complete': ->
             Session.set 'view_complete', !Session.get('view_complete')
 
@@ -39,7 +39,7 @@ if Meteor.isClient
                 t.$('.assign_task').val('')
 
 
-    Template.user_wall.events
+    Template.member_wall.events
         'click .remove_comment': ->
             if confirm 'Remove Comment?'
                 Docs.remove @_id
@@ -64,13 +64,13 @@ if Meteor.isClient
 
 
 
-    Template.user_messages.onCreated ->
+    Template.member_messages.onCreated ->
         @autorun => Meteor.subscribe 'user_messages',Router.current().params.username
         @autorun => Meteor.subscribe 'users'
 
 
 
-    Template.user_messages.helpers
+    Template.member_messages.helpers
         user_messages: ->
             current_user = Meteor.users.findOne username:Router.current().params.username
             Docs.find {
@@ -78,7 +78,7 @@ if Meteor.isClient
                 to_username:current_user.username
             }, sort:_timestamp:-1
 
-    Template.user_messages.events
+    Template.member_messages.events
         'keyup #new_message': (e,t)->
             if e.which is 13
                 body = t.$('#new_message').val().trim()

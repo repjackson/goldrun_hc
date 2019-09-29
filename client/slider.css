@@ -55,6 +55,7 @@
   width: 12px;
   height: 12px;
   float: left;
+  border-radius: 10px;
   clear: none;
   display: block;
   margin: 0 5px;
@@ -69,6 +70,9 @@
   background: #ccc;
 }
 
+.ls-bottom-slidebuttons > a {
+    border-radius: 10px;
+}
 /* unique slider css */
 .slider-nav__item {
   border-radius:50%;

@@ -10,7 +10,7 @@ template(name='delta')
                             //- i.icon(class=icon)
                             |loading #{title}
                     else 
-                        .ui.inline.header(title=description)
+                        .ui.inline.header(title="#{description}, #{views} views")
                             +i name=icon classes='ui avatar image'
                             //- i.icon(class=icon)
                             | #{title}
@@ -41,10 +41,10 @@ template(name='delta')
                         //- if is_dev
                         //-     .ui.input
                         //-         input.import_subreddit(type='text' placeholder='import_subreddit')
-                    // |did: #{session_delta_id}
-                    span(title='views')
-                        i.grey.eye.icon
-                        |#{views}
+                    //- // |did: #{session_delta_id}
+                    //- span(title='views')
+                    //-     i.grey.eye.icon
+                    //-     |#{views}
                     div
                     each sorted_facets
                         +facet

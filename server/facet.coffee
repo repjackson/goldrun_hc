@@ -11,47 +11,50 @@ Meteor.methods
         model = Docs.findOne
             model:'model'
             slug:model_slug
-        fields =
-            Docs.find
-                model:'field'
-                parent_id:model._id
+        if model_slug is delta.model_filter
+            return
+        else
+            fields =
+                Docs.find
+                    model:'field'
+                    parent_id:model._id
 
-        Docs.update model._id,
-            $inc: views: 1
+            Docs.update model._id,
+                $inc: views: 1
 
-        # console.log 'fields', fields.fetch()
+            # console.log 'fields', fields.fetch()
 
-        Docs.update delta._id,
-            $set:model_filter:model_slug
+            Docs.update delta._id,
+                $set:model_filter:model_slug
 
-        # Docs.update delta._id,
-        #     $set:facets:[
-        #         {
-        #             key:'_timestamp_tags'
-        #             filters:[]
-        #             res:[]
-        #         }
-        #     ]
-        Docs.update delta._id,
-            $set:facets:[]
-        for field in fields.fetch()
-            if field.faceted is true
-                # console.log field
-                # if Meteor.user()
-                # console.log _.intersection(Meteor.user().roles,field.view_roles)
-                # if _.intersection(Meteor.user().roles,field.view_roles).length > 0
-                Docs.update delta._id,
-                    $addToSet:
-                        facets: {
-                            title:field.title
-                            icon:field.icon
-                            key:field.key
-                            rank:field.rank
-                            field_type:field.field_type
-                            filters:[]
-                            res:[]
-                        }
-        Meteor.call 'fum', delta._id
+            # Docs.update delta._id,
+            #     $set:facets:[
+            #         {
+            #             key:'_timestamp_tags'
+            #             filters:[]
+            #             res:[]
+            #         }
+            #     ]
+            Docs.update delta._id,
+                $set:facets:[]
+            for field in fields.fetch()
+                if field.faceted is true
+                    # console.log field
+                    # if Meteor.user()
+                    # console.log _.intersection(Meteor.user().roles,field.view_roles)
+                    # if _.intersection(Meteor.user().roles,field.view_roles).length > 0
+                    Docs.update delta._id,
+                        $addToSet:
+                            facets: {
+                                title:field.title
+                                icon:field.icon
+                                key:field.key
+                                rank:field.rank
+                                field_type:field.field_type
+                                filters:[]
+                                res:[]
+                            }
+            Meteor.call 'fum', delta._id
 
 
     fum: (delta_id)->
