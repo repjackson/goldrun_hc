@@ -213,11 +213,6 @@ if Meteor.isClient
     # chips placeholder
     # check weater pressure at chips place with pressure gauge on faucet
 
-    Template.kiosk_rental_view.events
-        'click .log_rental_view': ->
-            Docs.update @_id,
-                $inc: views: 1
-
     Template.rental.events
         'click .delete_rental': ->
             Docs.remove @_id
@@ -238,13 +233,13 @@ if Meteor.isClient
                     daily_rental_price:daily_rental_price
 
 
-    Template.rental_status.events
+    Template.reserve_button.events
         'click .new_reservation': (e,t)->
             console.log @
             new_reservation_id = Docs.insert
                 model:'reservation'
                 rental_id: @_id
-            Router.go "/new_reservation/#{new_reservation_id}"
+            Router.go "/reservation/#{new_reservation_id}/edit"
 
 
     Template.rental_view_transactions.onCreated ->

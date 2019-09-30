@@ -109,14 +109,20 @@ template(name='rental_edit_finance')
                   
 template(name='rental_edit_audience')
     h1.ui.header 
-        i.users.icon
+        +i name='groups'
         |audience
     .ui.header visibility
     +boolean_edit key='visible_to_friends' label='friends' direct=true
     +boolean_edit key='visible_to_building' label='building' direct=true
     +boolean_edit key='visible_to_residents' label='residents' direct=true
     +boolean_edit key='visible_to_public' label='public' direct=true
-
+    +boolean_edit key='allowed_specific_users' label='allowed specific users' direct=true
+    if allowed_specific_users
+        +multi_user_edit key='allowed_users' direct=true
+    
+    
+    
+    
 template(name='rental_edit_chat')
     h1.ui.header 
         i.chat.icon

@@ -11,39 +11,38 @@ template(name='rental_view_layout')
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
                             i.pencil.icon
                             |edit
-                    .ui.large.vertical.fluid.menu
-                        a.item(href="/rental/#{_id}/view" class="{{isActiveRoute 'rental_info'}}")
-                            +ismall name='info'
-                            |info
-                        a.item(href="/rental/#{_id}/transactions" class="{{isActiveRoute 'rental_transactions'}}")
-                            +ismall name='invoice'
-                            |transactions
-                        a.item(href="/rental/#{_id}/reservations" class="{{isActiveRoute 'rental_reservations'}}")
-                            +ismall name='clock'
-                            |reservations
-                        a.item(href="/rental/#{_id}/chat" class="{{isActiveRoute 'rental_chat'}}")
-                            +ismall name='chat'
-                            |chat
-                        a.item(href="/rental/#{_id}/calendar" class="{{isActiveRoute 'rental_calendar'}}")
-                            +ismall name='calendar'
-                            |calendar
-                        //- a.item(href="/rental/#{_id}/tasks" class="{{isActiveRoute 'rental_tasks'}}")
-                        //-     +ismall name='tasks'           
-                        //-     |tasks
-                        a.item(href="/rental/#{_id}/finance" class="{{isActiveRoute 'rental_finance'}}")
-                            +ismall name='money'
-                            |finance
-                        a.item(href="/rental/#{_id}/stats" class="{{isActiveRoute 'rental_stats'}}")
-                            +ismall name='line-chart'
-                            |stats
-                        a.item(href="/rental/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}")
-                            +ismall name='pie-chart'           
-                            |ownership
-                        //- a.item(href="/rental/#{_id}/projections" class="{{isActiveRoute 'rental_projections'}}")
-                        //-     |projections
-                        a.item(href="/rental/#{_id}/ads" class="{{isActiveRoute 'rental_ads'}}")
-                            +ismall name='open-in-window'
-                            |ads
+                    a.ui.compact.button(href="/rental/#{_id}/view" class="{{isActiveRoute 'rental_view_info'}}")
+                        +ismall name='info'
+                        |info
+                    a.ui.compact.button(href="/rental/#{_id}/transactions" class="{{isActiveRoute 'rental_view_transactions'}}")
+                        +ismall name='invoice'
+                        |transactions
+                    a.ui.compact.button(href="/rental/#{_id}/reservations" class="{{isActiveRoute 'rental_view_reservations'}}")
+                        +ismall name='clock'
+                        |reservations
+                    a.ui.compact.button(href="/rental/#{_id}/chat" class="{{isActiveRoute 'rental_view_chat'}}")
+                        +ismall name='chat'
+                        |chat
+                    a.ui.compact.button(href="/rental/#{_id}/calendar" class="{{isActiveRoute 'rental_view_calendar'}}")
+                        +ismall name='calendar'
+                        |calendar
+                    //- a.ui.compact.button(href="/rental/#{_id}/tasks" class="{{isActiveRoute 'rental_view_tasks'}}")
+                    //-     +ismall name='tasks'           
+                    //-     |tasks
+                    a.ui.compact.button(href="/rental/#{_id}/finance" class="{{isActiveRoute 'rental_view_finance'}}")
+                        +ismall name='money'
+                        |finance
+                    a.ui.compact.button(href="/rental/#{_id}/stats" class="{{isActiveRoute 'rental_view_stats'}}")
+                        +ismall name='line-chart'
+                        |stats
+                    a.ui.compact.button(href="/rental/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}")
+                        +ismall name='pie-chart'           
+                        |ownership
+                    //- a.ui.compact.button(href="/rental/#{_id}/projections" class="{{isActiveRoute 'rental_view_projections'}}")
+                    //-     |projections
+                    a.ui.compact.button(href="/rental/#{_id}/ads" class="{{isActiveRoute 'rental_view_ads'}}")
+                        +ismall name='open-in-window'
+                        |ads
                     .ui.header added by #{_author_username}
                     |#{when}
                     with _author_id

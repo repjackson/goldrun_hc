@@ -89,7 +89,7 @@ template(name='delta')
                             |search
                         .ui.small.input
                             input(type='text' val=search_value)
-                        &nbsp;
+                        |&nbsp;
                         //- &nbsp;
                         //- .ui.inline.small.grey.header view
                         //- .ui.compact.menu
@@ -182,9 +182,9 @@ template(name='facet')
             else 
                 |#{key}
                 //- i.dropdown.icon
-        //- .ui.icon.small.transparent.input
-        //-     i.search.icon
-        //-     input.add_filter(type='text')
+        .ui.icon.small.transparent.input
+            i.search.icon
+            input.add_filter(type='text')
             //- .active.content
         //- div
         each filtering_res
