@@ -1,21 +1,10 @@
 if Meteor.isClient
-    Router.route '/kiosk_reservation_view/:doc_id', (->
-        @layout 'mlayout'
-        @render 'kiosk_reservation_view'
-        ), name:'kiosk_reservation_view'
     Router.route '/reservations', (->
         @render 'reservations'
         ), name:'reservations'
     Router.route '/reservation/:doc_id/view', (->
         @render 'reservation_view'
         ), name:'reservation_view'
-    Router.route '/reservation/:doc_id/edit', (->
-        @render 'reservation_edit'
-        ), name:'reservation_edit'
-    Router.route '/new_reservation/:doc_id', (->
-        @render 'new_reservation'
-        ), name:'new_reservation'
-
 
     # Template.kiosk_reservation_view.onCreated ->
     #     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
@@ -25,12 +14,6 @@ if Meteor.isClient
     Template.reservation_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'rental_by_res_id', Router.current().params.doc_id
-    Template.new_reservation.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'rental_by_res_id', Router.current().params.doc_id
-
-
-
 
 
 

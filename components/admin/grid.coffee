@@ -58,7 +58,7 @@ if Meteor.isClient
                 match.view_roles = $in:['public']
             Docs.find match,
                 sort:views:-1
-                limit:12
+                limit:16
 
         model_filter_value: ->
             Session.get 'model_filter'
@@ -75,7 +75,7 @@ if Meteor.isClient
             Docs.find {
                 model:@slug
             },
-                sort:_timestamp:1
+                sort:views:1
                 limit:5
 
 if Meteor.isServer

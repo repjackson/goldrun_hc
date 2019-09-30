@@ -40,10 +40,6 @@ if Meteor.isClient
         @layout 'shop_view_layout'
         @render 'shop_projections'
         ), name:'shop_projections'
-    Router.route "/shop/:doc_id/ownership", (->
-        @layout 'shop_view_layout'
-        @render 'product_ownership'
-        ), name:'product_ownership'
     Router.route "/shop/:doc_id/ads", (->
         @layout 'shop_view_layout'
         @render 'product_ads'

@@ -174,9 +174,10 @@ template(name='link_view')
         div
         if icon
             +ismall name=icon classes='ui middle aligned image'
-        .ui.inline.header 
-            |#{title} #{label}
-        a(href=field_value target='_window') #{field_value}
+        //- .ui.inline.header 
+        //-     |#{title} #{label}
+        a.ui.header(href=field_value target='_window') #{label}
+        //- a(href=field_value target='_window') #{field_value}
         //- img.ui.fluid.image(src=field_value)
 
 template(name='image_view')
@@ -250,8 +251,8 @@ template(name='pdf_view')
 
 template(name='image_edit')
     .ui.form
-        //- if icon
-        //-     +i name=icon classes='ui middle aligned image'
+        if icon
+            +ismall name=icon classes='ui middle aligned image'
         .ui.inline.header
             if title
                 |#{title}
@@ -342,8 +343,8 @@ template(name='html_edit')
                     |#{this}
     .froala-container
         +froalaReactive getFEContext
-    if is_dev
-        +call_watson mode='html' key=key
+    //- if is_dev
+    +call_watson mode='html' key=key
     div
     //- +tone mode='html'
     //- if watson
@@ -553,10 +554,10 @@ template(name='phone_view')
 
 template(name='number_edit')
     div
-    if icon
         //- i.grey.icon(class=icon)
-        +ismall name=icon classes='ui middle aligned image'
-    .ui.small.inline.grey.header(title=tip)
+    .ui.inline.header(title=tip)
+        if icon
+            +i name=icon classes='ui middle aligned image'
         if title
             |#{title}
         else if label
@@ -565,6 +566,7 @@ template(name='number_edit')
             |#{key}
     if tooltip
         .ui.tiny.grey.inline.header #{tooltip}
+        div
     //- +clear_value  
     div  
     .ui.input            
@@ -587,7 +589,7 @@ template(name='number_view')
             else
                 |#{this}
         .ui.inline.header &nbsp;
-            if prefix
+            if unit
                 span #{prefix}
             |#{field_value}
 
@@ -630,8 +632,8 @@ template(name='float_view')
 
 template(name='date_edit')
     div
-    //- if icon
-    //-     +i name=icon classes='ui inline mini image'   
+    if icon
+        +ismall name=icon classes='ui inline mini image'   
     //-     |&nbsp;
     .ui.inline.header
         if title
@@ -650,8 +652,8 @@ template(name='date_edit')
 template(name='date_view')
     if field_value
         div
-        //- if icon
-        //-     +i name=icon classes='ui middle aligned image'
+        if icon
+            +ismall name=icon classes='ui middle aligned image'
         .ui.grey.inline.header
             if title
                 |#{title}
@@ -668,7 +670,7 @@ template(name='date_view')
 template(name='time_edit')
     .ui.inline.header
         if icon
-            i.grey.icon(class=icon)            
+            +ismall name=icon classes='ui inline mini image'
         if title
             |#{title}
         else if label
@@ -751,17 +753,11 @@ template(name='array_edit')
 template(name='array_view')
     if field_value
         div
-        //- if icon
-        //-     +i name=icon classes='ui middle aligned image'
-        .ui.inline.small.grey.header
-            if title
-                |#{title}
-            else if label
+        if icon
+            +ismall name=icon classes='ui middle aligned image' title=title
+        if label
+            .ui.inline.small.grey.header(title=title)
                 |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}
         each field_value
             .ui.large.basic.label #{this}
 
@@ -906,7 +902,7 @@ template(name='signature_view')
 
 template(name='boolean_edit')
     //- div
-    .pointer.ui.button.toggle_boolean(class=boolean_toggle_class)
+    .pointer.ui.button.toggle_boolean(class=boolean_toggle_class title=title)
         if field_value
             i.green.checkmark.icon
         else
@@ -940,23 +936,23 @@ template(name='boolean_edit')
 
 
 template(name='boolean_view')
-    div
-    .ui.inline.grey.small.header
-        if icon
-            //- i.grey.icon(class=icon)
-            +ismall name=icon classes='ui inline mini image'
-        if title
-            |#{title}
-        else if label
-            |#{label}
-        else if key
-            |#{key}
+    div(title=title)
+        .ui.inline.grey.small.header
+            if icon
+                //- i.grey.icon(class=icon)
+                +ismall name=icon classes='ui inline mini image'
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
+        if field_value
+            i.large.green.checkmark.icon
         else
-            |#{this}
-    if field_value
-        i.large.green.checkmark.icon
-    else
-        i.cancel.grey.icon
+            i.cancel.grey.icon
 
 template(name='single_doc_view')
     div

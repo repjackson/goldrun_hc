@@ -1,101 +1,13 @@
 if Meteor.isClient
-    Router.route '/kiosk_rental_view/:doc_id', (->
-        @layout 'mlayout'
-        @render 'kiosk_rental_view'
-        ), name:'kiosk_rental_view'
     Router.route '/rentals', (->
         @render 'rentals'
         ), name:'rentals'
-    Router.route '/rental/:doc_id/view', (->
-        @render 'rental_view_info'
-        ), name:'rental_view'
+    # Router.route '/rental/:doc_id/view', (->
+    #     @render 'rental_view_info'
+    #     ), name:'rental_view'
 
 
 
-    Router.route '/rental/:doc_id/edit', (->
-        @layout 'rental_edit_layout'
-        @render 'rental_edit_info'
-        ), name:'rental_edit'
-    Router.route '/rental/:doc_id/edit/info', (->
-        @layout 'rental_edit_layout'
-        @render 'rental_edit_info'
-        ), name:'rental_edit_info'
-    Router.route '/rental/:doc_id/edit/finance', (->
-        @layout 'rental_edit_layout'
-        @render 'rental_edit_finance'
-        ), name:'rental_edit_finance'
-    Router.route '/rental/:doc_id/edit/chat', (->
-        @layout 'rental_edit_layout'
-        @render 'rental_edit_chat'
-        ), name:'rental_edit_chat'
-    Router.route '/rental/:doc_id/edit/ads', (->
-        @layout 'rental_edit_layout'
-        @render 'rental_edit_ads'
-        ), name:'rental_edit_ads'
-    Router.route '/rental/:doc_id/edit/ownership', (->
-        @layout 'rental_edit_layout'
-        @render 'rental_edit_ownership'
-        ), name:'rental_edit_ownership'
-    Router.route '/rental/:doc_id/edit/availability', (->
-        @layout 'rental_edit_layout'
-        @render 'rental_edit_availability'
-        ), name:'rental_edit_availability'
-    Router.route '/rental/:doc_id/edit/stats', (->
-        @layout 'rental_edit_layout'
-        @render 'rental_edit_stats'
-        ), name:'rental_edit_stats'
-    Router.route '/rental/:doc_id/edit/tasks', (->
-        @layout 'rental_edit_layout'
-        @render 'rental_edit_tasks'
-        ), name:'rental_edit_tasks'
-    Router.route '/rental/:doc_id/edit/audience', (->
-        @layout 'rental_edit_layout'
-        @render 'rental_edit_audience'
-        ), name:'rental_edit_audience'
-
-
-    Router.route '/rental/:doc_id/view/info', (->
-        @layout 'rental_view_layout'
-        @render 'rental_view_info'
-        ), name:'rental_view_info'
-    Router.route '/rental/:doc_id/view/finance', (->
-        @layout 'rental_view_layout'
-        @render 'rental_view_finance'
-        ), name:'rental_view_finance'
-    Router.route '/rental/:doc_id/view/chat', (->
-        @layout 'rental_view_layout'
-        @render 'rental_view_chat'
-        ), name:'rental_view_chat'
-    Router.route '/rental/:doc_id/view/ads', (->
-        @layout 'rental_view_layout'
-        @render 'rental_view_ads'
-        ), name:'rental_view_ads'
-    Router.route '/rental/:doc_id/view/ownership', (->
-        @layout 'rental_view_layout'
-        @render 'rental_view_ownership'
-        ), name:'rental_view_ownership'
-    Router.route '/rental/:doc_id/view/availability', (->
-        @layout 'rental_view_layout'
-        @render 'rental_view_availability'
-        ), name:'rental_view_availability'
-    Router.route '/rental/:doc_id/view/stats', (->
-        @layout 'rental_view_layout'
-        @render 'rental_view_stats'
-        ), name:'rental_view_stats'
-    Router.route '/rental/:doc_id/view/tasks', (->
-        @layout 'rental_view_layout'
-        @render 'rental_view_tasks'
-        ), name:'rental_view_tasks'
-    Router.route '/rental/:doc_id/view/audience', (->
-        @layout 'rental_view_layout'
-        @render 'rental_view_audience'
-        ), name:'rental_view_audience'
-
-
-    Template.kiosk_rental_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.rental_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.rental_view_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.rental_edit_layout.onCreated ->
@@ -146,6 +58,8 @@ if Meteor.isClient
                 ).count()
             # console.log result
             result
+
+
     Template.month_day_template.events
         'click .new_reservation': ->
             console.log parseInt @
@@ -172,9 +86,10 @@ if Meteor.isClient
             },sort:
                 date:-1
                 hour:-1
+
+    Template.rental_view_calendar.helpers
         month_day: ->
             [1..30]
-
         upcoming_days: ->
             upcoming_days = []
             now = new Date()
@@ -187,12 +102,6 @@ if Meteor.isClient
                 long_form = moment(now).add(day, 'days').format('ddd MMM Do')
                 upcoming_days.push {moment_ob:moment_ob,long_form:long_form}
             upcoming_days
-
-    Template.rental_kiosk_card.events
-        'click .log_view': ->
-            console.log @
-            Docs.update @_id,
-                $inc: views: 1
 
     Template.rentals.events
         'click .rent': ->
@@ -338,19 +247,19 @@ if Meteor.isClient
             Router.go "/new_reservation/#{new_reservation_id}"
 
 
-    Template.rental_transactions.onCreated ->
+    Template.rental_view_transactions.onCreated ->
         @autorun -> Meteor.subscribe 'rental_transactions', Template.currentData()
-    Template.rental_transactions.helpers
+    Template.rental_view_transactions.helpers
         transactions: ->
             Docs.find
                 model:'transaction'
 
 
 
-    Template.rental_reservations.onCreated ->
+    Template.rental_view_reservations.onCreated ->
         console.log @
         @autorun -> Meteor.subscribe 'rental_reservations', Template.currentData()
-    Template.rental_reservations.helpers
+    Template.rental_view_reservations.helpers
         reservations: ->
             Docs.find
                 model:'reservation'

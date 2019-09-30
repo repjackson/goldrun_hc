@@ -15,8 +15,8 @@ template(name='nav')
                     else
                         a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
                             +i name='home' classes='ui mini inline image'
-                //- a.ui.icon.item(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
-                //-     +i name='handshake' classes='ui mini inline image'
+                a.ui.icon.item(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
+                    +i name='handshake' classes='ui mini inline image'
                 //- a.ui.icon.item(href='/m/offer' class="{{isActivePath '/m/offer'}}" title='offer')
                 //-     +i name='sell' classes='ui mini inline image'
                 //- a.ui.icon.item(href='/market' class="{{isActivePath '/market'}}" title='market')

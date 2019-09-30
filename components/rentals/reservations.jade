@@ -87,10 +87,10 @@ template(name='reservation_view')
                 .four.wide.column 
                     .ui.header 
                         |viewing reservation
-                    a.ui.big.fluid.button(href="/reservation/#{_id}/edit" title='edit reservation')
-                        i.pencil.icon
-                        |edit
-                    +remove_button
+                    if can_edit
+                        a.ui.big.fluid.button(href="/reservation/#{_id}/edit" title='edit reservation')
+                            +i name='pencil'
+                            |edit
                     with rental
                         +image_view key='image' label='image' direct=true
                 .eight.wide.column 
@@ -127,41 +127,6 @@ template(name='reservation_events')
     
     
     
-template(name='reservation_edit')
-    with current_doc
-        .ui.stackable.padded.grid
-            .row
-                .four.wide.column 
-                    .ui.header 
-                        |edit reservation
-                    a.ui.big.fluid.button(href="/reservation/#{_id}/view" title='save')
-                        i.checkmark.large.green.icon
-                        |save
-                    .ui.icon.button.delete_reservation
-                        i.remove.icon
-                    with rental
-                        +image_view key='image' label='image' direct=true
-                .eight.wide.column 
-                    a.ui.header(href="/rental/#{rental._id}/view") reserve #{rental.title}
-                    .ui.big.button now
-                    .ui.big.button later
-                    .ui.header duration
-                    .ui.button 1/2 hour
-                    .ui.button 1 hour
-                    .ui.button 2 hours
-                    .ui.button 3 hours
-                    +date_edit key='start_date' label='start date' direct=true
-                    +time_edit key='start_time' label='start time' direct=true
-                    +number_edit key='minute_duration' label='minute duration' direct=true
-                    +number_edit key='hour_duration' label='hour duration' direct=true
-                    .ui.header estimated cost #{hour_duration}*#{rental.hourly_rate} = $#{estimated_cost}
-                    .ui.header final cost will be based on actual checked out time.  
-                    unless submitted
-                        .ui.big.green.fluid.button.submit_reservation 
-                            i.sign.in.alternate.icon
-                            |submit
-                    else
-                        .ui.header submitted {{ from_now submitted_timestamp }}
-                        .ui.orange.button.unsubmit
-                            i.undo.icon
-                            |unsubmit
+template(name='key_value_edit')
+    .ui.button.set_key_value(class=set_key_value_class)
+        |#{label}
