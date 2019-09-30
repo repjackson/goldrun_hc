@@ -89,39 +89,11 @@ template(name='staff')
                         |checklist not completed
 
             .twelve.wide.column
-                .ui.fluid.accordion
-                    .active.title
-                        //- i.users.large.grey.icon
-                        +i name='groups' classes='ui inline mini image'
-                        .ui.inline.grey.header #{checkedin_members.count} checked in members
-                        i.dropdown.grey.icon
-                    .active.content
-                        .ui.stackable.four.cards
-                            each sessions
-                                +hc_session
-                    //- .grey.title 
-                    //-     i.grey.desktop.icon
-                        //- +i name='android-tablet' classes='ui inline mini image'
-                    //-     .ui.grey.inline.header kiosk management
-                    //-     i.dropdown.grey.icon
-                    //- .content
-                    //-     +kiosk_settings
-                    .grey.title 
-                        //- i.large.calendar.grey.icon
-                        +i name='calendar' classes='ui inline mini image'
-                        .ui.grey.inline.header staff schedule
-                        i.dropdown.grey.icon
-                    .content
-                        +schedule
-                    .title
-                        //- i.large.chat.grey.icon
-                        +i name='chat' classes='ui inline mini image'
-                        .ui.grey.inline.header chat
-                        i.dropdown.grey.icon
-                    .content
-                        +view_chats
-    
-    
+                .ui.inline.grey.header #{checkedin_members.count} checked in members
+                .ui.stackable.four.cards
+                    each sessions
+                        +hc_session
+
 
 template(name='hc_session')
     .ui.card

@@ -2,7 +2,7 @@ Router.configure
     layoutTemplate: 'layout'
     notFoundTemplate: 'not_found'
     loadingTemplate: 'splash'
-    trackPageView: true
+    trackPageView: false
 
 force_loggedin =  ()->
     if !Meteor.userId()
@@ -15,62 +15,30 @@ Router.onBeforeAction(force_loggedin, {
   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
   except: ['register'
     'home'
-    'beer_view'
-    'front'
     'forgot_password'
     'reset_password'
-    'products'
     'delta'
-    'shop_view'
-    'market'
-    'rayback'
-    'projects'
-    'services'
-    'products'
-    'shop_view'
-    'shop_info'
+    'product_view'
+    'product_info'
     'rental_earnings'
     'rental_chat'
-    'rental_projections'
     'rental_ownership'
-    'rental_ads'
     'rental_tasks'
     'rental_stats'
     'service_view'
-    'shop'
-    'project_view'
     'doc_view'
-    'work_order_edit'
-    'work_order_view'
-    'rental_view'
     'rental_view_info'
-    'kiosk_rental_view'
-    'shop_earning'
     'rentals'
     'rental_view'
     'rental_view_info'
     'rental_view_stats'
     'rental_view_finance'
-    'rental_view_ads'
     'rental_view_availability'
     'rental_view_tasks'
     'rental_view_audience'
     'rental_view_ownership'
     'rental_view_chat'
-    'events'
-    'kiosk_rental_view'
-    'grid'
-    'event_edit'
-    'event_view'
     'service_view'
-    'projects'
-    'project_feed'
-    'project_finance'
-    'project_files'
-    'project_chat'
-    'project_photos'
-    'work_orders'
-    'dev'
     'verify-email'
     'download_rules_pdf'
   ]
@@ -80,12 +48,9 @@ Router.route "/add_guest/:new_guest_id", -> @render 'add_guest'
 
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/register', -> @render 'register'
-Router.route '/grid', -> @render 'grid'
 Router.route '/admin', -> @render 'admin'
-Router.route '/timecard', -> @render 'timecard'
 Router.route '/stats', -> @render 'stats'
 Router.route '/dashboard', -> @render 'dashboard'
-Router.route '/manager', -> @render 'manager'
 Router.route '/shift_checklist', -> @render 'shift_checklist'
 
 Router.route '/building/:building_code', -> @render 'building'
@@ -143,7 +108,6 @@ Router.route '/forgot_password', -> @render 'forgot_password'
 
 Router.route '/staff', -> @render 'staff'
 Router.route '/frontdesk', -> @render 'frontdesk'
-Router.route '/p/:slug', -> @render 'page'
 Router.route '/settings', -> @render 'settings'
 Router.route '/sign_rules/:doc_id/:username', -> @render 'rules_signing'
 Router.route '/sign_guidelines/:doc_id/:username', -> @render 'guidelines_signing'
@@ -166,19 +130,8 @@ Router.route '/login', -> @render 'login'
 # Router.route '/', -> @render 'home'
 Router.route '/', (->
     @layout 'layout'
-    @render 'home'
+    @render 'grid'
     ), name:'home'
-
-
-# Router.route '/resident_portal', (->
-#     @layout 'layout'
-#     @render 'resident_portal'
-#     ), name:'root'
-
-Router.route '/staff_home', (->
-    @layout 'layout'
-    @render 'staff_home'
-    ), name:'staff_home'
 
 
 Router.route '/healthclub', (->
@@ -194,5 +147,4 @@ Router.route '/healthclub_session/:doc_id', (->
 
 
 
-
-Router.route '/shop/:product_id/daily_calendar/:month/:day/:year/', -> @render 'product_day'
+Router.route '/rental/:doc_id/daily_calendar/:month/:day/:year/', -> @render 'rental_day'

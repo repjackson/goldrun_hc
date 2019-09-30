@@ -32,7 +32,6 @@ template(name='rental_view_layout')
                         +date_view key='date_available' label='date available' icon='calendar' direct=true
                     if time_available
                         +time_view key='time_available' label='time available' icon='clock' direct=true
-                    //- +product_adspace
                     .ui.header 
                         |reviews
                 .ten.wide.column
@@ -197,26 +196,6 @@ template(name='rental_view_ownership')
             #offer_ownership.ui.button offer ownership
         .ui.header offers
         .ui.header transactions
-    
-    
-template(name='rental_view_tasks')
-    h1.ui.header 
-        +i name='tasks'
-        |rental tasks
-    .ui.header visibility
-    +boolean_view key='visible_to_friends' label='friends' direct=true
-    +boolean_view key='visible_to_building' label='building' direct=true
-    +boolean_view key='visible_to_residents' label='residents' direct=true
-    +boolean_view key='visible_to_public' label='public' direct=true
-
-
-
-template(name='rental_view_ads')
-    h1.ui.header 
-        +i name='open-in-window'
-        |ads
-        +product_adspace
-    
     
     
     

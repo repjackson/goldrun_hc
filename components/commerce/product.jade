@@ -1,11 +1,11 @@
-template(name='shop_edit')
+template(name='product_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
                     .ui.inline.header #{title}
-                    a.ui.big.basic.button(href="/shop/#{_id}/view") save
-                    .ui.basic.icon.button.delete_shop_item 
+                    a.ui.big.basic.button(href="/product/#{_id}/view") save
+                    .ui.basic.icon.button.delete_product_item 
                         i.trash.icon
                     +text_edit key='title' icon='header' direct=true
                     +image_edit key='picture' direct=true
@@ -18,8 +18,8 @@ template(name='shop_edit')
                     +number_edit key='inventory' icon='move-by-trolley' label='inventory' direct=true
                     +date_edit key='date_available' icon='calendar' label='date available' direct=true
                     +time_edit key='time_available' icon='clock' label='time available' direct=true
-                    +single_doc_edit key='shop_type' ref_model='shop_type' label='shop type' direct=true
-                    //- +omega_edit model='shop_type'
+                    +single_doc_edit key='product_type' ref_model='product_type' label='product type' direct=true
+                    //- +omega_edit model='product_type'
                     if is_event
                         .ui.header 
                             |event
@@ -74,9 +74,9 @@ template(name='shop_edit')
                         
                 
 
-template(name='shop_view_layout')
+template(name='product_view_layout')
     +nav
-    //- a.ui.large.button(href="/m/shop")
+    //- a.ui.large.button(href="/m/product")
     //-     | Shop
     with current_doc
         .ui.stackable.padded.grid
@@ -87,14 +87,14 @@ template(name='shop_view_layout')
                 
                     .ui.large.header #{title}
                     if can_edit
-                        a.ui.fluid.button(href="/shop/#{_id}/edit")
+                        a.ui.fluid.button(href="/product/#{_id}/edit")
                             |edit
                     .ui.large.vertical.fluid.menu
-                        a.item(href="/shop/#{_id}/info" class="{{isActiveRoute 'shop_info'}}")
+                        a.item(href="/product/#{_id}/info" class="{{isActiveRoute 'product_info'}}")
                             |info
-                        a.item(href="/shop/#{_id}/chat" class="{{isActiveRoute 'shop_chat'}}")
+                        a.item(href="/product/#{_id}/chat" class="{{isActiveRoute 'product_chat'}}")
                             |chat
-                        a.item(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}")
+                        a.item(href="/product/#{_id}/ads" class="{{isActiveRoute 'product_ads'}}")
                             |ads
                     .ui.header added by #{_author_username}
                     |#{when}
@@ -110,7 +110,6 @@ template(name='shop_view_layout')
                         +date_view key='date_available' label='date available' icon='calendar' direct=true
                     if time_available
                         +time_view key='time_available' label='time available' icon='clock' direct=true
-                    +product_adspace
                     .ui.header 
                         |reviews
                 .eight.wide.column
@@ -166,7 +165,7 @@ template(name='shop_view_layout')
     
     
 template(name='product_header')
-    a(href="/shop/#{_id}/view")
+    a(href="/product/#{_id}/view")
         img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
         .ui.inline.small.header #{title}
 
@@ -184,99 +183,13 @@ template(name='add_to_tab')
                         |#{when}
                         //- i.remove.link.icon.remove_tab_item
 
-template(name='shop_card_template')
-    .ui.fluid.horizontal.card
-        a.pointer(href="/shop/#{_id}/view")
-            img.ui.centered.rounded.image(src="{{c.url image width=300 height=200 crop='fit'}}")
-        .content
-            a.ui.grey.small.header(href="/shop/#{_id}/view") #{title}
-            //- div
-            //- +i name='food' classes='ui mini inline image'
-            //- each ingredients
-            //-     .ui.basic.label #{this}
-            //- div
-            //- +i name='marker' classes='ui mini inline image'
-            //- each location_tags
-            //-     .ui.basic.label #{this}
-            //- .ui.basic.animated.fade.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
-            //-     .visible.content
-            //-         .ui.header #{karma_price}k
-            //-     .hidden.content
-                    i.cart.plus.green.large.icon
-            if rentable
-                .ui.small.inline.header
-                    //- i.clock.grey.small.icon
-                    |$#{daily_rate}/day
-                div
-            //- if hourly_rate
-            //-     .ui.header $#{hourly_rate}/hour
-            //- unless rentable
-            .ui.inline.header 
-                //- i.shop.grey.small.icon
-                |$#{dollar_price}
-            div
-            //- i.grey.marker.icon
-            each location_tags
-                .ui.small.basic.label #{this}
-            a.ui.basic.small.icon.button(href="/shop/#{_id}/view")
-            //-     +i name='chevron right' classes='ui mini image'
-            //- if can_edit
-                a.ui.basic.small.icon.button(href="/shop/#{_id}/edit")
-            //-         +i name='pencil' classes='ui mini image'
-                //- +edit_button
-        //- .four.wide.column
-        //-     with author
-        //-         img.ui.avatar.image(src="{{c.url image_id width=200 height=200 crop='fit'}}")    
-        //-         .ui.inline.header #{first_name} #{last_name}
-        //-         .ui.header #{sales_amount} sales
-        //-         .ui.header #{purchase_amount} purchases
-            
             
 template(name='fav_button')
     i.large.link.heart.outline.icon
             
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-template(name='product_adspace')
-    .ui.segment
-        .ui.header advertisement
-        if current_ad
-            .ui.header current ad
-            .ui.disabled.button buy now
-        else
-            .ui.button advertise
-    
-    
-    
-template(name='product_ads')
-    .ui.segment
-        .ui.header ads settings
-        .ui.segment
-            .ui.header ad 1
-        .ui.segment
-            .ui.header ad 2
-        if current_ad
-            .ui.header current ad
-            .ui.disabled.button buy now
-        else
-            .ui.button.create_product_ad advertise
-    
-    
-    
-    
-        
-template(name='shop_stats')
+template(name='product_view_stats')
     .ui.header admin actions
     .ui.button.calculate_transaction_count calculate transaction count
     .ui.button.advise_price advise price
@@ -297,13 +210,9 @@ template(name='product_location')
     
     
 
-template(name='shop_rentals')
-    //- +cal
-    +rentals
-                        
-template(name='shop_earnings')
+template(name='product_earnings')
     .ui.header 
-        |shop earnings
+        |product earnings
     .ui.segment
         .ui.small.header 
             |past reservations #{past_reservations}
@@ -325,17 +234,17 @@ template(name='shop_earnings')
         .ui.small.header ad earnings
         +product_viewing    
                         
-template(name='shop_chat')                        
+template(name='product_chat')                        
     +comments
                     
                     
                     
                     
-template(name='shop_projections')                        
-    .ui.header shop projections
+template(name='product_projections')                        
+    .ui.header product projections
     .ui.disabled.button bet a certain avg price at a certain time
                     
-template(name='shop_tasks')                        
+template(name='product_tasks')                        
     .ui.header
         | product tasks
     |none
@@ -349,9 +258,7 @@ template(name='shop_tasks')
         | open tickets
     |none
                     
-template(name='shop_info')    
-    if rentable                    
-        +rentals    
+template(name='product_info')    
     +html_view key='description' direct=true
     .ui.grid
         .two.column.row
@@ -391,9 +298,9 @@ template(name='product_viewing')
                 |#{username}
             
             
-template(name='shop_item_transactions')
+template(name='product_item_transactions')
     .ui.segment
-        .ui.header shop item transactions
+        .ui.header product item transactions
         if is_author
             .ui.big.button 
                 |mark as sold
@@ -444,3 +351,51 @@ template(name='public_transaction')
             +array_view key='tags' label='tags' icon='tags' direct=true
         +remove_button    
                 
+
+
+template(name='product_card_template')
+    .ui.fluid.horizontal.card
+        a.pointer(href="/product/#{_id}/view")
+            img.ui.centered.rounded.image(src="{{c.url image width=300 height=200 crop='fit'}}")
+        .content
+            a.ui.grey.small.header(href="/product/#{_id}/view") #{title}
+            //- div
+            //- +i name='food' classes='ui mini inline image'
+            //- each ingredients
+            //-     .ui.basic.label #{this}
+            //- div
+            //- +i name='marker' classes='ui mini inline image'
+            //- each location_tags
+            //-     .ui.basic.label #{this}
+            //- .ui.basic.animated.fade.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
+            //-     .visible.content
+            //-         .ui.header #{karma_price}k
+            //-     .hidden.content
+                    i.cart.plus.green.large.icon
+            if rentable
+                .ui.small.inline.header
+                    //- i.clock.grey.small.icon
+                    |$#{daily_rate}/day
+                div
+            //- if hourly_rate
+            //-     .ui.header $#{hourly_rate}/hour
+            //- unless rentable
+            .ui.inline.header 
+                //- i.product.grey.small.icon
+                |$#{dollar_price}
+            div
+            //- i.grey.marker.icon
+            each location_tags
+                .ui.small.basic.label #{this}
+            a.ui.basic.small.icon.button(href="/product/#{_id}/view")
+            //-     +i name='chevron right' classes='ui mini image'
+            //- if can_edit
+                a.ui.basic.small.icon.button(href="/product/#{_id}/edit")
+            //-         +i name='pencil' classes='ui mini image'
+                //- +edit_button
+        //- .four.wide.column
+        //-     with author
+        //-         img.ui.avatar.image(src="{{c.url image_id width=200 height=200 crop='fit'}}")    
+        //-         .ui.inline.header #{first_name} #{last_name}
+        //-         .ui.header #{sales_amount} sales
+        //-         .ui.header #{purchase_amount} purchases

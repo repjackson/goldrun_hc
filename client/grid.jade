@@ -1,12 +1,12 @@
 template(name='grid')
-    .ui.left.icon.input
-        input.model_filter(type='text' autofocus='autofocus')
-        if model_filter_value
-            i.remove.link.icon
-        else 
-            i.search.icon
-    unless model_filter_value
-        +cloud filter='model'
+    //- .ui.left.icon.input
+    //-     input.model_filter(type='text' autofocus='autofocus')
+    //-     if model_filter_value
+    //-         i.remove.link.icon
+    //-     else 
+    //-         i.search.icon
+    //- unless model_filter_value
+    //-     +cloud filter='model'
     .ui.stackable.three.column.padded.grid
         .row
             each role_models

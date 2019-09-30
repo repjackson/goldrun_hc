@@ -223,3 +223,70 @@ template(name='healthclub_stats')
     .ui.horizontal.list
         .item #{user.total_session_count} sessions
         .item ##{user.global_rank}
+
+
+template(name='health_club_status_small')
+    div
+    .ui.inline.header 
+        |Upper Hot Tub
+        +water_status slug='upper_hot_tub'
+        //- div
+    //- .ui.small.horizontal.list
+    //-     .item
+    //-         |#{latest_uht_reading.temperature}&#8457;
+    //-     .item
+    //-         |#{latest_uht_reading.ph} ph 
+    //-     .item
+    //-         |#{latest_uht_reading.chlorine} chl
+    //-     .item
+    //-         |#{latest_uht_reading.when}
+        //- div
+        //- |by #{latest_uht_reading.author.name}
+    div
+    .ui.inline.header Lower Hot Tub
+        +water_status slug='lower_hot_tub'
+        //- div
+    //- .ui.small.horizontal.list
+    //-     .item
+    //-         |#{latest_lht_reading.temperature}&#8457;
+    //-     .item
+    //-         |#{latest_lht_reading.ph} ph 
+    //-     .item
+    //-         |#{latest_lht_reading.chlorine} chl
+    //-     .item
+    //-         |#{latest_lht_reading.when}
+    //-     div
+    //-     |by #{latest_lht_reading.author.name}
+            
+    div
+    .ui.inline.header
+        | Pool
+        +water_status slug='pool'
+        //- div
+    //- .ui.small.horizontal.list
+    //-     .item
+    //-         |#{latest_pool_reading.temperature}&#8457;
+    //-     .item
+    //-         |#{latest_pool_reading.ph} ph 
+    //-     .item
+    //-         |#{latest_pool_reading.chlorine} chl
+    //-     .item
+    //-         |#{latest_pool_reading.when}
+    //-     div
+    //-     |by #{latest_pool_reading.author.name}
+
+
+template(name='water_status')
+    if is_staff
+        if on
+            i.checkmark.green.link.icon.toggle_status
+        else    
+            i.ban.red.link.icon.toggle_status
+    else
+        if on
+            i.checkmark.green.large.icon
+        else    
+            i.ban.red.large.icon
+    //- with latest_reading
+    //-     | #{temperature}&#8457;
+    //- div

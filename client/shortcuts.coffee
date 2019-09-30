@@ -102,19 +102,6 @@ globalHotkeys.add
 	combo: "g h"
 	callback: -> Router.go '/'
 globalHotkeys.add
-	combo: "g g"
-	callback: ->
-        Router.go '/grid'
-        Meteor.setTimeout ->
-            $('.model_filter').focus()
-        , 1000
-globalHotkeys.add
-	combo: "g w"
-	callback: -> Router.go '/work_orders'
-globalHotkeys.add
-	combo: "g m"
-	callback: -> Router.go '/market'
-globalHotkeys.add
 	combo: "g d"
 	callback: ->
         if Meteor.userId() and Meteor.userId() is 'ytjpFxiwnWaJELZEd'
@@ -161,11 +148,7 @@ globalHotkeys.add
 	callback: -> Router.go "/chat"
 globalHotkeys.add
 	combo: "g t"
-	callback: -> Router.go "/tasks"
-globalHotkeys.add
-	combo: "s s"
-	callback: ->
-        $('.ui.shortcut.modal').modal('show')
+	callback: -> Router.go "/m/task"
 
 
 globalHotkeys.add
@@ -191,10 +174,6 @@ globalHotkeys.add
                             first_name:first_name
                             last_name:last_name
                     Router.go "/m/#{model.slug}/#{res}/edit"
-        else if model.slug is 'shop'
-            new_doc_id = Docs.insert
-                model:model.slug
-            Router.go "/shop/#{new_doc_id}/edit"
         else
             new_doc_id = Docs.insert
                 model:model.slug

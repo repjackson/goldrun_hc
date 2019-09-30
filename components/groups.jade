@@ -1,51 +1,3 @@
-template(name='groups')
-    .ui.stackable.padded.grid
-        .ui.fluid.accordion
-            .title
-                .ui.inline.header 
-                    //- +i name='line chart' classes='ui avatar image'
-                    |stats
-                    .ui.basic.large.label #{group_stats_doc.total_count} total
-                    .ui.basic.large.label #{group_stats_doc.complete_count} complete 
-                    .ui.basic.large.label #{group_stats_doc.incomplete_count} incomplete 
-                    .ui.basic.large.label #{group_stats_doc.total_updates_count} total updates 
-                    i.dropdown.icon
-            .content
-                .ui.grid
-                    .three.column.row
-                        .column
-                            .ui.icon.button.recalc_groups(title='recalculate')
-                                i.refresh.icon
-                            with group_stats_doc
-                                .ui.mini.header groups completed time
-                                .ui.mini.header group estimated time
-                                .ui.mini.header group monthly completion rate
-                        .column
-                            +latest_group_updates
-                        .column
-                            .ui.header 
-                                +i name='comments'
-                                |latest comments
-                            .ui.large.link.bulleted.list
-                                each latest_comments
-                                    a.active.item(href="/group/#{parent_id}/view") 
-                                        strong #{body}
-                                    |#{when}
-        .row
-            .six.wide.column
-                .ui.inline.header 
-                    +i name='elections' classes='ui avatar image'
-                    |groups
-                .ui.big.icon.button.add_group(title='add group')
-                    i.plus.icon
-                +cloud filter='group'
-            .ten.wide.column.scrolling
-                each groups
-                    +group_card_template
-                    
-                    
-                    
-                    
 template(name='group_card_template')
     .ui.fluid.segment
         img.ui.image(src="{{c.url image width=400 height=400}}")        
@@ -66,21 +18,6 @@ template(name='group_card_template')
 
 template(name='group_update_small')
     .ui.small.header #{text}
-
-
-template(name='groups_small')
-    a.ui.header(href="/m/group")
-        +i name='groups'
-        |groups 
-    .ui.large.link.list.smallcolumn
-        each groups 
-            .item
-                a(href="/m/group/#{_id}/view")
-                    if image
-                        img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
-                    |#{title}
-        
-
 
 
 

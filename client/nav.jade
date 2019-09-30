@@ -6,65 +6,30 @@ template(name='nav')
                 .icon.item
                     i.big.spinning.yin.yang.grey.cancel.icon
                     //- i.big.spinning.pulse.plus.blue.icon.cancel
-                    //- i.big.blue.spinning.pulse.plus.icon.cancel
             unless is_current_staff
                 unless is_loading
-                    if currentUser
-                        a.ui.icon.item(href='/grid' class="{{isActivePath '/grid'}}" title='models')
-                            +i name='grid-view' classes='ui mini inline image'
-                    else
-                        a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
-                            +i name='home' classes='ui mini inline image'
-                //- a.ui.icon.item(href='/m/offer' class="{{isActivePath '/m/offer'}}" title='offer')
-                //-     +i name='sell' classes='ui mini inline image'
-                //- a.ui.icon.item(href='/market' class="{{isActivePath '/market'}}" title='market')
-                //-     +i name='shop' classes='ui mini inline image'
-                //- a.ui.icon.item.set_service(href='/m/service' class="{{isActivePath '/m/service'}}" title='services')
-                //-     +i name='work' classes='ui mini inline image'
-                //- a.ui.icon.item.set_request(href='/m/request' class="{{isActivePath '/m/request'}}" title='request')
-                //-     +i name='request-service' classes='ui mini inline image'
-                //- a.ui.icon.item(href='/m/food' class="{{isActivePath '/m/food'}}" title='food')
-                //-     +i name='food' classes='ui mini inline image'
-            
-            //- if is_current_resident
-            //-     each bookmarked_models
-            //-         a.ui.item.set_model(href="/m/#{slug}/" title=title)
-            //-             +i name=icon classes='ui mini inline image'
-            //-     a.ui.icon.item(href='/blog' class="{{isActivePath '/blog'}}")
-            //-         +i name='blog' classes='ui mini inline image'
+                    a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
+                        +i name='home' classes='ui mini inline image'
             if is_current_member
                 a.ui.icon.item(href='/members' class="{{isActivePath '/members'}}")
                     +i name='groups' classes='ui mini inline image'
             if is_current_staff
-                a.ui.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}" title='buildings')
-                    +i name='building' classes='ui mini inline image'
-                a.ui.icon.item(href='/readings' class="{{isActivePath '/readings'}}" title='water readings')
-                    +i name='water' classes='ui mini inline image'
                 a.ui.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                     +i name='user shield' classes='ui mini inline image'
                     | staff
         
             .right.menu
                 if is_dev
-                    a.ui.icon.item(href='/dev' class="{{isActivePath '/dev'}}" title='dev')
-                        +i name='code' classes='ui mini inline image'
                     a.ui.icon.item(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
                         +i name='database' classes='ui mini inline image'
-                if is_current_admin
-                    a.ui.icon.item(href='/admin' class="{{isActivePath '/admin'}}" title='admin')
-                        +i name='shield' classes='ui mini inline image'
                 if is_current_member
                     a.ui.icon.item(href='/karma' class="{{isActivePath '/karma'}}" title='karma')
                         +i name='yin-yang' classes='ui mini inline image'
                         span.my_karma_amount #{currentUser.karma}
                     //- a.ui.icon.item(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
                     //-     +i name='shopping-cart' classes='ui mini inline image'
-                    a.ui.icon.item(href='/transactions' class="{{isActivePath '/transactions'}}" title='transactions')
-                        +i name='invoice' classes='ui mini inline image'
                     //- a.ui.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
                     //-     +i name='inbox' classes='ui mini inline image'
-                    a.ui.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
-                        +i name='chat' classes='ui mini inline image'
                 if currentUser
                     unless logging_out
                         if is_member
@@ -92,22 +57,13 @@ template(name='nav')
                         a.ui.item(href='/login' title='login') 
                             +i name='internal' classes='ui mini inline image'
                             |login
-        //- if currentUser
-        //- unless is_current_staff
-        //-     .ui.attached.borderless.small.menu.secnav(class=gs.nav_color)
-        //-         each role_models
-        //-             a.item.secnavitem(href="/m/#{slug}/")
-        //-                 +i name=icon classes='ui avatar image'
-        //-                 //- i.icon(class=icon)
-        //-                 |#{title}
-
 
 
 template(name='footer')
-    .ui.fluid.basic.attached.secondary.segment.footer
+    .ui.fluid.basic.attached.segment.footer
         .ui.stackable.grid
             .eight.wide.column
-                +add_button label='bug' model='bug' icon='bug'
+                //- +add_button label='bug' model='bug' icon='bug'
             //-     +latest_activity
             //- .four.wide.column
             //-     if currentUser 

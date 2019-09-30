@@ -13,20 +13,10 @@ template(name='member_profile_layout')
                             h1.ui.large.center.aligned.header
                                 strong #{user.first_name} #{user.last_name}
                                 small @#{user.username}        
-                    if user_is_resident
-                        if is_staff
-                            a.ui.big.button.item(href="/member/#{user_from_username_param.username}/edit")
-                                //- i.cog.icon
-                                +i name='settings' 
-                                |edit
-                            +resident_info         
-                            +user_check_steps
-                            +staff_verification
-                    else 
-                        .ui.small.header #{tagline}
-                        +ismall name='tags'
-                        each tags
-                            .ui.small.basic.label #{this}
+                    .ui.small.header #{tagline}
+                    +ismall name='tags'
+                    each tags
+                        .ui.small.basic.label #{this}
                     if is_current_user
                         a.ui.large.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 

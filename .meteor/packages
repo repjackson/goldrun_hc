@@ -30,7 +30,6 @@ reactive-var@1.0.11
 raix:handlebar-helpers
 matb33:collection-hooks
 mizzao:autocomplete
-froala:editor-reactive@=2.4.2
 mquandalle:jade
 underscore@1.0.10
 coffeescript
@@ -40,4 +39,3 @@ pascoual:pdfkitx
 lookback:emails
 percolate:synced-cron
 flowkey:hotkeys
-ostrio:user-status

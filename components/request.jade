@@ -158,18 +158,3 @@ template(name='request_time')
     .ui.small.grey.header estimated time to complete
     +number_view key='estimated_minutes' label='minutes' direct=true
     +float_view key='estimated_hours' label='hours' direct=true
-
-
-template(name='request_small')
-    a.ui.large.header(href="/requests")
-        //- i.hand.holding.heart.grey.icon 
-        +i name='service-bell'
-        |requests
-    //- +cloud filter='request'
-    .ui.relaxed.grey.list.smallscroll
-        each requests 
-            .grey.item
-                .ui.grey.inline.small.header 
-                    |#{title}
-                    //- .ui.basic.label $#{dollar_price}
-    

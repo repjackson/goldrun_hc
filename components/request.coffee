@@ -1,6 +1,3 @@
-Router.route '/requests', (->
-    @render 'requests'
-    ), name:'requests'
 Router.route '/request/:doc_id/view', (->
     @render 'request_view'
     ), name:'request_view'
@@ -55,24 +52,6 @@ if Meteor.isClient
                 log_type:'complete'
                 parent_id:Router.current().params.doc_id
                 text: "#{Meteor.user().username} marked request order complete."
-
-
-    Template.request_small.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'request'
-    Template.request_small.helpers
-        requests: ->
-            Docs.find {
-                model:'request'
-            },
-                sort: _timestamp: -1
-                # limit:7
-    Template.request_small.events
-        'click .log_request_view': ->
-            console.log 'hi'
-            # Docs.update @_id,
-            #     $inc: views: 1
-
-
 
 
 

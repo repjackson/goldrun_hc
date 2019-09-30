@@ -232,35 +232,6 @@ template(name='rental')
 
 
 
-//- template(name='rental_small')
-//-     a.ui.header(href="/m/rental")
-//-         +i name='handshake'
-//-         &nbsp;
-//-         strong.f7 rentals
-//-     //- +rental_cloud
-//-     .ui.large.link.list.smallcolumn
-//-         each rentals 
-//-             .item.log_rental_view
-//-                 a(href="/kiosk_rental_view/#{_id}")
-//-                     if image
-//-                         img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
-//-                     if picture
-//-                         img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
-//-                     |#{title}
-//-                     small #{daily_karma}k/day
-//-                     //- small $#{daily_rate}/day
-//-             //- div
-//-             //- .ui.horizontal.list
-//-             //-     .item
-//-             //-         span(title='transactions')
-//-             //-             i.route.icon
-//-             //-             |#{transaction_count}
-//-             //-     .item
-//-             //-         span(title='money earned')
-//-             //-             i.money.icon
-//-             //-             |#{money_earned}
-//- 
-
 
 template(name='rental_view_transactions')
     .ui.grey.header 

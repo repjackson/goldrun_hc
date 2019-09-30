@@ -185,23 +185,6 @@ template(name='service_time')
         |time calculations
     .ui.header #{when}
 
-template(name='service_cloud')
-    //- #cloud
-        //- .ui.left.icon.input
-        //-     i.search.icon
-        //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
-        // .ui.hidden.fitted.divider
-    if selected_service_tags
-        #clear_tags.ui.active.icon.circular.tiny.kiosk_facet_button.button
-            i.remove.icon
-        each selected_service_tags
-            .unselect_service_tag.ui.active.circular.kiosk_facet_button.tiny.button
-                strong #{this}
-    each all_service_tags
-        .ui.compact.circular.basic.tiny.button.kiosk_facet_button.select_service_tag(class=cloud_tag_class) 
-            strong #{this.name}
-
-
 
 template(name='service_small')
     a.ui.header(href="/m/service")

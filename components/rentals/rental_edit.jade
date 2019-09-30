@@ -15,39 +15,15 @@ template(name='rental_edit_layout')
                     a.ui.compact.button(href="/rental/#{_id}/edit/info" class="{{isActiveRoute 'rental_edit_info'}}")
                         +ismall name='info'
                         |info
-                        //- i.info.grey.icon
                     a.ui.compact.button(href="/rental/#{_id}/edit/finance" class="{{isActiveRoute 'rental_edit_finance'}}")
                         +ismall name='money'
                         |finance
-                        //- i.money.grey.icon
                     a.ui.compact.button(href="/rental/#{_id}/edit/availability" class="{{isActiveRoute 'rental_edit_availability'}}")
                         +ismall name='clock'
                         |availability
-                        //- i.clock.grey.icon
                     a.ui.compact.button(href="/rental/#{_id}/edit/audience" class="{{isActiveRoute 'rental_edit_audience'}}") 
                         +ismall name='groups'
                         |audience
-                        //- i.users.grey.icon
-                    //- a.ui.compact.button(href="/rental/#{_id}/edit/chat" class="{{isActiveRoute 'rental_edit_chat'}}")
-                    //-     +ismall name='chat'
-                    //-     |chat
-                        //- i.chat.outline.grey.icon
-                    //- a.ui.compact.button(href="/rental/#{_id}/edit/tasks" class="{{isActiveRoute 'rental_edit_tasks'}}")
-                    //-     +ismall name='tasks'           
-                    //-     |tasks         
-                        //- i.tasks.grey.icon
-                    //- a.ui.compact.button(href="/rental/#{_id}/edit/ownership" class="{{isActiveRoute 'rental_edit_ownership'}}")
-                    //-     +ismall name='pie-chart'           
-                    //-     |ownership
-                        //- i.pie.chart.grey.icon
-                    //- a.ui.compact.button(href="/rental/#{_id}/edit/stats" class="{{isActiveRoute 'rental_edit_stats'}}")
-                    //-     +ismall name='line-chart'
-                        |stats
-                        //- i.line.chart.grey.icon
-                        //- a.ui.compact.button(href="/rental/#{_id}/edit/ads" class="{{isActiveRoute 'rental_edit_ads'}}")
-                        //-     +ismall name='open-in-window'
-                        //-     |ads
-                        //- i.bullhorn.grey.icon
                 .twelve.wide.column 
                     +yield
                     
@@ -55,7 +31,7 @@ template(name='rental_edit_layout')
                     
 template(name='rental_edit_info')      
     h1.ui.header 
-        i.info.grey.icon
+        +i name='info'
         |info
     +text_edit key='title' direct=true
     .ui.two.column.grid
@@ -73,7 +49,6 @@ template(name='rental_edit_info')
 template(name='rental_edit_finance')  
     .ui.large.header 
         +i name='money'
-        //- i.money.grey.icon
         |finance
     .ui.stackable.grid
         .two.column.row
@@ -120,31 +95,6 @@ template(name='rental_edit_audience')
     if allowed_specific_users
         +multi_user_edit key='allowed_users' direct=true
     
-    
-    
-    
-template(name='rental_edit_chat')
-    h1.ui.header 
-        i.chat.icon
-        |chat
-    .ui.header visibility
-    +boolean_view key='visible_to_friends' label='friends' direct=true
-    +boolean_view key='visible_to_building' label='building' direct=true
-    +boolean_view key='visible_to_residents' label='residents' direct=true
-    +boolean_view key='visible_to_public' label='public' direct=true
-
-
-    
-template(name='rental_edit_tasks')
-    h1.ui.header 
-        i.tasks.icon
-        |rental tasks
-    .ui.header visibility
-    +boolean_edit key='visible_to_friends' label='friends' direct=true
-    +boolean_edit key='visible_to_building' label='building' direct=true
-    +boolean_edit key='visible_to_residents' label='residents' direct=true
-    +boolean_edit key='visible_to_public' label='public' direct=true
-
     
     
     
