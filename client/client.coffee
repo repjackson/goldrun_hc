@@ -17,8 +17,8 @@ $.cloudinary.config
 Template.body.events
     'click a': ->
         $('.global_container')
-        .transition('fade out', 300)
-        .transition('fade in', 300)
+        .transition('fade out', 200)
+        .transition('fade in', 200)
 
     'click .result': ->
         $('.global_container')

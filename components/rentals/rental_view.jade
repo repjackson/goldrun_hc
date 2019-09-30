@@ -11,6 +11,24 @@ template(name='rental_view_layout')
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
                             i.pencil.icon
                             |edit
+                    .ui.header added by #{_author_username}
+                    |#{when}
+                    with _author_id
+                        +user_card
+                    +array_view key='tags' icon='tags' direct=true title='tags'
+                    +array_view key='location_tags' icon='marker' direct=true title='location tags'
+                    //- +text_view key='location' icon='marker' label='location description' direct=true
+
+                    +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
+                    //- +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
+                    if date_available
+                        +date_view key='date_available' label='date available' icon='calendar' direct=true
+                    if time_available
+                        +time_view key='time_available' label='time available' icon='clock' direct=true
+                    +product_adspace
+                    .ui.header 
+                        |reviews
+                .eight.wide.column
                     a.ui.compact.button(href="/rental/#{_id}/view" class="{{isActiveRoute 'rental_view_info'}}")
                         +ismall name='info'
                         |info
@@ -43,24 +61,7 @@ template(name='rental_view_layout')
                     a.ui.compact.button(href="/rental/#{_id}/ads" class="{{isActiveRoute 'rental_view_ads'}}")
                         +ismall name='open-in-window'
                         |ads
-                    .ui.header added by #{_author_username}
-                    |#{when}
-                    with _author_id
-                        +user_card
-                    +array_view key='tags' icon='tags' direct=true title='tags'
-                    +array_view key='location_tags' icon='marker' direct=true title='location tags'
-                    //- +text_view key='location' icon='marker' label='location description' direct=true
-
-                    +number_view key='inventory' label='inventory' icon='move-by-trolley' direct=true
-                    //- +dollar_price_view key='dollar_price' icon='money' label='dollar price' direct=true
-                    if date_available
-                        +date_view key='date_available' label='date available' icon='calendar' direct=true
-                    if time_available
-                        +time_view key='time_available' label='time available' icon='clock' direct=true
-                    +product_adspace
-                    .ui.header 
-                        |reviews
-                .eight.wide.column
+                    
                     +yield
                 .four.wide.column
                     +rental_status
