@@ -1,9 +1,4 @@
 template(name='grid')
-    //- .ui.inline.grey.header 
-    //-     |all 
-    //-     each currentUser.roles
-    //-         .ui.basic.label #{this}
-    //-     |models
     .ui.left.icon.input
         input.model_filter(type='text' autofocus='autofocus')
         if model_filter_value
@@ -12,7 +7,7 @@ template(name='grid')
             i.search.icon
     unless model_filter_value
         +cloud filter='model'
-    .ui.stackable.four.column.grid
+    .ui.stackable.three.column.padded.grid
         .row
             each role_models
                 .column
@@ -21,7 +16,7 @@ template(name='grid')
 template(name='grid_role_model')
     .ui.segment
         a.ui.inline.capitalize.header(href="/m/#{slug}" tabindex="0" title=description)
-            +i name=icon
+            +i name=icon classes='ui inline image'
             //- i.icon(class=icon)
             |#{title}
         //- i.grey.eye.icon

@@ -94,7 +94,7 @@ if Meteor.isClient
         'click .reset': ->
             model_slug =  Router.current().params.model_slug
             Session.set 'loading', true
-            Meteor.call 'set_facets', model_slug, ->
+            Meteor.call 'set_facets', model_slug, true, ->
                 Session.set 'loading', false
 
         'click .delete_delta': (e,t)->

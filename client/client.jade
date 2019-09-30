@@ -7,7 +7,6 @@ head
     meta(name="theme-color" content="#000000")
     link(rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.4/dist/semantic.min.css')
     link(href="https://fonts.googleapis.com/css?family=Ubuntu:300,400&display=swap" rel="stylesheet")
-    link(href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet")
     link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
     link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
     link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
@@ -27,11 +26,6 @@ template(name='layout')
         .ui.stackable.grid.global_container(class=invert_class)
             .centered.row
                 .sixteen.wide.column
-                    //- +sidebar
-                    //- .pushable
-                    //-     .pusher
-                    //-         #main
-                                //- .ui.basic.fluid.segment
                     +yield
         unless is_frontdesk
             +footer
@@ -53,11 +47,15 @@ template(name='verification_confirmation')
 
 template(name='not_found')
     .ui.basic.center.aligned.padded.segment
-        .ui.center.aligned.header route not found
+        .ui.center.aligned.header not found
         if is_staff
             a.ui.button(href="/staff") 
                 +i name='user shield'
                 |staff
+        else 
+            a.ui.button(href="/") 
+                +i name='home'
+                |home
 
 
 

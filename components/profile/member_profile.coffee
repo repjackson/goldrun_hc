@@ -1,7 +1,7 @@
 if Meteor.isClient
     Router.route '/member/:username', (->
         @layout 'member_profile_layout'
-        @render 'profile_home'
+        @render 'member_about'
         ), name:'member_home'
     Router.route '/member/:username/about', (->
         @layout 'member_profile_layout'
@@ -59,10 +59,6 @@ if Meteor.isClient
         @layout 'member_profile_layout'
         @render 'member_transactions'
         ), name:'member_transactions'
-    Router.route '/member/:username/gallery', (->
-        @layout 'member_profile_layout'
-        @render 'member_gallery'
-        ), name:'member_gallery'
     Router.route '/member/:username/messages', (->
         @layout 'member_profile_layout'
         @render 'member_messages'
@@ -71,18 +67,10 @@ if Meteor.isClient
         @layout 'member_profile_layout'
         @render 'member_bookmarks'
         ), name:'member_bookmarks'
-    Router.route '/member/:username/documents', (->
-        @layout 'member_profile_layout'
-        @render 'member_documents'
-        ), name:'member_documents'
     Router.route '/member/:username/social', (->
         @layout 'member_profile_layout'
         @render 'member_social'
         ), name:'member_social'
-    Router.route '/member/:username/events', (->
-        @layout 'member_profile_layout'
-        @render 'member_events'
-        ), name:'member_events'
     Router.route '/member/:username/products', (->
         @layout 'member_profile_layout'
         @render 'member_products'
@@ -97,15 +85,10 @@ if Meteor.isClient
         ), name:'member_notifications'
 
 
-
-
     Template.member_profile_layout.onCreated ->
-        @autorun -> Meteor.subscribe 'member_from_username', Router.current().params.username
-        @autorun -> Meteor.subscribe 'member_referenced_docs', Router.current().params.username
-        @autorun -> Meteor.subscribe 'member_models', Router.current().params.username
-
-    Template.member_profile_layout.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'staff_resident_widget'
+        @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
+        # @autorun -> Meteor.subscribe 'member_referenced_docs', Router.current().params.username
+        # @autorun -> Meteor.subscribe 'member_models', Router.current().params.username
 
     Template.member_profile_layout.onRendered ->
         Meteor.setTimeout ->

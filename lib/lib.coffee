@@ -1,10 +1,5 @@
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
-@Service_tags = new Meteor.Collection 'service_tags'
-@Request_tags = new Meteor.Collection 'request_tags'
-@Rental_tags = new Meteor.Collection 'rental_tags'
-@Shop_tags = new Meteor.Collection 'shop_tags'
-@Market_tags = new Meteor.Collection 'market_tags'
 
 # Meteor.users.helpers
 #     name: ->
@@ -106,6 +101,12 @@ Meteor.users.helpers
             "#{@first_name} #{@last_name}"
         else
             "#{@username}"
+    is_current_member: ->
+        if @roles
+            if 'admin' in @roles
+                if 'member' in @current_roles then true else false
+            else
+                if 'member' in @roles then true else false
 
     email_address: -> if @emails and @emails[0] then @emails[0].address
     email_verified: -> if @emails and @emails[0] then @emails[0].verified

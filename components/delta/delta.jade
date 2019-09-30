@@ -7,12 +7,10 @@ template(name='delta')
                         .ui.inline.header.pulsing
                             //- img(src='https://loading.io/spinners/hive/index.hexagon-grid-loader.gif')
                             +i name=icon classes='ui avatar image'
-                            //- i.icon(class=icon)
                             |loading #{title}
                     else 
                         .ui.inline.header(title="#{description}, #{views} views")
                             +i name=icon classes='ui avatar image'
-                            //- i.icon(class=icon)
                             | #{title}
                     unless is_loading
                         if currentUser
@@ -163,7 +161,6 @@ template(name='set_limit')
 
 template(name='set_view_mode')
     .item.set_view_mode 
-        //- i.icon(class=icon)
         //- +ismall name=icon
         |#{title}
 
@@ -202,11 +199,9 @@ template(name='facet')
 template(name='toggle_delta_config')
     if boolean_true
         .ui.active.icon.button.disable_key(title=label)
-            i.icon(class=icon)
             // | #{label}
     else
         .ui.icon.button.enable_key(title=label)
-            i.icon(class=icon)
             // | #{label}
 
 

@@ -4,13 +4,20 @@ template(name='rental_view_layout')
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
-                .four.wide.column
+                .six.wide.column
+                    a.ui.fluid.button(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
+                        i.left.chevron.icon
+                        +i name='handshake' classes='ui mini inline image'
+                        |rentals
                     .ui.large.center.aligned.header #{title}
                     img.ui.centered.rounded.small.image(src="{{c.url image width=400 height=400 crop='fit'}}")
                     if can_edit
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
                             i.pencil.icon
                             |edit
+                    +rental_status
+                    +reserve_button
+
                     .ui.header added by #{_author_username}
                     |#{when}
                     with _author_id
@@ -28,7 +35,7 @@ template(name='rental_view_layout')
                     //- +product_adspace
                     .ui.header 
                         |reviews
-                .eight.wide.column
+                .ten.wide.column
                     a.ui.compact.button(href="/rental/#{_id}/view" class="{{isActiveRoute 'rental_view_info'}}")
                         +ismall name='info'
                         |info
@@ -53,84 +60,82 @@ template(name='rental_view_layout')
                     a.ui.compact.button(href="/rental/#{_id}/stats" class="{{isActiveRoute 'rental_view_stats'}}")
                         +ismall name='line-chart'
                         |stats
-                    a.ui.compact.button(href="/rental/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}")
-                        +ismall name='pie-chart'           
-                        |ownership
+                    //- a.ui.compact.button(href="/rental/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}")
+                    //-     +ismall name='pie-chart'           
+                    //-     |ownership
                     //- a.ui.compact.button(href="/rental/#{_id}/projections" class="{{isActiveRoute 'rental_view_projections'}}")
                     //-     |projections
-                    a.ui.compact.button(href="/rental/#{_id}/ads" class="{{isActiveRoute 'rental_view_ads'}}")
-                        +ismall name='open-in-window'
-                        |ads
-                    
-                    +yield
-                .four.wide.column
-                    +rental_status
-                    +reserve_button
-                    .ui.header cost
-                    if hourly_dollars
-                        .ui.header $#{hourly_dollars}/hr
-                    if daily_dollars
-                        .ui.header $#{daily_dollars}/day
-                    if hourly_karma
-                        .ui.header 
-                            +i name='yin-yang' 
-                            |#{hourly_karma}/day
-                    if daily_karma
-                        .ui.header 
-                            +i name='yin-yang' 
-                            |#{daily_karma}/day
-        
-                    .ui.header #{views} views
-                    .ui.header $#{past_earnings} past earnings 
-                    .ui.header $#{future_earnings} future earnings 
-                    .ui.header #{future_reservations} future reservations
-                    .ui.header #{past_reservations} past reservations
+                    //- a.ui.compact.button(href="/rental/#{_id}/ads" class="{{isActiveRoute 'rental_view_ads'}}")
+                    //-     +ismall name='open-in-window'
+                    //-     |ads
                     div
-                    +product_location
-                    .ui.header available_inventory #{inventory_available}
-                    if for_sale
-                        unless sold_out
-                            .ui.big.green.fluid.button.add_to_cart 
-                                |+ cart
-                        else 
-                            .ui.big.disabled.button
-                                |sold out
-                    +voting_full     
-                    .ui.basic.segment
-                        .ui.small.header
-                            |delivery instructions
-                        |#{delivery_instructions}      
-                    .ui.header
-                        +ismall name='delivery'
-                        |delivery
-                    +boolean_view key='pickup_delivery' label='pickup' direct=true
-                    +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
-                    +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
-                    +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
-                    .ui.header
-                        +i name='money'
-                        |pricing
-                    +boolean_view key='cash_accepted' label='cash accepted' direct=true
-                    +boolean_view key='prepay' label='prepayment required' direct=true
-                    +boolean_view key='security_deposit_required' label='security deposit required' direct=true
-                    if security_deposit_required
-                        +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
-                    .ui.header pricing planning determination
-                    +boolean_view key='friend_discount' label='friend discount' direct=true
-                    if friend_discount
-                        +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
-                    .ui.header
-                        +i name='lock'
-                        | privacy
-                    .ui.small.header
-                        +i name='eye'
-                        |visibility
-                    +boolean_view key='visible_to_friends' label='friends' direct=true
-                    +boolean_view key='visible_to_building' label='building' direct=true
-                    +boolean_view key='visible_to_residents' label='residents' direct=true
-                    +boolean_view key='visible_to_public' label='public' direct=true
-                    .ui.divider
-                    +boolean_view key='published' label='published' direct=true
+                    +yield
+                //- .four.wide.column
+                //-     .ui.header cost
+                //-     if hourly_dollars
+                //-         .ui.header $#{hourly_dollars}/hr
+                //-     if daily_dollars
+                //-         .ui.header $#{daily_dollars}/day
+                //-     if hourly_karma
+                //-         .ui.header 
+                //-             +i name='yin-yang' 
+                //-             |#{hourly_karma}/day
+                //-     if daily_karma
+                //-         .ui.header 
+                //-             +i name='yin-yang' 
+                //-             |#{daily_karma}/day
+                //- 
+                //-     .ui.header #{views} views
+                //-     .ui.header $#{past_earnings} past earnings 
+                //-     .ui.header $#{future_earnings} future earnings 
+                //-     .ui.header #{future_reservations} future reservations
+                //-     .ui.header #{past_reservations} past reservations
+                //-     div
+                //-     +product_location
+                //-     .ui.header available_inventory #{inventory_available}
+                //-     if for_sale
+                //-         unless sold_out
+                //-             .ui.big.green.fluid.button.add_to_cart 
+                //-                 |+ cart
+                //-         else 
+                //-             .ui.big.disabled.button
+                //-                 |sold out
+                //-     +voting_full     
+                //-     .ui.basic.segment
+                //-         .ui.small.header
+                //-             |delivery instructions
+                //-         |#{delivery_instructions}      
+                //-     .ui.header
+                //-         +ismall name='delivery'
+                //-         |delivery
+                //-     +boolean_view key='pickup_delivery' label='pickup' direct=true
+                //-     +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
+                //-     +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
+                //-     +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
+                //-     .ui.header
+                //-         +i name='money'
+                //-         |pricing
+                //-     +boolean_view key='cash_accepted' label='cash accepted' direct=true
+                //-     +boolean_view key='prepay' label='prepayment required' direct=true
+                //-     +boolean_view key='security_deposit_required' label='security deposit required' direct=true
+                //-     if security_deposit_required
+                //-         +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
+                //-     .ui.header pricing planning determination
+                //-     +boolean_view key='friend_discount' label='friend discount' direct=true
+                //-     if friend_discount
+                //-         +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
+                //-     .ui.header
+                //-         +i name='lock'
+                //-         | privacy
+                //-     .ui.small.header
+                //-         +i name='eye'
+                //-         |visibility
+                //-     +boolean_view key='visible_to_friends' label='friends' direct=true
+                //-     +boolean_view key='visible_to_building' label='building' direct=true
+                //-     +boolean_view key='visible_to_residents' label='residents' direct=true
+                //-     +boolean_view key='visible_to_public' label='public' direct=true
+                //-     .ui.divider
+                //-     +boolean_view key='published' label='published' direct=true
     +footer
 
 

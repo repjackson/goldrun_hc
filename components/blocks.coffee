@@ -135,6 +135,13 @@ if Meteor.isClient
 
     Template.username_info.onCreated ->
         @autorun => Meteor.subscribe 'user_from_username', @data
+    Template.username_info.events
+        'click .goto_profile': ->
+            user = Meteor.users.findOne username:@valueOf()
+            if user.is_current_member
+                Router.go "/member/#{user.username}/"
+            else
+                Router.go "/user/#{user.username}/"
     Template.username_info.helpers
         user: -> Meteor.users.findOne username:@valueOf()
 

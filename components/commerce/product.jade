@@ -92,21 +92,8 @@ template(name='shop_view_layout')
                     .ui.large.vertical.fluid.menu
                         a.item(href="/shop/#{_id}/info" class="{{isActiveRoute 'shop_info'}}")
                             |info
-                        if rentable
-                            a.item(href="/shop/#{_id}/rentals" class="{{isActiveRoute 'shop_rentals'}}")
-                                |rentals
                         a.item(href="/shop/#{_id}/chat" class="{{isActiveRoute 'shop_chat'}}")
                             |chat
-                        a.item(href="/shop/#{_id}/tasks" class="{{isActiveRoute 'shop_tasks'}}")
-                            |tasks
-                        a.item(href="/shop/#{_id}/earnings" class="{{isActiveRoute 'shop_earnings'}}")
-                            |earnings
-                        a.item(href="/shop/#{_id}/stats" class="{{isActiveRoute 'shop_stats'}}")
-                            |stats
-                        a.item(href="/shop/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}")
-                            |ownership
-                        a.item(href="/shop/#{_id}/projections" class="{{isActiveRoute 'shop_projections'}}")
-                            |projections
                         a.item(href="/shop/#{_id}/ads" class="{{isActiveRoute 'shop_ads'}}")
                             |ads
                     .ui.header added by #{_author_username}
@@ -174,6 +161,90 @@ template(name='shop_view_layout')
                     .ui.divider
                     +boolean_view key='published' label='published' direct=true
     +footer
+    
+    
+    
+    
+template(name='product_header')
+    a(href="/shop/#{_id}/view")
+        img.ui.avatar.rounded.image(src="{{c.url picture width=400 height=400 gravity='face' crop='fill'}}")
+        .ui.inline.small.header #{title}
+
+
+template(name='add_to_tab')
+    .ui.segment
+        .add_to_tab.ui.green.button
+            //- i.cart.plus.icon
+            |add to tab
+        if current_tab_additions
+            div current tab additions
+            .ui.list
+                each current_tab_additions
+                    .item
+                        |#{when}
+                        //- i.remove.link.icon.remove_tab_item
+
+template(name='shop_card_template')
+    .ui.fluid.horizontal.card
+        a.pointer(href="/shop/#{_id}/view")
+            img.ui.centered.rounded.image(src="{{c.url image width=300 height=200 crop='fit'}}")
+        .content
+            a.ui.grey.small.header(href="/shop/#{_id}/view") #{title}
+            //- div
+            //- +i name='food' classes='ui mini inline image'
+            //- each ingredients
+            //-     .ui.basic.label #{this}
+            //- div
+            //- +i name='marker' classes='ui mini inline image'
+            //- each location_tags
+            //-     .ui.basic.label #{this}
+            //- .ui.basic.animated.fade.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
+            //-     .visible.content
+            //-         .ui.header #{karma_price}k
+            //-     .hidden.content
+                    i.cart.plus.green.large.icon
+            if rentable
+                .ui.small.inline.header
+                    //- i.clock.grey.small.icon
+                    |$#{daily_rate}/day
+                div
+            //- if hourly_rate
+            //-     .ui.header $#{hourly_rate}/hour
+            //- unless rentable
+            .ui.inline.header 
+                //- i.shop.grey.small.icon
+                |$#{dollar_price}
+            div
+            //- i.grey.marker.icon
+            each location_tags
+                .ui.small.basic.label #{this}
+            a.ui.basic.small.icon.button(href="/shop/#{_id}/view")
+            //-     +i name='chevron right' classes='ui mini image'
+            //- if can_edit
+                a.ui.basic.small.icon.button(href="/shop/#{_id}/edit")
+            //-         +i name='pencil' classes='ui mini image'
+                //- +edit_button
+        //- .four.wide.column
+        //-     with author
+        //-         img.ui.avatar.image(src="{{c.url image_id width=200 height=200 crop='fit'}}")    
+        //-         .ui.inline.header #{first_name} #{last_name}
+        //-         .ui.header #{sales_amount} sales
+        //-         .ui.header #{purchase_amount} purchases
+            
+            
+template(name='fav_button')
+    i.large.link.heart.outline.icon
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
