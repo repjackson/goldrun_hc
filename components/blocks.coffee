@@ -313,6 +313,7 @@ if Meteor.isClient
                 $(e.currentTarget).closest('.segment').transition('fly right', 1000)
                 $(e.currentTarget).closest('.card').transition('fly right', 1000)
                 $(e.currentTarget).closest('.item').transition('fly right', 1000)
+                $(e.currentTarget).closest('.content').transition('fly right', 1000)
                 $(e.currentTarget).closest('tr').transition('fly right', 1000)
                 $(e.currentTarget).closest('.event').transition('fly right', 1000)
                 Meteor.setTimeout =>

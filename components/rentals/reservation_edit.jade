@@ -36,7 +36,7 @@ template(name='reservation_edit')
                     div
                     +boolean_view key='friend_discount' label='friend discount' icon='friends--v2' direct=true
                     if friend_discount
-                        +number_view key='friend_discount_amount' label='security deposit amount' icon='dollar' direct=true
+                        +number_view key='friend_discount_amount' label='friend discount amount' icon='friends' direct=true
                 
                 .column 
                     //- a.ui.header(href="/rental/#{rental._id}/view") reserve #{rental.title}

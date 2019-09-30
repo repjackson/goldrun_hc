@@ -54,8 +54,8 @@ template(name='nav')
             if is_current_member
                 a.ui.icon.item(href='/members' class="{{isActivePath '/members'}}")
                     +i name='groups' classes='ui mini inline image'
-                a.ui.icon.item(href='/work' class="{{isActivePath '/work'}}")
-                    +i name='tasks'
+                //- a.ui.icon.item(href='/work' class="{{isActivePath '/work'}}")
+                //-     +i name='tasks'
             if is_current_staff
                 a.ui.icon.item(href='/buildings' class="{{isActivePath '/buildings'}}" title='buildings')
                     +i name='building' classes='ui mini inline image'
@@ -88,19 +88,13 @@ template(name='nav')
                         span.my_karma_amount #{currentUser.karma}
                     //- a.ui.icon.item(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
                     //-     +i name='shopping-cart' classes='ui mini inline image'
-                    //- a.ui.icon.item(href='/transactions' class="{{isActivePath '/transactions'}}" title='transactions')
-                    //-     +i name='invoice' classes='ui mini inline image'
+                    a.ui.icon.item(href='/transactions' class="{{isActivePath '/transactions'}}" title='transactions')
+                        +i name='invoice' classes='ui mini inline image'
                     //- a.ui.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
                     //-     +i name='inbox' classes='ui mini inline image'
                     a.ui.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
                         +i name='chat' classes='ui mini inline image'
                         //- i.chat.large.grey.outline.icon
-                //- unless is_staff
-                    //- a.ui.item(href='/m/work' class="{{isActivePath '/m/work'}}" title='tasks')
-                    //-     i.tasks.icon
-                    //- a.ui.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
-                    //-     i.tasks.icon
-                    //- if currentUser
                 if currentUser
                     unless logging_out
                         if is_member
@@ -155,16 +149,16 @@ template(name='nav')
 template(name='footer')
     .ui.fluid.basic.attached.secondary.segment.footer
         .ui.stackable.grid
-            .four.wide.column
-                +latest_activity
-            .four.wide.column
-                if currentUser 
-                    +my_latest_activity
+            .eight.wide.column
+                +add_button label='bug' model='bug' icon='bug'
+            //-     +latest_activity
+            //- .four.wide.column
+            //-     if currentUser 
+            //-         +my_latest_activity
                 //- if is_admin
                 //-     .ui.button.shortcut_modal
                 //-         i.keyboard.icon
                 //-         | keyboard shortcuts
-                +add_button label='bug' model='bug' icon='bug'
                 if is_dev    
                     with current_user
                         +role_switcher
@@ -173,7 +167,7 @@ template(name='footer')
                     a.ui.big.button(href='/login')
                         i.sign.in.icon
                         |login
-                +footer_chat
+                //- +footer_chat
                 if is_admin
                     with currentUser
                         +role_switcher

@@ -8,26 +8,6 @@ if Meteor.isClient
             unless Meteor.userId() and 'ytjpFxiwnWaJELZEd' is Meteor.userId()
                 Meteor.call 'log_home_view', ->
 
-    Template.home_slider.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'slide'
-    Template.home_slider.onRendered ->
-        # Meteor.setTimeout ->
-        #     $('.slider').glide({
-        #       autoplay: false,
-        #       hoverpause:true,
-        #       arrowsWrapperClass: 'slider-arrows',
-        #       arrowRightText: '',
-        #       arrowLeftText: ''
-        #     });
-        # , 3000
-    Template.home_slider.helpers
-        slides: ->
-            Docs.find {
-                model:'slide'
-            },
-                sort: number: -1
-
-
 
 
 

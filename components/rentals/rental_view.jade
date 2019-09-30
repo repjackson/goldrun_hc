@@ -65,6 +65,7 @@ template(name='rental_view_layout')
                     +yield
                 .four.wide.column
                     +rental_status
+                    +reserve_button
                     .ui.header cost
                     if hourly_dollars
                         .ui.header $#{hourly_dollars}/hr
