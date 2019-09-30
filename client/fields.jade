@@ -668,7 +668,7 @@ template(name='date_view')
 
 
 template(name='time_edit')
-    .ui.inline.header
+    .ui.inline.small.grey.header
         if icon
             +ismall name=icon classes='ui inline mini image'
         if title
@@ -687,7 +687,7 @@ template(name='time_view')
     if field_value
         if icon
             +ismall name=icon classes='ui inline mini image'
-        .ui.inline.header
+        .ui.inline.small.grey.header
             if title
                 |#{title}
             else if label
@@ -696,7 +696,7 @@ template(name='time_view')
                 |#{key}
             else
                 |#{this}
-        strong &nbsp; #{field_value}
+        .ui.inline.header &nbsp; #{field_value}
 
 template(name='datetime_edit')
     .ui.form

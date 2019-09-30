@@ -28,25 +28,25 @@ template(name='rental_edit_layout')
                         +ismall name='groups'
                         |audience
                         //- i.users.grey.icon
-                    a.ui.compact.button(href="/rental/#{_id}/edit/chat" class="{{isActiveRoute 'rental_edit_chat'}}")
-                        +ismall name='chat'
-                        |chat
+                    //- a.ui.compact.button(href="/rental/#{_id}/edit/chat" class="{{isActiveRoute 'rental_edit_chat'}}")
+                    //-     +ismall name='chat'
+                    //-     |chat
                         //- i.chat.outline.grey.icon
-                    a.ui.compact.button(href="/rental/#{_id}/edit/tasks" class="{{isActiveRoute 'rental_edit_tasks'}}")
-                        +ismall name='tasks'           
-                        |tasks         
+                    //- a.ui.compact.button(href="/rental/#{_id}/edit/tasks" class="{{isActiveRoute 'rental_edit_tasks'}}")
+                    //-     +ismall name='tasks'           
+                    //-     |tasks         
                         //- i.tasks.grey.icon
-                    a.ui.compact.button(href="/rental/#{_id}/edit/ownership" class="{{isActiveRoute 'rental_edit_ownership'}}")
-                        +ismall name='pie-chart'           
-                        |ownership
+                    //- a.ui.compact.button(href="/rental/#{_id}/edit/ownership" class="{{isActiveRoute 'rental_edit_ownership'}}")
+                    //-     +ismall name='pie-chart'           
+                    //-     |ownership
                         //- i.pie.chart.grey.icon
-                    a.ui.compact.button(href="/rental/#{_id}/edit/stats" class="{{isActiveRoute 'rental_edit_stats'}}")
-                        +ismall name='line-chart'
+                    //- a.ui.compact.button(href="/rental/#{_id}/edit/stats" class="{{isActiveRoute 'rental_edit_stats'}}")
+                    //-     +ismall name='line-chart'
                         |stats
                         //- i.line.chart.grey.icon
-                    a.ui.compact.button(href="/rental/#{_id}/edit/ads" class="{{isActiveRoute 'rental_edit_ads'}}")
-                        +ismall name='open-in-window'
-                        |ads
+                        //- a.ui.compact.button(href="/rental/#{_id}/edit/ads" class="{{isActiveRoute 'rental_edit_ads'}}")
+                        //-     +ismall name='open-in-window'
+                        //-     |ads
                         //- i.bullhorn.grey.icon
                 .twelve.wide.column 
                     +yield

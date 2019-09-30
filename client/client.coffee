@@ -1,9 +1,4 @@
 @selected_tags = new ReactiveArray []
-@selected_service_tags = new ReactiveArray []
-@selected_rental_tags = new ReactiveArray []
-@selected_request_tags = new ReactiveArray []
-@selected_shop_tags = new ReactiveArray []
-@selected_market_tags = new ReactiveArray []
 
 # Meteor.startup ->
 #     scheduler.init "scheduler_here", new Date()

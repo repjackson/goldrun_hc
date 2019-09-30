@@ -9,62 +9,6 @@ if Meteor.isClient
                 Meteor.call 'log_home_view', ->
 
 
-
-
-
-    Template.work_small.onCreated ->
-        # @autorun -> Meteor.subscribe 'completed_work'
-    Template.work_small.helpers
-        work: ->
-            Docs.find {
-                model:'work'
-                complete:true
-            },
-                sort: _timestamp: -1
-                # limit:7
-
-
-
-    Template.shop_small.onCreated ->
-        # @autorun -> Meteor.subscribe 'model_docs', 'shop'
-        @autorun -> Meteor.subscribe 'shop_docs', selected_shop_tags.array()
-    Template.shop_small.helpers
-        products: ->
-            Docs.find {
-                model:'shop'
-            },
-                sort: _timestamp: -1
-                limit:5
-
-
-
-    Template.stats_small.onCreated ->
-        # @autorun -> Meteor.subscribe 'completed_work'
-    Template.stats_small.events
-        'click .calc_home_stats': ->
-            Meteor.call 'calc_home_stats'
-    Template.stats_small.helpers
-        work: ->
-            Docs.find {
-                model:'work'
-                complete:true
-            },
-                sort: _timestamp: -1
-                limit:10
-
-
-    Template.work_order_small.onCreated ->
-        # @autorun -> Meteor.subscribe 'model_docs', 'work_order', 10
-        @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'work_order'
-    Template.work_order_small.helpers
-        work_order: ->
-            Docs.find {
-                model:'work_order'
-            },
-                sort: _timestamp: -1
-                # limit:7
-
-
     Template.home.helpers
         hsd: ->
             Docs.findOne
@@ -111,35 +55,6 @@ if Meteor.isClient
                 model:'home_stats'
             Docs.update hsd._id,
                 $inc: unhappy_votes: 1
-
-
-    Template.service_slider.onRendered ->
-        # Meteor.setTimeout (->
-        #     $('#service_slider').layerSlider
-        #         autoStart: true
-        #     ), 3000
-    Template.service_slider.onCreated ->
-        @autorun -> Meteor.subscribe('model_docs', 'service')
-    Template.service_slider.helpers
-        slides: ->
-            Docs.find
-                model: 'service'
-
-
-
-    Template.event_slider.onRendered ->
-        # Meteor.setTimeout (->
-        #     $('#event_slider').layerSlider
-        #         autoStart: true
-        #     ), 3000
-    Template.event_slider.onCreated ->
-        @autorun -> Meteor.subscribe('model_docs', 'event')
-    Template.event_slider.helpers
-        slides: ->
-            Docs.find
-                model: 'event'
-
-
 
 
 
