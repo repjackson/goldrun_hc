@@ -174,11 +174,11 @@ template(name='small_horizontal_member_card')
             .content    
                 a.header(href="/member/#{username}") #{first_initial} #{last_name} 
                 //- .meta @#{username}
-                span(title='points')
-                    |#{points} pts
-                span(title='karma')
-                    |#{karma} 
-                    i.yin.yang.icon
+                //- span(title='points')
+                //-     |#{points} pts
+                //- span(title='karma')
+                //-     |#{karma} 
+                //-     i.yin.yang.icon
                 each tags
                     .ui.small.basic.label #{this}
                 if is_admin

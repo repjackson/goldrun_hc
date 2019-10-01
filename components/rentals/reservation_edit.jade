@@ -12,14 +12,10 @@ template(name='reservation_edit')
                         small reservation
                     with rental
                         +image_view key='image' label='image' direct=true
-                    .ui.stackable.grid
-                        .two.column.row
-                            .column
-                                +number_view key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
-                                +number_view key='daily_dollars' label='daily rate ($)' icon='money' direct=true
-                            .column
-                                +number_view key='hourly_karma' label='hourly rate (karma)' icon='yin-yang' direct=true
-                                +number_view key='daily_karma' label='daily rate (karma)' icon='yin-yang' direct=true
+                        +number_view key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
+                        +number_view key='daily_dollars' label='daily rate ($)' icon='money' direct=true
+                        //- +number_view key='hourly_karma' label='hourly rate (karma)' icon='yin-yang' direct=true
+                        //- +number_view key='daily_karma' label='daily rate (karma)' icon='yin-yang' direct=true
                     div
                     +boolean_view key='variable_price' label='variable price' icon='change' direct=true tooltip='allow system to increase/decrease price based on performance and popularity'
                     if variable_price
@@ -50,6 +46,7 @@ template(name='reservation_edit')
                     unless now
                         +date_edit key='start_date' label='start date' icon='date-from' direct=true
                         +time_edit key='start_time' label='start time' icon='date-to' direct=true
+                        +datetime_edit key='start_datetime' label='start datetime' direct=true
                     .ui.header 
                         +i name='date-to' classes='ui tiny inline image'
                         |duration
@@ -66,7 +63,7 @@ template(name='reservation_edit')
                     div
                     if is_hour
                         +number_view key='hourly_dollars' label='hourly rate ($)'
-                        +number_view key='hourly_karma' label='hourly rate (karma)'
+                        //- +number_view key='hourly_karma' label='hourly rate (karma)'
                         .ui.button.set_1_hr 1 hr
                         //- +key_value_edit key='hour_duration' value=.5 label='1/2'
                         //- +key_value_edit key='hour_duration' value=1 label='1 hr'
@@ -74,16 +71,16 @@ template(name='reservation_edit')
                         //- +key_value_edit key='hour_duration' value=3 label='3 hrs'
                         //- +number_edit key='hour_duration' label='other' direct=true
                     if is_day 
-                        +number_view key='daily_karma' label='daily rate (karma)'
-                        +number_view key='daily_karma' label='daily rate (karma)'
+                        +number_view key='daily_dollars' label='daily rate ($)'
+                        //- +number_view key='daily_karma' label='daily rate (karma)'
                         +key_value_edit key='day_duration' value=1 label='1 day'
                         +key_value_edit key='day_duration' value=2 label='2 days'
                         +key_value_edit key='day_duration' value=3 label='3 days'
                         +key_value_edit key='day_duration' value=3 label='other'
                         +number_edit key='day_duration' label='other' direct=true
                     if is_month
-                        +number_view key='monthly_karma' label='monthly rate (karma)'
-                        +number_view key='monthly_karma' label='monthly rate (karma)'
+                        +number_view key='monthly_dollars' label='monthly rate ($)'
+                        //- +number_view key='monthly_karma' label='monthly rate (karma)'
                         +key_value_edit key='month_duration' value=1 label='1 month'
                         +key_value_edit key='month_duration' value=2 label='2 months'
                         +key_value_edit key='month_duration' value=3 label='3 months'
@@ -91,6 +88,7 @@ template(name='reservation_edit')
                         +number_edit key='month_duration' label='other' direct=true
                     +date_edit key='end_date' label='end date' icon='date-to' direct=true
                     +time_edit key='end_time' label='end time' icon='time' direct=true
+                    +datetime_edit key='end_datetime' label='end datetime' direct=true
             
                     //- +key_value_edit key='minute_duration' value=30 label='1/2'
                     //- +key_value_edit key='minute_duration' value=60 label='1 hour'
@@ -105,9 +103,9 @@ template(name='reservation_edit')
                     .ui.header 
                         +i name='money' classes='ui tiny inline image'
                         |estimated dollars #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
-                    .ui.header 
-                        +i name='yin-yang' classes='ui tiny inline image'
-                        |estimated karma #{hour_duration}*#{rental.hourly_karma} = $#{estimated_karma}
+                    //- .ui.header 
+                    //-     +i name='yin-yang' classes='ui tiny inline image'
+                    //-     |estimated karma #{hour_duration}*#{rental.hourly_karma} = $#{estimated_karma}
                     .ui.header final cost will be based on actual checked out time
                     //- +number_view key='minute_duration' label='minute duration' direct=true
                     +number_view key='hour_duration' label='hour duration' direct=true

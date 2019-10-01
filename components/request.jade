@@ -1,22 +1,5 @@
-template(name='requests')
-    .ui.padded.grid
-        .row
-            a.ui.big.fluid.button(href='/healthclub')
-                i.left.chevron.icon
-                .ui.inline.header back
-        .row
-            .four.wide.column
-                .ui.header 
-                    |requests
-                +cloud filter='request'
-            .twelve.wide.column
-                .ui.stackable.three.cards
-                    each requests
-                        +request_card_template
-
-
 template(name='request_card_template')
-    .ui.fluid.segment.grid
+    .ui.fluid.segment.stackable.grid
         .row
             .sixteen.wide.column
                 a.ui.inline.f9.header(href="/request/#{_id}/view") #{title}

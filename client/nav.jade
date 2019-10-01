@@ -4,28 +4,26 @@ template(name='nav')
         #topnav.topnav.ui.attached.borderless.small.menu(class=gs.nav_color)
             if is_loading
                 .icon.item
-                    i.big.spinning.yin.yang.grey.cancel.icon
-                    //- i.big.spinning.pulse.plus.blue.icon.cancel
-            unless is_current_staff
-                unless is_loading
-                    a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
-                        +i name='home' classes='ui mini inline image'
-            if is_current_member
+                    //- i.big.spinning.yin.yang.grey.cancel.icon
+                    i.big.spinning.pulse.plus.blue.icon.cancel
+            if is_member
+                a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
+                    +i name='home' classes='ui mini inline image'
+            if is_dev
                 a.ui.icon.item(href='/members' class="{{isActivePath '/members'}}")
                     +i name='groups' classes='ui mini inline image'
-            if is_current_staff
+            if is_staff
                 a.ui.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
                     +i name='user shield' classes='ui mini inline image'
                     | staff
-        
             .right.menu
                 if is_dev
                     a.ui.icon.item(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
                         +i name='database' classes='ui mini inline image'
-                if is_current_member
-                    a.ui.icon.item(href='/karma' class="{{isActivePath '/karma'}}" title='karma')
-                        +i name='yin-yang' classes='ui mini inline image'
-                        span.my_karma_amount #{currentUser.karma}
+                //- if is_current_member
+                //-     a.ui.icon.item(href='/karma' class="{{isActivePath '/karma'}}" title='karma')
+                //-         +i name='yin-yang' classes='ui mini inline image'
+                //-         span.my_karma_amount #{currentUser.karma}
                     //- a.ui.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
                     //-     +i name='inbox' classes='ui mini inline image'
                 if currentUser
@@ -58,32 +56,31 @@ template(name='nav')
 
 
 template(name='footer')
-    .ui.fluid.basic.attached.segment.footer
-        .ui.stackable.grid
-            .eight.wide.column
-                //- +add_button label='bug' model='bug' icon='bug'
-            //-     +latest_activity
-            //- .four.wide.column
-            //-     if currentUser 
-            //-         +my_latest_activity
-                //- if is_admin
-                //-     .ui.button.shortcut_modal
-                //-         i.keyboard.icon
-                //-         | keyboard shortcuts
-                if is_dev    
-                    with current_user
-                        +role_switcher
-            .eight.wide.column
-                unless currentUser
-                    a.ui.big.button(href='/login')
-                        i.sign.in.icon
-                        |login
-                //- +footer_chat
-                if is_admin
-                    with currentUser
-                        +role_switcher
+    .ui.stackable.grid
+        .eight.wide.column
+            //- +add_button label='bug' model='bug' icon='bug'
+        //-     +latest_activity
+        //- .four.wide.column
+        //-     if currentUser 
+        //-         +my_latest_activity
+            //- if is_admin
+            //-     .ui.button.shortcut_modal
+            //-         i.keyboard.icon
+            //-         | keyboard shortcuts
+            if is_dev    
+                with current_user
+                    +role_switcher
+        .eight.wide.column
+            unless currentUser
+                a.ui.big.button(href='/login')
+                    i.sign.in.icon
+                    |login
+            //- +footer_chat
+            if is_admin
+                with currentUser
+                    +role_switcher
 
-                
+            
                 
 template(name='footer_chat')
     .ui.grey.inline.header 

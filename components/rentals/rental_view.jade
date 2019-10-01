@@ -38,7 +38,7 @@ template(name='rental_view_layout')
                     a.ui.compact.button(href="/rental/#{_id}/view" class="{{isActiveRoute 'rental_view_info'}}")
                         +ismall name='info'
                         |info
-                    a.ui.compact.button(href="/rental/#{_id}/audience" class="{{isActiveRoute 'rental_view_transactions'}}")
+                    a.ui.compact.button(href="/rental/#{_id}/audience" class="{{isActiveRoute 'rental_view_audience'}}")
                         +ismall name='invoice'
                         |audience
                     a.ui.compact.button(href="/rental/#{_id}/reservations" class="{{isActiveRoute 'rental_view_reservations'}}")
@@ -47,9 +47,9 @@ template(name='rental_view_layout')
                     a.ui.compact.button(href="/rental/#{_id}/chat" class="{{isActiveRoute 'rental_view_chat'}}")
                         +ismall name='chat'
                         |chat
-                    a.ui.compact.button(href="/rental/#{_id}/calendar" class="{{isActiveRoute 'rental_view_calendar'}}")
-                        +ismall name='calendar'
-                        |calendar
+                    //- a.ui.compact.button(href="/rental/#{_id}/calendar" class="{{isActiveRoute 'rental_view_calendar'}}")
+                    //-     +ismall name='calendar'
+                    //-     |calendar
                     a.ui.compact.button(href="/rental/#{_id}/finance" class="{{isActiveRoute 'rental_view_finance'}}")
                         +ismall name='money'
                         |finance
@@ -128,13 +128,12 @@ template(name='rental_view_finance')
         |rental finance
     i.circular.link.refresh.icon.refresh_rental_finance_stats
     .ui.stackable.grid
-        .two.column.row
-            .column
-                +number_view key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
-                +number_view key='daily_dollars' label='daily rate ($)' icon='money' direct=true
-            .column
-                +number_view key='hourly_karma' label='hourly rate (karma)' icon='yin-yang' direct=true
-                +number_view key='daily_karma' label='daily rate (karma)' icon='yin-yang' direct=true
+        .column
+            +number_view key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
+            +number_view key='daily_dollars' label='daily rate ($)' icon='money' direct=true
+        //- .column
+        //-     +number_view key='hourly_karma' label='hourly rate (karma)' icon='yin-yang' direct=true
+        //-     +number_view key='daily_karma' label='daily rate (karma)' icon='yin-yang' direct=true
     div
     +boolean_view key='variable_price' label='variable price' icon='change' direct=true tooltip='allow system to increase/decrease price based on performance and popularity'
     if variable_price
@@ -174,5 +173,6 @@ template(name='rental_status')
         
 template(name='reserve_button')
     .ui.big.green.fluid.button.new_reservation 
-        |reserve
-        +i name='play' classes='ui inline mini image'
+        .ui.inverted.header 
+            |reserve
+            +i name='play' classes='ui inline mini image'

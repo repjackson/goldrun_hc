@@ -26,14 +26,14 @@ template(name='member_payment')
     +image_view key='venmo_qr' label='venmo qr code' direct=true
 
 template(name='member_social')
-    +user_people
-    +user_wall
+    +member_people
+    +member_wall
 
 
 template(name='member_people')
     .ui.stackable.grid
         .eight.wide.column
-            +user_following
+            +member_following
         .eight.wide.column
             +follow_user
 

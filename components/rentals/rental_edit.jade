@@ -13,7 +13,7 @@ template(name='rental_edit_layout')
                         i.checkmark.large.green.icon
                         |save
                     +remove_button
-                    div
+                .twelve.wide.column 
                     a.ui.compact.button(href="/rental/#{_id}/edit/info" class="{{isActiveRoute 'rental_edit_info'}}")
                         +ismall name='info'
                         |info
@@ -26,21 +26,14 @@ template(name='rental_edit_layout')
                     a.ui.compact.button(href="/rental/#{_id}/edit/audience" class="{{isActiveRoute 'rental_edit_audience'}}") 
                         +ismall name='groups'
                         |audience
-                .twelve.wide.column 
                     +yield
                     
                     
                     
 template(name='rental_edit_info')      
-    h1.ui.header 
-        +i name='info'
-        |info
     +text_edit key='title' direct=true
-    .ui.two.column.grid
-        .column
-            +image_edit key='image' label='image' direct=true
-        .column
-            +textarea_edit key='description' label='content' icon='content' direct=true
+    +image_edit key='image' label='image' direct=true
+    +textarea_edit key='description' label='content' icon='content' direct=true
     +array_edit key='tags' label='tags' icon='tags' direct=true
     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
     +single_user_edit key='resident' label='resident' direct=true
@@ -52,14 +45,12 @@ template(name='rental_edit_finance')
     .ui.large.header 
         +i name='money'
         |finance
-    .ui.stackable.grid
-        .two.column.row
-            .column
-                +number_edit key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
-                +number_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
-            .column
-                +number_edit key='hourly_karma' label='hourly rate (karma)' icon='yin-yang' direct=true
-                +number_edit key='daily_karma' label='daily rate (karma)' icon='yin-yang' direct=true
+    +number_edit key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
+    +number_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
+    +number_edit key='monthly_dollars' label='monthly rate ($)' icon='money' direct=true
+    //- .column
+    //-     +number_edit key='hourly_karma' label='hourly rate (karma)' icon='yin-yang' direct=true
+    //-     +number_edit key='daily_karma' label='daily rate (karma)' icon='yin-yang' direct=true
     div
     +boolean_edit key='variable_price' label='variable price' icon='change' direct=true tooltip='allow system to increase/decrease price based on performance and popularity'
     if variable_price
