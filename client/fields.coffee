@@ -1,92 +1,3 @@
-Template.price_view.onCreated ->
-	# Session.set 'giveAmount', ''
-    # if Meteor.isDevelopment
-    #     pub_key = Meteor.settings.public.stripe_test_publishable
-    # else if Meteor.isProduction
-    #     pub_key = Meteor.settings.public.stripe_live_publishable
-    # Template.instance().checkout = StripeCheckout.configure(
-    #     key: pub_key
-    #     image: 'http://res.cloudinary.com/facet/image/upload/c_fill,g_face,h_300,w_300/k2zt563boyiahhjb0run'
-    #     locale: 'auto'
-    #     # zipCode: true
-    #     token: (token) ->
-    #         console.log token
-    #         product = Docs.findOne Router.current().params.doc_id
-    #         console.log product
-    #         charge =
-    #             amount: product.dollar_price*100
-    #             currency: 'usd'
-    #             source: token.id
-    #             description: token.description
-    #             # receipt_email: token.email
-    #         Meteor.call 'STRIPE_single_charge', charge, (error, response) ->
-    #             if error then alert error.reason, 'danger'
-    #             else alert 'Thanks for your payment.', 'success'
-	# )
-
-
-
-Template.price_edit.events
-    'blur .edit_price': (e,t)->
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        val = parseInt t.$('.edit_price').val()
-        doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
-        if doc
-            Docs.update parent._id,
-                $set:"#{@key}":val
-        else if user
-            Meteor.users.update parent._id,
-                $set:"#{@key}":val
-
-
-Template.price_view.events
-    'click .buy_now': ->
-        parent = Template.parentData()
-        parent5 = Template.parentData(5)
-        parent6 = Template.parentData(6)
-        if @direct
-            parent = Template.parentData()
-        else if parent5._id
-            parent = Template.parentData(5)
-        else if parent6._id
-            parent = Template.parentData(6)
-        if parent
-            console.log parent
-            value = parent["#{@key}"]
-            console.log Meteor.user().emails[0].address
-
-            Template.instance().checkout.open
-                name: parent.title
-                # email:Meteor.user().emails[0].address
-                description: 'gro marketplace'
-                amount: value*100
-
-    # 'blur .edit_price': (e,t)->
-    #     if @direct
-    #         parent = Template.parentData()
-    #     else
-    #         parent = Template.parentData(5)
-    #     val = parseInt t.$('.edit_price').val()
-    #     doc = Docs.findOne parent._id
-    #     user = Meteor.users.findOne parent._id
-    #     if doc
-    #         Docs.update parent._id,
-    #             $set:"#{@key}":val
-    #     else if user
-    #         Meteor.users.update parent._id,
-    #             $set:"#{@key}":val
-
-
-
-
-
-
-
-
 Template.color_edit.events
     'blur .edit_color': (e,t)->
         val = t.$('.edit_color').val()
@@ -137,23 +48,6 @@ Template.link_edit.events
                 $set:"#{@key}":val
 
 
-Template.color_icon_edit.events
-    'blur .color_icon': (e,t)->
-        icon_class = t.$('.color_icon').val()
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
-        if doc
-            Docs.update parent._id,
-                $set:"#{@key}":icon_class
-        else if user
-            Meteor.users.update parent._id,
-                $set:"#{@key}":icon_class
-
-
 Template.icon_edit.events
     'blur .icon_val': (e,t)->
         val = t.$('.icon_val').val()
@@ -169,96 +63,6 @@ Template.icon_edit.events
         else if user
             Meteor.users.update parent._id,
                 $set:"#{@key}":val
-
-
-
-Template.html_edit.events
-    'blur .froala-container': (e,t)->
-        html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
-        if doc
-            Docs.update parent._id,
-                $set:"#{@key}":html
-        else if user
-            Meteor.users.update parent._id,
-                $set:"#{@key}":html
-
-
-Template.html_edit.helpers
-    getFEContext: ->
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        # @current_doc = Docs.findOne Router.current().params.doc_id
-        # @current_doc = Docs.findOne @_id
-        self = @
-        {
-            _value: parent["#{@key}"]
-            _keepMarkers: true
-            _className: 'froala-reactive-meteorized-override'
-            toolbarInline: false
-            initOnClick: false
-            toolbarButtons:
-                [
-                  'fullscreen'
-                  'bold'
-                  'italic'
-                  'underline'
-                  'strikeThrough'
-                #   'subscript'
-                #   'superscript'
-                  '|'
-                #   'fontFamily'
-                  'fontSize'
-                  'color'
-                #   'inlineStyle'
-                #   'paragraphStyle'
-                  '|'
-                  'paragraphFormat'
-                  'align'
-                  'formatOL'
-                  'formatUL'
-                  'outdent'
-                  'indent'
-                  'quote'
-                #   '-'
-                  'insertLink'
-                #   'insertImage'
-                #   'insertVideo'
-                #   'embedly'
-                #   'insertFile'
-                  'insertTable'
-                #   '|'
-                  'emoticons'
-                #   'specialCharacters'
-                #   'insertHR'
-                  'selectAll'
-                  'clearFormatting'
-                  '|'
-                #   'print'
-                #   'spellChecker'
-                #   'help'
-                  'html'
-                #   '|'
-                  'undo'
-                  'redo'
-                ]
-            # toolbarButtonsMD: ['bold', 'italic', 'underline']
-            # toolbarButtonsSM: ['bold', 'italic', 'underline']
-            toolbarButtonsXS: ['bold', 'italic', 'underline']
-            imageInsertButtons: ['imageBack', '|', 'imageByURL']
-            tabSpaces: false
-            height: 200
-        }
-
-
-
 
 
 Template.image_edit.events
@@ -777,11 +581,6 @@ Template.children_edit.events
 
 
 
-
-Template.html_view.onRendered ->
-    Meteor.setTimeout ->
-        $('.accordion').accordion()
-    , 1000
 
 Template.textarea_view.onRendered ->
     Meteor.setTimeout ->

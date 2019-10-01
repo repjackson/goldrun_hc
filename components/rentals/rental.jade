@@ -256,6 +256,12 @@ template(name='reservation_list_item')
     .ui.segment
         a.item(href="/reservation/#{_id}/view") #{when} by #{_author_username}
         .ui.header #{hour_duration} hours
+        .ui.header duration type: #{duration_type}
+        .ui.header hour duration: #{hour_duration}
+        +date_view key='start_date' label='start date' icon='date-from' direct=true
+        +time_view key='start_time' label='start time' icon='time' direct=true
+        +date_view key='end_date' label='end date' icon='date-to' direct=true
+        +time_view key='end_time' label='end time' icon='time' direct=true
         if submitted 
-            .ui.basic.green.label #{submitted}
-        
+            .ui.small.header submitted {{from_now submitted_timestamp}} 
+        .ui.header estimated cost #{estimated_cost}

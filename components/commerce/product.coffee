@@ -79,16 +79,16 @@ if Meteor.isClient
                 product_id: Router.current().params.doc_id
 
 
-    Template.product_stats.onCreated ->
-        @autorun => Meteor.subscribe 'product_stats', Router.current().params.doc_id
-    Template.product_stats.events
-        'click .advise_price': ->
-            Meteor.call 'advise_price', @_id
-        'click .calculate_transaction_count': ->
-            # console.log @
-            Meteor.call 'calculate_product_inventory_amount', @_id
-    Template.product_stats.helpers
-        product_transactions: ->
-            Docs.find
-                model:'transaction'
-                product_id: Router.current().params.doc_id
+    # Template.product_stats.onCreated ->
+    #     @autorun => Meteor.subscribe 'product_stats', Router.current().params.doc_id
+    # Template.product_stats.events
+    #     'click .advise_price': ->
+    #         Meteor.call 'advise_price', @_id
+    #     'click .calculate_transaction_count': ->
+    #         # console.log @
+    #         Meteor.call 'calculate_product_inventory_amount', @_id
+    # Template.product_stats.helpers
+    #     product_transactions: ->
+    #         Docs.find
+    #             model:'transaction'
+    #             product_id: Router.current().params.doc_id

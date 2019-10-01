@@ -235,7 +235,6 @@ if Meteor.isClient
 
     Template.reserve_button.events
         'click .new_reservation': (e,t)->
-            console.log @
             new_reservation_id = Docs.insert
                 model:'reservation'
                 rental_id: @_id
@@ -252,7 +251,6 @@ if Meteor.isClient
 
 
     Template.rental_view_reservations.onCreated ->
-        console.log @
         @autorun -> Meteor.subscribe 'rental_reservations', Template.currentData()
     Template.rental_view_reservations.helpers
         reservations: ->
@@ -264,13 +262,11 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'rental_transactions', (rental)->
-        console.log rental
         Docs.find
             model:'transactions'
             rental_id: rental._id
 
     Meteor.publish 'rental_reservations', (rental)->
-        console.log rental
         Docs.find
             model:'reservation'
             rental_id: rental._id
@@ -281,8 +277,8 @@ if Meteor.isServer
             product_id:product_id
 
     Meteor.publish 'reservation_by_day', (product_id, month_day)->
-        console.log month_day
-        console.log product_id
+        # console.log month_day
+        # console.log product_id
         reservations = Docs.find(model:'reservation',product_id:product_id).fetch()
         # for reservation in reservations
             # console.log 'id', reservation._id

@@ -85,8 +85,9 @@ Template.registerHelper 'first_initial', (user) ->
     # moment(input).fromNow()
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
 Template.registerHelper 'is_event', () -> @shop_type is 'event'
-Template.registerHelper 'is_service', () -> @shop_type is 'service'
-Template.registerHelper 'is_product', () -> @shop_type is 'product'
+Template.registerHelper 'is_rental', () -> @model is 'rental'
+Template.registerHelper 'is_service', () -> @model is 'service'
+Template.registerHelper 'is_product', () -> @model is 'product'
 Template.registerHelper 'upvote_class', () ->
     if Meteor.userId()
         if @upvoter_ids and Meteor.userId() in @upvoter_ids then '' else 'outline'

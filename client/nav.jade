@@ -26,8 +26,6 @@ template(name='nav')
                     a.ui.icon.item(href='/karma' class="{{isActivePath '/karma'}}" title='karma')
                         +i name='yin-yang' classes='ui mini inline image'
                         span.my_karma_amount #{currentUser.karma}
-                    //- a.ui.icon.item(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
-                    //-     +i name='shopping-cart' classes='ui mini inline image'
                     //- a.ui.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
                     //-     +i name='inbox' classes='ui mini inline image'
                 if currentUser

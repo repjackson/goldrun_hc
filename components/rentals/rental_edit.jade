@@ -5,8 +5,10 @@ template(name='rental_edit_layout')
             .row
                 .four.wide.column 
                     .ui.header 
-                        i.pencil.icon
-                        |rental edit
+                        +i name='pencil'
+                        small edit 
+                        |#{title}
+                        small rental
                     a.ui.big.fluid.button(href="/rental/#{_id}/view" title='save')
                         i.checkmark.large.green.icon
                         |save
@@ -38,7 +40,7 @@ template(name='rental_edit_info')
         .column
             +image_edit key='image' label='image' direct=true
         .column
-            +html_edit key='description' label='content' icon='content' direct=true
+            +textarea_edit key='description' label='content' icon='content' direct=true
     +array_edit key='tags' label='tags' icon='tags' direct=true
     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
     +single_user_edit key='resident' label='resident' direct=true
@@ -78,7 +80,7 @@ template(name='rental_edit_finance')
     div
     +boolean_edit key='friend_discount' label='friend discount' icon='friends--v2' direct=true
     if friend_discount
-        +number_edit key='friend_discount_amount' label='security deposit amount' icon='dollar' direct=true
+        +number_edit key='friend_discount_amount' label='friend discount amount' icon='friends--v2' direct=true
 
             
                   
@@ -100,14 +102,17 @@ template(name='rental_edit_audience')
     
 template(name='rental_edit_availability')  
     +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
+    div
     +boolean_edit key='available' label='currently available' direct=true
+    div
     +multi_doc_edit key='available_days' label='available days' ref_model='day_of_week' direct=true
     .ui.header
+        +i name='delivery' classes='ui inline tiny image'
         |delivery
-    +boolean_edit key='pickup_delivery' label='pickup' direct=true
-    +boolean_edit key='home_dropoff_delivery' label='home dropoff' direct=true
-    +boolean_edit key='building_dropoff_delivery' label='building dropoff' direct=true
-    +boolean_edit key='healthclub_drop_off_delivery' label='health club drop off' direct=true
+    +boolean_edit key='pickup' label='pickup' icon='order-delivered' direct=true
+    +boolean_edit key='dropoff' label='dropoff' icon='move-by-trolley' direct=true
+    if dropoff
+        +number_edit key='dropoff_fee' label='dropoff fee' icon='low-price' direct=true
     .ui.header
         | visibility
     +boolean_edit key='published' label='published' direct=true

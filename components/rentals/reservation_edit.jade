@@ -3,6 +3,10 @@ template(name='reservation_edit')
         .ui.stackable.padded.grid
             .three.column.row
                 .column 
+                    .ui.large.fluid.icon.button.cancel_reservation
+                        i.cancel.large.icon
+                        |cancel
+            
                     .ui.header 
                         strong #{rental.title}
                         small reservation
@@ -25,7 +29,7 @@ template(name='reservation_edit')
                     div
                     +number_view key='retail_value' label='original retail value' icon='estimate' unit='$' tooltip='general info, helpful to renters to decide, also for price recommendations, and sorting' direct=true
                     .ui.header 
-                        +i name='online-payment-'
+                        +i name='online-payment-' classes='ui tiny inline image'
                         |payment options
                     +boolean_view key='cash_accepted' label='cash accepted' icon='cash' direct=true
                     +boolean_view key='venmo_accepted' label='venmo accepted' icon='venmo' direct=true
@@ -47,19 +51,44 @@ template(name='reservation_edit')
                         +date_edit key='start_date' label='start date' icon='date-from' direct=true
                         +time_edit key='start_time' label='start time' icon='date-to' direct=true
                     .ui.header 
-                        +i name='date-to'
+                        +i name='date-to' classes='ui tiny inline image'
                         |duration
-                    +boolean_edit key='daily_reservation' label='daily' icon='sun' direct=true
+                    //- +boolean_edit key='daily_reservation' label='daily' icon='sun' direct=true
+                    .ui.compact.button.select_month(class=sel_month_class)
+                        +i name='calendar'
+                        |month
+                    .ui.compact.button.select_day(class=sel_day_class)
+                        +i name='sun'
+                        |day
+                    .ui.compact.button.select_hour(class=sel_hr_class)
+                        +i name='clock'
+                        |hour
                     div
-                    unless daily_reservation
-                        +key_value_edit key='hour_duration' value=.5 label='1/2'
-                        +key_value_edit key='hour_duration' value=1 label='1 hr'
-                        +key_value_edit key='hour_duration' value=2 label='2 hrs'
-                        +key_value_edit key='hour_duration' value=3 label='3 hrs'
-                    else 
+                    if is_hour
+                        +number_view key='hourly_dollars' label='hourly rate ($)'
+                        +number_view key='hourly_karma' label='hourly rate (karma)'
+                        .ui.button.set_1_hr 1 hr
+                        //- +key_value_edit key='hour_duration' value=.5 label='1/2'
+                        //- +key_value_edit key='hour_duration' value=1 label='1 hr'
+                        //- +key_value_edit key='hour_duration' value=2 label='2 hrs'
+                        //- +key_value_edit key='hour_duration' value=3 label='3 hrs'
+                        //- +number_edit key='hour_duration' label='other' direct=true
+                    if is_day 
+                        +number_view key='daily_karma' label='daily rate (karma)'
+                        +number_view key='daily_karma' label='daily rate (karma)'
                         +key_value_edit key='day_duration' value=1 label='1 day'
                         +key_value_edit key='day_duration' value=2 label='2 days'
                         +key_value_edit key='day_duration' value=3 label='3 days'
+                        +key_value_edit key='day_duration' value=3 label='other'
+                        +number_edit key='day_duration' label='other' direct=true
+                    if is_month
+                        +number_view key='monthly_karma' label='monthly rate (karma)'
+                        +number_view key='monthly_karma' label='monthly rate (karma)'
+                        +key_value_edit key='month_duration' value=1 label='1 month'
+                        +key_value_edit key='month_duration' value=2 label='2 months'
+                        +key_value_edit key='month_duration' value=3 label='3 months'
+                        +key_value_edit key='month_duration' value=3 label='other'
+                        +number_edit key='month_duration' label='other' direct=true
                     +date_edit key='end_date' label='end date' icon='date-to' direct=true
                     +time_edit key='end_time' label='end time' icon='time' direct=true
             
@@ -74,10 +103,10 @@ template(name='reservation_edit')
                     +date_view key='end_date' label='end date' icon='date-to' direct=true
                     +time_view key='end_time' label='end time' icon='time' direct=true
                     .ui.header 
-                        +i name='money'
+                        +i name='money' classes='ui tiny inline image'
                         |estimated dollars #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
                     .ui.header 
-                        +i name='yin-yang'
+                        +i name='yin-yang' classes='ui tiny inline image'
                         |estimated karma #{hour_duration}*#{rental.hourly_karma} = $#{estimated_karma}
                     .ui.header final cost will be based on actual checked out time
                     //- +number_view key='minute_duration' label='minute duration' direct=true
@@ -95,6 +124,3 @@ template(name='reservation_edit')
                         i.checkmark.large.green.icon
                         //- +i name='submit-progress--v1'        
                         |save
-                    .ui.large.icon.button.cancel_reservation
-                        i.cancel.large.icon
-                        |cancel

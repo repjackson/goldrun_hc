@@ -20,9 +20,13 @@ if Meteor.isClient
 
 
     Template.reservation_edit.helpers
-        now_button_class: ->
-            if @now then 'green' else ''
-
+        now_button_class: -> if @now then 'green' else ''
+        sel_hr_class: -> if @duration_type is 'hour' then 'green' else ''
+        sel_day_class: -> if @duration_type is 'day' then 'green' else ''
+        sel_month_class: -> if @duration_type is 'month' then 'green' else ''
+        is_month: -> @duration_type is 'month'
+        is_day: -> @duration_type is 'day'
+        is_hour: -> @duration_type is 'hour'
         estimated_dollars: ->
             rental = Docs.findOne @rental_id
             if rental.hourly_dollars
@@ -35,6 +39,31 @@ if Meteor.isClient
 
 
     Template.reservation_edit.events
+        'click .select_day': ->
+            Docs.update @_id,
+                $set: duration_type: 'day'
+        'click .select_hour': ->
+            Docs.update @_id,
+                $set: duration_type: 'hour'
+        'click .select_month': ->
+            Docs.update @_id,
+                $set: duration_type: 'month'
+
+
+
+        'click .set_1_hr': ->
+            Docs.update @_id,
+                $set: hour_duration: 1
+            end_time = moment(@start_datetime).add(1,'hour').format("kk:mm")
+            end_date = moment(@start_datetime).add(1,'hour').format("YYYY-MM-DD")
+            Docs.update @_id,
+                $set:
+                    end_date: end_date
+                    end_time: end_time
+                    end_datetime: moment(@start_datetime).add(1,'hour')
+
+
+
         'click .reserve_now': ->
             if @now
                 Docs.update @_id,
@@ -49,6 +78,7 @@ if Meteor.isClient
                         now: true
                         start_date: date
                         start_time: time
+                        start_datetime: moment(now).subtract(6,'hours')
                         start_timestamp: now
 
         'click .submit_reservation': ->

@@ -66,7 +66,10 @@ if Meteor.isClient
 
     Template.model_list_item_view.events
         'click .goto_doc': ->
-            Router.go "/m/#{@model}/#{@_id}/view"
+            if @model is 'rental'
+                Router.go "/rental/#{@_id}/view"
+            else
+                Router.go "/m/#{@model}/#{@_id}/view"
 
     Template.grid_role_model.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', @data.slug, 5

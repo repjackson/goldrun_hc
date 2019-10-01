@@ -13,7 +13,7 @@ template(name='rental_view_layout')
                     img.ui.centered.rounded.small.image(src="{{c.url image width=400 height=400 crop='fit'}}")
                     if can_edit
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
-                            i.pencil.icon
+                            i.blue.pencil.icon
                             |edit
                     +rental_status
                     +reserve_button
@@ -38,9 +38,9 @@ template(name='rental_view_layout')
                     a.ui.compact.button(href="/rental/#{_id}/view" class="{{isActiveRoute 'rental_view_info'}}")
                         +ismall name='info'
                         |info
-                    a.ui.compact.button(href="/rental/#{_id}/transactions" class="{{isActiveRoute 'rental_view_transactions'}}")
+                    a.ui.compact.button(href="/rental/#{_id}/audience" class="{{isActiveRoute 'rental_view_transactions'}}")
                         +ismall name='invoice'
-                        |transactions
+                        |audience
                     a.ui.compact.button(href="/rental/#{_id}/reservations" class="{{isActiveRoute 'rental_view_reservations'}}")
                         +ismall name='clock'
                         |reservations
@@ -50,91 +50,14 @@ template(name='rental_view_layout')
                     a.ui.compact.button(href="/rental/#{_id}/calendar" class="{{isActiveRoute 'rental_view_calendar'}}")
                         +ismall name='calendar'
                         |calendar
-                    //- a.ui.compact.button(href="/rental/#{_id}/tasks" class="{{isActiveRoute 'rental_view_tasks'}}")
-                    //-     +ismall name='tasks'           
-                    //-     |tasks
                     a.ui.compact.button(href="/rental/#{_id}/finance" class="{{isActiveRoute 'rental_view_finance'}}")
                         +ismall name='money'
                         |finance
                     a.ui.compact.button(href="/rental/#{_id}/stats" class="{{isActiveRoute 'rental_view_stats'}}")
                         +ismall name='line-chart'
                         |stats
-                    //- a.ui.compact.button(href="/rental/#{_id}/ownership" class="{{isActiveRoute 'product_ownership'}}")
-                    //-     +ismall name='pie-chart'           
-                    //-     |ownership
-                    //- a.ui.compact.button(href="/rental/#{_id}/projections" class="{{isActiveRoute 'rental_view_projections'}}")
-                    //-     |projections
-                    //- a.ui.compact.button(href="/rental/#{_id}/ads" class="{{isActiveRoute 'rental_view_ads'}}")
-                    //-     +ismall name='open-in-window'
-                    //-     |ads
                     div
                     +yield
-                //- .four.wide.column
-                //-     .ui.header cost
-                //-     if hourly_dollars
-                //-         .ui.header $#{hourly_dollars}/hr
-                //-     if daily_dollars
-                //-         .ui.header $#{daily_dollars}/day
-                //-     if hourly_karma
-                //-         .ui.header 
-                //-             +i name='yin-yang' 
-                //-             |#{hourly_karma}/day
-                //-     if daily_karma
-                //-         .ui.header 
-                //-             +i name='yin-yang' 
-                //-             |#{daily_karma}/day
-                //- 
-                //-     .ui.header #{views} views
-                //-     .ui.header $#{past_earnings} past earnings 
-                //-     .ui.header $#{future_earnings} future earnings 
-                //-     .ui.header #{future_reservations} future reservations
-                //-     .ui.header #{past_reservations} past reservations
-                //-     div
-                //-     +product_location
-                //-     .ui.header available_inventory #{inventory_available}
-                //-     if for_sale
-                //-         unless sold_out
-                //-             .ui.big.green.fluid.button.add_to_cart 
-                //-                 |+ cart
-                //-         else 
-                //-             .ui.big.disabled.button
-                //-                 |sold out
-                //-     +voting_full     
-                //-     .ui.basic.segment
-                //-         .ui.small.header
-                //-             |delivery instructions
-                //-         |#{delivery_instructions}      
-                //-     .ui.header
-                //-         +ismall name='delivery'
-                //-         |delivery
-                //-     +boolean_view key='pickup_delivery' label='pickup' direct=true
-                //-     +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
-                //-     +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
-                //-     +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
-                //-     .ui.header
-                //-         +i name='money'
-                //-         |pricing
-                //-     +boolean_view key='cash_accepted' label='cash accepted' direct=true
-                //-     +boolean_view key='prepay' label='prepayment required' direct=true
-                //-     +boolean_view key='security_deposit_required' label='security deposit required' direct=true
-                //-     if security_deposit_required
-                //-         +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
-                //-     .ui.header pricing planning determination
-                //-     +boolean_view key='friend_discount' label='friend discount' direct=true
-                //-     if friend_discount
-                //-         +number_view key='security_deposit_amount' label='security deposit amount' icon='dollar'
-                //-     .ui.header
-                //-         +i name='lock'
-                //-         | privacy
-                //-     .ui.small.header
-                //-         +i name='eye'
-                //-         |visibility
-                //-     +boolean_view key='visible_to_friends' label='friends' direct=true
-                //-     +boolean_view key='visible_to_building' label='building' direct=true
-                //-     +boolean_view key='visible_to_residents' label='residents' direct=true
-                //-     +boolean_view key='visible_to_public' label='public' direct=true
-                //-     .ui.divider
-                //-     +boolean_view key='published' label='published' direct=true
     +footer
 
 
@@ -169,40 +92,9 @@ template(name='rental_view_audience')
     +boolean_view key='visible_to_public' label='public' direct=true
 
     
-template(name='rental_view_ownership')
-    h1.ui.header 
-        +i name='pie-chart'
-        |ownership
-    .ui.button.sell_shares sell shares
-    .ui.button.recalculate_ownership recalculate ownership
-    .ui.header #{ownership}
-    .ui.header 
-        | ownership
-    .content
-        .ui.label author #{_author_username}
-        if is_dev
-            +text_edit key='_author_username' direct=true
-            +single_user_edit key='_author_username' direct=true
-        .make_author_owner.ui.button make author owner
-        .ui.list
-            each ownership
-                .item user id: #{_user_id} #{percent}
-        .ui.list
-            each stock_certificates
-                .item #{_author_username} #{ownership_percent}
-        .ui.header your ownership
-        if has_ownership
-            |#{my_ownership} %
-            #offer_ownership.ui.button offer ownership
-        .ui.header offers
-        .ui.header transactions
-    
     
     
 template(name='rental_view_chat')
-    h1.ui.header 
-        +i name='chat'
-        |chat
     +comments
     
     
@@ -283,4 +175,4 @@ template(name='rental_status')
 template(name='reserve_button')
     .ui.big.green.fluid.button.new_reservation 
         |reserve
-        +i name='play'
+        +i name='play' classes='ui inline mini image'

@@ -188,7 +188,7 @@ template(name='meal_edit')
                     |#{time_available}
             .eight.wide.column
                 img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
-                +html_edit key='description' direct=true
+                +textarea_edit key='description' direct=true
             .four.wide.column
                 a.ui.large.basic.button(href="/meal/#{_id}/edit")
                     i.pencil.icon

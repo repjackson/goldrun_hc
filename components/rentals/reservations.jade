@@ -61,24 +61,6 @@ template(name='reservation_rental_template')
             .ui.large.label #{this}
         |!{description}
         
-template(name='reservations_small')
-    div
-    .ui.inline.header
-        +i name='invoice'
-        //- i.clock.grey.icon
-        |reservations
-    div
-    i.circular.refresh.link.icon.refresh_res_stats
-    .ui.small.inline.header total #{res_stat.total_count}
-    .ui.small.inline.header current #{res_stat.current_count}
-    .ui.link.list.smallscroll
-        each reservations 
-            a.item(href="/reservation/#{_id}/view") 
-                .header #{rental.title}
-                .description #{_author_username} #{when}
-            
-            
-
     
 template(name='reservation_view')
     with current_doc
@@ -92,13 +74,24 @@ template(name='reservation_view')
                             +i name='pencil'
                             |edit
                     with rental
+                        a.ui.button(href="/rental/#{_id}/view")
+                            .ui.header
+                                i.left.chevron.icon
+                                |#{title}
                         +image_view key='image' label='image' direct=true
                 .eight.wide.column 
-                    a.ui.header(href="/rental/#{rental._id}/view") rental: #{rental.title} $#{rental.hourly_rate}/hr
-                    .ui.small.header start date #{start_date}
-                    .ui.small.header start time #{start_time}
-                    +date_view key='start_date' label='start date' direct=true
-                    +time_view key='start_time' label='start time' direct=true
+                    +date_view key='start_date' label='start date' icon='date-from' direct=true
+                    +time_view key='start_time' label='start time' icon='time' direct=true
+                    +date_view key='end_date' label='end date' icon='date-to' direct=true
+                    +time_view key='end_time' label='end time' icon='time' direct=true
+                    .ui.header 
+                        +i name='money' classes='ui tiny inline image'
+                        |estimated dollars #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
+                    .ui.header 
+                        +i name='yin-yang' classes='ui tiny inline image'
+                        |estimated karma #{hour_duration}*#{rental.hourly_karma} = $#{estimated_karma}
+                    .ui.header final cost will be based on actual checked out time
+                    //- +number_view key='minute_duration' label='minute duration' direct=true
                     +number_view key='minute_duration' label='minute duration' direct=true
                     +number_view key='hour_duration' label='hour duration' direct=true
                     .ui.header estimated cost #{hour_duration}*#{rental.hourly_rate} = $#{estimated_cost}
