@@ -28,15 +28,9 @@ template(name='reservation_view')
                         .ui.large.green.label complete 
                     else 
                         .ui.basic.large.label ongoing (incomplete)
-                    if paid
-                        .ui.large.green.label paid
-                    else 
-                        .ui.large.basic.label unpaid
-                        .ui.small.header #{when} by #{_author_username}
+                    .ui.small.header #{when} by #{_author_username}
                     +number_view key='hour_duration' label='hour duration' direct=true
                     .ui.header estimated cost #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
-                    if submitted
-                        .ui.green.header submitted {{ from_now submitted_timestamp }}
                     .ui.header by #{_author_username}
                     +reservation_events
                 .four.wide.column
@@ -45,8 +39,6 @@ template(name='reservation_view')
                             +i name='pencil'
                             |edit
                     +boolean_edit key='complete' direct=true
-                    +boolean_edit key='paid' direct=true
-                    
                     .ui.divider
                     .ui.header 
                         +i name='request-money'

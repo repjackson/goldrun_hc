@@ -15,14 +15,14 @@ if Meteor.isClient
         @layout 'member_profile_layout'
         @render 'member_services'
         ), name:'member_services'
-    Router.route '/member/:username/karma', (->
+    Router.route '/member/:username/reservations', (->
         @layout 'member_profile_layout'
-        @render 'member_karma'
-        ), name:'member_karma'
-    Router.route '/member/:username/payment', (->
+        @render 'member_reservations'
+        ), name:'member_reservations'
+    Router.route '/member/:username/rentals', (->
         @layout 'member_profile_layout'
-        @render 'member_payment'
-        ), name:'member_payment'
+        @render 'member_rentals'
+        ), name:'member_rentals'
     Router.route '/member/:username/workhistory', (->
         @layout 'member_profile_layout'
         @render 'member_workhistory'

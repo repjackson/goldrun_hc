@@ -79,11 +79,7 @@ template(name='reservation_list_item')
             .ui.small.green.header complete 
         else 
             .ui.small.header ongoing
-        if paid
-            .ui.large.green.label paid
-        else 
-            .ui.large.basic.label unpaid
-            .ui.small.header #{when} by #{_author_username}
+        .ui.small.header #{when} by #{_author_username}
         a.ui.large.fluid.button(href="/reservation/#{_id}/view")
             |view
             i.right.chevron.icon

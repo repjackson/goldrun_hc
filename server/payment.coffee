@@ -1,10 +1,13 @@
 Future = Npm.require('fibers/future')
 
 Meteor.methods
-    STRIPE_single_charge: (charge, username) ->
-        console.log 'charge', charge
-        console.log 'user', username
-        Stripe = StripeAPI(Meteor.settings.private.stripe_test_secret)
+    STRIPE_single_charge: (charge, user) ->
+        # console.log 'charge', charge
+        # console.log 'user', user
+        if Meteor.isDevelopment
+            Stripe = StripeAPI(Meteor.settings.private.stripe_test_secret)
+        else
+            Stripe = StripeAPI(Meteor.settings.private.stripe_live_secret)
         # account = Meteor.users.findOne(data.church)
         # #console.log(data)
         # console.log '------------------------------------------------------'
@@ -26,7 +29,7 @@ Meteor.methods
             amount: charge.amount
             currency: 'usd'
             source: charge.source
-            description: 'credit topup'
+            description: "#{user.username} credit topup"
             # destination: account.stripe.stripeId
         Stripe.charges.create chargeData, (error, result) ->
             if error

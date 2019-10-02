@@ -26,12 +26,6 @@ template(name='member_workhistory')
             +pdf_view key='resume' label='resume' direct=true
     
 
-template(name='member_payment')
-    +text_view key='payment_preferences' label='payment preferences' icon='online-payment-with-a-credit-card' direct=true
-    +boolean_view key='accepts_venmo' label='accepts venmo' icon='online-payment-with-a-credit-card' direct=true
-    +boolean_view key='accepts_cash' label='accepts cash' icon='cash' direct=true
-    +boolean_view key='accepts_paypal' label='accepts paypal' icon='cash' direct=true
-    +image_view key='venmo_qr' label='venmo qr code' direct=true
 
 template(name='member_social')
     +member_people
@@ -43,12 +37,52 @@ template(name='member_finance')
     .ui.header 
         +i name='money'
         |finance
-    .ui.header your balance #{currentUser.credits}
-    .ui.button.add_credits add credits
-    .ui.header you owe them
-    .ui.header they owe you
-    each joint_transactions 
-        .ui.header #{when}
+    if is_current_user
+        .ui.button.add_credits 
+            +i name='money'
+            |add credits
+        
+    .ui.statistic
+        .label #{user_from_username_param.name}'s balance
+        .value $#{user_from_username_param.credit}
+    .ui.stackable.three.column.grid
+        .column
+            .ui.header 
+                +i name='initiate-money-transfer'
+                |earnings
+            each received_reservations
+                .ui.header #{when}
+        .column
+            .ui.header 
+                +i name='initiate-money-transfer'
+                |purchases
+            each purchased_reservations
+                .ui.header #{when}
+        .column
+            .ui.header 
+                +i name='initiate-money-transfer'
+                |payments sent
+            .ui.button
+                |request money
+        .column
+            .ui.header 
+                +i name='request-money'
+                |payments received
+            .ui.button.send_money
+                |send money
+        .column
+            each joint_transactions 
+                .ui.header #{when}
+            .ui.header
+                +i name='topup-payment'
+                |top ups
+            .ui.large.bulleted.list
+                each payments
+                    .item 
+                        .content
+                            .header 
+                                |$#{amount}
+                            .description #{when} {{long_date _timestamp}}
 
 
 template(name='member_services')
@@ -80,6 +114,64 @@ template(name='member_services')
                     a.ui.button(href="/service/#{_id}/view")
                         |view
                         i.right.chevron.icon
+
+template(name='member_reservations')
+    .ui.header 
+        +i name='wrench'
+        |reservations
+    each reservations 
+        +reservation_list_item
+
+
+template(name='member_rentals')
+    .ui.header 
+        +i name='handshake'
+        |rentals
+    .ui.three.cards
+        each rentals 
+            +rental_card
+        
+        
+        
+template(name='rental_card')
+    .ui.card
+        a.zoom(href="/rental/#{_id}/view")
+            img.ui.centered.image(src="{{c.url image height=200 width=200 background='white' crop='pad'}}")
+        .content
+            a.ui.inline.header(href="/rental/#{_id}/view") #{title} 
+                if variable_price
+                    |~
+                if hourly_dollars
+                    .ui.basic.label $#{hourly_dollars}/hr
+                if daily_dollars
+                    .ui.basic.label $#{daily_dollars}/day
+            //- if hourly_karma
+            //-     +ismall name='yin-yang'
+            //-     |#{hourly_karma}/hr
+            //- if daily_karma
+            //-     +ismall name='yin-yang'
+            //-     | #{daily_karma}/day
+            +rental_status
+        .content
+            span(title='views')
+                +ismall name='eye'
+                |#{views}
+            div
+            +ismall name='marker'
+            each location_tags
+                .ui.basic.label #{this}
+            div
+            +ismall name='tags'
+            each tags
+                .ui.basic.label #{this}
+            +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
+            div
+            a.ui.button(href="/rental/#{_id}/view")
+                |view
+                i.right.chevron.icon
+            +reserve_button
+
+
 
 
 template(name='member_people')

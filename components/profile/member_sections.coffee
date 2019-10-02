@@ -48,11 +48,24 @@ if Meteor.isClient
 
 
 
+    Template.member_reservations.onCreated ->
+        @autorun => Meteor.subscribe 'member_reservations', Router.current().params.username
+    Template.member_reservations.helpers
+        reservations: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Docs.find {
+                model:'reservation'
+            }, sort:_timestamp:-1
+
+
+
 
 
 
     Template.member_finance.onCreated ->
         @autorun => Meteor.subscribe 'joint_transactions', Router.current().params.username
+        @autorun => Meteor.subscribe 'model_docs', 'payment'
+        @autorun => Meteor.subscribe 'model_docs', 'reservation'
         if Meteor.isDevelopment
             pub_key = Meteor.settings.public.stripe_test_publishable
         else if Meteor.isProduction
@@ -64,20 +77,23 @@ if Meteor.isClient
             # zipCode: true
             token: (token) ->
                 # product = Docs.findOne Router.current().params.doc_id
-                username = Router.current().params.username
+                user = Meteor.users.findOne username:Router.current().params.username
                 charge =
-                    amount: 1040
+                    amount: 1062
                     currency: 'usd'
                     source: token.id
                     description: token.description
                     # receipt_email: token.email
-                Meteor.call 'STRIPE_single_charge', charge, username, (error, response) =>
+                Meteor.call 'STRIPE_single_charge', charge, user, (error, response) =>
                     if error then alert error.reason, 'danger'
                     else
-                        alert 'Payment received.', 'success'
-                        # Docs.insert
-                        #     model:'transaction'
-                        #     product_id:product._id
+                        alert 'payment received', 'success'
+                        Docs.insert
+                            model:'payment'
+                            amount:10
+                        Meteor.users.update user._id,
+                            $inc: credit: 10
+
     	)
 
 
@@ -87,14 +103,30 @@ if Meteor.isClient
                 name: 'top up'
                 # email:Meteor.user().emails[0].address
                 description: 'gold run'
-                amount: 1040
-
+                amount: 1062
     Template.member_finance.helpers
         joint_transactions: ->
             Docs.find
                 model:'reservation'
                 recipient:Router.current().params.username
                 # confirmed:true
+        payments: ->
+            Docs.find {
+                model:'payment'
+                _author_username: Router.current().params.username
+            }, sort:_timestamp:-1
+
+        received_reservations: ->
+            Docs.find {
+                model:'reservation'
+                owner_username: Router.current().params.username
+            }, sort:_timestamp:-1
+
+        purchased_reservations: ->
+            Docs.find {
+                model:'reservation'
+                _author_username: Router.current().params.username
+            }, sort:_timestamp:-1
 
 
 
@@ -106,6 +138,19 @@ if Meteor.isClient
             current_user = Meteor.users.findOne username:Router.current().params.username
             Docs.find
                 model:'service'
+                _author_username:current_user.username
+                # _author_id:current_user._id
+                # confirmed:true
+
+
+
+    Template.member_rentals.onCreated ->
+        @autorun => Meteor.subscribe 'member_rentals', Router.current().params.username
+    Template.member_rentals.helpers
+        rentals: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Docs.find
+                model:'rental'
                 _author_username:current_user.username
                 # _author_id:current_user._id
                 # confirmed:true
@@ -196,6 +241,20 @@ if Meteor.isServer
         current_user = Meteor.users.findOne username:username
         Docs.find
             model:'service'
+            _author_username:username
+            # _author_id: current_user._id
+
+    Meteor.publish 'member_rentals', (username)->
+        current_user = Meteor.users.findOne username:username
+        Docs.find
+            model:'rental'
+            _author_username:username
+            # _author_id: current_user._id
+
+    Meteor.publish 'member_reservations', (username)->
+        current_user = Meteor.users.findOne username:username
+        Docs.find
+            model:'reservation'
             _author_username:username
             # _author_id: current_user._id
 
