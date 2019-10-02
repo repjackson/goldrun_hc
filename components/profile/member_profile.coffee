@@ -1,16 +1,20 @@
 if Meteor.isClient
     Router.route '/member/:username', (->
         @layout 'member_profile_layout'
-        @render 'member_about'
+        @render 'member_info'
         ), name:'member_home'
-    Router.route '/member/:username/about', (->
+    Router.route '/member/:username/info', (->
         @layout 'member_profile_layout'
-        @render 'member_about'
-        ), name:'member_about'
-    Router.route '/member/:username/connections', (->
+        @render 'member_info'
+        ), name:'member_info'
+    Router.route '/member/:username/finance', (->
         @layout 'member_profile_layout'
-        @render 'member_connections'
-        ), name:'member_connections'
+        @render 'member_finance'
+        ), name:'member_finance'
+    Router.route '/member/:username/services', (->
+        @layout 'member_profile_layout'
+        @render 'member_services'
+        ), name:'member_services'
     Router.route '/member/:username/karma', (->
         @layout 'member_profile_layout'
         @render 'member_karma'

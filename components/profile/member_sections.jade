@@ -1,11 +1,19 @@
-template(name='member_about')
+template(name='member_info')
     //- +text_view key='address' label='address' icon='marker' direct=true
     //- +phone_view key='phone' label='phone' icon='phone' direct=true
     +text_view key='tagline' label='tag line' icon='signature' direct=true
     +array_view key='tags' label='tags' icon='tags' direct=true
     +array_view key='location_tags' label='location tags' icon='location' direct=true
-    +text_view key='spirit_animal' label='spirit animal' icon='year-of-monkey' direct=true
     +link_view key='link' label='link' icon='link' direct=true
+    .ui.icon.button.refresh_member_stats
+        i.refresh.icon
+    .ui.header member activity
+    .ui.header #{service_count} member services
+    .ui.header #{product_count} member products
+    .ui.header #{comment_count} member comments
+    .ui.header #{rental_count} member rentals
+    .ui.header #{reservation_count} member reservations
+    
 
 
 template(name='member_workhistory')
@@ -28,6 +36,49 @@ template(name='member_payment')
 template(name='member_social')
     +member_people
     +member_wall
+    +member_connections
+
+
+template(name='member_finance')
+    .ui.header 
+        +i name='money'
+        |finance
+    .ui.header your balance
+    .ui.header you owe them
+    .ui.header they owe you
+    each joint_transactions 
+        .ui.header #{when}
+
+
+template(name='member_services')
+    .ui.header 
+        +i name='wrench'
+        |services
+    each services 
+        .ui.fluid.segment.grid
+            .row
+                .sixteen.wide.column
+                    a.ui.inline.header(href="/service/#{_id}/view") #{title} 
+                        if variable_price
+                            |~
+                        |$#{hourly_rate}/hr
+            .row
+                .four.wide.column
+                    a(href="/service/#{_id}/view")
+                        +image_view key='image' direct=true
+                .twelve.wide.column
+                    div
+                    +ismall name='marker' direct=true
+                    each location_tags
+                        .ui.basic.label #{this}
+                    div
+                    +ismall name='tags' direct=true
+                    each tags
+                        .ui.basic.label #{this}
+                    div
+                    a.ui.button(href="/service/#{_id}/view")
+                        |view
+                        i.right.chevron.icon
 
 
 template(name='member_people')
@@ -41,17 +92,6 @@ template(name='member_people')
 template(name='member_requests')
     .ui.header requests
 
-template(name='member_dashboard')
-    .ui.header 
-        +i name='dashboard'
-        |dashboard
-    .ui.header user posts
-    .ui.header user activity
-    .ui.header user karma
-    .ui.header user services
-    .ui.header user sales
-    .ui.header user comments
-    .ui.header user comments
 
 
 template(name='member_votes')

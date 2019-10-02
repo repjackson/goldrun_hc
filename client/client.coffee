@@ -2,14 +2,14 @@
 
 Meteor.startup ->
     process.env.TZ='America/Denver'
-    moment().calendar(null, {
-        sameDay: '[today]',
-        nextDay: '[tomorrow]',
-        nextWeek: 'dddd',
-        lastDay: '[yesterday]',
-        lastWeek: '[last] dddd',
-        sameElse: 'DD/MM/YYYY'
-    });
+    # moment().calendar(null, {
+    #     sameDay: '[today]',
+    #     nextDay: '[tomorrow]',
+    #     nextWeek: 'dddd',
+    #     lastDay: '[yesterday]',
+    #     lastWeek: '[last] dddd',
+    #     sameElse: 'DD/MM/YYYY'
+    # });
 
 
 

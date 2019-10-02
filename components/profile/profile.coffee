@@ -25,11 +25,6 @@ if Meteor.isClient
         , 2000
 
 
-    Template.member_about.helpers
-        staff_resident_widgets: ->
-            Docs.find
-                model:'staff_resident_widget'
-
     Template.user_section.helpers
         user_section_template: ->
             "user_#{Router.current().params.group}"

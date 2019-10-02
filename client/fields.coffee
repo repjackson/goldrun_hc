@@ -1203,5 +1203,7 @@ Template.range_edit.events
         result = $('.ui.calendar').calendar('get endDate')[0]
         console.log result
         formatted = moment(result).format("YYYY-MM-DD[T]HH:mm")
+        console.log moment(@end_datetime).diff(moment(@start_datetime),'minutes',true)        
+        console.log moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
         Docs.update doc_id,
             $set:end_datetime:formatted

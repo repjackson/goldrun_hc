@@ -50,10 +50,7 @@ template(name='member_profile_layout')
                                 .ui.basic.label #{this}
                 .twelve.wide.column.shadowed-box
                     if is_member
-                        a.ui.compact.button(href="/member/#{username}/dashboard" class="{{isActiveRoute 'member_dashboard'}}")
-                            +ismall name='dashboard' classes='ui inline image'
-                            |dashboard
-                        a.ui.compact.button(href="/member/#{username}/about" class="{{isActiveRoute 'member_about'}}")
+                        a.ui.compact.button(href="/member/#{username}/info" class="{{isActiveRoute 'member_info'}}")
                             +ismall name='info' classes='ui inline image'
                             |info
                         a.ui.compact.button(href="/member/#{username}/social" class="{{isActiveRoute 'member_social'}}")
@@ -68,9 +65,9 @@ template(name='member_profile_layout')
                         a.ui.compact.button(href="/member/#{username}/services" class="{{isActiveRoute 'member_rentals'}}")
                             +ismall name='wrench' classes='ui inline image'
                             |services
-                        a.ui.compact.button(href="/member/#{username}/connections" class="{{isActiveRoute 'member_connections'}}")
+                        a.ui.compact.button(href="/member/#{username}/finance" class="{{isActiveRoute 'member_finance'}}")
                             +ismall name='handshake' classes='ui inline image'
-                            |connections
+                            |finance
                         a.ui.compact.button(href="/member/#{username}/bookmarks" class="{{isActiveRoute 'member_bookmarks'}}")
                             +ismall name='star' classes='ui inline image'
                             |bookmarks

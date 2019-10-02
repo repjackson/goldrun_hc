@@ -1,27 +1,3 @@
-template(name='services')
-    .ui.padded.grid
-        .row
-            .four.wide.column
-                if is_frontdesk
-                    a.ui.big.fluid.button(href='/healthclub')
-                        i.left.chevron.icon
-                        .ui.inline.header back
-                else
-                    a.ui.big.fluid.button(href='/')
-                        i.left.chevron.icon
-                        .ui.inline.header back
-                .ui.header 
-                    i.wrench.grey.icon
-                    |services
-                +service_cloud
-            .twelve.wide.column.scrolling
-                .ui.stackable.three.cards
-                    each services
-                        +service_card_template
-
-
-
-
 template(name='service_card_template')
     .ui.fluid.segment.grid
         .row
@@ -73,7 +49,7 @@ template(name='service_view')
                         |services
                     .ui.header view service
                     if can_edit
-                        a.ui.big.button(href="/service/#{_id}/edit")
+                        a.ui.big.fluid.button(href="/service/#{_id}/edit")
                             i.pencil.icon
                             |edit
                     +image_view key='image' label='image' direct=true
@@ -88,6 +64,7 @@ template(name='service_view')
                     +text_view key='contact_info' label='contact info' icon='info' direct=true
                     div
                     +comments
+                    +service_reservations
                 .four.wide.column 
                     +boolean_view key='set_duration' label='set duration' direct=true
                     if set_duration
@@ -97,7 +74,6 @@ template(name='service_view')
                     div
                     +service_history
                     +service_subscription
-                    +service_time
                     +multi_user_view key='associated_members' label='associated members' icon='groups' direct=true
 
 template(name='service_edit')
@@ -125,42 +101,12 @@ template(name='service_edit')
                     if set_duration
                         +number_edit key='duration_hours' label='duration hours' direct=true
             
+                    +text_edit key='_author_username' label='author username' direct=true
                     +number_edit key='hourly_rate' label='hourly rate' direct=true
                     +boolean_edit key='variable_price' label='variable price' direct=true
                     +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
                     +multi_user_edit key='associated_members' label='associated members' icon='groups' direct=true
                     
-template(name='kiosk_service_view')
-    with current_doc
-        .ui.padded.grid
-            .eight.wide.column
-                a.ui.fluid.big.button(href="/healthclub")
-                    i.left.chevron.large.icon
-                    |back
-                +image_view key='image' direct=true
-                +image_view key='picture' direct=true
-            .eight.wide.column.scrolling
-                h1.ui.header #{title}
-                .f7 !{description}
-                .ui.hidden.divider
-                if hourly_karma
-                    .ui.inline.header $#{hourly_karma}/hr
-                if hourly_rate
-                    .ui.inline.header $#{hourly_rate}/hr
-                if daily_rate
-                    .ui.inline.header $#{daily_rate}/day
-                if is_admin
-                    +number_edit key='hourly_karma' label='hourly karma cost' direct=true
-                    +number_edit key='hourly_rate' label='hourly dollar rate' direct=true
-                    //- +boolean_edit key='variable_price' direct=true
-                //- +boolean_view key='variable_price' label='variable price' direct=true
-                .ui.header #{views} views
-                if is_admin
-                    +edit_button
-                +voting
-                div
-                +kiosk_send_message
-                
                 
 template(name='service_history')
     +ismall name='rss'
@@ -179,38 +125,15 @@ template(name='service_subscription')
         each subscribers
             .item #{text} #{when}
             
-template(name='service_time')
-    +ismall name='clock'
-    .ui.inline.header
-        |time calculations
-    .ui.header #{when}
-
-
-template(name='service_small')
-    a.ui.header(href="/m/service")
-        //- i.concierge.bell.icon
-        +i name='work'
-        &nbsp;
-        strong.f7 services
-    //- +service_cloud filter='service'
-    .ui.relaxed.link.large.list.smallcolumn
-        each services
-            a.item.log_service_view(href="/kiosk_service_view/#{_id}")
-                if image
-                    img.ui.mini.inline.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
-                if picture
-                    img.ui.mini.inline.image(src="{{c.url picture width=300 height=300 gravity='face' crop='fill'}}")
-                |#{title}
-                small #{hourly_rate}k/hr
-                //- small #{hourly_karma}/hr
-                    //- .header
-                    //- .description
-                    //-     .ui.horizontal.list
-                    //-         .item
-                    //-             span(title='transactions')
-                    //-                 i.route.icon
-                    //-                 |#{transaction_count}
-                    //-         .item
-                    //-             span(title='money earned')
-                    //-                 i.money.icon
-                    //-                 |#{money_earned}
+template(name='service_reservations')
+    .ui.header
+        +ismall name='invoice'
+        |service reservations
+    .ui.button.new_reservation
+        |new reservation
+    each reservations
+        .ui.segment
+            .ui.header #{when}
+            .ui.header by #{_author_username}
+            +view_button
+            +edit_button

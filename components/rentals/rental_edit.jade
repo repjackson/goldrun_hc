@@ -13,6 +13,7 @@ template(name='rental_edit_layout')
                         i.checkmark.large.green.icon
                         |save
                     +remove_button
+                    +text_edit key='_author_username' label='author username' direct=true
                 .twelve.wide.column 
                     a.ui.compact.button(href="/rental/#{_id}/edit/info" class="{{isActiveRoute 'rental_edit_info'}}")
                         +ismall name='info'

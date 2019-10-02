@@ -51,13 +51,27 @@ if Meteor.isClient
 
 
 
-    Template.member_transactions.onCreated ->
-        @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
-    Template.member_transactions.helpers
-        user_transactions: ->
+    Template.member_finance.onCreated ->
+        @autorun => Meteor.subscribe 'joint_transactions', Router.current().params.username
+    Template.member_finance.helpers
+        joint_transactions: ->
             Docs.find
-                model:'karma_transaction'
+                model:'reservation'
                 recipient:Router.current().params.username
+                # confirmed:true
+
+
+
+
+    Template.member_services.onCreated ->
+        @autorun => Meteor.subscribe 'member_services', Router.current().params.username
+    Template.member_services.helpers
+        services: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Docs.find
+                model:'service'
+                _author_username:current_user.username
+                # _author_id:current_user._id
                 # confirmed:true
 
 
@@ -80,6 +94,19 @@ if Meteor.isClient
                 Meteor.users.update Meteor.userId(),
                     $addToSet: connected_ids: @_id
 
+
+
+
+
+
+    Template.member_info.onCreated ->
+        # @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
+    Template.member_info.helpers
+        connected: ->
+            Meteor.user().connected_ids and @_id in Meteor.user().connected_ids
+    Template.member_info.events
+        'click .refresh_member_stats': (e,t)->
+            Meteor.call 'refresh_member_stats', Router.current().params.username
 
 
 
@@ -123,6 +150,19 @@ if Meteor.isClient
 
 
 if Meteor.isServer
+    Meteor.publish 'joint_transactions', (username)->
+        current_user = Meteor.users.findOne username:username
+        Docs.find
+            model:'reservation'
+            user_id: current_user._id
+
+    Meteor.publish 'member_services', (username)->
+        current_user = Meteor.users.findOne username:username
+        Docs.find
+            model:'service'
+            _author_username:username
+            # _author_id: current_user._id
+
     Meteor.publish 'wall_posts', (username)->
         current_user = Meteor.users.findOne username:username
         Docs.find
@@ -134,3 +174,19 @@ if Meteor.isServer
         Docs.find
             model:'user_tag_review'
             user_id: current_user._id
+
+    Meteor.methods
+        refresh_member_stats: (username)->
+            member = Meteor.users.findOne username:username
+            service_count = Docs.find(model:'service', _author_username:username).count()
+            rental_count = Docs.find(model:'rental', _author_username:username).count()
+            product_count = Docs.find(model:'product', _author_username:username).count()
+            reservation_count = Docs.find(model:'reservation', _author_username:username).count()
+            comment_count = Docs.find(model:'comment', _author_username:username).count()
+            Meteor.users.update member._id,
+                $set:
+                    service_count: service_count
+                    rental_count: rental_count
+                    product_count: product_count
+                    reservation_count: reservation_count
+                    comment_count: comment_count

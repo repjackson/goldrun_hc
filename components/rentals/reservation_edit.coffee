@@ -17,8 +17,6 @@ if Meteor.isClient
             if parent["#{@key}"] is @value then 'green' else ''
 
 
-
-
     Template.reservation_edit.helpers
         now_button_class: -> if @now then 'green' else ''
         sel_hr_class: -> if @duration_type is 'hour' then 'green' else ''
@@ -27,20 +25,16 @@ if Meteor.isClient
         is_month: -> @duration_type is 'month'
         is_day: -> @duration_type is 'day'
         is_hour: -> @duration_type is 'hour'
-        estimated_dollars: ->
-            rental = Docs.findOne @rental_id
-            if rental.hourly_dollars
-                rental.hourly_dollars*@hour_duration
+        # estimated_dollars: ->
+        #     rental = Docs.findOne @rental_id
+        #     if rental.hourly_dollars
+        #         rental.hourly_dollars*@hour_duration
         estimated_karma: ->
             rental = Docs.findOne @rental_id
             if rental.hourly_karma
                 rental.hourly_karma*@hour_duration
 
-        diff: -> moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
-
-
-
-
+        # diff: -> moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
 
     Template.reservation_edit.events
         'click .select_day': ->
@@ -53,37 +47,50 @@ if Meteor.isClient
             Docs.update @_id,
                 $set: duration_type: 'month'
 
+        'click .calculate_diff': ->
+            rental = Docs.findOne @rental_id
 
-
-        'click .set_1_hr': ->
-            Docs.update @_id,
-                $set: hour_duration: 1
-            end_time = moment(@start_datetime).add(1,'hour').format("kk:mm")
-            end_date = moment(@start_datetime).add(1,'hour').format("YYYY-MM-DD")
+            hour_duration = moment(@end_datetime).diff(moment(@start_datetime),'hours',true).toFixed(2)
+            minute_duration = moment(@end_datetime).diff(moment(@start_datetime),'minutes',true)
+            estimated_dollars = hour_duration*rental.hourly_dollars
+            # console.log diff
             Docs.update @_id,
                 $set:
-                    end_date: end_date
-                    end_time: end_time
-                    end_datetime: moment(@start_datetime).add(1,'hour')
+                    hour_duration: hour_duration
+                    minute_duration: minute_duration
+                    estimated_dollars: estimated_dollars
 
 
 
-        'click .reserve_now': ->
-            if @now
-                Docs.update @_id,
-                    $set:
-                        now: false
-            else
-                now = Date.now()
-                date = moment(now).subtract(6,'hours').format("YYYY-MM-DD")
-                time = moment(now).subtract(6,'hours').format("kk:mm")
-                Docs.update @_id,
-                    $set:
-                        now: true
-                        start_date: date
-                        start_time: time
-                        start_datetime: moment(now).subtract(6,'hours')
-                        start_timestamp: now
+        # 'click .set_1_hr': ->
+        #     Docs.update @_id,
+        #         $set: hour_duration: 1
+        #     end_time = moment(@start_datetime).add(1,'hour').format("kk:mm")
+        #     end_date = moment(@start_datetime).add(1,'hour').format("YYYY-MM-DD")
+        #     Docs.update @_id,
+        #         $set:
+        #             end_date: end_date
+        #             end_time: end_time
+        #             end_datetime: moment(@start_datetime).add(1,'hour')
+
+
+
+        # 'click .reserve_now': ->
+        #     if @now
+        #         Docs.update @_id,
+        #             $set:
+        #                 now: false
+        #     else
+        #         now = Date.now()
+        #         date = moment(now).subtract(6,'hours').format("YYYY-MM-DD")
+        #         time = moment(now).subtract(6,'hours').format("kk:mm")
+        #         Docs.update @_id,
+        #             $set:
+        #                 now: true
+        #                 start_date: date
+        #                 start_time: time
+        #                 start_datetime: moment(now).subtract(6,'hours')
+        #                 start_timestamp: now
 
         'click .submit_reservation': ->
             rental = Docs.findOne @rental_id

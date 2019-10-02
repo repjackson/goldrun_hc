@@ -4,9 +4,8 @@ template(name='reservation_edit')
             .three.column.row
                 .column 
                     .ui.large.fluid.icon.button.cancel_reservation
-                        i.cancel.large.icon
+                        i.ban.large.icon
                         |cancel
-            
                     .ui.header 
                         strong #{rental.title}
                         small reservation
@@ -37,7 +36,6 @@ template(name='reservation_edit')
                     +boolean_view key='friend_discount' label='friend discount' icon='friends--v2' direct=true
                     if friend_discount
                         +number_view key='friend_discount_amount' label='friend discount amount' icon='friends' direct=true
-                
                 .column 
                     //- a.ui.header(href="/rental/#{rental._id}/view") reserve #{rental.title}
                     //- .ui.fluid.button.reserve_now(class=now_button_class)
@@ -101,7 +99,9 @@ template(name='reservation_edit')
                     .ui.header.lowercase to {{cal_time end_datetime}}
                     +datetime_view key='start_datetime' label='start date' icon='date-from' direct=true
                     +datetime_view key='end_datetime' label='end date' icon='date-to' direct=true
-                    .ui.header diff #{diff} hours
+                    .ui.header diff #{hour_duration} hours
+                    .ui.button.calculate_diff
+                        |calc diff
                     .ui.header 
                         +i name='money' classes='ui tiny inline image'
                         |estimated dollars #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
@@ -117,7 +117,7 @@ template(name='reservation_edit')
                             |submit
                     else
                         .ui.header submitted {{ from_now submitted_timestamp }}
-                        .ui.orange.button.unsubmit
+                        .ui.orange.fluid.button.unsubmit
                             i.undo.icon
                             |unsubmit
                     a.ui.big.fluid.button(href="/reservation/#{_id}/view" title='save')

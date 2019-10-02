@@ -91,7 +91,7 @@ template(name='reservation_view')
                     //- +number_view key='minute_duration' label='minute duration' direct=true
                     +number_view key='minute_duration' label='minute duration' direct=true
                     //- +number_view key='hour_duration' label='hour duration' direct=true
-                    .ui.header estimated cost #{hour_duration}*#{rental.hourly_rate} = $#{estimated_cost}
+                    .ui.header estimated cost #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
                     if submitted
                         .ui.green.header submitted {{ from_now submitted_timestamp }}
                     +reservation_events
