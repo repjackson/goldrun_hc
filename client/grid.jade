@@ -15,7 +15,7 @@ template(name='grid')
                 
 template(name='grid_role_model')
     .ui.segment
-        a.ui.inline.capitalize.header(href="/m/#{slug}" tabindex="0" title=description)
+        a.ui.inline.capitalize.header(href="/m/#{slug}" tabindex="0")
             +i name=icon classes='ui inline image'
             //- i.icon(class=icon)
             |#{title}
@@ -38,7 +38,7 @@ template(name='grid_role_model')
 
 template(name='model_list_item_view')
     //- a.item(href="/m/#{model}/#{_id}/view") 
-    .item.pointer.goto_doc(title="#{views} views")
+    .item.pointer.goto_doc
         if image
             img.ui.mini.inline.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
         if icon

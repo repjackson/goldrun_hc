@@ -1161,20 +1161,47 @@ Template.project_lookup.events
 Template.range_edit.onRendered ->
     # rental = Template.currentData()
     $('#rangestart').calendar({
-      type: 'datetime',
-      endCalendar: $('#rangeend')
+        type: 'datetime'
+        today: true
+        # type:'time'
+        inline: true
+        endCalendar: $('#rangeend')
+        formatter: {
+            date: (date, settings)->
+                if !date then return ''
+                mst_date = moment(date)
+                mst_date.format("YYYY-MM-DD[T]hh:mm")
+        }
     });
     $('#rangeend').calendar({
-      type: 'datetime',
-      startCalendar: $('#rangestart')
-    });
+        type: 'datetime'
+        today: true
+        # type:'time'
+        inline: true
+        startCalendar: $('#rangestart')
+        formatter: {
+            date: (date, settings)->
+                if !date then return ''
+                mst_date = moment(date)
+                mst_date.format("YYYY-MM-DD[T]hh:mm")
+
+        }
+    })
+
 Template.range_edit.events
     'click .get_start': ->
-        val = $('.ui.calendar').calendar('get startDate')[2]
-        Docs.update @_id,
-            $set:start_datetime:val
-        # console.log $('.ui.calendar').calendar('get startDate')[2].getDate()
+        doc_id = Router.current().params.doc_id
+        result = $('.ui.calendar').calendar('get startDate')[1]
+        formatted = moment(result).format("YYYY-MM-DD[T]HH:mm")
+        # moment_ob = moment(result)
+        Docs.update doc_id,
+            $set:start_datetime:formatted
+
+
     'click .get_end': ->
-        val = $('.ui.calendar').calendar('get endDate')[0]
-        Docs.update @_id,
-            $set:end_datetime:val
+        doc_id = Router.current().params.doc_id
+        result = $('.ui.calendar').calendar('get endDate')[0]
+        console.log result
+        formatted = moment(result).format("YYYY-MM-DD[T]HH:mm")
+        Docs.update doc_id,
+            $set:end_datetime:formatted

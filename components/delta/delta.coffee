@@ -204,10 +204,10 @@ if Meteor.isClient
 
 
 
-    # Template.facet.onRendered ->
-    #     Meteor.setTimeout ->
-    #         $('.accordion').accordion()
-    #     , 1500
+    Template.facet.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 1500
 
     Template.facet.events
         # 'click .ui.accordion': ->

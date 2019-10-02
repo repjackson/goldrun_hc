@@ -87,20 +87,19 @@ template(name='reservation_view')
                     .ui.header 
                         +i name='money' classes='ui tiny inline image'
                         |estimated dollars #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
-                    .ui.header 
-                        +i name='yin-yang' classes='ui tiny inline image'
-                        |estimated karma #{hour_duration}*#{rental.hourly_karma} = $#{estimated_karma}
                     .ui.header final cost will be based on actual checked out time
                     //- +number_view key='minute_duration' label='minute duration' direct=true
                     +number_view key='minute_duration' label='minute duration' direct=true
-                    +number_view key='hour_duration' label='hour duration' direct=true
+                    //- +number_view key='hour_duration' label='hour duration' direct=true
                     .ui.header estimated cost #{hour_duration}*#{rental.hourly_rate} = $#{estimated_cost}
                     if submitted
                         .ui.green.header submitted {{ from_now submitted_timestamp }}
                     +reservation_events
                 .four.wide.column
-                    .ui.header staff checkout assessment
-                    .ui.header staff checkin assessment
+                    if complete 
+                        .ui.green.header
+                            i.checkmark.icon
+                            |complete
 
 
 

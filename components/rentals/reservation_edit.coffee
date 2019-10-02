@@ -31,11 +31,15 @@ if Meteor.isClient
             rental = Docs.findOne @rental_id
             if rental.hourly_dollars
                 rental.hourly_dollars*@hour_duration
-
         estimated_karma: ->
             rental = Docs.findOne @rental_id
             if rental.hourly_karma
                 rental.hourly_karma*@hour_duration
+
+        diff: -> moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
+
+
+
 
 
     Template.reservation_edit.events

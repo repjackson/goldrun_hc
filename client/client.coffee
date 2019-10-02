@@ -1,8 +1,17 @@
 @selected_tags = new ReactiveArray []
 
-# Meteor.startup ->
-#     scheduler.init "scheduler_here", new Date()
-#     scheduler.meteor(Docs.find(model:'event'), Docs);
+Meteor.startup ->
+    process.env.TZ='America/Denver'
+    moment().calendar(null, {
+        sameDay: '[today]',
+        nextDay: '[tomorrow]',
+        nextWeek: 'dddd',
+        lastDay: '[yesterday]',
+        lastWeek: '[last] dddd',
+        sameElse: 'DD/MM/YYYY'
+    });
+
+
 
 $.cloudinary.config
     cloud_name:"facet"
@@ -76,6 +85,7 @@ Template.registerHelper 'today', () ->
     moment(Date.now()).format("dddd, MMMM Do a")
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
+Template.registerHelper 'cal_time', (input) -> moment(input).calendar()
 Template.registerHelper 'last_initial', (user) ->
     @last_name[0]+'.'
 Template.registerHelper 'first_letter', (user) ->
@@ -90,11 +100,11 @@ Template.registerHelper 'is_service', () -> @model is 'service'
 Template.registerHelper 'is_product', () -> @model is 'product'
 Template.registerHelper 'upvote_class', () ->
     if Meteor.userId()
-        if @upvoter_ids and Meteor.userId() in @upvoter_ids then '' else 'outline'
+        if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else 'outline'
     else ''
 Template.registerHelper 'downvote_class', () ->
     if Meteor.userId()
-        if @downvoter_ids and Meteor.userId() in @downvoter_ids then '' else 'outline'
+        if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else 'outline'
     else ''
 
 Template.registerHelper 'current_month', () -> moment(Date.now()).format("MMMM")

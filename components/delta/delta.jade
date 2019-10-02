@@ -102,23 +102,23 @@ template(name='delta')
                         //-             +set_view_mode title='map' icon='map'
                         //-             +set_view_mode title='graph' icon='graph'
                         .ui.hidden.fitted.divider
-                    .scrolling    
-                        each current_delta.result_ids
-                            //- .column
-                            if is_loading
-                                .ui.segment
-                                    .ui.placeholder
-                                        .line
-                                        .line
-                                        .line
-                                        .line
-                                        .line
-                                        .line
-                                        .line
-                                        .line
-                                        .line
-                            else 
-                                +delta_result
+                    //- .scrolling    
+                    each current_delta.result_ids
+                        //- .column
+                        if is_loading
+                            .ui.segment
+                                .ui.placeholder
+                                    .line
+                                    .line
+                                    .line
+                                    .line
+                                    .line
+                                    .line
+                                    .line
+                                    .line
+                                    .line
+                        else 
+                            +delta_result
                     //- +Template.dynamic template=view_mode_template
             //- .row 
             //-     .sixteen.wide.column
@@ -168,32 +168,32 @@ template(name='facet')
     div
     if filtering_res
         //- .ui.hidden.divider
-        //- .ui.accordion
-        //-     .active.title
-        if icon
-            //- i.grey.icon(class=icon)
-            +i name=icon classes='ui avatar image'   
-        .ui.grey.inline.header 
-            if title
-                |#{title}
-            else 
-                |#{key}
-                //- i.dropdown.icon
-        .ui.icon.small.transparent.input
-            i.search.icon
-            input.add_filter(type='text')
-            //- .active.content
-        //- div
-        each filtering_res
-            if name
-                .selector.ui.large.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    strong #{name}
-                    if is_admin
-                        small #{cal_count} #{count}
-            else
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
-                    strong [null]
-                    //- small #{cal_count}
+        .ui.accordion
+            .active.title
+                if icon
+                    //- i.grey.icon(class=icon)
+                    +i name=icon classes='ui avatar image'   
+                .ui.grey.inline.header 
+                    if title
+                        |#{title}
+                    else 
+                        |#{key}
+                        //- i.dropdown.icon
+                .ui.icon.small.transparent.input
+                    i.search.icon
+                    input.add_filter(type='text')
+            .active.content
+                //- div
+                each filtering_res
+                    if name
+                        .selector.ui.large.compact.button.toggle_selection(class=toggle_value_class title=count)
+                            strong #{name}
+                            if is_admin
+                                small #{cal_count} #{count}
+                    else
+                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+                            strong [null]
+                            //- small #{cal_count}
         .ui.hidden.divider
 
 template(name='toggle_delta_config')

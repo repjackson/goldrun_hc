@@ -189,8 +189,6 @@ template(name='resident_about')
                     .column
                         +user_guests
                     //- .column
-                    //-     +user_violations
-                    //- .column
                     //-     +user_signatures
                     .column
                         +user_notes        
@@ -234,13 +232,13 @@ template(name='user_permit')
         +goto_model slug='parking_permit'
         
         with permit_doc
-            .ui.inline.header Permit
+            .ui.inline.header permit
             .ui.inline.header #{permit}
             div
-            .ui.inline.header Date Issued
+            .ui.inline.header date issued
             .ui.inline.header #{date_issued}
             div
-            .ui.inline.header Expiration Date
+            .ui.inline.header expiration date
             .ui.inline.header #{expiration_date}
             div
             .ui.inline.header License Plate 
@@ -334,47 +332,6 @@ template(name='user_section')
     // +Template.dynamic template=user_section_template
 
     
-template(name='user_violations')
-    .ui.basic.segment
-        .ui.inline.center.aligned.header 
-            |violations
-        +goto_model slug='violation'
-        .ui.icon.button.add_inline_violation(title='add violation')
-            i.large.plus.icon
-            //- |add violation
-        if editing_violation
-            .ui.basic.segment
-                with editing_violation_doc
-                    +textarea_edit key='body' label='description' direct=true
-                    +boolean_edit key='active' label='active' direct=true
-                    +date_edit key='violation_date' label='date' direct=true
-                    +time_edit key='violation_time' label='time' direct=true
-                    i.checkmark.link.circular.icon.save_violation
-        //- .ui.list
-        //-     each violations
-        //-         .item
-        //-             img.ui.avatar.image(src="{{c.url image_id height=100 gravity='face' crop='fill'}}")
-        //-             .content
-        //-                 .header #{title}
-        //-                 .description !{description}
-        //-                     |date:#{violation_date}
-        //-                     |time: #{violation_time}
-        .ui.comments
-            each violations
-                .comment
-                    img.ui.avatar.image(src="{{c.url image_id height=100 gravity='face' crop='fill'}}")
-                    .content
-                        a.header(href="/m/violation/#{_id}/view") !{description}
-                        .meta #{when}
-                            +textarea_view key='body' label='description' direct=true
-                            div Date: #{violation_date}
-                            div Time: #{violation_time}
-                            if active
-                                .ui.red.label Active
-                        .actions
-                            i.pencil.link.circular.icon.edit_violation
-
-
 
 template(name='user_log')
     //- .ui.fluid.styled.accordion

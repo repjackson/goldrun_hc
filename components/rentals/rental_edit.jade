@@ -46,18 +46,18 @@ template(name='rental_edit_finance')
         +i name='money'
         |finance
     +number_edit key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
-    +number_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
-    +number_edit key='monthly_dollars' label='monthly rate ($)' icon='money' direct=true
+    //- +number_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
+    //- +number_edit key='monthly_dollars' label='monthly rate ($)' icon='money' direct=true
     //- .column
     //-     +number_edit key='hourly_karma' label='hourly rate (karma)' icon='yin-yang' direct=true
     //-     +number_edit key='daily_karma' label='daily rate (karma)' icon='yin-yang' direct=true
     div
-    +boolean_edit key='variable_price' label='variable price' icon='change' direct=true tooltip='allow system to increase/decrease price based on performance and popularity'
-    if variable_price
-        +number_edit key='min_variable_price' label='minimum variable price' icon='online-request' tooltip='baseline price' direct=true
-    div
-    +boolean_edit key='negotiable_price' label='negotiable price' icon='collaboration' tooltip='allow people to make bids' direct=true
-    div
+    //- +boolean_edit key='variable_price' label='variable price' icon='change' direct=true tooltip='allow system to increase/decrease price based on performance and popularity'
+    //- if variable_price
+    //-     +number_edit key='min_variable_price' label='minimum variable price' icon='online-request' tooltip='baseline price' direct=true
+    //- div
+    //- +boolean_edit key='negotiable_price' label='negotiable price' icon='collaboration' tooltip='allow people to make bids' direct=true
+    //- div
     +number_edit key='retail_value' label='original retail value' icon='estimate' tooltip='general info, helpful to renters to decide, also for price recommendations, and sorting' direct=true
     .ui.header 
         +i name='online-payment-'
