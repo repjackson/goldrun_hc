@@ -3,8 +3,13 @@ template(name='reservation_edit')
         .ui.stackable.padded.grid
             .three.column.row
                 .column 
+                    a.ui.big.fluid.green.button(href="/reservation/#{_id}/view" title='save')
+                        i.checkmark.large.green.icon
+                        //- +i name='submit-progress--v1'        
+                        .ui.inverted.inline.header save           
+                    .ui.hidden.divider     
                     .ui.large.fluid.icon.button.cancel_reservation
-                        i.ban.large.icon
+                        i.ban.icon
                         |cancel
                     .ui.header 
                         strong #{rental.title}
@@ -95,21 +100,24 @@ template(name='reservation_edit')
                     //- +key_value_edit key='minute_duration' value=180 label='3 hrs'
                     //- +number_edit key='minute_duration' label='minute duration' direct=true
                 .column
-                    .ui.header.lowercase from {{cal_time start_datetime}}
-                    .ui.header.lowercase to {{cal_time end_datetime}}
+                    .ui.header.lowercase 
+                        small from 
+                        |{{cal_time start_datetime}}
+                    .ui.header.lowercase 
+                        small to
+                        |{{cal_time end_datetime}}
                     +datetime_view key='start_datetime' label='start date' icon='date-from' direct=true
                     +datetime_view key='end_datetime' label='end date' icon='date-to' direct=true
                     .ui.header diff #{hour_duration} hours
-                    .ui.button.calculate_diff
+                    .ui.fluid.button.calculate_diff
                         |calc diff
                     .ui.header 
                         +i name='money' classes='ui tiny inline image'
-                        |estimated dollars #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
-                    //- .ui.header 
-                    //-     +i name='yin-yang' classes='ui tiny inline image'
-                    //-     |estimated karma #{hour_duration}*#{rental.hourly_karma} = $#{estimated_karma}
+                        | cost #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
+                    .ui.header owner payout $#{owner_payout}
+                    .ui.header handler payout $#{handler_payout}
+                    .ui.header taxes payout $#{taxes_payout}
                     .ui.header final cost will be based on actual checked out time
-                    //- +number_view key='minute_duration' label='minute duration' direct=true
                     +number_view key='hour_duration' label='hour duration' direct=true
                     unless submitted
                         .ui.big.green.fluid.button.submit_reservation 
@@ -120,7 +128,3 @@ template(name='reservation_edit')
                         .ui.orange.fluid.button.unsubmit
                             i.undo.icon
                             |unsubmit
-                    a.ui.big.fluid.button(href="/reservation/#{_id}/view" title='save')
-                        i.checkmark.large.green.icon
-                        //- +i name='submit-progress--v1'        
-                        |save

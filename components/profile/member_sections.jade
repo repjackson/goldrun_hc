@@ -43,7 +43,8 @@ template(name='member_finance')
     .ui.header 
         +i name='money'
         |finance
-    .ui.header your balance
+    .ui.header your balance #{currentUser.credits}
+    .ui.button.add_credits add credits
     .ui.header you owe them
     .ui.header they owe you
     each joint_transactions 

@@ -66,14 +66,24 @@ template(name='rental_view_reservations')
 
 template(name='reservation_list_item')
     .ui.segment
-        a.item(href="/reservation/#{_id}/view") #{when} by #{_author_username}
-        .ui.header #{hour_duration} hours
-        .ui.header duration type: #{duration_type}
-        .ui.header hour duration: #{hour_duration}
-        +date_view key='start_date' label='start date' icon='date-from' direct=true
-        +time_view key='start_time' label='start time' icon='time' direct=true
-        +date_view key='end_date' label='end date' icon='date-to' direct=true
-        +time_view key='end_time' label='end time' icon='time' direct=true
+        a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
+            small from 
+            |{{cal_time start_datetime}}
+            small to 
+            |{{cal_time end_datetime}}
+        .ui.inline.grey.header #{hour_duration} hrs
+        .ui.header estimated cost #{estimated_dollars}
         if submitted 
             .ui.small.header submitted {{from_now submitted_timestamp}} 
-        .ui.header estimated cost #{estimated_cost}
+        if complete 
+            .ui.small.green.header complete 
+        else 
+            .ui.small.header ongoing
+        if paid
+            .ui.large.green.label paid
+        else 
+            .ui.large.basic.label unpaid
+            .ui.small.header #{when} by #{_author_username}
+        a.ui.large.fluid.button(href="/reservation/#{_id}/view")
+            |view
+            i.right.chevron.icon

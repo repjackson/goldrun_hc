@@ -20,16 +20,10 @@ template(name='nav')
                 if is_dev
                     a.ui.icon.item(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
                         +i name='database' classes='ui mini inline image'
-                //- if is_current_member
-                //-     a.ui.icon.item(href='/karma' class="{{isActivePath '/karma'}}" title='karma')
-                //-         +i name='yin-yang' classes='ui mini inline image'
-                //-         span.my_karma_amount #{currentUser.karma}
-                    //- a.ui.icon.item(href='/inbox' class="{{isActivePath '/inbox'}}" title='inbox')
-                    //-     +i name='inbox' classes='ui mini inline image'
                 if currentUser
                     unless logging_out
                         if is_member
-                            a.ui.item(href="/member/#{currentUser.username}/dashboard" class="{{isActiveRoute regex='member_profile'}}")
+                            a.ui.item(href="/member/#{currentUser.username}/info" class="{{isActiveRoute regex='member_profile'}}")
                                 if currentUser.profile_image_id
                                     img.ui.avatar.image(src="{{c.url currentUser.profile_image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 else
@@ -42,6 +36,8 @@ template(name='nav')
                                 else
                                     +i name='user' classes='ui mini inline image'
                                 .mobile.hidden #{currentUser.name}
+                                if is_member
+                                    |#{credits}
                     if logging_out
                         .ui.item
                             i.loading.circle.notch.icon

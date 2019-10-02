@@ -44,7 +44,7 @@ Template.healthclub.events
 
 
 
-# Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
+Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
 
 Session.setDefault 'invert', false
 Template.registerHelper 'loading_checkin', () -> Session.get 'loading_checkin'

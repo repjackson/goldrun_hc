@@ -327,7 +327,7 @@ Template.boolean_edit.events
             parent = Template.parentData()
         else
             parent = Template.parentData(5)
-        $(e.currentTarget).closest('.button').transition('pulse', 200)
+        $(e.currentTarget).closest('.button').transition('pulse', 100)
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
@@ -1203,7 +1203,7 @@ Template.range_edit.events
         result = $('.ui.calendar').calendar('get endDate')[0]
         console.log result
         formatted = moment(result).format("YYYY-MM-DD[T]HH:mm")
-        console.log moment(@end_datetime).diff(moment(@start_datetime),'minutes',true)        
+        console.log moment(@end_datetime).diff(moment(@start_datetime),'minutes',true)
         console.log moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
         Docs.update doc_id,
             $set:end_datetime:formatted

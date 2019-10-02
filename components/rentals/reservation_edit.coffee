@@ -54,11 +54,17 @@ if Meteor.isClient
             minute_duration = moment(@end_datetime).diff(moment(@start_datetime),'minutes',true)
             estimated_dollars = hour_duration*rental.hourly_dollars
             # console.log diff
+            taxes_payout = estimated_dollars*.1
+            owner_payout = estimated_dollars*.5
+            handler_payout = estimated_dollars*.4
             Docs.update @_id,
                 $set:
                     hour_duration: hour_duration
                     minute_duration: minute_duration
                     estimated_dollars: estimated_dollars
+                    taxes_payout: taxes_payout
+                    owner_payout: owner_payout
+                    handler_payout: handler_payout
 
 
 
