@@ -79,11 +79,12 @@ if Meteor.isClient
             token: (token) ->
                 # product = Docs.findOne Router.current().params.doc_id
                 user = Meteor.users.findOne username:Router.current().params.username
-                deposit_amount = parseInt $('.deposit_amount').val()
-                calculated_amount = deposit_amount*100*1.02+20
+                deposit_amount = parseInt $('.deposit_amount').val()*100
+                stripe_charge = deposit_amount*100*1.02+20
+                # calculated_amount = deposit_amount*100
                 # console.log calculated_amount
                 charge =
-                    amount: calculated_amount
+                    amount: deposit_amount
                     currency: 'usd'
                     source: token.id
                     description: token.description
@@ -94,23 +95,25 @@ if Meteor.isClient
                         alert 'payment received', 'success'
                         Docs.insert
                             model:'payment'
-                            deposit_amount:deposit_amount
-                            stripe_charge:calculated_amount
+                            deposit_amount:deposit_amount/100
+                            stripe_charge:stripe_charge
+                            amount_with_bonus:deposit_amount*1.05/100
+                            bonus:deposit_amount*.05/100
                         Meteor.users.update user._id,
-                            $inc: credit: deposit_amount
+                            $inc: credit: deposit_amount*1.05/100
 
     	)
 
 
     Template.member_finance.events
         'click .add_credits': ->
-            deposit_amount = parseInt $('.deposit_amount').val()
-            calculated_amount = deposit_amount*100*1.02+20
+            deposit_amount = parseInt $('.deposit_amount').val()*100
+            # calculated_amount = deposit_amount*100*1.02+20
             Template.instance().checkout.open
                 name: 'top up'
                 # email:Meteor.user().emails[0].address
                 description: 'gold run'
-                amount: calculated_amount
+                amount: deposit_amount
 
         'click .initial_withdrawel': ->
             withdrawel_amount = parseInt $('.withdrawel_amount').val()

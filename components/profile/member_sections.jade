@@ -34,9 +34,9 @@ template(name='member_social')
 
 
 template(name='member_finance')
-    .ui.header 
-        +i name='money'
-        |finance
+    //- .ui.header 
+    //-     +i name='money'
+    //-     |finance
     //- .ui.statistic
     //-     .label #{user_from_username_param.name}'s credits
     //-     .value $#{user_from_username_param.credit}
@@ -46,12 +46,12 @@ template(name='member_finance')
                 .ui.header 
                     +i name='initiate-money-transfer'
                     |withdraw
-                .ui.small.header withdrawels
-                |withdrawels take at least one business day
+                |withdrawels take one business day and are charged 5%
                 .ui.action.fluid.input
                     input.withdrawel_amount(type='number' min='1' max=currentUser.credit placeholder='amount')
                     .ui.icon.button.initial_withdrawel 
                         i.right.chevron.icon
+                .ui.small.header withdrawels
                 .ui.bulleted.list
                     each withdrawels
                         .item
@@ -67,7 +67,9 @@ template(name='member_finance')
                 .ui.header 
                     +i name='initiate-money-transfer'
                     |deposits
-                .ui.action.input
+                |deposits are given 5% 
+        
+                .ui.action.fluid.input
                     input.deposit_amount(type='number' min='1' placeholder='deposit')
                     .ui.icon.button.add_credits   
                         i.right.chevron.icon
@@ -77,11 +79,16 @@ template(name='member_finance')
                         .item 
                             .content
                                 .header 
-                                    |$#{deposit_amount}
+                                    |$#{deposit_amount} + $#{bonus}
                                 .description #{when} {{long_date _timestamp}}
+                                if is_dev
+                                    +remove_button
                 
         .column
-            .ui.small.header deposits
+            .ui.header
+                +i name='initiate-money-transfer'
+                | purchases
+            .smallscroll
                 each purchased_reservations
                     .ui.header #{when}
         .column
@@ -90,13 +97,6 @@ template(name='member_finance')
                 |earnings
             each received_reservations
                 .ui.header #{when}
-        .column
-            .ui.header 
-                +i name='initiate-money-transfer'
-                |purchases
-            .scrolling
-                each purchased_reservations
-                    .ui.header #{when}
         .column
             .ui.header 
                 +i name='initiate-money-transfer'

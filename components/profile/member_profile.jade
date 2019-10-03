@@ -10,10 +10,10 @@ template(name='member_profile_layout')
                         img.ui.centered.circular.shadowed.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
                     .ui.center.aligned.basic.segment
                         a(href="/member/#{user.username}")
-                            h1.ui.large.center.aligned.header
+                            .ui.large.center.aligned.header
                                 strong #{user.first_name} #{user.last_name}
                                 small @#{user.username}        
-                        .ui.header(title='credit')
+                        a.ui.header(href="/member/#{user_from_username_param.username}/finance" title='credit')
                             //- i.coins.yellow.icon
                             +i name='coins'
                             |#{user.credit}
