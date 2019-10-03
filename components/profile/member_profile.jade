@@ -13,7 +13,11 @@ template(name='member_profile_layout')
                             h1.ui.large.center.aligned.header
                                 strong #{user.first_name} #{user.last_name}
                                 small @#{user.username}        
-                            .ui.header $#{user.credit} credit
+                        .ui.header(title='credit')
+                            //- i.coins.yellow.icon
+                            +i name='coins'
+                            |#{user.credit}
+                        
                     .ui.small.header #{tagline}
                     +ismall name='tags'
                     each tags

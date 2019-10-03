@@ -34,18 +34,56 @@ template(name='member_social')
 
 
 template(name='member_finance')
-    .ui.inline.header 
+    .ui.header 
         +i name='money'
         |finance
-    if is_current_user
-        .ui.button.add_credits 
-            +i name='money'
-            |add $10 credit
-        
     //- .ui.statistic
     //-     .label #{user_from_username_param.name}'s credits
     //-     .value $#{user_from_username_param.credit}
-    .ui.stackable.three.column.grid
+    .ui.stackable.two.column.grid
+        if is_current_user
+            .column
+                .ui.header 
+                    +i name='initiate-money-transfer'
+                    |withdraw
+                .ui.small.header withdrawels
+                |withdrawels take at least one business day
+                .ui.action.fluid.input
+                    input.withdrawel_amount(type='number' min='1' max=currentUser.credit placeholder='amount')
+                    .ui.icon.button.initial_withdrawel 
+                        i.right.chevron.icon
+                .ui.bulleted.list
+                    each withdrawels
+                        .item
+                            .ui.header #{when} for #{amount} credit
+                            |status: #{status}
+                            .ui.button.cancel_withdrawel
+                                i.ban.icon
+                                |cancel
+                    
+                    
+
+            .column
+                .ui.header 
+                    +i name='initiate-money-transfer'
+                    |deposits
+                .ui.action.input
+                    input.deposit_amount(type='number' min='1' placeholder='deposit')
+                    .ui.icon.button.add_credits   
+                        i.right.chevron.icon
+                        
+                .ui.large.bulleted.list
+                    each payments
+                        .item 
+                            .content
+                                .header 
+                                    |$#{deposit_amount}
+                                .description #{when} {{long_date _timestamp}}
+                
+        .column
+            .ui.small.header deposits
+                each purchased_reservations
+                    .ui.header #{when}
         .column
             .ui.header 
                 +i name='initiate-money-transfer'
@@ -74,16 +112,6 @@ template(name='member_finance')
         .column
             each joint_transactions 
                 .ui.header #{when}
-            .ui.header
-                +i name='topup-payment'
-                |top ups
-            .ui.large.bulleted.list
-                each payments
-                    .item 
-                        .content
-                            .header 
-                                |$#{amount}
-                            .description #{when} {{long_date _timestamp}}
 
 
 template(name='member_services')

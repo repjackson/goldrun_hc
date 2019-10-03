@@ -66,6 +66,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'joint_transactions', Router.current().params.username
         @autorun => Meteor.subscribe 'model_docs', 'payment'
         @autorun => Meteor.subscribe 'model_docs', 'reservation'
+        @autorun => Meteor.subscribe 'model_docs', 'withdrawel'
         if Meteor.isDevelopment
             pub_key = Meteor.settings.public.stripe_test_publishable
         else if Meteor.isProduction
@@ -78,8 +79,11 @@ if Meteor.isClient
             token: (token) ->
                 # product = Docs.findOne Router.current().params.doc_id
                 user = Meteor.users.findOne username:Router.current().params.username
+                deposit_amount = parseInt $('.deposit_amount').val()
+                calculated_amount = deposit_amount*100*1.02+20
+                # console.log calculated_amount
                 charge =
-                    amount: 1062
+                    amount: calculated_amount
                     currency: 'usd'
                     source: token.id
                     description: token.description
@@ -90,20 +94,41 @@ if Meteor.isClient
                         alert 'payment received', 'success'
                         Docs.insert
                             model:'payment'
-                            amount:10
+                            deposit_amount:deposit_amount
+                            stripe_charge:calculated_amount
                         Meteor.users.update user._id,
-                            $inc: credit: 10
+                            $inc: credit: deposit_amount
 
     	)
 
 
     Template.member_finance.events
         'click .add_credits': ->
+            deposit_amount = parseInt $('.deposit_amount').val()
+            calculated_amount = deposit_amount*100*1.02+20
             Template.instance().checkout.open
                 name: 'top up'
                 # email:Meteor.user().emails[0].address
                 description: 'gold run'
-                amount: 1062
+                amount: calculated_amount
+
+        'click .initial_withdrawel': ->
+            withdrawel_amount = parseInt $('.withdrawel_amount').val()
+            if confirm "initiate withdrawel for #{withdrawel_amount}?"
+                Docs.insert
+                    model:'withdrawel'
+                    amount: withdrawel_amount
+                    status: 'started'
+                    complete: false
+                Meteor.users.update Meteor.userId(),
+                    $inc: credit: -withdrawel_amount
+
+        'click .cancel_withdrawel': ->
+            if confirm "cancel withdrawel for #{@amount}?"
+                Docs.remove @_id
+                Meteor.users.update Meteor.userId(),
+                    $inc: credit: @amount
+
     Template.member_finance.helpers
         joint_transactions: ->
             Docs.find
@@ -113,6 +138,12 @@ if Meteor.isClient
         payments: ->
             Docs.find {
                 model:'payment'
+                _author_username: Router.current().params.username
+            }, sort:_timestamp:-1
+
+        withdrawels: ->
+            Docs.find {
+                model:'withdrawel'
                 _author_username: Router.current().params.username
             }, sort:_timestamp:-1
 

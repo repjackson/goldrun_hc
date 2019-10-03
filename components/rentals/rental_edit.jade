@@ -29,14 +29,6 @@ template(name='rental_edit')
                     +number_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
                     div
                 .six.wide.column 
-                    //- +number_edit key='retail_value' label='original retail value' icon='estimate' tooltip='general info, helpful to renters to decide, also for price recommendations, and sorting' direct=true
-                    //- +boolean_edit key='security_deposit_required' label='security deposit required' icon='card-security' direct=true
-                    //- if security_deposit_required
-                    //-     +number_edit key='security_deposit_amount' label='security deposit amount' icon='card-security' direct=true
-                    //- div
-                    //- +boolean_edit key='friend_discount' label='friend discount' icon='friends--v2' direct=true
-                    //- if friend_discount
-                    //-     +number_edit key='friend_discount_amount' label='friend discount amount' icon='friends--v2' direct=true
                     +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
                     div
                     +boolean_edit key='available' label='currently available' direct=true

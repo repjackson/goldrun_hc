@@ -1,0 +1,17 @@
+template(name='admin')
+    .ui.stackable.padded.grid
+        .row
+            .ui.header 
+                |admin
+        .two.column.row
+            .column
+                .ui.header 
+                    |withdrawels
+                each withdrawels
+                    .item
+                        .ui.header #{when} for #{amount} credit
+                        |status: #{status}
+                        .ui.button.cancel_withdrawel
+                            i.ban.icon
+                            |cancel
+                        +author_info

@@ -5,12 +5,12 @@ template(name='nav')
                 .icon.item
                     //- i.big.spinning.yin.yang.grey.cancel.icon
                     i.big.spinning.pulse.plus.blue.icon.cancel
-            if is_member
-                a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
-                    +i name='home' classes='ui mini inline image'
-                each role_models
-                    a.ui.icon.item.set_model(href="/m/#{slug}" class="{{isActivePath '/m/model'}}" title=title)
-                        +i name=icon classes='ui mini inline image'
+            a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
+                +i name='home' classes='ui mini inline image'
+            //- if is_member
+            //-     each role_models
+            //-         a.ui.icon.item.set_model(href="/m/#{slug}" class="{{isActivePath '/m/model'}}" title=title)
+            //-             +i name=icon classes='ui mini inline image'
             if is_dev
                 a.ui.icon.item(href='/members' class="{{isActivePath '/members'}}")
                     +i name='groups' classes='ui mini inline image'
@@ -56,14 +56,6 @@ template(name='footer')
     .ui.stackable.grid
         .eight.wide.column
             //- +add_button label='bug' model='bug' icon='bug'
-        //-     +latest_activity
-        //- .four.wide.column
-        //-     if currentUser 
-        //-         +my_latest_activity
-            //- if is_admin
-            //-     .ui.button.shortcut_modal
-            //-         i.keyboard.icon
-            //-         | keyboard shortcuts
             if is_dev    
                 with current_user
                     +role_switcher
@@ -140,10 +132,10 @@ template(name='role_switcher')
     //- else if currentUser
     //-     with currentUser
     //- +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
-    if is_admin
-        //- +multi_doc_edit key='current_roles' label='current roles' ref_model='role' direct=true
-        +user_array_element_toggle key='current_roles' value='admin' user=currentUser
-        +user_array_element_toggle key='current_roles' value='member' user=currentUser
-        +user_array_element_toggle key='current_roles' value='staff' user=currentUser
-        //- +user_array_element_toggle key='roles' value='resident' user=currentUser
-        //- +user_array_element_toggle key='roles' value='owner' user=currentUser
+    //- if is_admin
+    //-     //- +multi_doc_edit key='current_roles' label='current roles' ref_model='role' direct=true
+    //-     +user_array_element_toggle key='current_roles' value='admin' user=currentUser
+    //-     +user_array_element_toggle key='current_roles' value='member' user=currentUser
+    //-     +user_array_element_toggle key='current_roles' value='staff' user=currentUser
+    //-     //- +user_array_element_toggle key='roles' value='resident' user=currentUser
+    //-     //- +user_array_element_toggle key='roles' value='owner' user=currentUser
