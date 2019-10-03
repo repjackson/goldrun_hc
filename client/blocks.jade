@@ -163,7 +163,7 @@ template(name='member_card')
 
 template(name='small_horizontal_member_card')
     with user
-        .ui.fluid.small.horizontal.card
+        .ui.small.horizontal.card
             .image
                 if profile_photo
                     img.ui.rounded.tiny.image(src="{{c.url profile_photo width=200 height=200 gravity='face' crop='fill'}}")

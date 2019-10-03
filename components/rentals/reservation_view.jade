@@ -22,8 +22,6 @@ template(name='reservation_view')
                         +i name='money' classes='ui tiny inline image'
                         |estimated dollars #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
                     .ui.header final cost will be based on actual checked out time
-                    if submitted 
-                        .ui.small.header submitted {{from_now submitted_timestamp}} 
                     if complete 
                         .ui.large.green.label complete 
                     else 
@@ -38,14 +36,37 @@ template(name='reservation_view')
                         a.ui.big.fluid.button(href="/reservation/#{_id}/edit" title='edit reservation')
                             +i name='pencil'
                             |edit
-                    +boolean_edit key='complete' direct=true
                     .ui.divider
                     .ui.header 
                         +i name='request-money'
                         |payouts
-                    .ui.header 50% to owner: #{owner_username} #{owner_payout}
-                    .ui.header 40% to handler: #{handler_username} $#{handler_payout}
-                    .ui.header 10% taxes #{taxes_payout}
+                    .ui.header 
+                        +i name='money' classes='ui tiny inline image'
+                        | #{hour_duration}hrs * $#{rental.hourly_dollars}/hr = $#{estimated_dollars}
+                    .ui.header 
+                        +i name='payroll'
+                        small 50% owner payout 
+                        |$#{owner_payout}
+                    .ui.header 
+                        +i name='get-cash'
+                        small 40% handler payout
+                        | $#{handler_payout}
+                    .ui.header 
+                        +i name='tax'
+                        small taxes
+                        | $#{taxes_payout}
+                    .ui.divider
+                    .ui.header 
+                        small your balance
+                        +i name='cheap-2--v1' 
+                        |#{currentUser.credit} 
+                    .ui.header
+                        small reservation cost 
+                        |#{estimated_dollars} 
+                    .ui.header 
+                        small balance after purchase 
+                        +i name='cheap-2--v1' 
+                        |#{member_balance_after_reservation}
 
 
 template(name='reservation_events')

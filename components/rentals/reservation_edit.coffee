@@ -25,14 +25,9 @@ if Meteor.isClient
         is_month: -> @duration_type is 'month'
         is_day: -> @duration_type is 'day'
         is_hour: -> @duration_type is 'hour'
-        # estimated_dollars: ->
-        #     rental = Docs.findOne @rental_id
-        #     if rental.hourly_dollars
-        #         rental.hourly_dollars*@hour_duration
-        estimated_karma: ->
-            rental = Docs.findOne @rental_id
-            if rental.hourly_karma
-                rental.hourly_karma*@hour_duration
+        member_balance_after_reservation: ->
+            current_balance = Meteor.user().credit
+            current_balance-@estimated_dollars
 
         # diff: -> moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
 
@@ -51,12 +46,12 @@ if Meteor.isClient
             rental = Docs.findOne @rental_id
 
             hour_duration = moment(@end_datetime).diff(moment(@start_datetime),'hours',true).toFixed(2)
-            minute_duration = moment(@end_datetime).diff(moment(@start_datetime),'minutes',true)
-            estimated_dollars = hour_duration*rental.hourly_dollars
+            minute_duration = moment(@end_datetime).diff(moment(@start_datetime),'minutes',true).toFixed(2)
+            estimated_dollars = hour_duration*rental.hourly_dollars.toFixed(2)
             # console.log diff
-            taxes_payout = estimated_dollars*.1
-            owner_payout = estimated_dollars*.5
-            handler_payout = estimated_dollars*.4
+            taxes_payout = (estimated_dollars*.1).toFixed(2)
+            owner_payout = (estimated_dollars*.5).toFixed(2)
+            handler_payout = (estimated_dollars*.4).toFixed(2)
             Docs.update @_id,
                 $set:
                     hour_duration: hour_duration
@@ -99,19 +94,26 @@ if Meteor.isClient
         #                 start_timestamp: now
 
         'click .submit_reservation': ->
-            rental = Docs.findOne @rental_id
-            if rental.hourly_rate
-                estimated_cost = rental.hourly_rate*@hour_duration
-            Docs.update @_id,
-                $set:
-                    submitted:true
-                    submitted_timestamp:Date.now()
-                    estimated_cost:estimated_cost
-            Docs.insert
-                model:'log_event'
-                parent_id:Router.current().params.doc_id
-                log_type:'reservation_submission'
-                text:"reservation submitted by #{Meteor.user().username}"
+            if confirm 'confirm payment?'
+                rental = Docs.findOne @rental_id
+                # console.log @
+                console.log @owner_payout
+                console.log @owner_username
+                console.log @handler_payout
+                console.log @handler_username
+                console.log @taxes_payout
+                console.log @taxes_username
+                # Docs.update @_id,
+                #     $set:
+                #         submitted:true
+                #         submitted_timestamp:Date.now()
+                #         estimated_cost:estimated_cost
+                #
+                # Docs.insert
+                #     model:'log_event'
+                #     parent_id:Router.current().params.doc_id
+                #     log_type:'reservation_submission'
+                #     text:"reservation submitted by #{Meteor.user().username}"
             # Router.go "/reservation/#{@_id}/view"
 
         'click .unsubmit': ->

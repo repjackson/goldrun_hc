@@ -40,11 +40,12 @@ if Meteor.isClient
             Meteor.call 'set_facets', 'model', ->
                 Session.set 'loading', false
 
-        # 'click .secnavitem': ->
-        #     Session.set 'loading', true
-        #     Meteor.call 'increment_view', @_id, ->
-        #     Meteor.call 'set_facets', @slug, ->
-        #         Session.set 'loading', false
+        'click .set_model': ->
+            Session.set 'loading', true
+            # Meteor.call 'increment_view', @_id, ->
+            Meteor.call 'set_facets', @slug, ->
+                Session.set 'loading', false
+
         'click .spinning': ->
             Session.set 'loading', false
 
@@ -74,7 +75,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'me'
     Template.nav.onCreated ->
         @autorun -> Meteor.subscribe 'me'
-        # @autorun -> Meteor.subscribe 'role_models'
+        @autorun -> Meteor.subscribe 'role_models'
         # @autorun -> Meteor.subscribe 'users_by_role','staff'
         @autorun => Meteor.subscribe 'global_settings'
 

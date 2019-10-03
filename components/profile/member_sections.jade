@@ -34,17 +34,17 @@ template(name='member_social')
 
 
 template(name='member_finance')
-    .ui.header 
+    .ui.inline.header 
         +i name='money'
         |finance
     if is_current_user
         .ui.button.add_credits 
             +i name='money'
-            |add credits
+            |add $10 credit
         
-    .ui.statistic
-        .label #{user_from_username_param.name}'s balance
-        .value $#{user_from_username_param.credit}
+    //- .ui.statistic
+    //-     .label #{user_from_username_param.name}'s credits
+    //-     .value $#{user_from_username_param.credit}
     .ui.stackable.three.column.grid
         .column
             .ui.header 
@@ -56,8 +56,9 @@ template(name='member_finance')
             .ui.header 
                 +i name='initiate-money-transfer'
                 |purchases
-            each purchased_reservations
-                .ui.header #{when}
+            .scrolling
+                each purchased_reservations
+                    .ui.header #{when}
         .column
             .ui.header 
                 +i name='initiate-money-transfer'
@@ -187,16 +188,6 @@ template(name='member_requests')
 
 
 
-template(name='member_votes')
-    .ui.header 
-        +i name='elections'
-        |votes
-
-template(name='member_tasks')
-    .ui.header 
-        +i name='task'
-        |tasks
-
 template(name='member_messages')
     .ui.inline.header 
         +i name='envelope'
@@ -291,15 +282,6 @@ template(name='member_wall')
 
 
 
-
-
-template(name='member_gallery')
-    .ui.header 
-        +i name='gallery'
-        |gallery
-    .ui.header uploaded photos
-    .ui.header photos tagged in
-
 template(name='member_connections')
     .ui.large.header 
         +i name='handshake'
@@ -307,16 +289,16 @@ template(name='member_connections')
     .ui.header 
         +i name='customer-insights-manager'
         |connected to
-    each connected_to
-        .ui.segment
+    .ui.two.cards
+        each connected_to
             +small_horizontal_member_card username
-            if is_current_user
-                +member_connect_button
+            //- if is_current_user
+            //-     +member_connect_button
     .ui.header 
         +i name='customer-insights-manager'
         |connected by
-    each connected_by
-        .ui.segment
+    .ui.two.cards
+        each connected_by
             +small_horizontal_member_card username
         
 template(name='member_connect_button')
@@ -350,13 +332,6 @@ template(name='member_stats')
         .ui.header #{karma} karma
         .ui.header #{credits} credits
         
-
-
-template(name='member_events')
-    .ui.header 
-        +i name='calendar'
-        |calendar
-
 
 
 template(name='member_feed')

@@ -1,6 +1,5 @@
 template(name='nav')
     unless is_frontdesk
-        //- .ui.menu(class=gs.nav_color)
         #topnav.topnav.ui.attached.borderless.small.menu(class=gs.nav_color)
             if is_loading
                 .icon.item
@@ -9,6 +8,9 @@ template(name='nav')
             if is_member
                 a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
                     +i name='home' classes='ui mini inline image'
+                each role_models
+                    a.ui.icon.item.set_model(href="/m/#{slug}" class="{{isActivePath '/m/model'}}" title=title)
+                        +i name=icon classes='ui mini inline image'
             if is_dev
                 a.ui.icon.item(href='/members' class="{{isActivePath '/members'}}")
                     +i name='groups' classes='ui mini inline image'

@@ -1,8 +1,23 @@
 if Meteor.isClient
-    Template.rental_view_layout.onCreated ->
+    Router.route '/rental/:doc_id/edit', (->
+        @layout 'rental_edit'
+        @render 'rental_edit'
+        ), name:'rental_edit'
+    Router.route '/rental/:doc_id/view', (->
+        @layout 'layout'
+        @render 'rental_view'
+        ), name:'rental_view'
+
+
+    Template.rental_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-    Template.rental_edit_layout.onCreated ->
+
+    Template.rental_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.rental_view.onRendered ->
+        # console.log @
+        Meteor.call 'increment_view', @data._id, ->
+
 
 
     # Template.rental.events

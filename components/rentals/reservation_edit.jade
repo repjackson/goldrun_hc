@@ -3,10 +3,10 @@ template(name='reservation_edit')
         .ui.stackable.padded.grid
             .three.column.row
                 .column 
-                    a.ui.big.fluid.green.button(href="/reservation/#{_id}/view" title='save')
-                        i.checkmark.large.green.icon
-                        //- +i name='submit-progress--v1'        
-                        .ui.inverted.inline.header save           
+                    a.ui.big.fluid.basic.button(href="/reservation/#{_id}/view" title='save')
+                        //- i.checkmark.large.green.icon
+                        +i name='submit-progress--v1'        
+                        .ui.inline.header save draft     
                     .ui.hidden.divider     
                     .ui.large.fluid.icon.button.cancel_reservation
                         i.ban.icon
@@ -15,32 +15,13 @@ template(name='reservation_edit')
                         strong #{rental.title}
                         small reservation
                     with rental
+                        .ui.header $#{hourly_dollars}
+                            small /hr
+                        .ui.header $#{daily_dollars}
+                            small /day
                         +image_view key='image' label='image' direct=true classes='ui rounded image'
-                        +number_view key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
-                        +number_view key='daily_dollars' label='daily rate ($)' icon='money' direct=true
                         //- +number_view key='hourly_karma' label='hourly rate (karma)' icon='yin-yang' direct=true
                         //- +number_view key='daily_karma' label='daily rate (karma)' icon='yin-yang' direct=true
-                    div
-                    +boolean_view key='variable_price' label='variable price' icon='change' direct=true tooltip='allow system to increase/decrease price based on performance and popularity'
-                    if variable_price
-                        +number_view key='min_variable_price' label='minimum variable price' icon='online-request' tooltip='baseline price' direct=true
-                    div
-                    +boolean_view key='negotiable_price' label='negotiable price' icon='collaboration' tooltip='allow people to make bids' direct=true
-                    div
-                    +number_view key='retail_value' label='original retail value' icon='estimate' unit='$' tooltip='general info, helpful to renters to decide, also for price recommendations, and sorting' direct=true
-                    .ui.header 
-                        +i name='online-payment-' classes='ui tiny inline image'
-                        |payment options
-                    +boolean_view key='cash_accepted' label='cash accepted' icon='cash' direct=true
-                    +boolean_view key='venmo_accepted' label='venmo accepted' icon='venmo' direct=true
-                    +boolean_view key='prepay' label='prepayment required' icon='pay-wall' direct=true
-                    +boolean_view key='security_deposit_required' label='security deposit required' icon='card-security' direct=true
-                    if security_deposit_required
-                        +number_view key='security_deposit_amount' label='security deposit amount' icon='card-security' direct=true
-                    div
-                    +boolean_view key='friend_discount' label='friend discount' icon='friends--v2' direct=true
-                    if friend_discount
-                        +number_view key='friend_discount_amount' label='friend discount amount' icon='friends' direct=true
                 .column 
                     //- a.ui.header(href="/rental/#{rental._id}/view") reserve #{rental.title}
                     //- .ui.fluid.button.reserve_now(class=now_button_class)
@@ -106,23 +87,42 @@ template(name='reservation_edit')
                     .ui.header.lowercase 
                         small to
                         |{{cal_time end_datetime}}
-                    +datetime_view key='start_datetime' label='start date' icon='date-from' direct=true
-                    +datetime_view key='end_datetime' label='end date' icon='date-to' direct=true
-                    .ui.header diff #{hour_duration} hours
+                    .ui.header #{hour_duration} hours
                     .ui.fluid.button.calculate_diff
-                        |calc diff
+                        |calculate money
                     .ui.header 
                         +i name='money' classes='ui tiny inline image'
-                        | cost #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
-                    .ui.header owner payout $#{owner_payout}
-                    .ui.header handler payout $#{handler_payout}
-                    .ui.header taxes payout $#{taxes_payout}
-                    .ui.header final cost will be based on actual checked out time
-                    +number_view key='hour_duration' label='hour duration' direct=true
+                        | #{hour_duration}hrs * $#{rental.hourly_dollars}/hr = $#{estimated_dollars}
+                    .ui.header 
+                        +i name='payroll'
+                        small 50% owner payout 
+                        |$#{owner_payout}
+                    .ui.header 
+                        +i name='get-cash'
+                        small 40% handler payout
+                        | $#{handler_payout}
+                    .ui.header 
+                        +i name='tax'
+                        small taxes
+                        | $#{taxes_payout}
+                    .ui.divider
+                    .ui.header 
+                        small your balance
+                        +i name='cheap-2--v1' 
+                        |#{currentUser.credit} 
+                    .ui.header
+                        small reservation cost 
+                        |#{estimated_dollars} 
+                    .ui.header 
+                        small balance after purchase 
+                        +i name='cheap-2--v1' 
+                        |#{member_balance_after_reservation}
+                        
+                        
                     unless submitted
                         .ui.big.green.fluid.button.submit_reservation 
-                            +i name='submit-progress--v1'        
-                            |submit
+                            +i name='paid'        
+                            |submit and pay
                     else
                         .ui.header submitted {{ from_now submitted_timestamp }}
                         .ui.orange.fluid.button.unsubmit
