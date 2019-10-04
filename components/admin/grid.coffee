@@ -81,6 +81,84 @@ if Meteor.isClient
                 sort:views:1
                 limit:5
 
+
+
+
+    Template.revenue_calculator.onCreated ->
+        @autorun => Meteor.subscribe 'member_revenue_calculator_doc', Router.current().params.username
+        @autorun => Meteor.subscribe 'simulated_rental_items', Router.current().params.username
+    Template.revenue_calculator.events
+        'click .create_simluated_item': ->
+            calc_doc = Docs.findOne model:'calculator_doc'
+            Docs.insert
+                model:'simulated_rental_item'
+                parent_id: calc_doc._id
+
+    Template.simulated_rental_item.events
+        'blur .rental_amount': (e,t)->
+            val = parseInt $(e.currentTarget).closest('.rental_amount').val()
+            Docs.update @_id,
+                $set:rental_amount:val
+
+        'blur .average_hourly': (e,t)->
+            val = parseFloat $(e.currentTarget).closest('.average_hourly').val()
+            Docs.update @_id,
+                $set:average_hourly:val
+
+        'blur .daily_hours_rented': (e,t)->
+            val = parseInt $(e.currentTarget).closest('.daily_hours_rented').val()
+            Docs.update @_id,
+                $set:daily_hours_rented:val
+
+    Template.simulated_rental_item.helpers
+        calculated_daily_revenue: ->
+            hourly_cut = 0
+            if @owned
+                hourly_cut += .5
+            if @handled
+                hourly_cut += .45
+            (@average_hourly*hourly_cut*@daily_hours_rented).toFixed(0)
+
+        total_minutes_committed: ->
+            minutes_committed = 0
+            handled_amount = Docs.find(
+                model:'simulated_rental_item'
+                handled:true
+            ).count()
+            minutes_committed += handled_amount*10
+            minutes_committed
+
+
+        hourly_cut: ->
+            hourly_cut = 0
+            if @owned
+                hourly_cut += .5
+            if @handled
+                hourly_cut += .45
+            hourly_cut*100
+
+        calculated_weekly_revenue: ->
+            hourly_cut = 0
+            if @owned
+                hourly_cut += .5
+            if @handled
+                hourly_cut += .45
+            (@average_hourly*hourly_cut*@daily_hours_rented*7).toFixed(0)
+
+    Template.revenue_calculator.helpers
+        rental_amount: ->
+            Docs.find(model:'simulated_rental_item').count()
+
+        items: ->
+            Docs.find
+                model:'simulated_rental_item'
+
+        calculator_doc: ->
+            Docs.findOne
+                model:'calculator_doc'
+
+
+
 if Meteor.isServer
     Meteor.publish 'role_models', ()->
         match = {}
@@ -89,3 +167,34 @@ if Meteor.isServer
             unless 'dev' in Meteor.user().roles
                 match.view_roles = $in:Meteor.user().roles
         Docs.find match
+
+
+
+    Meteor.publish 'member_revenue_calculator_doc', (username)->
+        match = {}
+        match.model = 'calculator_doc'
+        if Meteor.user()
+            match.member_username = username
+        else
+            match.member_username = null
+        calc_doc = Docs.findOne match
+        unless calc_doc
+            Docs.insert match
+        Docs.find match
+
+
+    Meteor.publish 'simulated_rental_items', (username)->
+        match = {}
+        match.model = 'calculator_doc'
+        if Meteor.user()
+            match.member_username = username
+        else
+            match.member_username = null
+        calc_doc = Docs.findOne match
+        unless calc_doc
+            Docs.insert match
+        calc_doc = Docs.find match
+        if calc_doc
+            Docs.find
+                model:'simulated_rental_item'
+                parent_id: calc_doc._id

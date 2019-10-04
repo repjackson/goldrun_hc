@@ -10,6 +10,7 @@ Cloudinary.config
     api_secret: Meteor.settings.private.cloudinary_secret
 
 
+
 # SyncedCron.add
 #     name: 'Update incident escalations'
 #     schedule: (parser) ->

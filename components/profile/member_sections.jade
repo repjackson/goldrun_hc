@@ -61,22 +61,6 @@ template(name='member_info')
                         |#{reservation_count} reservations
     
 
-template(name='revenue_calculator')
-    .ui.segment
-        .ui.header 
-            +i name='calculator'
-            |revenue calculator
-        .ui.three.column.grid
-            .column
-                with calculator_doc
-                    +number_edit key='rental_amount' direct=true
-                    +number_edit key='average_hourly' direct=true
-                    +number_edit key='daily_hours_rented' direct=true
-            .column
-                .ui.header #{calculated_daily_revenue} daily revenue
-                .ui.header #{calculated_weekly_revenue} weekly revenue
-            .column
-
 
 
 template(name='member_workhistory')

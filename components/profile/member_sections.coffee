@@ -60,8 +60,6 @@ if Meteor.isClient
 
 
 
-
-
     Template.member_finance.onCreated ->
         @autorun => Meteor.subscribe 'joint_transactions', Router.current().params.username
         @autorun => Meteor.subscribe 'model_docs', 'payment'
@@ -241,26 +239,6 @@ if Meteor.isClient
 
 
 
-    Template.revenue_calculator.onCreated ->
-        @autorun => Meteor.subscribe 'member_revenue_calculator_doc', Router.current().params.username
-    Template.revenue_calculator.helpers
-        calculator_doc: ->
-            Docs.findOne
-                model:'calculator_doc'
-                member_username:Router.current().params.username
-        calculated_daily_revenue: ->
-            cd =
-                Docs.findOne
-                    model:'calculator_doc'
-                    member_username:Router.current().params.username
-            cd.rental_amount*cd.average_hourly*cd.daily_hours_rented
-        calculated_weekly_revenue: ->
-            cd =
-                Docs.findOne
-                    model:'calculator_doc'
-                    member_username:Router.current().params.username
-            cd.rental_amount*cd.average_hourly*cd.daily_hours_rented*7
-
 
 
     Template.member_tags.events
@@ -293,18 +271,6 @@ if Meteor.isServer
         Docs.find
             model:'reservation'
             user_id: current_user._id
-
-    Meteor.publish 'member_revenue_calculator_doc', (username)->
-        calc_doc = Docs.findOne
-            model:'calculator_doc'
-            member_username: username
-        unless calc_doc
-            Docs.insert
-                model:'calculator_doc'
-                member_username: username
-        Docs.find
-            model:'calculator_doc'
-            member_username: username
 
 
     Meteor.publish 'member_services', (username)->

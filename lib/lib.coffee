@@ -247,7 +247,7 @@ if Meteor.isServer
     Docs.allow
         insert: (userId, doc) -> doc._author_id is userId
         update: (userId, doc) ->
-            if doc.model in ['work_order','healthclub_session']
+            if doc.model in ['calculator_doc','healthclub_session']
                 true
             else if Meteor.user() and Meteor.user().roles and 'admin' in Meteor.user().roles
                 true

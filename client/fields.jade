@@ -530,7 +530,7 @@ template(name='phone_view')
 template(name='number_edit')
     div
         //- i.grey.icon(class=icon)
-    .ui.inline.header(title=tip)
+    .ui.inline.small.header(title=tip)
         if icon
             +i name=icon classes='ui middle aligned image'
         if title
@@ -888,9 +888,7 @@ template(name='boolean_edit')
         .inline.f4
             //- if field_value
             //-     i.checkmark.icon
-            if title
-                |#{title}
-            else if label
+            if label
                 |#{label}
             else if key
                 |#{key}

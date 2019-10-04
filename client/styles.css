@@ -1,7 +1,7 @@
 body {
     /* font-family: 'Raleway', sans-serif !important; */
     /* font-family: 'Roboto', sans-serif !important; */
-    font-family: 'Ubuntu-Mono', sans-serif !important;
+    font-family: 'Ubuntu+Mono', sans-serif !important;
     /* font-family: 'Ubuntu', sans-serif !important; */
     /* font-size: 110% !important; */
     /*line-height: 200% !important;*/
@@ -380,7 +380,7 @@ input.member_search{
     /* -moz-border-radius: 5px !important; */
     opacity:.9 !important;
     font-family: 'Raleway', sans-serif !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
 }
 
 .disabled.button, .disabled.segment, .disabled.label{
@@ -545,7 +545,7 @@ input.member_search{
 .ui.header{
     /* font-family: 'Raleway', sans-serif !important; */
     /* font-family: 'Roboto', sans-serif !important; */
-    font-family: 'Ubuntu-Mono', sans-serif !important;
+    font-family: 'Ubuntu+Mono', sans-serif !important;
 }
 h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */

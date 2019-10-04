@@ -7,12 +7,13 @@ template(name='grid')
     //-         i.search.icon
     //- unless model_filter_value
     //-     +cloud filter='model'
+    +revenue_calculator            
     .ui.stackable.three.column.padded.grid
         .row
             each role_models
                 .column
                     +grid_role_model
-                
+        
 template(name='grid_role_model')
     .ui.segment
         a.ui.inline.capitalize.header(href="/m/#{slug}" tabindex="0")
@@ -46,3 +47,77 @@ template(name='model_list_item_view')
         span.capitalize #{title} #{name}
         //- span.lowercase #{title} #{name}
         div
+
+
+
+template(name='revenue_calculator')
+    .ui.fluid.accordion
+        .active.title
+            .ui.header 
+                +i name='calculator'
+                |rental revenue calculator
+                i.dropdown.icon
+        .active.content
+            with calculator_doc
+                .ui.stackable.grid
+                    .ten.wide.column
+                        .ui.button.create_simluated_item 
+                            i.plus.icon
+                            |simulated item
+                        .ui.three.stackable.cards
+                            each items
+                                +simulated_rental_item
+                    .six.wide.column
+                        .ui.header 
+                            +i name='money'
+                            |revenue
+                        |#{rental_amount} items * #{average_hourly}/hr 
+                        .ui.inline.header 
+                            |#{total_daily_revenue} 
+                            small /day
+                        |* 7 = 
+                        .ui.inline.header 
+                            |#{total_weekly_revenue} 
+                            small /week
+                        .ui.header 
+                            +i name='time'
+                            |time committed
+                        .ui.inline.header #{minutes_committed}
+                            small minutes/day
+                        .ui.header 
+                            +i name='friends'
+                            |#{neighbor_interactions} neighbor interactions
+
+
+template(name='simulated_rental_item')
+    .ui.card
+        .content
+            .ui.inline.header item
+            +boolean_edit key='owned' title='you own the product and passively get 50% of the fee' direct=true
+            +boolean_edit key='handled' title='you facilitate the rental and get 45% of the fee' direct=true
+            .ui.form
+                .eight.wide.field
+                    label rentals/day
+                    input.rental_amount(type='number' value="#{rental_amount}")
+                .ui.inline.button(title='simulate 5min delivery for each reservation')
+                    +ismall name='delivery'
+                .ui.right.labeled.fluid.input
+                    input.average_hourly(type='number' value="#{average_hourly}")
+                    .ui.label $/hr
+                .ui.labeled.fluid.input
+                    input.daily_hours_rented(type='number' value="#{daily_hours_rented}")
+                    .ui.label hrs/day
+            //- |$#{average_hourly}/hr 
+            |* #{hourly_cut}% cut
+            .ui.inline.header 
+                |= $#{calculated_daily_revenue} 
+                small /day
+            .ui.header 
+                small * 7 = 
+                |$#{calculated_weekly_revenue} 
+                small /week
+            .ui.header #{minutes_committed}
+                small minutes/day
+        
+            +remove_button
+    
