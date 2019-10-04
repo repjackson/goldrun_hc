@@ -26,9 +26,6 @@ template(name='rental_view')
                     div
                     +text_view key='location' icon='marker' label='location' direct=true
                     div
-                    .ui.header 
-                        |retail $
-                        |#{retail_value}
                     +rental_stats
                 .ten.wide.column
                     .ui.inline.large.header 
@@ -66,6 +63,7 @@ template(name='rental_stats')
             .ui.inline.header 
                 +i name='line-chart'
                 |stats
+            i.dropdown.icon
         .content
             i.circular.link.refresh.icon.refresh_rental_finance_stats
             .ui.header #{views} views
@@ -159,10 +157,15 @@ template(name='reservation_list_item')
         a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
             small from 
             |{{cal_time start_datetime}}
+        div
+        a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
             small to 
             |{{cal_time end_datetime}}
-        .ui.grey.header #{hour_duration} hrs
-        .ui.grey.header #{cost} credits
+        div
+        .ui.grey.inline.header #{hour_duration} hrs
+        .ui.grey.inline.header(title='credits')
+            i.coins.icon
+            | #{cost}
         .ui.small.header #{when} by #{_author_username}
         a.ui.large.fluid.button(href="/reservation/#{_id}/view")
             |view

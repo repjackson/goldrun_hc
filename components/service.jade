@@ -3,9 +3,9 @@ template(name='service_card_template')
         .row
             .sixteen.wide.column
                 a.ui.inline.header(href="/service/#{_id}/view") #{title} 
-                    if variable_price
-                        |~
-                    |$#{hourly_rate}/hr
+                    //- if variable_price
+                    //-     |~
+                    |#{hourly_rate}/hr
         .row
             .four.wide.column
                 a(href="/service/#{_id}/view")
@@ -66,11 +66,7 @@ template(name='service_view')
                     +comments
                     +service_reservations
                 .four.wide.column 
-                    +boolean_view key='set_duration' label='set duration' direct=true
-                    if set_duration
-                        +number_view key='duration_hours' label='duration hours' direct=true
                     +number_view key='hourly_rate' label='hourly rate' direct=true
-                    +boolean_view key='variable_price' label='variable price' direct=true
                     div
                     +service_history
                     +service_subscription

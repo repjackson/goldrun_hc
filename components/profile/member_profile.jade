@@ -6,29 +6,37 @@ template(name='member_profile_layout')
             .row
                 img.ui.fluid.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                 .four.wide.column
-                    a.item(href="/member/#{user_from_username_param.username}/")
-                        img.ui.centered.circular.shadowed.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
-                    .ui.center.aligned.basic.segment
+                    a.item.mobile.hidden(href="/member/#{user_from_username_param.username}/")
+                        img.ui.centered.circular.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
+                    .ui.center.aligned.basic.segment.mobile.hidden
                         a(href="/member/#{user.username}")
                             .ui.large.center.aligned.header
                                 strong #{user.first_name} #{user.last_name}
                                 small @#{user.username}        
                         a.ui.header(href="/member/#{user_from_username_param.username}/finance" title='credit')
-                            //- i.coins.yellow.icon
                             +i name='coins'
                             |{{fixed user.credit}}
+                    .ui.two.column.middle.aligned.grid.mobile.only
+                        .column
+                            img.ui.circular.small.inline.image.mobile.only(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
+                        .column
+                            .ui.inline.header
+                                strong #{user.first_name} #{user.last_name}
+                                small @#{user.username}        
+                            a.ui.inline.header(href="/member/#{user_from_username_param.username}/finance" title='credit')
+                                +i name='coins'
+                                |{{fixed user.credit}}
                         
-                    .ui.small.header #{tagline}
                     +ismall name='tags'
                     each tags
                         .ui.small.basic.label #{this}
                     if is_current_user
-                        a.ui.large.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
+                        a.ui.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 
                             //- i.cog.icon
                             |edit
                     else if is_admin
-                        a.ui.large.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
+                        a.ui.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 
                             //- i.cog.icon
                             |edit
@@ -38,11 +46,11 @@ template(name='member_profile_layout')
                     //-     .ui.button.direct_message(title='new message')
                     //-         +i name='envelope'
                     if is_current_user
-                        a.ui.large.button.logout(href="#" title='logout')
+                        a.ui.button.logout(href="#" title='logout')
                             //- i.sign.out.alternate.icon
                             +ismall name='exit' 
                             |log out
-                        a.ui.large.button.logout_other_clients(href="#" title='logout other clients')
+                        a.ui.button.logout_other_clients(href="#" title='logout other clients')
                             //- i.globe.icon
                             +ismall name='globe' 
                             |log out other clients

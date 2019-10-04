@@ -132,40 +132,18 @@ if Meteor.isClient
             if confirm "confirm payment of #{@cost} credit?"
                 rental = Docs.findOne @rental_id
                 # console.log @
-                console.log @owner_payout
-                console.log rental.owner_username
-                console.log @handler_payout
-                console.log rental.handler_username
-                console.log @taxes_payout
                 Docs.update @_id,
                     $set:
                         submitted:true
                         submitted_timestamp:Date.now()
-                Meteor.users.update @_id,
-                    $inc: credit: -@cost
-                owner = Meteor.users.findOne username:rental.owner_username
-                handler = Meteor.users.findOne username:rental.handler_username
-                bank = Meteor.users.findOne username:'dev'
+                # Meteor.users.update @_id,
+                #     $inc: credit: -@cost
+                # owner = Meteor.users.findOne username:rental.owner_username
+                # handler = Meteor.users.findOne username:rental.handler_username
+                # bank = Meteor.users.findOne username:'dev'
 
-                Meteor.users.update Meteor.userId(),
-                    $inc: credit: -@cost
-                console.log "took #{@cost} from you"
-                Meteor.users.update owner._id,
-                    $inc: credit: @owner_payout
-                console.log "gave #{@owner_payout} to #{owner.username}"
-                Meteor.users.update handler._id,
-                    $inc: credit: @handler_payout
-                console.log "gave #{@handler_payout} to #{handler.username}"
-                Meteor.users.update bank._id,
-                    $inc: credit: @taxes_payout
-                console.log "gave #{@taxes_payout} to the bank"
-
-                Docs.insert
-                    model:'log_event'
-                    parent_id:Router.current().params.doc_id
-                    log_type:'reservation_submission'
-                    text:"reservation submitted by #{Meteor.user().username}"
-                Router.go "/reservation/#{@_id}/view"
+                Meteor.call 'pay_for_reservation', @_id, ->
+                    # Router.go "/reservation/#{@_id}/view"
 
         'click .unsubmit': ->
             Docs.update @_id,
@@ -183,3 +161,56 @@ if Meteor.isClient
             if confirm 'delete reservation?'
                 Docs.remove @_id
                 Router.go "/rental/#{@rental_id}/view"
+
+
+
+if Meteor.isServer
+    Meteor.methods
+        pay_for_reservation: (res_id)->
+            res = Docs.findOne res_id
+            # console.log res
+            rental = Docs.findOne res.rental_id
+
+            Meteor.call 'send_payment', Meteor.user().username, rental.owner_username, res.owner_payout, 'owner_payment', res_id, ->
+            Meteor.call 'send_payment', Meteor.user().username, rental.handler_username, res.handler_payout, 'handler_payment', res_id, ->
+            Meteor.call 'send_payment', Meteor.user().username, 'dev', res.taxes_payout, 'taxes_payment', res_id, ->
+
+            Docs.insert
+                model:'log_event'
+                parent_id:res_id
+                res_id: res_id
+                rental_id: res.rental_id
+                log_type:'reservation_submission'
+                text:"reservation submitted by #{Meteor.user().username}"
+
+        send_payment: (from_username, to_username, amount, reason, reservation_id)->
+            console.log 'sending payment from', from_username, 'to', to_username, 'for', amount, reason
+            res = reservation_id
+            sender = Meteor.users.findOne username:'from_username'
+            recipient = Meteor.users.findOne username:'to_username'
+            Meteor.users.update sender._id,
+                $inc: credit: -amount
+
+            Meteor.users.update recipient._id,
+                $inc: credit: amount
+
+            Docs.insert
+                model:'payment'
+                sender_username: from_username
+                sender_id: sender._id
+                recipient_username: recipient_username
+                recipient_id: recipient._id
+                amount: amount
+                reservation_id: reservation_id
+                rental_id: res.rental_id
+                reason:reason
+
+            Docs.insert
+                model:'log_event'
+                log_type: 'payment'
+                text:"#{from_username} paid #{to_username} #{amount} for #{reason}."
+                sender_id: sender._id
+                sender_username: from_username
+                recipient_id: recipient._id
+                recipient_username: recipient_username
+                amount: amount

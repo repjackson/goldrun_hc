@@ -15,3 +15,14 @@ template(name='admin')
                             i.ban.icon
                             |cancel
                         +author_info
+            .column
+                .ui.header 
+                    |payments
+                each payments
+                    .item
+                        .ui.header #{sender_username} to #{recipient_username} #{when} for #{amount} credit
+                        +author_info
+                        
+            .column
+                +my_latest_activity
+                +latest_activity
