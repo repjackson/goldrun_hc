@@ -1,43 +1,82 @@
 template(name='member_info')
     //- +text_view key='address' label='address' icon='marker' direct=true
     //- +phone_view key='phone' label='phone' icon='phone' direct=true
-    +text_view key='tagline' label='tag line' icon='signature' direct=true
-    +array_view key='tags' label='tags' icon='tags' direct=true
-    +array_view key='location_tags' label='location tags' icon='location' direct=true
+    //- +text_view key='tagline' label='tag line' icon='signature' direct=true
+    //- +array_view key='tags' label='tags' icon='tags' direct=true
+    //- +array_view key='location_tags' label='location tags' icon='location' direct=true
     +link_view key='link' label='link' icon='link' direct=true
     div
-    .ui.icon.button.refresh_member_stats
+    //- .ui.header member activity
+    +revenue_calculator
+    .ui.button.refresh_member_stats
         i.refresh.icon
-    .ui.header member activity
-    .ui.header revenue calculator
+        |refresh stats
     with member_stats
-        .ui.small.header #{total_passive_potential} total passive potential
-        |if all of your rentals were reserved full time, without handling
-        .ui.header 
-            +i name='wrench'
-            |#{service_count} member services
-        .ui.header 
-            +i name='shopping-cart'
-            |#{product_count} member products
-        .ui.header 
-            +i name='chat'
-            |#{comment_count} member comments
-        .ui.header 
-            +i name='handshake'
-            |#{rental_count} member rentals
-        .ui.header 
-            +i name='handshake'
-            |#{owned_count} owned rentals
-        .ui.header 
-            +i name='money'
-            |#{total_hourly_credit} total combined hourly credit
-        .ui.header 
-            +i name='handshake'
-            |#{handled_count} handled rentals
-        .ui.header 
-            +i name='clock'
-            |#{reservation_count} reservations
+        .ui.stackable.grid
+            .three.column.row
+                .column
+                    .ui.small.header #{total_passive_potential} total passive potential
+                    |if all of your rentals were reserved full time, without handling
+                    .ui.header 
+                        +i name='wrench'
+                        |#{service_count} member services
+                    .ui.header 
+                        +i name='shopping-cart'
+                        |#{product_count} member products
+                    .ui.header 
+                        +i name='chat'
+                        |#{comment_count} member comments
+                    .ui.header 
+                        +i name='handshake'
+                        |#{rental_count} member rentals
+                    .ui.header 
+                        +i name='handshake'
+                        |#{owned_count} owned rentals
+                .column
+                    .ui.header 
+                        +i name='money'
+                        |#{total_hourly_credit} total combined hourly credit
+                    .ui.header 
+                        +i name='money'
+                        |#{potential_daily_revenue} potential full daily revenue
+                    |if all your rentals were reserved 24 hrs a day
+                    .ui.header 
+                        +i name='money'
+                        |#{potential_two_hour_daily_revenue} potential minimal daily revenue
+                    |if all your rentals were reserved 2 hrs a day
+                    .ui.header 
+                        +i name='calendar'
+                        |#{potential_weekly_revenue} potential full weekly revenue
+                    |if all your rentals were reserved 24 hrs a day, 7 days a week 
+                .column
+                    .ui.header 
+                        +i name='calendar'
+                        |#{potential_two_hour_weekly_revenue} potential minimal weekly revenue
+                    |if all your rentals were reserved 2 hrs a day, 7 days a week 
+                    .ui.header 
+                        +i name='handshake'
+                        |#{handled_count} handled rentals
+                    .ui.header 
+                        +i name='clock'
+                        |#{reservation_count} reservations
     
+
+template(name='revenue_calculator')
+    .ui.segment
+        .ui.header 
+            +i name='calculator'
+            |revenue calculator
+        .ui.three.column.grid
+            .column
+                with calculator_doc
+                    +number_edit key='rental_amount' direct=true
+                    +number_edit key='average_hourly' direct=true
+                    +number_edit key='daily_hours_rented' direct=true
+            .column
+                .ui.header #{calculated_daily_revenue} daily revenue
+                .ui.header #{calculated_weekly_revenue} weekly revenue
+            .column
+
 
 
 template(name='member_workhistory')

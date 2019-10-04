@@ -241,6 +241,27 @@ if Meteor.isClient
 
 
 
+    Template.revenue_calculator.onCreated ->
+        @autorun => Meteor.subscribe 'member_revenue_calculator_doc', Router.current().params.username
+    Template.revenue_calculator.helpers
+        calculator_doc: ->
+            Docs.findOne
+                model:'calculator_doc'
+                member_username:Router.current().params.username
+        calculated_daily_revenue: ->
+            cd =
+                Docs.findOne
+                    model:'calculator_doc'
+                    member_username:Router.current().params.username
+            cd.rental_amount*cd.average_hourly*cd.daily_hours_rented
+        calculated_weekly_revenue: ->
+            cd =
+                Docs.findOne
+                    model:'calculator_doc'
+                    member_username:Router.current().params.username
+            cd.rental_amount*cd.average_hourly*cd.daily_hours_rented*7
+
+
 
     Template.member_tags.events
         'click .new_tag_review': (e,t)->
@@ -272,6 +293,19 @@ if Meteor.isServer
         Docs.find
             model:'reservation'
             user_id: current_user._id
+
+    Meteor.publish 'member_revenue_calculator_doc', (username)->
+        calc_doc = Docs.findOne
+            model:'calculator_doc'
+            member_username: username
+        unless calc_doc
+            Docs.insert
+                model:'calculator_doc'
+                member_username: username
+        Docs.find
+            model:'calculator_doc'
+            member_username: username
+
 
     Meteor.publish 'member_services', (username)->
         current_user = Meteor.users.findOne username:username
@@ -370,7 +404,11 @@ if Meteor.isServer
                 total_hourly_credit += managed_rental.hourly_dollars
 
             console.log 'total_hourly_credit', total_hourly_credit
+            potential_daily_revenue = total_hourly_credit*24*.95
+            potential_two_hour_daily_revenue = total_hourly_credit*2*.95
 
+            potential_weekly_revenue = potential_daily_revenue*7
+            potential_two_hour_weekly_revenue = potential_two_hour_daily_revenue*7
 
 
             Docs.update stats_doc._id,
@@ -380,6 +418,10 @@ if Meteor.isServer
                     owned_count: owned_rentals.count()
                     handled_count: handled_rentals.count()
                     managed_count: managed_rentals.count()
+                    potential_daily_revenue: potential_daily_revenue
+                    potential_two_hour_daily_revenue: potential_two_hour_daily_revenue
+                    potential_weekly_revenue: potential_weekly_revenue
+                    potential_two_hour_weekly_revenue: potential_two_hour_weekly_revenue
                     # total_active_potential: total_active_potential
                     # total_passive_potential: total_passive_potential
                     total_hourly_credit: total_hourly_credit
