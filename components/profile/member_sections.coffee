@@ -215,10 +215,12 @@ if Meteor.isClient
 
 
     Template.member_info.onCreated ->
-        # @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
+        @autorun => Meteor.subscribe 'member_stats', Router.current().params.username
     Template.member_info.helpers
-        connected: ->
-            Meteor.user().connected_ids and @_id in Meteor.user().connected_ids
+        member_stats: ->
+            Docs.findOne
+                model:'member_stats'
+                member_username:Router.current().params.username
     Template.member_info.events
         'click .refresh_member_stats': (e,t)->
             Meteor.call 'refresh_member_stats', Router.current().params.username
@@ -304,18 +306,83 @@ if Meteor.isServer
             model:'user_tag_review'
             user_id: current_user._id
 
+    Meteor.publish 'member_stats', (username)->
+        Docs.find
+            model:'member_stats'
+            member_username: username
+
+
+
     Meteor.methods
         refresh_member_stats: (username)->
             member = Meteor.users.findOne username:username
+            stats_doc =
+                Docs.findOne
+                    model:'member_stats'
+                    member_username: username
+            unless stats_doc
+                new_stats_doc_id = Docs.insert
+                    model:'member_stats'
+                    member_username: username
+                stats_doc = Docs.findOne new_stats_doc_id
             service_count = Docs.find(model:'service', _author_username:username).count()
             rental_count = Docs.find(model:'rental', _author_username:username).count()
+            owned_rentals =
+                Docs.find(
+                    model:'rental',
+                    owner_username:username
+                ).count()
+            handled_rentals =
+                Docs.find(
+                    model:'rental',
+                    handler_username:username
+                ).count()
             product_count = Docs.find(model:'product', _author_username:username).count()
             reservation_count = Docs.find(model:'reservation', _author_username:username).count()
             comment_count = Docs.find(model:'comment', _author_username:username).count()
-            Meteor.users.update member._id,
+
+            # total_passive_potential =
+            owned_rentals =
+                Docs.find(
+                    model:'rental'
+                    owner_username:username
+                )
+
+            # total_active_potential =
+            handled_rentals =
+                Docs.find(
+                    model:'rental'
+                    handler_username:username
+                )
+
+            # total_managed_potential =
+            managed_rentals =
+                Docs.find(
+                    model:'rental'
+                    handler_username:username
+                    owner_username:username
+                )
+
+            total_hourly_credit = 0
+
+            for managed_rental in managed_rentals.fetch()
+                console.log 'adding hourly', managed_rental.hourly_dollars
+                total_hourly_credit += managed_rental.hourly_dollars
+
+            console.log 'total_hourly_credit', total_hourly_credit
+
+
+
+            Docs.update stats_doc._id,
                 $set:
                     service_count: service_count
                     rental_count: rental_count
+                    owned_count: owned_rentals.count()
+                    handled_count: handled_rentals.count()
+                    managed_count: managed_rentals.count()
+                    # total_active_potential: total_active_potential
+                    # total_passive_potential: total_passive_potential
+                    total_hourly_credit: total_hourly_credit
                     product_count: product_count
                     reservation_count: reservation_count
                     comment_count: comment_count

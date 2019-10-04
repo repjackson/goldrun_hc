@@ -4,6 +4,7 @@ if Meteor.isClient
     Template.admin.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'withdrawal'
         @autorun => Meteor.subscribe 'model_docs', 'payment'
+        @autorun => Meteor.subscribe 'model_docs', 'payment'
     Template.admin.helpers
         withdrawals: ->
             Docs.find {

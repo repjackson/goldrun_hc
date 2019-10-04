@@ -142,8 +142,8 @@ if Meteor.isClient
                 # handler = Meteor.users.findOne username:rental.handler_username
                 # bank = Meteor.users.findOne username:'dev'
 
-                Meteor.call 'pay_for_reservation', @_id, ->
-                    # Router.go "/reservation/#{@_id}/view"
+                Meteor.call 'pay_for_reservation', @_id, =>
+                    Router.go "/reservation/#{@_id}/view"
 
         'click .unsubmit': ->
             Docs.update @_id,
@@ -171,9 +171,13 @@ if Meteor.isServer
             # console.log res
             rental = Docs.findOne res.rental_id
 
-            Meteor.call 'send_payment', Meteor.user().username, rental.owner_username, res.owner_payout, 'owner_payment', res_id, ->
-            Meteor.call 'send_payment', Meteor.user().username, rental.handler_username, res.handler_payout, 'handler_payment', res_id, ->
-            Meteor.call 'send_payment', Meteor.user().username, 'dev', res.taxes_payout, 'taxes_payment', res_id, ->
+            Meteor.call 'send_payment', Meteor.user().username, rental.owner_username, res.owner_payout, 'owner_payment', res_id
+            Docs.insert
+                model:'log_event'
+                log_type: 'payment'
+
+            Meteor.call 'send_payment', Meteor.user().username, rental.handler_username, res.handler_payout, 'handler_payment', res_id
+            Meteor.call 'send_payment', Meteor.user().username, 'dev', res.taxes_payout, 'taxes_payment', res_id
 
             Docs.insert
                 model:'log_event'
@@ -184,10 +188,18 @@ if Meteor.isServer
                 text:"reservation submitted by #{Meteor.user().username}"
 
         send_payment: (from_username, to_username, amount, reason, reservation_id)->
-            console.log 'sending payment from', from_username, 'to', to_username, 'for', amount, reason
+            console.log 'sending payment from', from_username, 'to', to_username, 'for', amount, reason, reservation_id
             res = reservation_id
-            sender = Meteor.users.findOne username:'from_username'
-            recipient = Meteor.users.findOne username:'to_username'
+            sender = Meteor.users.findOne username:from_username
+            recipient = Meteor.users.findOne username:to_username
+
+
+            console.log 'sender', sender._id
+            console.log 'recipient', recipient._id
+            console.log typeof amount
+            #
+            amount  = parseFloat amount
+
             Meteor.users.update sender._id,
                 $inc: credit: -amount
 
@@ -198,19 +210,19 @@ if Meteor.isServer
                 model:'payment'
                 sender_username: from_username
                 sender_id: sender._id
-                recipient_username: recipient_username
+                recipient_username: to_username
                 recipient_id: recipient._id
                 amount: amount
                 reservation_id: reservation_id
                 rental_id: res.rental_id
                 reason:reason
-
             Docs.insert
                 model:'log_event'
                 log_type: 'payment'
+                sender_username: from_username
+                recipient_username: to_username
+                amount: amount
+                recipient_id: recipient._id
                 text:"#{from_username} paid #{to_username} #{amount} for #{reason}."
                 sender_id: sender._id
-                sender_username: from_username
-                recipient_id: recipient._id
-                recipient_username: recipient_username
-                amount: amount
+            return

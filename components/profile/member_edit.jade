@@ -36,13 +36,12 @@ template(name='member_edit')
                             +emails_edit
             
                         +phone_edit key='phone' label='phone' icon='phone' direct=true
-                        +array_edit key='tags' label='tags' direct=true
-                        +image_edit key='banner_image_id' label='banner image' direct=true
-                        +text_edit key='tagline' label='tag line' direct=true
+                        +array_edit key='tags' label='tags' icon='tags' direct=true
+                        //- +image_edit key='banner_image_id' label='banner image' direct=true
                         +textarea_edit key='bio' label='bio' direct=true
                         +link_edit key='linkedin_link' label='linkedin link' icon='linkedin' direct=true
                         +link_edit key='facebook_link' label='facebook link' icon='facebook' direct=true
                         +link_edit key='twitter_link' label='twitter link' icon='twitter' direct=true
                 .column
-                    +text_edit key='spirit_animal' label='spirit animal'
-                    +text_edit key='astrological_sign' label='astrological sign' direct=true
+                    +number_edit key='daily_goal_active' label='daily active goal' tooltip='amount desired actively participating in the marketplace (handling/running)'
+                    +number_edit key='daily_goal_passive' label='daily passive goal' tooltip='amount desired with no effort (owning)'

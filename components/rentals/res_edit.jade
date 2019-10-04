@@ -30,13 +30,14 @@ template(name='reservation_edit')
                         +i name='present'
                         |reserve now
                     unless now
-                        .ui.small.header start date/time
+                        .ui.header 
+                            +i name='date-to' classes='ui tiny inline image'
+                            |start date/time
                         .ui.input
                             //- input.res_start(type='datetime-local' value=start_datetime)
                             input.res_start(type='datetime-local' value="#{start_datetime}")
                         //- +datetime_edit key='start_datetime' label='start datetime' direct=true
                     .ui.header 
-                        +i name='date-to' classes='ui tiny inline image'
                         |duration
                     //- .ui.compact.button.select_month(class=sel_month_class)
                     //-     +i name='calendar'
@@ -74,7 +75,9 @@ template(name='reservation_edit')
                     //-     +number_edit key='month_duration' label='other' direct=true
                     //- +date_edit key='end_date' label='end date' icon='date-to' direct=true
                     //- +time_edit key='end_time' label='end time' icon='time' direct=true
-                    .ui.small.header start date/time            
+                    .ui.header 
+                        +i name='date-from'    
+                        |end date/time            
                     .ui.input
                         input.res_end(type='datetime-local' value="#{end_datetime}")
             

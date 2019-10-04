@@ -117,7 +117,8 @@ template(name='latest_activity')
         each latest_activity
             .item 
                 img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
-                |#{text} #{body}
+                |#{text} #{body} 
+                .ui.basic.label #{log_type}
                 small #{when}
 
 

@@ -20,7 +20,7 @@ template(name='reservation_view')
                         |{{cal_time end_datetime}}
                     .ui.header 
                         +i name='money' classes='ui tiny inline image'
-                        |estimated dollars #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
+                        |estimated dollars #{hour_duration}*#{rental.hourly_dollars} = $#{cost}
                     .ui.header final cost will be based on actual checked out time
                     if complete 
                         .ui.large.green.label complete 
@@ -28,7 +28,7 @@ template(name='reservation_view')
                         .ui.basic.large.label ongoing (incomplete)
                     .ui.small.header #{when} by #{_author_username}
                     +number_view key='hour_duration' label='hour duration' direct=true
-                    .ui.header estimated cost #{hour_duration}*#{rental.hourly_dollars} = $#{estimated_dollars}
+                    .ui.header estimated cost #{hour_duration}*#{rental.hourly_dollars} = $#{cost}
                     .ui.header by #{_author_username}
                     +reservation_events
                 .four.wide.column
@@ -63,14 +63,14 @@ template(name='reservation_view')
                     .ui.header 
                         small your balance
                         +i name='cheap-2--v1' 
-                        |#{currentUser.credit} 
+                        |{{fixed currentUser.credit}} 
                     .ui.header
                         small reservation cost 
-                        |#{estimated_dollars} 
+                        |#{cost} 
                     .ui.header 
                         small balance after purchase 
                         +i name='cheap-2--v1' 
-                        |#{member_balance_after_reservation}
+                        |{{fixed member_balance_after_reservation}}
 
 
 template(name='reservation_events')
