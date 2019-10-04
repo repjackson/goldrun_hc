@@ -15,6 +15,10 @@ if Meteor.isClient
         @layout 'member_profile_layout'
         @render 'member_services'
         ), name:'member_services'
+    Router.route '/member/:username/products', (->
+        @layout 'member_profile_layout'
+        @render 'member_products'
+        ), name:'member_products'
     Router.route '/member/:username/reservations', (->
         @layout 'member_profile_layout'
         @render 'member_reservations'
@@ -75,10 +79,6 @@ if Meteor.isClient
         @layout 'member_profile_layout'
         @render 'member_social'
         ), name:'member_social'
-    Router.route '/member/:username/products', (->
-        @layout 'member_profile_layout'
-        @render 'member_products'
-        ), name:'member_products'
     Router.route '/member/:username/comparison', (->
         @layout 'member_profile_layout'
         @render 'member_comparison'

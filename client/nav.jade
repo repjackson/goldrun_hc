@@ -25,8 +25,9 @@ template(name='nav')
                 if currentUser
                     unless logging_out
                         if is_member
+                            a.ui.item(href="/member/#{currentUser.username}/finance" class="{{isActiveRoute regex='member_finance'}}" title='finance')
+                                .ui.small.inline.header {{fixed currentUser.credit}}
                             a.ui.item(href="/member/#{currentUser.username}/info" class="{{isActiveRoute regex='member_profile'}}")
-                                .ui.small.basic.green.label #{currentUser.credit}
                                 if currentUser.profile_image_id
                                     img.ui.avatar.image(src="{{c.url currentUser.profile_image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 else

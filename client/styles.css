@@ -1,6 +1,8 @@
 body {
     /* font-family: 'Raleway', sans-serif !important; */
-    font-family: 'Ubuntu', sans-serif !important;
+    /* font-family: 'Roboto', sans-serif !important; */
+    font-family: 'Ubuntu-Mono', sans-serif !important;
+    /* font-family: 'Ubuntu', sans-serif !important; */
     /* font-size: 110% !important; */
     /*line-height: 200% !important;*/
     /* background: rgba(0,0,0,.9) !important; */
@@ -48,16 +50,6 @@ body {
 .beer_section {
     border: 10px single black !important;
 }
-
-.rayback-header {
-    border-left: 10px double black;
-    border-right: 10px double black;
-    transform: rotate(180deg);
-    font-size: 400% !important;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 
 .add_model_doc {
     border-radius: 20px !important;
@@ -552,7 +544,8 @@ input.member_search{
 
 .ui.header{
     /* font-family: 'Raleway', sans-serif !important; */
-    font-family: 'Ubuntu', sans-serif !important;
+    /* font-family: 'Roboto', sans-serif !important; */
+    font-family: 'Ubuntu-Mono', sans-serif !important;
 }
 h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */

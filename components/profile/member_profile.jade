@@ -16,7 +16,7 @@ template(name='member_profile_layout')
                         a.ui.header(href="/member/#{user_from_username_param.username}/finance" title='credit')
                             //- i.coins.yellow.icon
                             +i name='coins'
-                            |#{user.credit}
+                            |{{fixed user.credit}}
                         
                     .ui.small.header #{tagline}
                     +ismall name='tags'
@@ -63,9 +63,9 @@ template(name='member_profile_layout')
                     a.ui.compact.button(href="/member/#{username}/rentals" class="{{isActiveRoute 'member_rentals'}}")
                         +ismall name='handshake' classes='ui inline image'
                         |rentals
-                    a.ui.compact.button(href="/member/#{username}/sales" class="{{isActiveRoute 'member_sales'}}")
+                    a.ui.compact.button(href="/member/#{username}/products" class="{{isActiveRoute 'member_products'}}")
                         +ismall name='shopping-cart' classes='ui inline image'
-                        |sales
+                        |products
                     a.ui.compact.button(href="/member/#{username}/reservations" class="{{isActiveRoute 'member_reservations'}}")
                         +ismall name='clock' classes='ui inline image'
                         |reservations

@@ -6,12 +6,12 @@ template(name='admin')
         .two.column.row
             .column
                 .ui.header 
-                    |withdrawels
-                each withdrawels
+                    |withdrawals
+                each withdrawals
                     .item
                         .ui.header #{when} for #{amount} credit
                         |status: #{status}
-                        .ui.button.cancel_withdrawel
+                        .ui.button.cancel_withdrawal
                             i.ban.icon
                             |cancel
                         +author_info

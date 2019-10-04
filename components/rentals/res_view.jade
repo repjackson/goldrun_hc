@@ -42,7 +42,11 @@ template(name='reservation_view')
                         |payouts
                     .ui.header 
                         +i name='money' classes='ui tiny inline image'
-                        | #{hour_duration}hrs * $#{rental.hourly_dollars}/hr = $#{estimated_dollars}
+                        | #{hour_duration}
+                        small hrs * $
+                        |#{rental.hourly_dollars}
+                        small /hr = $
+                        |#{cost}
                     .ui.header 
                         +i name='payroll'
                         small 50% owner payout 

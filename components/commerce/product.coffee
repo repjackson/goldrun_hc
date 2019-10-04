@@ -13,6 +13,12 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.product_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.product_edit.events
+        'click .delete_product_item': ->
+            if confirm 'delete product?'
+                Docs.remove @_id
+                Router.go "/m/product"
+
     Template.product_view.events
         'click .add_to_cart': ->
             console.log @

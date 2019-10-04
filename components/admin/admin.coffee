@@ -2,11 +2,11 @@ if Meteor.isClient
     Router.route '/admin', -> @render 'admin'
 
     Template.admin.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'withdrawel'
+        @autorun => Meteor.subscribe 'model_docs', 'withdrawal'
     Template.admin.helpers
-        withdrawels: ->
+        withdrawals: ->
             Docs.find {
-                model:'withdrawel'
+                model:'withdrawal'
             }, sort: _timestamp: -1
 
 

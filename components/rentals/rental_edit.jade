@@ -19,14 +19,15 @@ template(name='rental_edit')
                     +textarea_edit key='description' label='content' icon='content' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                    +single_user_edit key='resident' label='resident' direct=true
+                    +single_user_edit key='owner_username' label='owner' direct=true
+                    +single_user_edit key='handler_username' label='handler' direct=true
                     +text_edit key='contact_info' label='contact info' icon='info' direct=true
                     +link_edit key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
                     .ui.large.header 
                         +i name='money'
                         |finance
-                    +number_edit key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
-                    +number_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
+                    +float_edit key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
+                    +float_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
                     div
                 .six.wide.column 
                     +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true

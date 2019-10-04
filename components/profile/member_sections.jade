@@ -46,29 +46,25 @@ template(name='member_finance')
                 .ui.header 
                     +i name='initiate-money-transfer'
                     |withdraw
-                |withdrawels take one business day and are charged 5%
+                |withdrawals take one business day and are charged 10%
                 .ui.action.fluid.input
-                    input.withdrawel_amount(type='number' min='1' max=currentUser.credit placeholder='amount')
-                    .ui.icon.button.initial_withdrawel 
+                    input.withdrawal_amount(type='number' min='1' max=currentUser.credit placeholder='amount')
+                    .ui.icon.button.initial_withdrawal 
                         i.right.chevron.icon
-                .ui.small.header withdrawels
+                .ui.small.header withdrawals
                 .ui.bulleted.list
-                    each withdrawels
+                    each withdrawals
                         .item
                             .ui.header #{when} for #{amount} credit
                             |status: #{status}
-                            .ui.button.cancel_withdrawel
+                            .ui.button.cancel_withdrawal
                                 i.ban.icon
                                 |cancel
-                    
-                    
-
             .column
                 .ui.header 
                     +i name='initiate-money-transfer'
                     |deposits
-                |deposits are given 5% 
-        
+                |deposits are given 5% after processing fee
                 .ui.action.fluid.input
                     input.deposit_amount(type='number' min='1' placeholder='deposit')
                     .ui.icon.button.add_credits   
@@ -95,7 +91,7 @@ template(name='member_finance')
             .ui.header 
                 +i name='initiate-money-transfer'
                 |earnings
-            each received_reservations
+            each owner_earnings
                 .ui.header #{when}
         .column
             .ui.header 
@@ -118,6 +114,36 @@ template(name='member_services')
     .ui.header 
         +i name='wrench'
         |services
+    each services 
+        .ui.fluid.segment.grid
+            .row
+                .sixteen.wide.column
+                    a.ui.inline.header(href="/service/#{_id}/view") #{title} 
+                        if variable_price
+                            |~
+                        |$#{hourly_rate}/hr
+            .row
+                .four.wide.column
+                    a(href="/service/#{_id}/view")
+                        +image_view key='image' direct=true
+                .twelve.wide.column
+                    div
+                    +ismall name='marker' direct=true
+                    each location_tags
+                        .ui.basic.label #{this}
+                    div
+                    +ismall name='tags' direct=true
+                    each tags
+                        .ui.basic.label #{this}
+                    div
+                    a.ui.button(href="/service/#{_id}/view")
+                        |view
+                        i.right.chevron.icon
+
+template(name='member_products')
+    .ui.header 
+        +i name='shopping-cart'
+        |products
     each services 
         .ui.fluid.segment.grid
             .row

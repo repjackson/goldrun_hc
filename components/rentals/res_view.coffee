@@ -1,7 +1,4 @@
 if Meteor.isClient
-    Router.route '/reservations', (->
-        @render 'reservations'
-        ), name:'reservations'
     Router.route '/reservation/:doc_id/view', (->
         @render 'reservation_view'
         ), name:'reservation_view'
@@ -11,10 +8,6 @@ if Meteor.isClient
     Template.reservation_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'rental_by_res_id', Router.current().params.doc_id
-    Template.reservation_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'rental_by_res_id', Router.current().params.doc_id
-
 
 
     Template.reservation_events.onCreated ->
@@ -26,6 +19,10 @@ if Meteor.isClient
                 parent_id: Router.current().params.doc_id
 
 
+    Template.rental_stats.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 1000
 
 
 
@@ -47,6 +44,26 @@ if Meteor.isServer
             Docs.find
                 model:'rental'
                 _id: reservation.rental_id
+
+    Meteor.publish 'owner_by_res_id', (res_id)->
+        reservation = Docs.findOne res_id
+        rental =
+            Docs.findOne
+                model:'rental'
+                _id: reservation.rental_id
+
+        Meteor.users.find
+            _id: rental.owner_username
+
+    Meteor.publish 'handler_by_res_id', (res_id)->
+        reservation = Docs.findOne res_id
+        rental =
+            Docs.findOne
+                model:'rental'
+                _id: reservation.rental_id
+
+        Meteor.users.find
+            _id: rental.handler_username
 
     Meteor.methods
         calc_reservation_stats: ->

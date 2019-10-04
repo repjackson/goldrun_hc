@@ -545,7 +545,7 @@ template(name='number_edit')
     //- +clear_value  
     div  
     .ui.input            
-        input.edit_number(type='number' value=field_value placeholder=placeholder autocomplete="off")
+        input.edit_number(type='number' min=min class=classes value=field_value placeholder=placeholder autocomplete="off")
             
             
 template(name='number_view')
@@ -584,7 +584,7 @@ template(name='float_edit')
     //- +clear_value  
     div  
     .ui.input            
-        input.edit_float(type='number' value=field_value placeholder=placeholder autocomplete="off")
+        input.edit_float(type='number' class=classes min=min step=step value=field_value placeholder=placeholder autocomplete="off")
             
 template(name='float_view')
     if field_value

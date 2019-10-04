@@ -2,8 +2,8 @@ template(name='rental_view')
     with current_doc
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
-            .three.column.row
-                .column
+            .row
+                .six.wide.column
                     a.ui.fluid.button(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
                         i.left.chevron.icon
                         +i name='handshake' classes='ui mini inline image'
@@ -21,56 +21,65 @@ template(name='rental_view')
                     with _author_id
                         +user_card
                     +array_view key='tags' icon='tags' direct=true title='tags'
+                    div
                     +array_view key='location_tags' icon='marker' direct=true title='location tags'
-                    +text_view key='location' icon='marker' label='location description' direct=true
+                    div
+                    +text_view key='location' icon='marker' label='location' direct=true
                     div
                     .ui.header 
                         |retail $
                         |#{retail_value}
-                .column
-                    .ui.inline.header 
+                    +rental_stats
+                .ten.wide.column
+                    .ui.inline.large.header 
                         |$#{hourly_dollars}
                         small /hr
-                    .ui.inline.header 
+                    .ui.inline.large.header 
                         |$#{daily_dollars}
                         small /day
-                    .ui.header 
+                    div
+                    .ui.inline.header 
                         +i name='sell-property'
                         small owner
-                        |#{owner_username}
-                    .ui.header 
+                        +single_user_view key='owner_username' direct=true
+                    div
+                    .ui.inline.header 
                         +i name='manager'
-                        small manager
-                        |#{owner_username}
+                        small handler
+                        +single_user_view key='handler_username' direct=true
                     +html_view key='description' label='content' icon='content' direct=true
                     +array_view key='location_tags' label='location tags' icon='marker' direct=true
                     div
-                    +single_user_view key='resident' label='resident' direct=true
-                    div 
                     +text_view key='contact_info' label='contact info' icon='info' direct=true
+                    div
                     +link_view key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
-                    .ui.inline.header 
-                        +i name='line-chart'
-                        |stats
-                    i.circular.link.refresh.icon.refresh_rental_finance_stats
-                    .ui.header #{views} views
-                    .ui.small.header total earnings
-                    .ui.small.header rental ranking #reservations
-                    .ui.small.header rental ranking $ earned
-                    .ui.small.header # different renters
-                    .ui.small.header avg rental time
-                    .ui.small.header avg daily earnings
-                    .ui.small.header avg weekly earnings
-                    .ui.small.header avg monthly earnings
-                    .ui.small.header biggest renter
-                    .ui.small.header predicted payback duration 
-                    .ui.small.header predicted payback date 
-                .column
+                    div
                     +reserve_button
                     +rental_view_reservations
                     +comments
                     
     +footer
+
+template(name='rental_stats')
+    .ui.accordion
+        .title
+            .ui.inline.header 
+                +i name='line-chart'
+                |stats
+        .content
+            i.circular.link.refresh.icon.refresh_rental_finance_stats
+            .ui.header #{views} views
+            .ui.small.header total earnings
+            .ui.small.header rental ranking #reservations
+            .ui.small.header rental ranking $ earned
+            .ui.small.header # different renters
+            .ui.small.header avg rental time
+            .ui.small.header avg daily earnings
+            .ui.small.header avg weekly earnings
+            .ui.small.header avg monthly earnings
+            .ui.small.header biggest renter
+            .ui.small.header predicted payback duration 
+            .ui.small.header predicted payback date 
 
 
     
@@ -136,7 +145,7 @@ template(name='rental_card_template')
 
 
 template(name='rental_view_reservations')
-    .ui.grey.header 
+    .ui.header 
         +i name='clock'
         |reservations
     .ui.bulleted.link.list
@@ -152,7 +161,8 @@ template(name='reservation_list_item')
             |{{cal_time start_datetime}}
             small to 
             |{{cal_time end_datetime}}
-        .ui.inline.grey.header #{hour_duration} hrs
+        .ui.grey.header #{hour_duration} hrs
+        .ui.grey.header #{cost} credits
         .ui.small.header #{when} by #{_author_username}
         a.ui.large.fluid.button(href="/reservation/#{_id}/view")
             |view

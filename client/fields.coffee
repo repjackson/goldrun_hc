@@ -431,6 +431,7 @@ Template.datetime_edit.events
         else
             parent = Template.parentData(5)
         val = t.$('.edit_datetime').val()
+        console.log val
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
         if doc

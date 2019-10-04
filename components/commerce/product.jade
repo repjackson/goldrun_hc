@@ -5,8 +5,8 @@ template(name='product_edit')
                 .four.wide.column
                     .ui.inline.header #{title}
                     a.ui.big.fluid.button(href="/product/#{_id}/view")
-                        |save
                         i.green.checkmark.icon
+                        |save
                     .ui.basic.icon.button.delete_product_item 
                         i.trash.icon
                     +text_edit key='title' icon='header' direct=true
