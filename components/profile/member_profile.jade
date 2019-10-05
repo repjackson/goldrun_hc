@@ -72,6 +72,9 @@ template(name='member_profile_layout')
                     a.ui.large.button(href="/member/#{username}/products" class="{{isActiveRoute 'member_products'}}")
                         +ismall name='shopping-cart' classes='ui inline image'
                         |products
+                    a.ui.large.button(href="/member/#{username}/handling" class="{{isActiveRoute 'member_handling'}}")
+                        +ismall name='shopping-cart' classes='ui inline image'
+                        |handling
                     a.ui.large.button(href="/member/#{username}/reservations" class="{{isActiveRoute 'member_reservations'}}")
                         +ismall name='clock' classes='ui inline image'
                         |reservations

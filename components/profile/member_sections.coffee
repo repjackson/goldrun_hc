@@ -190,6 +190,20 @@ if Meteor.isClient
 
 
 
+    Template.member_handling.onCreated ->
+        @autorun => Meteor.subscribe 'member_handling', Router.current().params.username
+    Template.member_handling.helpers
+        handling_rentals: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Docs.find
+                model:'rental'
+                handler_username:current_user.username
+                # _author_id:current_user._id
+                # confirmed:true
+
+
+
+
 
     Template.member_connect_button.onCreated ->
         # @autorun => Meteor.subscribe 'user_confirmed_transactions', Router.current().params.username
@@ -293,6 +307,11 @@ if Meteor.isServer
             model:'reservation'
             _author_username:username
             # _author_id: current_user._id
+
+    Meteor.publish 'member_handling', (username)->
+        Docs.find
+            model:'rental'
+            handler_username:username
 
     Meteor.publish 'wall_posts', (username)->
         current_user = Meteor.users.findOne username:username

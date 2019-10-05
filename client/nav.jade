@@ -1,6 +1,6 @@
 template(name='nav')
     unless is_frontdesk
-        #topnav.topnav.ui.attached.borderless.small.menu(class=gs.nav_color)
+        #topnav.topnav.ui.top.fixed.borderless.menu
             if is_loading
                 .icon.item
                     //- i.big.spinning.yin.yang.grey.cancel.icon
@@ -65,7 +65,7 @@ template(name='footer')
                 a.ui.big.button(href='/login')
                     i.sign.in.icon
                     |login
-            //- +footer_chat
+            +footer_chat
             if is_admin
                 with currentUser
                     +role_switcher

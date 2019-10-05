@@ -234,6 +234,16 @@ template(name='member_rentals')
             +rental_card
         
         
+template(name='member_handling')
+    .ui.header 
+        +i name='delivery'
+        |handling
+    .ui.small.header rentals that member is facilitating
+    .ui.three.cards
+        each handling_rentals 
+            +rental_card
+        
+        
         
 template(name='rental_card')
     .ui.card

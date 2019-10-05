@@ -11,6 +11,9 @@ if Meteor.isClient
             $('.accordion').accordion()
         , 1000
 
+
+
+
     Template.grid.events
         'click .set_model': ->
             Session.set 'loading', true
@@ -88,29 +91,14 @@ if Meteor.isClient
     Template.revenue_calculator.events
         'click .recalc_revenue_stats': ->
             calc_doc = Docs.findOne model:'calculator_doc'
-            total_daily_minutes_committed = 0
-            daily_rentals = 0
-            handled_rentals = 0
-            totaled_daily_revenue = 0
-            sim_rental_items = Docs.find(model:'simulated_rental_item').fetch()
-            for item in sim_rental_items
-                total_daily_minutes_committed += item.minutes_committed
-                daily_rentals += item.rental_amount
-                if item.handled
-                    handled_rentals += item.rental_amount
-                totaled_daily_revenue += item.calculated_daily_revenue
-            total_weekly_hours_committed = parseInt((total_daily_minutes_committed*7/60)).toFixed(1)
-            Docs.update calc_doc._id,
-                $set:
-                    total_daily_minutes_committed: total_daily_minutes_committed
-                    total_weekly_hours_committed: total_weekly_hours_committed
-                    total_weekly_rentals: daily_rentals*7
-                    daily_rentals: daily_rentals
-                    totaled_daily_revenue: totaled_daily_revenue
-                    totaled_weekly_revenue: (totaled_daily_revenue*7).toFixed(2)
-                    totaled_monthly_revenue: (totaled_daily_revenue*7*4.3).toFixed(2)
-                    average_hourly_wage: (totaled_daily_revenue/(total_daily_minutes_committed/60)).toFixed(1)
-                    total_neighbor_interactions: handled_rentals*2*7
+            Meteor.call 'recalc_revenue_stats', calc_doc
+
+            $('.result_column .header')
+              .transition({
+                animation : 'pulse',
+                duration  : 400,
+                interval  : 40
+              })
 
 
         'click .create_simluated_item': ->
@@ -119,30 +107,61 @@ if Meteor.isClient
                 model:'simulated_rental_item'
                 parent_id: calc_doc._id
 
+
+    Template.simulated_rental_item.onRendered ->
+        Meteor.setTimeout ->
+            $('.button, .input').popup(
+                preserve:true;
+                hoverable:false;
+            )
+        , 3000
+
     Template.simulated_rental_item.events
-        'blur .rental_amount': (e,t)->
+        'change .rental_amount': (e,t)->
             val = parseInt $(e.currentTarget).closest('.rental_amount').val()
-            minutes_committed =
-                if @delivery then val*10
-                else if @handled then val*5
-                else 0
             Docs.update @_id,
                 $set:
                     rental_amount:val
-                    minutes_committed:minutes_committed
             Meteor.call 'calculate_daily_revenue', @_id
+            calc_doc = Docs.findOne model:'calculator_doc'
+            Meteor.call 'recalc_revenue_stats', calc_doc
 
-        'blur .average_hourly': (e,t)->
+            $('.result_column .header')
+              .transition({
+                animation : 'pulse',
+                duration  : 400,
+                interval  : 40
+              })
+
+        'change .average_hourly': (e,t)->
             val = parseFloat $(e.currentTarget).closest('.average_hourly').val()
             Docs.update @_id,
                 $set:average_hourly:val
             Meteor.call 'calculate_daily_revenue', @_id
+            calc_doc = Docs.findOne model:'calculator_doc'
+            Meteor.call 'recalc_revenue_stats', calc_doc
 
-        'blur .daily_hours_rented': (e,t)->
+            $('.result_column .header')
+              .transition({
+                animation : 'pulse',
+                duration  : 400,
+                interval  : 40
+              })
+
+        'change .daily_hours_rented': (e,t)->
             val = parseInt $(e.currentTarget).closest('.daily_hours_rented').val()
             Docs.update @_id,
                 $set:daily_hours_rented:val
             Meteor.call 'calculate_daily_revenue', @_id
+            calc_doc = Docs.findOne model:'calculator_doc'
+            Meteor.call 'recalc_revenue_stats', calc_doc
+
+            $('.result_column .header')
+              .transition({
+                animation : 'pulse',
+                duration  : 400,
+                interval  : 40
+              })
 
 
     Template.small_boolean_edit.helpers
@@ -157,21 +176,22 @@ if Meteor.isClient
             $(e.currentTarget).closest('.button').transition('pulse', 100)
             Docs.update parent._id,
                 $set:"#{@key}":!parent["#{@key}"]
+            Meteor.setTimeout ->
+                Meteor.call 'calculate_daily_revenue', parent._id
+                calc_doc = Docs.findOne model:'calculator_doc'
+                Meteor.call 'recalc_revenue_stats', calc_doc
+            , 500
+            $('.result_column .header')
+              .transition({
+                animation : 'pulse',
+                duration  : 400,
+                interval  : 40
+              })
 
 
 
 
     Template.simulated_rental_item.helpers
-        total_minutes_committed: ->
-            minutes_committed = 0
-            handled_amount = Docs.find(
-                model:'simulated_rental_item'
-                handled:true
-            ).count()
-            minutes_committed += handled_amount*10
-            minutes_committed
-
-
         hourly_cut: ->
             hourly_cut = 0
             if @owned
@@ -179,6 +199,8 @@ if Meteor.isClient
             if @handled
                 hourly_cut += .45
             hourly_cut*100
+
+
     Template.revenue_calculator.helpers
         rental_amount: ->
             Docs.find(model:'simulated_rental_item').count()
@@ -231,9 +253,50 @@ if Meteor.isServer
 
 
     Meteor.methods
+        recalc_revenue_stats: (calc_doc)->
+            total_daily_minutes_committed = 0
+            daily_rentals = 0
+            handled_rentals = 0
+            totaled_daily_revenue = 0
+            sim_rental_items = Docs.find(
+                model:'simulated_rental_item'
+                parent_id: calc_doc._id
+                ).fetch()
+            for item in sim_rental_items
+                total_daily_minutes_committed += item.minutes_committed
+                daily_rentals += item.rental_amount
+                if item.handled
+                    handled_rentals += item.rental_amount
+                totaled_daily_revenue += item.calculated_daily_revenue
+            total_weekly_hours_committed = parseInt((total_daily_minutes_committed*7/60)).toFixed(0)
+            Docs.update calc_doc._id,
+                $set:
+                    total_daily_minutes_committed: total_daily_minutes_committed
+                    total_daily_hours_committed: (total_daily_minutes_committed/60).toFixed(1)
+                    total_weekly_hours_committed: total_weekly_hours_committed
+                    total_weekly_rentals: daily_rentals*7
+                    daily_rentals: daily_rentals
+                    totaled_daily_revenue: totaled_daily_revenue
+                    totaled_weekly_revenue: (totaled_daily_revenue*7).toFixed(0)
+                    totaled_monthly_revenue: (totaled_daily_revenue*7*4.3).toFixed(0)
+                    average_hourly_wage: (totaled_daily_revenue/(total_daily_minutes_committed/60)).toFixed(0)
+                    total_neighbor_interactions: handled_rentals*2*7
+
+
+
         calculate_daily_revenue: (sim_rental_item_id)->
             sim_rental_item = Docs.findOne sim_rental_item_id
             hourly_cut = 0
+            if sim_rental_item.delivery
+                console.log 'delivery'
+                minutes_committed = sim_rental_item.rental_amount*10
+            else if sim_rental_item.handled
+                console.log 'handled'
+                minutes_committed = sim_rental_item.rental_amount*5
+            else
+                console.log 'nothing'
+                minutes_committed = 0
+
             if sim_rental_item.owned
                 hourly_cut += .5
             if sim_rental_item.handled
@@ -244,3 +307,4 @@ if Meteor.isServer
                 $set:
                     calculated_daily_revenue: res
                     calculated_weekly_revenue: res*7
+                    minutes_committed:minutes_committed

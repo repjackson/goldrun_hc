@@ -50,16 +50,17 @@ template(name='reservation_edit')
                             //- input.res_start(type='datetime-local' value=start_datetime)
                             input.res_start(type='datetime-local' value="#{start_datetime}")
                         //- +datetime_edit key='start_datetime' label='start datetime' direct=true
-                    .ui.header 
-                        |duration
-                    div
-                    .ui.input            
-                        input.other_hour(type='number' min='0' value=hour_duration autocomplete="off")
-                    .ui.header 
-                        +i name='date-from'    
-                        |end date/time            
-                    .ui.input
-                        input.res_end(type='datetime-local' value="#{end_datetime}")
+                    if start_datetime
+                        .ui.header 
+                            |duration
+                        div
+                        .ui.input            
+                            input.other_hour(type='number' min='0' value=hour_duration autocomplete="off")
+                        .ui.header 
+                            +i name='date-from'    
+                            |end date/time            
+                        .ui.input
+                            input.res_end(type='datetime-local' value="#{end_datetime}")
                 .column.result_column.rounded
                     if start_datetime
                         .ui.header.lowercase 
@@ -89,12 +90,14 @@ template(name='reservation_edit')
                                 +i name='coins' 
                                 |{{fixed currentUser.credit}} 
                             .ui.header.result
+                                |deductions
                                 | -  #{cost} 
                                 if res_start_dropoff_selected
                                     | + #{rental.res_start_dropoff_fee}
                                 if res_end_pickup_selected
                                     | + #{rental.res_end_pickup_fee}
                             .ui.header.result
+                                |balance after purchase
                                 small = 
                                 //- small balance after purchase 
                                 +i name='coins' 

@@ -12,6 +12,12 @@ Meteor.startup ->
     # });
 
 
+Tracker.autorun ->
+    current = Router.current()
+    Tracker.afterFlush ->
+        $(window).scrollTop 0
+
+
 
 $.cloudinary.config
     cloud_name:"facet"

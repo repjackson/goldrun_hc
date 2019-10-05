@@ -1,6 +1,6 @@
 template(name='delta')
-    with current_model
-        .ui.stackable.grid
+    .ui.stackable.grid
+        with current_model
             .row
                 .five.wide.column
                     if is_loading

@@ -9,7 +9,7 @@ template(name='rental_view')
                         +i name='handshake' classes='ui mini inline image'
                         |rentals
                     .ui.large.center.aligned.header #{title}
-                    img.ui.centered.rounded.medium.image(src="{{c.url image width=400 height=400 crop='fit'}}")
+                    img.ui.centered.rounded.medium.invert.image(src="{{c.url image width=400 height=400 crop='fit'}}")
                     if can_edit
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
                             i.blue.pencil.icon
@@ -157,7 +157,6 @@ template(name='reservation_list_item')
         a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
             small from 
             |{{cal_time start_datetime}}
-        div
         a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
             small to 
             |{{cal_time end_datetime}}

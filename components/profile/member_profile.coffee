@@ -23,6 +23,10 @@ if Meteor.isClient
         @layout 'member_profile_layout'
         @render 'member_reservations'
         ), name:'member_reservations'
+    Router.route '/member/:username/handling', (->
+        @layout 'member_profile_layout'
+        @render 'member_handling'
+        ), name:'member_handling'
     Router.route '/member/:username/rentals', (->
         @layout 'member_profile_layout'
         @render 'member_rentals'

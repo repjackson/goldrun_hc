@@ -47,7 +47,7 @@ if Meteor.isClient
                     total_cost += rental.res_start_dropoff_fee
                 if @res_end_pickup_selected
                     total_cost += rental.res_end_pickup_fee
-                current_balance-@cost
+                (current_balance-@cost).toFixed(2)
 
         # diff: -> moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
 
