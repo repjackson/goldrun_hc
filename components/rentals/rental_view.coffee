@@ -1,8 +1,4 @@
 if Meteor.isClient
-    Router.route '/rental/:doc_id/edit', (->
-        @layout 'layout'
-        @render 'rental_edit'
-        ), name:'rental_edit'
     Router.route '/rental/:doc_id/view', (->
         @layout 'layout'
         @render 'rental_view'
@@ -12,8 +8,6 @@ if Meteor.isClient
     Template.rental_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
 
-    Template.rental_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.rental_view.onRendered ->
         # console.log @
         Meteor.call 'increment_view', @data._id, ->
@@ -39,6 +33,12 @@ if Meteor.isClient
     #                 hourly_reservation_price:hourly_reservation_price
     #                 daily_reservation_price:daily_reservation_price
 
+    Template.rental_stats.events
+        'click .refresh_rental_stats': ->
+            Meteor.call 'refresh_rental_stats', @_id
+
+
+
 
     Template.reserve_button.events
         'click .new_reservation': (e,t)->
@@ -52,8 +52,9 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'rental_reservations', Template.currentData()
     Template.rental_view_reservations.helpers
         reservations: ->
-            Docs.find
+            Docs.find {
                 model:'reservation'
+            }, sort: start_datetime:-1
 
 
 
@@ -93,3 +94,44 @@ if Meteor.isServer
         # data.long_form
         # Docs.find
         #     model:'reservation_slot'
+
+
+    Meteor.methods
+        refresh_rental_stats: (rental_id)->
+            rental = Docs.findOne rental_id
+            # console.log rental
+            reservations = Docs.find({model:'reservation', rental_id:rental_id})
+            reservation_count = reservations.count()
+            total_earnings = 0
+            total_rental_hours = 0
+            average_rental_duration = 0
+
+            # shortest_reservation =
+            # longest_reservation =
+
+            for res in reservations.fetch()
+                total_earnings += parseFloat(res.cost)
+                total_rental_hours += parseFloat(res.hour_duration)
+
+            average_rental_cost = total_earnings/reservation_count
+            average_rental_duration = total_rental_hours/reservation_count
+
+            Docs.update rental_id,
+                $set:
+                    reservation_count: reservation_count
+                    total_earnings: total_earnings.toFixed(2)
+                    total_rental_hours: total_rental_hours.toFixed(2)
+                    average_rental_cost: average_rental_cost.toFixed(2)
+                    average_rental_duration: average_rental_duration.toFixed(2)
+
+            # .ui.small.header total earnings
+            # .ui.small.header rental ranking #reservations
+            # .ui.small.header rental ranking $ earned
+            # .ui.small.header # different renters
+            # .ui.small.header avg rental time
+            # .ui.small.header avg daily earnings
+            # .ui.small.header avg weekly earnings
+            # .ui.small.header avg monthly earnings
+            # .ui.small.header biggest renter
+            # .ui.small.header predicted payback duration
+            # .ui.small.header predicted payback date

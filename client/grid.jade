@@ -7,12 +7,12 @@ template(name='grid')
     //-         i.search.icon
     //- unless model_filter_value
     //-     +cloud filter='model'
-    +revenue_calculator            
     .ui.stackable.three.column.padded.grid
         .row
             each role_models
                 .column
                     +grid_role_model
+    +revenue_calculator            
         
 template(name='grid_role_model')
     .ui.segment

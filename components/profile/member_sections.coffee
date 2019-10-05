@@ -50,6 +50,7 @@ if Meteor.isClient
 
     Template.member_reservations.onCreated ->
         @autorun => Meteor.subscribe 'member_reservations', Router.current().params.username
+        @autorun => Meteor.subscribe 'model_docs', 'rental'
     Template.member_reservations.helpers
         reservations: ->
             current_user = Meteor.users.findOne username:Router.current().params.username
@@ -403,10 +404,10 @@ if Meteor.isServer
                     owned_count: owned_rentals.count()
                     handled_count: handled_rentals.count()
                     managed_count: managed_rentals.count()
-                    potential_daily_revenue: potential_daily_revenue
-                    potential_two_hour_daily_revenue: potential_two_hour_daily_revenue
-                    potential_weekly_revenue: potential_weekly_revenue
-                    potential_two_hour_weekly_revenue: potential_two_hour_weekly_revenue
+                    potential_daily_revenue: potential_daily_revenue.toFixed(0)
+                    potential_two_hour_daily_revenue: potential_two_hour_daily_revenue.toFixed(0)
+                    potential_weekly_revenue: potential_weekly_revenue.toFixed(0)
+                    potential_two_hour_weekly_revenue: potential_two_hour_weekly_revenue.toFixed(0)
                     # total_active_potential: total_active_potential
                     # total_passive_potential: total_passive_potential
                     total_hourly_credit: total_hourly_credit

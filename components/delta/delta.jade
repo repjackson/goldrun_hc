@@ -28,8 +28,8 @@ template(name='delta')
                         // //     .ui.icon.button.select_session(class=session_selector_class title='select session')
                         // //         i.play.icon
                         if current_delta
-                            i.refresh.circular.link.reset.icon(title='reload session')
                             if is_dev
+                                i.refresh.circular.link.reset.icon(title='reload session')
                                 i.circular.code.link.icon.print_delta(title='print session doc')
                                 i.circular.trash.delete_delta.icon(title='delete session')
                         else
@@ -48,7 +48,7 @@ template(name='delta')
                         +facet
                 .eleven.wide.column
                     //- .filter_row.ui.basic.segment(class=loading_class)
-                    .filter_row.ui.basic.segment
+                    .filter_row
                         .ui.inline.small.grey.header
                             |sort by
                         .ui.compact.small.menu
@@ -56,7 +56,7 @@ template(name='delta')
                                 strong #{current_delta.sort_key}
                                 i.dropdown.icon
                                 .menu
-                                    each fields
+                                    each sortable_fields
                                         .item.set_sort_key 
                                             //- +ismall name=icon
                                             |#{title}
@@ -179,9 +179,9 @@ template(name='facet')
                     else 
                         |#{key}
                         //- i.dropdown.icon
-                .ui.icon.small.transparent.input
-                    i.search.icon
-                    input.add_filter(type='text')
+                //- .ui.icon.small.transparent.input
+                //-     i.search.icon
+                //-     input.add_filter(type='text')
             .active.content
                 //- div
                 each filtering_res
@@ -194,7 +194,7 @@ template(name='facet')
                         .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
                             strong [null]
                             //- small #{cal_count}
-        .ui.hidden.divider
+        //- .ui.hidden.divider
 
 template(name='toggle_delta_config')
     if boolean_true

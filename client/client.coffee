@@ -270,6 +270,17 @@ Template.registerHelper 'edit_fields', () ->
             edit_roles:$in:Meteor.user().roles
         }, sort:rank:1
 
+Template.registerHelper 'sortable_fields', () ->
+    model = Docs.findOne
+        model:'model'
+        slug:Router.current().params.model_slug
+    if model
+        Docs.find {
+            model:'field'
+            parent_id:model._id
+            sortable:true
+        }, sort:rank:1
+
 Template.registerHelper 'current_user', (input) ->
     Meteor.user() and Meteor.user().username is Router.current().params.username
 

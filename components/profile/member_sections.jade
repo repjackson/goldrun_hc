@@ -2,12 +2,11 @@ template(name='member_info')
     //- +text_view key='address' label='address' icon='marker' direct=true
     //- +phone_view key='phone' label='phone' icon='phone' direct=true
     //- +text_view key='tagline' label='tag line' icon='signature' direct=true
-    //- +array_view key='tags' label='tags' icon='tags' direct=true
-    //- +array_view key='location_tags' label='location tags' icon='location' direct=true
+    +array_view key='tags' label='tags' icon='tags' direct=true
+    +array_view key='location_tags' label='location tags' icon='location' direct=true
     +link_view key='link' label='link' icon='link' direct=true
     div
     //- .ui.header member activity
-    +revenue_calculator
     .ui.button.refresh_member_stats
         i.refresh.icon
         |refresh stats
@@ -19,42 +18,48 @@ template(name='member_info')
                     |if all of your rentals were reserved full time, without handling
                     .ui.header 
                         +i name='wrench'
-                        |#{service_count} member services
+                        |#{service_count} services
                     .ui.header 
                         +i name='shopping-cart'
-                        |#{product_count} member products
+                        |#{product_count} products
                     .ui.header 
                         +i name='chat'
-                        |#{comment_count} member comments
+                        |#{comment_count} comments
                     .ui.header 
                         +i name='handshake'
-                        |#{rental_count} member rentals
+                        |#{rental_count} rentals
                     .ui.header 
                         +i name='handshake'
                         |#{owned_count} owned rentals
                 .column
                     .ui.header 
                         +i name='money'
-                        |#{total_hourly_credit} total combined hourly credit
+                        |$#{total_hourly_credit}
+                        small hourly
+                    | if all rentals are circulating
                     .ui.header 
                         +i name='money'
-                        |#{potential_daily_revenue} potential full daily revenue
-                    |if all your rentals were reserved 24 hrs a day
+                        |$#{potential_daily_revenue}
+                        small daily 
+                    |if all rentals were reserved 24 hrs a day
                     .ui.header 
                         +i name='money'
-                        |#{potential_two_hour_daily_revenue} potential minimal daily revenue
-                    |if all your rentals were reserved 2 hrs a day
+                        |$#{potential_two_hour_daily_revenue}
+                        small daily
+                    |if all rentals were reserved 2 hrs a day
                     .ui.header 
                         +i name='calendar'
-                        |#{potential_weekly_revenue} potential full weekly revenue
-                    |if all your rentals were reserved 24 hrs a day, 7 days a week 
+                        |$#{potential_weekly_revenue}
+                        small weekly 
+                    |if all rentals were reserved 24 hrs a day, 7 days a week 
+                    .ui.header 
+                        +i name='calendar'
+                        |$#{potential_two_hour_weekly_revenue}
+                        small weekly
+                    |if all rentals were reserved 2 hrs a day, 7 days a week 
                 .column
                     .ui.header 
-                        +i name='calendar'
-                        |#{potential_two_hour_weekly_revenue} potential minimal weekly revenue
-                    |if all your rentals were reserved 2 hrs a day, 7 days a week 
-                    .ui.header 
-                        +i name='handshake'
+                        +i name='hand-box'
                         |#{handled_count} handled rentals
                     .ui.header 
                         +i name='clock'
@@ -93,7 +98,7 @@ template(name='member_finance')
                 .ui.header 
                     +i name='initiate-money-transfer'
                     |withdraw
-                |withdrawals take one business day and are charged 10%
+                |$50 minimum withdrawals take one business day 
                 .ui.action.fluid.input
                     input.withdrawal_amount(type='number' min='1' max=currentUser.credit placeholder='amount')
                     .ui.icon.button.initial_withdrawal 
@@ -158,9 +163,6 @@ template(name='member_finance')
 
 
 template(name='member_services')
-    .ui.header 
-        +i name='wrench'
-        |services
     each services 
         .ui.fluid.segment.grid
             .row
@@ -188,9 +190,6 @@ template(name='member_services')
                         i.right.chevron.icon
 
 template(name='member_products')
-    .ui.header 
-        +i name='shopping-cart'
-        |products
     each services 
         .ui.fluid.segment.grid
             .row
@@ -218,26 +217,40 @@ template(name='member_products')
                         i.right.chevron.icon
 
 template(name='member_reservations')
-    .ui.header 
-        +i name='wrench'
-        |reservations
     each reservations 
-        +reservation_list_item
+        +profile_reservation_item
+
+template(name='profile_reservation_item')
+    .ui.segment
+        .ui.header #{rental.title}
+        with rental
+            +image_view key='image' direct=true classes='zoom'
+
+        a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
+            small from 
+            |{{cal_time start_datetime}}
+        a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
+            small to 
+            |{{cal_time end_datetime}}
+        div
+        .ui.grey.inline.header #{hour_duration} hrs
+        .ui.grey.inline.header(title='credits')
+            i.coins.icon
+            | #{cost}
+        .ui.small.header #{when} by #{_author_username}
+        a.ui.large.fluid.button(href="/reservation/#{_id}/view")
+            |view
+            i.right.chevron.icon
+
 
 
 template(name='member_rentals')
-    .ui.header 
-        +i name='handshake'
-        |rentals
     .ui.three.cards
         each rentals 
             +rental_card
         
         
 template(name='member_handling')
-    .ui.header 
-        +i name='delivery'
-        |handling
     .ui.small.header rentals that member is facilitating
     .ui.three.cards
         each handling_rentals 

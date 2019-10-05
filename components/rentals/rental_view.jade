@@ -2,8 +2,8 @@ template(name='rental_view')
     with current_doc
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
-            .row
-                .six.wide.column
+            .three.column.row
+                .column
                     a.ui.fluid.button(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
                         i.left.chevron.icon
                         +i name='handshake' classes='ui mini inline image'
@@ -26,8 +26,8 @@ template(name='rental_view')
                     div
                     +text_view key='location' icon='marker' label='location' direct=true
                     div
-                    +rental_stats
-                .ten.wide.column
+                    +comments
+                .column
                     .ui.inline.large.header 
                         |$#{hourly_dollars}
                         small /hr
@@ -46,38 +46,39 @@ template(name='rental_view')
                         +single_user_view key='handler_username' direct=true
                     +html_view key='description' label='content' icon='content' direct=true
                     +array_view key='location_tags' label='location tags' icon='marker' direct=true
+                    +rental_stats
                     div
                     +text_view key='contact_info' label='contact info' icon='info' direct=true
                     div
                     +link_view key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
-                    div
+                .column
                     +reserve_button
                     +rental_view_reservations
-                    +comments
-                    
-    +footer
 
 template(name='rental_stats')
-    .ui.accordion
-        .title
-            .ui.inline.header 
-                +i name='line-chart'
-                |stats
-            i.dropdown.icon
-        .content
-            i.circular.link.refresh.icon.refresh_rental_finance_stats
-            .ui.header #{views} views
-            .ui.small.header total earnings
-            .ui.small.header rental ranking #reservations
-            .ui.small.header rental ranking $ earned
-            .ui.small.header # different renters
-            .ui.small.header avg rental time
-            .ui.small.header avg daily earnings
-            .ui.small.header avg weekly earnings
-            .ui.small.header avg monthly earnings
-            .ui.small.header biggest renter
-            .ui.small.header predicted payback duration 
-            .ui.small.header predicted payback date 
+    //- .ui.accordion
+    //-     .title
+    .ui.header.refresh_rental_stats
+        +i name='line-chart'
+        |stats
+    //- i.dropdown.icon
+    //- .content
+    .ui.big.list
+        .item #{views} views
+        .item #{reservation_count} reservations
+        .item $#{total_earnings} total earnings
+        .item #{total_rental_hours} total reservation hours
+        .item $#{average_rental_cost} avg rental cost
+        .item #{average_rental_duration}hrs avg rental duration
+        .item rental ranking #reservations
+        .item rental ranking $ earned
+        .item # different renters
+        .item avg daily earnings
+        .item avg weekly earnings
+        .item avg monthly earnings
+        .item biggest renter
+        .item predicted payback duration 
+        .item predicted payback date 
 
 
     
@@ -110,10 +111,7 @@ template(name='rental_card_template')
                 if image
                     a.zoom(href="/rental/#{_id}/view")
                         +image_view key='image' direct=true classes='zoom'
-            .twelve.wide.column
-                .ui.header credit earned
-                .ui.header # of reservations
-                .ui.header average rental time
+            .eight.wide.column
                 span(title='views')
                     +ismall name='eye'
                     |#{views}
@@ -140,6 +138,14 @@ template(name='rental_card_template')
                     i.right.chevron.icon
                 +author_info
                 +reserve_button
+            .four.wide.column
+                .ui.list
+                    .item #{views} views
+                    .item #{reservation_count} reservations
+                    .item $#{total_earnings} total earnings
+                    .item #{total_rental_hours} total reservation hours
+                    .item $#{average_rental_cost} avg rental cost
+                    .item #{average_rental_duration}hrs avg rental duration
 
 
 template(name='rental_view_reservations')

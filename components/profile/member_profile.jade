@@ -2,9 +2,9 @@ template(name='member_profile_layout')
     //- img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
     with user_from_username_param
-        .ui.stackable.grid.global_container
+        .ui.stackable.grid
             .row
-                img.ui.fluid.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
+                //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                 .four.wide.column
                     a.item.mobile.hidden(href="/member/#{user_from_username_param.username}/")
                         img.ui.centered.circular.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
@@ -27,9 +27,6 @@ template(name='member_profile_layout')
                                 +i name='coins'
                                 |{{fixed user.credit}}
                         
-                    +ismall name='tags'
-                    each tags
-                        .ui.small.basic.label #{this}
                     if is_current_user
                         a.ui.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 
@@ -59,30 +56,30 @@ template(name='member_profile_layout')
                                 |roles
                             each roles
                                 .ui.basic.label #{this}
-                .twelve.wide.column.shadowed-box
-                    a.ui.large.button(href="/member/#{username}/info" class="{{isActiveRoute 'member_info'}}")
+                .twelve.wide.column
+                    a.ui.large.compact.button(href="/member/#{username}/info" class="{{isActiveRoute 'member_info'}}")
                         +ismall name='info' classes='ui inline image'
                         |info
-                    a.ui.large.button(href="/member/#{username}/social" class="{{isActiveRoute 'member_social'}}")
+                    a.ui.large.compact.button(href="/member/#{username}/social" class="{{isActiveRoute 'member_social'}}")
                         +ismall name='collaboration' classes='ui inline image'
                         |social
-                    a.ui.large.button(href="/member/#{username}/rentals" class="{{isActiveRoute 'member_rentals'}}")
-                        +ismall name='handshake' classes='ui inline image'
+                    a.ui.large.compact.button(href="/member/#{username}/rentals" class="{{isActiveRoute 'member_rentals'}}")
+                        +ismall name='clock' classes='ui inline image'
                         |rentals
-                    a.ui.large.button(href="/member/#{username}/products" class="{{isActiveRoute 'member_products'}}")
+                    a.ui.large.compact.button(href="/member/#{username}/products" class="{{isActiveRoute 'member_products'}}")
                         +ismall name='shopping-cart' classes='ui inline image'
                         |products
-                    a.ui.large.button(href="/member/#{username}/handling" class="{{isActiveRoute 'member_handling'}}")
-                        +ismall name='shopping-cart' classes='ui inline image'
+                    a.ui.large.compact.button(href="/member/#{username}/handling" class="{{isActiveRoute 'member_handling'}}")
+                        +ismall name='hand-box' classes='ui inline image'
                         |handling
-                    a.ui.large.button(href="/member/#{username}/reservations" class="{{isActiveRoute 'member_reservations'}}")
-                        +ismall name='clock' classes='ui inline image'
+                    a.ui.large.compact.button(href="/member/#{username}/reservations" class="{{isActiveRoute 'member_reservations'}}")
+                        +ismall name='invoice' classes='ui inline image'
                         |reservations
-                    a.ui.large.button(href="/member/#{username}/services" class="{{isActiveRoute 'member_services'}}")
+                    a.ui.large.compact.button(href="/member/#{username}/services" class="{{isActiveRoute 'member_services'}}")
                         +ismall name='wrench' classes='ui inline image'
                         |services
-                    a.ui.large.button(href="/member/#{username}/finance" class="{{isActiveRoute 'member_finance'}}")
-                        +ismall name='handshake' classes='ui inline image'
+                    a.ui.large.compact.button(href="/member/#{username}/finance" class="{{isActiveRoute 'member_finance'}}")
+                        +ismall name='money' classes='ui inline image'
                         |finance
                     //- a.ui.compact.button(href="/member/#{username}/bookmarks" class="{{isActiveRoute 'member_bookmarks'}}")
                     //-     +ismall name='star' classes='ui inline image'
@@ -117,8 +114,8 @@ template(name='member_profile_layout')
                     //- a.ui.compact.button(href="/member/#{username}/notifications" class="{{isActiveRoute 'member_notifications'}}")
                     //-     +ismall name='appointment-reminders' classes='ui inline image'
                     //-     |notifications
-                    div
-                    +yield
+                    div.global_container
+                        +yield
     +footer 
 
 
