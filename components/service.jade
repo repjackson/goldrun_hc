@@ -5,7 +5,7 @@ template(name='service_card_template')
                 a.ui.inline.header(href="/service/#{_id}/view") #{title} 
                     //- if variable_price
                     //-     |~
-                    |#{hourly_rate}/hr
+                    |#{hourly_dollars}/hr
         .row
             .four.wide.column
                 a(href="/service/#{_id}/view")
@@ -66,7 +66,7 @@ template(name='service_view')
                     +comments
                     +service_reservations
                 .four.wide.column 
-                    +number_view key='hourly_rate' label='hourly rate' direct=true
+                    +number_view key='hourly_dollars' label='hourly rate' icon='money' direct=true
                     div
                     +service_history
                     +service_subscription
@@ -91,7 +91,7 @@ template(name='service_edit')
                     +textarea_edit key='description' label='content' icon='content' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                    +single_user_edit key='resident' label='resident' direct=true
+                    +single_user_edit key='_author_username' label='author' direct=true
                     +text_edit key='contact_info' label='contact info' icon='info' direct=true
                 .four.wide.column 
                     +boolean_edit key='set_duration' label='set duration' direct=true
@@ -99,7 +99,7 @@ template(name='service_edit')
                         +number_edit key='duration_hours' label='duration hours' direct=true
             
                     +single_user_edit key='_author_username' label='author username' direct=true
-                    +number_edit key='hourly_rate' label='hourly rate' direct=true
+                    +number_edit key='hourly_dollars' label='hourly rate' icon='money' direct=true
                     +boolean_edit key='variable_price' label='variable price' direct=true
                     +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
                     +multi_user_edit key='associated_members' label='associated members' icon='groups' direct=true

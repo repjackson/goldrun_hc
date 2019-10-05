@@ -257,8 +257,8 @@ if Meteor.isClient
                 member_username:Router.current().params.username
 
     Template.member_dashboard.events
-        'click .refresh_member_stats': (e,t)->
-            Meteor.call 'refresh_member_stats', Router.current().params.username
+        'click .recalc_wage_stats': (e,t)->
+            Meteor.call 'recalc_wage_stats', Router.current().params.username
 
 
 

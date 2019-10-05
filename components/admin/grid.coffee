@@ -73,14 +73,14 @@ if Meteor.isClient
                 Router.go "/m/#{@model}/#{@_id}/view"
 
     Template.grid_role_model.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', @data.slug, 5
+        @autorun => Meteor.subscribe 'model_docs', @data.slug, 10
     Template.grid_role_model.helpers
         model_docs: ->
             Docs.find {
                 model:@slug
             },
-                sort:views:1
-                limit:5
+                sort:views:-1
+                limit:10
 
 
 

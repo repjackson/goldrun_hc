@@ -9,12 +9,12 @@ template(name='rental_view')
                         +i name='handshake' classes='ui mini inline image'
                         |rentals
                     .ui.large.center.aligned.header #{title}
+                    +rental_status
                     img.ui.centered.rounded.medium.invert.image(src="{{c.url image width=400 height=400 crop='fit'}}")
                     if can_edit
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
                             i.blue.pencil.icon
                             |edit
-                    +rental_status
 
                     .ui.header added by #{_author_username}
                     |#{when}
@@ -72,7 +72,7 @@ template(name='rental_stats')
         .item #{total_rental_hours} total reservation hours
         .item $#{average_rental_cost} avg rental cost
         .item #{average_rental_duration}hrs avg rental duration
-        .item rental ranking #reservations
+        .item rental ranking # reservations
         .item rental ranking $ earned
         .item # different renters
         .item avg daily earnings
@@ -86,7 +86,7 @@ template(name='rental_stats')
     
 template(name='rental_status')
     if available 
-        .ui.green.label available
+        .ui.green.label available now
     else 
         .ui.basic.label off the clock
         
