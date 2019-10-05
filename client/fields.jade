@@ -877,7 +877,7 @@ template(name='signature_view')
 
 template(name='boolean_edit')
     //- div
-    .pointer.ui.button.toggle_boolean(class=boolean_toggle_class title=title)
+    .pointer.ui.button.toggle_boolean(class="#{boolean_toggle_class} #{classes}" title=title)
         if field_value
             i.green.checkmark.icon
         else

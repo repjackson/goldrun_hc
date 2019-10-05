@@ -21,25 +21,52 @@ if Meteor.isClient
         set_key_value_class: ->
             parent = Template.parentData()
             # console.log parent
-            if parent["#{@key}"] is @value then 'green' else ''
+            if parent["#{@key}"] is @value then 'active' else ''
 
 
     Template.reservation_edit.helpers
         rental: -> Docs.findOne model:'rental'
-        now_button_class: -> if @now then 'green' else ''
-        sel_hr_class: -> if @duration_type is 'hour' then 'green' else ''
-        sel_day_class: -> if @duration_type is 'day' then 'green' else ''
-        sel_month_class: -> if @duration_type is 'month' then 'green' else ''
+        now_button_class: -> if @now then 'active' else ''
+        sel_hr_class: -> if @duration_type is 'hour' then 'active' else ''
+        sel_day_class: -> if @duration_type is 'day' then 'active' else ''
+        sel_month_class: -> if @duration_type is 'month' then 'active' else ''
         is_month: -> @duration_type is 'month'
         is_day: -> @duration_type is 'day'
         is_hour: -> @duration_type is 'hour'
+
+        submit_button_class: ->
+            if @start_datetime and @end_datetime then '' else 'disabled'
+
+
         member_balance_after_reservation: ->
-            current_balance = Meteor.user().credit
-            current_balance-@cost
+            rental = Docs.findOne @rental_id
+            if rental
+                current_balance = Meteor.user().credit
+                total_cost = @cost
+                if @res_start_dropoff_selected
+                    total_cost += rental.res_start_dropoff_fee
+                if @res_end_pickup_selected
+                    total_cost += rental.res_end_pickup_fee
+                current_balance-@cost
 
         # diff: -> moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
 
     Template.reservation_edit.events
+        'click .trigger_recalc': ->
+            Meteor.call 'recalc_reservation_cost', Router.current().params.doc_id
+            $('.handler')
+              .transition({
+                animation : 'pulse'
+                duration  : 500
+                interval  : 200
+              })
+            $('.result')
+              .transition({
+                animation : 'pulse'
+                duration  : 500
+                interval  : 200
+              })
+
         'change .res_start': (e,t)->
             val = t.$('.res_start').val()
             Docs.update @_id,
@@ -50,20 +77,8 @@ if Meteor.isClient
             Docs.update @_id,
                 $set:end_datetime:val
 
-            rental = Docs.findOne @rental_id
-            hour_duration = moment(val).diff(moment(@start_datetime),'hours',true).toFixed(2)
-            cost = parseFloat hour_duration*rental.hourly_dollars.toFixed(2)
-            # console.log diff
-            taxes_payout = parseFloat((cost*.05)).toFixed(2)
-            owner_payout = parseFloat((cost*.5)).toFixed(2)
-            handler_payout = parseFloat((cost*.45)).toFixed(2)
-            Docs.update @_id,
-                $set:
-                    hour_duration: hour_duration
-                    cost: cost
-                    taxes_payout: taxes_payout
-                    owner_payout: owner_payout
-                    handler_payout: handler_payout
+            Meteor.call 'recalc_reservation_cost', Router.current().params.doc_id
+
 
         'click .select_day': ->
             Docs.update @_id,
@@ -95,8 +110,14 @@ if Meteor.isClient
                     handler_payout: handler_payout
 
         'change .other_hour': ->
+            $('.result_column .header')
+              .transition({
+                animation : 'pulse',
+                duration  : 200,
+                interval  : 50
+              })
+
             val = parseInt $('.other_hour').val()
-            console.log val
             Docs.update @_id,
                 $set:
                     hour_duration: val
@@ -114,6 +135,8 @@ if Meteor.isClient
                     taxes_payout: taxes_payout
                     owner_payout: owner_payout
                     handler_payout: handler_payout
+            # $('.result_column').transition('glow',500)
+
 
         'click .reserve_now': ->
             if @now
@@ -166,6 +189,31 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.methods
+        recalc_reservation_cost: (res_id)->
+            res = Docs.findOne res_id
+            # console.log res
+            rental = Docs.findOne res.rental_id
+            hour_duration = moment(res.end_datetime).diff(moment(res.start_datetime),'hours',true)
+            cost = parseFloat hour_duration*rental.hourly_dollars
+            total_cost = cost
+            taxes_payout = parseFloat((cost*.05))
+            owner_payout = parseFloat((cost*.5))
+            handler_payout = parseFloat((cost*.45))
+            if res.res_start_dropoff_selected
+                total_cost += rental.res_start_dropoff_fee
+                handler_payout += rental.res_start_dropoff_fee
+            if res.res_end_pickup_selected
+                total_cost += rental.res_end_pickup_fee
+                handler_payout += rental.res_end_pickup_fee
+            # console.log diff
+            Docs.update res._id,
+                $set:
+                    hour_duration: hour_duration.toFixed(2)
+                    cost: total_cost.toFixed(2)
+                    taxes_payout: taxes_payout.toFixed(2)
+                    owner_payout: owner_payout.toFixed(2)
+                    handler_payout: handler_payout.toFixed(2)
+
         pay_for_reservation: (res_id)->
             res = Docs.findOne res_id
             # console.log res

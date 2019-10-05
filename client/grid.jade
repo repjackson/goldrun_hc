@@ -19,6 +19,7 @@ template(name='grid_role_model')
         a.ui.inline.capitalize.header(href="/m/#{slug}" tabindex="0")
             +i name=icon classes='ui inline image'
             //- i.icon(class=icon)
+            |#{model_doc_count}
             |#{title}
         //- i.grey.eye.icon
         //- i.grey.thumbs.up.icon
@@ -44,7 +45,8 @@ template(name='model_list_item_view')
             img.ui.mini.inline.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
         if icon
             +ismall name=icon
-        span.capitalize #{title} #{name}
+        span #{title} #{name}
+            .ui.basic.label $#{hourly_dollars}/hr
         //- span.lowercase #{title} #{name}
         div
 
@@ -61,52 +63,68 @@ template(name='revenue_calculator')
             with calculator_doc
                 .ui.stackable.grid
                     .ten.wide.column
-                        .ui.button.create_simluated_item 
-                            i.plus.icon
-                            |simulated item
+                        if is_admin
+                            .ui.button.create_simluated_item 
+                                i.plus.icon
+                                |simulated item
                         .ui.three.stackable.cards
                             each items
                                 +simulated_rental_item
                     .six.wide.column
-                        .ui.header 
+                        .ui.inline.header 
                             +i name='money'
                             |revenue
-                        |#{rental_amount} items * #{average_hourly}/hr 
-                        .ui.inline.header 
-                            |#{total_daily_revenue} 
-                            small /day
-                        |* 7 = 
-                        .ui.inline.header 
-                            |#{total_weekly_revenue} 
-                            small /week
+                        i.circular.refresh.link.icon.recalc_revenue_stats
+                        .ui.header 
+                            | #{daily_rentals}
+                            small reservations/day
+                        .ui.header 
+                            |#{total_weekly_rentals}
+                            small total weekly rentals
+                        .ui.header 
+                            |$#{totaled_daily_revenue}
+                            small average daily revenue 
+                        .ui.header 
+                            |$#{totaled_weekly_revenue}
+                            small total weekly revenue 
+                        .ui.header 
+                            |$#{totaled_monthly_revenue}
+                            small total monthly revenue 
+                            
                         .ui.header 
                             +i name='time'
                             |time committed
-                        .ui.inline.header #{minutes_committed}
+                        .ui.header #{total_daily_minutes_committed}
                             small minutes/day
+                        .ui.header
+                            small avg
+                            |#{average_hourly_wage}
+                            small $/hr wage
+                        .ui.header #{total_weekly_hours_committed}
+                            small hrs/week
                         .ui.header 
                             +i name='friends'
-                            |#{neighbor_interactions} neighbor interactions
+                            |#{total_neighbor_interactions} neighbor interactions
 
 
 template(name='simulated_rental_item')
     .ui.card
         .content
-            .ui.inline.header item
-            +boolean_edit key='owned' title='you own the product and passively get 50% of the fee' direct=true
-            +boolean_edit key='handled' title='you facilitate the rental and get 45% of the fee' direct=true
+            //- .ui.inline.header item
+            +small_boolean_edit key='owned' icon='money bill' title='you own the product and passively get 50% of the fee')
+            +small_boolean_edit key='handled' icon='suitcase rolling' title='you facilitate the rental and get 45% of the fee')
+            if handled
+                +small_boolean_edit key='delivery' icon='luggage cart' title='assume 5min delivery/pickup for each reservation')
             .ui.form
                 .eight.wide.field
-                    label rentals/day
+                    label reservations/day
                     input.rental_amount(type='number' value="#{rental_amount}")
-                .ui.inline.button(title='simulate 5min delivery for each reservation')
-                    +ismall name='delivery'
                 .ui.right.labeled.fluid.input
                     input.average_hourly(type='number' value="#{average_hourly}")
-                    .ui.label $/hr
+                    .ui.basic.label $/hr
                 .ui.labeled.fluid.input
                     input.daily_hours_rented(type='number' value="#{daily_hours_rented}")
-                    .ui.label hrs/day
+                    .ui.basic.label hrs/day
             //- |$#{average_hourly}/hr 
             |* #{hourly_cut}% cut
             .ui.inline.header 
@@ -118,6 +136,10 @@ template(name='simulated_rental_item')
                 small /week
             .ui.header #{minutes_committed}
                 small minutes/day
-        
+        if is_admin
             +remove_button
     
+
+template(name='small_boolean_edit')
+    .ui.icon.button.toggle_boolean(title=title class=boolean_toggle_class)
+        i.icon(class=icon)

@@ -5,9 +5,9 @@ body {
     /* font-family: 'Ubuntu', sans-serif !important; */
     /* font-size: 110% !important; */
     /*line-height: 200% !important;*/
-    /* background: rgba(0,0,0,.9) !important; */
-    /* filter: invert(.9) !important; */
-    background: rgba(200, 200, 200, .1) !important
+    background: rgba(0,0,0,.9) !important;
+    filter: invert(.9) !important;
+    /* background: rgba(200, 200, 200, .1) !important */
     /* background: #0e0e44 !important; */
 }
 
@@ -16,6 +16,23 @@ body {
     filter: invert(1) !important;
 
 } */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 
 
 .lowercase {
@@ -43,6 +60,10 @@ body {
 }
 
 .youtube_view {
+    border-radius: 10px !important;
+}
+
+.rounded {
     border-radius: 10px !important;
 }
 
@@ -417,7 +438,7 @@ input.member_search{
 
 .button.active {
     /* background-color: rgba(150, 150, 150, 1) !important; */
-    background-color: #110264 !important;
+    background-color: rgba(17, 2, 100, 0.7) !important;
     box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
     /* background-color: rgba(50, 50, 50, .9) !important; */
     color: white !important;
@@ -591,7 +612,7 @@ h1.ui.header{
 #main {
   animation: fadein .5s;
 }
-#result {
+.result_column {
   animation: fadein .5s;
 }
 

@@ -1,8 +1,10 @@
 template(name='admin')
     .ui.stackable.padded.grid
         .row
-            .ui.header 
-                |admin
+            .sixteen.wide.column
+                .ui.header 
+                    |admin
+                +call_method name='calculate_model_doc_count'
         .two.column.row
             .column
                 .ui.header 
@@ -26,3 +28,8 @@ template(name='admin')
             .column
                 +my_latest_activity
                 +latest_activity
+
+
+template(name='call_method')
+    .ui.button.call_method
+        |#{name}
