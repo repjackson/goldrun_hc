@@ -131,6 +131,8 @@ if Meteor.isClient
                 Meteor.users.update Meteor.userId(),
                     $inc: credit: @amount
 
+
+
     Template.member_finance.helpers
         owner_earnings: ->
             Docs.find
@@ -235,6 +237,26 @@ if Meteor.isClient
                 model:'member_stats'
                 member_username:Router.current().params.username
     Template.member_info.events
+        'click .refresh_member_stats': (e,t)->
+            Meteor.call 'refresh_member_stats', Router.current().params.username
+
+
+
+
+    Template.member_dashboard.onCreated ->
+        @autorun => Meteor.subscribe 'member_upcoming_reservations', Router.current().params.username
+        @autorun => Meteor.subscribe 'member_current_reservations', Router.current().params.username
+    Template.member_dashboard.helpers
+        current_reservations: ->
+            Docs.find
+                model:'reservation'
+                member_username:Router.current().params.username
+        upcoming_reservations: ->
+            Docs.find
+                model:'reservation'
+                member_username:Router.current().params.username
+
+    Template.member_dashboard.events
         'click .refresh_member_stats': (e,t)->
             Meteor.call 'refresh_member_stats', Router.current().params.username
 

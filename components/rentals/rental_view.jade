@@ -31,9 +31,10 @@ template(name='rental_view')
                     .ui.inline.large.header 
                         |$#{hourly_dollars}
                         small /hr
-                    .ui.inline.large.header 
-                        |$#{daily_dollars}
-                        small /day
+                    if daily_dollars
+                        .ui.inline.large.header 
+                            |$#{daily_dollars}
+                            small /day
                     div
                     .ui.inline.header 
                         +i name='sell-property'
@@ -44,7 +45,8 @@ template(name='rental_view')
                         +i name='manager'
                         small handler
                         +single_user_view key='handler_username' direct=true
-                    +html_view key='description' label='content' icon='content' direct=true
+                    .ui.basic.segment
+                        +html_view key='description' label='content' icon='content' direct=true
                     +array_view key='location_tags' label='location tags' icon='marker' direct=true
                     +rental_stats
                     div
@@ -86,7 +88,7 @@ template(name='rental_status')
     if available 
         .ui.green.label available
     else 
-        .ui.basic.label unavailable
+        .ui.basic.label off the clock
         
 template(name='reserve_button')
     .ui.big.green.fluid.button.new_reservation 
@@ -100,7 +102,7 @@ template(name='rental_card_template')
     .ui.fluid.segment.stackable.grid
         .row
             .sixteen.wide.column
-                a.ui.inline.header(href="/rental/#{_id}/view") #{title} 
+                a.ui.inline.header.log_view(href="/rental/#{_id}/view") #{title} 
                     if hourly_dollars
                         .ui.basic.label $#{hourly_dollars}/hr
                     if daily_dollars
@@ -123,7 +125,6 @@ template(name='rental_card_template')
                 +ismall name='tags'
                 each tags
                     .ui.basic.label #{this}
-                +single_user_view key='resident' label='resident' direct=true
                 div
                 +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
                 +voting
@@ -146,6 +147,8 @@ template(name='rental_card_template')
                     .item #{total_rental_hours} total reservation hours
                     .item $#{average_rental_cost} avg rental cost
                     .item #{average_rental_duration}hrs avg rental duration
+                +single_user_view key='owner_username' label='owner' direct=true
+                +single_user_view key='handler_username' label='handler' direct=true
 
 
 template(name='rental_view_reservations')

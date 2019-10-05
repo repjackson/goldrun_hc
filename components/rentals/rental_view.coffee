@@ -9,8 +9,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
 
     Template.rental_view.onRendered ->
-        # console.log @
-        Meteor.call 'increment_view', @data._id, ->
+        Meteor.call 'increment_view', Router.current().params.doc_id, ->
 
 
 

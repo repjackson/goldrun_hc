@@ -123,8 +123,13 @@ if Meteor.isClient
                 model:'model'
                 _id:$in:user.model_ids
 
+        viewing_more: -> Session.get 'viewing_more'
 
     Template.member_profile_layout.events
+        'click .toggle_view_more': ->
+            Session.set('viewing_more', !Session.get('viewing_more'))
+
+
         'click .set_delta_model': ->
             Meteor.call 'set_delta_facets', @slug, null, true
 

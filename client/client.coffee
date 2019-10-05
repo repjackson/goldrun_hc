@@ -35,11 +35,11 @@ Template.body.events
     #     .transition('fade out', 250)
     #     .transition('fade in', 250)
 
-    # 'click .log_view': ->
-    #     console.log Template.currentData()
-    #     console.log @
-    #     Docs.update @_id,
-    #         $inc: views: 1
+    'click .log_view': ->
+        console.log Template.currentData()
+        console.log @
+        Docs.update @_id,
+            $inc: views: 1
 
 Template.healthclub.events
     # 'click .button': ->

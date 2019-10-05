@@ -5,11 +5,11 @@ template(name='member_info')
     +array_view key='tags' label='tags' icon='tags' direct=true
     +array_view key='location_tags' label='location tags' icon='location' direct=true
     +link_view key='link' label='link' icon='link' direct=true
-    div
     //- .ui.header member activity
-    .ui.button.refresh_member_stats
-        i.refresh.icon
-        |refresh stats
+    if is_admin
+        .ui.button.refresh_member_stats
+            i.refresh.icon
+            |refresh stats
     with member_stats
         .ui.stackable.grid
             .three.column.row
@@ -83,6 +83,23 @@ template(name='member_social')
     +member_people
     +member_wall
     +member_connections
+
+
+template(name='member_dashboard')
+    div
+    .ui.header
+        +i name='clock'
+        |current reservations
+    each current_reservations
+        .ui.header hi
+    .ui.header 
+        +i name='clock'
+        |upcoming reservations
+    each upcoming_reservations
+        .ui.header hi
+        
+    .ui.header current hourly wage
+    
 
 
 template(name='member_finance')
@@ -221,26 +238,32 @@ template(name='member_reservations')
         +profile_reservation_item
 
 template(name='profile_reservation_item')
-    .ui.segment
-        .ui.header #{rental.title}
-        with rental
-            +image_view key='image' direct=true classes='zoom'
-
-        a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
-            small from 
-            |{{cal_time start_datetime}}
-        a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
-            small to 
-            |{{cal_time end_datetime}}
-        div
-        .ui.grey.inline.header #{hour_duration} hrs
-        .ui.grey.inline.header(title='credits')
-            i.coins.icon
-            | #{cost}
-        .ui.small.header #{when} by #{_author_username}
-        a.ui.large.fluid.button(href="/reservation/#{_id}/view")
-            |view
-            i.right.chevron.icon
+    .ui.segment.grid
+        .row
+            .twelve.wide.column
+                .ui.header #{rental.title}
+        .row
+            .four.wide.column
+                with rental
+                    +image_view key='image' direct=true classes='zoom ui mini image'
+            .twelve.wide.column
+                a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
+                    small from 
+                    |{{cal_time start_datetime}}
+                a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
+                    small to 
+                    |{{cal_time end_datetime}}
+                div
+                .ui.grey.inline.header #{hour_duration} hrs
+                .ui.grey.inline.header(title='credits')
+                    i.coins.icon
+                    | #{cost}
+                .ui.small.header #{when} by #{_author_username}
+                a.ui.large.fluid.button(href="/reservation/#{_id}/view")
+                    |view
+                    i.right.chevron.icon
+                if is_admin
+                    +remove_button
 
 
 
