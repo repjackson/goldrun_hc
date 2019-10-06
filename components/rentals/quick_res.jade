@@ -5,9 +5,13 @@ template(name='quick_res')
                 //- .ui.inline.large.header 
                 //-     |$#{hourly_dollars}
                 //-     small /hr
-                .ui.inline.large.header 
+                .ui.large.header 
                     |$#{minimum_hourly}
                     small /hr minimum
+                .ui.large.header 
+                    small auction cutoff
+                    |#{auction_cutoff_hours}hrs
+                
                 //- if daily_dollars
                 //-     .ui.inline.large.header 
                 //-         |$#{daily_dollars}
@@ -18,37 +22,37 @@ template(name='quick_res')
                             .column
                                 +upcoming_day data=this
             .eight.wide.column
-                with current_reservation
-                    +single_res
+                if current_date
+                    if current_hour
+                        .ui.header #{current_date} bids @ #{current_hour}
+                        each hourly_bids
+                            +single_bid
+                        .ui.button.new_bid
+                            i.plus.icon
+                            |bid
 
 
 
 template(name='upcoming_day')
     a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}") #{data.long_form}
-    .ui.celled.grid
+    .ui.vertical.fluid.menu
         each hours
-            .row
+            .item.pointer.select_hour(class=hour_class)
                 .ui.inline.header #{this}
-                if existing_res
-                    with existing_res
-                        .ui.inline.header $#{bid_amount} by #{_author_username}
-                        if complete
-                            .ui.inline.header.pointer.select_quick_res existing res
-                            .ui.compact.button.reserve_slot bid
-                        else 
-                            .ui.inline.pointer.header.select_quick_res pending res
-                            .ui.compact.button.reserve_slot reserve
-                else    
-                    .ui.compact.button.reserve_slot reserve
+                //- .ui.compact.button.reserve_slot bid
+                .ui.list
+                    each existing_bids
+                        .item $#{bid_amount} by #{_author_username}
+                div
                     
 
-template(name='single_res')
+template(name='single_bid')
     .ui.segment
-        .ui.header #{start_date} reservation @ #{hour}
+        .ui.header #{date} @ #{hour}
         //- +date_edit key='start_date' label='start date' direct=true
         //- +number_edit key='hour' label='start hour' direct=true
         +number_edit key='bid_amount' label='bid amount' icon='money' direct=true
-        +boolean_edit key='complete' label='complete' icon='check' direct=true
+        //- +boolean_edit key='complete' label='complete' icon='check' direct=true
         //- .ui.input
         //-     //- input.res_start(type='datetime-local' value=start_datetime)
         //-     input.res_start(type='datetime-local' value="#{start_datetime}")
@@ -63,7 +67,7 @@ template(name='single_res')
         //-         |end date/time            
         //-     .ui.input
         //-         input.res_end(type='datetime-local' value="#{end_datetime}")
-        .ui.fluid.button.cancel_reservation
+        .ui.fluid.button.cancel_bid
             i.ban.icon
             |cancel
             
