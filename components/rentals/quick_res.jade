@@ -1,0 +1,69 @@
+template(name='quick_res')
+    .ui.grid
+        .row
+            .eight.wide.column
+                //- .ui.inline.large.header 
+                //-     |$#{hourly_dollars}
+                //-     small /hr
+                .ui.inline.large.header 
+                    |$#{minimum_hourly}
+                    small /hr minimum
+                //- if daily_dollars
+                //-     .ui.inline.large.header 
+                //-         |$#{daily_dollars}
+                //-         small /day
+                .ui.celled.grid
+                    .two.column.row
+                        each upcoming_days
+                            .column
+                                +upcoming_day data=this
+            .eight.wide.column
+                with current_reservation
+                    +single_res
+
+
+
+template(name='upcoming_day')
+    a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}") #{data.long_form}
+    .ui.celled.grid
+        each hours
+            .row
+                .ui.inline.header #{this}
+                if existing_res
+                    with existing_res
+                        .ui.inline.header $#{bid_amount} by #{_author_username}
+                        if complete
+                            .ui.inline.header.pointer.select_quick_res existing res
+                            .ui.compact.button.reserve_slot bid
+                        else 
+                            .ui.inline.pointer.header.select_quick_res pending res
+                            .ui.compact.button.reserve_slot reserve
+                else    
+                    .ui.compact.button.reserve_slot reserve
+                    
+
+template(name='single_res')
+    .ui.segment
+        .ui.header #{start_date} reservation @ #{hour}
+        //- +date_edit key='start_date' label='start date' direct=true
+        //- +number_edit key='hour' label='start hour' direct=true
+        +number_edit key='bid_amount' label='bid amount' icon='money' direct=true
+        +boolean_edit key='complete' label='complete' icon='check' direct=true
+        //- .ui.input
+        //-     //- input.res_start(type='datetime-local' value=start_datetime)
+        //-     input.res_start(type='datetime-local' value="#{start_datetime}")
+        //- if start_datetime
+        //-     .ui.header 
+        //-         |duration
+        //-     div
+        //-     .ui.input            
+        //-         input.other_hour(type='number' min='0' value=hour_duration autocomplete="off")
+        //-     .ui.header 
+        //-         +i name='date-from'    
+        //-         |end date/time            
+        //-     .ui.input
+        //-         input.res_end(type='datetime-local' value="#{end_datetime}")
+        .ui.fluid.button.cancel_reservation
+            i.ban.icon
+            |cancel
+            

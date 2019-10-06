@@ -40,24 +40,7 @@ template(name='rental_view')
                         
                     +comments
                 .twelve.wide.column
-                    .ui.grid
-                        .row
-                            .eight.wide.column
-                                .ui.inline.large.header 
-                                    |$#{hourly_dollars}
-                                    small /hr
-                                //- if daily_dollars
-                                //-     .ui.inline.large.header 
-                                //-         |$#{daily_dollars}
-                                //-         small /day
-                                .ui.celled.grid
-                                    .two.column.row
-                                        each upcoming_days
-                                            .column
-                                                +upcoming_day data=this
-                            .eight.wide.column
-                                with incomplete_reservation
-                                    +pending_reservation
+                    +quick_res
                     .ui.basic.segment
                         +html_view key='description' label='content' icon='content' direct=true
                     +rental_stats
@@ -92,17 +75,6 @@ template(name='rental_stats')
         //- .item predicted payback duration 
         //- .item predicted payback date 
 
-
-template(name='upcoming_day')
-    a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}") #{data.long_form}
-    .ui.celled.grid
-        each hours
-            .row
-                .ui.inline.header #{this}
-                .ui.compact.button.reserve_slot reserve
-                if existing_res
-                    .ui.header existing res
-    //- if reservation_slot
     //-     //- .ui.header res slot exists
     //-     +reservation_slot_template
     //- else
@@ -234,33 +206,3 @@ template(name='reservation_list_item')
         a.ui.large.fluid.button(href="/reservation/#{_id}/view")
             |view
             i.right.chevron.icon
-
-
-
-
-template(name='pending_reservation')
-    .ui.segment
-        .ui.header pending reservation
-        .ui.header 
-            +i name='date-to' classes='ui tiny inline image'
-            |start date/time
-        +date_edit key='start_date' label='start date' direct=true
-        +number_edit key='hour' label='start hour' direct=true
-        .ui.input
-            //- input.res_start(type='datetime-local' value=start_datetime)
-            input.res_start(type='datetime-local' value="#{start_datetime}")
-        if start_datetime
-            .ui.header 
-                |duration
-            div
-            .ui.input            
-                input.other_hour(type='number' min='0' value=hour_duration autocomplete="off")
-            .ui.header 
-                +i name='date-from'    
-                |end date/time            
-            .ui.input
-                input.res_end(type='datetime-local' value="#{end_datetime}")
-        .ui.fluid.button.cancel_reservation
-            i.ban.icon
-            |cancel
-            

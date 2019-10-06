@@ -37,6 +37,7 @@ template(name='rental_edit')
                                 i.dropdown.icon
                         .content
                             +float_edit key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
+                            +number_edit key='minimum_bid' label='minimum bid ($)' icon='refund' direct=true
                             +float_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
                             div
                             +boolean_edit key='security_deposit_required' label='security deposit required' icon='safe-in' direct=true
