@@ -13,27 +13,35 @@ template(name='rental_edit')
                         |save
                     +remove_button
                     +single_user_edit key='_author_username' label='author username' direct=true
-                    .ui.large.header 
-                        +i name='money'
-                        |finance
-                    +float_edit key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
                     //- +float_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
             
                 .ten.wide.column 
                     .ui.fluid.styled.accordion
-                        .active.title 
+                        .title 
                             .ui.header
                                 +i name='info'
                                 | info
                                 i.dropdown.icon
-                        .active.content
-                                +text_edit key='title' direct=true
-                                +image_edit key='image' label='image' direct=true
-                                +textarea_edit key='description' label='description' icon='content' direct=true
-                                +array_edit key='tags' label='tags' icon='tags' direct=true
-                                +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                                +text_edit key='contact_info' label='contact info' icon='info' direct=true
-                                +link_edit key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
+                        .content
+                            +text_edit key='title' direct=true
+                            +image_edit key='image' label='image' direct=true
+                            +textarea_edit key='description' label='description' icon='content' direct=true
+                            +array_edit key='tags' label='tags' icon='tags' direct=true
+                            +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                            +text_edit key='contact_info' label='contact info' icon='info' direct=true
+                            +link_edit key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
+                        .title 
+                            .ui.header 
+                                +i name='money'
+                                |finance
+                                i.dropdown.icon
+                        .content
+                            +float_edit key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
+                            +float_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
+                            div
+                            +boolean_edit key='security_deposit_required' label='security deposit required' icon='safe-in' direct=true
+                            if security_deposit_required
+                                +number_edit key='security_deposit_amount' label='daily rate ($)' icon='money' direct=true
                         .title
                             .ui.header 
                                 +i name='pie chart'

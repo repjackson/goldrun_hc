@@ -116,6 +116,8 @@ Template.registerHelper 'downvote_class', () ->
 
 Template.registerHelper 'current_month', () -> moment(Date.now()).format("MMMM")
 Template.registerHelper 'current_day', () -> moment(Date.now()).format("DD")
+
+
 Template.registerHelper 'current_delta', () -> Docs.findOne model:'delta'
 
 Template.registerHelper 'hsd', () ->

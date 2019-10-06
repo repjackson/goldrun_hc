@@ -2,20 +2,21 @@ template(name='rental_view')
     with current_doc
         .ui.stackable.padded.grid
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
-            .three.column.row
-                .column
+            .row
+                .four.wide.column
                     a.ui.fluid.button(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
                         i.left.chevron.icon
                         +i name='handshake' classes='ui mini inline image'
                         |rentals
-                    .ui.large.center.aligned.header #{title}
-                    +rental_status
+                    .ui.basic.segment
+                        .ui.large.center.aligned.inline.header #{title}
+                        +rental_status
                     img.ui.centered.rounded.medium.invert.image(src="{{c.url image width=400 height=400 crop='fit'}}")
                     if can_edit
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
                             i.blue.pencil.icon
                             |edit
-
+                    +reserve_button
                     .ui.header added by #{_author_username}
                     |#{when}
                     with _author_id
@@ -26,15 +27,6 @@ template(name='rental_view')
                     div
                     +text_view key='location' icon='marker' label='location' direct=true
                     div
-                    +comments
-                .column
-                    .ui.inline.large.header 
-                        |$#{hourly_dollars}
-                        small /hr
-                    if daily_dollars
-                        .ui.inline.large.header 
-                            |$#{daily_dollars}
-                            small /day
                     div
                     .ui.inline.header 
                         +i name='sell-property'
@@ -45,16 +37,34 @@ template(name='rental_view')
                         +i name='manager'
                         small handler
                         +single_user_view key='handler_username' direct=true
+                        
+                    +comments
+                .twelve.wide.column
+                    .ui.grid
+                        .row
+                            .eight.wide.column
+                                .ui.inline.large.header 
+                                    |$#{hourly_dollars}
+                                    small /hr
+                                //- if daily_dollars
+                                //-     .ui.inline.large.header 
+                                //-         |$#{daily_dollars}
+                                //-         small /day
+                                .ui.celled.grid
+                                    .two.column.row
+                                        each upcoming_days
+                                            .column
+                                                +upcoming_day data=this
+                            .eight.wide.column
+                                with incomplete_reservation
+                                    +pending_reservation
                     .ui.basic.segment
                         +html_view key='description' label='content' icon='content' direct=true
-                    +array_view key='location_tags' label='location tags' icon='marker' direct=true
                     +rental_stats
                     div
                     +text_view key='contact_info' label='contact info' icon='info' direct=true
                     div
                     +link_view key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
-                .column
-                    +reserve_button
                     +rental_view_reservations
 
 template(name='rental_stats')
@@ -72,15 +82,61 @@ template(name='rental_stats')
         .item #{total_rental_hours} total reservation hours
         .item $#{average_rental_cost} avg rental cost
         .item #{average_rental_duration}hrs avg rental duration
-        .item rental ranking # reservations
-        .item rental ranking $ earned
-        .item # different renters
-        .item avg daily earnings
-        .item avg weekly earnings
-        .item avg monthly earnings
-        .item biggest renter
-        .item predicted payback duration 
-        .item predicted payback date 
+        //- .item rental ranking # reservations
+        //- .item rental ranking $ earned
+        //- .item # different renters
+        //- .item avg daily earnings
+        //- .item avg weekly earnings
+        //- .item avg monthly earnings
+        //- .item biggest renter
+        //- .item predicted payback duration 
+        //- .item predicted payback date 
+
+
+template(name='upcoming_day')
+    a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}") #{data.long_form}
+    .ui.celled.grid
+        each hours
+            .row
+                .ui.inline.header #{this}
+                .ui.compact.button.reserve_slot reserve
+                if existing_res
+                    .ui.header existing res
+    //- if reservation_slot
+    //-     //- .ui.header res slot exists
+    //-     +reservation_slot_template
+    //- else
+    //-     if is_product_author
+    //-         .ui.button.new_slot
+    //-             |new slot
+        
+template(name='reservation_slot_template')
+    if is_grandparent_author
+        with slot
+            .ui.header $#{price}
+            unless reservation
+                +boolean_edit key='prepaid' direct=true
+                +number_edit key='price' direct=true
+                +remove_button
+            //- +rental
+    else
+        .ui.divider
+        .ui.header $#{slot.price}
+        //- +boolean_edit key='rented' direct=true
+        if reservation
+            with reservation
+                +reservation_template
+        else
+            //- with slot
+            .ui.green.button.rent_item rent item
+            
+template(name='reservation_template')        
+    .ui.header reservation
+    +author_info
+    .ui.small.header #{_author_username}
+    if is_author
+        +text_edit key='notes' direct=true
+        +remove_button
 
 
     
@@ -163,18 +219,48 @@ template(name='rental_view_reservations')
 
 template(name='reservation_list_item')
     .ui.segment
-        a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
+        a.ui.small.header.inline.lowercase(href="/reservation/#{_id}/view")
             small from 
             |{{cal_time start_datetime}}
-        a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
+        a.ui.small.header.lowercase(href="/reservation/#{_id}/view")
             small to 
             |{{cal_time end_datetime}}
         div
         .ui.grey.inline.header #{hour_duration} hrs
         .ui.grey.inline.header(title='credits')
-            i.coins.icon
-            | #{cost}
+            //- i.coins.icon
+            | $#{cost}
         .ui.small.header #{when} by #{_author_username}
         a.ui.large.fluid.button(href="/reservation/#{_id}/view")
             |view
             i.right.chevron.icon
+
+
+
+
+template(name='pending_reservation')
+    .ui.segment
+        .ui.header pending reservation
+        .ui.header 
+            +i name='date-to' classes='ui tiny inline image'
+            |start date/time
+        +date_edit key='start_date' label='start date' direct=true
+        +number_edit key='hour' label='start hour' direct=true
+        .ui.input
+            //- input.res_start(type='datetime-local' value=start_datetime)
+            input.res_start(type='datetime-local' value="#{start_datetime}")
+        if start_datetime
+            .ui.header 
+                |duration
+            div
+            .ui.input            
+                input.other_hour(type='number' min='0' value=hour_duration autocomplete="off")
+            .ui.header 
+                +i name='date-from'    
+                |end date/time            
+            .ui.input
+                input.res_end(type='datetime-local' value="#{end_datetime}")
+        .ui.fluid.button.cancel_reservation
+            i.ban.icon
+            |cancel
+            
