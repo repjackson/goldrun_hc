@@ -235,6 +235,24 @@ template(name='member_products')
                         |view
                         i.right.chevron.icon
 
+template(name='member_bids')
+    .ui.header bids
+    each bids
+        .ui.fluid.segment.grid
+            .row
+                .sixteen.wide.column
+                    a.ui.inline.header(href="/rental/#{rental._id}/view") #{rental.title} 
+                        |$#{bid_amount} for #{date} @ #{hour}
+            .row
+                .four.wide.column
+                    with rental
+                        a(href="/rental/#{_id}/view")
+                            img.ui.centered.rounded.small.image(src="{{c.url image gravity='face' crop='fit'}}")
+                .twelve.wide.column
+                    a.ui.button(href="/rental/#{_id}/view")
+                        |view
+                        i.right.chevron.icon
+
 template(name='member_reservations')
     each reservations 
         +profile_reservation_item

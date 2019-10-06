@@ -192,7 +192,10 @@ template(name='image_view')
         //-     |#{key}
         //- else
         //-     |#{this}
-        img.ui.centered.rounded.medium.invert.image(src="{{c.url field_value gravity='face' crop='fit'}}" class=classes)
+        //- if classes
+        //-     img(src="{{c.url field_value gravity='face' crop='fit'}}" class=classes)
+        //- else 
+        img.ui.centered.rounded.medium.image(src="{{c.url field_value gravity='face' crop='fit'}}")
         //- a(href="{{c.url field_value gravity='face' crop='fit'}}")
         //-     |download
     //- +call_visual

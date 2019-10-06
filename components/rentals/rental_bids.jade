@@ -16,7 +16,7 @@ template(name='rental_bids')
                 //-     .ui.inline.large.header 
                 //-         |$#{daily_dollars}
                 //-         small /day
-                .ui.celled.grid
+                .ui.grid
                     .two.column.row
                         each upcoming_days
                             .column
@@ -24,18 +24,19 @@ template(name='rental_bids')
             .eight.wide.column
                 if current_date
                     if current_hour
-                        .ui.header #{current_date} bids @ #{current_hour}
+                        .ui.header {{short_date current_date}} @ #{current_hour} bids
                         each hourly_bids
                             +single_bid
                         unless has_bid
-                            .ui.button.new_bid
-                                i.plus.icon
+                            .ui.fluid.button.new_bid
+                                i.green.plus.icon
                                 |bid
 
 
 
 template(name='upcoming_day')
-    a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}") #{data.long_form}
+    a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}")
+        | #{data.long_form}
     .ui.vertical.fluid.menu
         each hours
             .item.pointer.select_hour(class=hour_class)
@@ -43,19 +44,24 @@ template(name='upcoming_day')
                 //- .ui.compact.button.reserve_slot bid
                 .ui.list
                     each existing_bids
-                        .item $#{bid_amount} by #{_author_username}
+                        .item 
+                            if is_top
+                                i.green.checkmark.icon
+                            |$#{bid_amount} by #{_author_username}
+                                
                 div
                     
 
 template(name='single_bid')
-    .ui.segment
+    .ui.segment(class=bid_class)
         //- .ui.header #{date} @ #{hour}
         //- +date_edit key='start_date' label='start date' direct=true
         //- +number_edit key='hour' label='start hour' direct=true
         if is_author
+            .ui.small.header your bid
             +number_edit key='bid_amount' label='amount' icon='money' direct=true
-            .ui.fluid.button.cancel_bid
-                i.ban.icon
+            .ui.button.cancel_bid
+                i.red.ban.icon
                 |cancel
         else
             +number_view key='bid_amount' label='bid' icon='money' direct=true

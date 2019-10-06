@@ -15,6 +15,10 @@ if Meteor.isClient
         @layout 'member_profile_layout'
         @render 'member_services'
         ), name:'member_services'
+    Router.route '/member/:username/bids', (->
+        @layout 'member_profile_layout'
+        @render 'member_bids'
+        ), name:'member_bids'
     Router.route '/member/:username/products', (->
         @layout 'member_profile_layout'
         @render 'member_products'

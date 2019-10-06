@@ -17,14 +17,12 @@ if Meteor.isClient
                 date:Session.get('current_date')
                 _author_id: Meteor.userId()
 
-
         hourly_bids: ->
             Docs.find {
                 model:'bid'
                 hour: Session.get('current_hour')
                 date:Session.get('current_date')
             }, sort:bid_amount:-1
-
 
         upcoming_days: ->
             upcoming_days = []
@@ -68,7 +66,6 @@ if Meteor.isClient
             date = day_moment_ob.format("YYYY-MM-DD")
             Session.set('current_date', date)
 
-
     Template.upcoming_day.helpers
         hours: -> [9..17]
         hour_class: ->
@@ -87,6 +84,36 @@ if Meteor.isClient
                 hour: hour
                 date: date
             }, sort:bid_amount:-1
+
+        is_top: ->
+            # day_moment_ob = Template.parentData().data.moment_ob
+            # date = day_moment_ob.format("YYYY-MM-DD")
+            # hour = parseInt(@.valueOf())
+
+            top = Docs.findOne({
+                model:'bid'
+                hour: @hour
+                date: @date
+            },
+                sort:bid_amount:-1
+                limit:1)
+            if @_id is top._id
+                true
+            else
+                false
+
+
+
+    Template.single_bid.helpers
+        bid_class: ->
+            top = Docs.findOne({
+                model:'bid'
+                hour: @hour
+                date: @date
+            },
+                sort:bid_amount:-1
+                limit:1)
+            if @_id is top._id then 'green' else ''
 
 
     Template.single_bid.events

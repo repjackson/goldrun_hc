@@ -59,6 +59,17 @@ if Meteor.isClient
             }, sort:_timestamp:-1
 
 
+    Template.member_bids.onCreated ->
+        @autorun => Meteor.subscribe 'member_bids', Router.current().params.username
+        @autorun => Meteor.subscribe 'model_docs', 'rental'
+    Template.member_bids.helpers
+        bids: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Docs.find {
+                model:'bid'
+            }, sort:_timestamp:-1
+
+
 
 
     Template.member_finance.onCreated ->
@@ -308,6 +319,12 @@ if Meteor.isServer
         Docs.find
             model:'reservation'
             user_id: current_user._id
+
+    Meteor.publish 'member_bids', (username)->
+        current_user = Meteor.users.findOne username:username
+        Docs.find
+            model:'bid'
+            _author_id: current_user._id
 
 
     Meteor.publish 'member_services', (username)->

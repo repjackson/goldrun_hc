@@ -69,12 +69,15 @@ template(name='member_profile_layout')
                     a.ui.large.compact.button(href="/member/#{username}/rentals" class="{{isActiveRoute 'member_rentals'}}")
                         +ismall name='clock' classes='ui inline image'
                         |rentals
-                    a.ui.large.compact.button(href="/member/#{username}/products" class="{{isActiveRoute 'member_products'}}")
-                        +ismall name='shopping-cart' classes='ui inline image'
-                        |products
+                    a.ui.large.compact.button(href="/member/#{username}/bids" class="{{isActiveRoute 'member_bids'}}")
+                        +ismall name='donate' classes='ui inline image'
+                        |bids
                     .ui.icon.compact.button.toggle_view_more
                         i.large.dropdown.icon
                     if viewing_more
+                        a.ui.large.compact.button(href="/member/#{username}/products" class="{{isActiveRoute 'member_products'}}")
+                            +ismall name='shopping-cart' classes='ui inline image'
+                            |products
                         a.ui.large.compact.button(href="/member/#{username}/handling" class="{{isActiveRoute 'member_handling'}}")
                             +ismall name='hand-box' classes='ui inline image'
                             |handling
