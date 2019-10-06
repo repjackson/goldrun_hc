@@ -1,19 +1,29 @@
 if Meteor.isClient
-    Template.quick_res.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'bid'
+    Template.rental_bids.onCreated ->
+        @autorun => Meteor.subscribe 'rental_bids', Router.current().params.doc_id
 
-    Template.quick_res.helpers
+    Template.rental_bids.helpers
         current_hour: ->
             # Docs.findOne Session.get('current_hour')
             Session.get('current_hour')
-
         current_date: ->
             # Docs.findOne Session.get('current_hour')
             Session.get('current_date')
 
-        hourly_bids: ->
-            Docs.find
+        has_bid: ->
+            Docs.findOne
                 model:'bid'
+                hour: Session.get('current_hour')
+                date:Session.get('current_date')
+                _author_id: Meteor.userId()
+
+
+        hourly_bids: ->
+            Docs.find {
+                model:'bid'
+                hour: Session.get('current_hour')
+                date:Session.get('current_date')
+            }, sort:bid_amount:-1
 
 
         upcoming_days: ->
@@ -30,7 +40,7 @@ if Meteor.isClient
                 upcoming_days.push {moment_ob:moment_ob,long_form:long_form}
             upcoming_days
 
-    Template.quick_res.events
+    Template.rental_bids.events
         'click .new_bid': ->
             hour = @.valueOf()
             # day_moment_ob = Template.parentData().moment_ob
@@ -72,10 +82,11 @@ if Meteor.isClient
             day_moment_ob = Template.parentData().data.moment_ob
             date = day_moment_ob.format("YYYY-MM-DD")
             hour = parseInt(@.valueOf())
-            Docs.find
+            Docs.find {
                 model:'bid'
                 hour: hour
                 date: date
+            }, sort:bid_amount:-1
 
 
     Template.single_bid.events
@@ -93,3 +104,8 @@ if Meteor.isServer
             rental_id: rental_id
             _author_id:Meteor.userId()
             day: day
+
+    Meteor.publish 'rental_bids', (rental_id)->
+        Docs.find
+            model:'bid'
+            rental_id: rental_id

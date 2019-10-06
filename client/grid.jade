@@ -45,8 +45,8 @@ template(name='model_list_item_view')
             img.ui.mini.inline.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
         if icon
             +ismall name=icon
-        span #{title} #{name}
-            .ui.basic.label $#{hourly_dollars}/hr
+        strong #{title} #{name}
+        small ~$#{hourly_dollars}/hr
         //- span.lowercase #{title} #{name}
         div
 
