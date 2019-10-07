@@ -1,6 +1,9 @@
 template(name='reservation_edit')
     with current_doc
         .ui.stackable.padded.grid
+            if is_paying
+                .row
+                    h1.ui.header is paying
             .three.column.row
                 .column 
                     a.ui.big.fluid.basic.button(href="/reservation/#{_id}/view" title='save')
@@ -94,14 +97,14 @@ template(name='reservation_edit')
                                     small your balance
                                     |{{fixed currentUser.credit}} 
                                 .ui.header
-                                    |deductions
+                                    small deductions
                                     | -  #{cost} 
                                     if res_start_dropoff_selected
                                         | + #{rental.res_start_dropoff_fee}
                                     if res_end_pickup_selected
                                         | + #{rental.res_end_pickup_fee}
                                 .ui.header
-                                    |balance after purchase
+                                    small balance after purchase
                                     small = 
                                     //- small balance after purchase 
                                     |#{member_balance_after_reservation}
@@ -147,3 +150,40 @@ template(name='reservation_edit')
                         .ui.orange.fluid.button.unsubmit
                             i.undo.icon
                             |cancel
+        .ui.modal
+            i.close.icon
+            .header confirm payment of #{cost} credit
+            .image.content
+                .image
+                    with rental
+                        img.ui.rounded.small.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
+                .description
+                    if is_paying
+                        i.big.loading.refresh.icon
+                    else 
+                        .ui.header 
+                            small your balance
+                            |{{fixed currentUser.credit}} 
+                        .ui.header
+                            small deductions
+                            | -
+                            if res_start_dropoff_selected
+                                small dropoff selected
+                                | + #{rental.res_start_dropoff_fee}
+                            if res_end_pickup_selected
+                                small pickup selected
+                                | + #{rental.res_end_pickup_fee}
+                        .ui.header
+                            |#{cost} 
+                        .ui.header
+                            small balance after purchase
+                            small = 
+                            //- small balance after purchase 
+                            |#{member_balance_after_reservation}
+            .actions
+                .ui.red.negative.button
+                    i.ban.icon
+                    | cancel
+                .ui.green.positive.large.button
+                    i.checkmark.icon
+                    |confirm

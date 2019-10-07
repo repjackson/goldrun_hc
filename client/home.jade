@@ -7,16 +7,21 @@ template(name='grid')
     //-         i.search.icon
     //- unless model_filter_value
     //-     +cloud filter='model'
-    .ui.stackable.three.column.padded.grid
+    .ui.padded.grid
         .row
-            each role_models
-                .column
-                    +grid_role_model
+            .twelve.wide.column
+                .ui.stackable.three.column.grid
+                    .row
+                        each role_models
+                            .column
+                                +grid_role_model
+            .four.wide.column
+                +global_stats
     +revenue_calculator            
         
 template(name='grid_role_model')
     .ui.segment
-        a.ui.inline.capitalize.header(href="/m/#{slug}" tabindex="0")
+        a.ui.inline.header(href="/m/#{slug}" tabindex="0")
             +i name=icon classes='ui inline image'
             //- i.icon(class=icon)
             |#{model_doc_count}

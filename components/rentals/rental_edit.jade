@@ -1,9 +1,9 @@
 template(name='rental_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .row
-                .six.wide.column 
-                    .ui.header 
+            .three.column.row
+                .column 
+                    .ui.dividing.header 
                         +i name='pencil'
                         small edit 
                         |#{title}
@@ -13,73 +13,70 @@ template(name='rental_edit')
                         |save
                     +remove_button
                     +single_user_edit key='_author_username' label='author username' direct=true
-                    //- +float_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
-            
-                .ten.wide.column 
-                    .ui.fluid.styled.accordion
-                        .title 
-                            .ui.header
-                                +i name='info'
-                                | info
-                                i.dropdown.icon
-                        .content
-                            +text_edit key='title' direct=true
-                            +image_edit key='image' label='image' direct=true
-                            +textarea_edit key='description' label='description' icon='content' direct=true
-                            +array_edit key='tags' label='tags' icon='tags' direct=true
-                            +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                            +text_edit key='contact_info' label='contact info' icon='info' direct=true
-                            +link_edit key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
-                        .title 
-                            .ui.header 
-                                +i name='money'
-                                |finance
-                                i.dropdown.icon
-                        .content
-                            //- +float_edit key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
-                            +number_edit key='minimum_bid' label='minimum bid ($)' icon='refund' direct=true
-                            //- +float_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
-                            +number_edit key='auction_cutoff_hours' label='auction cutoff (hours)' direct=true
-                            div
-                            +boolean_edit key='security_deposit_required' label='security deposit required' icon='safe-in' direct=true
-                            if security_deposit_required
-                                +number_edit key='security_deposit_amount' label='daily rate ($)' icon='money' direct=true
-                        .title
-                            .ui.header 
-                                +i name='pie chart'
-                                |ownership
-                                i.dropdown.icon
-                        .content
-                            +single_user_edit key='owner_username' label='owner' direct=true
-                            +single_user_edit key='handler_username' label='handler' direct=true
-                        .title
-                            .ui.header 
-                                +i name='friends'
-                                |availability
-                                i.dropdown.icon
-                        .content
-                            +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
-                            +boolean_edit key='available' label='currently available' direct=true
-                            +multi_doc_edit key='available_days' label='available days' ref_model='day_of_week' direct=true
-                            .ui.header audience
-                            .ui.small.header available to friends
-                        .title
-                            .ui.header 
-                                +i name='delivery'
-                                |delivery
-                                i.dropdown.icon
-                        .content
-                            .ui.header
-                                +i name='clock' classes='ui inline tiny image'
-                                |reservation start
-                            +boolean_edit key='res_start_pickup' label='pickup' icon='order-delivered' direct=true
-                            +boolean_edit key='res_start_dropoff' label='dropoff' icon='move-by-trolley' direct=true
-                            if res_start_dropoff
-                                +number_edit key='res_start_dropoff_fee' label='reservation start dropoff fee' icon='low-price' direct=true
-                            .ui.header
-                                +i name='clock' classes='ui inline tiny image'
-                                |reservation end
-                            +boolean_edit key='res_end_dropoff' label='dropoff' icon='move-by-trolley' direct=true
-                            +boolean_edit key='res_end_pickup' label='pickup' icon='order-delivered' direct=true
-                            if res_end_pickup
-                                +number_edit key='res_end_pickup_fee' label='reservation end pickup fee' icon='low-price' direct=true
+                .column
+                    .ui.dividing.header 
+                        +i name='money'
+                        |finance
+                    +float_edit key='hourly_dollars' label='hourly rate ($)' icon='money' direct=true
+                    div
+                    +boolean_edit key='daily_rate' label='daily rate' icon='sun' direct=true
+                    if daily_rate
+                        +float_edit key='daily_dollars' label='daily rate ($)' icon='money' direct=true
+                    div
+                    +boolean_edit key='auction' label='auction' icon='podium-with-audience--v2' direct=true
+                    if auction
+                        +number_edit key='auction_cutoff_hours' label='auction cutoff (hours)' direct=true
+                        +number_edit key='minimum_bid' label='minimum bid ($)' icon='refund' direct=true
+                    div
+                    +boolean_edit key='security_deposit_required' label='security deposit required' icon='safe-in' direct=true
+                    if security_deposit_required
+                        +number_edit key='security_deposit_amount' label='daily rate ($)' icon='money' direct=true
+                .column
+                    .ui.dividing.header
+                        +i name='image'
+                        | image
+                        +image_edit key='image' label='image' direct=true
+                .column
+                    .ui.dividing.header
+                        +i name='info'
+                        | info
+                    +text_edit key='title' direct=true
+                    +textarea_edit key='description' label='description' icon='content' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +text_edit key='contact_info' label='contact info' icon='info' direct=true
+                    +link_edit key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
+                .column
+                    .ui.dividing.header 
+                        +i name='pie chart'
+                        |ownership
+                    +single_user_edit key='owner_username' label='owner' direct=true
+                    +single_user_edit key='handler_username' label='handler' direct=true
+                .column
+                    .ui.dividing.header 
+                        +i name='friends'
+                        |availability
+                    +array_edit key='availability_tags' label='availability tags' icon='clock' direct=true
+                    +boolean_edit key='available' label='currently available' direct=true
+                    +multi_doc_edit key='available_days' label='available days' ref_model='day_of_week' direct=true
+                .column
+                    .ui.dividing.header audience
+                    .ui.small.header available to friends
+                    .ui.dividing.header 
+                        +i name='delivery'
+                        |delivery
+                    .ui.dividing.header
+                        +i name='clock' classes='ui inline tiny image'
+                        |reservation start
+                    +boolean_edit key='res_start_pickup' label='pickup' icon='order-delivered' direct=true
+                    +boolean_edit key='res_start_dropoff' label='dropoff' icon='move-by-trolley' direct=true
+                    if res_start_dropoff
+                        +number_edit key='res_start_dropoff_fee' label='reservation start dropoff fee' icon='low-price' direct=true
+                .column
+                    .ui.dividing.header
+                        +i name='clock' classes='ui inline tiny image'
+                        |reservation end
+                    +boolean_edit key='res_end_dropoff' label='dropoff' icon='move-by-trolley' direct=true
+                    +boolean_edit key='res_end_pickup' label='pickup' icon='order-delivered' direct=true
+                    if res_end_pickup
+                        +number_edit key='res_end_pickup_fee' label='reservation end pickup fee' icon='low-price' direct=true

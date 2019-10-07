@@ -16,7 +16,7 @@ template(name='rental_view')
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
                             i.blue.pencil.icon
                             |edit
-                    //- +reserve_button
+                    +reserve_button
                     .ui.header added by #{_author_username}
                     |#{when}
                     with _author_id
@@ -27,7 +27,6 @@ template(name='rental_view')
                     div
                     +text_view key='location' icon='marker' label='location' direct=true
                     div
-                    div
                     .ui.inline.header 
                         +i name='sell-property'
                         small owner
@@ -37,10 +36,10 @@ template(name='rental_view')
                         +i name='manager'
                         small handler
                         +single_user_view key='handler_username' direct=true
-                        
                     +comments
                 .twelve.wide.column
-                    +rental_bids
+                    if auction
+                        +rental_bids
                     .ui.basic.segment
                         +html_view key='description' label='content' icon='content' direct=true
                     +rental_stats

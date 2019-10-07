@@ -1,0 +1,7 @@
+template(name='global_stats')
+    .ui.header 
+        +i name='line-chart'
+        |stats
+    i.refresh.icon.refresh_global_stats
+    with global_stats
+        .ui.header total docs #{total_count}

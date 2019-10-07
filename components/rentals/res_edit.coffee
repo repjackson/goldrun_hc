@@ -73,6 +73,9 @@ if Meteor.isClient
         is_day: -> @duration_type is 'day'
         is_hour: -> @duration_type is 'hour'
 
+
+        is_paying: -> Session.get 'paying'
+
         can_buy: ->
             Meteor.user().credit > @cost
 
@@ -213,21 +216,23 @@ if Meteor.isClient
                         start_timestamp: now
 
         'click .submit_reservation': ->
-            if confirm "confirm payment of #{@cost} credit?"
-                rental = Docs.findOne @rental_id
-                # console.log @
-                Docs.update @_id,
-                    $set:
-                        submitted:true
-                        submitted_timestamp:Date.now()
-                # Meteor.users.update @_id,
-                #     $inc: credit: -@cost
-                # owner = Meteor.users.findOne username:rental.owner_username
-                # handler = Meteor.users.findOne username:rental.handler_username
-                # bank = Meteor.users.findOne username:'dev'
-
-                Meteor.call 'pay_for_reservation', @_id, =>
-                    Router.go "/reservation/#{@_id}/view"
+            $('.ui.modal')
+            .modal({
+                closable: true
+                onDeny: ()->
+                onApprove: ()=>
+                    # Session.set 'paying', true
+                    rental = Docs.findOne @rental_id
+                    # console.log @
+                    Docs.update @_id,
+                        $set:
+                            submitted:true
+                            submitted_timestamp:Date.now()
+                    Session.set 'paying', false
+                    Meteor.call 'pay_for_reservation', @_id, =>
+                        Session.set 'paying', true
+                        Router.go "/reservation/#{@_id}/view"
+            }).modal('show')
 
         'click .unsubmit': ->
             Docs.update @_id,
@@ -245,6 +250,16 @@ if Meteor.isClient
             if confirm 'delete reservation?'
                 Docs.remove @_id
                 Router.go "/rental/#{@rental_id}/view"
+
+
+        #     rental = Docs.findOne @rental_id
+        #     # console.log @
+        #     Docs.update @_id,
+        #         $set:
+        #             submitted:true
+        #             submitted_timestamp:Date.now()
+        #     Meteor.call 'pay_for_reservation', @_id, =>
+        #         Router.go "/reservation/#{@_id}/view"
 
 
 
