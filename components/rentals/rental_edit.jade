@@ -13,6 +13,13 @@ template(name='rental_edit')
                         |save
                     +remove_button
                     +single_user_edit key='_author_username' label='author username' direct=true
+                    +text_edit key='title' direct=true
+                    +textarea_edit key='description' label='description' icon='content' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +text_edit key='contact_info' label='contact info' icon='info' direct=true
+                    +link_edit key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
+                    
                 .column
                     .ui.dividing.header 
                         +i name='money'
@@ -31,6 +38,8 @@ template(name='rental_edit')
                     +boolean_edit key='security_deposit_required' label='security deposit required' icon='safe-in' direct=true
                     if security_deposit_required
                         +number_edit key='security_deposit_amount' label='security deposit amount ($)' icon='safe-in' direct=true tooltip='amount will be held from renters account then returned upon successful return'
+                        div
+                        +boolean_edit key='friends_exempt' label='friends exempt' icon='friends' direct=true
                 .column
                     .ui.dividing.header
                         +i name='image'
@@ -38,14 +47,19 @@ template(name='rental_edit')
                         +image_edit key='image' label='image' direct=true
                 .column
                     .ui.dividing.header
-                        +i name='info'
-                        | info
-                    +text_edit key='title' direct=true
-                    +textarea_edit key='description' label='description' icon='content' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                    +text_edit key='contact_info' label='contact info' icon='info' direct=true
-                    +link_edit key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
+                        +i name='rules'
+                        | policies
+                    +boolean_edit key='approval_required' label='approval required' icon='checkmark' direct=true
+                    if approval_required
+                        div
+                        |you will receive a notification when reservations are requested
+                    .ui.dividing.small.header
+                        +i name='refund'
+                        | refunds
+                    +boolean_edit key='allow_refunds' label='allow refunds' icon='refund' direct=true
+                    if allow_refunds
+                        +number_edit key='full_refund_cutoff_hours' label='full refund cutoff hours' icon='clock' direct=true
+                        +number_edit key='half_refund_cutoff_hours' label='half refund cutoff hours' icon='clock' direct=true
                 .column
                     .ui.dividing.header 
                         +i name='pie chart'
@@ -61,22 +75,40 @@ template(name='rental_edit')
                     +multi_doc_edit key='available_days' label='available days' ref_model='day_of_week' direct=true
                 .column
                     .ui.dividing.header audience
-                    .ui.small.header available to friends
+                    +boolean_edit key='transaction_number_restriction' label='transaction number restriction' icon='hashtag' direct=true
+                    if transaction_number_restriction
+                        +number_edit key='transaction_number_restriction_threshold' label='transaction number restriction threshold'
+                    +boolean_edit key='transaction_amount_restriction' label='transaction amount restriction' icon='money' direct=true
+                    if transaction_amount_restriction
+                        +number_edit key='transaction_amount_restriction_threshold' label='transaction amount restriction threshold'
+                    +boolean_edit key='visible_to_public' label='visible to public' direct=true
+                    unless visible_to_public
+                        +boolean_edit key='visible_to_friends' label='visible to friends' direct=true
+                    unless visible_to_public
+                        +boolean_edit key='visible_to_specific_people' label='visible to specific people' direct=true
+                        if visible_to_specific_people
+                            +multi_user_edit key='visible_to_member_ids' label='visible to members:' direct=true
+                .column
                     .ui.dividing.header 
                         +i name='delivery'
                         |delivery
-                    .ui.dividing.header
+                    .ui.dividing.small.header
                         +i name='clock' classes='ui inline tiny image'
                         |reservation start
                     +boolean_edit key='res_start_pickup' label='pickup' icon='order-delivered' direct=true
                     +boolean_edit key='res_start_dropoff' label='dropoff' icon='move-by-trolley' direct=true
                     if res_start_dropoff
                         +number_edit key='res_start_dropoff_fee' label='reservation start dropoff fee' icon='low-price' direct=true
-                .column
-                    .ui.dividing.header
+                    .ui.dividing.small.header
                         +i name='clock' classes='ui inline tiny image'
                         |reservation end
                     +boolean_edit key='res_end_dropoff' label='dropoff' icon='move-by-trolley' direct=true
                     +boolean_edit key='res_end_pickup' label='pickup' icon='order-delivered' direct=true
                     if res_end_pickup
                         +number_edit key='res_end_pickup_fee' label='reservation end pickup fee' icon='low-price' direct=true
+                .column
+                    .ui.dividing.header 
+                        +i name='delivery'
+                        |notifications
+                    +boolean_edit key='notify_on_reservation' label='on new reservation' icon='plus' direct=true
+                    +boolean_edit key='notify_on_cancelation' label='on reservation cancelation' icon='cancel-2--v1' direct=true

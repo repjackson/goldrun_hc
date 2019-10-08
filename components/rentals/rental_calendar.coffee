@@ -4,6 +4,8 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'rental_reservations_by_id', Router.current().params.doc_id
 
     Template.rental_calendar.helpers
+        rental: -> Docs.findOne Router.current().params.doc_id
+
         current_hour: ->
             # Docs.findOne Session.get('current_hour')
             Session.get('current_hour')
@@ -131,7 +133,7 @@ if Meteor.isClient
             date = day_moment_ob.date()
             if Session.equals('current_hour', hour)
                 if Session.equals('current_date', date)
-                    classes += ' blue inverted'
+                    classes += ' raised blue'
             classes
         existing_bids: ->
             day_moment_ob = Template.parentData().data.moment_ob

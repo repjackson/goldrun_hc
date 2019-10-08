@@ -23,33 +23,36 @@ template(name='rental_calendar')
                             .ui.fluid.button.new_bid
                                 i.green.plus.icon
                                 |bid
-                        .ui.small.header reservations
-                        each hourly_reservations
-                            +reservation_small
-                        .ui.green.button.reserve_this
-                            |reserve this
+                        if hourly_reservations
+                            .ui.small.header reservations
+                            each hourly_reservations
+                                +reservation_small
+                            else 
+                                .ui.green.fluid.button.reserve_this
+                                    |reserve hour for $#{rental.hourly_dollars}
 
 
 template(name='upcoming_day')
     a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}")
         | #{data.long_form}
-    each hours
-        .ui.segment.pointer.select_hour(class=hour_class)
-            .ui.inline.header #{this}
-            //- .ui.compact.button.reserve_slot bid
-            .ui.list
-                each existing_bids
-                    .item 
-                        if is_top
-                            i.green.checkmark.icon
-                        |$#{bid_amount} by #{_author_username}
-            .ui.small.header reservations
-            .ui.list
-                each existing_reservations
-                    .item 
-                        | by #{_author_username}
-                            
-            div
+    .ui.segments
+        each hours
+            .ui.segment.pointer.select_hour(class=hour_class)
+                .ui.inline.header #{this}
+                //- .ui.compact.button.reserve_slot bid
+                .ui.list
+                    each existing_bids
+                        .item 
+                            if is_top
+                                i.green.chevron.up.icon(title='highest bid')
+                            |$#{bid_amount} by #{_author_username}
+                //- .ui.small.header reservations
+                .ui.list
+                    each existing_reservations
+                        .item 
+                            | by #{_author_username}
+                                
+                div
                     
 
 template(name='single_bid')
@@ -69,8 +72,13 @@ template(name='single_bid')
             
 template(name='reservation_small')
     .ui.segment
-        .ui.header from #{start_date} @ #{start_hour}
+        .ui.header from #{start_hour}:#{start_minute} to #{end_hour}:{{fixed end_minute }}
+        +number_edit key='start_minute' label='start minute' direct=true
+        +number_edit key='end_hour' min=start_hour max='24' label='end hour' direct=true
+        +number_edit key='end_minute' min='0' max='60' label='end minute' direct=true
+        .ui.input
+            label end time
+            input.end_time(type='time')
         |by #{_author_username}
-        .ui.header to #{end_date} @ #{end_hour}
         if is_author
             +remove_button
