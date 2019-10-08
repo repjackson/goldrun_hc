@@ -134,7 +134,8 @@ if Meteor.isClient
             if confirm 'clock in?'
                 new_session_id = Docs.insert
                     model:'handling_session'
-                    clock_in: Date.now()
+                    clock_in_timestamp: Date.now()
+                    clock_in_date_ob: new Date()
                 Meteor.users.update Meteor.userId(),
                     $set:
                         current_handling_session_id: new_session_id
@@ -143,7 +144,8 @@ if Meteor.isClient
         'click .clock_out': ->
             Docs.update Meteor.user().current_handling_session_id,
                 $set:
-                    clock_out: Date.now()
+                    clock_out_timestamp: Date.now()
+                    clock_out_date_ob: new Date()
             Meteor.users.update Meteor.userId(),
                 $set:
                     current_handling_session_id: null

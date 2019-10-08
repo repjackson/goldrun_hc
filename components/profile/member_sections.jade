@@ -124,13 +124,13 @@ template(name='member_dashboard')
                 
                 
 template(name='handling_sessions')
-    .ui.header 
+    .ui.header.calc_handling_session_totals
         +i name='time-machine'
         |handling sessions
     .ui.bulleted.list
         each sessions
-            .item from {{cal_time clock_in}}
-            .item to {{cal_time clock_out}} (#{current_session_minutes}mins)
+            .item from {{cal_time clock_in_timestamp}}
+            .item to {{cal_time clock_out_timestamp}} (#{current_session_minutes}mins)
             if is_dev
                 +remove_button
                 
@@ -147,7 +147,7 @@ template(name='rental_small_interest')
             .ui.basic.label $#{hourly_dollars}/hr
             +rental_status
             div
-            .ui.small.header $#{rental_interest_rate}/hr interest
+            .ui.small.inline.header $#{rental_interest_rate}/hr interest
             a.ui.button(href="/rental/#{_id}/view")
                 |view
                 i.right.chevron.icon

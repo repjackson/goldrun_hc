@@ -285,10 +285,13 @@ if Meteor.isClient
 
     Template.handling_sessions.onCreated ->
         @autorun => Meteor.subscribe 'handling_sessions', Router.current().params.username
+    Template.handling_sessions.events
+        'click .calc_handling_session_totals': ->
+            Meteor.call 'calculate_user_totals'
     Template.handling_sessions.helpers
         current_session_minutes: ->
-            moment_in = moment(@clock_in)
-            moment_out = moment(@clock_out)
+            moment_in = moment(@clock_in_timestamp)
+            moment_out = moment(@clock_out_timestamp)
             moment_out.diff(moment_in, 'minutes')
         sessions: ->
             Docs.find

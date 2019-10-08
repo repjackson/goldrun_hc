@@ -35,37 +35,37 @@ if Meteor.isServer
             Meteor.call 'calculate_user_totals', Meteor.userId()
 
         'calculate_user_totals': ()->
-            user = Meteor.users.findOne user_id
             user_id = Meteor.userId()
+            user = Meteor.users.findOne user_id
             now = new Date()
             this_month = now.getMonth() + 1
 
             match = {}
             # match._author_id = user_id
-            match.model = 'timecard'
+            match.model = 'handling_session'
             # match.tags = $in: ['in']
-            console.log 'running user totals'
-            console.log match
-            console.log Docs.find(match).fetch().length
-            options = { explain:true }
+            # console.log 'running user totals'
+            # console.log match
+            # console.log Docs.find(match).fetch()
+            options = { explain:false }
             pipe =  [
                 { $match: match }
                 { $project:
                     # year: $year: '$_timestamp'
-                    month: $month: '$timestamp'
-                    day: $dayOfMonth: '$timestamp'
-                    # hour: $hour: '$timestamp'
-                    # minutes: $minute: '$timestamp'
-                    # seconds: $second: '$timestamp'
-                    # milliseconds: $millisecond: '$timestamp'
-                    # dayOfYear: $dayOfYear: '$timestamp'
-                    # dayOfWeek: $dayOfWeek: '$timestamp'
-                    # week: $week: '$timestamp'
+                    month: $month: '$clock_in_date_ob'
+                    day: $dayOfMonth: '$clock_in_date_ob'
+                    hour: $hour: '$clock_in_date_ob'
+                    minute: $minute: '$clock_in_date_ob'
+                    # seconds: $second: '$clock_in_date_ob'
+                    # milliseconds: $millisecond: '$clock_in_date_ob'
+                    dayOfYear: $dayOfYear: '$clock_in_date_ob'
+                    dayOfWeek: $dayOfWeek: '$clock_in_date_ob'
+                    week: $week: '$clock_in_date_ob'
                 }
-                { $match: month: this_month }
-                #
-                # # { $group: _id: '$month', count: $sum: 1 }
-                { $group: _id: '$day', count: $sum: 1 }
+                # { $match: month: this_month }
+                # # #
+                # # # # { $group: _id: '$month', count: $sum: 1 }
+                # { $group: _id: '$day', count: $sum: 1 }
 
             ]
             agg = global['Docs'].rawCollection().aggregate(pipe,options)
@@ -73,9 +73,15 @@ if Meteor.isServer
             # if agg
             #     agg.toArray()
 
-            console.log agg.toArray()
+            # console.log agg.pretty()
+            # console.log agg
 
-            monthly_day_usage = agg.length
+            agg.forEach (res)->
+                console.log res
+
+
+
+            # monthly_day_usage = agg.length
 
             # Meteor.users.update user_id,
             #     $set: monthly_day_usage: monthly_day_usage
