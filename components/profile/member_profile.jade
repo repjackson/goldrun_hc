@@ -28,13 +28,21 @@ template(name='member_profile_layout')
                             a.ui.inline.header(href="/member/#{user_from_username_param.username}/finance" title='credit')
                                 +i name='coins'
                                 |{{fixed user.credit}}
-                            if active
+                            if handling_active
                                 .ui.large.basic.green.label
-                                    |active (#{wait_time})
+                                    |handling active (#{wait_time})
                             else 
                                 .ui.large.basic.label
                                     |inactive
                     if is_current_user
+                        unless handling_active 
+                            .ui.fluid.button.clock_in
+                                +i name='clock-add' 
+                                |clock in
+                        else 
+                            .ui.fluid.button.clock_out
+                                +i name='remove-clock' 
+                                |clock out
                         +boolean_edit key='active' label='active' direct=true tooltip='declare available to handle reservations, earns 1% per hour interest'
                         a.ui.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 

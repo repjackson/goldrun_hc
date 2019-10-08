@@ -86,38 +86,56 @@ template(name='member_social')
 
 
 template(name='member_dashboard')
-    div
-    .ui.header
-        +i name='clock'
-        |current reservations
-    each current_reservations
-        .ui.header hi
+    .ui.stackable.grid
+        .two.column.row
+            .column
+                .ui.header
+                    +i name='clock'
+                    |current reservations
+                each current_reservations
+                    .ui.header hi
+                .ui.header 
+                    +i name='clock'
+                    |upcoming reservations
+                each upcoming_reservations
+                    .ui.header hi
+                    
+                .ui.pointer.header.recalc_wage_stats
+                    +i name='discount--v2'
+                    |current hourly wage
+                .ui.header 
+                    |$#{current_interest_rate}
+                    small /hr from interest
+                .ui.header 
+                    |$#{current_rental_combined_revenue}
+                    small /hr from active reservations
+                if current_user
+                    if currentUser.handling_active
+                        if current_handling_rentals
+                            .ui.small.header current active handled rentals
+                            |you're earning 10% of the potential hourly wage every hour you're active
+                            each current_handling_rentals
+                                +rental_small_interest
+                    else 
+                        |you'd be earning 10% of the potential hourly wage every hour you're active
+                    .ui.small.header from active reservations
+            .column
+                +handling_sessions
+                
+                
+template(name='handling_sessions')
     .ui.header 
-        +i name='clock'
-        |upcoming reservations
-    each upcoming_reservations
-        .ui.header hi
+        +i name='time-machine'
+        |handling sessions
+    .ui.bulleted.list
+        each sessions
+            .item from {{cal_time clock_in}}
+            .item to {{cal_time clock_out}} (#{current_session_minutes}mins)
+            if is_dev
+                +remove_button
+                
         
-    .ui.pointer.header.recalc_wage_stats
-        +i name='discount--v2'
-        |current hourly wage
-    .ui.header 
-        |$#{current_interest_rate}
-        small /hr from interest
-    .ui.header 
-        |$#{current_rental_combined_revenue}
-        small /hr from interest
-    if current_user
-        if currentUser.active
-            if current_handling_rentals
-                .ui.small.header current active handled rentals
-                |you're earning 10% of the potential hourly wage every hour you're active
-                each current_handling_rentals
-                    +rental_small_interest
-        else 
-            |you'd be earning 1% of the potential hourly wage every hour you're active
-        .ui.small.header from active reservations
-        
+            
         
 template(name='rental_small_interest')        
     .ui.stackable.grid

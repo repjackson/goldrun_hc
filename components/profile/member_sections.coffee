@@ -154,19 +154,16 @@ if Meteor.isClient
                 model:'payment'
                 _author_username: Router.current().params.username
             }, sort:_timestamp:-1
-
         withdrawals: ->
             Docs.find {
                 model:'withdrawal'
                 _author_username: Router.current().params.username
             }, sort:_timestamp:-1
-
         received_reservations: ->
             Docs.find {
                 model:'reservation'
                 owner_username: Router.current().params.username
             }, sort:_timestamp:-1
-
         purchased_reservations: ->
             Docs.find {
                 model:'reservation'
@@ -273,17 +270,29 @@ if Meteor.isClient
                 handler_username:current_user.username
         current_interest_rate: ->
             interest_rate = 0
-            current_user = Meteor.users.findOne username:Router.current().params.username
-            handling_rentals = Docs.find(
-                model:'rental'
-                handler_username:current_user.username
-            ).fetch()
-            for handling in handling_rentals
-                interest_rate += handling.hourly_dollars*.1
-            interest_rate
+            if Meteor.user().handling_active
+                current_user = Meteor.users.findOne username:Router.current().params.username
+                handling_rentals = Docs.find(
+                    model:'rental'
+                    handler_username:current_user.username
+                ).fetch()
+                for handling in handling_rentals
+                    interest_rate += handling.hourly_dollars*.1
+            interest_rate.toFixed(2)
 
     Template.rental_small_interest.helpers
         rental_interest_rate: -> @hourly_dollars*.1
+
+    Template.handling_sessions.onCreated ->
+        @autorun => Meteor.subscribe 'handling_sessions', Router.current().params.username
+    Template.handling_sessions.helpers
+        current_session_minutes: ->
+            moment_in = moment(@clock_in)
+            moment_out = moment(@clock_out)
+            moment_out.diff(moment_in, 'minutes')
+        sessions: ->
+            Docs.find
+                model:'handling_session'
 
 
     Template.member_dashboard.events
@@ -350,6 +359,13 @@ if Meteor.isServer
         current_user = Meteor.users.findOne username:username
         Docs.find
             model:'service'
+            _author_username:username
+            # _author_id: current_user._id
+
+    Meteor.publish 'handling_sessions', (username)->
+        current_user = Meteor.users.findOne username:username
+        Docs.find
+            model:'handling_session'
             _author_username:username
             # _author_id: current_user._id
 

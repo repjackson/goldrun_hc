@@ -130,6 +130,26 @@ if Meteor.isClient
         viewing_more: -> Session.get 'viewing_more'
 
     Template.member_profile_layout.events
+        'click .clock_in': ->
+            if confirm 'clock in?'
+                new_session_id = Docs.insert
+                    model:'handling_session'
+                    clock_in: Date.now()
+                Meteor.users.update Meteor.userId(),
+                    $set:
+                        current_handling_session_id: new_session_id
+                        handling_active:true
+
+        'click .clock_out': ->
+            Docs.update Meteor.user().current_handling_session_id,
+                $set:
+                    clock_out: Date.now()
+            Meteor.users.update Meteor.userId(),
+                $set:
+                    current_handling_session_id: null
+                    handling_active:false
+
+
         'click .toggle_view_more': ->
             Session.set('viewing_more', !Session.get('viewing_more'))
 
