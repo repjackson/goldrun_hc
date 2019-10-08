@@ -80,6 +80,10 @@ template(name='reservation_edit')
                                 |#{rental.hourly_dollars}
                                 small /hr = $
                                 |#{cost}
+                            .ui.header(title='security deposit amount will be held until successful return') 
+                                if rental.security_deposit_required
+                                    small + security deposit 
+                                    |$#{rental.security_deposit_amount}
                             if rental.res_start_dropoff
                                 .ui.header 
                                     small add reservation start dropoff for 
@@ -98,7 +102,8 @@ template(name='reservation_edit')
                                     |{{fixed currentUser.credit}} 
                                 .ui.header
                                     small deductions
-                                    | -  #{cost} 
+                                    //- | -  #{cost} 
+                                    | -  #{total_cost} 
                                     if res_start_dropoff_selected
                                         | + #{rental.res_start_dropoff_fee}
                                     if res_end_pickup_selected
@@ -115,7 +120,8 @@ template(name='reservation_edit')
                                     |{{fixed currentUser.credit}} 
                                 .ui.header
                                     small cost
-                                    | #{cost} 
+                                    | #{total_cost} 
+                                    //- | #{cost} 
                                     //- if res_start_dropoff_selected
                                     //-     | + #{rental.res_start_dropoff_fee}
                                     //- if res_end_pickup_selected

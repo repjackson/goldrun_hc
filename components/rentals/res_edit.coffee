@@ -26,7 +26,7 @@ if Meteor.isClient
                 # calculated_amount = deposit_amount*100
                 # console.log calculated_amount
                 deposit_amount = Math.abs(parseFloat($('.adding_credit').val()))
-                stripe_charge = parseInt(deposit_amount)*100
+                stripe_charge = parseFloat(deposit_amount)*100
                 console.log 'deposit_amount', deposit_amount
                 console.log 'stripe charge', stripe_charge
 
@@ -47,7 +47,7 @@ if Meteor.isClient
                             amount_with_bonus:deposit_amount*1.05/100
                             bonus:deposit_amount*.05/100
                         Meteor.users.update Meteor.userId(),
-                            $inc: credit: deposit_amount
+                            $inc: credit: deposit_amount*1.05
     	)
 
     Template.key_value_edit.events
@@ -77,11 +77,11 @@ if Meteor.isClient
         is_paying: -> Session.get 'paying'
 
         can_buy: ->
-            Meteor.user().credit > @cost
+            Meteor.user().credit > @total_cost
 
 
         need_credit: ->
-            Meteor.user().credit < @cost
+            Meteor.user().credit < @total_cost
 
         need_approval: ->
             @friends_only and Meteor.userId() not in @author.friend_ids
@@ -94,19 +94,14 @@ if Meteor.isClient
             rental = Docs.findOne @rental_id
             if rental
                 current_balance = Meteor.user().credit
-                total_cost = @cost
-                if @res_start_dropoff_selected
-                    total_cost += rental.res_start_dropoff_fee
-                if @res_end_pickup_selected
-                    total_cost += rental.res_end_pickup_fee
-                (current_balance-@cost).toFixed(2)
+                (current_balance-@total_cost).toFixed(2)
 
         # diff: -> moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
 
     Template.reservation_edit.events
         'click .add_credit': ->
             deposit_amount = Math.abs(parseFloat($('.adding_credit').val()))
-            stripe_charge = parseInt(deposit_amount)*100
+            stripe_charge = parseFloat(deposit_amount)*100*1.02+20
             # stripe_charge = parseInt(deposit_amount*1.02+20)
 
             if confirm "add #{deposit_amount} credit?"
@@ -186,19 +181,22 @@ if Meteor.isClient
                 $set:
                     hour_duration: val
                     end_datetime: moment(@start_datetime).add(val,'hour').format("YYYY-MM-DD[T]HH:mm")
-            rental = Docs.findOne @rental_id
-            hour_duration = val
-            cost = parseFloat hour_duration*rental.hourly_dollars.toFixed(2)
-            # console.log diff
-            taxes_payout = parseFloat((cost*.05)).toFixed(2)
-            owner_payout = parseFloat((cost*.5)).toFixed(2)
-            handler_payout = parseFloat((cost*.45)).toFixed(2)
-            Docs.update @_id,
-                $set:
-                    cost: cost
-                    taxes_payout: taxes_payout
-                    owner_payout: owner_payout
-                    handler_payout: handler_payout
+
+            Meteor.call 'recalc_reservation_cost', Router.current().params.doc_id
+
+            # rental = Docs.findOne @rental_id
+            # hour_duration = val
+            # cost = parseFloat hour_duration*rental.hourly_dollars.toFixed(2)
+            # # console.log diff
+            # taxes_payout = parseFloat((cost*.05)).toFixed(2)
+            # owner_payout = parseFloat((cost*.5)).toFixed(2)
+            # handler_payout = parseFloat((cost*.45)).toFixed(2)
+            # Docs.update @_id,
+            #     $set:
+            #         cost: cost
+            #         taxes_payout: taxes_payout
+            #         owner_payout: owner_payout
+            #         handler_payout: handler_payout
             # $('.result_column').transition('glow',500)
 
 
@@ -275,6 +273,8 @@ if Meteor.isServer
             taxes_payout = parseFloat((cost*.05))
             owner_payout = parseFloat((cost*.5))
             handler_payout = parseFloat((cost*.45))
+            if rental.security_deposit_required
+                total_cost += rental.security_deposit_amount
             if res.res_start_dropoff_selected
                 total_cost += rental.res_start_dropoff_fee
                 handler_payout += rental.res_start_dropoff_fee
@@ -285,7 +285,8 @@ if Meteor.isServer
             Docs.update res._id,
                 $set:
                     hour_duration: hour_duration.toFixed(2)
-                    cost: total_cost.toFixed(2)
+                    cost: cost.toFixed(2)
+                    total_cost: total_cost.toFixed(2)
                     taxes_payout: taxes_payout.toFixed(2)
                     owner_payout: owner_payout.toFixed(2)
                     handler_payout: handler_payout.toFixed(2)
