@@ -8,15 +8,31 @@ template(name='rental_view')
                         i.left.chevron.icon
                         +i name='handshake' classes='ui mini inline image'
                         |rentals
-                    .ui.basic.segment
-                        .ui.large.center.aligned.inline.header #{title}
-                        +rental_status
+                    .ui.large.center.aligned.inline.header #{title}
+                    +rental_status
+                    .ui.header 
+                        |$#{hourly_dollars}
+                        small /hr standard rate
+                    if security_deposit_required
+                        .ui.header 
+                            |$#{security_deposit_amount}
+                            small security deposit
+                        
+                    .ui.header 
+                        |$#{minimum_bid}
+                        small /hr minimum bid
+                    .ui.header 
+                        |#{auction_cutoff_hours}hr
+                        small auction cutoff
+            
                     img.ui.centered.rounded.medium.invert.image(src="{{c.url image width=400 height=400 crop='fit'}}")
                     if can_edit
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
                             i.blue.pencil.icon
                             |edit
                     +reserve_button
+                    +rental_stats
+        
                     .ui.header added by #{_author_username}
                     |#{when}
                     with _author_id
@@ -38,11 +54,10 @@ template(name='rental_view')
                         +single_user_view key='handler_username' direct=true
                     +comments
                 .twelve.wide.column
-                    if auction
-                        +rental_bids
-                    .ui.basic.segment
-                        +html_view key='description' label='content' icon='content' direct=true
-                    +rental_stats
+                    //- if auction
+                    +rental_calendar
+                    .ui.basic.segment.f6
+                        +html_view key='description' label='description' icon='content' direct=true
                     div
                     +text_view key='contact_info' label='contact info' icon='info' direct=true
                     div
@@ -192,11 +207,14 @@ template(name='reservation_list_item')
     .ui.segment
         a.ui.small.header.inline.lowercase(href="/reservation/#{_id}/view")
             small from 
-            |{{cal_time start_datetime}}
+            |{{cal_time start_datetime}} [#{start_date}, hour: #{start_hour}]
+            |{{long_date start_datetime}}
         a.ui.small.header.lowercase(href="/reservation/#{_id}/view")
             small to 
             |{{cal_time end_datetime}}
         div
+        .ui.button.calc_res_numbers
+            |calc res numbers
         .ui.grey.inline.header #{hour_duration} hrs
         .ui.grey.inline.header(title='credits')
             //- i.coins.icon

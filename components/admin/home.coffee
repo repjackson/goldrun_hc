@@ -56,8 +56,8 @@ if Meteor.isClient
             if model_filter
                 match.title = {$regex:"#{model_filter}", $options: 'i'}
             if Meteor.user()
-                unless Meteor.user().roles and 'dev' in Meteor.user().roles
-                    match.view_roles = $in:Meteor.user().roles
+                # unless Meteor.user().roles and 'dev' in Meteor.user().roles
+                match.view_roles = $in:Meteor.user().roles
             else
                 match.view_roles = $in:['public']
             Docs.find match,

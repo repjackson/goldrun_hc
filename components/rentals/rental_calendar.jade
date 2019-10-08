@@ -1,16 +1,7 @@
-template(name='rental_bids')
+template(name='rental_calendar')
     .ui.grid
         .row
             .eight.wide.column
-                //- .ui.inline.large.header 
-                //-     |$#{hourly_dollars}
-                //-     small /hr
-                .ui.large.header 
-                    |$#{minimum_bid}
-                    small /hr minimum
-                .ui.large.header 
-                    small auction cutoff
-                    |#{auction_cutoff_hours}hrs
                 
                 //- if daily_dollars
                 //-     .ui.inline.large.header 
@@ -24,14 +15,19 @@ template(name='rental_bids')
             .eight.wide.column
                 if current_date
                     if current_hour
-                        .ui.header {{short_date current_date}} @ #{current_hour} bids
+                        .ui.header {{short_date current_date_string}} @ #{current_hour} reservations/bids
+                        .ui.small.header bids
                         each hourly_bids
                             +single_bid
                         unless has_bid
                             .ui.fluid.button.new_bid
                                 i.green.plus.icon
                                 |bid
-
+                        .ui.small.header reservations
+                        each hourly_reservations
+                            +reservation_small
+                        .ui.green.button.reserve_this
+                            |reserve this
 
 
 template(name='upcoming_day')
@@ -66,4 +62,10 @@ template(name='single_bid')
         else
             +number_view key='bid_amount' label='bid' icon='money' direct=true
             |by #{_author_username}
+            
+template(name='reservation_small')
+    .ui.segment
+        .ui.header from #{start_date} @ #{start_hour}
+        |by #{_author_username}
+        .ui.header to #{end_date} @ #{end_hour}
             

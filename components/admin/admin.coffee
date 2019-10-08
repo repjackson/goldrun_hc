@@ -107,7 +107,7 @@ if Meteor.isServer
             total_owners_count = Meteor.users.find(owner:true).count()
             total_handlers_count = Meteor.users.find(handler:true).count()
 
-            current_active_handlers = Meteor.users.find(handler:true, active:'true').count()
+            current_active_handlers = Meteor.users.find(handling_active:true).count()
 
             payment_count = Docs.find(model:'payment').count()
             rental_count = Docs.find(model:'rental').count()

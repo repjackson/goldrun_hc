@@ -55,6 +55,18 @@ if Meteor.isClient
                 model:'reservation'
             }, sort: start_datetime:-1
 
+    Template.reservation_list_item.events
+        'click .calc_res_numbers': ->
+            start_date = moment(@start_timestamp).date()
+            start_month = moment(@start_timestamp).month()
+            start_minute = moment(@start_timestamp).minute()
+            start_hour = moment(@start_timestamp).hour()
+            Docs.update @_id,
+                $set:
+                    start_date:start_date
+                    start_month:start_month
+                    start_hour:start_hour
+                    start_minute:start_minute
 
 
 
@@ -63,6 +75,11 @@ if Meteor.isServer
         Docs.find
             model:'reservation'
             rental_id: rental._id
+
+    Meteor.publish 'rental_reservations_by_id', (rental_id)->
+        Docs.find
+            model:'reservation'
+            rental_id: rental_id
 
     Meteor.publish 'rentals', (product_id)->
         Docs.find
@@ -118,10 +135,10 @@ if Meteor.isServer
             Docs.update rental_id,
                 $set:
                     reservation_count: reservation_count
-                    total_earnings: total_earnings.toFixed(2)
-                    total_rental_hours: total_rental_hours.toFixed(2)
-                    average_rental_cost: average_rental_cost.toFixed(2)
-                    average_rental_duration: average_rental_duration.toFixed(2)
+                    total_earnings: total_earnings.toFixed(0)
+                    total_rental_hours: total_rental_hours.toFixed(0)
+                    average_rental_cost: average_rental_cost.toFixed(0)
+                    average_rental_duration: average_rental_duration.toFixed(0)
 
             # .ui.small.header total earnings
             # .ui.small.header rental ranking #reservations
