@@ -73,9 +73,9 @@ if Meteor.isClient
 
 
     Template.member_finance.onCreated ->
-        @autorun => Meteor.subscribe 'joint_transactions', Router.current().params.username
-        @autorun => Meteor.subscribe 'model_docs', 'payment'
-        @autorun => Meteor.subscribe 'model_docs', 'reservation'
+        # @autorun => Meteor.subscribe 'joint_transactions', Router.current().params.username
+        @autorun => Meteor.subscribe 'model_docs', 'deposit'
+        # @autorun => Meteor.subscribe 'model_docs', 'reservation'
         @autorun => Meteor.subscribe 'model_docs', 'withdrawal'
         if Meteor.isDevelopment
             pub_key = Meteor.settings.public.stripe_test_publishable
@@ -104,14 +104,13 @@ if Meteor.isClient
                     else
                         alert 'payment received', 'success'
                         Docs.insert
-                            model:'payment'
+                            model:'deposit'
                             deposit_amount:deposit_amount/100
                             stripe_charge:stripe_charge
                             amount_with_bonus:deposit_amount*1.05/100
                             bonus:deposit_amount*.05/100
                         Meteor.users.update user._id,
                             $inc: credit: deposit_amount*1.05/100
-
     	)
 
 
@@ -256,6 +255,7 @@ if Meteor.isClient
 
     Template.member_dashboard.onCreated ->
         @autorun => Meteor.subscribe 'member_upcoming_reservations', Router.current().params.username
+        @autorun => Meteor.subscribe 'member_handling', Router.current().params.username
         @autorun => Meteor.subscribe 'member_current_reservations', Router.current().params.username
     Template.member_dashboard.helpers
         current_reservations: ->
@@ -266,6 +266,25 @@ if Meteor.isClient
             Docs.find
                 model:'reservation'
                 member_username:Router.current().params.username
+        current_handling_rentals: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Docs.find
+                model:'rental'
+                handler_username:current_user.username
+        current_interest_rate: ->
+            interest_rate = 0
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            handling_rentals = Docs.find(
+                model:'rental'
+                handler_username:current_user.username
+            ).fetch()
+            for handling in handling_rentals
+                interest_rate += handling.hourly_dollars*.1
+            interest_rate
+
+    Template.rental_small_interest.helpers
+        rental_interest_rate: -> @hourly_dollars*.1
+
 
     Template.member_dashboard.events
         'click .recalc_wage_stats': (e,t)->

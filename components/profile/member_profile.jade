@@ -11,8 +11,10 @@ template(name='member_profile_layout')
                     .ui.center.aligned.basic.segment.mobile.hidden
                         a(href="/member/#{user.username}")
                             .ui.large.center.aligned.header
-                                strong #{user.first_name} #{user.last_name}
-                                small @#{user.username}        
+                                strong #{user.name}
+                                //- 
+                                //- strong #{user.first_name} #{user.last_name}
+                                //- small @#{user.username}        
                         a.ui.header(href="/member/#{user_from_username_param.username}/finance" title='credit')
                             +i name='coins'
                             |{{fixed user.credit}}
@@ -21,13 +23,19 @@ template(name='member_profile_layout')
                             img.ui.circular.small.inline.image.mobile.only(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
                         .column
                             .ui.inline.header
-                                strong #{user.first_name} #{user.last_name}
-                                small @#{user.username}        
+                                strong #{user.name}
+                                //- small @#{user.username}        
                             a.ui.inline.header(href="/member/#{user_from_username_param.username}/finance" title='credit')
                                 +i name='coins'
                                 |{{fixed user.credit}}
-                        
+                            if active
+                                .ui.large.basic.green.label
+                                    |active (#{wait_time})
+                            else 
+                                .ui.large.basic.label
+                                    |inactive
                     if is_current_user
+                        +boolean_edit key='active' label='active' direct=true tooltip='declare available to handle reservations, earns 1% per hour interest'
                         a.ui.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 
                             |edit
@@ -72,18 +80,18 @@ template(name='member_profile_layout')
                     a.ui.large.compact.button(href="/member/#{username}/bids" class="{{isActiveRoute 'member_bids'}}")
                         +ismall name='donate' classes='ui inline image'
                         |bids
+                    a.ui.large.compact.button(href="/member/#{username}/handling" class="{{isActiveRoute 'member_handling'}}")
+                        +ismall name='hand-box' classes='ui inline image'
+                        |handling
+                    a.ui.large.compact.button(href="/member/#{username}/reservations" class="{{isActiveRoute 'member_reservations'}}")
+                        +ismall name='invoice' classes='ui inline image'
+                        |reservations
                     .ui.icon.compact.button.toggle_view_more
                         i.large.dropdown.icon
                     if viewing_more
                         a.ui.large.compact.button(href="/member/#{username}/products" class="{{isActiveRoute 'member_products'}}")
                             +ismall name='shopping-cart' classes='ui inline image'
                             |products
-                        a.ui.large.compact.button(href="/member/#{username}/handling" class="{{isActiveRoute 'member_handling'}}")
-                            +ismall name='hand-box' classes='ui inline image'
-                            |handling
-                        a.ui.large.compact.button(href="/member/#{username}/reservations" class="{{isActiveRoute 'member_reservations'}}")
-                            +ismall name='invoice' classes='ui inline image'
-                            |reservations
                         a.ui.large.compact.button(href="/member/#{username}/services" class="{{isActiveRoute 'member_services'}}")
                             +ismall name='wrench' classes='ui inline image'
                             |services

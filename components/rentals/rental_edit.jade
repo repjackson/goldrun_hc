@@ -26,11 +26,11 @@ template(name='rental_edit')
                     +boolean_edit key='auction' label='auction' icon='podium-with-audience--v2' direct=true
                     if auction
                         +number_edit key='auction_cutoff_hours' label='auction cutoff (hours)' direct=true
-                        +number_edit key='minimum_bid' label='minimum bid ($)' icon='refund' direct=true
+                        +float_edit key='minimum_bid' label='hour minimum bid ($)' icon='refund' direct=true
                     div
                     +boolean_edit key='security_deposit_required' label='security deposit required' icon='safe-in' direct=true
                     if security_deposit_required
-                        +number_edit key='security_deposit_amount' label='daily rate ($)' icon='money' direct=true
+                        +number_edit key='security_deposit_amount' label='security deposit amount ($)' icon='safe-in' direct=true tooltip='amount will be held from renters account then returned upon successful return'
                 .column
                     .ui.dividing.header
                         +i name='image'

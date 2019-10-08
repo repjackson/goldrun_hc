@@ -7,6 +7,9 @@ if Meteor.isClient
         Session.set 'model_filter',null
 
     Template.grid.onRendered ->
+        if Meteor.isProduction
+            Meteor.call 'log_home_view', ->
+
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1000
@@ -80,7 +83,7 @@ if Meteor.isClient
                 model:@slug
             },
                 sort:views:-1
-                limit:10
+                limit:5
 
 
 
@@ -253,6 +256,10 @@ if Meteor.isServer
 
 
     Meteor.methods
+        log_home_view: ()->
+            global_stats = Docs.findOne model:'global_stats'
+            Docs.update global_stats._id,
+                $inc: home_views: 1
         recalc_revenue_stats: (calc_doc)->
             total_daily_minutes_committed = 0
             daily_rentals = 0

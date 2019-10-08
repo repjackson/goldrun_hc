@@ -66,12 +66,73 @@ if Meteor.isServer
                 new_id = Docs.insert
                     model:'global_stats'
                 global_stat_doc = Docs.findOne(model:'global_stats')
-            console.log global_stat_doc
             total_count = Docs.find().count()
-            complete_count = Docs.find(model:'global', complete:true).count()
-            incomplete_count = Docs.find(model:'global', complete:$ne:true).count()
+
+            reservations = Docs.find(
+                model:'reservation'
+                ).fetch()
+            total_reservation_revenue = 0
+            for res in reservations
+                if res.cost
+                    total_reservation_revenue += parseInt(res.cost)
+
+            total_owner_revenue = 0
+            for res in reservations
+                if res.owner_payout
+                    total_owner_revenue += parseInt(res.owner_payout)
+
+            total_handler_revenue = 0
+            for res in reservations
+                if res.handler_payout
+                    total_handler_revenue += parseInt(res.handler_payout)
+
+            total_tax_revenue = 0
+            for res in reservations
+                if res.taxes_payout
+                    total_tax_revenue += parseInt(res.taxes_payout)
+
+            payments = Docs.find(
+                model:'payment'
+                ).fetch()
+            total_payment_amount = 0
+            for payment in payments
+                if payment.amount
+                    total_payment_amount += parseInt(payment.amount)
+                # daily_rentals += item.rental_amount
+                # if item.handled
+                #     handled_rentals += item.rental_amount
+                # totaled_daily_revenue += item.calculated_daily_revenue
+
+            total_members_count = Meteor.users.find(roles:$in:['member']).count()
+            total_owners_count = Meteor.users.find(owner:true).count()
+            total_handlers_count = Meteor.users.find(handler:true).count()
+
+            current_active_handlers = Meteor.users.find(handler:true, active:'true').count()
+
+            payment_count = Docs.find(model:'payment').count()
+            rental_count = Docs.find(model:'rental').count()
+            product_count = Docs.find(model:'product').count()
+
+            withdrawel_count = Docs.find(model:'withdrawel').count()
+            service_count = Docs.find(model:'service').count()
+            bid_count = Docs.find(model:'bid').count()
+            reservation_count = Docs.find(model:'reservation').count()
             Docs.update global_stat_doc._id,
                 $set:
                     total_count:total_count
-                    complete_count:complete_count
-                    incomplete_count:incomplete_count
+                    total_owners_count:total_owners_count
+                    total_handlers_count:total_handlers_count
+                    current_active_handlers:current_active_handlers
+                    total_handler_revenue:total_handler_revenue
+                    total_owner_revenue:total_owner_revenue
+                    total_tax_revenue:total_tax_revenue
+                    rental_count:rental_count
+                    total_members_count:total_members_count
+                    payment_count:payment_count
+                    total_payment_amount:total_payment_amount
+                    withdrawel_count:withdrawel_count
+                    product_count:product_count
+                    total_reservation_revenue:total_reservation_revenue
+                    service_count:service_count
+                    bid_count:bid_count
+                    reservation_count:reservation_count

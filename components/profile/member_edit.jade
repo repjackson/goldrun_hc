@@ -5,10 +5,11 @@ template(name='member_edit')
             .three.column.row
                 .column
                     .ui.center.aligned.large.inline.grey.header
-                        | #{user_from_username_param.first_name} #{user_from_username_param.last_name}
+                        | #{name}
+                        //- | #{user_from_username_param.first_name} #{user_from_username_param.last_name}
                     //- +i name='pencil'
-                    .ui.small.inline.header @#{user_from_username_param.username}
-                    a.ui.big.button(href="/member/#{user_from_username_param.username}/") 
+                    //- .ui.small.inline.header @#{user_from_username_param.username}
+                    a.ui.big.fluid.button(href="/member/#{user_from_username_param.username}/") 
                         i.checkmark.big.green.icon
                         strong save
                     .ui.hidden.divider
@@ -23,11 +24,12 @@ template(name='member_edit')
                             |delete user
                 .column
                     .ui.form
-                        +text_edit key='first_name' label='first name' icon='header' direct=true
-                        +text_edit key='last_name' label='last name' icon='text' direct=true
-                        +text_edit key='address' label='address' icon='marker' direct=true
+                        +text_edit key='nickname' label='nickname' icon='anonymous-mask' direct=true
+                        //- +text_edit key='first_name' label='first name' icon='header' direct=true
+                        //- +text_edit key='last_name' label='last name' icon='text' direct=true
+                        //- +text_edit key='address' label='address' icon='marker' direct=true
                         +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                        +boolean_edit key='profile_published' label='publish profile' direct=true
+                        +boolean_edit key='profile_published' label='publish profile' direct=true subtitle='in the directory'
                         div
                         .ui.basic.segment
                             .ui.header 
@@ -43,5 +45,5 @@ template(name='member_edit')
                         +link_edit key='facebook_link' label='facebook link' icon='facebook' direct=true
                         +link_edit key='twitter_link' label='twitter link' icon='twitter' direct=true
                 .column
-                    +number_edit key='daily_goal_active' label='daily active goal' tooltip='amount desired actively participating in the marketplace (handling/running)'
-                    +number_edit key='daily_goal_passive' label='daily passive goal' tooltip='amount desired with no effort (owning)'
+                    +number_edit key='daily_goal_active' label='daily active goal' tooltip='amount desired actively participating in the marketplace (handling/running)' direct=true
+                    +number_edit key='daily_goal_passive' label='daily passive goal' tooltip='amount desired with no effort (owning)' direct=true

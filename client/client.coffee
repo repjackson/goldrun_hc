@@ -76,8 +76,9 @@ Template.registerHelper 'invert_class', () -> if Session.equals('dark_mode',true
 Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
-Template.registerHelper 'is_author', () ->
-    @_author_id is Meteor.userId()
+Template.registerHelper 'is_author', ()-> @_author_id is Meteor.userId()
+Template.registerHelper 'is_handler', ()-> @handler_username is Meteor.user().username
+Template.registerHelper 'is_owner', ()-> @owner_username is Meteor.user().username
 Template.registerHelper 'is_grandparent_author', () ->
     grandparent = Template.parentData(2)
     grandparent._author_id is Meteor.userId()
@@ -89,7 +90,9 @@ Template.registerHelper 'medium_date', (input) -> moment(input).format("MMMM Do 
 # Template.registerHelper 'medium_date', (input) -> moment(input).format("dddd, MMMM Do YYYY")
 Template.registerHelper 'today', () ->
     moment(Date.now()).format("dddd, MMMM Do a")
-Template.registerHelper 'fixed', (input) -> input.toFixed(2)
+Template.registerHelper 'fixed', (input) ->
+    if input
+        input.toFixed(2)
 Template.registerHelper 'int', (input) -> input.toFixed(0)
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
@@ -360,9 +363,9 @@ Template.registerHelper 'is_current_manager', () ->
     if Meteor.user() and Meteor.user().roles
         if 'manager' in Meteor.user().current_roles then true else false
 
-Template.registerHelper 'is_handler', () ->
-    if Meteor.user() and Meteor.user().roles
-        if 'handler' in Meteor.user().roles then true else false
+# Template.registerHelper 'is_handler', () ->
+#     if Meteor.user() and Meteor.user().roles
+#         if 'handler' in Meteor.user().roles then true else false
 Template.registerHelper 'is_resident', () ->
     if Meteor.user() and Meteor.user().roles
         if 'resident' in Meteor.user().roles then true else false

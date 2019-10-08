@@ -1,54 +1,54 @@
 template(name='nav')
     unless is_frontdesk
-        #topnav.topnav.ui.attached.borderless.menu
-            if is_loading
-                .icon.item
-                    //- i.big.spinning.yin.yang.grey.cancel.icon
-                    i.big.spinning.pulse.plus.blue.icon.cancel
-            a.ui.icon.item(href='/' class="{{isActivePath '/'}}")
-                +i name='home' classes='ui mini inline image'
-            //- if is_member
-            //-     each role_models
-            //-         a.ui.icon.item.set_model(href="/m/#{slug}" class="{{isActivePath '/m/model'}}" title=title)
-            //-             +i name=icon classes='ui mini inline image'
-            if is_dev
-                a.ui.icon.item(href='/members' class="{{isActivePath '/members'}}")
-                    +i name='groups' classes='ui mini inline image'
-            if is_staff
-                a.ui.item(href='/staff' class="{{isActivePath '/staff'}}" title='staff')
-                    +i name='user shield' classes='ui mini inline image'
-                    | staff
-            .right.menu
+        //- #topnav.topnav.ui.attached.borderless.menu
+        .ui.stackable.grid
+            .sixteen.wide.center.aligned.column
+                if is_loading
+                    i.big.spinning.grey.yin.yang.icon.cancel
+                a.ui.icon.button(href='/' class="{{isActivePath '/'}}")
+                    +i name='home' classes='ui mini inline image'
+                //- if is_member
+                //-     each role_models
+                //-         a.set_model(href="/m/#{slug}" class="{{isActivePath '/m/model'}}" title=title)
+                //-             +i name=icon classes='ui mini inline image'
                 if is_dev
-                    a.ui.icon.item(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
+                    a.ui.icon.button(href='/members' class="{{isActivePath '/members'}}")
+                        +i name='groups' classes='ui mini inline image'
+                if is_staff
+                    a.ui.tertiary.button(href='/staff' class="{{isActivePath '/staff'}}")
+                        +i name='user shield' classes='ui mini inline image'
+                        | staff
+                if is_dev
+                    a.ui.icon.button(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
                         +i name='database' classes='ui mini inline image'
                 if currentUser
                     unless logging_out
                         if is_member
-                            a.ui.item(href="/member/#{currentUser.username}/finance" class="{{isActiveRoute regex='member_finance'}}" title='credits')
-                                .ui.small.inline.header {{int currentUser.credit}}
-                            a.ui.item(href="/member/#{currentUser.username}/info" class="{{isActiveRoute regex='member_profile'}}")
+                            a.ui.button(href="/member/#{currentUser.username}/finance" class="{{isActiveRoute regex='member_finance'}}" title='credits')
+                                i.coins.grey.icon
+                                |{{int currentUser.credit}}
+                            a.ui.button(href="/member/#{currentUser.username}/info" class="{{isActiveRoute regex='member_profile'}}")
                                 if currentUser.profile_image_id
-                                    img.ui.avatar.image(src="{{c.url currentUser.profile_image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                    img.ui.avatar.inline.image(src="{{c.url currentUser.profile_image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 else
                                     +i name='user' classes='ui mini inline image'
-                                .mobile.hidden #{currentUser.name}
+                                span.mobile.hidden #{currentUser.name}
                         else
-                            a.ui.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_profile'}}")
+                            a.ui.button(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='user_profile'}}")
                                 if currentUser.profile_photo
-                                    img.ui.avatar.image(src="{{c.url currentUser.profile_photo width=100 height=100 gravity='face' crop='fill'}}")
+                                    img.ui.avatar.inline.image(src="{{c.url currentUser.profile_photo width=100 height=100 gravity='face' crop='fill'}}")
                                 else
                                     +i name='user' classes='ui mini inline image'
-                                .mobile.hidden #{currentUser.name}
+                                span.mobile.hidden #{currentUser.name}
                     if logging_out
-                        .ui.item
+                        .ui.button
                             i.loading.circle.notch.icon
                     else
-                        a#logout.ui.mobile.hidden.icon.item(href='#' title='log out')
+                        a#logout.ui.mobile.hidden.icon.button(href='#' title='log out')
                             i.sign.out.icon
                 else
                     unless currentUser
-                        a.ui.item(href='/login' title='login') 
+                        a.ui.button(href='/login' title='login') 
                             +i name='internal' classes='ui mini inline image'
                             |login
 
@@ -66,7 +66,7 @@ template(name='footer')
                     i.sign.in.icon
                     |login
             +footer_chat
-            if is_admin
+            if is_eric
                 with currentUser
                     +role_switcher
 
@@ -79,7 +79,7 @@ template(name='footer_chat')
         |chat
     .ui.list.scroll
         each chat_messages
-            .item(title="by #{author.first_name} #{author.last_name} #{when}")
+            .item(title="by #{author.name} #{when}")
                 if author
                     img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
                 |#{text}

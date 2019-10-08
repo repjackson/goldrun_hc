@@ -7,40 +7,40 @@ template(name='grid')
     //-         i.search.icon
     //- unless model_filter_value
     //-     +cloud filter='model'
-    .ui.padded.grid
+    .ui.padded.stackable.grid
         .row
-            .twelve.wide.column
-                .ui.stackable.three.column.grid
+            .ten.wide.column
+                .ui.stackable.two.column.stackable.grid
                     .row
                         each role_models
                             .column
                                 +grid_role_model
-            .four.wide.column
+            .six.wide.column
                 +global_stats
+                +latest_activity
     +revenue_calculator            
         
 template(name='grid_role_model')
-    .ui.segment
-        a.ui.inline.header(href="/m/#{slug}" tabindex="0")
-            +i name=icon classes='ui inline image'
-            //- i.icon(class=icon)
-            |#{model_doc_count}
-            |#{title}
-        //- i.grey.eye.icon
-        //- i.grey.thumbs.up.icon
-        //- i.grey.clock.icon
-        //- div
-        .ui.animated.selected.list
-            each model_docs
-                +model_list_item_view
-        //- span(title='views')
-        //-     |#{views}
-        if is_dev
-            span(title='views')
-                i.eye.grey.icon
-                |#{views}
-            each view_roles
-                .ui.small.basic.label(title='viewable by') #{this}
+    a.ui.header(href="/m/#{slug}" tabindex="0")
+        +i name=icon classes='ui inline image'
+        //- i.icon(class=icon)
+        |#{model_doc_count}
+        |#{title}
+    //- i.grey.eye.icon
+    //- i.grey.thumbs.up.icon
+    //- i.grey.clock.icon
+    //- div
+    .ui.animated.selected.list
+        each model_docs
+            +model_list_item_view
+    //- span(title='views')
+    //-     |#{views}
+    if is_dev
+        span(title='views')
+            i.eye.grey.icon
+            |#{views}
+        each view_roles
+            .ui.small.basic.label(title='viewable by') #{this}
 
 
 template(name='model_list_item_view')
@@ -50,7 +50,7 @@ template(name='model_list_item_view')
             img.ui.mini.inline.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
         if icon
             +ismall name=icon
-        strong #{title} #{name}
+        | #{title} #{name}
         small ~$#{hourly_dollars}/hr
         //- span.lowercase #{title} #{name}
         div

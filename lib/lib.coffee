@@ -92,7 +92,9 @@ Docs.helpers
             downvoters
 Meteor.users.helpers
     name: ->
-        if @first_name and @last_name
+        if @nickname
+            "#{@nickname}"
+        else if @first_name and @last_name
             "#{@first_name} #{@last_name}"
         else
             "#{@username}"

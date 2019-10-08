@@ -99,9 +99,43 @@ template(name='member_dashboard')
         .ui.header hi
         
     .ui.pointer.header.recalc_wage_stats
+        +i name='discount--v2'
         |current hourly wage
-    
-    
+    .ui.header 
+        |$#{current_interest_rate}
+        small /hr from interest
+    .ui.header 
+        |$#{current_rental_combined_revenue}
+        small /hr from interest
+    if current_user
+        if currentUser.active
+            if current_handling_rentals
+                .ui.small.header current active handled rentals
+                |you're earning 10% of the potential hourly wage every hour you're active
+                each current_handling_rentals
+                    +rental_small_interest
+        else 
+            |you'd be earning 1% of the potential hourly wage every hour you're active
+        .ui.small.header from active reservations
+        
+        
+template(name='rental_small_interest')        
+    .ui.stackable.grid
+        .four.wide.column
+            a(href="/rental/#{_id}/view")
+                img.ui.centered.image(src="{{c.url image height=200 width=200 background='white' crop='pad'}}")
+        .twelve.wide.column
+            a.ui.inline.header(href="/rental/#{_id}/view") #{title} 
+            .ui.basic.label $#{hourly_dollars}/hr
+            +rental_status
+            div
+            .ui.small.header $#{rental_interest_rate}/hr interest
+            a.ui.button(href="/rental/#{_id}/view")
+                |view
+                i.right.chevron.icon
+            unless is_handler
+                +reserve_button
+
 
 
 template(name='member_finance')
@@ -117,7 +151,7 @@ template(name='member_finance')
                 .ui.header 
                     +i name='initiate-money-transfer'
                     |withdraw
-                |$50 minimum withdrawals take one business day 
+                |$42 minimum, takes one business day 
                 .ui.action.fluid.input
                     input.withdrawal_amount(type='number' min='1' max=currentUser.credit placeholder='amount')
                     .ui.icon.button.initial_withdrawal 
@@ -135,14 +169,14 @@ template(name='member_finance')
                 .ui.header 
                     +i name='initiate-money-transfer'
                     |deposits
-                |deposits are given 5% after processing fee
+                |deposits are given +5% credit after credit card processing fee
                 .ui.action.fluid.input
                     input.deposit_amount(type='number' min='1' placeholder='deposit')
                     .ui.icon.button.add_credits   
                         i.right.chevron.icon
                         
                 .ui.large.bulleted.list
-                    each payments
+                    each deposits
                         .item 
                             .content
                                 .header 
