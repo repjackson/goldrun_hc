@@ -113,13 +113,26 @@ if Meteor.isClient
     Template.upcoming_day.helpers
         hours: -> [9..17]
         hour_class: ->
+            classes = ''
             hour = parseInt(@.valueOf())
             day_moment_ob = Template.parentData().data.moment_ob
             # date = day_moment_ob.format("YYYY-MM-DD")
+            start_date = day_moment_ob.date()
+            start_month = day_moment_ob.month()
+            start_hour = parseInt(@.valueOf())
+            found_res = Docs.findOne {
+                model:'reservation'
+                start_month: start_month
+                start_hour: start_hour
+                start_date: start_date
+            }
+            if found_res
+                classes += 'disabled'
             date = day_moment_ob.date()
             if Session.equals('current_hour', hour)
                 if Session.equals('current_date', date)
-                    'active'
+                    classes += ' blue inverted'
+            classes
         existing_bids: ->
             day_moment_ob = Template.parentData().data.moment_ob
             # date = day_moment_ob.format("YYYY-MM-DD")
@@ -130,6 +143,19 @@ if Meteor.isClient
                 hour: hour
                 date: date
             }, sort:bid_amount:-1
+
+        existing_reservations: ->
+            day_moment_ob = Template.parentData().data.moment_ob
+            # start_date = day_moment_ob.format("YYYY-MM-DD")
+            start_date = day_moment_ob.date()
+            start_month = day_moment_ob.month()
+            start_hour = parseInt(@.valueOf())
+            Docs.find {
+                model:'reservation'
+                start_month: start_month
+                start_hour: start_hour
+                start_date: start_date
+            }
 
 
         is_top: ->

@@ -33,19 +33,23 @@ template(name='rental_calendar')
 template(name='upcoming_day')
     a.ui.small.grey.header(href="/reservation_slot/#{reservation_slot._id}")
         | #{data.long_form}
-    .ui.vertical.fluid.menu
-        each hours
-            .item.pointer.select_hour(class=hour_class)
-                .ui.inline.header #{this}
-                //- .ui.compact.button.reserve_slot bid
-                .ui.list
-                    each existing_bids
-                        .item 
-                            if is_top
-                                i.green.checkmark.icon
-                            |$#{bid_amount} by #{_author_username}
-                                
-                div
+    each hours
+        .ui.segment.pointer.select_hour(class=hour_class)
+            .ui.inline.header #{this}
+            //- .ui.compact.button.reserve_slot bid
+            .ui.list
+                each existing_bids
+                    .item 
+                        if is_top
+                            i.green.checkmark.icon
+                        |$#{bid_amount} by #{_author_username}
+            .ui.small.header reservations
+            .ui.list
+                each existing_reservations
+                    .item 
+                        | by #{_author_username}
+                            
+            div
                     
 
 template(name='single_bid')
@@ -68,4 +72,5 @@ template(name='reservation_small')
         .ui.header from #{start_date} @ #{start_hour}
         |by #{_author_username}
         .ui.header to #{end_date} @ #{end_hour}
-            
+        if is_author
+            +remove_button
