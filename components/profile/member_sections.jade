@@ -16,15 +16,6 @@ template(name='member_info')
                     //- |if all of your rentals were reserved full time, without handling
                     .ui.big.list
                         .item 
-                            +i name='wrench'
-                            |#{service_count} services
-                        .item 
-                            +i name='shopping-cart'
-                            |#{product_count} products
-                        .item 
-                            +i name='chat'
-                            |#{comment_count} comments
-                        .item 
                             +i name='handshake'
                             |#{rental_count} rentals
                         .item 
@@ -70,17 +61,6 @@ template(name='member_info')
                         |#{reservation_count} reservations
     
 
-
-
-template(name='member_workhistory')
-    +i name='resume' classes='ui inline image'
-    .ui.inline.header work history
-    if is_current_user
-        +pdf_edit key='resume' label='resume' direct=true
-    else
-        if resume
-            +pdf_view key='resume' label='resume' direct=true
-    
 
 
 template(name='member_social')
@@ -235,79 +215,6 @@ template(name='member_finance')
             each joint_transactions 
                 .ui.header #{when}
 
-
-template(name='member_services')
-    each services 
-        .ui.fluid.segment.grid
-            .row
-                .sixteen.wide.column
-                    a.ui.inline.header(href="/service/#{_id}/view") #{title} 
-                        if variable_price
-                            |~
-                        |$#{hourly_rate}/hr
-            .row
-                .four.wide.column
-                    a(href="/service/#{_id}/view")
-                        +image_view key='image' direct=true
-                .twelve.wide.column
-                    div
-                    +ismall name='marker' direct=true
-                    each location_tags
-                        .ui.basic.label #{this}
-                    div
-                    +ismall name='tags' direct=true
-                    each tags
-                        .ui.basic.label #{this}
-                    div
-                    a.ui.button(href="/service/#{_id}/view")
-                        |view
-                        i.right.chevron.icon
-
-template(name='member_products')
-    each services 
-        .ui.fluid.segment.grid
-            .row
-                .sixteen.wide.column
-                    a.ui.inline.header(href="/service/#{_id}/view") #{title} 
-                        if variable_price
-                            |~
-                        |$#{hourly_rate}/hr
-            .row
-                .four.wide.column
-                    a(href="/service/#{_id}/view")
-                        +image_view key='image' direct=true
-                .twelve.wide.column
-                    div
-                    +ismall name='marker' direct=true
-                    each location_tags
-                        .ui.basic.label #{this}
-                    div
-                    +ismall name='tags' direct=true
-                    each tags
-                        .ui.basic.label #{this}
-                    div
-                    a.ui.button(href="/service/#{_id}/view")
-                        |view
-                        i.right.chevron.icon
-
-template(name='member_bids')
-    .ui.header bids
-    each bids
-        .ui.fluid.segment.grid
-            .row
-                .sixteen.wide.column
-                    a.ui.inline.header(href="/rental/#{rental._id}/view") #{rental.title} 
-                        |$#{bid_amount} for #{date} @ #{hour}
-            .row
-                .four.wide.column
-                    with rental
-                        a(href="/rental/#{_id}/view")
-                            img.ui.centered.rounded.small.image(src="{{c.url image gravity='face' crop='fit'}}")
-                .twelve.wide.column
-                    a.ui.button(href="/rental/#{_id}/view")
-                        |view
-                        i.right.chevron.icon
-
 template(name='member_reservations')
     each reservations 
         +profile_reservation_item
@@ -403,10 +310,6 @@ template(name='member_people')
             +member_following
         .eight.wide.column
             +follow_user
-
-                
-template(name='member_requests')
-    .ui.header requests
 
 
 

@@ -59,19 +59,6 @@ if Meteor.isClient
             }, sort:_timestamp:-1
 
 
-    Template.member_bids.onCreated ->
-        @autorun => Meteor.subscribe 'member_bids', Router.current().params.username
-        @autorun => Meteor.subscribe 'model_docs', 'rental'
-    Template.member_bids.helpers
-        bids: ->
-            current_user = Meteor.users.findOne username:Router.current().params.username
-            Docs.find {
-                model:'bid'
-            }, sort:_timestamp:-1
-
-
-
-
     Template.member_finance.onCreated ->
         # @autorun => Meteor.subscribe 'joint_transactions', Router.current().params.username
         @autorun => Meteor.subscribe 'model_docs', 'deposit'
@@ -170,19 +157,6 @@ if Meteor.isClient
                 _author_username: Router.current().params.username
             }, sort:_timestamp:-1
 
-
-
-
-    Template.member_services.onCreated ->
-        @autorun => Meteor.subscribe 'member_services', Router.current().params.username
-    Template.member_services.helpers
-        services: ->
-            current_user = Meteor.users.findOne username:Router.current().params.username
-            Docs.find
-                model:'service'
-                _author_username:current_user.username
-                # _author_id:current_user._id
-                # confirmed:true
 
 
 
@@ -356,19 +330,6 @@ if Meteor.isServer
             model:'reservation'
             user_id: current_user._id
 
-    Meteor.publish 'member_bids', (username)->
-        current_user = Meteor.users.findOne username:username
-        Docs.find
-            model:'bid'
-            _author_id: current_user._id
-
-
-    Meteor.publish 'member_services', (username)->
-        current_user = Meteor.users.findOne username:username
-        Docs.find
-            model:'service'
-            _author_username:username
-            # _author_id: current_user._id
 
     Meteor.publish 'handling_sessions', (username)->
         current_user = Meteor.users.findOne username:username

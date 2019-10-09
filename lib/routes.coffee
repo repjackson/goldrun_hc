@@ -17,13 +17,10 @@ Router.onBeforeAction(force_loggedin, {
     'home'
     'forgot_password'
     'reset_password'
-    'delta'
-    'product_view'
     'doc_view'
     'rentals'
     'rental_view'
     'reservation_view'
-    'service_view'
     'verify-email'
     'download_rules_pdf'
   ]
@@ -128,7 +125,3 @@ Router.route '/healthclub_session/:doc_id', (->
     @layout 'mlayout'
     @render 'healthclub_session'
     ), name:'healthclub_session'
-
-
-
-Router.route '/rental/:doc_id/daily_calendar/:month/:day/:year/', -> @render 'rental_day'

@@ -11,8 +11,8 @@
 #   siteName: 'Henry Health'
 
 
-Accounts.emailTemplates.siteName = 'Gold Run Online';
-Accounts.emailTemplates.from = 'Gold Run Online <admin@goldrun.page>';
+Accounts.emailTemplates.siteName = 'gold run';
+Accounts.emailTemplates.from = 'gold run <noreply@goldrun.online>';
 #
 # Accounts.emailTemplates.enrollAccount.subject = (user) => {
 #   return `Welcome to Awesome Town, ${user.profile.name}`;
@@ -30,7 +30,7 @@ Accounts.emailTemplates.from = 'Gold Run Online <admin@goldrun.page>';
 #   return 'AwesomeSite Password Reset <no-reply@example.com>';
 # };
 Accounts.emailTemplates.verifyEmail =
-   subject: -> "Gold Run Online Activation"
+   subject: -> "gold run activation"
    text: (user, url)-> "Hi #{user.username}.\n Please verify your e-mail by clicking here: #{url}.\n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: admin@goldrun.page."
 
 
@@ -53,10 +53,10 @@ Meteor.methods
         Accounts.sendResetPasswordEmail new_user_id
 
 
-        
+
 Mailer.config
-    from: 'Gold Run Online <goldrunreccenter@gmail.com>',     # Default 'From:' address. Required.
-    replyTo: 'Gold Run Online <goldrunreccenter@gmail.com>',  # Defaults to `from`.
+    from: 'Gold Run <goldrunreccenter@gmail.com>',     # Default 'From:' address. Required.
+    replyTo: 'Gold Run <goldrunreccenter@gmail.com>',  # Defaults to `from`.
     routePrefix: 'emails',              # Route prefix.
     baseUrl: "process.env.ROOT_URL",      # The base domain to build absolute link URLs from in the emails.
     testEmail: "repjackson@gmail.com",                    # Default address to send test emails to.
@@ -85,10 +85,10 @@ Meteor.methods
         new_user = Meteor.users.findOne new_user_id
         Mailer.send
             to: ['EJ <repjackson@gmail.com>']          # 'To: ' address. Required.
-            subject: 'New Gold Run Online Enrollment'                     # Required.
+            subject: 'New Gold Run Enrollment'                     # Required.
             template: 'admin_enrollment_email'               # Required.
-            replyTo: 'Gold Run Online <admin@goldrun.page>'      # Override global 'ReplyTo: ' option.
-            from: 'Gold Run Online <admin@goldrun.page>'         # Override global 'From: ' option.
+            replyTo: 'Gold Run <admin@goldrun.page>'      # Override global 'ReplyTo: ' option.
+            from: 'Gold Run <admin@goldrun.page>'         # Override global 'From: ' option.
             # cc: 'Name <name@domain.com>'           # Optional.
             # bcc: 'Name <name@domain.com>'          # Optional.
             data: {new_user:new_user}               # Optional. Render your email with a data object.

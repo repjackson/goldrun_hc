@@ -111,11 +111,8 @@ if Meteor.isServer
 
             payment_count = Docs.find(model:'payment').count()
             rental_count = Docs.find(model:'rental').count()
-            product_count = Docs.find(model:'product').count()
 
             withdrawel_count = Docs.find(model:'withdrawel').count()
-            service_count = Docs.find(model:'service').count()
-            bid_count = Docs.find(model:'bid').count()
             reservation_count = Docs.find(model:'reservation').count()
             Docs.update global_stat_doc._id,
                 $set:
@@ -131,8 +128,5 @@ if Meteor.isServer
                     payment_count:payment_count
                     total_payment_amount:total_payment_amount
                     withdrawel_count:withdrawel_count
-                    product_count:product_count
                     total_reservation_revenue:total_reservation_revenue
-                    service_count:service_count
-                    bid_count:bid_count
                     reservation_count:reservation_count
