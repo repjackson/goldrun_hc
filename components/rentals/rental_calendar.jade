@@ -1,5 +1,5 @@
 template(name='rental_calendar')
-    .ui.grid
+    .ui.stackable.grid
         .row
             .eight.wide.column
                 
@@ -7,7 +7,7 @@ template(name='rental_calendar')
                 //-     .ui.inline.large.header 
                 //-         |$#{daily_dollars}
                 //-         small /day
-                .ui.grid
+                .ui.stackable.grid
                     .two.column.row
                         each upcoming_days
                             .column
@@ -16,7 +16,9 @@ template(name='rental_calendar')
                 if current_date
                     if current_hour
                         .ui.header {{short_date current_date_string}} @ #{current_hour} reservations/bids
-                        .ui.small.header bids
+                        .ui.small.header
+                            +i name='donate'
+                            |bids
                         each hourly_bids
                             +single_bid
                         unless has_bid
@@ -24,7 +26,9 @@ template(name='rental_calendar')
                                 i.green.plus.icon
                                 |bid
                         if hourly_reservations
-                            .ui.small.header reservations
+                            .ui.small.header 
+                                +i name='clock'
+                                |reservations
                             each hourly_reservations
                                 +reservation_small
                             else 
@@ -83,19 +87,19 @@ template(name='reservation_small')
                     input.res_start_time(type='time' value=start_time)
                 //- .ui.input
                 //-     input.res_start(type='datetime-local' value=start_datetime)
-                .ui.inline.header 
-                    |duration
-                .ui.input            
+                .ui.right.labeled.input            
                     input.hour_duration(type='number' min='0' value=hour_duration autocomplete="off")
+                    .ui.basic.label hrs
                 div
                 .ui.input
                     input.res_end_time(type='time' min="#{start_time}" value=end_time)
+                div
                 //- .ui.input
                 //-     input.res_end(type='datetime-local' value="#{end_datetime}")
                 //- +number_edit key='start_minute' min='0' max='60' label='start minute' direct=true
                 //- +number_edit key='end_hour' min=start_hour max='24' label='end hour' direct=true
                 //- +number_edit key='end_minute' min='0' max='60' label='end minute' direct=true
-                +boolean_edit key='submitted' direct=true
+                //- +boolean_edit key='submitted' direct=true
                 .ui.header 
                     +i name='money' classes='ui tiny inline image'
                     | #{hour_duration}
@@ -128,7 +132,7 @@ template(name='reservation_small')
                         if res_end_pickup_selected
                             | + #{rental.res_end_pickup_fee}
                     .ui.header
-                        small balance after purchase
+                        small balance after reservation
                         small = 
                         //- small balance after purchase 
                         |#{member_balance_after_reservation}
@@ -145,11 +149,70 @@ template(name='reservation_small')
                         //-     | + #{rental.res_start_dropoff_fee}
                         //- if res_end_pickup_selected
                         //-     | + #{rental.res_end_pickup_fee}
-                    .ui.header
-                        small balance after purchase
-                        small = 
-                        |#{member_balance_after_reservation}
-                
+            unless submitted
+                if can_buy
+                    .ui.big.green.fluid.button.submit_reservation(class=submit_button_class)
+                        +i name='paid'        
+                        |submit and pay
+                else if need_credit
+                    .ui.header #{member_balance_after_reservation} credit needed to purchase
+                    .ui.inline.header add 
+                    .ui.inline.input
+                        input.adding_credit(type='number' value=member_balance_after_reservation) 
+                    .ui.big.teal.fluid.button.add_credit(class=submit_button_class)
+                        +i name='online-money-transfer'        
+                        |add credit to reserve
+                else if need_approval
+                    .ui.big.teal.fluid.button.request_reservation(class=submit_button_class)
+                        +i name='paid'        
+                        |request reservation
+                else
+                    .ui.big.disabled.fluid.button.send_message(title='cannot reserve for other reason')
+                        +i name='ban'
+                        |send message
+            else
+                .ui.header submitted {{ from_now submitted_timestamp }}
+                .ui.orange.fluid.button.unsubmit
+                    i.undo.icon
+                    |cancel
+
         |by #{_author_username}
         if is_author
             +remove_button
+        .ui.modal
+            i.close.icon
+            .header confirm payment of #{cost} credit
+            .image.content
+                .image
+                    with rental
+                        img.ui.rounded.small.image(src="{{c.url image width=300 height=300 gravity='face' crop='fill'}}")
+                .description
+                    if is_paying
+                        i.big.loading.refresh.icon
+                    else 
+                        .ui.header 
+                            small your balance
+                            |{{fixed currentUser.credit}} 
+                        .ui.header
+                            small deductions
+                            | -
+                            if res_start_dropoff_selected
+                                small dropoff selected
+                                | + #{rental.res_start_dropoff_fee}
+                            if res_end_pickup_selected
+                                small pickup selected
+                                | + #{rental.res_end_pickup_fee}
+                        .ui.header
+                            |#{cost} 
+                        .ui.header
+                            small balance after purchase
+                            small = 
+                            //- small balance after purchase 
+                            |#{member_balance_after_reservation}
+            .actions
+                .ui.red.negative.button
+                    i.ban.icon
+                    | cancel
+                .ui.green.positive.large.button
+                    i.checkmark.icon
+                    |confirm

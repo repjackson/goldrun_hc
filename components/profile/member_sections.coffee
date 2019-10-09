@@ -289,10 +289,15 @@ if Meteor.isClient
         'click .calc_handling_session_totals': ->
             Meteor.call 'calculate_user_totals'
     Template.handling_sessions.helpers
-        current_session_minutes: ->
+        current_session_diff: ->
             moment_in = moment(@clock_in_timestamp)
             moment_out = moment(@clock_out_timestamp)
-            moment_out.diff(moment_in, 'minutes')
+            minutes = parseInt(moment_out.diff(moment_in, 'minutes'))
+            if minutes>60
+                hours = parseInt(minutes/60)
+                "#{hours}hrs"
+            else
+                "#{minutes}mins"
         sessions: ->
             Docs.find
                 model:'handling_session'
@@ -463,11 +468,11 @@ if Meteor.isServer
             total_hourly_credit = 0
 
             for managed_rental in managed_rentals.fetch()
-                console.log 'adding hourly', managed_rental.hourly_dollars
+                # console.log 'adding hourly', managed_rental.hourly_dollars
                 total_hourly_credit += managed_rental.hourly_dollars
 
-            console.log 'total_hourly_credit', total_hourly_credit
-            potential_daily_revenue = total_hourly_credit*24*.95
+            # console.log 'total_hourly_credit', total_hourly_credit
+            potential_daily_revenue = total_hourly_credit*8*.95
             potential_two_hour_daily_revenue = total_hourly_credit*2*.95
 
             potential_weekly_revenue = potential_daily_revenue*7

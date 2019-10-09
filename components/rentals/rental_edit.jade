@@ -16,6 +16,8 @@ template(name='rental_edit')
                     +text_edit key='title' direct=true
                     +textarea_edit key='description' label='description' icon='content' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +array_edit key='private_location_tags' label='private location tags' icon='marker' direct=true tooltip='for handlers and buyers who are picking up'
+                    +array_edit key='public_location_tags' label='public location tags' icon='marker' direct=true tooltip='fo people to find the rental'
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +text_edit key='contact_info' label='contact info' icon='info' direct=true
                     +link_edit key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true

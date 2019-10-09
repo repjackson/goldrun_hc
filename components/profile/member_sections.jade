@@ -6,57 +6,61 @@ template(name='member_info')
     +array_view key='location_tags' label='location tags' icon='location' direct=true
     +link_view key='link' label='link' icon='link' direct=true
     //- .ui.header member activity
-    if is_admin
-        .ui.button.refresh_member_stats
-            i.refresh.icon
-            |refresh stats
+    .ui.icon.button.refresh_member_stats(title='refresh stats')
+        i.refresh.icon
     with member_stats
         .ui.stackable.grid
             .three.column.row
                 .column
-                    .ui.small.header #{total_passive_potential} total passive potential
-                    |if all of your rentals were reserved full time, without handling
-                    .ui.header 
-                        +i name='wrench'
-                        |#{service_count} services
-                    .ui.header 
-                        +i name='shopping-cart'
-                        |#{product_count} products
-                    .ui.header 
-                        +i name='chat'
-                        |#{comment_count} comments
-                    .ui.header 
-                        +i name='handshake'
-                        |#{rental_count} rentals
-                    .ui.header 
-                        +i name='handshake'
-                        |#{owned_count} owned rentals
+                    //- .ui.small.header #{total_passive_potential} total passive potential
+                    //- |if all of your rentals were reserved full time, without handling
+                    .ui.big.list
+                        .item 
+                            +i name='wrench'
+                            |#{service_count} services
+                        .item 
+                            +i name='shopping-cart'
+                            |#{product_count} products
+                        .item 
+                            +i name='chat'
+                            |#{comment_count} comments
+                        .item 
+                            +i name='handshake'
+                            |#{rental_count} rentals
+                        .item 
+                            +i name='handshake'
+                            |#{owned_count} owned rentals
                 .column
-                    .ui.header 
+                    .ui.header rental potential
+                    .ui.inline.header 
                         +i name='money'
                         |$#{total_hourly_credit}
                         small hourly
-                    | if all rentals are circulating
-                    .ui.header 
-                        +i name='money'
-                        |$#{potential_daily_revenue}
-                        small daily 
-                    |if all rentals were reserved 24 hrs a day
-                    .ui.header 
-                        +i name='money'
+                    //- | if rentals are circulating
+                    div
+                    .ui.inline.header 
+                        +i name='sunrise--v1'
                         |$#{potential_two_hour_daily_revenue}
                         small daily
-                    |if all rentals were reserved 2 hrs a day
-                    .ui.header 
-                        +i name='calendar'
-                        |$#{potential_weekly_revenue}
-                        small weekly 
-                    |if all rentals were reserved 24 hrs a day, 7 days a week 
-                    .ui.header 
+                    | 2hrs/day
+                    div
+                    .ui.inline.header 
+                        +i name='sun'
+                        |$#{potential_daily_revenue}
+                        small daily 
+                    | 8hrs/day
+                    div
+                    .ui.inline.header 
                         +i name='calendar'
                         |$#{potential_two_hour_weekly_revenue}
                         small weekly
-                    |if all rentals were reserved 2 hrs a day, 7 days a week 
+                    | 2hrs/day
+                    div
+                    .ui.inline.header 
+                        +i name='baby-calendar'
+                        |$#{potential_weekly_revenue}
+                        small weekly 
+                    | 8hrs/day
                 .column
                     .ui.header 
                         +i name='hand-box'
@@ -129,8 +133,7 @@ template(name='handling_sessions')
         |handling sessions
     .ui.bulleted.list
         each sessions
-            .item from {{cal_time clock_in_timestamp}}
-            .item to {{cal_time clock_out_timestamp}} (#{current_session_minutes}mins)
+            .item {{cal_time clock_in_timestamp}} to {{long_time clock_out_timestamp}} (#{current_session_diff})
             if is_dev
                 +remove_button
                 
