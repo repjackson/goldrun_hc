@@ -83,16 +83,67 @@ if Meteor.isClient
 
         'click .reserve_this': ->
             rental = Docs.findOne Router.current().params.doc_id
-            # start_datetime = day_moment_ob.format("YYYY-MM-DD[T]#{hour}:00")
+            current_month = parseInt Session.get('current_month')
+            current_date = parseInt Session.get('current_date')
+            current_minute = parseInt Session.get('current_minute')
+            current_date_string = Session.get('current_date_string')
+            current_hour = parseInt Session.get('current_hour')
+            start_datetime = "#{current_date_string}T#{current_hour}:00"
+            start_time = "#{current_hour}:00"
+            end_time = moment(@start_datetime).add(val,'hours').format("HH:mm")
 
             new_reservation_id = Docs.insert
                 model:'reservation'
                 rental_id: rental._id
-                start_hour: parseInt Session.get('current_hour')
-                start_date_string:Session.get('current_date_string')
-                start_date: parseInt Session.get('current_date')
-                start_month: parseInt Session.get('current_month')
-                # start_datetime: start_datetime
+                start_hour: current_hour
+                start_minute: 0
+                start_date_string: current_date_string
+                start_date: current_date
+                start_month: current_month
+                start_datetime: start_datetime
+                start_time: start_time
+                end_time: end_time
+                hour_duration: 1
+
+
+    Template.reservation_small.events
+        'change .res_start_time': (e,t)->
+            val = t.$('.res_start_time').val()
+            Docs.update @_id,
+                $set:start_time:val
+            # Meteor.call 'recalc_reservation_cost', Template.parentData().doc_id
+
+        'change .res_end_time': (e,t)->
+            val = t.$('.res_end_time').val()
+            Docs.update @_id,
+                $set:end_time:val
+            # Meteor.call 'recalc_reservation_cost', Template.parentData().doc_id
+
+        'change .hour_duration': (e,t)->
+            val = parseFloat(t.$('.hour_duration').val())
+            console.log val
+            console.log moment(@start_datetime).add(val,'hours').format("HH:mm")
+            end_time = moment(@start_datetime).add(val,'hours').format("HH:mm")
+            Docs.update @_id,
+                $set:
+                    hour_duration:val
+                    # end_time:end_time
+            # Meteor.call 'recalc_reservation_cost', Template.parentData().doc_id
+
+        'change .res_start': (e,t)->
+            val = t.$('.res_start').val()
+            Docs.update @_id,
+                $set:start_datetime:val
+            # Meteor.call 'recalc_reservation_cost', Template.parentData().doc_id
+
+        'change .res_end': (e,t)->
+            val = t.$('.res_end').val()
+            Docs.update @_id,
+                $set:end_datetime:val
+            Meteor.call 'recalc_reservation_cost', Template.parentData().doc_id
+
+
+
 
 
     Template.upcoming_day.events
@@ -128,13 +179,27 @@ if Meteor.isClient
                 start_hour: start_hour
                 start_date: start_date
             }
-            if found_res
+            if found_res and found_res.submitted
                 classes += 'disabled'
             date = day_moment_ob.date()
             if Session.equals('current_hour', hour)
                 if Session.equals('current_date', date)
                     classes += ' raised blue'
             classes
+        pending_res: ->
+            hour = parseInt(@.valueOf())
+            day_moment_ob = Template.parentData().data.moment_ob
+            # date = day_moment_ob.format("YYYY-MM-DD")
+            start_date = day_moment_ob.date()
+            start_month = day_moment_ob.month()
+            start_hour = parseInt(@.valueOf())
+            found_res = Docs.findOne {
+                model:'reservation'
+                submitted: $ne: true
+                start_month: start_month
+                start_hour: start_hour
+                start_date: start_date
+            }
         existing_bids: ->
             day_moment_ob = Template.parentData().data.moment_ob
             # date = day_moment_ob.format("YYYY-MM-DD")
@@ -197,6 +262,7 @@ if Meteor.isClient
             Meteor.setTimeout =>
                 Docs.remove @_id
             , 250
+
 
 
 if Meteor.isServer

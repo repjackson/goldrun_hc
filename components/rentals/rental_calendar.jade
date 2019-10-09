@@ -39,6 +39,8 @@ template(name='upcoming_day')
         each hours
             .ui.segment.pointer.select_hour(class=hour_class)
                 .ui.inline.header #{this}
+                if pending_res 
+                    i.clock.icon(title="reservation started by #{pending_res.author.name} but not paid for")
                 //- .ui.compact.button.reserve_slot bid
                 .ui.list
                     each existing_bids
@@ -72,13 +74,82 @@ template(name='single_bid')
             
 template(name='reservation_small')
     .ui.segment
-        .ui.header from #{start_hour}:#{start_minute} to #{end_hour}:{{fixed end_minute }}
-        +number_edit key='start_minute' label='start minute' direct=true
-        +number_edit key='end_hour' min=start_hour max='24' label='end hour' direct=true
-        +number_edit key='end_minute' min='0' max='60' label='end minute' direct=true
-        .ui.input
-            label end time
-            input.end_time(type='time')
+        .ui.header from #{start_time} to #{end_time}
+        if submitted
+            .ui.header submitted on #{submitted_timestamp}
+        else 
+            if is_author
+                .ui.input
+                    input.res_start_time(type='time' value=start_time)
+                //- .ui.input
+                //-     input.res_start(type='datetime-local' value=start_datetime)
+                .ui.inline.header 
+                    |duration
+                .ui.input            
+                    input.hour_duration(type='number' min='0' value=hour_duration autocomplete="off")
+                div
+                .ui.input
+                    input.res_end_time(type='time' min="#{start_time}" value=end_time)
+                //- .ui.input
+                //-     input.res_end(type='datetime-local' value="#{end_datetime}")
+                //- +number_edit key='start_minute' min='0' max='60' label='start minute' direct=true
+                //- +number_edit key='end_hour' min=start_hour max='24' label='end hour' direct=true
+                //- +number_edit key='end_minute' min='0' max='60' label='end minute' direct=true
+                +boolean_edit key='submitted' direct=true
+                .ui.header 
+                    +i name='money' classes='ui tiny inline image'
+                    | #{hour_duration}
+                    small hrs * $
+                    |#{rental.hourly_dollars}
+                    small /hr = $
+                    |#{cost}
+                .ui.header(title='security deposit amount will be held until successful return') 
+                    if rental.security_deposit_required
+                        small + security deposit 
+                        |$#{rental.security_deposit_amount}
+                if rental.res_start_dropoff
+                    +boolean_edit key='res_start_dropoff_selected' classes='trigger_recalc' label="start dropoff (+1)" direct=true data=this._id  
+                    //- +boolean_edit key='res_start_dropoff_selected' classes='trigger_recalc' label="start dropoff (+#{rental.res_start_dropoff_fee})" direct=true data=this._id  
+                div
+                if rental.res_end_pickup
+                    +boolean_edit key='res_end_pickup_selected' classes='trigger_recalc' label="end pickup (+1)" direct=true data=this._id
+                    //- +boolean_edit key='res_end_pickup_selected' classes='trigger_recalc' label="end pickup (+#{rental.res_end_pickup_fee})" direct=true data=this._id
+                .ui.divider
+                if can_buy
+                    .ui.header 
+                        small your balance
+                        |{{fixed currentUser.credit}} 
+                    .ui.header
+                        small deductions
+                        //- | -  #{cost} 
+                        | -  #{total_cost} 
+                        if res_start_dropoff_selected
+                            | + #{rental.res_start_dropoff_fee}
+                        if res_end_pickup_selected
+                            | + #{rental.res_end_pickup_fee}
+                    .ui.header
+                        small balance after purchase
+                        small = 
+                        //- small balance after purchase 
+                        |#{member_balance_after_reservation}
+                else if need_credit
+                    .ui.header need credit
+                    .ui.header 
+                        small your balance
+                        |{{fixed currentUser.credit}} 
+                    .ui.header
+                        small cost
+                        | #{total_cost} 
+                        //- | #{cost} 
+                        //- if res_start_dropoff_selected
+                        //-     | + #{rental.res_start_dropoff_fee}
+                        //- if res_end_pickup_selected
+                        //-     | + #{rental.res_end_pickup_fee}
+                    .ui.header
+                        small balance after purchase
+                        small = 
+                        |#{member_balance_after_reservation}
+                
         |by #{_author_username}
         if is_author
             +remove_button
