@@ -16,15 +16,15 @@ template(name='rental_calendar')
                 if current_date
                     if current_hour
                         .ui.header {{short_date current_date_string}} @ #{current_hour} reservations/bids
-                        .ui.small.header
-                            +i name='donate'
-                            |bids
-                        each hourly_bids
-                            +single_bid
-                        unless has_bid
-                            .ui.fluid.button.new_bid
-                                i.green.plus.icon
-                                |bid
+                        //- .ui.small.header
+                        //-     +i name='donate'
+                        //-     |bids
+                        //- each hourly_bids
+                        //-     +single_bid
+                        //- unless has_bid
+                        //-     .ui.fluid.button.new_bid
+                        //-         i.green.plus.icon
+                        //-         |bid
                         if hourly_reservations
                             .ui.small.header 
                                 +i name='clock'
@@ -46,12 +46,12 @@ template(name='upcoming_day')
                 if pending_res 
                     i.clock.icon(title="reservation started by #{pending_res.author.name} but not paid for")
                 //- .ui.compact.button.reserve_slot bid
-                .ui.list
-                    each existing_bids
-                        .item 
-                            if is_top
-                                i.green.chevron.up.icon(title='highest bid')
-                            |$#{bid_amount} by #{_author_username}
+                //- .ui.list
+                //-     each existing_bids
+                //-         .item 
+                //-             if is_top
+                //-                 i.green.chevron.up.icon(title='highest bid')
+                //-             |$#{bid_amount} by #{_author_username}
                 //- .ui.small.header reservations
                 .ui.list
                     each existing_reservations

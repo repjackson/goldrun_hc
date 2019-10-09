@@ -1,4 +1,4 @@
-@selected_tags = new ReactiveArray []
+@selected_rental_tags = new ReactiveArray []
 
 Meteor.startup ->
     process.env.TZ='America/Denver'

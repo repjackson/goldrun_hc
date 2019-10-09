@@ -94,21 +94,21 @@ template(name='member_profile_layout')
                     a.ui.large.compact.button(href="/member/#{username}/reservations" class="{{isActiveRoute 'member_reservations'}}")
                         +ismall name='invoice' classes='ui inline image'
                         |reservations
-                    .ui.icon.compact.button.toggle_view_more
-                        i.large.dropdown.icon
-                    if viewing_more
-                        a.ui.large.compact.button(href="/member/#{username}/products" class="{{isActiveRoute 'member_products'}}")
-                            +ismall name='shopping-cart' classes='ui inline image'
-                            |products
-                        a.ui.large.compact.button(href="/member/#{username}/services" class="{{isActiveRoute 'member_services'}}")
-                            +ismall name='wrench' classes='ui inline image'
-                            |services
-                        a.ui.large.compact.button(href="/member/#{username}/finance" class="{{isActiveRoute 'member_finance'}}")
-                            +ismall name='money' classes='ui inline image'
-                            |finance
-                        a.ui.compact.button(href="/member/#{username}/bookmarks" class="{{isActiveRoute 'member_bookmarks'}}")
-                            +ismall name='star' classes='ui inline image'
-                            |bookmarks
+                    a.ui.large.compact.button(href="/member/#{username}/finance" class="{{isActiveRoute 'member_finance'}}")
+                        +ismall name='money' classes='ui inline image'
+                        |finance
+                    //- .ui.icon.compact.button.toggle_view_more
+                    //-     i.large.dropdown.icon
+                    //- if viewing_more
+                    //-     //- a.ui.large.compact.button(href="/member/#{username}/products" class="{{isActiveRoute 'member_products'}}")
+                    //-     //-     +ismall name='shopping-cart' classes='ui inline image'
+                    //-     //-     |products
+                    //-     //- a.ui.large.compact.button(href="/member/#{username}/services" class="{{isActiveRoute 'member_services'}}")
+                    //-     //-     +ismall name='wrench' classes='ui inline image'
+                    //-     //-     |services
+                    //-     a.ui.compact.button(href="/member/#{username}/bookmarks" class="{{isActiveRoute 'member_bookmarks'}}")
+                    //-         +ismall name='star' classes='ui inline image'
+                    //-         |bookmarks
                         //- a.ui.compact.button(href="/member/#{username}/contact" class="{{isActiveRoute 'member_contact'}}")
                         //-     +ismall name='phone' classes='ui inline image'
                         //-     |contact

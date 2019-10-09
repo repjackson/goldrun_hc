@@ -114,7 +114,7 @@ Router.route '/login', -> @render 'login'
 # Router.route '/', -> @render 'home'
 Router.route '/', (->
     @layout 'layout'
-    @render 'grid'
+    @render 'rentals'
     ), name:'home'
 
 

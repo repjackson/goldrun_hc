@@ -4,7 +4,7 @@ template(name='rental_view')
             //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
             .row
                 .four.wide.column
-                    a.ui.fluid.button(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
+                    a.ui.fluid.button(href='/' title='rentals')
                         i.left.chevron.icon
                         +i name='handshake' classes='ui mini inline image'
                         |rentals
@@ -18,12 +18,12 @@ template(name='rental_view')
                             |$#{security_deposit_amount}
                             small security deposit
                         
-                    .ui.header 
-                        |$#{minimum_bid}
-                        small /hr minimum bid
-                    .ui.header 
-                        |#{auction_cutoff_hours}hr
-                        small auction cutoff
+                    //- .ui.header 
+                    //-     |$#{minimum_bid}
+                    //-     small /hr minimum bid
+                    //- .ui.header 
+                    //-     |#{auction_cutoff_hours}hr
+                    //-     small auction cutoff
             
                     img.ui.centered.rounded.medium.invert.image(src="{{c.url image width=400 height=400 crop='fit'}}")
                     if can_edit
