@@ -1,29 +1,47 @@
 template(name='rental_calendar')
-    .ui.stackable.grid
-        .row
-            .eight.wide.column
-                
+    .ui.header calendar
+    #menu
+        .ui.button.move-today today
+        .ui.button.create_schedules +
+        .ui.icon.button.prev_view
+            i.chevron.left.icon
+        .ui.icon.button.next_view
+            i.chevron.right.icon
+        .ui.icon.button.view_week
+            |week
+        .ui.icon.button.view_day
+            |day
+        .ui.icon.button.view_month
+            |month
+            
+        span#renderRange.render-range
+    
+    #calendar(style="height: 800px;")
+        
+    //- +full_cal    
+        
+    //- .ui.stackable.grid
+    //-     .row
+    //-         .eight.wide.column
+    //- 
                 //- if daily_dollars
                 //-     .ui.inline.large.header 
                 //-         |$#{daily_dollars}
                 //-         small /day
-                .ui.stackable.grid
-                    .two.column.row
-                        each upcoming_days
-                            .column
-                                +upcoming_day data=this
-            .eight.wide.column
-                if current_date
-                    if current_hour
-                        .ui.header {{short_date current_date_string}} @ #{current_hour}:00
-                        .ui.small.header 
-                            +i name='clock'
-                            |reservations
-                        with hourly_reservation
-                            +reservation_small
-                        else 
-                            .ui.green.fluid.button.reserve_this
-                                |reserve hour for $#{rental.hourly_dollars}
+            //-     .ui.stackable.grid
+            //-         .two.column.row
+            //-             each upcoming_days
+            //-                 .column
+            //-                     +upcoming_day data=this
+            //- .eight.wide.column
+            //-     if current_date
+            //-         if current_hour
+            //-             .ui.header {{short_date current_date_string}} @ #{current_hour}:00
+            //-             with hourly_reservation
+            //-                 +reservation_small
+            //-             else 
+            //-                 .ui.green.fluid.button.reserve_this
+            //-                     |reserve hour for #{rental.hourly_dollars}c
 
 
 template(name='upcoming_day')
@@ -41,6 +59,13 @@ template(name='upcoming_day')
                         .item 
                             | by #{_author_username}
             //- .ui.divider
+                
+                
+template(name='full_cal')
+    .ui.raised.segment.container
+        #event-calendar
+    #create-event-modal.ui.modal
+        +add_event_modal
                 
 
             
@@ -68,8 +93,7 @@ template(name='reservation_small')
                 +number_view key='end_hour' min=start_hour max='24' label='end hour' direct=true
                 //- +number_edit key='end_minute' min='0' max='60' label='end minute' direct=true
                 //- +boolean_edit key='submitted' direct=true
-                .ui.header 
-                    i.money.icon
+                .ui.header
                     | #{hour_duration}
                     small hrs * $
                     |#{rental.hourly_dollars}
@@ -89,8 +113,8 @@ template(name='reservation_small')
                 .ui.divider
                 if can_buy
                     .ui.header 
-                        small your balance
-                        |{{fixed currentUser.credit}} 
+                        img.ui.avatar.image(src="{{c.url currentUser.profile_photo width=300 height=300 gravity='face' crop='fill'}}")
+                        |{{fixed currentUser.credit}}c 
                     .ui.inline.header
                         small
                         //- | -  #{cost} 

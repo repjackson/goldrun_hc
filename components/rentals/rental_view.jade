@@ -76,14 +76,13 @@ template(name='rental_view')
                     +single_user_view key='handler_username' direct=true
                     +comments
                 .twelve.wide.column
-                    //- if auction
                     .ui.basic.segment.f4
                         +html_view key='description' label='description' icon='content' direct=true
+                    +rental_calendar
                     div
                     +text_view key='contact_info' label='contact info' icon='info' direct=true
                     div
                     +link_view key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
-                    +rental_calendar
                     +rental_view_reservations
 
 template(name='rental_stats')

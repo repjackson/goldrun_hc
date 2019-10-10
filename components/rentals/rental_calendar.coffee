@@ -1,6 +1,43 @@
 if Meteor.isClient
+    Calendar = require('tui-calendar');
+    require("tui-calendar/dist/tui-calendar.css");
+    require('tui-date-picker/dist/tui-date-picker.css');
+    require('tui-time-picker/dist/tui-time-picker.css');
+
+
+
     Template.rental_calendar.onCreated ->
         @autorun -> Meteor.subscribe 'rental_reservations_by_id', Router.current().params.doc_id
+    Template.rental_calendar.onRendered ->
+        @calendar = new Calendar('#calendar', {
+            # defaultView: 'month',
+            defaultView: 'week',
+            taskView: true,  # e.g. true, false, or ['task', 'milestone'])
+            scheduleView: ['time']  # e.g. true, false, or ['allday', 'time'])
+            month:
+                daynames: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+                startDayOfWeek: 0,
+                narrowWeekend: true
+            week:
+                daynames: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+                startDayOfWeek: 0,
+                narrowWeekend: true
+            template:
+                monthGridHeader: (model)->
+                    date = new Date(model.date);
+                    template = '<span class="tui-full-calendar-weekday-grid-date">' + date.getDate() + '</span>';
+                    template;
+        })
+
+        # $('#calendar').fullCalendar();
+        # calendarEl = document.getElementById('calendar');
+        #
+        # calendar = new Calendar(calendarEl, {
+        #     plugins: [ dayGridPlugin, timeGridPlugin, listPlugin ]
+        # });
+        #
+        # calendar.render();
+
 
     Template.rental_calendar.helpers
         rental: -> Docs.findOne Router.current().params.doc_id
@@ -39,6 +76,42 @@ if Meteor.isClient
             upcoming_days
 
     Template.rental_calendar.events
+        'click .create_schedules': (e,t)->
+            t.calendar.createSchedules([
+                {
+                    id: '1',
+                    calendarId: '1',
+                    title: 'my schedule',
+                    category: 'time',
+                    dueDateClass: '',
+                    start: '2019-10-10T02:30:00+09:00',
+                    end: '2019-10-10T02:50:00+09:00'
+                },
+                {
+                    id: '2',
+                    calendarId: '1',
+                    title: 'second schedule',
+                    category: 'time',
+                    dueDateClass: '',
+                    start: '2019-10-10T09:30:00+09:00',
+                    end: '2019-10-10T09:50:00+09:00'
+                }
+            ]);
+
+        'click .next_view': (e,t)->
+            t.calendar.next()
+        'click .prev_view': (e,t)->
+            t.calendar.prev()
+        'click .view_day': (e,t)->
+            t.calendar.changeView('day', true);
+        'click .view_week': (e,t)->
+            t.calendar.changeView('week', true);
+        'click .view_month': (e,t)->
+            # // monthly view(default 6 weeks view)
+            t.calendar.setOptions({month: {visibleWeeksCount: 6}}, true); # or null
+            t.calendar.changeView('month', true);
+
+
         'click .reserve_this': ->
             rental = Docs.findOne Router.current().params.doc_id
             current_month = parseInt Session.get('current_month')

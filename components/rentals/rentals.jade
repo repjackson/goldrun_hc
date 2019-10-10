@@ -17,6 +17,10 @@ template(name='rentals')
                     +sort_item key='most_expensive' label='most expensive' direction='-1'
                     +sort_item key='_timestamp' label='newest' direction='-1'
                     +sort_item key='reservation_count' label='most rented' direction='1'
+                    +sort_item key='points' label='most rented' direction='1'
+            .ui.icon.transparent.input
+                i.search.icon
+                input(type='text' placeholder='search...')
             if viewing_cards
                 .ui.stackable.three.cards
                     each rentals

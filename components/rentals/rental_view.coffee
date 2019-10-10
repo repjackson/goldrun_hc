@@ -10,7 +10,8 @@ if Meteor.isClient
 
     Template.rental_view.onRendered ->
         Meteor.call 'increment_view', Router.current().params.doc_id, ->
-
+    Template.rentals.onRendered ->
+        Session.setDefault 'view_mode', 'cards'
     Template.rentals.helpers
         viewing_cards: -> Session.equals 'view_mode', 'cards'
         viewing_segments: -> Session.equals 'view_mode', 'segments'
