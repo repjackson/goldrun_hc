@@ -2,7 +2,10 @@ if Meteor.isClient
     Template.rental_cloud.onCreated ->
         @autorun -> Meteor.subscribe('rental_tags', selected_rental_tags.array())
     Template.rentals.onCreated ->
-        @autorun -> Meteor.subscribe 'rental_docs', selected_rental_tags.array()
+        @autorun -> Meteor.subscribe('rental_docs',
+            selected_rental_tags.array()
+            Session.get('sort_key')
+            )
 
     Template.rentals.helpers
         rentals: ->
@@ -42,6 +45,10 @@ if Meteor.isClient
         #     ]
         # }
 
+    Template.sort_item.events
+        'click .set_sort': ->
+            console.log @
+            Session.set 'sort_key', @key
 
     Template.rental_cloud.events
         'click .select_rental_tag': -> selected_rental_tags.push @name
@@ -89,7 +96,7 @@ if Meteor.isServer
             { $group: _id: '$tags', count: $sum: 1 }
             { $match: _id: $nin: selected_rental_tags }
             { $sort: count: -1, _id: 1 }
-            { $limit: 42 }
+            { $limit: 100 }
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
 

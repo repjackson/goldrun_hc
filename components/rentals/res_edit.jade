@@ -6,9 +6,9 @@ template(name='reservation_edit')
                     h1.ui.header is paying
             .three.column.row
                 .column 
-                    a.ui.big.fluid.basic.button(href="/reservation/#{_id}/view" title='save')
-                        //- i.checkmark.large.green.icon
-                        +i name='submit-progress--v1'        
+                    a.ui.big.fluid.button(href="/reservation/#{_id}/view" title='save')
+                        i.save.icon
+                        //- +i name='submit-progress--v1'        
                         .ui.inline.header save draft     
                     .ui.hidden.divider     
                     .ui.large.fluid.icon.button.cancel_reservation
@@ -25,20 +25,20 @@ template(name='reservation_edit')
                         .ui.inline.header $#{daily_dollars}
                             small /day
                         +image_view key='image' label='image' direct=true classes='ui rounded image'
-                    .result_column        
-                        .ui.header 
-                            +i name='payroll'
-                            small 50% owner
-                            |$#{owner_payout} to #{rental.owner_username}
-                        .ui.header.handler
-                            +i name='get-cash'
-                            small 45% handler
-                            | $#{handler_payout} to #{rental.handler_username}
-                        div
-                        .ui.header 
-                            +i name='tax'
-                            small 5% taxes
-                            | $#{taxes_payout}
+                    .result_column   
+                        .ui.big.list
+                            .item
+                                +i name='payroll'
+                                small 50% owner
+                                |$#{owner_payout} to #{rental.owner_username}
+                            .item.handler
+                                +i name='get-cash'
+                                small 45% handler
+                                | $#{handler_payout} to #{rental.handler_username}
+                            .item 
+                                +i name='tax'
+                                small 5% taxes
+                                | $#{taxes_payout}
                 
                 .column 
                     a.ui.header(href="/rental/#{rental._id}/view") reserve #{rental.title}

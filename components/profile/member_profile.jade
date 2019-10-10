@@ -26,7 +26,8 @@ template(name='member_profile_layout')
                                 strong #{user.name}
                                 //- small @#{user.username}        
                             a.ui.inline.header(href="/member/#{user_from_username_param.username}/finance" title='credit')
-                                +i name='coins'
+                                //- +i name='coins'
+                                i.coins.icon
                                 |{{fixed user.credit}}
                             if handling_active
                                 .ui.large.basic.green.label
@@ -37,11 +38,13 @@ template(name='member_profile_layout')
                     if is_current_user
                         unless handling_active 
                             .ui.fluid.button.clock_in
-                                +i name='clock-add' 
+                                //- +i name='clock-add'
+                                i.sign.in.icon 
                                 |clock in
                         else 
                             .ui.fluid.button.clock_out
-                                +i name='remove-clock' 
+                                i.sign.in.icon 
+                                //- +i name='remove-clock' 
                                 |clock out
                         a.ui.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 
@@ -78,9 +81,6 @@ template(name='member_profile_layout')
                     a.ui.large.compact.button(href="/member/#{username}/info" class="{{isActiveRoute 'member_info'}}")
                         +ismall name='info' classes='ui inline image'
                         |info
-                    a.ui.large.compact.button(href="/member/#{username}/social" class="{{isActiveRoute 'member_social'}}")
-                        +ismall name='collaboration' classes='ui inline image'
-                        |social
                     a.ui.large.compact.button(href="/member/#{username}/rentals" class="{{isActiveRoute 'member_rentals'}}")
                         +ismall name='clock' classes='ui inline image'
                         |rentals

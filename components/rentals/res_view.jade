@@ -4,10 +4,9 @@ template(name='reservation_view')
             .row
                 .four.wide.column 
                     with rental
-                        a.ui.fluid.button(href="/rental/#{_id}/view")
-                            .ui.header
-                                i.left.chevron.icon
-                                |#{title}
+                        a.ui.fluid.large.button(href="/rental/#{_id}/view")
+                            i.left.chevron.icon
+                            |#{title}
                         +image_view key='image' label='image' direct=true
                         +comments
                 .eight.wide.column 
@@ -25,7 +24,6 @@ template(name='reservation_view')
                         .ui.basic.large.label ongoing (incomplete)
                     .ui.small.header #{when} by #{_author_username}
                     .ui.header 
-                        +i name='money' classes='ui tiny inline image'
                         | #{hour_duration}
                         small hrs * $
                         |#{rental.hourly_dollars}
@@ -36,32 +34,22 @@ template(name='reservation_view')
                 .four.wide.column
                     if can_edit
                         a.ui.big.fluid.button(href="/reservation/#{_id}/edit" title='edit reservation')
-                            +i name='pencil'
+                            i.pencil.icon
                             |edit
-                    .ui.divider
                     .ui.header 
-                        +i name='request-money'
                         |payouts
-                    .ui.header 
-                        +i name='money' classes='ui tiny inline image'
-                        | #{hour_duration}
-                        small hrs * $
-                        |#{rental.hourly_dollars}
-                        small /hr = $
-                        |#{cost}
-                    .ui.header 
-                        +i name='payroll'
-                        small 50% owner
-                        |$#{owner_payout} to #{rental.owner_username}
-                    .ui.header.handler
-                        +i name='get-cash'
-                        small 45% handler
-                        | $#{handler_payout} to #{rental.handler_username}
-                    div
-                    .ui.header 
-                        +i name='tax'
-                        small 5% taxes
-                        | $#{taxes_payout}
+                    .ui.big.list
+                        .item 
+                            |#{hour_duration}hr * #{rental.hourly_dollars}c/hr = #{cost}c
+                        .item 
+                            small 50% owner
+                            |=#{owner_payout}c to #{rental.owner_username}
+                        .item.handler
+                            small 45% handler
+                            |=#{handler_payout}c to #{rental.handler_username}
+                        .item 
+                            small 5% taxes
+                            |=#{taxes_payout}c
 
 
 template(name='reservation_events')

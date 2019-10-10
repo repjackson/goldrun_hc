@@ -1,3 +1,27 @@
+template(name='sort_item')
+    .item.set_sort #{label}
+    
+
+template(name='rental_cloud')
+    div
+    //- #cloud
+        //- .ui.left.icon.input
+        //-     i.search.icon
+        //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
+        // .ui.hidden.fitted.divider
+    //- i.grey.tags.icon
+    //- .ui.inline.header tags
+    if selected_rental_tags
+        #clear_tags.ui.active.icon.circular.button
+            i.remove.icon
+        each selected_rental_tags
+            .unselect_rental_tag.ui.active.circular.button
+                strong #{this}
+    each all_rental_tags
+        .ui.compact.circular.button.select_rental_tag(class=cloud_tag_class) 
+            strong #{this.name}
+
+
 template(name='rental_view')
     with current_doc
         .ui.stackable.padded.grid
@@ -6,7 +30,7 @@ template(name='rental_view')
                 .four.wide.column
                     a.ui.fluid.button(href='/' title='rentals')
                         i.left.chevron.icon
-                        +i name='handshake' classes='ui mini inline image'
+                        //- +i name='handshake' classes='ui mini inline image'
                         |rentals
                     .ui.large.center.aligned.inline.header #{title}
                     +rental_status
@@ -28,7 +52,7 @@ template(name='rental_view')
                     img.ui.centered.rounded.medium.invert.image(src="{{c.url image width=400 height=400 crop='fit'}}")
                     if can_edit
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
-                            i.blue.pencil.icon
+                            i.pencil.icon
                             |edit
                     +reserve_button
                     +rental_stats
@@ -42,43 +66,39 @@ template(name='rental_view')
                     +array_view key='location_tags' icon='marker' direct=true title='location tags'
                     div
                     +text_view key='location' icon='marker' label='location' direct=true
-                    div
-                    .ui.inline.header 
-                        +i name='sell-property'
-                        small owner
-                        +single_user_view key='owner_username' direct=true
-                    div
-                    .ui.inline.header 
-                        +i name='manager'
-                        small handler
-                        +single_user_view key='handler_username' direct=true
+                    .ui.grey.header 
+                        i.user.shield.icon
+                        | owner
+                    +single_user_view key='owner_username' direct=true
+                    .ui.grey.header 
+                        i.user.clock.icon
+                        | handler
+                    +single_user_view key='handler_username' direct=true
                     +comments
                 .twelve.wide.column
                     //- if auction
-                    +rental_calendar
-                    .ui.basic.segment.f6
+                    .ui.basic.segment.f4
                         +html_view key='description' label='description' icon='content' direct=true
                     div
                     +text_view key='contact_info' label='contact info' icon='info' direct=true
                     div
                     +link_view key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
+                    +rental_calendar
                     +rental_view_reservations
 
 template(name='rental_stats')
     //- .ui.accordion
     //-     .title
     .ui.header.refresh_rental_stats
-        +i name='line-chart'
+        i.line.chart.icon
         |stats
     //- i.dropdown.icon
     //- .content
     .ui.big.list
         .item #{views} views
         .item #{reservation_count} reservations
-        .item $#{total_earnings} total earnings
-        .item #{total_rental_hours} total reservation hours
-        .item $#{average_rental_cost} avg rental cost
-        .item #{average_rental_duration}hrs avg rental duration
+        .item $#{total_earnings}/#{total_rental_hours}hrs total
+        .item $#{average_rental_cost}/ #{average_rental_duration}hrs avg rental
         //- .item rental ranking # reservations
         //- .item rental ranking $ earned
         //- .item # different renters
@@ -111,7 +131,50 @@ template(name='reserve_button')
 
 
 
-template(name='rental_card_template')
+template(name='rental_card')
+    .ui.card
+        if image
+            a(href="/rental/#{_id}/view")
+                img.ui.rounded.image(src="{{c.url image width=400 height=400 crop='lpad'}}")
+        .content
+            a.ui.inline.header.log_view(href="/rental/#{_id}/view") #{title} 
+                if hourly_dollars
+                    .ui.basic.label $#{hourly_dollars}/hr
+                if daily_dollars
+                    .ui.basic.label $#{daily_dollars}/day
+            +rental_status
+        .content
+            if security_deposit_required
+                i.lock.grey.icon
+                //- +i name='safe-in'
+                |$#{security_deposit_amount} security deposit
+            div(title='public location tags, private will be shown to renters')
+                //- +ismall name='marker'
+                i.marker.grey.icon
+                each public_location_tags
+                    .ui.basic.label #{this}
+            div
+            i.grey.tag.icon
+            //- +ismall name='tags'
+            each tags
+                .ui.basic.label #{this}
+            //- div
+            //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
+            //- +voting
+            div
+            //- if currentUser
+            //-     if can_edit
+            //-         a.ui.button(href="/rental/#{_id}/edit")
+            //-             i.pencil.icon
+            //-             |edit
+            //- a.ui.button(href="/rental/#{_id}/view")
+            //-     |view
+            //-     i.right.chevron.icon
+            //- +author_info
+            +reserve_button
+
+
+template(name='rental_segment')
     .ui.fluid.segment.stackable.grid
         .row
             .sixteen.wide.column
@@ -128,14 +191,17 @@ template(name='rental_card_template')
                         +image_view key='image' direct=true classes='zoom'
             .eight.wide.column
                 if security_deposit_required
-                    +i name='safe-in'
+                    i.lock.grey.icon
+                    //- +i name='safe-in'
                     |$#{security_deposit_amount} security deposit
+                div(title='public location tags, private will be shown to renters')
+                    //- +ismall name='marker'
+                    i.marker.grey.icon
+                    each public_location_tags
+                        .ui.basic.label #{this}
                 div
-                +ismall name='marker'
-                each location_tags
-                    .ui.basic.label #{this}
-                div
-                +ismall name='tags'
+                i.grey.tag.icon
+                //- +ismall name='tags'
                 each tags
                     .ui.basic.label #{this}
                 //- div
@@ -156,10 +222,9 @@ template(name='rental_card_template')
                 .ui.list
                     .item #{views} views
                     .item #{reservation_count} reservations
-                    .item $#{total_earnings} total earnings
+                    .item $#{total_earnings} earned
                     .item #{total_rental_hours} reserved hours
-                    .item $#{average_rental_cost} avg rental cost
-                    .item #{average_rental_duration}hr avg rental
+                    .item $#{average_rental_cost}/#{average_rental_duration}hr avg rental
                 +single_user_view key='owner_username' label='owner' direct=true
                 +single_user_view key='handler_username' label='handler' direct=true
 
@@ -178,8 +243,9 @@ template(name='reservation_list_item')
     .ui.segment
         a.ui.small.header.inline.lowercase(href="/reservation/#{_id}/view")
             small from 
-            |{{cal_time start_datetime}} [#{start_date}, hour: #{start_hour}]
-            |{{long_date start_datetime}}
+            |{{cal_time start_datetime}}
+            //- |{{cal_time start_datetime}} [#{start_date}, hour: #{start_hour}]
+            //- |{{long_date start_datetime}}
         a.ui.small.header.lowercase(href="/reservation/#{_id}/view")
             small to 
             |{{cal_time end_datetime}}

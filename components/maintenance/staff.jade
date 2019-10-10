@@ -8,29 +8,29 @@ template(name='staff')
                 //-     |staff
                 //- i.massive.loading.brown.poo.icon
                 a.ui.large.fluid.basic.button(href='/add_resident')
-                    //- i.user.add.large.icon
-                    +i name='plus' classes='ui inline mini image'
+                    i.user.add.large.icon
+                    //- +i name='plus' classes='ui inline mini image'
                     strong
                         |resident
                 //- .ui.header
                 //-     |#{checkedin_members.count} checked in members
                 +inline_doc slug='staff_notices' classes='ui small grey header'
                 a.ui.fluid.basic.button(href='/buildings')
-                    //- i.building.large.icon
-                    +i name='building' classes='ui mini inline image'
+                    i.building.large.icon
+                    //- +i name='building' classes='ui mini inline image'
                     | buildings
                 a.ui.fluid.basic.button(href='/residents')
-                    //- i.large.users.icon
-                    +i name='groups' classes='ui mini inline image'
+                    i.large.users.icon
+                    //- +i name='groups' classes='ui mini inline image'
                     | residents
                 a.ui.fluid.basic.button(href='/healthclub')
-                    //- i.large.tablet.icon
-                    +i name='android-tablet' classes='ui mini inline image'
+                    i.large.tablet.icon
+                    //- +i name='android-tablet' classes='ui mini inline image'
                     | kiosk view
                 +unit_key_widget
                 a.ui.compact.fluid.large.button(href='readings')
-                    +ismall name='water' classes='ui inline image' 
-                    //- i.water.blue.icon               
+                    //- +ismall name='water' classes='ui inline image' 
+                    i.water.icon               
                     strong water
                 div
                 .ui.small.grey.header 
@@ -64,8 +64,8 @@ template(name='staff')
                             .ui.basic.label #{chlorine_message}
                 .ui.hidden.divider
                 .ui.inline.grey.header 
-                    //- i.hiking.icon
-                    +i name='walking' classes='ui inline image'                
+                    i.hiking.icon
+                    //- +i name='walking' classes='ui inline image'                
                     |shift walks
                 .ui.icon.button.log_staff_walked(title='log hourly shift walk')
                     i.plus.icon    
@@ -74,13 +74,13 @@ template(name='staff')
                         .ui.header #{when}
                             i.remove.small.link.circular.icon.remove_walk(title='remove walk entry')
                 if checklist_completed
-                    +i name='todo-list' classes='ui inline image'
-                    //- i.big.green.checkmark.icon
+                    //- +i name='todo-list' classes='ui inline image'
+                    i.big.green.checkmark.icon
                     |shift checklist completed
                 else 
                     a.ui.fluid.big.button(href='/shift_checklist')
-                        //- i.large.tasks.icon
-                        +i name='to-do' classes='ui inline mini image'
+                        i.large.tasks.icon
+                        //- +i name='to-do' classes='ui inline mini image'
                         |checklist not completed
 
             .twelve.wide.column

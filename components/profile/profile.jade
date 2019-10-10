@@ -4,7 +4,7 @@ template(name='user_layout')
     with user_from_username_param
         .ui.stackable.grid.global_container
             .row
-                img.ui.fluid.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
+                //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                 .four.wide.column
                     if user_is_resident
                         if is_staff
@@ -173,7 +173,7 @@ template(name='owner_profile')
     
     
 template(name='resident_about')
-    img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
+    //- img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=200 crop='crop'}}")
     .ui.stackable.grid
         .three.column.row
             //- if user_from_username_param.healthclub_code

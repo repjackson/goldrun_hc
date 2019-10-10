@@ -5,22 +5,23 @@ template(name='nav')
             .sixteen.wide.center.aligned.column
                 if is_loading
                     i.big.spinning.grey.yin.yang.icon.cancel
-                a.ui.icon.button(href='/' class="{{isActivePath '/'}}")
-                    +i name='home' classes='ui mini inline image'
+                a.ui.icon.circular.button(href='/' class="{{isActivePath '/'}}")
+                    //- +i name='home' classes='ui mini inline image'
+                    i.home.large.icon
                 //- if is_member
                 //-     each role_models
                 //-         a.set_model(href="/m/#{slug}" class="{{isActivePath '/m/model'}}" title=title)
                 //-             +i name=icon classes='ui mini inline image'
                 if is_dev
-                    a.ui.icon.button(href='/members' class="{{isActivePath '/members'}}")
+                    a.ui.icon.circular.button(href='/members' class="{{isActivePath '/members'}}")
                         +i name='groups' classes='ui mini inline image'
                 if is_staff
-                    a.ui.tertiary.button(href='/staff' class="{{isActivePath '/staff'}}")
+                    a.ui.button(href='/staff' class="{{isActivePath '/staff'}}")
                         +i name='user shield' classes='ui mini inline image'
                         | staff
-                if is_dev
-                    a.ui.icon.button(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
-                        +i name='database' classes='ui mini inline image'
+                //- if is_dev
+                //-     a.ui.icon.circular.button(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
+                //-         +i name='database' classes='ui mini inline image'
                 if currentUser
                     unless logging_out
                         if is_member
@@ -30,7 +31,8 @@ template(name='nav')
                                 if currentUser.profile_image_id
                                     img.ui.avatar.inline.image(src="{{c.url currentUser.profile_image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 else
-                                    +i name='user' classes='ui mini inline image'
+                                    i.user.icon
+                                    //- +i name='user' classes='ui mini inline image'
                                 span.mobile.hidden #{currentUser.name}
                                     |{{int currentUser.credit}}
                         else
@@ -38,18 +40,20 @@ template(name='nav')
                                 if currentUser.profile_photo
                                     img.ui.avatar.inline.image(src="{{c.url currentUser.profile_photo width=100 height=100 gravity='face' crop='fill'}}")
                                 else
-                                    +i name='user' classes='ui mini inline image'
+                                    i.user.icon
+                                    //- +i name='user' classes='ui mini inline image'
                                 span.mobile.hidden #{currentUser.name}
                     if logging_out
                         .ui.button
                             i.loading.circle.notch.icon
                     else
-                        a#logout.ui.mobile.hidden.icon.button(href='#' title='log out')
+                        a#logout.ui.mobile.hidden.icon.circular.button(href='#' title='log out')
                             i.sign.out.icon
                 else
                     unless currentUser
                         a.ui.button(href='/login' title='login') 
-                            +i name='internal' classes='ui mini inline image'
+                            i.sign.in.icon
+                            //- +i name='internal' classes='ui mini inline image'
                             |login
 
 
@@ -65,7 +69,7 @@ template(name='footer')
                 a.ui.big.button(href='/login')
                     i.sign.in.icon
                     |login
-            +footer_chat
+            //- +footer_chat
             if is_eric
                 with currentUser
                     +role_switcher

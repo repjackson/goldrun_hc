@@ -123,15 +123,16 @@ template(name='icon_view')
 
 
 template(name='i')
+    i.icon(class=name)
     //- img(src="https://img.icons8.com/cotton/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
     //- img.icon8(src="https://img.icons8.com/ios/50/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
-    if classes.length
-        img(src="https://img.icons8.com/#{gs.icon_theme}/48/000000/#{name}.png" class=classes title=title)
-    else 
-        img.ui.mini.inline.image(src="https://img.icons8.com/#{gs.icon_theme}/48/000000/#{name}.png" class=classes title=title)
+    //- if classes.length
+    //-     img(src="https://img.icons8.com/#{gs.icon_theme}/48/000000/#{name}.png" class=classes title=title)
+    //- else 
+    //-     img.ui.mini.inline.image(src="https://img.icons8.com/#{gs.icon_theme}/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/plasticine/48/000000/#{name}.png" class=classes title=title)
 template(name='ioffice')
     img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=classes title=title)
@@ -140,14 +141,15 @@ template(name='iios')
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=classes title=title)
 
 template(name='ismall')
+    i.icon(class=name)
     //- img.ui.middle.aligned.image(src="https://img.icons8.com/cotton/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=classes title=title)
     //- img.ui.middle.aligned.image(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=classes title=title)
-    img.ui.inline.image(src="https://img.icons8.com/#{gs.icon_theme}/24/000000/#{name}.png" class=classes title=title)
+    //- img.ui.inline.image(src="https://img.icons8.com/#{gs.icon_theme}/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ultraviolet/24/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/ios/24/000000/#{name}.png" class=classes title=title) 
-    |&nbsp;
+    //- |&nbsp;
 
 template(name='iblue')
     img(src="https://img.icons8.com/ultraviolet/40/000000/#{name}.png" class=classes)
@@ -730,12 +732,13 @@ template(name='array_view')
     if field_value
         div
         if icon
-            +ismall name=icon classes='ui middle aligned image' title=title
+            i.grey.icon(class=icon)
+            //- +ismall name=icon classes='ui middle aligned image' title=title
         if label
             .ui.inline.small.grey.header(title=title)
                 |#{label}
         each field_value
-            .ui.large.basic.label #{this}
+            .ui.label #{this}
 
 
 template(name='children_edit')

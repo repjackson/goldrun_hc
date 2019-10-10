@@ -1,34 +1,27 @@
 template(name='rentals')
     .ui.stackable.padded.grid
-        .four.wide.column
+        .four.wide.right.aligned.column
             .ui.header 
-                +i name='handshake'
                 |rentals
             +rental_cloud
-        .twelve.wide.column.scrolling
-            .ui.stackable.three.cards
+        .twelve.wide.column
+            .ui.icon.button.set_card_view
+                i.clone.icon
+            .ui.icon.button.set_segment_view
+                i.list.icon
+            .ui.simple.dropdown
+                |sort by
+                |#{current_sort}
+                i.dropdown.icon
+                .menu
+                    +sort_item key='most_expensive' label='most expensive' direction='-1'
+                    +sort_item key='_timestamp' label='newest' direction='-1'
+                    +sort_item key='reservation_count' label='most rented' direction='1'
+            if viewing_cards
+                .ui.stackable.three.cards
+                    each rentals
+                        +rental_card
+            else if viewing_segments
                 each rentals
-                    +rental_card_template
-
-    
-    
-    
-
-template(name='rental_cloud')
-    div
-    //- #cloud
-        //- .ui.left.icon.input
-        //-     i.search.icon
-        //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
-        // .ui.hidden.fitted.divider
-    //- i.grey.tags.icon
-    //- .ui.inline.header tags
-    if selected_rental_tags
-        #clear_tags.ui.active.icon.circular.button
-            i.remove.icon
-        each selected_rental_tags
-            .unselect_rental_tag.ui.active.circular.button
-                strong #{this}
-    each all_rental_tags
-        .ui.compact.circular.button.select_rental_tag(class=cloud_tag_class) 
-            strong #{this.name}
+                    +rental_segment
+                

@@ -11,11 +11,16 @@ if Meteor.isClient
     Template.rental_view.onRendered ->
         Meteor.call 'increment_view', Router.current().params.doc_id, ->
 
+    Template.rentals.helpers
+        viewing_cards: -> Session.equals 'view_mode', 'cards'
+        viewing_segments: -> Session.equals 'view_mode', 'segments'
+    Template.rentals.events
+        'click .set_card_view': ->
+            Session.set 'view_mode', 'cards'
+        'click .set_segment_view': ->
+            Session.set 'view_mode', 'segments'
 
 
-    # Template.rental.events
-    #     'click .delete_rental': ->
-    #         Docs.remove @_id
     #     'click .calculate_diff': ->
     #         product = Template.parentData()
     #         console.log product

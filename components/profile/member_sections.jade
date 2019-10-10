@@ -63,12 +63,6 @@ template(name='member_info')
 
 
 
-template(name='member_social')
-    +member_people
-    +member_wall
-    +member_connections
-
-
 template(name='member_dashboard')
     .ui.stackable.grid
         .two.column.row
@@ -186,38 +180,11 @@ template(name='member_finance')
                                 if is_dev
                                     +remove_button
                 
-        .column
-            .ui.header
-                +i name='initiate-money-transfer'
-                | purchases
-            .smallscroll
-                each purchased_reservations
-                    .ui.header #{when}
-        .column
-            .ui.header 
-                +i name='initiate-money-transfer'
-                |earnings
-            each owner_earnings
-                .ui.header #{when}
-        .column
-            .ui.header 
-                +i name='initiate-money-transfer'
-                |payments sent
-            .ui.button
-                |request money
-        .column
-            .ui.header 
-                +i name='request-money'
-                |payments received
-            .ui.button.send_money
-                |send money
-        .column
-            each joint_transactions 
-                .ui.header #{when}
 
 template(name='member_reservations')
-    each reservations 
-        +profile_reservation_item
+    .scrolling
+        each reservations 
+            +profile_reservation_item
 
 template(name='profile_reservation_item')
     .ui.segment.grid
@@ -259,12 +226,12 @@ template(name='member_handling')
     .ui.small.header rentals that member is facilitating
     .ui.three.cards
         each handling_rentals 
-            +rental_card
+            +member_rental_card
         
         
         
-template(name='rental_card')
-    .ui.card
+template(name='member_rental_card')
+    .ui.small.card
         a.zoom(href="/rental/#{_id}/view")
             img.ui.centered.image(src="{{c.url image height=200 width=200 background='white' crop='pad'}}")
         .content
@@ -300,227 +267,3 @@ template(name='rental_card')
                 |view
                 i.right.chevron.icon
             +reserve_button
-
-
-
-
-template(name='member_people')
-    .ui.stackable.grid
-        .eight.wide.column
-            +member_following
-        .eight.wide.column
-            +follow_user
-
-
-
-template(name='member_messages')
-    .ui.inline.header 
-        +i name='envelope'
-        |user messages
-    .active.content
-        if currentUser
-            .ui.fluid.icon.input
-                i.plus.icon
-                input#new_message(type='text' placeholder='new message')
-        each user_messages
-            .ui.secondary.segment
-                .ui.small.header #{body}
-                each tags
-                    .ui.label #{this}
-                div
-                +notify_message
-                +user_list_toggle key='read_by_ids' label='Mark Read' icon='eye'
-                if can_edit
-                    +remove_button
-                div
-                +author_info
-                +creation_info
-                //- +watson_view
-        
-
-template(name='notify_message')
-    unless notified
-        .ui.circular.basic.icon.button.notify(title="notify #{to_username}")
-            i.rss.icon
-                
-                
-
-template(name='member_transactions')
-    .ui.segment
-        .ui.header sent karma
-        each sent_karma
-            .ui.segment
-                .ui.inline.header #{_author_username}
-                |#{description}
-                each tags
-                    .ui.label #{this}
-                .ui.inline.header #{karma_amount}
-    +transactions
-
-
-
-
-template(name='member_following')    
-    .ui.basic.segment
-        .ui.header 
-            +i name='alarm'
-            |following
-        +user_array_list user=user_from_username_param array='following_ids'
-          
-
-template(name='follow_user')    
-    .ui.basic.segment
-        .ui.inline.header
-            unless current_user
-                a.toggle_follow_user(href='#' title='Follow User')
-                    i.renew.icon
-            else
-                +i name='google-alerts'
-            |followed by
-        +user_array_list user=user_from_username_param array='followed_by_ids'
-                
-
-template(name='member_wall')
-    .ui.inline.center.aligned.header 
-        +i name='my-topic'
-        |wall
-    .active.content
-        if currentUser
-            .ui.fluid.icon.input
-                i.plus.icon
-                input.new_post(type='text' placeholder='add post...')
-        .ui.comments
-            each wall_posts
-                .comment
-                    //- .avatar
-                    .active.content
-                        a.author(href='#') #{author.first_name} #{author.last_name}
-                        .metadata
-                            span.date #{when}
-                        .text.large120 #{body}
-                        .actions
-                            +voting_small
-                            //- i.remove.link.icon.remove_comment(title='Vote Down')
-                            //- i.thumbs.up.link.icon.vote_up_comment(title='Vote Up')
-                            //- |#{points}
-                            i.message.link.icon.mark_comment_read(title='mark read')        
-
-
-
-template(name='member_connections')
-    .ui.large.header 
-        +i name='handshake'
-        |connections
-    .ui.header 
-        +i name='customer-insights-manager'
-        |connected to
-    .ui.two.cards
-        each connected_to
-            +small_horizontal_member_card username
-            //- if is_current_user
-            //-     +member_connect_button
-    .ui.header 
-        +i name='customer-insights-manager'
-        |connected by
-    .ui.two.cards
-        each connected_by
-            +small_horizontal_member_card username
-        
-template(name='member_connect_button')
-    .ui.compact.small.button.toggle_connection
-        if connected
-            +ismall name='share-2'
-            .ui.inline.blue.small.header 
-                |connected
-        else
-            +ismall name='share-2'
-            .ui.inline.small.header
-                |connect
-            
-
-        
-template(name='member_contact')
-    .ui.header 
-        +i name='contact'
-        |contact
-    if current_user
-        .ui.header whatever info you want people to contact you by
-        +textarea_edit key='contact_info' direct=true
-    else
-        +textarea_view key='contact_info' direct=true
-
-template(name='member_stats')
-    .ui.header 
-        +i name='line-chart'
-        |stats
-    with user_from_username_param
-        .ui.header #{karma} karma
-        .ui.header #{credits} credits
-        
-
-
-template(name='member_feed')
-    .ui.basic.segment
-        .ui.inline.header 
-            +i name='feed'
-            |feed
-        //- if current_user
-        //-     .ui.fluid.input
-        //-         input(type='text' placeholder='Share something...')
-    +user_wall
-                
-                
-                
-template(name='member_bookmarks')
-    .ui.header 
-        +i name='star'
-        |bookmarks
-    .ui.four.stackable.cards
-        each bookmarks
-            .card
-                .content
-                    a.header(href="/m/#{model}/#{_id}/view") #{title} [#{model}]
-                    .description #{when}
-
-
-
-
-
-
-
-template(name='member_notifications')
-    .ui.header 
-        +i name='appointment-reminders'
-        |notifications
-
-
-
-
-template(name='member_tags')
-    .ui.header 
-        +i name='tags'
-        |tags
-    //- each tags
-    //-     .ui.large.basic.label 
-    //-         if is_user
-    //-             i.remove.link.icon.remove_tag
-    //-         |#{this}
-    if is_current_user
-        +array_edit key='tags' label='self tags' direct=true
-        //- .ui.fluid.input
-        //-     input.tag_user(type='text' placeholder='tag yourself...')
-    else
-        +array_view key='tags' label='self tags' direct=true
-        .ui.header 
-            +i name='add-tag' classes='ui inline mini image'
-            |tag #{user_from_username_param.name}
-        unless my_tag_review
-            .ui.large.button.new_tag_review
-                |tag #{user_from_username_param.first_name}
-    each user_tag_reviews
-        .ui.secondary.segment
-            if can_edit
-                +array_edit key='tags' label='your tags' icon='tag-window'  direct=true
-            else 
-                +array_view key='tags' label='review tags' icon='price-tag' direct=true
-            +author_info

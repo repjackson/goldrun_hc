@@ -327,7 +327,7 @@ Template.boolean_edit.events
             parent = Template.parentData()
         else
             parent = Template.parentData(5)
-        $(e.currentTarget).closest('.button').transition('pulse', 100)
+        # $(e.currentTarget).closest('.button').transition('pulse', 100)
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne parent._id
