@@ -28,7 +28,48 @@ if Meteor.isClient
                     template = '<span class="tui-full-calendar-weekday-grid-date">' + date.getDate() + '</span>';
                     template;
         })
-
+        if @subscriptionsReady()
+            reservations = Docs.find(
+                model:'reservation'
+            ).fetch()
+            console.log reservations
+            id = '1'
+            converted_schedules = []
+            for res in reservations
+                converted_schedules.push {
+                    id: toString(id)
+                    calendarId: '1'
+                    title: 'title'
+                    # title: res._author_username
+                    category: 'time'
+                    # category: res._author_username
+                    dueDateClass: ''
+                    # start: '2019-10-10T02:30:00+09:00',
+                    # end: '2019-10-10T02:50:00+09:00'
+                    start: res.start_datetime
+                    end: res.end_datetime
+                }
+                id++
+            converted_schedules.push {
+                id: '1',
+                calendarId: '1',
+                title: 'my schedule',
+                category: 'time',
+                dueDateClass: '',
+                start: '2019-10-11T02:30:00',
+                end: '2019-10-11T05:50:00'
+            }
+            converted_schedules.push {
+                id: '2',
+                calendarId: '1',
+                title: 'second schedule',
+                category: 'time',
+                dueDateClass: '',
+                start: '2019-10-10T09:30:00+09:00',
+                end: '2019-10-10T09:50:00+09:00'
+            }
+            console.log converted_schedules
+            @calendar.createSchedules( converted_schedules )
         # $('#calendar').fullCalendar();
         # calendarEl = document.getElementById('calendar');
         #
@@ -76,36 +117,42 @@ if Meteor.isClient
             upcoming_days
 
     Template.rental_calendar.events
-        'click .create_schedules': (e,t)->
-            t.calendar.createSchedules([
-                {
-                    id: '1',
-                    calendarId: '1',
-                    title: 'my schedule',
-                    category: 'time',
-                    dueDateClass: '',
-                    start: '2019-10-10T02:30:00+09:00',
-                    end: '2019-10-10T02:50:00+09:00'
-                },
-                {
-                    id: '2',
-                    calendarId: '1',
-                    title: 'second schedule',
-                    category: 'time',
-                    dueDateClass: '',
-                    start: '2019-10-10T09:30:00+09:00',
-                    end: '2019-10-10T09:50:00+09:00'
-                }
-            ]);
-
         'click .next_view': (e,t)->
             t.calendar.next()
+        'click .create_schedules': (e,t)->
+            reservations = Docs.find(
+                model:'reservation'
+            ).fetch()
+            console.log reservations
+            id = '1'
+            converted_schedules = []
+            for res in reservations
+                converted_schedules.push {
+                    id: toString(id)
+                    calendarId: '1'
+                    title: 'title'
+                    # title: res._author_username
+                    category: 'time'
+                    # category: res._author_username
+                    dueDateClass: ''
+                    # start: '2019-10-10T02:30:00+09:00',
+                    # end: '2019-10-10T02:50:00+09:00'
+                    start: res.start_datetime
+                    end: res.end_datetime
+                }
+                id++
+            console.log converted_schedules
+            t.calendar.createSchedules( converted_schedules )
+
         'click .prev_view': (e,t)->
             t.calendar.prev()
         'click .view_day': (e,t)->
             t.calendar.changeView('day', true);
         'click .view_week': (e,t)->
             t.calendar.changeView('week', true);
+        'click .move_now': (e,t)->
+            # if t.calendar.getViewName() isnt 'month'
+            t.calendar.scrollToNow()
         'click .view_month': (e,t)->
             # // monthly view(default 6 weeks view)
             t.calendar.setOptions({month: {visibleWeeksCount: 6}}, true); # or null

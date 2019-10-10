@@ -39,7 +39,7 @@ if Meteor.isClient
                 Meteor.call 'STRIPE_single_charge', charge, Meteor.user(), (error, response)=>
                     if error then alert error.reason, 'danger'
                     else
-                        alert 'payment received', 'success'
+                        # alert 'payment received', 'success'
                         Docs.insert
                             model:'payment'
                             deposit_amount:deposit_amount
@@ -73,7 +73,6 @@ if Meteor.isClient
         is_day: -> @duration_type is 'day'
         is_hour: -> @duration_type is 'hour'
 
-
         is_paying: -> Session.get 'paying'
 
         can_buy: ->
@@ -89,7 +88,6 @@ if Meteor.isClient
         submit_button_class: ->
             if @start_datetime and @end_datetime then '' else 'disabled'
 
-
         member_balance_after_reservation: ->
             rental = Docs.findOne @rental_id
             if rental
@@ -104,12 +102,12 @@ if Meteor.isClient
             stripe_charge = parseFloat(deposit_amount)*100*1.02+20
             # stripe_charge = parseInt(deposit_amount*1.02+20)
 
-            if confirm "add #{deposit_amount} credit?"
-                Template.instance().checkout.open
-                    name: 'credit deposit'
-                    # email:Meteor.user().emails[0].address
-                    description: 'gold run'
-                    amount: stripe_charge
+            # if confirm "add #{deposit_amount} credit?"
+            Template.instance().checkout.open
+                name: 'credit deposit'
+                # email:Meteor.user().emails[0].address
+                description: 'gold run'
+                amount: stripe_charge
 
         'click .trigger_recalc': ->
             Meteor.call 'recalc_reservation_cost', Router.current().params.doc_id
