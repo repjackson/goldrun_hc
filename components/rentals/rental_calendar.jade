@@ -1,4 +1,6 @@
 template(name='rental_calendar')
+    //- +ReactiveFullcalendar options=calendarOptions
+
     .ui.header calendar
     #menu
         .ui.button.move_today today
@@ -103,7 +105,7 @@ template(name='reservation_small')
                 .ui.header(title='security deposit amount will be held until successful return') 
                     if rental.security_deposit_required
                         small + security deposit 
-                        |$#{rental.security_deposit_amount}
+                        |#{rental.security_deposit_amount}c
                 if rental.res_start_dropoff
                     +boolean_edit key='res_start_dropoff_selected' classes='trigger_recalc' label="start dropoff (+1)" direct=true data=this._id  
                     //- +boolean_edit key='res_start_dropoff_selected' classes='trigger_recalc' label="start dropoff (+#{rental.res_start_dropoff_fee})" direct=true data=this._id  

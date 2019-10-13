@@ -43,8 +43,6 @@ if Meteor.isClient
             Meteor.call 'refresh_rental_stats', @_id
 
 
-
-
     Template.reserve_button.events
         'click .new_reservation': (e,t)->
             new_reservation_id = Docs.insert
@@ -53,15 +51,7 @@ if Meteor.isClient
             Router.go "/reservation/#{new_reservation_id}/edit"
 
 
-    Template.rental_view_reservations.onCreated ->
-        @autorun -> Meteor.subscribe 'rental_reservations', Template.currentData()
-    Template.rental_view_reservations.helpers
-        reservations: ->
-            Docs.find {
-                model:'reservation'
-            }, sort: start_datetime:-1
-
-    Template.reservation_list_item.events
+    Template.reservation_segment.events
         'click .calc_res_numbers': ->
             start_date = moment(@start_timestamp).date()
             start_month = moment(@start_timestamp).month()
@@ -77,11 +67,6 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'rental_reservations', (rental)->
-        Docs.find
-            model:'reservation'
-            rental_id: rental._id
-
     Meteor.publish 'rental_reservations_by_id', (rental_id)->
         Docs.find
             model:'reservation'

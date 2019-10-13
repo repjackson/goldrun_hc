@@ -2,12 +2,21 @@ if Meteor.isClient
     Router.route '/reservation/:doc_id/view', (->
         @render 'reservation_view'
         ), name:'reservation_view'
-
-    # Template.kiosk_reservation_view.onCreated ->
-    #     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.reservation_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'rental_by_res_id', Router.current().params.doc_id
+
+
+    Template.rental_view_reservations.onCreated ->
+        @autorun -> Meteor.subscribe 'rental_reservations',
+            Template.currentData()
+            Session.get 'res_view_mode'
+            Session.get 'date_filter'
+    Template.rental_view_reservations.helpers
+        reservations: ->
+            Docs.find {
+                model:'reservation'
+            }, sort: start_datetime:-1
 
 
     Template.reservation_events.onCreated ->
@@ -18,16 +27,38 @@ if Meteor.isClient
                 model:'log_event'
                 parent_id: Router.current().params.doc_id
 
-
     Template.rental_stats.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1000
 
+    Template.rental_view_reservations.onRendered ->
+        Session.setDefault 'view_mode', 'cards'
+    Template.rental_view_reservations.helpers
+        view_res_cards: -> Session.equals 'res_view_mode', 'cards'
+        view_res_segments: -> Session.equals 'res_view_mode', 'segments'
+    Template.rental_view_reservations.events
+        'click .set_card_view': -> Session.set 'res_view_mode', 'cards'
+        'click .set_segment_view': -> Session.set 'res_view_mode', 'segments'
 
+
+    Template.set_date_filter.events
+        'click .set_date_filter': -> Session.set 'date_filter', @key
+
+    Template.set_date_filter.helpers
+        date_filter_class: ->
+            if Session.equals('date_filter', @key) then 'active' else ''
 
 
 if Meteor.isServer
+    Meteor.publish 'rental_reservations', (rental, view_mode, date_filter)->
+        console.log view_mode
+        console.log date_filter
+        Docs.find
+            model:'reservation'
+            rental_id: rental._id
+
+
     Meteor.publish 'log_events', (parent_id)->
         Docs.find
             model:'log_event'

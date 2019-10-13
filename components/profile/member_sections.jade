@@ -24,32 +24,32 @@ template(name='member_info')
                 .column
                     .ui.header rental potential
                     .ui.inline.header 
-                        +i name='money'
-                        |$#{total_hourly_credit}
+                        +i name='yin-yang'
+                        |#{total_hourly_credit}c
                         small hourly
                     //- | if rentals are circulating
                     div
                     .ui.inline.header 
-                        +i name='sunrise--v1'
-                        |$#{potential_two_hour_daily_revenue}
+                        +i name='sun'
+                        |#{potential_two_hour_daily_revenue}c
                         small daily
                     | 2hrs/day
                     div
                     .ui.inline.header 
                         +i name='sun'
-                        |$#{potential_daily_revenue}
+                        |#{potential_daily_revenue}c
                         small daily 
                     | 8hrs/day
                     div
                     .ui.inline.header 
                         +i name='calendar'
-                        |$#{potential_two_hour_weekly_revenue}
+                        |#{potential_two_hour_weekly_revenue}c
                         small weekly
                     | 2hrs/day
                     div
                     .ui.inline.header 
                         +i name='baby-calendar'
-                        |$#{potential_weekly_revenue}
+                        |#{potential_weekly_revenue}c
                         small weekly 
                     | 8hrs/day
                 .column
@@ -82,10 +82,10 @@ template(name='member_dashboard')
                     +i name='discount--v2'
                     |current hourly wage
                 .ui.header 
-                    |$#{current_interest_rate}
+                    |#{current_interest_rate}c
                     small /hr from interest
                 .ui.header 
-                    |$#{current_rental_combined_revenue}
+                    |#{current_rental_combined_revenue}c
                     small /hr from active reservations
                 if current_user
                     if currentUser.handling_active
@@ -121,10 +121,10 @@ template(name='rental_small_interest')
                 img.ui.centered.image(src="{{c.url image height=200 width=200 background='white' crop='pad'}}")
         .twelve.wide.column
             a.ui.inline.header(href="/rental/#{_id}/view") #{title} 
-            .ui.basic.label $#{hourly_dollars}/hr
+            .ui.basic.label #{hourly_dollars}c/hr
             +rental_status
             div
-            .ui.small.inline.header $#{rental_interest_rate}/hr interest
+            .ui.small.inline.header #{rental_interest_rate}c/hr interest
             a.ui.button(href="/rental/#{_id}/view")
                 |view
                 i.right.chevron.icon
@@ -175,7 +175,7 @@ template(name='member_finance')
                         .item 
                             .content
                                 .header 
-                                    |$#{deposit_amount} + $#{bonus}
+                                    |#{deposit_amount}c + #{bonus}c
                                 .description #{when} {{long_date _timestamp}}
                                 if is_dev
                                     +remove_button
@@ -239,9 +239,9 @@ template(name='member_rental_card')
                 if variable_price
                     |~
                 if hourly_dollars
-                    .ui.basic.label $#{hourly_dollars}/hr
+                    .ui.basic.label #{hourly_dollars}c/hr
                 if daily_dollars
-                    .ui.basic.label $#{daily_dollars}/day
+                    .ui.basic.label #{daily_dollars}c/day
             //- if hourly_karma
             //-     +ismall name='yin-yang'
             //-     |#{hourly_karma}/hr

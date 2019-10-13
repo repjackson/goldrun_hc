@@ -1,10 +1,8 @@
 if Meteor.isClient
-    Calendar = require('tui-calendar');
-    require("tui-calendar/dist/tui-calendar.css");
-    require('tui-date-picker/dist/tui-date-picker.css');
-    require('tui-time-picker/dist/tui-time-picker.css');
-
-
+    # Calendar = require('tui-calendar');
+    # require("tui-calendar/dist/tui-calendar.css");
+    # require('tui-date-picker/dist/tui-date-picker.css');
+    # require('tui-time-picker/dist/tui-time-picker.css');
 
     Template.rental_calendar.onCreated ->
         @autorun -> Meteor.subscribe 'rental_reservations_by_id', Router.current().params.doc_id
@@ -79,8 +77,38 @@ if Meteor.isClient
         #
         # calendar.render();
 
+        Template.rental_calendar.helpers
+            # calendarOptions: ->
+            #     # // While developing, in order to hide the license warning, use the following key
+            #     schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+            #     # // Standard fullcalendar options
+            #     height: 700,
+            #     hiddenDays: [ 0 ],
+            #     slotDuration: '01:00:00',
+            #     minTime: '08:00:00',
+            #     maxTime: '19:00:00',
+            #     lang: 'fr',
+            #     # // Function providing events reactive computation for fullcalendar plugin
+            #     events: (start, end, timezone, callback)->
+            #         console.log(start.format(), end.format());
+            #         # // Get events from the CalendarEvents collection
+            #         # // return as an array with .fetch()
+            #         events = Docs.find({
+            #              "id"         : "calendar1",
+            #              "startValue" : { $gte: start.valueOf() },
+            #              "endValue"   : { $lte: end.valueOf() }
+            #         }).fetch();
+            #         # callback(events);
+            #     # // Optional: id of the calendar
+            #     id: "calendar1",
+            #     # // Optional: Additional classes to apply to the calendar
+            #     addedClasses: "col-md-8",
+            #     # // Optional: Additional functions to apply after each reactive events computation
+            #     autoruns: [
+            #         ()->
+            #             console.log("user defined autorun function executed!");
+            #     ]
 
-    Template.rental_calendar.helpers
         rental: -> Docs.findOne Router.current().params.doc_id
         current_hour: -> Session.get('current_hour')
         current_date_string: -> Session.get('current_date_string')

@@ -74,17 +74,17 @@ template(name='reservation_edit')
                             .ui.header(title='security deposit amount will be held until successful return') 
                                 if rental.security_deposit_required
                                     small + security deposit 
-                                    |$#{rental.security_deposit_amount}
+                                    |#{rental.security_deposit_amount}c
                             if rental.res_start_dropoff
                                 .ui.header 
                                     small add reservation start dropoff for 
-                                    |$#{rental.res_start_dropoff_fee}
+                                    |#{rental.res_start_dropoff_fee}c
                                 +boolean_edit key='res_start_dropoff_selected' classes='trigger_recalc' label='start dropoff' direct=true data=this._id  
                             div
                             if rental.res_end_pickup
                                 .ui.header
                                     small add reservation end pickup for 
-                                    |$#{rental.res_end_pickup_fee}
+                                    |#{rental.res_end_pickup_fee}c
                                 +boolean_edit key='res_end_pickup_selected' classes='trigger_recalc' label='end pickup' direct=true data=this._id
                             .ui.divider
                             if can_buy
