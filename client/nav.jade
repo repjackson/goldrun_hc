@@ -27,6 +27,16 @@ template(name='nav')
                 if currentUser
                     unless logging_out
                         if is_member
+                            a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
+                                +i name='chat'
+                            a.icon.item(href="/cart" class="{{isActivePath '/cart'}}")
+                                +i name='shopping-cart'
+                                |#{cart_amount}
+                            a.icon.item(href="/events" class="{{isActivePath '/events'}}")
+                                +i name='calendar'
+                            a.icon.item(href="/groups" class="{{isActivePath '/groups'}}")
+                                +i name='group'
+
                             a.item(href="/member/#{currentUser.username}/finance" class="{{isActiveRoute regex='member_finance'}}" title='credits')
                                 i.coins.grey.icon
                             a.item(href="/member/#{currentUser.username}/dashboard" class=member_nav_button_class title=member_nav_button_title)

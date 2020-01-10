@@ -48,7 +48,7 @@ Template.body.events
         Docs.update @_id,
             $inc: views: 1
 
-Template.healthclub.events
+# Template.healthclub.events
     # 'click .button': ->
     #     $('.global_container')
     #     .transition('fade out', 5000)
@@ -57,7 +57,7 @@ Template.healthclub.events
 
 
 
-Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
+# Stripe.setPublishableKey Meteor.settings.public.stripe_publishable
 
 Session.setDefault 'invert', false
 Template.registerHelper 'loading_checkin', () -> Session.get 'loading_checkin'

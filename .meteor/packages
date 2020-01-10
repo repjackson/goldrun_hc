@@ -31,6 +31,7 @@ raix:handlebar-helpers
 matb33:collection-hooks
 mizzao:autocomplete
 mquandalle:jade
+froala:editor-reactive@=2.4.2
 underscore@1.0.10
 coffeescript
 ecmascript

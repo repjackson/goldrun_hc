@@ -47,46 +47,46 @@ if Meteor.isClient
         @layout 'member_profile_layout'
         @render 'member_contact'
         ), name:'member_contact'
-    Router.route '/member/:username/stats', (->
-        @layout 'member_profile_layout'
-        @render 'member_stats'
-        ), name:'member_stats'
-    Router.route '/member/:username/votes', (->
-        @layout 'member_profile_layout'
-        @render 'member_votes'
-        ), name:'member_votes'
+    # Router.route '/member/:username/stats', (->
+    #     @layout 'member_profile_layout'
+    #     @render 'member_stats'
+    #     ), name:'member_stats'
+    # Router.route '/member/:username/votes', (->
+    #     @layout 'member_profile_layout'
+    #     @render 'member_votes'
+    #     ), name:'member_votes'
     Router.route '/member/:username/dashboard', (->
         @layout 'member_profile_layout'
         @render 'member_dashboard'
         ), name:'member_dashboard'
-    Router.route '/member/:username/requests', (->
-        @layout 'member_profile_layout'
-        @render 'member_requests'
-        ), name:'member_requests'
-    Router.route '/member/:username/tags', (->
-        @layout 'member_profile_layout'
-        @render 'member_tags'
-        ), name:'member_tags'
-    Router.route '/member/:username/tasks', (->
-        @layout 'member_profile_layout'
-        @render 'member_tasks'
-        ), name:'member_tasks'
-    Router.route '/member/:username/transactions', (->
-        @layout 'member_profile_layout'
-        @render 'member_transactions'
-        ), name:'member_transactions'
-    Router.route '/member/:username/messages', (->
-        @layout 'member_profile_layout'
-        @render 'member_messages'
-        ), name:'member_messages'
-    Router.route '/member/:username/bookmarks', (->
-        @layout 'member_profile_layout'
-        @render 'member_bookmarks'
-        ), name:'member_bookmarks'
-    Router.route '/member/:username/social', (->
-        @layout 'member_profile_layout'
-        @render 'member_social'
-        ), name:'member_social'
+    # Router.route '/member/:username/requests', (->
+    #     @layout 'member_profile_layout'
+    #     @render 'member_requests'
+    #     ), name:'member_requests'
+    # Router.route '/member/:username/tags', (->
+    #     @layout 'member_profile_layout'
+    #     @render 'member_tags'
+    #     ), name:'member_tags'
+    # Router.route '/member/:username/tasks', (->
+    #     @layout 'member_profile_layout'
+    #     @render 'member_tasks'
+    #     ), name:'member_tasks'
+    # Router.route '/member/:username/transactions', (->
+    #     @layout 'member_profile_layout'
+    #     @render 'member_transactions'
+    #     ), name:'member_transactions'
+    # Router.route '/member/:username/messages', (->
+    #     @layout 'member_profile_layout'
+    #     @render 'member_messages'
+    #     ), name:'member_messages'
+    # Router.route '/member/:username/bookmarks', (->
+    #     @layout 'member_profile_layout'
+    #     @render 'member_bookmarks'
+    #     ), name:'member_bookmarks'
+    # Router.route '/member/:username/social', (->
+    #     @layout 'member_profile_layout'
+    #     @render 'member_social'
+    #     ), name:'member_social'
     Router.route '/member/:username/comparison', (->
         @layout 'member_profile_layout'
         @render 'member_comparison'

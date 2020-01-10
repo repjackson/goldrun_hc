@@ -26,13 +26,30 @@ template(name='user_layout')
                     if user_is_resident
                         if is_staff
                             a.ui.big.button.item(href="/user/#{user_from_username_param.username}/edit")
-                                //- i.cog.icon
-                                +i name='settings' 
+                                i.cog.icon
+                                //- +i name='settings' 
                                 |edit
                             +resident_info         
                             +user_check_steps
                             +staff_verification
                     else 
+                        .ui.vertical.menu
+                            a.item(href="/user/#{_id}/shop" class="{{isActiveRoute regex='user_shop'}}")
+                                i.shopping.cart.grey.icon
+                                |shop
+                            a.item(href="/user/#{_id}/requests" class="{{isActiveRoute regex='user_requests'}}")
+                                i.hand.holding.usd.grey.icon
+                                | requests
+                            a.item(href="/user/#{_id}/social" class="{{isActiveRoute regex='user_social'}}")
+                                i.comments.grey.icon
+                                |social
+                            a.item(href="/user/#{_id}/brain" class="{{isActiveRoute regex='user_brain'}}")
+                                i.grey.brain.icon
+                                |brain
+                            a.item(href="/user/#{_id}/karma" class="{{isActiveRoute regex='user_karma'}}")
+                                i.grey.yin.yang.icon
+                                |karma
+                    
                         .ui.small.header #{tagline}
                         +ismall name='tags'
                         each tags
@@ -260,7 +277,7 @@ template(name='user_signatures')
     .ui.basic.segment
         .ui.inline.center.aligned.header 
             i.pencil.icon
-            | Signatures
+            | signatures
         .ui.link.large.list
             a.item(href='#') Rules and Regulations
             +goto_model slug='rules_regs_signing'

@@ -58,6 +58,68 @@ template(name='member_profile_layout')
                     //- else
                     //-     .ui.button.direct_message(title='new message')
                     //-         +i name='envelope'
+                    .ui.fluid.vertical.pointing.secondary.menu(class="{{currentUser.nav_color}}")
+                        a.item(href="/member/#{username}/dashboard" class="{{isActiveRoute regex='user_dashboard'}}")
+                            i.grey.dashboard.icon
+                            |dashboard
+                        a.item(href="/member/#{username}/credit" class="{{isActiveRoute regex='user_credit'}}")
+                            i.coins.grey.icon
+                            |credit
+                        a.item(href="/member/#{username}/questions" class="{{isActiveRoute regex=user_offers}}")
+                            i.question.mark.icon
+                            |questions
+                        //- a.item(href="/member/#{username}/passages" class="{{isActiveRoute regex=user_passages}}")
+                        //-     i.list.icon
+                        //-     |passages
+                        a.item(href="/member/#{username}/shop" class="{{isActiveRoute regex='user_shop'}}")
+                            i.shopping.cart.grey.icon
+                            |shop
+                        a.item(href="/member/#{username}/requests" class="{{isActiveRoute regex='user_requests'}}")
+                            i.hand.holding.usd.grey.icon
+                            | requests
+                        a.item(href="/member/#{username}/social" class="{{isActiveRoute regex='user_social'}}")
+                            i.comments.grey.icon
+                            |social
+                        a.item(href="/member/#{username}/brain" class="{{isActiveRoute regex='user_brain'}}")
+                            i.grey.brain.icon
+                            |brain
+                        a.item(href="/member/#{username}/karma" class="{{isActiveRoute regex='user_karma'}}")
+                            i.grey.yin.yang.icon
+                            |karma
+                        a.item(href="/member/#{username}/right" class="{{isActiveRoute regex='user_right'}}")
+                            i.grey.checkmark.icon
+                            |right
+                        a.item(href="/member/#{username}/wrong" class="{{isActiveRoute regex='user_wrong'}}")
+                            i.grey.remove.icon
+                            |wrong
+                        a.item(href="/member/#{username}/finance" class="{{isActiveRoute regex='user_finance'}}")
+                            i.grey.coins.icon
+                            |finance
+                        a.item(href="/member/#{username}/cart" class="{{isActiveRoute regex='user_cart'}}")
+                            i.grey.shopping.cart.icon
+                            |cart
+                        a.item(href="/member/#{username}/groups" class="{{isActiveRoute regex='user_groups'}}")
+                            i.grey.users.icon
+                            |groups
+                        a.item(href="/member/#{username}/tutoring" class="{{isActiveRoute regex='user_tutoring'}}")
+                            i.grey.chalkboard.icon
+                            |tutoring
+                        a.item(href="/member/#{username}/events" class="{{isActiveRoute regex='user_events'}}")
+                            i.grey.calendar.icon
+                            |events
+                        a.item(href="/member/#{username}/fiq" class="{{isActiveRoute regex=user_fiq}}")
+                            i.grey.line.chart.icon
+                            |fiq
+                        a.item(href="/member/#{username}/awards" class="{{isActiveRoute regex=user_awards}}")
+                            i.grey.award.icon
+                            |awards
+                        a.item(href="/member/#{username}/friends" class="{{isActiveRoute regex='user_friends'}}")
+                            i.grey.users.icon
+                            |friends
+                        a.item(href="/member/#{username}/messages" class="{{isActiveRoute regex='user_messages'}}")
+                            i.grey.envelope.icon
+                            |messages
+                    
                     if is_current_user
                         a.ui.button.logout(href="#" title='logout')
                             //- i.sign.out.alternate.icon

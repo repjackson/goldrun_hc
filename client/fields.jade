@@ -295,22 +295,6 @@ template(name='image_link_view')
     img.ui.image(src=field_value)
 
 
-template(name='html_view')
-    if field_value
-        div
-        //- if icon
-        //-     i.icon(class=field_value)
-            //- +i name=icon classes='ui inline image'
-        .ui.inline.small.grey.header
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            //- else if key
-            //-     |#{key}
-            //- else
-            //-     |#{this}            
-        .f6 {{nl2br field_value}}
 
 template(name='textarea_view')
     if field_value
@@ -1307,3 +1291,44 @@ template(name='range_edit')
                     i.calendar.icon
                     input(type='text', placeholder='end' value=end_time)
             .ui.button.fluid.get_end save end
+
+
+
+template(name='html_view')
+    if field_value
+        div
+        //- if icon
+        //-     i.icon(class=field_value)
+        .ui.inline.small.header
+            if title
+                |#{title}
+            else if label
+                |#{label}
+        .f6 {{nl2br field_value}}
+        if view_watson
+            if watson
+                +watson_view
+
+template(name='html_edit')
+    .ui.form
+        .field
+            label 
+                if icon
+                    i.icon(class=icon)
+                if title
+                    |#{title}
+                else if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
+    .froala-container
+        +froalaReactive getFEContext
+    //- if is_dev
+    +call_watson mode='html' key=key
+    div
+    //- +tone mode='html'
+    if watson
+        +watson_view
+        
