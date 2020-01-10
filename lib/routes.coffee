@@ -67,14 +67,14 @@ Router.route('verify-email', {
 })
 
 
-Router.route '/m/:model_slug', (->
-    @render 'delta'
-    ), name:'delta'
-Router.route '/m/:model_slug/:doc_id/edit', -> @render 'model_doc_edit'
-Router.route '/m/:model_slug/:doc_id/view', (->
-    @render 'model_doc_view'
-    ), name:'doc_view'
-Router.route '/model/edit/:doc_id', -> @render 'model_edit'
+# Router.route '/m/:model_slug', (->
+#     @render 'delta'
+#     ), name:'delta'
+# Router.route '/m/:model_slug/:doc_id/edit', -> @render 'model_doc_edit'
+# Router.route '/m/:model_slug/:doc_id/view', (->
+#     @render 'model_doc_view'
+#     ), name:'doc_view'
+# Router.route '/model/edit/:doc_id', -> @render 'model_edit'
 
 # Router.route '/user/:username', -> @render 'user'
 Router.route '/verification_confirmation', -> @render 'verification_confirmation'
@@ -109,10 +109,6 @@ Router.route '/login', -> @render 'login'
 # Router.route '/', -> @redirect '/m/model'
 # Router.route '/', -> @redirect "/user/#{Meteor.user().username}"
 # Router.route '/', -> @render 'home'
-Router.route '/', (->
-    @layout 'layout'
-    @render 'rentals'
-    ), name:'home'
 
 
 Router.route '/healthclub', (->
