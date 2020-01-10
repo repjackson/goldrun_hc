@@ -73,7 +73,7 @@ template(name='healthclub_session')
                         //- .ui.header (switch camera to front)
                         with user
                             +image_edit key='kiosk_photo' label=' ' direct=true
-                    //- img.ui.medium.circular.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
+                    //- img.ui.medium.image(src="{{c.url user.image_id width=500 height=500 gravity='face' crop='fill'}}")
                     //- .meta @#{user.username}
                     //- +camera
                 .ten.wide.column

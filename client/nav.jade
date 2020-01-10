@@ -6,7 +6,7 @@ template(name='nav')
                     i.big.spinning.grey.yin.yang.icon.cancel
             a.item(href='/' class="{{isActivePath '/'}}")
                 //- +i name='home' classes='ui mini inline image'
-                i.home.large.icon
+                i.home.icon
             //- if is_member
             //-     each role_models
             //-         a.set_model(href="/m/#{slug}" class="{{isActivePath '/m/model'}}" title=title)
@@ -90,7 +90,7 @@ template(name='footer_chat')
                 if is_author
                     span
                         i.remove.link.icon.remove_message
-    .ui.bottom.attached.fluid.icon.large.input
+    .ui.bottom.attached.fluid.icon.input
         i.plus.blue.icon
         input.new_footer_chat_message(type='text' placeholder='add message')
 

@@ -22,9 +22,9 @@ template(name='delta')
                                 i.cog.icon
                         if current_delta
                             if is_dev
-                                i.refresh.link.reset.circular.icon(title='reload session')
-                                i.code.link.circular.icon.print_delta(title='print session doc')
-                                i.trash.delete_delta.link.circular.icon(title='delete session')
+                                i.refresh.link.reset.icon(title='reload session')
+                                i.code.link.icon.print_delta(title='print session doc')
+                                i.trash.delete_delta.link.icon(title='delete session')
                         else
                             .create_delta.ui.large.button(title='new session')
                                 i.plus.icon
@@ -92,23 +92,23 @@ template(name='delta')
                                     +set_view_mode title='graph' icon='graph'
                         .ui.hidden.fitted.divider
                     .scrolling    
-                        +Template.dynamic template=view_mode_template
-                        //- each current_delta.result_ids
-                        //-     //- .column
-                        //-     if is_loading
-                        //-         .ui.segment
-                        //-             .ui.fluid.placeholder
-                        //-                 .line
-                        //-                 .line
-                        //-                 .line
-                        //-                 .line
-                        //-                 .line
-                        //-                 .line
-                        //-                 .line
-                        //-                 .line
-                        //-                 .line
-                        //-     else 
-                        //-         +delta_result
+                        //- +Template.dynamic template=view_mode_template
+                        each current_delta.result_ids
+                            //- .column
+                            if is_loading
+                                .ui.segment
+                                    .ui.fluid.placeholder
+                                        .line
+                                        .line
+                                        .line
+                                        .line
+                                        .line
+                                        .line
+                                        .line
+                                        .line
+                                        .line
+                            else 
+                                +delta_result
             //- .row 
                 //- .sixteen.wide.column
                 //-     if model_stats_exists
@@ -206,6 +206,7 @@ template(name='toggle_delta_config')
 
 
 template(name='delta_result')
+    //- .ui.header hi
     with result 
         if template_exists
             +Template.dynamic template=model_template

@@ -51,13 +51,13 @@ template(name='rental_cloud')
     //- i.grey.tags.icon
     //- .ui.inline.header tags
     if selected_rental_tags
-        #clear_tags.ui.active.icon.circular.button
+        #clear_tags.ui.active.icon.button
             i.remove.icon
         each selected_rental_tags
-            .unselect_rental_tag.ui.active.circular.button
+            .unselect_rental_tag.ui.active.button
                 strong #{this}
     each all_rental_tags
-        .ui.compact.circular.button.select_rental_tag(class=cloud_tag_class) 
+        .ui.compact.button.select_rental_tag(class=cloud_tag_class) 
             strong #{this.name}
 
 

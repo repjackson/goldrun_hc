@@ -219,9 +219,9 @@ template(name='pdf_edit')
         .field
             if field_value
                 label uploaded pdf
-                a.ui.circular.button(href="{{c.url field_value gravity='face' crop='fit'}}")
+                a.ui.button(href="{{c.url field_value gravity='face' crop='fit'}}")
                     |download pdf
-                #remove_photo.ui.icon.circular.button
+                #remove_photo.ui.icon.button
                     i.remove.red.icon
             else
                 //- if icon
@@ -745,7 +745,7 @@ template(name='children_edit')
     div
     .ui.inline.header 
         |#{title}
-    .ui.icon.large.circular.button.add_child(title="add child #{ref_model}")
+    .ui.icon.large.button.add_child(title="add child #{ref_model}")
         i.plus.icon
     .ui.styled.fluid.accordion
         each children
@@ -970,7 +970,7 @@ template(name='multi_doc_edit')
     .ui.inline.header(title=key)
         |#{title} #{label}    
     each choices
-        .ui.circular.compact.button.select_choice(class=choice_class)
+        .ui.compact.button.select_choice(class=choice_class)
             if icon
                 //- i.grey.icon(class=icon)
                 +ismall name=icon classes='ui inline image'

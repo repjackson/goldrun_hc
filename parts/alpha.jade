@@ -11,11 +11,11 @@ template(name='alpha')
                 .ui.large.icon.button.new_doc 
                     i.plus.icon
                 if current_alpha
-                    .ui.icon.circular.button.print_alpha(title='print session doc')
+                    .ui.icon.button.print_alpha(title='print session doc')
                         i.code.icon
-                    .ui.reset.icon.circular.button(title='reload session')
+                    .ui.reset.icon.button(title='reload session')
                         i.refresh.icon
-                    .ui.delete_alpha.icon.circular.button(title='delete session')
+                    .ui.delete_alpha.icon.button(title='delete session')
                         i.trash.icon
                     each current_alpha.facets
                         +afacet
@@ -100,7 +100,7 @@ template(name='afacet')
             input.add_filter(type='text')
         each filtering_res
             if name
-                .selector.ui.compact.circular.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                     strong #{name}
                     if is_admin
                         small #{cal_count} #{count}

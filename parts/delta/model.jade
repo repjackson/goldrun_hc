@@ -8,9 +8,9 @@ template(name='model_edit')
                         | #{title}
                     +creation_info
                     .ui.basic.center.aligned.segment
-                        a.ui.large.icon.circular.button(href="/m/#{slug}")
+                        a.ui.large.icon.button(href="/m/#{slug}")
                             i.big.checkmark.icon
-                        #delete_model.ui.icon.circular.button
+                        #delete_model.ui.icon.button
                             i.trash.icon
                     .ui.form
                         +text_edit key='title' label='title' direct=true
@@ -27,7 +27,7 @@ template(name='model_edit')
                     //-     +Template.dynamic template=edit_template 
                     //-     // .ui.header #{key} [#{field}] #{label}
                     .ui.inline.header fields
-                    .ui.icon.large.circular.button.add_field
+                    .ui.icon.large.button.add_field
                         i.plus.icon
                     .ui.styled.fluid.accordion
                         each fields
@@ -46,7 +46,7 @@ template(name='model_edit')
                             +delta_field_edit
 
                     .ui.inline.header actions
-                    .ui.icon.large.circular.button.add_action
+                    .ui.icon.large.button.add_action
                         i.plus.icon
                     .ui.styled.fluid.accordion
                         each actions

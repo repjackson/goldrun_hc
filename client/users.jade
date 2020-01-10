@@ -124,7 +124,7 @@ template(name='user')
                 h2.ui.center.aligned.header #{first_name} #{last_name} 
                 .ui.small.header @#{username}
             each five_tags
-                .ui.compact.small.circular.basic.button.person_tag(class=tag_class) 
+                .ui.compact.small.basic.button.person_tag(class=tag_class) 
                     strong #{this}
             +text_view key='first_name' label='First Name'
             +text_view key='last_name' label='Last Name'
@@ -144,7 +144,7 @@ template(name='user_card_template')
                 h2.ui.center.aligned.header #{first_name} #{last_name} 
                 .ui.small.header @#{username}
             each five_tags
-                .ui.compact.small.circular.basic.button.person_tag(class=tag_class) 
+                .ui.compact.small.basic.button.person_tag(class=tag_class) 
                     strong #{this}
             .ui.grey.header #{total_sales} sales
             .ui.grey.header #{total_revenue} total revenue
@@ -160,7 +160,7 @@ template(name='profile')
                 h2.ui.center.aligned.header #{first_name} #{last_name} 
                 .ui.small.header @#{username}
             each five_tags
-                .ui.compact.small.circular.basic.button.person_tag(class=tag_class) 
+                .ui.compact.small.basic.button.person_tag(class=tag_class) 
                     strong #{this}
             +text_view key='first_name' label='First Name'
             +text_view key='last_name' label='Last Name'

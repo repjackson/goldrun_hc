@@ -160,42 +160,42 @@ if Meteor.isClient
                 slug: Router.current().params.model_slug
             Router.go "/model/edit/#{model._id}"
 
-        # 'click .page_up': (e,t)->
-        #     delta = Docs.findOne model:'delta'
-        #     Docs.update delta._id,
-        #         $inc: current_page:1
-        #     Session.set 'is_calculating', true
-        #     Meteor.call 'fo', (err,res)->
-        #         if err then console.log err
-        #         else
-        #             Session.set 'is_calculating', false
-        #
-        # 'click .page_down': (e,t)->
-        #     delta = Docs.findOne model:'delta'
-        #     Docs.update delta._id,
-        #         $inc: current_page:-1
-        #     Session.set 'is_calculating', true
-        #     Meteor.call 'fo', (err,res)->
-        #         if err then console.log err
-        #         else
-        #             Session.set 'is_calculating', false
+        'click .page_up': (e,t)->
+            delta = Docs.findOne model:'delta'
+            Docs.update delta._id,
+                $inc: current_page:1
+            Session.set 'is_calculating', true
+            Meteor.call 'fo', (err,res)->
+                if err then console.log err
+                else
+                    Session.set 'is_calculating', false
 
-        # 'click .select_tag': -> selected_tags.push @name
-        # 'click .unselect_tag': -> selected_tags.remove @valueOf()
-        # 'click #clear_tags': -> selected_tags.clear()
-        #
-        # 'keyup #search': (e)->
-            # switch e.which
-            #     when 13
-            #         if e.target.value is 'clear'
-            #             selected_tags.clear()
-            #             $('#search').val('')
-            #         else
-            #             selected_tags.push e.target.value.toLowerCase().trim()
-            #             $('#search').val('')
-            #     when 8
-            #         if e.target.value is ''
-            #             selected_tags.pop()
+        'click .page_down': (e,t)->
+            delta = Docs.findOne model:'delta'
+            Docs.update delta._id,
+                $inc: current_page:-1
+            Session.set 'is_calculating', true
+            Meteor.call 'fo', (err,res)->
+                if err then console.log err
+                else
+                    Session.set 'is_calculating', false
+
+        'click .select_tag': -> selected_tags.push @name
+        'click .unselect_tag': -> selected_tags.remove @valueOf()
+        'click #clear_tags': -> selected_tags.clear()
+
+        'keyup #search': (e)->
+            switch e.which
+                when 13
+                    if e.target.value is 'clear'
+                        selected_tags.clear()
+                        $('#search').val('')
+                    else
+                        selected_tags.push e.target.value.toLowerCase().trim()
+                        $('#search').val('')
+                when 8
+                    if e.target.value is ''
+                        selected_tags.pop()
 
     Template.set_limit.events
         'click .set_limit': ->
@@ -286,6 +286,7 @@ if Meteor.isClient
         #     $('.progress').popup()
         # , 2000
     Template.delta_result.onCreated ->
+        console.log @data._id
         @autorun => Meteor.subscribe 'doc', @data._id
         @autorun => Meteor.subscribe 'user_from_id', @data._id
 
@@ -313,6 +314,8 @@ if Meteor.isClient
             else ''
 
         result: ->
+            # console.log 'hi'
+            # console.log @
             if Docs.findOne @_id
                 # console.log 'doc'
                 result = Docs.findOne @_id

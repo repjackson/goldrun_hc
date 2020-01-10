@@ -9,11 +9,11 @@ template(name='user_layout')
                     if user_is_resident
                         if is_staff
                             if kiosk_photo
-                                img.ui.centered.circular.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
+                                img.ui.centered.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
                             else if image_id
-                                img.ui.centered.circular.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                                img.ui.centered.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         else
-                            img.ui.centered.circular.shadowed.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
+                            img.ui.centered.shadowed.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
                         //- a.item(href="/user/#{user_from_username_param.username}/")
                     else
                         if is_current_user
@@ -153,7 +153,7 @@ template(name='user_healthclub')
         //- .ui.header 
         //-     +i name='token-card-code'
         //-     |hc card
-        //- .ui.circular.button.generate_barcode
+        //- .ui.button.generate_barcode
         //-     +i name='barcode' classes='ui inline image'
         //-     |generate health club checkin barcode
         //- div
@@ -296,7 +296,7 @@ template(name='user_guests')
             |guests
         +goto_model slug='guest'
         //- +add_button model='guest'
-        //- .ui.circular.button.add_guest
+        //- .ui.button.add_guest
         //-     |Add Guest
         //- with user_from_username_param
         //-     .ui.header total guests #{total_guests}
@@ -365,11 +365,11 @@ template(name='user_array_list')
 
             
 template(name='user_array_element_toggle')
-    .ui.circular.button.toggle_element(class=user_array_element_toggle_class)
+    .ui.button.toggle_element(class=user_array_element_toggle_class)
         |#{value}
 
 template(name='user_string_toggle')
-    .ui.circular.button.toggle_element(class=user_string_element_toggle_class)
+    .ui.button.toggle_element(class=user_string_element_toggle_class)
         |#{value}
         
             
