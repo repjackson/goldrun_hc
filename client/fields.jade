@@ -1043,9 +1043,11 @@ template(name='single_user_edit')
                 .ui.middle.aligned.selection.animated.list
                     each user_results
                         .select_user.item
-                            h4.ui.header
+                            .ui.small.inline.header(title=username)
                                 img.ui.avatar.image(src="{{c.url kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
-                                |#{first_name} #{last_name} #{username}
+                                |#{first_name} #{last_name} 
+                            //- .ui.mini.grey.inline.header 
+                            //-     |#{username}
     if field_value
         +user_card field_value
         //- |#{this}
@@ -1089,7 +1091,7 @@ template(name='single_person_edit')
             +person_card field_value
             .ui.circlar.button.clear_selection
                 i.remove.icon
-                |Clear
+                |clear
         else
             .field.attached
                 input#single_person_select_input(type='text' placeholder='Lookup Username..')
@@ -1149,7 +1151,7 @@ template(name='multi_user_edit')
                         .ui.header
                             img.ui.avatar.image(src="{{c.url kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
                             strong #{first_name} #{last_name}
-                            |@#{username}
+                            small @#{username}
     +clear_value                
     .ui.list
         each field_value

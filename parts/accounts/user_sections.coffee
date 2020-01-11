@@ -138,6 +138,10 @@ if Meteor.isClient
         @render 'user_events'
         ), name:'user_events'
 
+
+
+    Template.user_brain.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'thought'
     Template.user_brain.events
         'click .add_thought': ->
             new_thought_id = Docs.insert

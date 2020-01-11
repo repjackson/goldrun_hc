@@ -1,5 +1,6 @@
 if Meteor.isClient
     Router.route '/admin', -> @render 'admin'
+    Router.route '/global_stats', -> @render 'global_stats'
 
     Template.global_stats.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'global_stats'

@@ -329,6 +329,21 @@ if Meteor.isClient
                     Docs.remove @_id
                 , 1000
 
+    Template.remove_icon.events
+        'click .remove_doc': (e,t)->
+            if confirm "remove #{@model}?"
+                if $(e.currentTarget).closest('.card')
+                    $(e.currentTarget).closest('.card').transition('fly right', 1000)
+                else
+                    $(e.currentTarget).closest('.segment').transition('fly right', 1000)
+                    $(e.currentTarget).closest('.item').transition('fly right', 1000)
+                    $(e.currentTarget).closest('.content').transition('fly right', 1000)
+                    $(e.currentTarget).closest('tr').transition('fly right', 1000)
+                    $(e.currentTarget).closest('.event').transition('fly right', 1000)
+                Meteor.setTimeout =>
+                    Docs.remove @_id
+                , 1000
+
 
     Template.add_model_button.events
         'click .add': ->

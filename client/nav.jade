@@ -7,6 +7,9 @@ template(name='nav')
             a.item(href='/' class="{{isActivePath '/'}}")
                 //- +i name='home' classes='ui mini inline image'
                 i.home.icon
+            a.item(href='/global_stats' class="{{isActivePath '/global_stats'}}")
+                //- +i name='home' classes='ui mini inline image'
+                i.line.chart.icon
             //- if is_member
             //-     each role_models
             //-         a.set_model(href="/m/#{slug}" class="{{isActivePath '/m/model'}}" title=title)
@@ -22,21 +25,27 @@ template(name='nav')
                     | staff
             if is_dev
                 a.item(href='/m/model' class="{{isActivePath '/m/model'}}" title='model delta view')
-                    +i name='database' classes='ui mini inline image'
+                    i.database.icon
+            if is_admin
+                a.item(href='/admin' class="{{isActivePath '/admin'}}" title='model delta view')
+                    i.shield.icon
             .right.menu
                 if currentUser
                     unless logging_out
                         if is_member
                             a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
-                                +i name='chat'
-                            a.icon.item(href="/cart" class="{{isActivePath '/cart'}}")
-                                +i name='shopping-cart'
+                                i.comment.icon
+                            a.icon.item(href="/alerts" class="{{isActivePath '/alerts'}}")
+                                i.bell.icon
+                            a.icon.item(href="/tasks" class="{{isActivePath '/tasks'}}")
+                                i.tasks.icon
+                            a.item(href="/cart" class="{{isActivePath '/cart'}}")
+                                i.shopping.cart.icon
                                 |#{cart_amount}
                             a.icon.item(href="/events" class="{{isActivePath '/events'}}")
-                                +i name='calendar'
+                                i.calendar.icon
                             a.icon.item(href="/groups" class="{{isActivePath '/groups'}}")
-                                +i name='group'
-
+                                i.users.icon
                             a.item(href="/member/#{currentUser.username}/finance" class="{{isActiveRoute regex='member_finance'}}" title='credits')
                                 i.coins.grey.icon
                             a.item(href="/member/#{currentUser.username}/dashboard" class=member_nav_button_class title=member_nav_button_title)

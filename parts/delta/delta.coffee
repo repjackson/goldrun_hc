@@ -209,7 +209,7 @@ if Meteor.isClient
 
     Template.set_view_mode.events
         'click .set_view_mode': ->
-            console.log @
+            # console.log @
             delta = Docs.findOne model:'delta'
             Docs.update delta._id,
                 $set:view_mode:@title
@@ -286,7 +286,7 @@ if Meteor.isClient
         #     $('.progress').popup()
         # , 2000
     Template.delta_result.onCreated ->
-        console.log @data._id
+        # console.log @data._id
         @autorun => Meteor.subscribe 'doc', @data._id
         @autorun => Meteor.subscribe 'user_from_id', @data._id
 

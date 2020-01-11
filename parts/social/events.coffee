@@ -1,3 +1,6 @@
+Router.route '/events/', (->
+    @render 'my_events'
+    ), name:'my_events'
 Router.route '/event/:doc_id/view', (->
     @render 'event_view'
     ), name:'event_view'

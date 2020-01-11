@@ -1,4 +1,8 @@
 if Meteor.isClient
+    Router.route '/cart', (->
+        @render 'cart'
+        ), name: 'cart'
+
     Template.cart.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'shop'
         # @autorun -> Meteor.subscribe 'shop'

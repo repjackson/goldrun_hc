@@ -27,7 +27,7 @@ template(name='tasks')
                             i.business.time.icon
                             | #{weekly_sessions} sessions
                 
-            .eight.wide.column
+            .six.wide.column
                 //- with top_task
                 //-     +task_card_template
                 i.link.refresh.icon.refresh_my_time_stats
@@ -43,7 +43,7 @@ template(name='tasks')
                 .largescroll
                     each tasks 
                         +task_card_template
-            .four.wide.column
+            .six.wide.column
                 if selected_task_doc
                     .ui.icon.right.floated.button.unselect_task
                         i.remove.icon

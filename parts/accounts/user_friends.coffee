@@ -1,12 +1,12 @@
 if Meteor.isClient
     Template.user_friends.onCreated ->
-        @autorun => Meteor.subscribe 'users'
+        @autorun => Meteor.subscribe 'user_friends',Router.current().params.username
 
 
 
     Template.user_friends.helpers
         friends: ->
-            current_user = Meteor.users.findOne Router.current().params.user_id
+            current_user = Meteor.users.findOne username:Router.current().params.username
             Meteor.users.find
                 _id:$in: current_user.friend_ids
         nonfriends: ->
@@ -31,7 +31,7 @@ if Meteor.isClient
             if e.which is 13
                 post = t.$('.assign_task').val().trim()
                 # console.log post
-                current_user = Meteor.users.findOne Router.current().params.user_id
+                current_user = Meteor.users.findOne username:Router.current().params.username
                 Docs.insert
                     body:post
                     model:'task'
@@ -39,3 +39,8 @@ if Meteor.isClient
                     assigned_username:current_user.username
 
                 t.$('.assign_task').val('')
+
+
+if Meteor.isServer
+    Meteor.publish 'user_friends', (username)->
+        

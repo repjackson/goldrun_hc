@@ -113,13 +113,13 @@ template(name='user_status')
 
 template(name='user_card')
     with user
-        .ui.card
-            if is_staff
-                .image
-                    if kiosk_photo
-                        img.ui.rounded.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
-                    else if image_id
-                        img.ui.rounded.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+        .ui.horizontal.tiny.card
+            //- if is_staff
+            .image
+                if kiosk_photo
+                    img.ui.tiny.image(src="{{c.url kiosk_photo width=300 height=300 gravity='face' crop='fill'}}")
+                else if image_id
+                    img.ui.tiny.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
             .content    
                 if is_frontdesk
                     .header 
@@ -370,6 +370,11 @@ template(name='remove_button')
         .ui.icon.button.remove_doc(title='delete')
             i.remove.icon
             //- |Delete
+
+template(name='remove_icon')
+    unless is_frontdesk
+        i.remove.circular.icon.remove_doc(title='delete')
+        //- |Delete
 
 template(name='add_button')
     a.ui.large.basic.button.add(title="add #{model}")
