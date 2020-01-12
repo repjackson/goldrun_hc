@@ -3,6 +3,8 @@ template(name='rentals')
         .four.wide.right.aligned.column
             .ui.header 
                 |rentals
+            .ui.icon.button.add_rental
+                i.plus.icon
             +rental_cloud
         .twelve.wide.column
             .ui.icon.button.set_card_view
@@ -71,9 +73,9 @@ template(name='rental_card')
         .content
             a.ui.inline.header.log_view(href="/rental/#{_id}/view") #{title} 
                 if hourly_dollars
-                    .ui.basic.label #{hourly_dollars}c/hr
+                    .ui.label #{hourly_dollars}c/hr
                 if daily_dollars
-                    .ui.basic.label #{daily_dollars}c/day
+                    .ui.label #{daily_dollars}c/day
             +rental_status
         .content
             if security_deposit_required
@@ -84,12 +86,12 @@ template(name='rental_card')
                 //- +ismall name='marker'
                 i.marker.grey.icon
                 each public_location_tags
-                    .ui.basic.label #{this}
+                    .ui.label #{this}
             div
             i.grey.tag.icon
             //- +ismall name='tags'
             each tags
-                .ui.basic.label #{this}
+                .ui.label #{this}
             //- div
             //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
             //- +voting
@@ -112,9 +114,9 @@ template(name='rental_segment')
             .sixteen.wide.column
                 a.ui.inline.header.log_view(href="/rental/#{_id}/view") #{title} 
                     if hourly_dollars
-                        .ui.basic.label #{hourly_dollars}c/hr
+                        .ui.label #{hourly_dollars}c/hr
                     if daily_dollars
-                        .ui.basic.label #{daily_dollars}c/day
+                        .ui.label #{daily_dollars}c/day
                 +rental_status
         .row
             .four.wide.column
@@ -130,12 +132,12 @@ template(name='rental_segment')
                     //- +ismall name='marker'
                     i.marker.grey.icon
                     each public_location_tags
-                        .ui.basic.label #{this}
+                        .ui.label #{this}
                 div
                 i.grey.tag.icon
                 //- +ismall name='tags'
                 each tags
-                    .ui.basic.label #{this}
+                    .ui.label #{this}
                 //- div
                 //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
                 //- +voting

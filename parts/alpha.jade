@@ -24,7 +24,7 @@ template(name='alpha')
                         i.plus.icon
                         |session
             .ten.wide.column
-                //- .filter_row.ui.basic.segment(class=loading_class)
+                //- .filter_row.ui.segment(class=loading_class)
                 //-     .ui.inline.small.grey.header(title='change sort direction')
                 //-         |sort by
                 //-     .ui.compact.small.menu
@@ -116,7 +116,7 @@ template(name='afacet')
 template(name='alpha_result')
     with result 
         unless is_loading
-            .ui.result.basic.segment.stackable.grid
+            .ui.result.segment.stackable.grid
                 .twelve.wide.column.scrolling
                     each _keys
                         +key_view
@@ -156,7 +156,7 @@ template(name='alpha_result')
                         +clone_button
                         +detect
         if is_loading
-            .ui.basic.segment
+            .ui.segment
                 i.huge.loading.grey.yin.yang.icon
 
 

@@ -2,49 +2,49 @@ template(name='rental_calendar')
     //- +ReactiveFullcalendar options=calendarOptions
 
     .ui.header calendar
-    #menu
-        .ui.button.move_today today
-        .ui.button.move_now now
-        .ui.large.icon.button.create_schedules +
-        .ui.icon.button.prev_view
-            i.chevron.left.icon
-        .ui.icon.button.next_view
-            i.chevron.right.icon
-        .ui.icon.button.view_week
-            |week
-        .ui.icon.button.view_day
-            |day
-        .ui.icon.button.view_month
-            |month
-            
-        span#renderRange.render-range
-    
-    #calendar(style="height: 800px;")
+    //- #menu
+    //-     .ui.button.move_today today
+    //-     .ui.button.move_now now
+    //-     .ui.large.icon.button.create_schedules +
+    //-     .ui.icon.button.prev_view
+    //-         i.chevron.left.icon
+    //-     .ui.icon.button.next_view
+    //-         i.chevron.right.icon
+    //-     .ui.icon.button.view_week
+    //-         |week
+    //-     .ui.icon.button.view_day
+    //-         |day
+    //-     .ui.icon.button.view_month
+    //-         |month
+    //- 
+    //-     span#renderRange.render-range
+    //- 
+    //- #calendar(style="height: 800px;")
         
     //- +full_cal    
         
-    //- .ui.stackable.grid
-    //-     .row
-    //-         .eight.wide.column
-    //- 
-                //- if daily_dollars
-                //-     .ui.inline.large.header 
-                //-         |$#{daily_dollars}
-                //-         small /day
-            //-     .ui.stackable.grid
-            //-         .two.column.row
-            //-             each upcoming_days
-            //-                 .column
-            //-                     +upcoming_day data=this
-            //- .eight.wide.column
-            //-     if current_date
-            //-         if current_hour
-            //-             .ui.header {{short_date current_date_string}} @ #{current_hour}:00
-            //-             with hourly_reservation
-            //-                 +reservation_small
-            //-             else 
-            //-                 .ui.green.fluid.button.reserve_this
-            //-                     |reserve hour for #{rental.hourly_dollars}c
+    .ui.stackable.grid
+        .row
+            .eight.wide.column
+    
+                if daily_dollars
+                    .ui.inline.large.header 
+                        |$#{daily_dollars}
+                        small /day
+                .ui.stackable.grid
+                    .two.column.row
+                        each upcoming_days
+                            .column
+                                +upcoming_day data=this
+            .eight.wide.column
+                if current_date
+                    if current_hour
+                        .ui.header {{short_date current_date_string}} @ #{current_hour}:00
+                        with hourly_reservation
+                            +reservation_small
+                        else 
+                            .ui.green.fluid.button.reserve_this
+                                |reserve hour for #{rental.hourly_dollars}c
 
 
 template(name='upcoming_day')
@@ -85,7 +85,7 @@ template(name='reservation_small')
                 //-     input.res_start(type='datetime-local' value=start_datetime)
                 .ui.right.labeled.input            
                     input.hour_duration(type='number' min='0' value=hour_duration autocomplete="off")
-                    .ui.basic.label hrs
+                    .ui.label hrs
                 div
                 .ui.input
                     input.res_end_time(type='time' min="#{start_time}" value=end_time)

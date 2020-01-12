@@ -17,7 +17,7 @@ template(name='time_session_card_template')
                 .item(title='tags')
                     i.grey.tags.icon 
                     each five_tags
-                        .ui.small.basic.label #{this}
+                        .ui.small.label #{this}
 
 template(name='time_session_view')
     with current_doc
@@ -52,7 +52,7 @@ template(name='time_session_view')
             
                     | !{description}
                     each tags 
-                        .ui.basic.label #{this}
+                        .ui.label #{this}
                     div
                     +comments
 

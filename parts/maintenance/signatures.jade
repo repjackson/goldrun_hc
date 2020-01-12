@@ -77,15 +77,15 @@ template(name='download_rules_pdf')
     .ui.header Gold Run account verified.  Click below to download copy of Rules and Regulations. You may close the window.
     with downloading_user
         +rules_and_regs_check
-    .ui.massive.basic.button.download_rules_pdf
+    .ui.massive.button.download_rules_pdf
         i.download.icon
         |Download Rules PDF    
 
 
 template(name='add_guest')
     with new_guest_doc
-        .ui.fluid.big.basic.button.cancel_new_guest
-            i.left.chevron.basic.icon
+        .ui.fluid.big.button.cancel_new_guest
+            i.left.chevron.icon
             |back to check in
         .ui.container
             +document_view key='guest_waiver'

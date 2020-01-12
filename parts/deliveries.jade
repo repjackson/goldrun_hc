@@ -17,8 +17,8 @@ template(name='deliveries')
                             .smallscroll
                                 |!{description}
                             +add_to_tab
-                            a.ui.basic.icon.button(href="/shop/#{_id}/view")
+                            a.ui.icon.button(href="/shop/#{_id}/view")
                                 +i name='chevron right' classes='ui mini image'
                             if can_edit
-                                a.ui.basic.button(href="/shop/#{_id}/edit")
+                                a.ui.button(href="/shop/#{_id}/edit")
                                     +i name='pencil' classes='ui mini image'

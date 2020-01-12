@@ -10,10 +10,10 @@ template(name='thoughts')
                 each thoughts 
                     .ui.segment.pointer.select_thought(class=thought_segment_class)
                         each tags 
-                            .ui.large.basic.label #{this}
+                            .ui.large.label #{this}
                         | by #{_author_username} #{when}
                         if points
-                            .ui.basic.label #{points}pts
+                            .ui.label #{points}pts
                         //- a.ui.icon.button(href="/m/thought/#{_id}/view")
                         //-     i.chevron.right.icon
             .five.wide.column

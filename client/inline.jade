@@ -2,7 +2,7 @@ template(name='facet_staff_select')
     if facet_doc
         with facet_doc
             if is_editing
-                .ui.basic.label select staff
+                .ui.label select staff
                 .ui.labeled.fluid.input
                     input#staff(type='text' value=staff)
             else
@@ -13,7 +13,7 @@ template(name='facet_staff_select')
     else
         if is_admin
             .ui.header no doc found
-            .create_doc.ui.basic.button
+            .create_doc.ui.button
                 i.plus.icon
                 |create doc with #{template_tags}
 
@@ -34,6 +34,6 @@ template(name='inline_doc')
     else
         if is_admin
             .ui.header no doc found
-            .create_doc.ui.basic.inline.button
+            .create_doc.ui.inline.button
                 i.plus.icon
                 |create #{slug} doc

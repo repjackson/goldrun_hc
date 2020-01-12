@@ -9,6 +9,8 @@ template(name='nav')
                     i.large.yin.yang.icon
             a.item(href='/global_stats' class="{{isActivePath '/global_stats'}}")
                 i.line.chart.icon
+            a.item(href='/m/rental' class="{{isActivePath '/m/rental'}}" title='rentals')
+                i.hand.holding.usd.icon
             //- if is_member
             //-     each role_models
             //-         a.set_model(href="/m/#{slug}" class="{{isActivePath '/m/model'}}" title=title)
@@ -136,7 +138,7 @@ template(name='latest_activity')
             .item 
                 img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
                 |#{text} #{body} 
-                .ui.basic.label #{log_type}
+                .ui.label #{log_type}
                 small #{when}
 
 

@@ -12,16 +12,16 @@ template(name='member_profile_layout')
                     else
                         a.item.mobile.hidden(href="/member/#{user_from_username_param.username}/")
                             img.ui.centered.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
-                    .ui.center.aligned.basic.segment.mobile.hidden
-                        a(href="/member/#{user.username}")
-                            .ui.large.center.aligned.header
-                                strong #{user.name}
-                                //- 
-                                //- strong #{user.first_name} #{user.last_name}
-                                //- small @#{user.username}        
-                        a.ui.header(href="/member/#{user_from_username_param.username}/finance" title='credit')
-                            +i name='coins'
-                            |{{fixed user.credit}}
+                    .spacer
+                    a(href="/member/#{user.username}")
+                        .ui.large.center.aligned.header
+                            strong #{user.name}
+                            //- 
+                            //- strong #{user.first_name} #{user.last_name}
+                            //- small @#{user.username}        
+                    a.ui.header(href="/member/#{user_from_username_param.username}/finance" title='credit')
+                        +i name='coins'
+                        |{{fixed user.credit}}
                     .ui.two.column.middle.aligned.grid.mobile.only
                         .column
                             img.ui.small.inline.image.mobile.only(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
@@ -34,10 +34,10 @@ template(name='member_profile_layout')
                                 i.coins.icon
                                 |{{fixed user.credit}}
                             if handling_active
-                                .ui.large.basic.green.label
+                                .ui.large.green.label
                                     |handling active (#{wait_time})
                             else 
-                                .ui.large.basic.label
+                                .ui.large.label
                                     |inactive
                     if is_current_user
                         unless handling_active 
@@ -50,11 +50,11 @@ template(name='member_profile_layout')
                                 i.sign.in.icon 
                                 //- +i name='remove-clock' 
                                 |clock out
-                        a.ui.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
+                        a.ui.fluid.button(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 
                             |edit
                     else if is_admin
-                        a.ui.button.item(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
+                        a.ui.fluid.button(href="/member/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 
                             |edit
                     if is_dev
@@ -63,21 +63,18 @@ template(name='member_profile_layout')
                     //-     .ui.button.direct_message(title='new message')
                     //-         +i name='envelope'
                     if is_current_user
-                        a.ui.button.logout(href="#" title='logout')
-                            //- i.sign.out.alternate.icon
-                            +ismall name='exit' 
+                        a.ui.fluid.button.logout(href="#" title='logout')
+                            i.sign.out.alternate.icon
                             |log out
-                        a.ui.button.logout_other_clients(href="#" title='logout other clients')
-                            //- i.globe.icon
-                            +ismall name='globe' 
+                        a.ui.fluid.button.logout_other_clients(href="#" title='logout other clients')
+                            i.globe.icon
                             |log out other clients
                     if is_admin
-                        .ui.basic.segment
-                            .ui.header 
-                                +i name='shield'
-                                |roles
-                            each roles
-                                .ui.basic.label #{this}
+                        .ui.header 
+                            +i name='shield'
+                            |roles
+                        each roles
+                            .ui.label #{this}
                 .twelve.wide.column
                     a.ui.large.compact.button(href="/member/#{username}/dashboard" class="{{isActiveRoute 'member_dashboard'}}")
                         i.dashboard.icon
@@ -100,15 +97,15 @@ template(name='member_profile_layout')
                     a.ui.compact.button(href="/member/#{username}/contact" class="{{isActiveRoute 'member_contact'}}")
                         i.phone.icon
                         |contact
-                    a.ui.compact.button(href="/member/#{username}/comparison" class="{{isActiveRoute 'member_comparison'}}")
-                        i.transaction.icon
-                        |comparison
+                    //- a.ui.compact.button(href="/member/#{username}/comparison" class="{{isActiveRoute 'member_comparison'}}")
+                    //-     i.transaction.icon
+                    //-     |comparison
                     a.ui.compact.button(href="/member/#{username}/offers" class="{{isActiveRoute 'member_offers'}}")
                         i.hand.holding.usd.icon
                         |offers
-                    a.ui.compact.button(href="/member/#{username}/tags" class="{{isActiveRoute 'member_tags'}}")
-                        i.tags.icon
-                        |tags
+                    //- a.ui.compact.button(href="/member/#{username}/tags" class="{{isActiveRoute 'member_tags'}}")
+                    //-     i.tags.icon
+                    //-     |tags
                     a.ui.compact.button(href="/member/#{username}/messages" class="{{isActiveRoute 'member_messages'}}")
                         i.envelope.icon
                         |mail
@@ -121,9 +118,9 @@ template(name='member_profile_layout')
                     a.ui.compact.button(href="/member/#{username}/credit" class="{{isActiveRoute regex='user_credit'}}")
                         i.coins.grey.icon
                         |credit
-                    a.ui.compact.button(href="/member/#{username}/questions" class="{{isActiveRoute regex=user_offers}}")
-                        i.question.mark.icon
-                        |questions
+                    //- a.ui.compact.button(href="/member/#{username}/questions" class="{{isActiveRoute regex=user_offers}}")
+                    //-     i.question.mark.icon
+                    //-     |questions
                     //- a.ui.compact.button(href="/member/#{username}/passages" class="{{isActiveRoute regex=user_passages}}")
                     //-     i.list.icon
                     //-     |passages
@@ -136,27 +133,27 @@ template(name='member_profile_layout')
                     a.ui.compact.button(href="/member/#{username}/social" class="{{isActiveRoute regex='user_social'}}")
                         i.comments.grey.icon
                         |social
-                    a.ui.compact.button(href="/member/#{username}/brain" class="{{isActiveRoute regex='user_brain'}}")
-                        i.grey.brain.icon
-                        |brain
-                    a.ui.compact.button(href="/member/#{username}/karma" class="{{isActiveRoute regex='user_karma'}}")
-                        i.grey.yin.yang.icon
-                        |karma
-                    a.ui.compact.button(href="/member/#{username}/right" class="{{isActiveRoute regex='user_right'}}")
-                        i.grey.checkmark.icon
-                        |right
-                    a.ui.compact.button(href="/member/#{username}/wrong" class="{{isActiveRoute regex='user_wrong'}}")
-                        i.grey.remove.icon
-                        |wrong
+                    //- a.ui.compact.button(href="/member/#{username}/brain" class="{{isActiveRoute regex='user_brain'}}")
+                    //-     i.grey.brain.icon
+                    //-     |brain
+                    //- a.ui.compact.button(href="/member/#{username}/karma" class="{{isActiveRoute regex='user_karma'}}")
+                    //-     i.grey.yin.yang.icon
+                    //-     |karma
+                    //- a.ui.compact.button(href="/member/#{username}/right" class="{{isActiveRoute regex='user_right'}}")
+                    //-     i.grey.checkmark.icon
+                    //-     |right
+                    //- a.ui.compact.button(href="/member/#{username}/wrong" class="{{isActiveRoute regex='user_wrong'}}")
+                    //-     i.grey.remove.icon
+                    //-     |wrong
                     a.ui.compact.button(href="/member/#{username}/cart" class="{{isActiveRoute regex='user_cart'}}")
                         i.grey.shopping.cart.icon
                         |cart
                     a.ui.compact.button(href="/member/#{username}/groups" class="{{isActiveRoute regex='user_groups'}}")
                         i.grey.users.icon
                         |groups
-                    a.ui.compact.button(href="/member/#{username}/tutoring" class="{{isActiveRoute regex='user_tutoring'}}")
-                        i.grey.chalkboard.icon
-                        |tutoring
+                    //- a.ui.compact.button(href="/member/#{username}/tutoring" class="{{isActiveRoute regex='user_tutoring'}}")
+                    //-     i.grey.chalkboard.icon
+                    //-     |tutoring
                     a.ui.compact.button(href="/member/#{username}/events" class="{{isActiveRoute regex='user_events'}}")
                         i.grey.calendar.icon
                         |events

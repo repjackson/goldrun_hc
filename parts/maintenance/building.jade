@@ -8,7 +8,7 @@ template(name='buildings')
                         .content
                             .ui.large.header #{building_code}
                                 each building_numbers
-                                    .ui.basic.label #{this}
+                                    .ui.label #{this}
                             .ui.grey.small.header #{building_street}
                 
                 
@@ -38,7 +38,7 @@ template(name='building')
                     small building
                     strong #{building.building_code}
                 each building.building_numbers
-                    .ui.basic.large.label #{this}
+                    .ui.large.label #{this}
         .row
             .ui.sixteen.wide.column
                 .ui.three.cards
@@ -58,7 +58,7 @@ template(name='unit_card')
             +i name='rent' title='owner(s)'
             //- i.dollar.icon
             each owners
-                .ui.basic.large.label
+                .ui.large.label
                     if kiosk_photo
                         img.ui.rounded.image(src="{{c.url kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
                     else if image_id
@@ -68,7 +68,7 @@ template(name='unit_card')
             //- i.home.icon
             +i name='home' title='renters'
             each residents
-                .ui.basic.large.label
+                .ui.large.label
                     if kiosk_photo
                         img.ui.rounded.image(src="{{c.url kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
                     else if image_id
@@ -79,7 +79,7 @@ template(name='unit_card')
             //-     +unit_permits
             //-     +i name='badge'
             //-     each permits
-            //-         .ui.basic.label #{license_plate}
+            //-         .ui.label #{license_plate}
             .ui.small.header #{notes}
             if is_dev
                 +number_view key='building_number' direct=true

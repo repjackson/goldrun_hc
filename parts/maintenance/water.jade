@@ -58,7 +58,7 @@ template(name='lower_hot_tub_readings')
         |lower hot tub readings
     #add_lower_hot_tub_reading.ui.big.icon.button
         i.green.plus.icon
-    table.ui.striped.very.basic.large.table
+    table.ui.striped.very.large.table
         thead
             tr
                 th ph
@@ -75,8 +75,8 @@ template(name='lower_hot_tub_readings')
                     td #{chlorine}
                     td #{temperature}
                     td #{notes}
-                        .ui.large.basic.label #{ph_message}
-                        .ui.large.basic.label #{chlorine_message}
+                        .ui.large.label #{ph_message}
+                        .ui.large.label #{chlorine_message}
                     td 
                         +author_info
                     td 
@@ -94,7 +94,7 @@ template(name='upper_hot_tub_readings')
     #add_upper_hot_tub_reading.ui.big.icon.button
         i.green.plus.icon
     .ui.small.header keep 6 tabs of bromine in filter system at all times.  if a tab has dissolved to less than half its original size, replace.
-    table.ui.striped.very.basic.large.table
+    table.ui.striped.very.large.table
         thead
             tr
                 th ph
@@ -111,8 +111,8 @@ template(name='upper_hot_tub_readings')
                     td #{chlorine}
                     td #{temperature}
                     td #{notes}
-                        .ui.large.basic.label #{chlorine_message}
-                        .ui.large.basic.label #{ph_message}
+                        .ui.large.label #{chlorine_message}
+                        .ui.large.label #{ph_message}
                     td 
                         +author_info
                     td 
@@ -130,7 +130,7 @@ template(name='pool_readings')
         |pool readings
     #add_pool_reading.ui.big.icon.button
         i.green.plus.icon 
-    table.ui.striped.very.basic.large.table
+    table.ui.striped.very.large.table
         thead
             tr
                 th ph
@@ -147,8 +147,8 @@ template(name='pool_readings')
                     td #{chlorine}
                     td #{temperature}
                     td #{notes}  
-                        .ui.large.basic.label #{ph_message}
-                        .ui.large.basic.label #{chlorine_message}
+                        .ui.large.label #{ph_message}
+                        .ui.large.label #{chlorine_message}
                     td 
                         +author_info
                     td 
@@ -164,7 +164,7 @@ template(name='ph')
             +ismall name='molecule'
             |ph (goal 7.2-7.4)
             if ph_message
-                .ui.big.basic.label #{ph_message}
+                .ui.big.label #{ph_message}
         input#ph(type='number' step='.1' min='6.4' max='8.0' value=ph)
         
 template(name='indoor_ph')            
@@ -173,7 +173,7 @@ template(name='indoor_ph')
             +ismall name='molecule'
             |ph (goal 7.2-7.4)
             if ph_message
-                .ui.big.basic.label #{ph_message}
+                .ui.big.label #{ph_message}
         input#ph(type='number' step='.1' min='6.4' max='8.0' value=ph)
         
 template(name='pool_ph')            
@@ -182,7 +182,7 @@ template(name='pool_ph')
             +ismall name='molecule'
             |ph (goal 7.2-7.4)
             if ph_message
-                .ui.big.basic.label #{ph_message}
+                .ui.big.label #{ph_message}
         input#ph(type='number' step='.1' min='6.4' max='8.0' value=ph)
         
 template(name='temperature')            
@@ -198,7 +198,7 @@ template(name='chlorine')
         label 
             +ismall name='thermometer'
             |chlorine (ppm) (goal 2-3ppm)
-            .ui.big.basic.label #{chlorine_message}
+            .ui.big.label #{chlorine_message}
         input#chlorine(type='number' step='.1' min='1' max='5' value=chlorine)
 
         
@@ -207,14 +207,14 @@ template(name='pool_chlorine')
         label 
             +ismall name='test-tube'
             |chlorine (ppm) (goal 2-3ppm)
-            .ui.big.basic.label #{chlorine_message}
+            .ui.big.label #{chlorine_message}
         input#chlorine(type='number' step='.1' min='1' max='5' value=chlorine)
 
 template(name='indoor_chlorine')            
     .large.field
         label 
             |chlorine (ppm) (goal 2-3ppm)
-            .ui.big.basic.label #{chlorine_message}
+            .ui.big.label #{chlorine_message}
             +ismall name='thermometer'
         input#chlorine(type='number' step='.1' min='1' max='5' value=chlorine)
 

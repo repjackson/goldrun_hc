@@ -22,18 +22,18 @@ template(name='view_notifications')
     .centered.row
         .four.wide.column
             //- +cloud key='tags' filter='notification'
-            #mark_all_read.ui.basic.button 
+            #mark_all_read.ui.button 
                 i.visible.icon
                 |mark all read
              if is_admin
                  .ui.header options
                  if notifications_allowed
-                    .ui.basic.disabled.button notifications allowed
-                    #disallow_notifications.ui.basic.red.button
+                    .ui.disabled.button notifications allowed
+                    #disallow_notifications.ui.red.button
                         i.remove.icon
                         |remove permissions
             else
-                #allow_notifications.ui.basic.button allow desktop notifications
+                #allow_notifications.ui.button allow desktop notifications
         .ten.wide.column.shadowed
             each notifications
                 +notification

@@ -7,7 +7,7 @@ template(name='product_edit')
                     a.ui.big.fluid.button(href="/product/#{_id}/view")
                         i.green.checkmark.icon
                         |save
-                    .ui.basic.icon.button.delete_product_item 
+                    .ui.icon.button.delete_product_item 
                         i.trash.icon
                     +text_edit key='title' icon='header' direct=true
                     +image_edit key='image' direct=true
@@ -60,7 +60,7 @@ template(name='product_view')
                         .ui.big.disabled.button
                             |sold out
                     +voting_full     
-                    .ui.basic.segment
+                    .ui.segment
                         .ui.small.header
                             |delivery instructions
                         |#{delivery_instructions}      
@@ -113,8 +113,8 @@ template(name='product_card_template')
             //- div
             +i name='marker' classes='ui mini inline image'
             each location_tags
-                .ui.basic.label #{this}
-            .ui.basic.animated.fade.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
+                .ui.label #{this}
+            .ui.animated.fade.button.add_to_cart(title="#{karma_price} karma, click to add to cart")
                 .visible.content
                     .ui.header #{karma_price}k
                 .hidden.content
@@ -122,7 +122,7 @@ template(name='product_card_template')
             .ui.inline.header 
                 //- i.product.grey.small.icon
                 |$#{dollar_price}
-            a.ui.basic.small.icon.button(href="/product/#{_id}/view")
+            a.ui.small.icon.button(href="/product/#{_id}/view")
                 +i name='chevron right' classes='ui mini image'
         //- .four.wide.column
         //-     with author

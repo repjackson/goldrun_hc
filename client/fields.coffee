@@ -342,6 +342,7 @@ Template.boolean_edit.events
 
 Template.number_edit.events
     'blur .edit_number': (e,t)->
+        # console.log @
         if @direct
             parent = Template.parentData()
         else

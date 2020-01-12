@@ -44,7 +44,7 @@ template(name='model_doc_view')
                             div
                             i.large.clock.grey.icon(title='timestamp tags')
                             each _timestamp_tags
-                                .ui.basic.label #{this}
+                                .ui.label #{this}
                         +user_list_toggle key='bookmark_ids' icon='bookmark' label='bookmark' color='red'
                         div
                         .ui.small.header #{views} views

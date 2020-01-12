@@ -99,16 +99,16 @@ template(name='task_card_template')
             .item
                 i.grey.tags.icon 
                 each five_tags
-                    .ui.small.basic.label #{this}
+                    .ui.small.label #{this}
         div
         if weight 
             .ui.small.inline.header #{weight} weight
         if assigned_by
-            .ui.large.basic.label(title='assigned by')
+            .ui.large.label(title='assigned by')
                 |#{assigned_by}
             .ui.small.inline.header ->
         if assigned_to
-            .ui.large.basic.label(title='assigned to')
+            .ui.large.label(title='assigned to')
                 |#{assigned_to}
         unless complete
             if percent_complete

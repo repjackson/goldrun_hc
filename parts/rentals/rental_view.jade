@@ -12,11 +12,10 @@ template(name='rental_view')
             //-         +rental_calendar
             .row
                 .four.wide.column
-                    a.ui.fluid.button(href='/' title='rentals')
+                    a.ui.fluid.button(href='/m/rental' title='rentals')
                         i.left.chevron.icon
                         //- +i name='handshake' classes='ui mini inline image'
                         |rentals
-                    .ui.large.center.aligned.inline.header #{title}
                     +rental_status
                     .ui.header 
                         |#{hourly_dollars}c
@@ -30,7 +29,6 @@ template(name='rental_view')
                         a.ui.fluid.button(href="/rental/#{_id}/edit")
                             i.pencil.icon
                             |edit
-                    +reserve_button
                     +rental_stats
         
                     .ui.header added by #{_author_username}
@@ -51,19 +49,24 @@ template(name='rental_view')
                         | handler
                     +single_user_view key='handler_username' direct=true
                     +comments
-                .twelve.wide.column
-                    .ui.basic.segment.f4
+                .eight.wide.column
+                    .ui.large.center.aligned.inline.header #{title}
+                    .ui.segment.f4
                         +html_view key='description' label='description' icon='content' direct=true
                     div
                     +text_view key='contact_info' label='contact info' icon='info' direct=true
                     div
                     +link_view key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
+                    +rental_calendar
                     +rental_view_reservations
+                .four.wide.column
+                    +reserve_button
+                    
 
 template(name='rental_stats')
     //- .ui.accordion
     //-     .title
-    .ui.header.refresh_rental_stats
+    .ui.grey.header.refresh_rental_stats
         i.line.chart.icon
         |stats
     //- i.dropdown.icon
@@ -95,7 +98,7 @@ template(name='rental_status')
     if available 
         .ui.green.label available now
     else 
-        .ui.basic.label off the clock
+        .ui.label off the clock
         
 template(name='reserve_button')
     .ui.big.green.fluid.button.new_reservation 
@@ -104,28 +107,13 @@ template(name='reserve_button')
             //- +i name='play' classes='ui inline mini image'
 
 template(name='rental_view_reservations')
-    .ui.header 
+    .ui.inline.header 
         i.clock.icon
         |reservations
     .ui.icon.button.set_card_view
         i.clone.icon
     .ui.icon.button.set_segment_view
         i.list.icon
-    .ui.simple.dropdown
-        |sort by
-        |#{current_sort}
-        i.dropdown.icon
-        .menu
-            +sort_item key='most_expensive' label='most expensive' direction='-1'
-            +sort_item key='_timestamp' label='newest' direction='-1'
-            +sort_item key='reservation_count' label='most rented' direction='1'
-            +sort_item key='points' label='most rented' direction='1'
-    div
-    |available
-    +set_date_filter key='today' label='today'
-    +set_date_filter key='tomorrow' label='tomorrow'
-    +set_date_filter key='this_weekend' label='this weekened'
-    
     .ui.hidden.divider
     if view_res_cards
         .ui.stackable.three.cards
@@ -150,13 +138,12 @@ template(name='reservation_segment')
             //- |{{long_date start_datetime}}
             small to 
             |{{cal_time end_datetime}}
-        div
         .ui.grey.inline.header #{hour_duration}hrs
         .ui.grey.inline.header(title='credits')
             //- i.coins.icon
             | #{cost}c
-        .ui.small.header #{when} by #{_author_username}
-        a.ui.large.fluid.button(href="/reservation/#{_id}/view")
+        .ui.small.inline.header #{when} by #{_author_username}
+        a.ui.large.button(href="/reservation/#{_id}/view")
             |view
             i.right.chevron.icon
                 

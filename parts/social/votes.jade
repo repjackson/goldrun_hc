@@ -5,10 +5,10 @@ template(name='votes')
                 .ui.inline.header 
                     //- +i name='line chart' classes='ui avatar image'
                     |stats
-                    .ui.basic.large.label #{vote_stats_doc.total_count} total
-                    .ui.basic.large.label #{vote_stats_doc.complete_count} complete 
-                    .ui.basic.large.label #{vote_stats_doc.incomplete_count} incomplete 
-                    .ui.basic.large.label #{vote_stats_doc.total_updates_count} total updates 
+                    .ui.large.label #{vote_stats_doc.total_count} total
+                    .ui.large.label #{vote_stats_doc.complete_count} complete 
+                    .ui.large.label #{vote_stats_doc.incomplete_count} incomplete 
+                    .ui.large.label #{vote_stats_doc.total_updates_count} total updates 
                     i.dropdown.icon
             .content
                 .ui.grid
@@ -55,7 +55,7 @@ template(name='vote_card_template')
         |!{description}
         +ismall name='tags' classes='ui inline image'
         each tags
-            .ui.basic.label #{this}
+            .ui.label #{this}
         div
         +voting_full
         a.ui.button(href="/vote/#{_id}/view")

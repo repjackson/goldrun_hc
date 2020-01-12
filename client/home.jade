@@ -3,124 +3,125 @@ template(name='home')
         .row 
             .twelve.wide.column
                 .ui.centered.stackable.five.cards 
-                    a.ui.card(href="/alpha")
-                        .content 
-                            .ui.grey.header
-                                i.grey.mountain.icon
-                                | alpha
-                    a.ui.card(href="/m/model")
-                        .content 
-                            .ui.grey.header 
-                                i.grey.shapes.icon
-                                |delta
-                    a.ui.card(href="/minutes")
-                        .content 
-                            .ui.grey.header 
-                                i.grey.clock.icon
-                                |minutes
-                    a.ui.card(href="/courses")
-                        .content 
-                            .ui.grey.header 
-                                i.grey.chalkboard.icon
-                                |courses
+                    if is_dev
+                        a.ui.card(href="/alpha")
+                            .content 
+                                .ui.grey.icon.header
+                                    i.grey.mountain.icon
+                                    | alpha
+                        a.ui.card(href="/m/model")
+                            .content 
+                                .ui.grey.icon.header 
+                                    i.grey.shapes.icon
+                                    |delta
+                    //- a.ui.card(href="/minutes")
+                    //-     .content 
+                    //-         .ui.grey.icon.header 
+                    //-             i.grey.clock.icon
+                    //-             |minutes
+                    //- a.ui.card(href="/courses")
+                    //-     .content 
+                    //-         .ui.grey.icon.header 
+                    //-             i.grey.chalkboard.icon
+                    //-             |courses
                     a.ui.card(href="/m/food")
                         .content 
-                            .ui.grey.header 
+                            .ui.grey.icon.header 
                                 i.grey.food.icon
                                 |food
                     a.ui.card(href="/work_orders")
                         .content 
-                            .ui.grey.header 
+                            .ui.grey.icon.header 
                                 i.grey.wrench.icon
                                 |work orders
-                    a.ui.card(href="/tests")
-                        .content 
-                            .ui.grey.header
-                                i.grey.edit.icon
-                                | tests
-                    a.ui.card(href="/gallery")
-                        .content 
-                            .ui.grey.header
-                                i.grey.photo.icon
-                                | gallery
+                    //- a.ui.card(href="/tests")
+                    //-     .content 
+                    //-         .ui.grey.icon.header
+                    //-             i.grey.edit.icon
+                    //-             | tests
+                    //- a.ui.card(href="/gallery")
+                    //-     .content 
+                    //-         .ui.grey.icon.header
+                    //-             i.grey.photo.icon
+                    //-             | gallery
                     a.ui.card(href="/rentals")
                         .content 
-                            .ui.grey.header 
+                            .ui.grey.icon.header 
                                 i.grey.hand.holding.usd.icon
                                 | rentals
                     a.ui.card(href="/chat")
                         .content 
-                            .ui.grey.header
+                            .ui.grey.icon.header
                                 i.grey.comment.outline.icon
                                 | chat
                     a.ui.card(href="/events")
                         .content 
-                            .ui.grey.header
+                            .ui.grey.icon.header
                                 i.grey.calendar.icon
                                 | events
-                    a.ui.card(href="/m/article")
-                        .content 
-                            .ui.grey.header
-                                i.grey.document.icon
-                                | article
+                    //- a.ui.card(href="/m/article")
+                    //-     .content 
+                    //-         .ui.grey.icon.header
+                    //-             i.grey.document.icon
+                    //-             | article
                     a.ui.card(href="/bounty")
                         .content 
-                            .ui.grey.header
+                            .ui.grey.icon.header
                                 i.grey.money.icon
                                 | bounty
-                    a.ui.card(href="/posts")
-                        .content 
-                            .ui.grey.header
-                                i.grey.blog.icon
-                                | posts
+                    //- a.ui.card(href="/posts")
+                    //-     .content 
+                    //-         .ui.grey.icon.header
+                    //-             i.grey.blog.icon
+                    //-             | posts
                     a.ui.card(href="/m/service")
                         .content 
-                            .ui.grey.header
+                            .ui.grey.icon.header
                                 i.grey.wrench.icon
                                 | services
                     a.ui.card(href="/alerts")
                         .content 
-                            .ui.grey.header
+                            .ui.grey.icon.header
                                 i.grey.bell.outline.icon
                                 | alerts
                     a.ui.card(href="/users")
                         .content 
-                            .ui.grey.header
+                            .ui.grey.icon.header
                                 i.grey.users.icon
                                 |users
                     .ui.card.gt_tasks.pointer
                         .content 
-                            .ui.grey.header
+                            .ui.grey.icon.header
                                 i.grey.tasks.icon
                                 |tasks
-                    a.ui.card(href="/time")
-                        .content 
-                            .ui.grey.header
-                                i.grey.clock.icon
-                                |time
-                    a.ui.card(href="/m/boulder")
-                        .content 
-                            .ui.grey.header
-                                i.grey.leaf.icon
-                                |boulder
-                    a.ui.card(href="/m/condo_listing")
-                        .content 
-                            .ui.grey.header
-                                i.grey.building.icon
-                                |condo listings
-                    a.ui.card(href="/m/ballot")
-                        .content 
-                            .ui.grey.header
-                                i.grey.thumbs.up.icon
-                                |ballots
-                    a.ui.card(href="/thoughts")
-                        .content 
-                            .ui.grey.header
-                                i.grey.brain.icon
-                                |thoughts
+                    //- a.ui.card(href="/time")
+                    //-     .content 
+                    //-         .ui.grey.icon.header
+                    //-             i.grey.clock.icon
+                    //-             |time
+                    //- a.ui.card(href="/m/boulder")
+                    //-     .content 
+                    //-         .ui.grey.icon.header
+                    //-             i.grey.leaf.icon
+                    //-             |boulder
+                    //- a.ui.card(href="/m/condo_listing")
+                    //-     .content 
+                    //-         .ui.grey.icon.header
+                    //-             i.grey.building.icon
+                    //-             |condo listings
+                    //- a.ui.card(href="/m/ballot")
+                    //-     .content 
+                    //-         .ui.grey.icon.header
+                    //-             i.grey.thumbs.up.icon
+                    //-             |ballots
+                    //- a.ui.card(href="/thoughts")
+                    //-     .content 
+                    //-         .ui.grey.icon.header
+                    //-             i.grey.brain.icon
+                    //-             |thoughts
                     a.ui.card(href="/m/bug")
                         .content 
-                            .ui.grey.header
+                            .ui.grey.icon.header
                                 i.grey.bug.icon
                                 |bugs
             .four.wide.column

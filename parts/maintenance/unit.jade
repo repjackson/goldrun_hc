@@ -34,7 +34,7 @@ template(name='unit')
 
             
 template(name='unit_permits')            
-    .ui.basic.segment
+    .ui.segment
         .ui.header 
             +i name='badge'
             |unit permits
@@ -49,7 +49,7 @@ template(name='unit_permits')
                         +text_view key='license_plate' icon='driver-license-card' direct=true
 
 template(name='unit_owners')            
-    .ui.basic.segment
+    .ui.segment
         .ui.header 
             +i name='rent'
             //- i.money.icon
@@ -70,7 +70,7 @@ template(name='unit_owners')
 
 
 template(name='unit_residents')            
-    .ui.basic.segment
+    .ui.segment
         .ui.header
             +i name='groups'
             //- i.users.icon
@@ -95,7 +95,7 @@ template(name='unit_residents')
 
 
 template(name='user_key')
-    .ui.basic.segment
+    .ui.segment
         .ui.grey.inline.center.aligned.small.header 
             //- i.key.icon
             +i name='key'
@@ -111,7 +111,7 @@ template(name='user_key')
                 +number_view key='tag_number' label='tag number' direct=true
             if is_staff
                 if viewing_code
-                    .ui.massive.yellow.basic.label
+                    .ui.massive.yellow.label
                         if fowler
                             +boolean_view key='fowler' label='fowler' direct=true
                         else

@@ -116,7 +116,7 @@ template(name='user_brain')
     each thoughts 
         .ui.segment 
             each tags 
-                .ui.inverted.basic.label #{this}
+                .ui.inverted.label #{this}
             |#{when}
 
 
@@ -128,7 +128,7 @@ template(name='user_right')
     .ui.two.column.stackable.grid 
         .column
             each current_user.right_tag_cloud
-                .ui.basic.large.label 
+                .ui.large.label 
                     |#{tag}
                     small #{count}
             .ui.header right questions
@@ -168,7 +168,7 @@ template(name='user_wrong')
         .column
             i.recalc_wrong_ids.link.circular.refresh.icon
             each current_user.wrong_tag_cloud
-                .ui.basic.large.label 
+                .ui.large.label 
                     |#{tag}
                     small #{count}
             //- each current_user.all_wrong_ids
@@ -218,7 +218,7 @@ template(name='user_tags')
         +i name='tags'
         |tags
     //- each tags
-    //-     .ui.large.basic.label 
+    //-     .ui.large.label 
     //-         if is_user
     //-             i.remove.link.icon.remove_tag
     //-         |#{this}
@@ -280,7 +280,7 @@ template(name='user_brain_small')
 //-                 |#{name}
 //-             .description
 //-                 each tags
-//-                     .ui.basic.label #{this}
+//-                     .ui.label #{this}
 
     //- .ui.card
     //-     .image
@@ -292,7 +292,7 @@ template(name='user_brain_small')
     //-             //- |#{username}
     //-         //- .ui.header Tags
     //-         each tags
-    //-             .ui.basic.label #{this}
+    //-             .ui.label #{this}
     //-         +user_status user
     //-         .ui.header #{body}
     //-         +user_friend_button
@@ -305,7 +305,7 @@ template(name='user_friend_button')
             .hidden.content
                 i.minus.icon
     else
-        .ui.basic.button.friend
+        .ui.button.friend
             i.plus.icon
             |friend
 

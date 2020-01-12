@@ -40,7 +40,7 @@ template(name='model_edit')
                                 if sortable
                                     i.sort.amount.down.icon
                                 each view_roles
-                                    .ui.basic.label #{this}
+                                    .ui.label #{this}
                                 i.large.dropdown.icon
                             +delta_field_edit
 
@@ -55,7 +55,7 @@ template(name='model_edit')
                                     i.icon(class=icon)
                                 |#{title} (#{action_type})
                                 each view_roles
-                                    .ui.basic.label #{this}
+                                    .ui.label #{this}
                                 i.large.dropdown.icon
                             +action_edit
 

@@ -88,10 +88,10 @@ template(name='most_viewed_posts')
         each most_viewed_posts
             a.item.pointer(href="/m/#{model}/#{_id}/view")
                 .ui.small.header #{title} 
-                    .ui.basic.label(title='model') #{model}
-                    .ui.basic.blue.label(title='views') #{views}
+                    .ui.label(title='model') #{model}
+                    .ui.blue.label(title='views') #{views}
                 each five_tags
-                    .ui.small.basic.label #{this}
+                    .ui.small.label #{this}
             
         
 template(name='most_viewed_models')
@@ -134,7 +134,7 @@ template(name='published_resident_small')
     each published_residents
         .ui.small.header #{first_name} #{last_name}
             each five_tags
-                .ui.small.basic.label #{this}
+                .ui.small.label #{this}
 
 
 
@@ -190,7 +190,7 @@ template(name='photo_doc_view')
 
 
 template(name='model_scroller')
-    .ui.basic.segment
+    .ui.segment
         a.ui.inline.header.go_to_model(href="/m/#{model}")
             if icon 
                 +i name=icon

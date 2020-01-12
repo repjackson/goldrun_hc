@@ -124,7 +124,7 @@ template(name='rental_small_interest')
                 img.ui.centered.image(src="{{c.url image height=200 width=200 background='white' crop='pad'}}")
         .twelve.wide.column
             a.ui.inline.header(href="/rental/#{_id}/view") #{title} 
-            .ui.basic.label #{hourly_dollars}c/hr
+            .ui.label #{hourly_dollars}c/hr
             +rental_status
             div
             .ui.small.inline.header #{rental_interest_rate}c/hr interest
@@ -242,9 +242,9 @@ template(name='member_rental_card')
                 if variable_price
                     |~
                 if hourly_dollars
-                    .ui.basic.label #{hourly_dollars}c/hr
+                    .ui.label #{hourly_dollars}c/hr
                 if daily_dollars
-                    .ui.basic.label #{daily_dollars}c/day
+                    .ui.label #{daily_dollars}c/day
             //- if hourly_karma
             //-     +ismall name='yin-yang'
             //-     |#{hourly_karma}/hr
@@ -259,11 +259,11 @@ template(name='member_rental_card')
             div
             +ismall name='marker'
             each location_tags
-                .ui.basic.label #{this}
+                .ui.label #{this}
             div
             +ismall name='tags'
             each tags
-                .ui.basic.label #{this}
+                .ui.label #{this}
             +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
             div
             a.ui.button(href="/rental/#{_id}/view")

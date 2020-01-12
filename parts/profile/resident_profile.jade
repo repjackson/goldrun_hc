@@ -18,7 +18,7 @@ template(name='user_layout')
                     else
                         if is_current_user
                             +image_edit key='profile_photo' label='profile photo' direct=true
-                    .ui.center.aligned.basic.segment
+                    .ui.center.aligned.segment
                         a(href="/user/#{user.username}")
                             h1.ui.large.center.aligned.header
                                 strong #{user.first_name} #{user.last_name}
@@ -53,7 +53,7 @@ template(name='user_layout')
                         .ui.small.header #{tagline}
                         +ismall name='tags'
                         each tags
-                            .ui.small.basic.label #{this}
+                            .ui.small.label #{this}
                     if is_current_user
                         a.ui.large.button.item(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             +i name='settings' 
@@ -79,12 +79,12 @@ template(name='user_layout')
                             +ismall name='globe' 
                             |log out other clients
                     if is_admin
-                        .ui.basic.segment
+                        .ui.segment
                             .ui.header 
                                 +i name='shield'
                                 |roles
                             each roles
-                                .ui.basic.label #{this}
+                                .ui.label #{this}
                 .twelve.wide.column.shadowed-box
                     if is_staff
                         if user_is_resident
@@ -128,7 +128,7 @@ template(name='user_check_steps')
 
 template(name='staff_verification')
     if is_staff
-        .ui.basic.segment
+        .ui.segment
             .ui.header 
                 if staff_verifier
                     +i name='id-verified' classes='ui mini inline image'
@@ -145,7 +145,7 @@ template(name='user_residency')
     +resident_info         
     +user_key
     +user_unit
-    .ui.basic.segment
+    .ui.segment
         //- +text_view key='first_name' label='First Name' direct=true
         //- +text_view key='last_name' label='Last Name' direct=true
         if is_admin
@@ -166,7 +166,7 @@ template(name='user_residency')
     
     
 template(name='user_healthclub')
-    .ui.basic.segment
+    .ui.segment
         //- .ui.header 
         //-     +i name='token-card-code'
         //-     |hc card
@@ -217,7 +217,7 @@ template(name='resident_about')
                         +user_permit
                 
 template(name='resident_info')
-    .ui.basic.segment
+    .ui.segment
         //- +text_view key='first_name' label='First Name' direct=true
         //- +text_view key='last_name' label='Last Name' direct=true
         if is_admin
@@ -236,14 +236,14 @@ template(name='resident_info')
         div
         each emails
             if verified
-                .ui.large.basic.label(title='verified') #{address}
+                .ui.large.label(title='verified') #{address}
             else
-                .ui.orange.large.basic.label(title='unverified') #{address}
+                .ui.orange.large.label(title='unverified') #{address}
 
     
             
 template(name='user_permit')
-    .ui.basic.segment
+    .ui.segment
         .ui.inline.center.aligned.header 
             |permit
         +goto_model slug='parking_permit'
@@ -266,7 +266,7 @@ template(name='user_permit')
             
 template(name='user_permits')
     if user_permits
-        .ui.basic.segment
+        .ui.segment
             .ui.inline.center.aligned.header 
                 i.id.card.alternate.icon
                 +goto_model slug='parking_permit'
@@ -274,7 +274,7 @@ template(name='user_permits')
 
             
 template(name='user_signatures')
-    .ui.basic.segment
+    .ui.segment
         .ui.inline.center.aligned.header 
             i.pencil.icon
             | signatures
@@ -295,7 +295,7 @@ template(name='user_notes')
             
             
 template(name='user_checkins')
-    .ui.basic.segment
+    .ui.segment
         .ui.inline.center.aligned.header 
             |health club check ins
         if is_staff
@@ -307,7 +307,7 @@ template(name='user_checkins')
             
             
 template(name='user_guests')
-    .ui.basic.segment
+    .ui.segment
         .ui.inline.center.aligned.header 
             i.users.icon
             |guests
@@ -328,7 +328,7 @@ template(name='user_guests')
             
             
 template(name='user_unit')
-    .ui.basic.segment
+    .ui.segment
         .ui.inline.center.aligned.header 
             i.home.icon
             |unit
@@ -352,7 +352,7 @@ template(name='user_section')
 
 template(name='user_log')
     //- .ui.fluid.styled.accordion
-    .ui.basic.segment
+    .ui.segment
         .ui.inline.center.aligned.header 
             //- +i name='overview-pages-4'
             i.list.icon
@@ -392,13 +392,13 @@ template(name='user_string_toggle')
             
             
 template(name='membership_status')
-    .ui.basic.segment
+    .ui.segment
         .ui.inline.center.aligned.header 
             |membership status
         +email_validation_check
         +lease_expiration_check
         +rules_and_regs_check
-        .ui.large.basic.button.email_rules_receipt
+        .ui.large.button.email_rules_receipt
             i.envelope.teal.icon
             |email rules and regs receipt
         //- +rules_and_regs_

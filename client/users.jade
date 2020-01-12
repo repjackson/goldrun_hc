@@ -30,7 +30,7 @@ template(name='member')
                 h2.ui.center.aligned.header #{name} 
                 .ui.small.header @#{username}
             each five_tags
-                .ui.small.basic.label(class=tag_class) 
+                .ui.small.label(class=tag_class) 
                     strong #{this}
             .ui.small.inline.header(title='karma')
                 |#{karma}
@@ -38,7 +38,7 @@ template(name='member')
             .ui.small.inline.header(title='points')
                 |#{points}
                 small pts
-            +member_connect_button
+            +user_connect_button
             
             
             
@@ -124,7 +124,7 @@ template(name='user')
                 h2.ui.center.aligned.header #{first_name} #{last_name} 
                 .ui.small.header @#{username}
             each five_tags
-                .ui.compact.small.basic.button.person_tag(class=tag_class) 
+                .ui.compact.small.button.person_tag(class=tag_class) 
                     strong #{this}
             +text_view key='first_name' label='First Name'
             +text_view key='last_name' label='Last Name'
@@ -144,7 +144,7 @@ template(name='user_card_template')
                 h2.ui.center.aligned.header #{first_name} #{last_name} 
                 .ui.small.header @#{username}
             each five_tags
-                .ui.compact.small.basic.button.person_tag(class=tag_class) 
+                .ui.compact.small.button.person_tag(class=tag_class) 
                     strong #{this}
             .ui.grey.header #{total_sales} sales
             .ui.grey.header #{total_revenue} total revenue
@@ -160,7 +160,7 @@ template(name='profile')
                 h2.ui.center.aligned.header #{first_name} #{last_name} 
                 .ui.small.header @#{username}
             each five_tags
-                .ui.compact.small.basic.button.person_tag(class=tag_class) 
+                .ui.compact.small.button.person_tag(class=tag_class) 
                     strong #{this}
             +text_view key='first_name' label='First Name'
             +text_view key='last_name' label='Last Name'
@@ -193,7 +193,7 @@ template(name='owner')
             //- +array_view key='roles' label='roles' direct=true
             .ui.small.inline.header roles
             each roles
-                .ui.small.basic.label #{this}
+                .ui.small.label #{this}
             if currentUser
-                +member_connect_button
+                +user_connect_button
                 

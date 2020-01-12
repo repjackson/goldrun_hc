@@ -6,11 +6,11 @@ template(name='kiosk_settings')
         .three.wide.column
             if kiosk_doc
                 if is_dev
-                    .ui.icon.large.basic.button.print_kiosk_doc(title='print session doc')
+                    .ui.icon.large.button.print_kiosk_doc(title='print session doc')
                         i.code.icon
-                .ui.reset.icon.basic.button(title='reload session')
+                .ui.reset.icon.button(title='reload session')
                     i.refresh.icon
-                .ui.delete_kiosk_doc.icon.basic.button(title='delete session')
+                .ui.delete_kiosk_doc.icon.button(title='delete session')
                     i.trash.icon
             else
                 .ui.button.create_kiosk
@@ -54,7 +54,7 @@ template(name='kiosk_away')
 template(name='healthclub_session')
     //- img.ui.fluid.image.checkin_banner(src="{{c.url 'grfront' width=1000 height=1000 crop='crop'}}")
     if loading_checkin
-        .ui.center.aligned.basic.segment
+        .ui.center.aligned.segment
             i.massive.loading.refresh.icon
             .ui.massive.header running checks and loading profile
     else 
@@ -63,7 +63,7 @@ template(name='healthclub_session')
                 .six.wide.column
                     //- if is_staff
                     //- a.ui.header(href="/user/#{user.username}")
-                    .ui.large.icon.basic.button.cancel_checkin
+                    .ui.large.icon.button.cancel_checkin
                         i.big.left.chevron.icon
                     if user.kiosk_photo
                         with user
@@ -98,9 +98,9 @@ template(name='healthclub_session')
                                     if resident_guests
                                         .ui.small.inline.header recent guests
                                     each resident_guests
-                                        .ui.big.basic.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
+                                        .ui.big.teal.button.add_recent_guest #{guest_name} #{first_name} #{last_name}
                                     div
-                                    .ui.big.basic.button.add_guest
+                                    .ui.big.button.add_guest
                                         //- i.plus.icon
                                         //- +i name='add-user-group-man-man--v2' classes='ui inline image'
                                         strong new guest
@@ -113,7 +113,7 @@ template(name='healthclub_session')
                                             each checking_in_doc.guest_ids
                                                 +resident_guest
                                 else
-                                    .ui.big.basic.compact.fluid.button.toggle_adding_guest 
+                                    .ui.big.compact.fluid.button.toggle_adding_guest 
                                         //- i.plus.large.icon
                                         //- +i name='add' classes='ui inline image'                
                                         .ui.inline.big.header
@@ -130,7 +130,7 @@ template(name='healthclub_session')
                                 //-         //-     .ui.label #{this}
                                 //-         //- //- each options
                                 //-         //-     .ui.button.choose_this #{this}
-                                //-         .ui.center.aligned.basic.segment
+                                //-         .ui.center.aligned.segment
                                 //-             .ui.icon.big.button.vote_yes
                                 //-                 i.thumbs.up.outline.big.icon
                                 //-             .ui.icon.big.button.vote_no
@@ -171,12 +171,12 @@ template(name='healthclub_session')
                         //- .ui.center.aligned.header
                         //-     |please click 'Choose File' above, switch the camera to the front, and take photo to proceed 
                     unless user.member_waiver_signed
-                        .ui.massive.fluid.red.basic.button.sign_guidelines
+                        .ui.massive.fluid.red.button.sign_guidelines
                             +i name='hand-with-pen' classes='ui middle aligned image'
                             .ui.inline.header 
                                 | sign member waiver            
                     unless user.rules_and_regulations_signed
-                        .ui.massive.fluid.red.basic.button.sign_rules
+                        .ui.massive.fluid.red.button.sign_rules
                             +i name='hand-with-pen' classes='ui middle aligned image'
                             .ui.inline.header 
                                 | sign rules and regs
@@ -193,7 +193,7 @@ template(name='healthclub_session')
                             if user.member_waiver_signed
                                 if user.rules_and_regulations_signed
                                     unless user.email_red_flagged
-                                        .ui.massive.fluid.basic.green.button.submit_checkin
+                                        .ui.massive.fluid.green.button.submit_checkin
                                             .ui.inline.inverted.header 
                                                 | check in
                                                 //- i.checkmark.green.icon
@@ -208,7 +208,7 @@ template(name='healthclub_session')
                 
 template(name='resident_guest')
     with guest_doc
-        .ui.big.basic.button.remove_guest 
+        .ui.big.button.remove_guest 
             i.remove.icon
             .ui.inline.header #{guest_name} #{first_name} #{last_name}
 

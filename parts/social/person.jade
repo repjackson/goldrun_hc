@@ -12,7 +12,7 @@ template(name='person_card_template')
                 i.dropdown.icon
             .content 
                 each tags
-                    .ui.basic.label #{this}
+                    .ui.label #{this}
             .title 
                 +ismall name='info' classes='ui inline image'
                 |bio
@@ -111,7 +111,7 @@ template(name='person_view')
                             i.dropdown.icon
                         .content 
                             each tags
-                                .ui.basic.label #{this}
+                                .ui.label #{this}
                         .title 
                             |bio
                             i.dropdown.icon

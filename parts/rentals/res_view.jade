@@ -20,7 +20,7 @@ template(name='reservation_view')
                     if complete 
                         .ui.large.green.label complete 
                     else 
-                        .ui.basic.large.label ongoing (incomplete)
+                        .ui.large.label ongoing (incomplete)
                     .ui.small.header #{when} by #{_author_username}
                     .ui.header 
                         | #{hour_duration}

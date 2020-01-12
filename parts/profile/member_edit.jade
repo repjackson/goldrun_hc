@@ -19,7 +19,7 @@ template(name='member_edit')
                         //- +phone_editor
                         +username_edit
                     if is_current_user
-                        .ui.orange.basic.button.remove_user 
+                        .ui.orange.button.remove_user 
                             i.remove.icon
                             |delete user
                 .column
@@ -31,7 +31,7 @@ template(name='member_edit')
                         +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                         +boolean_edit key='profile_published' label='publish profile' direct=true subtitle='in the directory'
                         div
-                        .ui.basic.segment
+                        .ui.segment
                             .ui.header 
                                 i.envelope.outline.icon
                                 |emails
