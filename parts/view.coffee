@@ -28,7 +28,13 @@ if Meteor.isClient
 
 
         field_view: ->
-            # console.log @
+            console.log @
+            console.log Template.parentData(1)
+            console.log Template.parentData(2)
+            console.log Template.parentData(3)
+            console.log Template.parentData(4)
+            console.log Template.parentData(5)
+
             key_string = @valueOf()
             meta = Template.parentData(2)["_#{@key}"]
             "#{meta.field}_view"

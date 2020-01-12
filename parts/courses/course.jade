@@ -97,7 +97,7 @@ template(name='course_view')
                     if can_edit
                         a.ui.icon.large.button(href="/course/#{_id}/edit" title='edit course')
                             i.pencil.icon
-                    +bookmark_button
+                    +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='bookmark' remove_label='unbookmark'  big=true
                     +voting_full
                 .ten.wide.column
                     .ui.header 

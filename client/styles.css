@@ -20,6 +20,10 @@ body {
   width: 10px;
 }
 
+.largescroll::-webkit-scrollbar {
+  width: 1px;
+}
+
 .largescroll{
 	overflow-y:scroll;
 	overflow-x:hidden;
@@ -133,7 +137,7 @@ body {
 }
 
 .add_model_doc {
-    border-radius: 20px !important;
+    /* border-radius: 20px !important; */
 }
 .add_model_doc > .icon:hover {
     animation-name: spin;

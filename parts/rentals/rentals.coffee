@@ -5,7 +5,7 @@ Router.route '/rentals/', (->
 
 if Meteor.isClient
     Template.rentals.onRendered ->
-        @autorun -> Meteor.subscribe 'model_docs', 'rental'
+        @autorun -> Meteor.subscribe 'rental_docs', selected_rental_tags.array()
     Template.rentals.events
         'click .add_rental': ->
             new_rental_id =

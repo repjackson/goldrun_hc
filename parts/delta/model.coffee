@@ -5,6 +5,14 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'model_actions', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
     Template.model_edit.events
+        'click .save_model': (e,t)->
+            model = Docs.findOne Router.current().params.doc_id
+            $(e.currentTarget).closest('.button').transition('zoom', 500)
+            $(e.currentTarget).closest('.grid').transition('scale', 500)
+            Meteor.setTimeout ->
+                Router.go "/m/#{model.slug}"
+            , 500
+
         'click #delete_model': (e,t)->
             if confirm 'delete model?'
                 Docs.remove Router.current().params.doc_id, ->

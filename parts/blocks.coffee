@@ -82,13 +82,13 @@ if Meteor.isClient
 
 
 
-    Template.call_watson.events
-        'click .autotag': ->
-            doc = Docs.findOne Router.current().params.doc_id
-            console.log doc
-            console.log @
-
-            Meteor.call 'call_watson', doc._id, @key, @mode
+    # Template.call_watson.events
+    #     'click .autotag': ->
+    #         doc = Docs.findOne Router.current().params.doc_id
+    #         console.log doc
+    #         console.log @
+    #
+    #         Meteor.call 'call_watson', doc._id, @key, @mode
 
     Template.voting_full.events
         'click .upvote': (e,t)->
@@ -163,6 +163,26 @@ if Meteor.isClient
             console.log Template.parentData(2)
             console.log Template.parentData(3)
             console.log Template.parentData(4)
+
+
+
+
+    Template.clone_button.events
+        'click .clone_doc': (e,t)->
+            e.preventDefault()
+            doc = @
+            keys = @_keys
+            cloned_fields = {}
+            for key in keys
+                cloned_fields["#{key}"] = doc["#{key}"]
+                cloned_fields["_#{key}"] = doc["_#{key}"]
+            cloned_fields['_keys'] = keys
+            console.log cloned_fields
+            cloned_id = Docs.insert cloned_fields
+            Router.go "/edit/#{cloned_id}"
+
+
+
 
 
 

@@ -7,7 +7,7 @@ template(name='staff')
                 //-     +i name='user-shield'
                 //-     |staff
                 //- i.massive.loading.brown.poo.icon
-                a.ui.large.fluid.basic.button(href='/add_resident')
+                a.ui.large.fluid.button(href='/add_resident')
                     i.user.add.large.icon
                     //- +i name='plus' classes='ui inline mini image'
                     strong
@@ -15,15 +15,15 @@ template(name='staff')
                 //- .ui.header
                 //-     |#{checkedin_members.count} checked in members
                 +inline_doc slug='staff_notices' classes='ui small grey header'
-                a.ui.fluid.basic.button(href='/buildings')
+                a.ui.fluid.button(href='/buildings')
                     i.building.large.icon
                     //- +i name='building' classes='ui mini inline image'
                     | buildings
-                a.ui.fluid.basic.button(href='/residents')
+                a.ui.fluid.button(href='/residents')
                     i.large.users.icon
                     //- +i name='groups' classes='ui mini inline image'
                     | residents
-                a.ui.fluid.basic.button(href='/healthclub')
+                a.ui.fluid.button(href='/healthclub')
                     i.large.tablet.icon
                     //- +i name='android-tablet' classes='ui mini inline image'
                     | kiosk view
@@ -39,9 +39,9 @@ template(name='staff')
                 each shift_pool_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
                         if ph_message
-                            .ui.basic.label #{ph_message}
+                            .ui.label #{ph_message}
                         if chlorine_message
-                            .ui.basic.label #{chlorine_message}
+                            .ui.label #{chlorine_message}
                 div
                 .ui.small.grey.header 
                     i.hot.tub.icon
@@ -49,9 +49,9 @@ template(name='staff')
                 each shift_upper_hot_tub_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
                         if ph_message
-                            .ui.basic.label #{ph_message}
+                            .ui.label #{ph_message}
                         if chlorine_message
-                            .ui.basic.label #{chlorine_message}
+                            .ui.label #{chlorine_message}
                 div
                 .ui.small.grey.header 
                     i.hot.tub.icon
@@ -59,9 +59,9 @@ template(name='staff')
                 each shift_lower_hot_tub_readings
                     .item #{ph}ph #{br}br #{temperature}deg #{when}
                         if ph_message
-                            .ui.basic.label #{ph_message}
+                            .ui.label #{ph_message}
                         if chlorine_message
-                            .ui.basic.label #{chlorine_message}
+                            .ui.label #{chlorine_message}
                 .ui.hidden.divider
                 .ui.inline.grey.header 
                     i.hiking.icon
@@ -69,7 +69,7 @@ template(name='staff')
                     |shift walks
                 .ui.icon.button.log_staff_walked(title='log hourly shift walk')
                     i.plus.icon    
-                .ui.basic.segment
+                .ui.segment
                     each shift_walks
                         .ui.header #{when}
                             i.remove.small.link.icon.remove_walk(title='remove walk entry')
@@ -137,7 +137,7 @@ template(name='hc_session')
             if checkin_guest_docs.count
                 .ui.small.grey.inline.header guests
                 each checkin_guest_docs
-                    .ui.large.basic.label 
+                    .ui.large.label 
                         |#{guest_name} #{first_name} #{last_name}
             if user_is_resident
                 +date_view key='start_date' label='start date' direct=true
@@ -198,12 +198,12 @@ template(name='task_widget')
             |todos
         //- .ui.fluid.styled.accordion
         +goto_model slug='task'
-        .ui.icon.basic.button.new_task
+        .ui.icon.button.new_task
             i.plus.icon
             //- input.assign_task(type='text' placeholder='assign task...')
-        .ui.basic.button.view_complete(class=view_complete_class)
+        .ui.button.view_complete(class=view_complete_class)
              |View Completed
-        .ui.basic.button.view_incomplete(class=view_complete_class)
+        .ui.button.view_incomplete(class=view_complete_class)
             |View Incomplete
         .smallscroll
             each tasks
@@ -227,7 +227,7 @@ template(name='schedule')
     //- .ui.center.aligned.header 
     //-     i.calendar.icon
     //-     |schedule
-    table.ui.definition.celled.striped.unstackable.selectable.basic.table
+    table.ui.definition.celled.striped.unstackable.selectable.table
         thead
             tr
                 th
@@ -355,7 +355,7 @@ template(name='shift_change_requests')
     .ui.grey.inline.header
         +i name='clock'
         |shift change requests
-    .ui.icon.basic.button.add_shift_change_request
+    .ui.icon.button.add_shift_change_request
         i.large.icons
             i.clock.icon
             i.plus.corner.icon
@@ -392,9 +392,9 @@ template(name='request_row')
             //- else
             +username_info assigned_staff
         td(data-label='actions')
-            .ui.icon.basic.button.take_shift(title='take shift')
+            .ui.icon.button.take_shift(title='take shift')
                 i.checkmark.icon
-            .ui.icon.basic.button.declare_unavailable(title='declare unavailable')
+            .ui.icon.button.declare_unavailable(title='declare unavailable')
                 i.ban.icon
             each unavailable
                 .ui.label(title='unavailable') #{this}
@@ -416,7 +416,7 @@ template(name='shift_checklist')
                 if todays_checklist
                     with todays_checklist
                         each checklist_items
-                            .ui.basic.segment.stackable.grid
+                            .ui.segment.stackable.grid
                                 .eight.wide.column
                                     .ui.header #{title}
                                     if completed

@@ -105,7 +105,7 @@ template(name='product_location')
     
 
 template(name='product_card_template')
-    .ui.fluid.horizontal.card
+    .ui.fluid.card
         a.pointer(href="/product/#{_id}/view")
             img.ui.centered.rounded.image(src="{{c.url image width=300 height=200 crop='fit'}}")
         .content

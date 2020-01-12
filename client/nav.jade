@@ -4,11 +4,10 @@ template(name='nav')
             if is_loading
                 .icon.item
                     i.big.spinning.grey.yin.yang.icon.cancel
-            a.item(href='/' class="{{isActivePath '/'}}")
-                //- +i name='home' classes='ui mini inline image'
-                i.home.icon
+            else 
+                a.item(href='/' class="{{isActivePath '/'}}")
+                    i.large.yin.yang.icon
             a.item(href='/global_stats' class="{{isActivePath '/global_stats'}}")
-                //- +i name='home' classes='ui mini inline image'
                 i.line.chart.icon
             //- if is_member
             //-     each role_models
@@ -47,10 +46,10 @@ template(name='nav')
                             a.icon.item(href="/groups" class="{{isActivePath '/groups'}}")
                                 i.users.icon
                             a.item(href="/member/#{currentUser.username}/finance" class="{{isActiveRoute regex='member_finance'}}" title='credits')
-                                i.coins.grey.icon
+                                i.coins.icon
                             a.item(href="/member/#{currentUser.username}/dashboard" class=member_nav_button_class title=member_nav_button_title)
                                 if currentUser.profile_image_id
-                                    img.ui.avatar.inline.image(src="{{c.url currentUser.profile_image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                    img.ui.avatar.inline.image(src="{{c.url currentUser.profile_image_id width=100 gravity='face' crop='fill'}}")
                                 else
                                     i.user.icon
                                 span.mobile.hidden #{currentUser.name}
@@ -78,7 +77,7 @@ template(name='nav')
 template(name='footer')
     .ui.stackable.grid
         .eight.wide.column
-            //- +add_button label='bug' model='bug' icon='bug'
+            +add_button label='bug' model='bug' icon='bug'
             if is_dev    
                 with current_user
                     +role_switcher
@@ -87,7 +86,7 @@ template(name='footer')
                 a.ui.big.button(href='/login')
                     i.sign.in.icon
                     |login
-            //- +footer_chat
+            +footer_chat
             if is_eric
                 with currentUser
                     +role_switcher
@@ -96,8 +95,7 @@ template(name='footer')
                 
 template(name='footer_chat')
     .ui.grey.inline.header 
-        //- i.outline.comments.icon
-        +i name='chat'
+        i.outline.comments.icon
         |chat
     .ui.list.scroll
         each chat_messages
@@ -119,8 +117,7 @@ template(name='footer_chat')
 
 template(name='my_latest_activity')
     .ui.grey.header 
-        //- i.grey.rss.icon
-        +i name='rss'
+        i.grey.rss.icon
         |your activity
     .ui.list
         each my_latest_activity
@@ -132,8 +129,7 @@ template(name='my_latest_activity')
 
 template(name='latest_activity')
     .ui.grey.header 
-        //- i.grey.rss.icon
-        +i name='rss'
+        i.grey.rss.icon
         |all activity
     .ui.list
         each latest_activity

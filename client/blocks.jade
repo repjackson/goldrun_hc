@@ -79,23 +79,23 @@ template(name='follow')
 
 
 template(name='toggle_edit')
-    .ui.basic.button.toggle_edit
+    .ui.button.toggle_edit
         i.pencil.icon
 
 template(name='user_list_info')
-    a.ui.basic.button.item(href="/user/#{user._id}/view")
+    a.ui.button.item(href="/user/#{user._id}/view")
         img.ui.avatar.image(src=user.profile.profilePic title=name)
         |#{user.profile.name}
         +user_status user
 
-template(name='call_watson')
-    .ui.button.autotag
-        //- i.chess.icon
-        +ismall name='dna-helix'
-        |call watson
+//- template(name='call_watson')
+//-     .ui.button.autotag
+//-         //- i.chess.icon
+//-         +ismall name='dna-helix'
+//-         |call watson
 
 template(name='view_full_button')
-    a.ui.icon.basic.button(href="/view/#{_id}" class=classes data-tooltip='View Full')
+    a.ui.icon.button(href="/view/#{_id}" class=classes data-tooltip='View Full')
         i.double.icon
         |view
 
@@ -113,7 +113,7 @@ template(name='user_status')
 
 template(name='user_card')
     with user
-        .ui.horizontal.tiny.card
+        .ui.tiny.card
             //- if is_staff
             .image
                 if kiosk_photo
@@ -164,7 +164,7 @@ template(name='member_card')
 
 template(name='small_horizontal_member_card')
     with user
-        .ui.small.horizontal.card
+        .ui.small.card
             .image
                 if profile_photo
                     img.ui.rounded.tiny.image(src="{{c.url profile_photo width=200 height=200 gravity='face' crop='fill'}}")
@@ -181,7 +181,7 @@ template(name='small_horizontal_member_card')
                 //-     |#{karma} 
                 //-     i.yin.yang.icon
                 each tags
-                    .ui.small.basic.label #{this}
+                    .ui.small.label #{this}
                 if is_admin
                     div
                     +user_email
@@ -192,7 +192,7 @@ template(name='small_horizontal_member_card')
 template(name='user_email')
     .ui.small.inline.header #{email_address}
     if email_verified
-        .ui.basic.label 
+        .ui.label 
             i.green.checkmark.icon
             |verified
     else
@@ -261,13 +261,13 @@ template(name='user_info')
 
 
 template(name='username_info')
-    .ui.small.compact.basic.button.goto_profile
+    .ui.small.compact.button.goto_profile
         if is_member
-            img.ui.tiny.image(src="{{c.url user.profile_image_id width=100 height=100}}")
+            img.ui.avatar.image(src="{{c.url user.profile_image_id width=100}}")
         else if user.kiosk_photo
-            img.ui.avatar.image(src="{{c.url user.kiosk_photo width=100 height=100}}")
+            img.ui.avatar.image(src="{{c.url user.kiosk_photo width=100}}")
         else if user.image_id
-            img.ui.avatar.image(src="{{c.url user.image_id width=100 height=100}}")
+            img.ui.avatar.image(src="{{c.url user.image_id width=100}}")
         |#{user.name}
         //- |@#{user.username}
         +user_status user
@@ -275,11 +275,11 @@ template(name='username_info')
 
 template(name='role_editor')
     each roles
-        .ui.basic.button #{this}
+        .ui.button #{this}
 
 template(name='author_info')
     with author
-        a.ui.compact.basic.button(href="/user/#{username}")
+        a.ui.compact.button(href="/user/#{username}")
             if kiosk_photo
                 img.ui.avatar.image(src="{{c.url kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
             else if image_id
@@ -342,8 +342,8 @@ template(name='voting_full')
         i.thumbs.down.icon(class=downvote_class)
         //- |dislike
     if points
-        .ui.large.basic.label(title='points') #{points} pts
-        .ui.large.basic.label(title='anon points') #{anon_points} anon pts
+        .ui.large.label(title='points') #{points} pts
+        .ui.large.label(title='anon points') #{anon_points} anon pts
     if upvoter_ids
         .ui.small.header 
             i.thumbs.up.icon
@@ -360,7 +360,7 @@ template(name='voting_full')
 
 
 template(name='view_button')
-    a.ui.icon.compact.basic.button.view(title='view' href="/m/#{model}/#{_id}/view")
+    a.ui.icon.compact.button.view(title='view' href="/m/#{model}/#{_id}/view")
         //- i.right.chevron.large.icon
         +i name='chevron right' classes='ui mini inline image'
 
@@ -377,7 +377,7 @@ template(name='remove_icon')
         //- |Delete
 
 template(name='add_button')
-    a.ui.large.basic.button.add(title="add #{model}")
+    a.ui.large.button.add(title="add #{model}")
         //- |#{model.icon}
         if model.icon
             //- i.icon(class=icon)
@@ -391,18 +391,18 @@ template(name='add_button')
 
 
 //- template(name='edit_button')
-//-     a.ui.basic.button.icon.edit(title='Edit' href="/m/#{model}/#{_id}/edit")
+//-     a.ui.button.icon.edit(title='Edit' href="/m/#{model}/#{_id}/edit")
 //-         i.blue.pencil.icon
 //-         |Edit
 
 
 template(name='save_button')
-    a.ui.basic.button.large.icon.save(title='Save' href="/m/#{model}/#{_id}/view")
+    a.ui.button.large.icon.save(title='Save' href="/m/#{model}/#{_id}/view")
         i.checkmark.icon
         |Save
 
 template(name='toggle_button')
-    .ui.icon.toggle.basic.button(title=label)
+    .ui.icon.toggle.button(title=label)
         i.icon(class=icon)
     each selected
         |#{username}
@@ -414,11 +414,14 @@ template(name='view_user_button')
         |View
 
 template(name='add_model_button')
-    .ui.icon.basic.button.add(title="add #{model}")
+    .ui.icon.button.add(title="add #{model}")
         i.plus.icon
         |#{model}
 
 
+template(name='clone_button')
+    a.ui.icon.circular.big.button.clone_doc(title='clone' href="#")
+        i.clone.icon
 
 
 
@@ -426,11 +429,11 @@ template(name='add_model_button')
             
 template(name='email_validation_check')
     //- if email_verified
-    //-     .ui.large.basic.button
+    //-     .ui.large.button
     //-         i.checkmark.icon
     //-         |email validated
     unless email_verified
-        .ui.basic.fluid.button.send_verification
+        .ui.fluid.button.send_verification
             //- i.user.shield.icon
             //- +i name='user-shield' classes='ui inline image'
             |resend verification email
@@ -456,20 +459,20 @@ template(name='lease_expiration_check')
 template(name='rules_and_regs_check')
     if is_staff
         if rules_signed
-            a.ui.basic.button(href="/m/rules_regs_signing/#{rules_signed._id}/view" title='click to view/edit signing document')
+            a.ui.button(href="/m/rules_regs_signing/#{rules_signed._id}/view" title='click to view/edit signing document')
                 i.signature.large.icon
                 |rules and regs signed 
         else
-            .ui.basic.button
+            .ui.button
                 i.signature.large.icon
                 | rules+regs unsigned
     //- else
     //-     unless rules_signed
-    //-         .ui.large.basic.button.sign_rules
+    //-         .ui.large.button.sign_rules
     //-             i.signature.icon
     //-             |click to sign rules and regulations
         //- else if is_staff
-        //-     .ui.large.basic.button
+        //-     .ui.large.button
         //-         i.signature.icon
         //-         |rules and regs signed 
         
@@ -478,38 +481,38 @@ template(name='rules_and_regs_check')
 template(name='member_guidelines_check')
     if is_staff
         if guidelines_signed
-            a.ui.basic.button(href="/m/sign_guidelines/#{guidelines_signed._id}/view" title='click to view/edit signing document')
+            a.ui.button(href="/m/sign_guidelines/#{guidelines_signed._id}/view" title='click to view/edit signing document')
                 i.signature.icon
                 |member guidelines signed 
         else
-            .ui.basic.fluid.button
+            .ui.fluid.button
                 i.signature.icon
                 | member guidelines not signed
     else
         unless guidelines_signed
-            .ui.large.basic.fluid.button.sign_guidelines
+            .ui.large.fluid.button.sign_guidelines
                 i.signature.icon
                 | sign member guidelines
     //-     else if is_staff
-    //-         .ui.large.basic.button
+    //-         .ui.large.button
     //-             i.signature.icon
     //-             |rules and regs signed 
                 
         
 template(name='resident_key_check')
     //- unless key_on_file
-    //-     .ui.large.orange.basic.button
+    //-     .ui.large.orange.button
     //-         i.ban.icon
     //-         |key not on file 
     //- else
-    .ui.large.basic.button
+    .ui.large.button
         i.key.icon
         |Key on File 
         
         
 template(name='guest_waiver_check')
     unless waiver_signed
-        .ui.large.basic.button
+        .ui.large.button
             i.signature.icon
             |guest waiver not signed 
         

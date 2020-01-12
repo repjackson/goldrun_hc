@@ -6,8 +6,12 @@ template(name='member_profile_layout')
             .row
                 //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                 .four.wide.column
-                    a.item.mobile.hidden(href="/member/#{user_from_username_param.username}/")
-                        img.ui.centered.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
+                    if kiosk_photo
+                        a.item.mobile.hidden(href="/member/#{user_from_username_param.username}/")
+                            img.ui.centered.image(src="{{c.url kiosk_photo height=300 width=300 gravity='face' crop='fill'}}")
+                    else
+                        a.item.mobile.hidden(href="/member/#{user_from_username_param.username}/")
+                            img.ui.centered.image(src="{{c.url profile_image_id height=300 width=300 gravity='face' crop='fill'}}")
                     .ui.center.aligned.basic.segment.mobile.hidden
                         a(href="/member/#{user.username}")
                             .ui.large.center.aligned.header
