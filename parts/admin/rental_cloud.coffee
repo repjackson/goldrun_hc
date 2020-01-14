@@ -109,14 +109,14 @@ if Meteor.isServer
         self.ready()
 
 
-    Meteor.publish 'rental_docs', (selected_rental_tags)->
+    Meteor.publish 'rental_docs', (selected_rental_tags, query)->
         # user = Meteor.users.findOne @userId
         console.log selected_rental_tags
         # console.log filter
         self = @
         match = {}
-        # if filter is 'shop'
-        #     match.active = true
+        if query
+            match.title = {$regex:"#{query}", $options: 'i'}
         if selected_rental_tags.length > 0 then match.tags = $all: selected_rental_tags
         match.model = 'rental'
         Docs.find match, sort:_timestamp:-1

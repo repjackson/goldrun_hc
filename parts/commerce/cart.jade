@@ -8,13 +8,13 @@ template(name='cart')
                 .value #{total_cart_cost}
                 .label cart cost
             .ui.statistic
-                .value #{currentUser.karma}
-                .label your karma
+                .value #{currentUser.credit}
+                .label your credit
             if can_buy
                 .ui.fluid.button.checkout_cart
                     |complete checkout
             else
-                +topup_karma
+                +topup_credit
         .twelve.wide.column.scrolling
             each cart_items
                 .ui.segment.grid
@@ -23,7 +23,7 @@ template(name='cart')
                     .twelve.wide.column
                         with referenced_product
                             a.ui.header(href="/m/shop/#{_id}/view") #{title}
-                            .ui.header #{karma_price} karma
+                            .ui.header #{credit_price} credit
                         +remove_button
 
 
@@ -37,8 +37,8 @@ template(name='transactions')
                 .value #{total_cart_cost}
                 .label cart cost
             .ui.statistic
-                .value #{currentUser.karma}
-                .label your karma
+                .value #{currentUser.credit}
+                .label your credit
         .twelve.wide.column.scrolling
             each transactions
                 .ui.segment.grid
@@ -48,7 +48,7 @@ template(name='transactions')
                         
 
 
-template(name='topup_karma')
-    a.ui.large.button(href='/add_karma')
+template(name='topup_credit')
+    a.ui.large.button(href='/add_credit')
         i.plus.icon
-        |add karma
+        |add credit

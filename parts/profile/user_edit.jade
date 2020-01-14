@@ -1,15 +1,15 @@
 template(name='user_edit')
     with user_from_username_param          
-        img.ui.fluid.image.checkin_banner(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
+        //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
         .ui.stackable.padded.grid
-            .three.column.row
-                .column
+            .row
+                .four.wide.column
                     .ui.center.aligned.large.inline.grey.header
                         | #{user_from_username_param.first_name} #{user_from_username_param.last_name}
                     //- +i name='pencil'
                     .ui.small.inline.header @#{user_from_username_param.username}
                     a.ui.big.button(href="/user/#{user_from_username_param.username}/") 
-                        i.checkmark.big.green.icon
+                        i.checkmark.big.icon
                         strong save
                     .ui.hidden.divider
                     if is_staff
@@ -25,7 +25,7 @@ template(name='user_edit')
                             .ui.orange.button.remove_user 
                                 i.remove.icon
                                 |delete user
-                .column
+                .eight.wide.column
                     .ui.form
                         if user_is_resident_or_owner
                             if is_staff
@@ -57,7 +57,7 @@ template(name='user_edit')
                         +array_edit key='tags' label='tags' direct=true
                         +image_edit key='banner_image_id' label='banner image' direct=true
                         +text_edit key='tagline' label='tag line' direct=true
-                .column
+                .four.wide.column
                     if user_is_resident_or_owner
                         unless owner
                             if is_staff

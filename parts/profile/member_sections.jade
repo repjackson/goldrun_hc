@@ -25,31 +25,31 @@ template(name='member_info')
                     .ui.header rental potential
                     .ui.inline.header 
                         +i name='yin-yang'
-                        |#{total_hourly_credit}c
+                        |$#{total_hourly_credit}
                         small hourly
                     //- | if rentals are circulating
                     div
                     .ui.inline.header 
                         +i name='sun'
-                        |#{potential_two_hour_daily_revenue}c
+                        |$#{potential_two_hour_daily_revenue}
                         small daily
                     | 2hrs/day
                     div
                     .ui.inline.header 
                         +i name='sun'
-                        |#{potential_daily_revenue}c
+                        |$#{potential_daily_revenue}
                         small daily 
                     | 8hrs/day
                     div
                     .ui.inline.header 
-                        +i name='calendar'
-                        |#{potential_two_hour_weekly_revenue}c
+                        i.calendar.icon
+                        |$#{potential_two_hour_weekly_revenue}
                         small weekly
                     | 2hrs/day
                     div
                     .ui.inline.header 
-                        +i name='baby-calendar'
-                        |#{potential_weekly_revenue}c
+                        i.week.icon
+                        |$#{potential_weekly_revenue}
                         small weekly 
                     | 8hrs/day
                 .column
@@ -57,7 +57,7 @@ template(name='member_info')
                         +i name='hand-box'
                         |#{handled_count} handled rentals
                     .ui.header 
-                        +i name='clock'
+                        i.clock.icon
                         |#{reservation_count} reservations
     
 
@@ -95,7 +95,7 @@ template(name='member_dashboard')
                             each current_handling_rentals
                                 +rental_small_interest
                     else 
-                        |you'd be earning 10% of the potential hourly wage every hour you're active
+                        |you'd earn 10% of the potential hourly wage every hour you're active
                     .ui.small.header from active reservations
             .column
                 +handling_sessions
@@ -103,7 +103,7 @@ template(name='member_dashboard')
                 
 template(name='handling_sessions')
     .ui.header.calc_handling_session_totals
-        +i name='time-machine'
+        i.clock.icon
         |handling sessions
     .ui.bulleted.list
         each sessions
@@ -133,6 +133,9 @@ template(name='rental_small_interest')
                 i.right.chevron.icon
             unless is_handler
                 +reserve_button
+
+
+
 
 
 
@@ -182,12 +185,108 @@ template(name='member_finance')
                                 .description #{when} {{long_date _timestamp}}
                                 if is_dev
                                     +remove_button
-                
+    .ui.grid      
+        .three.column.row
+            .column
+                .ui.segment
+                    .ui.small.header 
+                        strong $#{ssd.total_credit_amount}
+                        small total weekly income
+                    .ui.small.header
+                        strong #{ssd.credit_count}
+                        small credits
+            .column
+                .ui.segment
+                    .ui.small.header
+                        strong $#{ssd.total_debit_amount}
+                        small total weekly expenses
+                    .ui.small.header
+                        strong #{ssd.debit_count}
+                        small debits
+            .column
+                .ui.segment
+                    .ui.small.header
+                        |growth from last week
+        .two.column.row
+            .column
+                .ui.segment
+                    .ui.header 
+                        |weekly credits
+                    //- .ui.bulleted.list
+                    //-     each user_credits
+                    //-         .item 
+                    //-             |#{amount}
+                    //-             if icon
+                    //-                 +i name=icon
+                    //-             strong #{text}
+                    //-             small #{when}
+                    .ui.feed.mediumscroll
+                        each user_credits
+                            .event 
+                                .label
+                                    if is_credit
+                                        i.grey.chevron.up.icon
+                                    if is_debit
+                                        i.grey.chevron.down.icon
+                                    else if icon
+                                        i.grey.icon(class=icon)
+                                .content
+                                    .summary
+                                        a.user(href="/user/#{target_user.username}")
+                                            |#{target_user.name}
+                                        |#{text}
+                                        .date #{when}
+                                    .meta
+                                        +voting_small
+                                        //- a.like
+                                        //-     i.like.icon 
+                                        //-     |4 likes
+                                        a.remove
+                                            i.grey.undo.icon
+                                        //- if is_dev
+                                        //-     +remove_button
+            .column
+                .ui.segment
+                    .ui.header 
+                        i.chevron.down.icon
+                        |weekly debits
+                    .ui.feed.mediumscroll
+                        each user_debits
+                            .event 
+                                .label
+                                    if is_credit
+                                        i.chevron.up.icon
+                                    if is_debit
+                                        i.chevron.down.icon
+                                    else if icon
+                                        i.icon(class=icon)
+                                .content
+                                    .summary
+                                        a.user(href="/user/#{target_user.username}")
+                                            |#{target_user.name}
+                                        |#{text}
+                                        .date #{when}
+                                    .meta
+                                        +voting_small
+                                        //- a.like
+                                        //-     i.like.icon 
+                                        //-     |4 likes
+                                        a.remove
+                                            i.grey.undo.icon
+                                        //- if is_dev
+                                        //-     +remove_button
+                        //- +range_edit                
+            .column 
+                .ui.header offer
+                .ui.button.add_offer
+                    |+ offer
+        
 
 template(name='member_reservations')
     .scrolling
-        each reservations 
-            +profile_reservation_item
+        .ui.segments
+            each reservations 
+                +profile_reservation_item
 
 template(name='profile_reservation_item')
     .ui.segment.grid
@@ -197,7 +296,8 @@ template(name='profile_reservation_item')
         .row
             .four.wide.column
                 with rental
-                    +image_view key='image' direct=true classes='zoom ui mini image'
+                    //- img.ui.mini.image(src=image)
+                    +image_view key='image' direct=true classes='zoom ui tiny image'
             .twelve.wide.column
                 a.ui.header.inline.lowercase(href="/reservation/#{_id}/view")
                     small from 
@@ -210,8 +310,8 @@ template(name='profile_reservation_item')
                 .ui.grey.inline.header(title='credits')
                     i.coins.icon
                     | #{cost}
-                .ui.small.header #{when} by #{_author_username}
-                a.ui.large.fluid.button(href="/reservation/#{_id}/view")
+                .ui.small.inline.header #{when} by #{_author_username}
+                a.ui.large.button(href="/reservation/#{_id}/view")
                     |view
                     i.right.chevron.icon
                 if is_admin

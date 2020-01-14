@@ -2,13 +2,7 @@ template(name='register')
     .ui.padded.stackable.grid
         .centered.row
             .ten.wide.column
-                .ui.center.aligned.segment
-                    .ui.header gold run registration
-                    //- i.massive.icons
-                    //-     i.home.grey.icon
-                    //-     i.corner.plus.icon
-                if message
-                    h4.ui.center.aligned.header #{message}
+                .ui.header gold run registration
                 .ui.fluid.labeled.input(class=login_class)
                     .ui.small.inline.header 
                         i.user.grey.icon
@@ -34,7 +28,7 @@ template(name='register')
                         a.ui.button(href='/login') login
                         
                         
-                .ui.center.aligned.segment    
+                .ui.center.aligned.basic.segment    
                     //- .ui.small.header By clicking Register, you agree to our 
                     //-     a(href='https://henry-health.com/privacy-policy/' target="_window") Privacy Policy
                     .ui.small.header or

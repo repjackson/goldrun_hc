@@ -67,7 +67,7 @@ if Meteor.isClient
 
     Template.users.onCreated ->
         # @autorun -> Meteor.subscribe('users')
-        @autorun => Meteor.subscribe 'user_search', Session.get('username_query'), 'user'
+        @autorun => Meteor.subscribe 'user_search', Session.get('username_query')
     Template.users.helpers
         users: ->
             username_query = Session.get('username_query')

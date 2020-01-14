@@ -8,7 +8,7 @@ if Meteor.isClient
     Template.rental_edit.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
-        , 1000
+        , 2000
 
 
     Template.rental_edit.onCreated ->
